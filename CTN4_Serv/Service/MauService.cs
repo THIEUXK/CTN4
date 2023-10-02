@@ -1,4 +1,5 @@
-﻿using CTN4_Data.Models.DB_CTN4;
+﻿using CTN4_Data.DB_Context;
+using CTN4_Data.Models.DB_CTN4;
 using CTN4_Serv.Service.IService;
 using System;
 using System.Collections.Generic;
@@ -10,29 +11,63 @@ namespace CTN4_Serv.Service
 {
     public class MauService : IMauService
     {
+        public DB_CTN4_ok _db;
+
+        public MauService()
+        {
+            _db = new DB_CTN4_ok();
+        }
         public List<Mau> GetAll()
         {
-            throw new NotImplementedException();
+            return _db.Maus.ToList();
         }
 
         public Mau GetById(Guid id)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool Sua(Mau a)
-        {
-            throw new NotImplementedException();
+            return GetAll().FirstOrDefault(c => c.Id == id);
         }
 
         public bool Them(Mau a)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _db.Maus.Add(a);
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
 
-        public bool Xoa(Mau a)
+        public bool Sua(Mau a)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _db.Maus.Update(a);
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public bool Xoa(Guid id)
+        {
+            try
+            {
+                var b = GetById(id);
+                _db.Maus.Remove(b);
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using CTN4_Data.Models.DB_CTN4;
+﻿using CTN4_Data.DB_Context;
+using CTN4_Data.Models.DB_CTN4;
 using CTN4_Serv.Service.IService;
 using System;
 using System.Collections.Generic;
@@ -10,29 +11,63 @@ namespace CTN4_Serv.Service
 {
     public class NSXService : INSXService
     {
+        public DB_CTN4_ok _db;
+
+        public NSXService()
+        {
+            _db = new DB_CTN4_ok();
+        }
         public List<NSX> GetAll()
         {
-            throw new NotImplementedException();
+            return _db.NSXs.ToList();
         }
 
         public NSX GetById(Guid id)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool Sua(NSX a)
-        {
-            throw new NotImplementedException();
+            return GetAll().FirstOrDefault(c => c.Id == id);
         }
 
         public bool Them(NSX a)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _db.NSXs.Add(a);
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
 
-        public bool Xoa(NSX a)
+        public bool Sua(NSX a)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _db.NSXs.Update(a);
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public bool Xoa(Guid id)
+        {
+            try
+            {
+                var b = GetById(id);
+                _db.NSXs.Remove(b);
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
     }
 }

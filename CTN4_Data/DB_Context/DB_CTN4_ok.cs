@@ -32,15 +32,15 @@ namespace CTN4_Data.DB_Context
         public DbSet<KhuyenMai> KhuyenMais { get; set; }
         public DbSet<KhuyenMaiPhanLoai> KhuyenMaiPhanLoais { get; set; }
         public DbSet<KhuyenMaiSanPham> KhuyenMaiSanPhams { get; set; }
-        public DbSet<Mau> maus { get; set; }
-        public DbSet<NSX> Nsxs { get; set; }
+        public DbSet<Mau> Maus { get; set; }
+        public DbSet<NSX> NSXs { get; set; }
         public DbSet<NhanVien> NhanViens { get; set; }
         public DbSet<PhanLoai> PhanLoais { get; set; }
         public DbSet<PhanLoaiChiTiet> PhanLoaiChiTiets { get; set; }
         public DbSet<PhuongThucThanhToan> PhuongThucThanhToans { get; set; }
         public DbSet<SanPham> SanPhams { get; set; }
         public DbSet<SanPhamChiTiet> SanPhamChiTiets { get; set; }
-        public DbSet<SanPhamYeuThich> SanPhamYeuThiches { get; set; }
+        public DbSet<SanPhamYeuThich> SanPhamYeuThichs { get; set; }
         public DbSet<Size> Sizes { get; set; }
 
 

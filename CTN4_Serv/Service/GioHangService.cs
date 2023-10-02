@@ -1,4 +1,5 @@
-﻿using CTN4_Data.Models.DB_CTN4;
+﻿using CTN4_Data.DB_Context;
+using CTN4_Data.Models.DB_CTN4;
 using CTN4_Serv.Service.IService;
 using System;
 using System.Collections.Generic;
@@ -10,29 +11,63 @@ namespace CTN4_Serv.Service
 {
     public class GioHangService : IGioHangService
     {
+        public DB_CTN4_ok _db;
+
+        public GioHangService()
+        {
+            _db = new DB_CTN4_ok();
+        }
         public List<GioHang> GetAll()
         {
-            throw new NotImplementedException();
+            return _db.GioHangs.ToList();
         }
 
         public GioHang GetById(Guid id)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool Sua(GioHang a)
-        {
-            throw new NotImplementedException();
+            return GetAll().FirstOrDefault(c => c.Id == id);
         }
 
         public bool Them(GioHang a)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _db.GioHangs.Add(a);
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
 
-        public bool Xoa(GioHang a)
+        public bool Sua(GioHang a)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _db.GioHangs.Update(a);
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public bool Xoa(Guid id)
+        {
+            try
+            {
+                var b = GetById(id);
+                _db.GioHangs.Remove(b);
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
     }
 }

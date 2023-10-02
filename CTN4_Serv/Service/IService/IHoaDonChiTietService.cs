@@ -13,6 +13,6 @@ namespace CTN4_Serv.Service.IService
         public HoaDonChiTiet GetById(Guid id);
         public bool Them(HoaDonChiTiet a);
         public bool Sua(HoaDonChiTiet a);
-        public bool Xoa(HoaDonChiTiet a);
+        public bool Xoa(Guid id);
     }
 }

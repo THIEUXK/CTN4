@@ -13,6 +13,6 @@ namespace CTN4_Serv.Service.IService
         public NSX GetById(Guid id);
         public bool Them(NSX a);
         public bool Sua(NSX a);
-        public bool Xoa(NSX a);
+        public bool Xoa(Guid id);
     }
 }

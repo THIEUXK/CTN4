@@ -14,7 +14,7 @@ namespace CTN4_Serv.Service.IService
             public ChatLieu GetById(Guid id);
             public bool Them(ChatLieu a);
             public bool Sua(ChatLieu a);
-            public bool Xoa(ChatLieu a);
+            public bool Xoa(Guid id);
         
     }
 }
