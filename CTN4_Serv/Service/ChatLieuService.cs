@@ -1,4 +1,5 @@
-﻿using CTN4_Data.Models.DB_CTN4;
+﻿using CTN4_Data.DB_Context;
+using CTN4_Data.Models.DB_CTN4;
 using CTN4_Serv.Service.IService;
 using System;
 using System.Collections.Generic;
@@ -10,29 +11,63 @@ namespace CTN4_Serv.Service
 {
     public class ChatLieuService : IChatLieuService
     {
+        public DB_CTN4_ok _db;
+
+        public ChatLieuService()
+        {
+            _db = new DB_CTN4_ok();
+        }
         public List<ChatLieu> GetAll()
         {
-            throw new NotImplementedException();
+            return _db.ChatLieus.ToList();
         }
 
         public ChatLieu GetById(Guid id)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool Sua(ChatLieu a)
-        {
-            throw new NotImplementedException();
+            return GetAll().FirstOrDefault(c => c.Id == id);
         }
 
         public bool Them(ChatLieu a)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _db.ChatLieus.Add(a);
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
 
-        public bool Xoa(ChatLieu a)
+        public bool Sua(ChatLieu a)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _db.ChatLieus.Update(a);
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public bool Xoa(Guid id)
+        {
+            try
+            {
+                var b = GetById(id);
+                _db.ChatLieus.Remove(b);
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
     }
 }

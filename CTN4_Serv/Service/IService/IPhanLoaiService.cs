@@ -13,6 +13,6 @@ namespace CTN4_Serv.Service.IService
         public PhanLoai GetById(Guid id);
         public bool Them(PhanLoai a);
         public bool Sua(PhanLoai a);
-        public bool Xoa(PhanLoai a);
+        public bool Xoa(Guid id);
     }
 }

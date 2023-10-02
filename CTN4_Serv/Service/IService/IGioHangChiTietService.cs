@@ -13,6 +13,6 @@ namespace CTN4_Serv.Service.IService
         public GioHangChiTiet GetById(Guid id);
         public bool Them(GioHangChiTiet a);
         public bool Sua(GioHangChiTiet a);
-        public bool Xoa(GioHangChiTiet a);
+        public bool Xoa(Guid id);
     }
 }
