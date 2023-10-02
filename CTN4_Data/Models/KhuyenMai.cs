@@ -9,7 +9,9 @@
         public DateTime NgayKetThuc { get; set; }
         public float SoTienGiam { get; set; }
         public bool TrangThai { get; set; }
+        public bool Is_Detele { get; set; }
 
-        public List<KhuyenMaiChiTiet> KKhuyenMaiChiTiets { get; set; }
+        public List<KhuyenMaiSanPham> KKhuyenMaiSanPhams { get; set; }
+        public List<KhuyenMaiPhanLoai> KKhuyenMaiPhanLoais { get; set; }
     }
 }

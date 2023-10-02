@@ -4,8 +4,8 @@
     {
         public Guid Id { get; set; }
         public bool TrangThai { get; set; }
-        public Guid IdNguoiDung { get; set; }
-        public NguoiDung? NguoiDung { get; set;}
+        public Guid? IdKhachHang { get; set; }
+        public KhachHang? KhachHang { get; set;}
         public List<GioHangChiTiet> GGioHangChiTiets { get; set; }
     }
 }
