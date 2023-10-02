@@ -6,6 +6,6 @@
         public string TenPhuongThuc { get; set; }
         public bool TrangThai { get; set; }
         public bool Is_detele { get; set; }
-        public List<HoaDon> HoaDones { get; set; }
+        public List<HoaDon> HoaDon { get; set; }
     }
 }

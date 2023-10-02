@@ -8,7 +8,7 @@
         public bool TrangThai { get; set; }
         public bool Is_delete { get; set; }
 
-        public Guid? IdSpct { get; set; }
+        public Guid? IdSanPhamChiTiet { get; set; }
 
         public SanPhamChiTiet? SanPhamChiTiet { get; set; }
 

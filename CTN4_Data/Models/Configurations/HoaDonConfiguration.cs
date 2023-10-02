@@ -9,6 +9,9 @@ namespace CTN4_Data.Models.Configurations
         public void Configure(EntityTypeBuilder<HoaDon> builder)
         {
             builder.HasKey(c => c.Id);
+            builder.HasOne(c => c.KhachHang).WithMany(c => c.HoaDon).HasForeignKey(c => c.IdKhachHang);
+            builder.HasOne(c => c.DiaChiNhanHang).WithMany(c => c.HoaDon).HasForeignKey(c => c.IdDiaChiNhanHang);
+            builder.HasOne(c => c.PhuongThucThanhToan).WithMany(c => c.HoaDon).HasForeignKey(c => c.IdPhuongThuc);
         }
     }
 }

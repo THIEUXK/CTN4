@@ -2,7 +2,7 @@
 {
     public class DiaChiNhanHang
     {
-        public Guid ID { get; set; }
+        public Guid Id { get; set; }
         public string TenDiaChi { get; set; }
         public string DiaChi { get; set; }
         public bool TrangThai { get; set; }

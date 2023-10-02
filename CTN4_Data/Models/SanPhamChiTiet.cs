@@ -29,7 +29,7 @@
         public SanPham? SanPham { get; set; }
 
         public List<KhuyenMaiSanPham> KKhuyenMaiSanPhams { get; set; }
-        public List<KhuyenMaiPhanLoai> KhuyenMaiPhanLoais { get; set; }
+        public List<PhanLoaiChiTiet> PhanLoaiChiTiets { get; set; }
         public List<HoaDonChiTiet> HoaDonChiTiets { get; set; }
         public List<GioHangChiTiet> GioHangChiTiets { get; set; }
         public List<DanhMucChiTiet> DanhMucChiTiets { get; set; }
