@@ -2,14 +2,13 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CTN4_Data.Models.Configurations
+namespace CTN4_Data.Configurations
 {
-    public class DanhMucConfiguration : IEntityTypeConfiguration<DanhMuc>
+    public class SanPhamConfiguration : IEntityTypeConfiguration<SanPham>
     {
-        public void Configure(EntityTypeBuilder<DanhMuc> builder)
+        public void Configure(EntityTypeBuilder<SanPham> builder)
         {
             builder.HasKey(c => c.Id);
-
         }
     }
 }

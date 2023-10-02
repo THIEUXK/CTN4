@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 
-namespace CTN4_Data.Models.Configurations
+namespace CTN4_Data.Configurations
 {
     public class DiaChiNhanHangConfiguration : IEntityTypeConfiguration<DiaChiNhanHang>
     {
@@ -10,7 +10,7 @@ namespace CTN4_Data.Models.Configurations
         {
             builder.HasKey(c => c.Id);
             builder.HasOne(c => c.KhachHang).WithMany(c => c.DiaChiNhanHangs).HasForeignKey(c => c.IdKhachHang);
-            
+
 
         }
     }
