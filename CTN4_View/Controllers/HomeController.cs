@@ -1,8 +1,8 @@
-﻿using CTN4.Models;
+﻿using CTN4_View.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace CTN4.Controllers
+namespace CTN4_View.Controllers
 {
     public class HomeController : Controller
     {
