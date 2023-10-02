@@ -19,4 +19,148 @@
     <ProjectReference Include="..\CTN4_Serv\CTN4_Serv.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Views\Home\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Home\login.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Home\singleblog.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Home\singleproduct.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Home\tracking.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Home\blog.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Home\blog.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Home\cart.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Home\category.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Home\checkout.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Home\confirmation.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Home\contact.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Home\elements.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Home\cart.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Home\category.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Home\confirmation.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Home\contact.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Home\checkout.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Home\elements.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\css\.DS_Store" />
+    <None Include="wwwroot\css\bootstrap.map" />
+    <None Include="wwwroot\css\main.css.map" />
+    <None Include="wwwroot\css\main.map" />
+    <None Include="wwwroot\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\fonts\Linearicons-Free.svg" />
+    <None Include="wwwroot\fonts\Linearicons-Free.woff2" />
+    <None Include="wwwroot\fonts\themify.svg" />
+    <None Include="wwwroot\img\.DS_Store" />
+    <None Include="wwwroot\img\organic-food\.DS_Store" />
+    <None Include="wwwroot\js\.DS_Store" />
+    <None Include="wwwroot\js\countdown.js" />
+    <None Include="wwwroot\js\gmaps.min.js" />
+    <None Include="wwwroot\js\ion.rangeSlider.js" />
+    <None Include="wwwroot\js\jquery.ajaxchimp.min.js" />
+    <None Include="wwwroot\js\jquery.magnific-popup.min.js" />
+    <None Include="wwwroot\js\jquery.nice-select.min.js" />
+    <None Include="wwwroot\js\jquery.sticky.js" />
+    <None Include="wwwroot\js\main.js" />
+    <None Include="wwwroot\js\nouislider.min.js" />
+    <None Include="wwwroot\js\owl.carousel.min.js" />
+    <None Include="wwwroot\js\parallax.min.js" />
+    <None Include="wwwroot\js\site.js" />
+    <None Include="wwwroot\js\vendor\bootstrap.min.js" />
+    <None Include="wwwroot\js\vendor\jquery-2.2.4.min.js" />
+    <None Include="wwwroot\js\vendor\popper.js" />
+    <None Include="wwwroot\Karma Shop-doc\.DS_Store" />
+    <None Include="wwwroot\Karma Shop-doc\css\_DS_Store" />
+    <None Include="wwwroot\Karma Shop-doc\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\Karma Shop-doc\fonts\_DS_Store" />
+    <None Include="wwwroot\Karma Shop-doc\js\custom.js" />
+    <None Include="wwwroot\Karma Shop-doc\js\jquery-1.11.0.min.js" />
+    <None Include="wwwroot\Karma Shop-doc\js\jquery.nav.js" />
+    <None Include="wwwroot\Karma Shop-doc\js\_DS_Store" />
+    <None Include="wwwroot\Karma Shop-doc\syntax-highlighter\scripts\shAutoloader.js" />
+    <None Include="wwwroot\Karma Shop-doc\syntax-highlighter\scripts\shBrushAppleScript.js" />
+    <None Include="wwwroot\Karma Shop-doc\syntax-highlighter\scripts\shBrushAS3.js" />
+    <None Include="wwwroot\Karma Shop-doc\syntax-highlighter\scripts\shBrushBash.js" />
+    <None Include="wwwroot\Karma Shop-doc\syntax-highlighter\scripts\shBrushColdFusion.js" />
+    <None Include="wwwroot\Karma Shop-doc\syntax-highlighter\scripts\shBrushCpp.js" />
+    <None Include="wwwroot\Karma Shop-doc\syntax-highlighter\scripts\shBrushCSharp.js" />
+    <None Include="wwwroot\Karma Shop-doc\syntax-highlighter\scripts\shBrushCss.js" />
+    <None Include="wwwroot\Karma Shop-doc\syntax-highlighter\scripts\shBrushDelphi.js" />
+    <None Include="wwwroot\Karma Shop-doc\syntax-highlighter\scripts\shBrushDiff.js" />
+    <None Include="wwwroot\Karma Shop-doc\syntax-highlighter\scripts\shBrushErlang.js" />
+    <None Include="wwwroot\Karma Shop-doc\syntax-highlighter\scripts\shBrushGroovy.js" />
+    <None Include="wwwroot\Karma Shop-doc\syntax-highlighter\scripts\shBrushJava.js" />
+    <None Include="wwwroot\Karma Shop-doc\syntax-highlighter\scripts\shBrushJavaFX.js" />
+    <None Include="wwwroot\Karma Shop-doc\syntax-highlighter\scripts\shBrushJScript.js" />
+    <None Include="wwwroot\Karma Shop-doc\syntax-highlighter\scripts\shBrushPerl.js" />
+    <None Include="wwwroot\Karma Shop-doc\syntax-highlighter\scripts\shBrushPhp.js" />
+    <None Include="wwwroot\Karma Shop-doc\syntax-highlighter\scripts\shBrushPlain.js" />
+    <None Include="wwwroot\Karma Shop-doc\syntax-highlighter\scripts\shBrushPowerShell.js" />
+    <None Include="wwwroot\Karma Shop-doc\syntax-highlighter\scripts\shBrushPython.js" />
+    <None Include="wwwroot\Karma Shop-doc\syntax-highlighter\scripts\shBrushRuby.js" />
+    <None Include="wwwroot\Karma Shop-doc\syntax-highlighter\scripts\shBrushSass.js" />
+    <None Include="wwwroot\Karma Shop-doc\syntax-highlighter\scripts\shBrushScala.js" />
+    <None Include="wwwroot\Karma Shop-doc\syntax-highlighter\scripts\shBrushSql.js" />
+    <None Include="wwwroot\Karma Shop-doc\syntax-highlighter\scripts\shBrushVb.js" />
+    <None Include="wwwroot\Karma Shop-doc\syntax-highlighter\scripts\shBrushXml.js" />
+    <None Include="wwwroot\Karma Shop-doc\syntax-highlighter\scripts\shCore.js" />
+    <None Include="wwwroot\Karma Shop-doc\syntax-highlighter\scripts\shLegacy.js" />
+    <None Include="wwwroot\Karma Shop-doc\syntax-highlighter\_DS_Store" />
+    <None Include="wwwroot\Karma Shop-doc\_DS_Store" />
+    <None Include="wwwroot\scss\.DS_Store" />
+    <None Include="wwwroot\scss\main.scss" />
+    <None Include="wwwroot\scss\theme\_banner.scss" />
+    <None Include="wwwroot\scss\theme\_blog.scss" />
+    <None Include="wwwroot\scss\theme\_common.scss" />
+    <None Include="wwwroot\scss\theme\_contact.scss" />
+    <None Include="wwwroot\scss\theme\_elements.scss" />
+    <None Include="wwwroot\scss\theme\_footer.scss" />
+    <None Include="wwwroot\scss\theme\_header.scss" />
+    <None Include="wwwroot\scss\theme\_home.scss" />
+    <None Include="wwwroot\scss\theme\_mixins.scss" />
+    <None Include="wwwroot\scss\theme\_predefine.scss" />
+    <None Include="wwwroot\scss\theme\_product.scss" />
+    <None Include="wwwroot\scss\theme\_reset.scss" />
+    <None Include="wwwroot\scss\theme\_variables.scss" />
+  </ItemGroup>
+
 </Project>
