@@ -6,8 +6,11 @@
         public string TenAnh { get; set; }
         public string DuongDanAnh { get; set; }
         public bool TrangThai { get; set; }
+        public bool Is_delete { get; set; }
 
         public Guid? IdSpct { get; set; }
+
+        public SanPhamChiTiet? SanPhamChiTiet { get; set; }
 
     }
 }

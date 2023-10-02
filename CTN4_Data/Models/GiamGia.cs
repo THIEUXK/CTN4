@@ -10,6 +10,8 @@
         public int SoLuong { get; set; }
         public DateTime NgayBatDau { get; set; }
         public DateTime NgayKetThuc { get; set; }
-        public List<HoaDon> HoaDon { get; set; }
+        public float SoTienGiamToiDa { get; set; }
+        public float DieuKienGiam { get; set; }
+        public List<GiamGiaChiTiet> GiamGiaChiTiets { get; set; }
     }
 }

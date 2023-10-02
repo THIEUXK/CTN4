@@ -2,5 +2,9 @@
 {
     public class DanhMuc
     {
+        public Guid ID { get; set; }
+        public string TenDanhMuc { get; set; }
+        public bool Is_detele { get; set; }
+        public List<DanhMucChiTiet> DanhMucChiTiets { get; set; }
     }
 }

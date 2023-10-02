@@ -5,6 +5,8 @@
         public Guid Id { get;set; }
         public string TenNSX{ get;set; }
         public bool TrangThai { get;set; }
+        public string GhiChu { get;set; }
+        public bool Is_detele { get; set; }
 
         public List<SanPhamChiTiet> SnSanPhamChiTiets { get; set; }
     }

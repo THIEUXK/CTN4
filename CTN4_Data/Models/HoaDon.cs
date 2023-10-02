@@ -14,8 +14,9 @@
         public Guid? IdPhuongThuc { get;set; }
 
         public List<HoaDonChiTiet> HoaDonChiTiets { get; set; }
-        public GiamGia? GiamGia { get; set; }
+        public List<GiamGiaChiTiet> GiamGiaChiTiets { get; set; }
         public PhuongThucThanhToan? PhuongThucThanhToan { get; set; }
-        public NguoiDung? NguoiDung { get; set;}
+        public DiaChiNhanHang? DiaChiNhanHang { get; set;}
+        public KhachHang? KhachHang { get; set;}
     }
 }

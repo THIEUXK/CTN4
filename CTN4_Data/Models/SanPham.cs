@@ -6,6 +6,7 @@
         public string TenSanPham { get; set; }
         public string AnhDaiDiem { get; set; }
         public bool TrangThai { get; set; }
+        public bool Is_detele { get; set; }
         public List<SanPhamChiTiet> SnSanPhamChiTiets { get; set; }
 
     }
