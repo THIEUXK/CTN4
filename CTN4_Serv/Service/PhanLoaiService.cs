@@ -1,36 +1,36 @@
-﻿using System;
+﻿using CTN4_Data.Models.DB_CTN4;
+using CTN4_Serv.Service.IService;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CTN4_Data.Models.DB_CTN4;
-using CTN4_Serv.Service.IService;
 
 namespace CTN4_Serv.Service
 {
-    public class AnhService:IAnhService
+    public class PhanLoaiService : IPhanLoaiService
     {
-        public List<Anh> GetAll()
+        public List<PhanLoai> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public Anh GetById(Guid id)
+        public PhanLoai GetById(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public bool Them(Anh a)
+        public bool Sua(PhanLoai a)
         {
             throw new NotImplementedException();
         }
 
-        public bool Sua(Anh a)
+        public bool Them(PhanLoai a)
         {
             throw new NotImplementedException();
         }
 
-        public bool Xoa(Anh a)
+        public bool Xoa(PhanLoai a)
         {
             throw new NotImplementedException();
         }
