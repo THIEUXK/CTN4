@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CTN4_Serv.Service
 {
-    public class PhuongThucThPhuongThucThanhToanToanService : IPhuongThucThPhuongThucThanhToanToanService
+    public class PhuongThucThPhuongThucThanhToanToanService : IPhuongThucThanhToanService
     {
         public DB_CTN4_ok _db;
 

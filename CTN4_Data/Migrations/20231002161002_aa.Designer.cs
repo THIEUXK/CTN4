@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CTN4_Data.Migrations
 {
     [DbContext(typeof(DB_CTN4_ok))]
-    [Migration("20231002122133_aa")]
+    [Migration("20231002161002_aa")]
     partial class aa
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -509,7 +509,7 @@ namespace CTN4_Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("maus");
+                    b.ToTable("Maus");
                 });
 
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.NhanVien", b =>
@@ -589,7 +589,7 @@ namespace CTN4_Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Nsxs");
+                    b.ToTable("NSXs");
                 });
 
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.PhanLoai", b =>
@@ -763,7 +763,7 @@ namespace CTN4_Data.Migrations
 
                     b.HasIndex("IdKhachHang");
 
-                    b.ToTable("SanPhamYeuThiches");
+                    b.ToTable("SanPhamYeuThichs");
                 });
 
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.Size", b =>
