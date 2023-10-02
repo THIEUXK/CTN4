@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 
-namespace CTN4_Data.Models.Configurations
+namespace CTN4_Data.Configurations
 {
     public class SanPhamYeuThichConfiguration : IEntityTypeConfiguration<SanPhamYeuThich>
     {
@@ -13,5 +13,5 @@ namespace CTN4_Data.Models.Configurations
         }
 
     }
-    
+
 }

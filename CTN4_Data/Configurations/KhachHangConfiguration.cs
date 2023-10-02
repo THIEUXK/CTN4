@@ -2,11 +2,11 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 
-namespace CTN4_Data.Models.Configurations
+namespace CTN4_Data.Configurations
 {
-    public class PhanLoaiConfiguration : IEntityTypeConfiguration<PhanLoai>
+    public class KhachHangConfiguration : IEntityTypeConfiguration<KhachHang>
     {
-        public void Configure(EntityTypeBuilder<PhanLoai> builder)
+        public void Configure(EntityTypeBuilder<KhachHang> builder)
         {
             builder.HasKey(c => c.Id);
         }

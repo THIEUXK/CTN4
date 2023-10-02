@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CTN4_Data.Models.Configurations
+namespace CTN4_Data.Configurations
 {
     public class ChucVuConfiguration : IEntityTypeConfiguration<ChucVu>
     {
