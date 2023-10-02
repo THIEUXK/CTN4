@@ -6,6 +6,6 @@
         public bool TrangThai { get; set; }
         public Guid? IdKhachHang { get; set; }
         public KhachHang? KhachHang { get; set;}
-        public List<GioHangChiTiet> GGioHangChiTiets { get; set; }
+        public List<GioHangChiTiet> GioHangChiTiets { get; set; }
     }
 }

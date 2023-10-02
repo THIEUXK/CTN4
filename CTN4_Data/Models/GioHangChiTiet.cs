@@ -8,6 +8,6 @@
         public Guid? IdSanPhamChiTiet { get; set; }
 
         public GioHang? GioHang { get; set; }
-        public DanhMuc? DanhMuc { get; set; }
+        public SanPhamChiTiet? SanPhamChiTiet { get; set; }
     }
 }

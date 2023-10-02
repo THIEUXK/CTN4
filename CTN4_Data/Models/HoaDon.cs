@@ -10,8 +10,9 @@
         public DateTime NgayDat { get; set; }
         public DateTime NgayGiao { get; set; }
         public DateTime NgayNhan { get; set; }
-        public Guid? IdGiamGia { get; set; }
+        public Guid? IdKhachHang { get; set; }
         public Guid? IdPhuongThuc { get;set; }
+        public Guid? IdDiaChiNhanHang { get; set; }
 
         public List<HoaDonChiTiet> HoaDonChiTiets { get; set; }
         public List<GiamGiaChiTiet> GiamGiaChiTiets { get; set; }

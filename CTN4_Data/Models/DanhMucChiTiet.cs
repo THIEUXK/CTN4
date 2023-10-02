@@ -2,7 +2,7 @@
 {
     public class DanhMucChiTiet
     {
-        public Guid ID { get; set; }
+        public Guid Id { get; set; }
         public Guid? IdSanPhamChiTiet { get; set; }
         public Guid? IdDanhMuc { get; set; }
         public DanhMuc? DanhMuc { get; set;}

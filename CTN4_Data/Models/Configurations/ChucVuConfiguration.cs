@@ -9,6 +9,7 @@ namespace CTN4_Data.Models.Configurations
         public void Configure(EntityTypeBuilder<ChucVu> builder)
         {
             builder.HasKey(c => c.Id);
+
         }
     }
 }
