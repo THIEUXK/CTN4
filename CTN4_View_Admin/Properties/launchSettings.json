@@ -23,6 +23,10 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
+    },
+    "StaticFiles": {
+      "FolderPath": "wwwroot",
+      "RequestPath": "/static"
     }
   }
 }
