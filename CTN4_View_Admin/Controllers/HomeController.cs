@@ -18,7 +18,7 @@ namespace CTN4_View_Admin.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult BangQuanLy()
         {
             return View();
         }
