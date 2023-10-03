@@ -24,8 +24,8 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         // GET: SanPhamController/Details/5
         public ActionResult Details(Guid id)
         {
-            var giay = _sv.GetById(id);
-            return View(giay);
+            var a = _sv.GetById(id);
+            return View(a);
         }
 
         // GET: SanPhamController/Create
@@ -68,8 +68,8 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [HttpGet]
         public ActionResult Edit(Guid id)
         {
-            var giay = _sv.GetById(id);
-            return View(giay);
+            var a = _sv.GetById(id);
+            return View(a);
         }
 
         // POST: SanPhamController/Edit/5
