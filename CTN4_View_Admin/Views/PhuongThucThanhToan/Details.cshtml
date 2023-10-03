@@ -1,0 +1,46 @@
+﻿@model CTN4_Data.Models.DB_CTN4.PhuongThucThanhToan
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+<div>
+</div>
+<div class="row">
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Normal buttons</h4>
+                <br></br>
+                <h4>PhuongThucThanhToan</h4>
+                <hr />
+                <dl class="row">
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.TenPhuongThuc)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.TenPhuongThuc)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.TrangThai)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.TrangThai)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Is_detele)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Is_detele)
+                    </dd>
+                    <div>
+                        <h4>_________________________________________________</h4>
+                        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+                        <a asp-action="Index">Back to List</a>
+                    </div>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
