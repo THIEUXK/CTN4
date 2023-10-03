@@ -1,5 +1,6 @@
 ﻿using CTN4_Data.Models.DB_CTN4;
 using CTN4_Serv.Service;
+using CTN4_Serv.Service.IService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,7 +8,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
 {
     public class KhachHangController : Controller
     {
-         public KhachHangService _kh;
+         public IKhachHangService _kh;
 
         public KhachHangController()
         {
@@ -18,7 +19,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         public ActionResult Index()
         {
             var a = _kh.GetAll();
-            return View();
+            return View(a);
         }
 
         // GET: KhachHangController/Details/5

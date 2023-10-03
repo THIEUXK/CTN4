@@ -12,6 +12,7 @@
         <br></br>
         <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="AnhDaiDiem" />
             <div class="form-group">    
                 <label asp-for="Id" class="control-label"></label>
                 <input asp-for="Id" class="form-control"/>
@@ -23,9 +24,11 @@
                 <span asp-validation-for="TenSanPham" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label>Chọn ảnh từ Máy tính:</label>
-                <input type="file" name="imageFile"/>
-                
+                @* <label>Chọn ảnh từ Máy tính:</label>
+                <input type="file" name="imageFile"/>*@
+                <label asp-for="AnhDaiDiem" class="control-label">AnhDaiDiem</label>
+
+                <input type="file" name="imageFile" />
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">

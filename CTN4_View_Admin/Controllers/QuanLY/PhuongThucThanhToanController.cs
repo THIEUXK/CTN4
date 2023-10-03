@@ -8,7 +8,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
 {
     public class PhuongThucThanhToanController : Controller
     {
-         public PhuongThucThanhToanService _pttt;
+         public IPhuongThucThanhToanService _pttt;
 
         public PhuongThucThanhToanController()
         {
