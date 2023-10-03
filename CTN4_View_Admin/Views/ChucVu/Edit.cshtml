@@ -1,9 +1,8 @@
-﻿@model CTN4_Data.Models.DB_CTN4.Size
+﻿@model CTN4_Data.Models.DB_CTN4.ChucVu
 
 @{
     ViewData["Title"] = "Edit";
 }
-
 
 <div>
     <a asp-action="Index">Back to List</a>
@@ -12,10 +11,9 @@
     <div class="col-md-9">
         <br></br>
         <br></br>
-
         <h1>Edit</h1>
 
-        <h4>Size</h4>
+        <h4>ChucVu</h4>
         <hr />
         <div class="row">
             <div class="col-md-4">
@@ -27,18 +25,13 @@
                         <span asp-validation-for="Id" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="TenSize" class="control-label"></label>
-                        <input asp-for="TenSize" class="form-control" />
-                        <span asp-validation-for="TenSize" class="text-danger"></span>
+                        <label asp-for="TenChucVu" class="control-label"></label>
+                        <input asp-for="TenChucVu" class="form-control" />
+                        <span asp-validation-for="TenChucVu" class="text-danger"></span>
                     </div>
                     <div class="form-group form-check">
                         <label class="form-check-label">
                             <input class="form-check-input" asp-for="TrangThai" /> @Html.DisplayNameFor(model => model.TrangThai)
-                        </label>
-                    </div>
-                    <div class="form-group form-check">
-                        <label class="form-check-label">
-                            <input class="form-check-input" asp-for="Is_detele" /> @Html.DisplayNameFor(model => model.Is_detele)
                         </label>
                     </div>
                     <div class="form-group">
@@ -55,4 +48,3 @@
 
     </div>
 </div>
-
