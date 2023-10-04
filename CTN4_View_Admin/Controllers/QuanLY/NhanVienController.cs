@@ -1,5 +1,6 @@
 ﻿using CTN4_Data.Models.DB_CTN4;
 using CTN4_Serv.Service;
+using CTN4_Serv.Service.IService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,7 +8,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
 {
     public class NhanVienController : Controller
     {
-        public NhanVienService _sv;
+        public INhanVienService _sv;
 
         public NhanVienController()
         {
