@@ -5,16 +5,15 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CTN4_View_Admin.Controllers.QuanLY
 {
-    public class SizeController : Controller
+    public class ChucVuController : Controller
     {
-        public SizeService _sv;
+        public ChucVuService _sv;
 
-
-        public SizeController()
+        public ChucVuController()
         {
-            _sv = new SizeService();
+            _sv = new ChucVuService();
         }
-        // GET: SizeController
+        // GET: ChucVuController
         [HttpGet]
         public ActionResult Index()
         {
@@ -22,23 +21,23 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             return View(a);
         }
 
-        // GET: SizeController/Details/5
+        // GET: ChucVuController/Details/5
         public ActionResult Details(Guid id)
         {
             var a = _sv.GetById(id);
             return View(a);
         }
 
-        // GET: SizeController/Create
+        // GET: ChucVuController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: SizeController/Create
+        // POST: ChucVuController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Size a)
+        public ActionResult Create(ChucVu a)
         {
             if (_sv.Them(a)) // Nếu thêm thành công
             {
@@ -49,17 +48,17 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             return View();
         }
 
-        // GET: SizeController/Edit/5
+        // GET: ChucVuController/Edit/5
         public ActionResult Edit(Guid id)
         {
             var a = _sv.GetById(id);
             return View(a);
         }
 
-        // POST: SizeController/Edit/5
+        // POST: ChucVuController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Size a)
+        public ActionResult Edit(ChucVu a)
         {
             if (_sv.Sua(a))
             {
@@ -80,4 +79,5 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         }
     }
 }
+
 

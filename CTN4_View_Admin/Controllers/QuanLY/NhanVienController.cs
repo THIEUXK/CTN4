@@ -5,16 +5,15 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CTN4_View_Admin.Controllers.QuanLY
 {
-    public class SizeController : Controller
+    public class NhanVienController : Controller
     {
-        public SizeService _sv;
+        public NhanVienService _sv;
 
-
-        public SizeController()
+        public NhanVienController()
         {
-            _sv = new SizeService();
+            _sv = new NhanVienService();
         }
-        // GET: SizeController
+        // GET: NhanVienController
         [HttpGet]
         public ActionResult Index()
         {
@@ -22,23 +21,23 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             return View(a);
         }
 
-        // GET: SizeController/Details/5
+        // GET: NhanVienController/Details/5
         public ActionResult Details(Guid id)
         {
             var a = _sv.GetById(id);
             return View(a);
         }
 
-        // GET: SizeController/Create
+        // GET: NhanVienController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: SizeController/Create
+        // POST: NhanVienController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Size a)
+        public ActionResult Create(NhanVien a)
         {
             if (_sv.Them(a)) // Nếu thêm thành công
             {
@@ -49,17 +48,17 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             return View();
         }
 
-        // GET: SizeController/Edit/5
+        // GET: NhanVienController/Edit/5
         public ActionResult Edit(Guid id)
         {
             var a = _sv.GetById(id);
             return View(a);
         }
 
-        // POST: SizeController/Edit/5
+        // POST: NhanVienController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Size a)
+        public ActionResult Edit(NhanVien a)
         {
             if (_sv.Sua(a))
             {
@@ -68,6 +67,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             }
             return View();
         }
+
 
 
         public ActionResult Delete(Guid id)
