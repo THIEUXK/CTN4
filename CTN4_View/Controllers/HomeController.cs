@@ -3,21 +3,28 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using CTN4_Serv.Service.IService;
 using CTN4_View.Models;
+using CTN4_Data.Models.DB_CTN4;
+using CTN4_Serv.Service;
+using CTN4_Serv.ServiceJoin;
 
 namespace CTN4_View.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController()
-        {
-            
-        }
+        private readonly ISanPhamChiTietService _phamChiTietService;
+        private readonly SanPhamCuaHangService _sanPhamCuaHangService;
+        //public HomeController()
+        //{
+        //    _phamChiTietService = new SanPhamChiTietService();
+        //    _sanPhamCuaHangService = new SanPhamCuaHangService();
+        //}
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+             _phamChiTietService = new SanPhamChiTietService();
+            _sanPhamCuaHangService = new SanPhamCuaHangService();
         }
 
         public IActionResult Index()
@@ -33,9 +40,11 @@ namespace CTN4_View.Controllers
         {
             return View();
         }
+        [HttpGet]
         public IActionResult category()
         {
-            return View();
+             var listSpCt = _sanPhamCuaHangService.GetAll();
+            return View(listSpCt);
         }
         public IActionResult confirmation()
         {
@@ -73,7 +82,7 @@ namespace CTN4_View.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new CTN4_Data.Models.DB_CTN4.ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
     }

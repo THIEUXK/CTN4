@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Query;
 
 namespace CTN4_Serv.ServiceJoin
 {
-    internal class SanPhamCuaHangService
+    public class SanPhamCuaHangService
     {
         public DB_CTN4_ok _db;
 
