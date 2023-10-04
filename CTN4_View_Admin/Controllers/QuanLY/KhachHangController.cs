@@ -26,7 +26,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         public ActionResult Details(Guid id)
         {
             var a = _kh.GetById(id);
-            return View();
+            return View(a);
         }
 
         // GET: KhachHangController/Create
