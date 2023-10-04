@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using CTN4_Serv.Service.IService;
 using CTN4_View.Models;
 
 namespace CTN4_View.Controllers
@@ -8,6 +9,11 @@ namespace CTN4_View.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+
+        public HomeController()
+        {
+            
+        }
 
         public HomeController(ILogger<HomeController> logger)
         {
