@@ -6,15 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CTN4_View_Admin.Controllers.QuanLY
 {
-    public class KhuyenMaiController : Controller
+    public class SizeController : Controller
     {
-        public IKhuyenMaiService _sv;
+        public ISizeService _sv;
 
-        public KhuyenMaiController()
+
+        public SizeController()
         {
-            _sv = new KhuyenMaiService();
+            _sv = new SizeService();
         }
-        // GET: KhuyenMaiController
+        // GET: SizeController
         [HttpGet]
         public ActionResult Index()
         {
@@ -22,23 +23,23 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             return View(a);
         }
 
-        // GET: KhuyenMaiController/Details/5
+        // GET: SizeController/Details/5
         public ActionResult Details(Guid id)
         {
             var a = _sv.GetById(id);
             return View(a);
         }
 
-        // GET: KhuyenMaiController/Create
+        // GET: SizeController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: KhuyenMaiController/Create
+        // POST: SizeController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(KhuyenMai a)
+        public ActionResult Create(Size a)
         {
             if (_sv.Them(a)) // Nếu thêm thành công
             {
@@ -49,17 +50,17 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             return View();
         }
 
-        // GET: KhuyenMaiController/Edit/5
+        // GET: SizeController/Edit/5
         public ActionResult Edit(Guid id)
         {
             var a = _sv.GetById(id);
             return View(a);
         }
 
-        // POST: KhuyenMaiController/Edit/5
+        // POST: SizeController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(KhuyenMai a)
+        public ActionResult Edit(Size a)
         {
             if (_sv.Sua(a))
             {
@@ -80,3 +81,4 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         }
     }
 }
+

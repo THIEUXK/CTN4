@@ -1,20 +1,19 @@
 ﻿using CTN4_Data.Models.DB_CTN4;
 using CTN4_Serv.Service;
-using CTN4_Serv.Service.IService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CTN4_View_Admin.Controllers.QuanLY
 {
-    public class KhuyenMaiController : Controller
+    public class ChucVuController : Controller
     {
-        public IKhuyenMaiService _sv;
+        public ChucVuService _sv;
 
-        public KhuyenMaiController()
+        public ChucVuController()
         {
-            _sv = new KhuyenMaiService();
+            _sv = new ChucVuService();
         }
-        // GET: KhuyenMaiController
+        // GET: ChucVuController
         [HttpGet]
         public ActionResult Index()
         {
@@ -22,23 +21,23 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             return View(a);
         }
 
-        // GET: KhuyenMaiController/Details/5
+        // GET: ChucVuController/Details/5
         public ActionResult Details(Guid id)
         {
             var a = _sv.GetById(id);
             return View(a);
         }
 
-        // GET: KhuyenMaiController/Create
+        // GET: ChucVuController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: KhuyenMaiController/Create
+        // POST: ChucVuController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(KhuyenMai a)
+        public ActionResult Create(ChucVu a)
         {
             if (_sv.Them(a)) // Nếu thêm thành công
             {
@@ -49,17 +48,17 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             return View();
         }
 
-        // GET: KhuyenMaiController/Edit/5
+        // GET: ChucVuController/Edit/5
         public ActionResult Edit(Guid id)
         {
             var a = _sv.GetById(id);
             return View(a);
         }
 
-        // POST: KhuyenMaiController/Edit/5
+        // POST: ChucVuController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(KhuyenMai a)
+        public ActionResult Edit(ChucVu a)
         {
             if (_sv.Sua(a))
             {
@@ -80,3 +79,5 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         }
     }
 }
+
+

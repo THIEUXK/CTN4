@@ -1,82 +1,74 @@
 ﻿using CTN4_Data.Models.DB_CTN4;
-using CTN4_Serv.Service;
 using CTN4_Serv.Service.IService;
-using Microsoft.AspNetCore.Http;
+using CTN4_Serv.Service;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CTN4_View_Admin.Controllers.QuanLY
 {
-    public class KhuyenMaiController : Controller
+    public class NSXController : Controller
     {
-        public IKhuyenMaiService _sv;
-
-        public KhuyenMaiController()
+        public INSXService _nsx;
+        public NSXController()
         {
-            _sv = new KhuyenMaiService();
+            _nsx = new NSXService();
         }
-        // GET: KhuyenMaiController
+        // GET: NSXController
         [HttpGet]
         public ActionResult Index()
         {
-            var a = _sv.GetAll();
+            var a = _nsx.GetAll();
             return View(a);
         }
-
-        // GET: KhuyenMaiController/Details/5
+        // GET: NSXController/Details/5
         public ActionResult Details(Guid id)
         {
-            var a = _sv.GetById(id);
-            return View(a);
+            var a = _nsx.GetById(id);
+            return View();
         }
 
-        // GET: KhuyenMaiController/Create
+        // GET: NSXController/Create
         public ActionResult Create()
         {
             return View();
         }
-
-        // POST: KhuyenMaiController/Create
+        // POST: NSXController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(KhuyenMai a)
+        public ActionResult Create(NSX a)
         {
-            if (_sv.Them(a)) // Nếu thêm thành công
+            if (_nsx.Them(a))
             {
-
                 return RedirectToAction("Index");
             }
-
             return View();
         }
-
-        // GET: KhuyenMaiController/Edit/5
+        // GET: NSXController/Edit/5
         public ActionResult Edit(Guid id)
         {
-            var a = _sv.GetById(id);
+            var a = _nsx.GetById(id);
             return View(a);
         }
-
-        // POST: KhuyenMaiController/Edit/5
+        // POST: NSXController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(KhuyenMai a)
+        public ActionResult Edit(NSX a)
         {
-            if (_sv.Sua(a))
+            if (_nsx.Sua(a))
             {
                 return RedirectToAction("Index");
 
             }
             return View();
         }
-
 
         public ActionResult Delete(Guid id)
         {
-            if (_sv.Xoa(id))
+            if (_nsx.Xoa(id))
             {
                 return RedirectToAction("Index");
             }
             return RedirectToAction("Index");
         }
+
     }
 }

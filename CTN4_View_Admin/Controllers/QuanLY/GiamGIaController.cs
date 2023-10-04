@@ -6,41 +6,41 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CTN4_View_Admin.Controllers.QuanLY
 {
-    public class KhuyenMaiController : Controller
+    public class GiamGIaController : Controller
     {
-        public IKhuyenMaiService _sv;
+        public IGiamGiaService _gg;
 
-        public KhuyenMaiController()
+        public GiamGIaController()
         {
-            _sv = new KhuyenMaiService();
+            _gg =new GiamGiaService();
         }
-        // GET: KhuyenMaiController
+        // GET: GiamGIaController
         [HttpGet]
         public ActionResult Index()
         {
-            var a = _sv.GetAll();
+             var a = _gg.GetAll();
             return View(a);
         }
 
-        // GET: KhuyenMaiController/Details/5
+        // GET: GiamGIaController/Details/5
         public ActionResult Details(Guid id)
         {
-            var a = _sv.GetById(id);
+             var a = _gg.GetById(id);
             return View(a);
         }
 
-        // GET: KhuyenMaiController/Create
+        // GET: GiamGIaController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: KhuyenMaiController/Create
+        // POST: GiamGIaController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(KhuyenMai a)
-        {
-            if (_sv.Them(a)) // Nếu thêm thành công
+        public ActionResult Create(GiamGia a)
+        { 
+            if (_gg.Them(a)) // Nếu thêm thành công
             {
 
                 return RedirectToAction("Index");
@@ -48,20 +48,17 @@ namespace CTN4_View_Admin.Controllers.QuanLY
 
             return View();
         }
-
-        // GET: KhuyenMaiController/Edit/5
         public ActionResult Edit(Guid id)
         {
-            var a = _sv.GetById(id);
+           var a = _gg.GetById(id);
             return View(a);
         }
-
-        // POST: KhuyenMaiController/Edit/5
+        // POST: GiamGIaController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(KhuyenMai a)
+        public ActionResult Edit(GiamGia a)
         {
-            if (_sv.Sua(a))
+            if (_gg.Sua(a))
             {
                 return RedirectToAction("Index");
 
@@ -69,10 +66,10 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             return View();
         }
 
-
+        // GET: GiamGIaController/Delete/5
         public ActionResult Delete(Guid id)
         {
-            if (_sv.Xoa(id))
+           if (_gg.Xoa(id))
             {
                 return RedirectToAction("Index");
             }

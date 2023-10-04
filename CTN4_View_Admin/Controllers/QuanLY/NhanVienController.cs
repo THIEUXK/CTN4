@@ -6,15 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CTN4_View_Admin.Controllers.QuanLY
 {
-    public class KhuyenMaiController : Controller
+    public class NhanVienController : Controller
     {
-        public IKhuyenMaiService _sv;
+        public INhanVienService _sv;
 
-        public KhuyenMaiController()
+        public NhanVienController()
         {
-            _sv = new KhuyenMaiService();
+            _sv = new NhanVienService();
         }
-        // GET: KhuyenMaiController
+        // GET: NhanVienController
         [HttpGet]
         public ActionResult Index()
         {
@@ -22,23 +22,23 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             return View(a);
         }
 
-        // GET: KhuyenMaiController/Details/5
+        // GET: NhanVienController/Details/5
         public ActionResult Details(Guid id)
         {
             var a = _sv.GetById(id);
             return View(a);
         }
 
-        // GET: KhuyenMaiController/Create
+        // GET: NhanVienController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: KhuyenMaiController/Create
+        // POST: NhanVienController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(KhuyenMai a)
+        public ActionResult Create(NhanVien a)
         {
             if (_sv.Them(a)) // Nếu thêm thành công
             {
@@ -49,17 +49,17 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             return View();
         }
 
-        // GET: KhuyenMaiController/Edit/5
+        // GET: NhanVienController/Edit/5
         public ActionResult Edit(Guid id)
         {
             var a = _sv.GetById(id);
             return View(a);
         }
 
-        // POST: KhuyenMaiController/Edit/5
+        // POST: NhanVienController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(KhuyenMai a)
+        public ActionResult Edit(NhanVien a)
         {
             if (_sv.Sua(a))
             {
@@ -68,6 +68,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             }
             return View();
         }
+
 
 
         public ActionResult Delete(Guid id)
@@ -80,3 +81,4 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         }
     }
 }
+

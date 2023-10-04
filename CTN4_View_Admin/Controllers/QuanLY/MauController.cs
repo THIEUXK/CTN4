@@ -1,82 +1,74 @@
 ﻿using CTN4_Data.Models.DB_CTN4;
 using CTN4_Serv.Service;
 using CTN4_Serv.Service.IService;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CTN4_View_Admin.Controllers.QuanLY
 {
-    public class KhuyenMaiController : Controller
+    public class MauController : Controller
     {
-        public IKhuyenMaiService _sv;
-
-        public KhuyenMaiController()
+        public IMauService _mau;
+        public MauController()
         {
-            _sv = new KhuyenMaiService();
+            _mau = new MauService();
         }
-        // GET: KhuyenMaiController
+        // GET: MauController
         [HttpGet]
         public ActionResult Index()
         {
-            var a = _sv.GetAll();
+            var a = _mau.GetAll();
             return View(a);
         }
-
-        // GET: KhuyenMaiController/Details/5
+        // GET: MauController/Details/5
         public ActionResult Details(Guid id)
         {
-            var a = _sv.GetById(id);
-            return View(a);
+            var a = _mau.GetById(id);
+            return View();
         }
 
-        // GET: KhuyenMaiController/Create
+        // GET: MauController/Create
         public ActionResult Create()
         {
             return View();
         }
-
-        // POST: KhuyenMaiController/Create
+        // POST: MauController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(KhuyenMai a)
+        public ActionResult Create(Mau a)
         {
-            if (_sv.Them(a)) // Nếu thêm thành công
+            if (_mau.Them(a))
             {
-
                 return RedirectToAction("Index");
             }
-
             return View();
         }
-
-        // GET: KhuyenMaiController/Edit/5
+        // GET: MauController/Edit/5
         public ActionResult Edit(Guid id)
         {
-            var a = _sv.GetById(id);
+            var a = _mau.GetById(id);
             return View(a);
         }
-
-        // POST: KhuyenMaiController/Edit/5
+        // POST: MauController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(KhuyenMai a)
+        public ActionResult Edit(Mau a)
         {
-            if (_sv.Sua(a))
+            if (_mau.Sua(a))
             {
                 return RedirectToAction("Index");
 
             }
             return View();
         }
-
 
         public ActionResult Delete(Guid id)
         {
-            if (_sv.Xoa(id))
+            if (_mau.Xoa(id))
             {
                 return RedirectToAction("Index");
             }
             return RedirectToAction("Index");
         }
+
     }
 }

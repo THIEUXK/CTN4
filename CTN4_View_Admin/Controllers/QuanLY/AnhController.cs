@@ -1,82 +1,78 @@
 ﻿using CTN4_Data.Models.DB_CTN4;
 using CTN4_Serv.Service;
 using CTN4_Serv.Service.IService;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CTN4_View_Admin.Controllers.QuanLY
 {
-    public class KhuyenMaiController : Controller
+    public class AnhController : Controller
     {
-        public IKhuyenMaiService _sv;
-
-        public KhuyenMaiController()
+        public IAnhService _anh;
+        public AnhController()
         {
-            _sv = new KhuyenMaiService();
+            _anh = new AnhService();
         }
-        // GET: KhuyenMaiController
+        // GET: AnhController
         [HttpGet]
         public ActionResult Index()
         {
-            var a = _sv.GetAll();
+            var a = _anh.GetAll();
             return View(a);
         }
-
-        // GET: KhuyenMaiController/Details/5
+        // GET: AnhController/Details/5
         public ActionResult Details(Guid id)
         {
-            var a = _sv.GetById(id);
-            return View(a);
+            var a = _anh.GetById(id);
+            return View();
         }
 
-        // GET: KhuyenMaiController/Create
+        // GET: AnhController/Create
         public ActionResult Create()
         {
             return View();
         }
-
-        // POST: KhuyenMaiController/Create
+        // POST: AnhController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(KhuyenMai a)
+        public ActionResult Create(Anh a)
         {
-            if (_sv.Them(a)) // Nếu thêm thành công
+            if (_anh.Them(a))
             {
-
                 return RedirectToAction("Index");
             }
-
             return View();
         }
-
-        // GET: KhuyenMaiController/Edit/5
+        // GET: AnhController/Edit/5
         public ActionResult Edit(Guid id)
         {
-            var a = _sv.GetById(id);
+            var a = _anh.GetById(id);
             return View(a);
         }
-
-        // POST: KhuyenMaiController/Edit/5
+        // POST: AnhController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(KhuyenMai a)
+        public ActionResult Edit(Anh a)
         {
-            if (_sv.Sua(a))
+            if (_anh.Sua(a))
             {
                 return RedirectToAction("Index");
 
             }
             return View();
         }
-
 
         public ActionResult Delete(Guid id)
         {
-            if (_sv.Xoa(id))
+            if (_anh.Xoa(id))
             {
                 return RedirectToAction("Index");
             }
             return RedirectToAction("Index");
         }
+
+        //public IActionResult Index()
+        //{
+        //    return View();
+        //}
     }
 }

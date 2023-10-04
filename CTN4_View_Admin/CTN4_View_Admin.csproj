@@ -719,12 +719,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
+    <ProjectReference Include="..\CTN4_Data\CTN4_Data.csproj" />
+    <ProjectReference Include="..\CTN4_Serv\CTN4_Serv.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CTN4_Data\CTN4_Data.csproj" />
-    <ProjectReference Include="..\CTN4_Serv\CTN4_Serv.csproj" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
   </ItemGroup>
 
   <ItemGroup>

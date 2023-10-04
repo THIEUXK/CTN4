@@ -6,41 +6,40 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CTN4_View_Admin.Controllers.QuanLY
 {
-    public class KhuyenMaiController : Controller
+    public class PhuongThucThanhToanController : Controller
     {
-        public IKhuyenMaiService _sv;
+         public IPhuongThucThanhToanService _pttt;
 
-        public KhuyenMaiController()
+        public PhuongThucThanhToanController()
         {
-            _sv = new KhuyenMaiService();
+            _pttt = new PhuongThucThanhToanService();
         }
-        // GET: KhuyenMaiController
-        [HttpGet]
+        // GET: PhuongThucThanhToanController
         public ActionResult Index()
         {
-            var a = _sv.GetAll();
+             var a = _pttt.GetAll();
             return View(a);
         }
 
-        // GET: KhuyenMaiController/Details/5
+        // GET: PhuongThucThanhToanController/Details/5
         public ActionResult Details(Guid id)
         {
-            var a = _sv.GetById(id);
+            var a = _pttt.GetById(id);
             return View(a);
         }
 
-        // GET: KhuyenMaiController/Create
+        // GET: PhuongThucThanhToanController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: KhuyenMaiController/Create
+        // POST: PhuongThucThanhToanController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(KhuyenMai a)
+        public ActionResult Create(PhuongThucThanhToan a)
         {
-            if (_sv.Them(a)) // Nếu thêm thành công
+            if (_pttt.Them(a)) // Nếu thêm thành công
             {
 
                 return RedirectToAction("Index");
@@ -49,19 +48,19 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             return View();
         }
 
-        // GET: KhuyenMaiController/Edit/5
+        // GET: PhuongThucThanhToanController/Edit/5
         public ActionResult Edit(Guid id)
         {
-            var a = _sv.GetById(id);
+            var a = _pttt.GetById(id);
             return View(a);
         }
 
-        // POST: KhuyenMaiController/Edit/5
+        // POST: PhuongThucThanhToanController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(KhuyenMai a)
+        public ActionResult Edit(PhuongThucThanhToan a)
         {
-            if (_sv.Sua(a))
+             if (_pttt.Sua(a))
             {
                 return RedirectToAction("Index");
 
@@ -69,10 +68,9 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             return View();
         }
 
-
-        public ActionResult Delete(Guid id)
+         public ActionResult Delete(Guid id)
         {
-            if (_sv.Xoa(id))
+            if (_pttt.Xoa(id))
             {
                 return RedirectToAction("Index");
             }
