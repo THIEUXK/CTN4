@@ -718,4 +718,17 @@
     <None Include="wwwroot\assets\vendors\typeahead.js\typeahead.bundle.min.js" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CTN4_Data\CTN4_Data.csproj" />
+    <ProjectReference Include="..\CTN4_Serv\CTN4_Serv.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\image\" />
+  </ItemGroup>
+
 </Project>
