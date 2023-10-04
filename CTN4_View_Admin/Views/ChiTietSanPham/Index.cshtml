@@ -1,0 +1,119 @@
+﻿@model IEnumerable<CTN4_Data.Models.DB_CTN4.SanPhamChiTiet>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaSp)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SoLuong)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MoTa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrangThai)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GiaNhap)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GiaBan)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GiaNiemYet)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GhiChu)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Is_detele)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdChatLieu)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdMau)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdNSX)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdSize)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdSp)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaSp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoLuong)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MoTa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrangThai)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GiaNhap)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GiaBan)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GiaNiemYet)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GhiChu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Is_detele)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdChatLieu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdMau)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdNSX)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdSize)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdSp)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
