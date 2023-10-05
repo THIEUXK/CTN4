@@ -81,11 +81,24 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.DiaChi)
                         </td>
-                        <td>
+                        <td style="color:green">
                             @Html.DisplayFor(modelItem => item.Trangthai)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.AnhDaiDien)
+
+                                @if (System.IO.Path.GetExtension(item.AnhDaiDien) == ".jpg" ||
+                               System.IO.Path.GetExtension(item.AnhDaiDien) == ".png" ||
+                               System.IO.Path.GetExtension(item.AnhDaiDien) == ".jpeg" ||
+                               System.IO.Path.GetExtension(item.AnhDaiDien) == ".tiff" ||
+                               System.IO.Path.GetExtension(item.AnhDaiDien) == ".webp" ||
+                               System.IO.Path.GetExtension(item.AnhDaiDien) == ".gif")
+                                {
+                                    <img src="~/image/@item.AnhDaiDien" height="300">
+                                }
+                                else
+                                {
+                                    <span>Ảnh lỗi rồi =)))</span>
+                                }
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.IdChucVu)

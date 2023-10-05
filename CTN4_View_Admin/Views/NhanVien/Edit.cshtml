@@ -71,9 +71,11 @@
                         </label>
                     </div>
                     <div class="form-group">
-                        <label asp-for="AnhDaiDien" class="control-label"></label>
-                        <input asp-for="AnhDaiDien" class="form-control" />
-                        <span asp-validation-for="AnhDaiDien" class="text-danger"></span>
+                        @* <label>Chọn ảnh từ Máy tính:</label>
+                        <input type="file" name="imageFile"/>*@
+                        <label asp-for="AnhDaiDien" class="control-label">AnhDaiDiem</label>
+
+                        <input type="file" name="imageFile" />
                     </div>
                     <div class="form-group">
                         <label asp-for="IdChucVu" class="control-label"></label>

@@ -82,7 +82,19 @@
                             @Html.DisplayNameFor(model => model.AnhDaiDien)
                         </dt>
                         <dd class = "col-sm-10">
-                            @Html.DisplayFor(model => model.AnhDaiDien)
+                            @if (System.IO.Path.GetExtension(Model.AnhDaiDien) == ".jpg" ||
+                                 System.IO.Path.GetExtension(Model.AnhDaiDien) == ".png" ||
+                                 System.IO.Path.GetExtension(Model.AnhDaiDien) == ".jpeg" ||
+                                 System.IO.Path.GetExtension(Model.AnhDaiDien) == ".tiff" ||
+                                 System.IO.Path.GetExtension(Model.AnhDaiDien) == ".webp" ||
+                                 System.IO.Path.GetExtension(Model.AnhDaiDien) == ".gif")
+                            {
+                                <img src="~/image/@Model.AnhDaiDien" height="100">
+                            }
+                            else
+                            {
+                                <span>Ảnh lỗi rồi =)))</span>
+                            }
                         </dd>
                         <dt class = "col-sm-2">
                             @Html.DisplayNameFor(model => model.IdChucVu)
