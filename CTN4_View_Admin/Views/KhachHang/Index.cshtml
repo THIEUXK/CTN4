@@ -1,8 +1,10 @@
 ﻿@model IEnumerable<CTN4_Data.Models.DB_CTN4.KhachHang>
 
 @{
-    ViewData["Title"] = "View";
+    ViewData["Title"] = "Index";
 }
+
+<h1>Index</h1>
 
 <div class="row ">
     <div class="card">
@@ -19,7 +21,7 @@
             <table class="table">
                 <thead>
                     <tr>
-                       
+
                         <th>
                             @Html.DisplayNameFor(model => model.Ho)
                         </th>
@@ -45,6 +47,9 @@
                             @Html.DisplayNameFor(model => model.DiaChi)
                         </th>
                         <th>
+                            @Html.DisplayNameFor(model => model.AnhDaiDien)
+                        </th>
+                        <th>
                             @Html.DisplayNameFor(model => model.Trangthai)
                         </th>
                         <th>
@@ -57,7 +62,6 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            
                             <td>
                                 @Html.DisplayFor(modelItem => item.Ho)
                             </td>
@@ -81,6 +85,21 @@
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.DiaChi)
+                            </td>
+                            <td>
+                                @if (System.IO.Path.GetExtension(item.AnhDaiDien) == ".jpg" ||
+                               System.IO.Path.GetExtension(item.AnhDaiDien) == ".png" ||
+                               System.IO.Path.GetExtension(item.AnhDaiDien) == ".jpeg" ||
+                               System.IO.Path.GetExtension(item.AnhDaiDien) == ".tiff" ||
+                               System.IO.Path.GetExtension(item.AnhDaiDien) == ".webp" ||
+                               System.IO.Path.GetExtension(item.AnhDaiDien) == ".gif")
+                                {
+                                    <img src="~/image/@item.AnhDaiDien" height="300">
+                                }
+                                else
+                                {
+                                    <span>Ảnh lỗi rồi =)))</span>
+                                }
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Trangthai)
