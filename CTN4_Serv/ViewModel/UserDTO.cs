@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace CTN4_Ser.ViewModel
 {
-    internal class Class1
+    public class UserDTO
     {
+        public int User { get; set; }
+        public int pass { get; set; }
+   
     }
 }
