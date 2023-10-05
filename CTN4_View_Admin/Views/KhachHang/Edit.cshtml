@@ -20,6 +20,7 @@
             <div class="col-md-4">
                 <form asp-action="Edit">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="AnhDaiDien" />
                     <div class="form-group">
                         <label asp-for="Ho" class="control-label"></label>
                         <input asp-for="Ho" class="form-control" />
@@ -42,8 +43,10 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="GioiTinh" class="control-label"></label>
-                        <input asp-for="GioiTinh" class="form-control" />
-                        <span asp-validation-for="GioiTinh" class="text-danger"></span>
+                        <select asp-for="GioiTinh" class="form-control">
+                            <option value=Nam>Nam</option>
+                            <option value=Nữ>Nữ</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label asp-for="Email" class="control-label"></label>
@@ -59,6 +62,14 @@
                         <label asp-for="DiaChi" class="control-label"></label>
                         <input asp-for="DiaChi" class="form-control" />
                         <span asp-validation-for="DiaChi" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                       @* <label asp-for="AnhDaiDien" class="control-label"></label>
+                        <input asp-for="AnhDaiDien" class="form-control" />
+                        <span asp-validation-for="AnhDaiDien" class="text-danger"></span>*@
+                        <label asp-for="AnhDaiDien" class="control-label">AnhDaiDien</label>
+
+                        <input type="file" name="imageFile" />
                     </div>
                     <div class="form-group form-check">
                         <label class="form-check-label">
@@ -82,5 +93,4 @@
         </div>
     </div>
 </div>
-
 
