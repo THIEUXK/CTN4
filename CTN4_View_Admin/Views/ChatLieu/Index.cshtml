@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CTN4_Data.Models.DB_CTN4.DanhMuc>
+﻿@model IEnumerable<CTN4_Data.Models.DB_CTN4.ChatLieu>
 
 @{
     ViewData["Title"] = "Index";
@@ -16,7 +16,13 @@
                 @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TenDanhMuc)
+                @Html.DisplayNameFor(model => model.TenChatLieu)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrangThai)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GhiChu)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Is_detele)
@@ -31,7 +37,13 @@
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TenDanhMuc)
+                @Html.DisplayFor(modelItem => item.TenChatLieu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrangThai)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GhiChu)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Is_detele)
