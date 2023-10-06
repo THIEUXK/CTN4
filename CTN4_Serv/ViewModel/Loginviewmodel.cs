@@ -12,6 +12,6 @@ namespace CTN4_Serv.ViewModel
         [Required]
         public string User { get; set; }
         [Required]
-        public string Password { get; set; }
+        public string Password { get; set; } 
     }
 }
