@@ -38,8 +38,24 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         // POST: NhanVienController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(NhanVien a)
+        public ActionResult Create(NhanVien a, [Bind] IFormFile imageFile)
         {
+            var x = imageFile.FileName;
+            if (imageFile != null && imageFile.Length > 0) // Không null và không trống
+            {
+                //Trỏ tới thư mục wwwroot để lát nữa thực hiện việc Copy sang
+                var path = Path.Combine(
+                    Directory.GetCurrentDirectory(), "wwwroot", "image", imageFile.FileName);
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    // Thực hiện copy ảnh vừa chọn sang thư mục mới (wwwroot)
+                    imageFile.CopyTo(stream);
+                }
+
+                // Gán lại giá trị cho Description của đối tượng bằng tên file ảnh đã được sao chép
+                a.AnhDaiDien = imageFile.FileName;
+            }
+
             if (_sv.Them(a)) // Nếu thêm thành công
             {
 
@@ -59,8 +75,23 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         // POST: NhanVienController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(NhanVien a)
+        public ActionResult Edit(NhanVien a, [Bind] IFormFile imageFile)
         {
+            if (imageFile != null && imageFile.Length > 0) // Không null và không trống
+            {
+                //Trỏ tới thư mục wwwroot để lát nữa thực hiện việc Copy sang
+                var path = Path.Combine(
+                    Directory.GetCurrentDirectory(), "wwwroot", "image", imageFile.FileName);
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    // Thực hiện copy ảnh vừa chọn sang thư mục mới (wwwroot)
+                    imageFile.CopyTo(stream);
+                }
+
+                // Gán lại giá trị cho Description của đối tượng bằng tên file ảnh đã được sao chép
+                a.AnhDaiDien = imageFile.FileName;
+            }
+
             if (_sv.Sua(a))
             {
                 return RedirectToAction("Index");
