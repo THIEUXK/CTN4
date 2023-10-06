@@ -8,9 +8,9 @@
         public bool TrangThai { get; set; }
         public bool Is_delete { get; set; }
 
-        public Guid? IdSanPhamChiTiet { get; set; }
+        public virtual Guid? IdSanPhamChiTiet { get; set; }
 
-        public SanPhamChiTiet? SanPhamChiTiet { get; set; }
+        public virtual SanPhamChiTiet? SanPhamChiTiet { get; set; }
 
     }
 }

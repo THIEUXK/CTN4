@@ -9,7 +9,7 @@ namespace CTN4_Data.Models.DB_CTN4
         public bool TrangThai { get; set; }
         public string GhiChu { get; set; }
 
-        public bool Is_detele { get; set; }
-        public List<SanPhamChiTiet> SanPhamChiTiets { get; set; }
+        public virtual bool Is_detele { get; set; }
+        public virtual List<SanPhamChiTiet>? SanPhamChiTiets { get; set; }
     }
 }

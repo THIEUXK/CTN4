@@ -7,7 +7,7 @@
         public string AnhDaiDiem { get; set; }
         public bool TrangThai { get; set; }
         public bool Is_detele { get; set; }
-        public List<SanPhamChiTiet> SanPhamChiTiets { get; set; }
+        public virtual List<SanPhamChiTiet>? SanPhamChiTiets { get; set; }
 
     }
 }

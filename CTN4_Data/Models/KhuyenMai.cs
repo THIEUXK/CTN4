@@ -11,7 +11,7 @@
         public bool TrangThai { get; set; }
         public bool Is_Detele { get; set; }
 
-        public List<KhuyenMaiSanPham> KKhuyenMaiSanPhams { get; set; }
-        public List<KhuyenMaiPhanLoai> KKhuyenMaiPhanLoais { get; set; }
+        public virtual List<KhuyenMaiSanPham>? KKhuyenMaiSanPhams { get; set; }
+        public virtual List<KhuyenMaiPhanLoai>? KKhuyenMaiPhanLoais { get; set; }
     }
 }

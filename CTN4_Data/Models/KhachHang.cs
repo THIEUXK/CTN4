@@ -15,9 +15,9 @@
         public bool Trangthai { get; set; }
         public bool Is_detele { get; set; }
 
-        public List<HoaDon> HoaDon { get; set; }
-        public List<GioHang> GioHang { get; set; }
-        public List<SanPhamYeuThich> SanPhamYeuThiches { get; set; }
-        public List<DiaChiNhanHang> DiaChiNhanHangs { get; set; }
+        public virtual List<HoaDon>? HoaDon { get; set; }
+        public virtual List<GioHang>? GioHang { get; set; }
+        public virtual List<SanPhamYeuThich>? SanPhamYeuThiches { get; set; }
+        public virtual List<DiaChiNhanHang>? DiaChiNhanHangs { get; set; }
     }
 }

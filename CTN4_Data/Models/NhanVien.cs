@@ -14,6 +14,6 @@
         public bool Trangthai { get; set; }
         public string AnhDaiDien { get; set; }
         public Guid? IdChucVu { get; set; }
-        public ChucVu? ChucVu { get; set; }
+        public virtual ChucVu? ChucVu { get; set; }
     }
 }

@@ -10,7 +10,7 @@
 
         public Guid? IdSanPhamChiTiet { get; set; }
         public Guid? IdHoaDon { get; set; }
-        public HoaDon? HoaDon { get; set; }
-        public SanPhamChiTiet? SanPhamChiTiet { get; set; }
+        public virtual HoaDon? HoaDon { get; set; }
+        public virtual SanPhamChiTiet? SanPhamChiTiet { get; set; }
     }
 }

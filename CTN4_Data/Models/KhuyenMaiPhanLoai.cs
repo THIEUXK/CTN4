@@ -6,7 +6,7 @@
         public Guid? idKhuyenMai { get; set; }
         public Guid? IdPhanLoai { get; set; }
 
-        public PhanLoai? PhanLoai { get; set; }
-        public KhuyenMai? KhuyenMai { get; set; }
+        public virtual PhanLoai? PhanLoai { get; set; }
+        public virtual KhuyenMai? KhuyenMai { get; set; }
     }
 }

@@ -5,7 +5,7 @@
         public Guid Id { get; set; }
         public bool TrangThai { get; set; }
         public Guid? IdKhachHang { get; set; }
-        public KhachHang? KhachHang { get; set;}
-        public List<GioHangChiTiet> GioHangChiTiets { get; set; }
+        public virtual KhachHang? KhachHang { get; set;}
+        public virtual List<GioHangChiTiet>? GioHangChiTiets { get; set; }
     }
 }

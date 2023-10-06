@@ -7,9 +7,9 @@
         public string GhiChu { get; set; }
         public bool TrạngThai { get; set; }
         public bool Is_Delete { get; set; }
-        
-        public List<PhanLoaiChiTiet> PhanLoaiChiTiets { get; set; }
-        public List<KhuyenMaiPhanLoai> KKhuyenMaiPhanLoais { get; set; }
+
+        public virtual List<PhanLoaiChiTiet>? PhanLoaiChiTiets { get; set; }
+        public virtual List<KhuyenMaiPhanLoai>? KKhuyenMaiPhanLoais { get; set; }
 
     }
 }

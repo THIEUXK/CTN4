@@ -7,7 +7,7 @@
         public Guid? IdGioHang { get; set; }
         public Guid? IdSanPhamChiTiet { get; set; }
 
-        public GioHang? GioHang { get; set; }
-        public SanPhamChiTiet? SanPhamChiTiet { get; set; }
+        public virtual GioHang? GioHang { get; set; }
+        public virtual SanPhamChiTiet? SanPhamChiTiet { get; set; }
     }
 }

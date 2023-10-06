@@ -20,20 +20,20 @@
         public Guid? IdSize { get; set; }
         public Guid? IdSp { get; set; }
 
-        public List<Anh> Anhs { get; set; }
+        public virtual List<Anh> Anhs { get; set; }
 
-        public ChatLieu? ChatLieu { get; set; }
-        public Mau? Mau { get; set; }
-        public Size? Size { get; set; }
-        public NSX? NSX { get; set; }
-        public SanPham? SanPham { get; set; }
+        public virtual ChatLieu? ChatLieu { get; set; }
+        public virtual Mau? Mau { get; set; }
+        public virtual Size? Size { get; set; }
+        public virtual NSX? NSX { get; set; }
+        public virtual SanPham? SanPham { get; set; }
 
-        public List<KhuyenMaiSanPham> KKhuyenMaiSanPhams { get; set; }
-        public List<PhanLoaiChiTiet> PhanLoaiChiTiets { get; set; }
-        public List<HoaDonChiTiet> HoaDonChiTiets { get; set; }
-        public List<GioHangChiTiet> GioHangChiTiets { get; set; }
-        public List<DanhMucChiTiet> DanhMucChiTiets { get; set; }
-        public List<ChiTietSanPhamYeuThich> CTietSanPhamYeuThiches { get; set; }
+        public virtual List<KhuyenMaiSanPham>? KKhuyenMaiSanPhams { get; set; }
+        public virtual List<PhanLoaiChiTiet>? PhanLoaiChiTiets { get; set; }
+        public virtual List<HoaDonChiTiet>? HoaDonChiTiets { get; set; }
+        public virtual List<GioHangChiTiet>? GioHangChiTiets { get; set; }
+        public virtual List<DanhMucChiTiet>? DanhMucChiTiets { get; set; }
+        public virtual List<ChiTietSanPhamYeuThich>? CTietSanPhamYeuThiches { get; set; }
 
 
 
