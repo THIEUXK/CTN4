@@ -234,23 +234,32 @@
 					<!-- single product -->
 					<div class="col-lg-4 col-md-6">
 						<div class="single-product">
-							<img class="img-fluid" src="~/img/product/@sp.SanPham.AnhDaiDiem" alt="">
+								@if (System.IO.Path.GetExtension(sp.SanPham.AnhDaiDiem) == ".jpg" ||
+										System.IO.Path.GetExtension(sp.SanPham.AnhDaiDiem) == ".png" ||
+										System.IO.Path.GetExtension(sp.SanPham.AnhDaiDiem) == ".jpeg" ||
+										System.IO.Path.GetExtension(sp.SanPham.AnhDaiDiem) == ".tiff" ||
+										System.IO.Path.GetExtension(sp.SanPham.AnhDaiDiem) == ".webp" ||
+										System.IO.Path.GetExtension(sp.SanPham.AnhDaiDiem) == ".gif")
+								{
+									<img src="~/image/@sp.SanPham.AnhDaiDiem" height="300">
+								}
+								else
+								{
+									<span>Ảnh lỗi rồi =)))</span>
+								}
 							<div class="product-details">
 								<h6>
-									addidas New Hammer sole
-									for Sports person
+									@sp.SanPham.TenSanPham
 								</h6>
 								<div class="price">
 										@if(sp.GiaNiemYet == sp.GiaBan)
 										{
-											<h6>@sp.GiaNiemYet</h6>
+											<h6>@FormatCurrency(sp.GiaNiemYet)</h6>
 										}
 										else{
-											<h6>@sp.GiaNiemYet</h6>
-											<h6 class="l-through">@sp.GiaBan</h6>
+											<h6>@FormatCurrency(sp.GiaNiemYet)</h6>
+											<h6 class="l-through">@FormatCurrency(sp.GiaBan)</h6>
 										}
-										
-									
 								</div>
 								<div class="prd-bottom">
 
@@ -440,3 +449,12 @@
 	</div>
 </section>
 <!-- End related-product Area -->
+<script>
+	@functions {
+		public string FormatCurrency(float price)
+			{
+			string formattedPrice = string.Format("{0:N0}", price); // Định dạng số và thêm dấu phân cách ngàn
+			return formattedPrice + "₫"; // Thêm ký hiệu đồng (₫) vào cuối
+		}
+ }
+</script>
