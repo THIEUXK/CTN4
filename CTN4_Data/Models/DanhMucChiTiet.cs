@@ -5,7 +5,7 @@
         public Guid Id { get; set; }
         public Guid? IdSanPhamChiTiet { get; set; }
         public Guid? IdDanhMuc { get; set; }
-        public DanhMuc? DanhMuc { get; set;}
-        public SanPhamChiTiet? SanPhamChiTiet { get; set; }
+        public virtual DanhMuc? DanhMuc { get; set;}
+        public virtual SanPhamChiTiet? SanPhamChiTiet { get; set; }
     }
 }

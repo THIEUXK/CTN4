@@ -6,7 +6,7 @@
         public Guid? IdSanPhamChiTiet { get; set; }
         public Guid? IdkhuyenMai { get; set; }
 
-        public SanPhamChiTiet? SanPhamChiTiet { get; set; }
-        public KhuyenMai? KhuyenMai { get; set; }
+        public virtual SanPhamChiTiet? SanPhamChiTiet { get; set; }
+        public virtual KhuyenMai? KhuyenMai { get; set; }
     }
 }

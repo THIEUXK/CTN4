@@ -14,10 +14,10 @@
         public Guid? IdPhuongThuc { get;set; }
         public Guid? IdDiaChiNhanHang { get; set; }
 
-        public List<HoaDonChiTiet> HoaDonChiTiets { get; set; }
-        public List<GiamGiaChiTiet> GiamGiaChiTiets { get; set; }
-        public PhuongThucThanhToan? PhuongThucThanhToan { get; set; }
-        public DiaChiNhanHang? DiaChiNhanHang { get; set;}
-        public KhachHang? KhachHang { get; set;}
+        public virtual List<HoaDonChiTiet>? HoaDonChiTiets { get; set; }
+        public virtual List<GiamGiaChiTiet>? GiamGiaChiTiets { get; set; }
+        public virtual PhuongThucThanhToan? PhuongThucThanhToan { get; set; }
+        public virtual DiaChiNhanHang? DiaChiNhanHang { get; set;}
+        public virtual KhachHang? KhachHang { get; set;}
     }
 }

@@ -12,6 +12,6 @@
         public DateTime NgayKetThuc { get; set; }
         public float SoTienGiamToiDa { get; set; }
         public float DieuKienGiam { get; set; }
-        public List<GiamGiaChiTiet> GiamGiaChiTiets { get; set; }
+        public virtual List<GiamGiaChiTiet>? GiamGiaChiTiets { get; set; }
     }
 }

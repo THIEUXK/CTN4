@@ -7,7 +7,7 @@
         public string DiaChi { get; set; }
         public bool TrangThai { get; set; }
         public Guid? IdKhachHang { get; set; }
-        public KhachHang? KhachHang { get; set;}
-        public List<HoaDon> HoaDon { get; set; }
+        public virtual KhachHang? KhachHang { get; set;}
+        public virtual List<HoaDon>? HoaDon { get; set; }
     }
 }
