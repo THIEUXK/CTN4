@@ -3,6 +3,7 @@ using System.Diagnostics;
 
 namespace CTN4_View_Admin.Controllers
 {
+    [Area("admin")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -21,10 +22,11 @@ namespace CTN4_View_Admin.Controllers
         {
             return View();
         }
-        public IActionResult ada()
+        public IActionResult DangNhap()
         {
             return View();
         }
+
 
 
     }

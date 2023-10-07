@@ -231,9 +231,9 @@
 				<div class="row">
 					@foreach (var sp in Model)
 					{
-					<!-- single product -->
-					<div class="col-lg-4 col-md-6">
-						<div class="single-product">
+						<!-- single product -->
+						<div class="col-lg-4 col-md-6">
+							<div class="single-product">
 								@if (System.IO.Path.GetExtension(sp.SanPham.AnhDaiDiem) == ".jpg" ||
 										System.IO.Path.GetExtension(sp.SanPham.AnhDaiDiem) == ".png" ||
 										System.IO.Path.GetExtension(sp.SanPham.AnhDaiDiem) == ".jpeg" ||
@@ -247,42 +247,43 @@
 								{
 									<span>Ảnh lỗi rồi =)))</span>
 								}
-							<div class="product-details">
-								<h6>
-									@sp.SanPham.TenSanPham
-								</h6>
-								<div class="price">
-										@if(sp.GiaNiemYet == sp.GiaBan)
+								<div class="product-details">
+									<h6>
+										@sp.SanPham.TenSanPham
+									</h6>
+									<div class="price">
+										@if (sp.GiaNiemYet == sp.GiaBan)
 										{
 											<h6>@FormatCurrency(sp.GiaNiemYet)</h6>
 										}
-										else{
+										else
+										{
 											<h6>@FormatCurrency(sp.GiaNiemYet)</h6>
 											<h6 class="l-through">@FormatCurrency(sp.GiaBan)</h6>
 										}
-								</div>
-								<div class="prd-bottom">
+									</div>
+									<div class="prd-bottom">
 
-									<a href="" class="social-info">
-										<span class="ti-bag"></span>
-										<p class="hover-text">add to bag</p>
-									</a>
-									<a href="" class="social-info">
-										<span class="lnr lnr-heart"></span>
-										<p class="hover-text">Wishlist</p>
-									</a>
-									<a href="" class="social-info">
-										<span class="lnr lnr-sync"></span>
-										<p class="hover-text">compare</p>
-									</a>
-									<a href="" class="social-info">
-										<span class="lnr lnr-move"></span>
-										<p class="hover-text">view more</p>
-									</a>
+										<a href="" class="social-info">
+											<span class="ti-bag"></span>
+											<p class="hover-text">add to bag</p>
+										</a>
+										<a href="" class="social-info">
+											<span class="lnr lnr-heart"></span>
+											<p class="hover-text">Wishlist</p>
+										</a>
+										<a href="" class="social-info">
+											<span class="lnr lnr-sync"></span>
+											<p class="hover-text">compare</p>
+										</a>
+										<a href="" class="social-info">
+											<span class="lnr lnr-move"></span>
+											<p class="hover-text">view more</p>
+										</a>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
 					}
 				</div>
 			</section>
@@ -452,7 +453,7 @@
 <script>
 	@functions {
 		public string FormatCurrency(float price)
-			{
+		{
 			string formattedPrice = string.Format("{0:N0}", price); // Định dạng số và thêm dấu phân cách ngàn
 			return formattedPrice + "₫"; // Thêm ký hiệu đồng (₫) vào cuối
 		}

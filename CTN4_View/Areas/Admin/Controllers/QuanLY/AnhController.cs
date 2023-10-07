@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CTN4_View_Admin.Controllers.QuanLY
 {
+    [Area("admin")]
     public class AnhController : Controller
     {
         public IAnhService _anh;

@@ -50,12 +50,7 @@ namespace CTN4_View.Controllers
         {
             return View();
         }
-        [HttpGet]
-        public IActionResult category()
-        {
-             var listSpCt = _sanPhamCuaHangService.GetAll();
-            return View(listSpCt);
-        }
+       
         public IActionResult confirmation()
         {
             return View();

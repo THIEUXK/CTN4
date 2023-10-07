@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CTN4_View_Admin.Controllers.QuanLY
 {
+    [Area("admin")]
     public class MauController : Controller
     {
         public IMauService _mau;
