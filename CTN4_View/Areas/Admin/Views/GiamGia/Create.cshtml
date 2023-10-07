@@ -1,0 +1,76 @@
+﻿@model CTN4_Data.Models.DB_CTN4.GiamGia
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-9">
+        <br></br>
+        <h1>Create</h1>
+        <h4>GiamGia</h4>
+        <hr />
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="MaGiam" class="control-label"></label>
+                        <input asp-for="MaGiam" class="form-control" />
+                        <span asp-validation-for="MaGiam" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SoTienGiam" class="control-label"></label>
+                        <input asp-for="SoTienGiam" class="form-control" />
+                        <span asp-validation-for="SoTienGiam" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PhanTramGiam" class="control-label"></label>
+                        <input asp-for="PhanTramGiam" class="form-control" />
+                        <span asp-validation-for="PhanTramGiam" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SoLuong" class="control-label"></label>
+                        <input asp-for="SoLuong" class="form-control" />
+                        <span asp-validation-for="SoLuong" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="NgayBatDau" class="control-label"></label>
+                        <input asp-for="NgayBatDau" class="form-control" />
+                        <span asp-validation-for="NgayBatDau" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="NgayKetThuc" class="control-label"></label>
+                        <input asp-for="NgayKetThuc" class="form-control" />
+                        <span asp-validation-for="NgayKetThuc" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SoTienGiamToiDa" class="control-label"></label>
+                        <input asp-for="SoTienGiamToiDa" class="form-control" />
+                        <span asp-validation-for="SoTienGiamToiDa" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DieuKienGiam" class="control-label"></label>
+                        <input asp-for="DieuKienGiam" class="form-control" />
+                        <span asp-validation-for="DieuKienGiam" class="text-danger"></span>
+                    </div>
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="TrangThai" /> @Html.DisplayNameFor(model => model.TrangThai)
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                    <div>
+                        <h4>_________________________________________________</h4>
+                        <a asp-action="Index">Back to List</a>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
