@@ -1,0 +1,78 @@
+﻿@model CTN4_Data.Models.DB_CTN4.KhuyenMai
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+<div class="row">
+    <div class="col-md-9">
+        <br></br>
+        <br></br>
+
+        <h1>Edit</h1>
+
+        <h4>KhuyenMai</h4>
+        <hr />
+        <div class="row">
+            <div class="col-md-9">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Id" class="control-label"></label>
+                        <input asp-for="Id" class="form-control" />
+                        <span asp-validation-for="Id" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="MaKhuyenMai" class="control-label"></label>
+                        <input asp-for="MaKhuyenMai" class="form-control" />
+                        <span asp-validation-for="MaKhuyenMai" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PhanTramGiamGia" class="control-label"></label>
+                        <input asp-for="PhanTramGiamGia" class="form-control" />
+                        <span asp-validation-for="PhanTramGiamGia" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="NgayBatDau" class="control-label"></label>
+                        <input asp-for="NgayBatDau" class="form-control" />
+                        <span asp-validation-for="NgayBatDau" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="NgayKetThuc" class="control-label"></label>
+                        <input asp-for="NgayKetThuc" class="form-control" />
+                        <span asp-validation-for="NgayKetThuc" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SoTienGiam" class="control-label"></label>
+                        <input asp-for="SoTienGiam" class="form-control" />
+                        <span asp-validation-for="SoTienGiam" class="text-danger"></span>
+                    </div>
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="TrangThai" /> @Html.DisplayNameFor(model => model.TrangThai)
+                        </label>
+                    </div>
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Is_Detele" /> @Html.DisplayNameFor(model => model.Is_Detele)
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                    <div>
+                        <h4>_________________________________________________</h4>
+                        <a asp-action="Index">Back to List</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+

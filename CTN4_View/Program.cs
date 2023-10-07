@@ -48,15 +48,17 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseSession();
 
-app.Use(async (context, next) =>
-{
-    var token = context.Session.GetString("Token");
-    if (!string.IsNullOrEmpty(token))
-    {
-        context.Request.Headers.Add("Authorization", "Bearer " + token);
-    }
-    await next();
-});
+
+
+//app.Use(async (context, next) =>
+//{
+//    var token = context.Session.GetString("Token");
+//    if (!string.IsNullOrEmpty(token))
+//    {
+//        context.Request.Headers.Add("Authorization", "Bearer " + token);
+//    }
+//    await next();
+//});
 
 app.UseStaticFiles();
 
@@ -64,6 +66,15 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "areas",
+        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+    );
+});
+
 
 app.MapControllerRoute(
     name: "default",

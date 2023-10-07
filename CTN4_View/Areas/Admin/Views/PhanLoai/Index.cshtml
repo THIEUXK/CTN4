@@ -1,0 +1,65 @@
+﻿@model IEnumerable<CTN4_Data.Models.DB_CTN4.PhanLoai>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row ">
+    <div class="card">
+        <div class="card-body">
+            <br></br>
+          
+            <h1>Quản lý phân loại</h1>
+
+            <p>
+                <button type="button" class="btn btn-warning btn-fw editable-click=" asp-action="Create"><a asp-action="Create" style="color:white">Thêm</a></button>
+
+            </p>
+            <table class="table">
+                <thead>
+                <tr>
+                    
+                    <th>
+                        @Html.DisplayNameFor(model => model.TenPhanLoai)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.GhiChu)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TrạngThai)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Is_Delete)
+                    </th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model) {
+                    <tr>
+                        
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TenPhanLoai)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GhiChu)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TrạngThai)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Is_Delete)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
