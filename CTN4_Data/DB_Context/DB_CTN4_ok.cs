@@ -11,10 +11,6 @@ namespace CTN4_Data.DB_Context
 {
     public class DB_CTN4_ok:DbContext
     {
-        public DB_CTN4_ok()
-        {
-            
-        }
         public DbSet<Anh> Anhs { get; set; }
         public DbSet<ChatLieu> ChatLieus { get; set; }
         public DbSet<ChiTietSanPhamYeuThich> ChiTietSanPhamYeu { get; set; }
@@ -48,7 +44,7 @@ namespace CTN4_Data.DB_Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-OIMSHUN;Initial Catalog=ctn4;Persist Security Info=True;User ID=sa;Password=123456");
+            optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-OIMSHUN;Initial Catalog=ctn4;Persist Security Info=True;User ID=sa;Password=thieu12345");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
