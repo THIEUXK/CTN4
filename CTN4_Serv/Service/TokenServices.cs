@@ -31,6 +31,23 @@ namespace CTN4_Serv.Service
                 expires: DateTime.Now.AddMinutes(EXPIRY_DURATION_MINUTES), signingCredentials: credentials);
             return new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
         }
+
+        public string BuildTokens(string key, string issuer, KhachHang user)
+        {
+            var claims = new[] {
+
+                new Claim(ClaimTypes.Name, user.TenDangNhap),
+                new Claim(ClaimTypes.Role, "Khach Hang"),
+                new Claim(ClaimTypes.NameIdentifier, Guid.NewGuid().ToString())
+            };
+
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
+            var tokenDescriptor = new JwtSecurityToken(issuer, issuer, claims,
+                expires: DateTime.Now.AddMinutes(EXPIRY_DURATION_MINUTES), signingCredentials: credentials);
+            return new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
+        }
+
         //public string GenerateJSONWebToken(string key, string issuer, UserDTO user)
         //{
         //    var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
