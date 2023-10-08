@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace CTN4_View_Admin.Controllers.QuanLY
 {
     [Area("admin")]
-    public class ChiTietSanPhamController : Controller
+    public class QuanLYHController : Controller
     {
         public ISanPhamChiTietService _sv;
         public IChatLieuService _chatLieuService;
@@ -17,7 +17,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         public ISanPhamService _spService;
         public ISizeService _sizeService;
 
-        public ChiTietSanPhamController()
+        public QuanLYHController()
         {
             _sv = new SanPhamChiTietService();
             _chatLieuService = new ChatLieuService();
