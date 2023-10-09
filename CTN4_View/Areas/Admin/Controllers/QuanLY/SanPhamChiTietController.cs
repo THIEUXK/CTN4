@@ -1,19 +1,21 @@
 ﻿using CTN4_Data.Models.DB_CTN4;
-using CTN4_Serv.Service;
 using CTN4_Serv.Service.IService;
+using CTN4_Serv.Service;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CTN4_View_Admin.Controllers.QuanLY
+namespace CTN4_View.Areas.Admin.Controllers.QuanLY
 {
-    public class ChiTietSanPhamController : Controller
+    public class SanPhamChiTietController : Controller
     {
         public ISanPhamChiTietService _sv;
 
-        public ChiTietSanPhamController()
+        public SanPhamChiTietController()
         {
             _sv = new SanPhamChiTietService();
         }
-        // GET: PhanLoaiController
+        // GET: SanPhamChiTietController
+        // GET: SanPhamController
         [HttpGet]
         public ActionResult Index()
         {
@@ -21,25 +23,27 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             return View(a);
         }
 
-        // GET: PhanLoaiController/Details/5
+        // GET: SanPhamController/Details/5
         public ActionResult Details(Guid id)
         {
             var a = _sv.GetById(id);
             return View(a);
         }
 
-        // GET: PhanLoaiController/Create
+        // GET: SanPhamController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: PhanLoaiController/Create
+        // POST: SanPhamController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(SanPhamChiTiet a)
+        public ActionResult Create(SanPhamChiTiet p, [Bind] IFormFile imageFile)
         {
-            if (_sv.Them(a)) // Nếu thêm thành công
+       
+
+            if (_sv.Them(p)) // Nếu thêm thành công
             {
 
                 return RedirectToAction("Index");
@@ -48,19 +52,21 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             return View();
         }
 
-        // GET: PhanLoaiController/Edit/5
+        // GET: SanPhamController/Edit/5
+        [HttpGet]
         public ActionResult Edit(Guid id)
         {
             var a = _sv.GetById(id);
             return View(a);
         }
 
-        // POST: PhanLoaiController/Edit/5
+        // POST: SanPhamController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(SanPhamChiTiet a)
+        public ActionResult Edit(SanPhamChiTiet p, [Bind] IFormFile imageFile)
         {
-            if (_sv.Sua(a))
+          
+            if (_sv.Sua(p))
             {
                 return RedirectToAction("Index");
 
@@ -68,8 +74,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             return View();
         }
 
-
-
+        // GET: SanPhamController/Delete/5
         public ActionResult Delete(Guid id)
         {
             if (_sv.Xoa(id))

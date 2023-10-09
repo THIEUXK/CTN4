@@ -780,7 +780,6 @@
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Views\Home\blog.cshtml" />
     <_ContentIncludedByDefault Remove="Views\Home\cart.cshtml" />
-    <_ContentIncludedByDefault Remove="Views\Home\category.cshtml" />
     <_ContentIncludedByDefault Remove="Views\Home\checkout.cshtml" />
     <_ContentIncludedByDefault Remove="Views\Home\confirmation.cshtml" />
     <_ContentIncludedByDefault Remove="Views\Home\contact.cshtml" />
@@ -789,10 +788,6 @@
 
   <ItemGroup>
     <UpToDateCheckInput Remove="Views\Home\cart.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Views\Home\category.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -1599,7 +1594,3 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\Anh\" />
-  </ItemGroup>
-
-</Project>
