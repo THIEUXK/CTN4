@@ -1,4 +1,4 @@
-﻿@model CTN4_Data.Models.DB_CTN4.SanPhamChiTiet
+﻿@model CTN4_Serv.ViewModel.SanPhamChiTietView
 
 @{
     ViewData["Title"] = "Edit";
@@ -24,11 +24,6 @@
             <div class="col-md-9">
                 <form asp-action="Edit">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="form-group">
-                        <label asp-for="Id" class="control-label"></label>
-                        <input asp-for="Id" class="form-control" />
-                        <span asp-validation-for="Id" class="text-danger"></span>
-                    </div>
                     <div class="form-group">
                         <label asp-for="MaSp" class="control-label"></label>
                         <input asp-for="MaSp" class="form-control" />
@@ -75,35 +70,63 @@
                         </label>
                     </div>
                     <div class="form-group">
-                        <label asp-for="IdChatLieu" class="control-label"></label>
-                        <input asp-for="IdChatLieu" class="form-control" />
-                        <span asp-validation-for="IdChatLieu" class="text-danger"></span>
+                        <label asp-for="IdChatLieu">Chat lieu</label>
+                        <select asp-for="IdChatLieu" class="form-control">
+                            <option value="">-- Select ChatLieu --</option>
+                            @foreach (var a in Model.ChalieuItems)
+                            {
+                                <option value="@a.Value">@a.Text</option>
+                            }
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label asp-for="IdMau" class="control-label"></label>
-                        <input asp-for="IdMau" class="form-control" />
-                        <span asp-validation-for="IdMau" class="text-danger"></span>
+                        <label asp-for="IdMau">mau</label>
+                        <select asp-for="IdMau" class="form-control">
+                            <option value="">-- Select Mau --</option>
+                            @foreach (var a in Model.MauItems)
+                            {
+                                <option value="@a.Value">@a.Text</option>
+                            }
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label asp-for="IdNSX" class="control-label"></label>
-                        <input asp-for="IdNSX" class="form-control" />
-                        <span asp-validation-for="IdNSX" class="text-danger"></span>
+                        <label asp-for="IdNSX">Nsx</label>
+                        <select asp-for="IdNSX" class="form-control">
+                            <option value="">-- Select Nsx --</option>
+                            @foreach (var a in Model.NsxItems)
+                            {
+                                <option value="@a.Value">@a.Text</option>
+                            }
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label asp-for="IdSize" class="control-label"></label>
-                        <input asp-for="IdSize" class="form-control" />
-                        <span asp-validation-for="IdSize" class="text-danger"></span>
+                        <label asp-for="IdSize">size</label>
+                        <select asp-for="IdSize" class="form-control">
+                            <option value="">-- Select size --</option>
+                            @foreach (var a in Model.SizeItems)
+                            {
+                                <option value="@a.Value">@a.Text</option>
+                            }
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label asp-for="IdSp" class="control-label"></label>
-                        <input asp-for="IdSp" class="form-control" />
-                        <span asp-validation-for="IdSp" class="text-danger"></span>
+                        <label asp-for="IdSp">SanPham</label>
+                        <select asp-for="IdSp" class="form-control">
+                            <option value="">-- Select SanPham --</option>
+                            @foreach (var a in Model.SpItems)
+                            {
+                                <option value="@a.Value">@a.Text</option>
+                            }
+                        </select>
                     </div>
                     <div class="form-group">
-                        <input type="submit" value="Save" class="btn btn-primary" />
+                        <input type="submit" value="Create" class="btn btn-primary" />
                     </div>
-                    <h4>_________________________________________________</h4>
-                    <a asp-action="Index">Back to List</a>
+
+                    <div>
+                        <h4>_________________________________________________</h4>
+                        <a asp-action="Index">Back to List</a>
+                    </div>
                 </form>
             </div>
         </div>

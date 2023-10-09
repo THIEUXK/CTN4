@@ -72,6 +72,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                     Value = s.Id.ToString(),
                     Text = s.TenSize
                 }).ToList(),
+
             };
             return View(viewModel);
         }
@@ -93,32 +94,62 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         // GET: PhanLoaiController/Edit/5
         public ActionResult Edit(Guid id)
         {
-            var a = _sv.GetById(id);
-            return View(a);
-        }
-
-        // POST: PhanLoaiController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(SanPhamChiTiet a)
-        {
-            if (_sv.Sua(a))
+            var viewModel = new SanPhamChiTietView()
             {
-                return RedirectToAction("Index");
+                ChalieuItems = _chatLieuService.GetAll().Select(s => new SelectListItem
+                {
+                    Value = s.Id.ToString(),
+                    Text = s.TenChatLieu
+                }).ToList(),
+                MauItems = _mauService.GetAll().Select(s => new SelectListItem
+                {
+                    Value = s.Id.ToString(),
+                    Text = s.TenMau
+                }).ToList(),
+                NsxItems = _nsxService.GetAll().Select(s => new SelectListItem
+                {
+                    Value = s.Id.ToString(),
+                    Text = s.TenNSX
+                }).ToList(),
+                SpItems = _spService.GetAll().Select(s => new SelectListItem
+                {
+                    Value = s.Id.ToString(),
+                    Text = s.TenSanPham
+                }).ToList(),
+                SizeItems = _sizeService.GetAll().Select(s => new SelectListItem
+                {
+                    Value = s.Id.ToString(),
+                    Text = s.TenSize
+                }).ToList(),
 
-            }
-            return View();
-        }
+                SnaSanPhamChiTiet = _sv.GetById(id)
 
+        };
+            return View(viewModel);
+    }
 
-
-        public ActionResult Delete(Guid id)
+    // POST: PhanLoaiController/Edit/5
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public ActionResult Edit(SanPhamChiTiet a)
+    {
+        if (_sv.Sua(a))
         {
-            if (_sv.Xoa(id))
-            {
-                return RedirectToAction("Index");
-            }
+            return RedirectToAction("Index");
+
+        }
+        return View();
+    }
+
+
+
+    public ActionResult Delete(Guid id)
+    {
+        if (_sv.Xoa(id))
+        {
             return RedirectToAction("Index");
         }
+        return RedirectToAction("Index");
     }
+}
 }
