@@ -98,7 +98,7 @@ namespace CTN4_Data.DB_Context
                     GioiTinh = "Nữ",
                     DiaChi = "Hà Nội",
                     Email = "nothing@gmail.com",
-                    Trangthai = true
+                    Trangthai = true,
                 },
                 new NhanVien()
                 {
