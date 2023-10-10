@@ -580,13 +580,13 @@ namespace CTN4_Data.Migrations
                 columns: new[] { "Id", "GhiChu", "Is_detele", "TenChatLieu", "TrangThai" },
                 values: new object[,]
                 {
-                    { new Guid("094ca951-83de-4c08-833d-8311ceb09761"), "", true, "Nylon (Polyester)", true },
-                    { new Guid("1a3ad2d4-fdfc-4725-9e04-1e1329ec0179"), "", true, "Vải không dệt (Micro Polyester)", true },
-                    { new Guid("1b6ee31b-d377-4482-b5bf-866b68959e72"), "", true, "Vải bông (Cotton)", true },
-                    { new Guid("7b1524c5-a0f4-4676-933a-67ad3d3c6953"), "", true, "Da thuộc (real leather)", true },
-                    { new Guid("b9517dde-7237-4d9d-a193-ea27b519655a"), "", true, "Canvas", true },
-                    { new Guid("d84de0f3-e1a0-4704-be06-a34edceebda9"), "", true, "Vải Simili (Giả da)", true },
-                    { new Guid("e3d5cc85-0bcc-4930-bb56-68c3f8b275f4"), "", true, "Tricot (Vải dệt kim)", true }
+                    { new Guid("3b197410-13a0-4051-ad6c-ccad0e2e2586"), "", true, "Vải bông (Cotton)", true },
+                    { new Guid("51374351-85ba-41b8-bf2b-fa4dee2a1492"), "", true, "Canvas", true },
+                    { new Guid("7d4099bc-27c3-44f6-adfb-11854155de7c"), "", true, "Tricot (Vải dệt kim)", true },
+                    { new Guid("9a20cc30-1087-4010-8027-b2951b74d2d2"), "", true, "Nylon (Polyester)", true },
+                    { new Guid("a24e6908-c2e5-4c48-b5be-8c91acce8d73"), "", true, "Vải Simili (Giả da)", true },
+                    { new Guid("eb5129f3-2382-4d2d-bea9-e6877ec06ea8"), "", true, "Vải không dệt (Micro Polyester)", true },
+                    { new Guid("ec462b2b-38e6-4bb6-ac09-89da9c98415f"), "", true, "Da thuộc (real leather)", true }
                 });
 
             migrationBuilder.InsertData(
@@ -603,18 +603,18 @@ namespace CTN4_Data.Migrations
                 columns: new[] { "Id", "Is_detele", "TenDanhMuc" },
                 values: new object[,]
                 {
-                    { new Guid("00a2ffcc-e12b-4bd7-ac46-59f21571b68b"), true, "Túi satchel" },
-                    { new Guid("1bd36788-c97f-4d29-948a-27e25b17554e"), true, "Túi bao tử – Túi bumbag" },
-                    { new Guid("2a7ec1bc-49e4-4df8-a0fd-f232e0d39ab3"), true, "Túi cầm tay – Clutch" },
-                    { new Guid("2fd6df78-1def-4b21-8a40-db5ef77211d4"), true, "Túi Bucket" },
-                    { new Guid("43f2a9f0-ce38-459f-bd07-1ab54a2560ab"), true, "Túi đeo chéo Nữ – Cross body" },
-                    { new Guid("5d5f7e88-1ff7-4575-a61c-771f0483acc6"), true, "Túi dây rút – Pouch" },
-                    { new Guid("6ce05de5-e0b7-4b4b-8168-e41a6f2c017a"), true, "Túi đeo vai – Shoulder bag" },
-                    { new Guid("8171275b-f4bd-49a0-a0a5-38a1d8b6718b"), true, "Túi Hobo" },
-                    { new Guid("b1365862-bb4b-42a7-bcea-af5176cc405a"), true, "Túi baguette" },
-                    { new Guid("da809ffc-5b5c-4c10-92af-d3d95b0d8c1d"), true, "Túi Ring Bag" },
-                    { new Guid("ddb12c7e-7246-4561-9888-000be2b16216"), true, "Túi Bowling" },
-                    { new Guid("fb98b4fb-d941-439a-8ed9-86166f9362f5"), true, "Túi tote" }
+                    { new Guid("14dc9ea3-273c-49fa-8fa0-60efcd9ceaf3"), true, "Túi Bowling" },
+                    { new Guid("1977fc46-2ffd-4e40-82f8-ccbf84665132"), true, "Túi bao tử – Túi bumbag" },
+                    { new Guid("2bfe2539-15a0-48cb-b974-ad950277391c"), true, "Túi tote" },
+                    { new Guid("4cc796c6-e1e7-42c3-b62b-2b92135505be"), true, "Túi Bucket" },
+                    { new Guid("5c50c444-903a-4af2-9913-00ba3c9676d2"), true, "Túi cầm tay – Clutch" },
+                    { new Guid("5d5a39f4-fe1b-4c01-9e8d-6a897f4107be"), true, "Túi đeo vai – Shoulder bag" },
+                    { new Guid("6cbdc816-26a8-4524-af9a-81c83bc357d9"), true, "Túi baguette" },
+                    { new Guid("9cd545fb-f863-4064-b14c-b8b33694164f"), true, "Túi đeo chéo Nữ – Cross body" },
+                    { new Guid("a8616f54-957c-481e-bf7b-bdad27932c50"), true, "Túi Ring Bag" },
+                    { new Guid("b457bbcc-1223-4080-a111-c907c4e4e8b5"), true, "Túi satchel" },
+                    { new Guid("d148a415-3c3d-4632-acf7-696fd9520331"), true, "Túi Hobo" },
+                    { new Guid("f68b0d0e-19ab-491b-a850-9ee3d38c3de9"), true, "Túi dây rút – Pouch" }
                 });
 
             migrationBuilder.InsertData(
@@ -622,19 +622,19 @@ namespace CTN4_Data.Migrations
                 columns: new[] { "Id", "Is_detele", "TenMau", "TrangThai" },
                 values: new object[,]
                 {
-                    { new Guid("04196172-0d23-45e3-82c7-154f7cb79cc1"), true, "nâu da", true },
-                    { new Guid("0f0d0801-6300-4c1d-a81d-aee84e07ce6b"), true, "xám", true },
-                    { new Guid("1675ec61-957c-46ac-8e08-ea027feec9a0"), true, "xanh lục", true },
-                    { new Guid("2c4470d6-26c9-4c7c-8902-9ade81515b1b"), true, "tím", true },
-                    { new Guid("3ce6f344-eff7-489d-9f0b-daca40960c92"), true, "cam", true },
-                    { new Guid("44254058-4f89-4ecb-8665-a0d2be9d8228"), true, "xanh đương", true },
-                    { new Guid("6148cb90-cbd2-4b78-ad5d-9c6315ccca74"), true, "vàng", true },
-                    { new Guid("66fee70c-2c00-40a0-b7eb-b29554b453f1"), true, "trắng", true },
-                    { new Guid("75673d9f-0387-4b07-8113-79557415676d"), true, "xanh lá đậm", true },
-                    { new Guid("a14575d1-23b8-4842-ab93-0d2c0ddd9166"), true, "đen", true },
-                    { new Guid("d951c306-6e12-4de7-80cb-68b2c96df928"), true, "hồng", true },
-                    { new Guid("ec55cb54-7a31-4163-8c31-8e7456b38bd2"), true, "tràm", true },
-                    { new Guid("fa08fe04-02cd-44ad-b709-87828b26290f"), true, "kem", true }
+                    { new Guid("00e0d3cc-c5c9-42d8-bcbc-ae59804cc4e5"), true, "vàng", true },
+                    { new Guid("0c35ea37-cce8-420b-87b4-401a610f413b"), true, "trắng", true },
+                    { new Guid("0eccdbac-0fdf-4ec0-af1b-def5d8b86661"), true, "xanh lá đậm", true },
+                    { new Guid("114a5caa-b88d-4dc9-835e-2d8f6491669d"), true, "tím", true },
+                    { new Guid("6009f7d2-5269-419a-b8a8-afc182564e13"), true, "xanh đương", true },
+                    { new Guid("635331d0-25e1-4362-9db1-3ab5b4f9eb39"), true, "xám", true },
+                    { new Guid("68a45eea-e72c-4417-adcb-49a1fcebd878"), true, "cam", true },
+                    { new Guid("8817b6d6-b3cd-489f-a386-6b7d8d1c0204"), true, "đen", true },
+                    { new Guid("a18da778-84e1-43bf-b26e-48bf436280db"), true, "xanh lục", true },
+                    { new Guid("a69f1e46-cc3d-48b2-a399-d6eebea47ae4"), true, "kem", true },
+                    { new Guid("cf367bd6-7d9c-4173-9368-e057a7691a7a"), true, "tràm", true },
+                    { new Guid("fe2fb4e9-96f9-4ccc-a0fd-084fb05763f8"), true, "hồng", true },
+                    { new Guid("fea426ce-3a50-48a3-a430-e47a695f6d69"), true, "nâu da", true }
                 });
 
             migrationBuilder.InsertData(
@@ -642,14 +642,14 @@ namespace CTN4_Data.Migrations
                 columns: new[] { "Id", "GhiChu", "Is_detele", "TenNSX", "TrangThai" },
                 values: new object[,]
                 {
-                    { new Guid("1e3728ce-891e-4027-9956-88b53a299a1f"), "", true, "Juno", true },
-                    { new Guid("27d93154-2ba6-4bdb-a969-267a21d60781"), "", true, "Louis Vuitton", true },
-                    { new Guid("31bda7a6-064b-4f9b-945a-d19a0c3b8d24"), "", true, "Gucci", true },
-                    { new Guid("353f94f4-ff82-43e5-a71a-32aef8bb9bff"), "", true, "Michael Kors", true },
-                    { new Guid("3d2ec165-7e42-4008-ac79-5787e3c0e265"), "", true, "Prada", true },
-                    { new Guid("419d297f-10d8-46a1-8137-f0fcf0edf6b2"), "", true, "MLB Korea", true },
-                    { new Guid("582e24af-d698-4dc0-85ff-8d0c5cae15e8"), "", true, "Christian Dior", true },
-                    { new Guid("bfe7baf1-d821-42c6-8ae6-b2ffc8ab1e24"), "", true, "Chanel", true }
+                    { new Guid("10389a8f-7c7c-47b9-91ca-91a55fd26490"), "", true, "Prada", true },
+                    { new Guid("303f9418-9fd8-48d6-9b84-0e67d48bf8d6"), "", true, "Louis Vuitton", true },
+                    { new Guid("3658457b-5bc5-4b04-b718-a835d8fb494b"), "", true, "Christian Dior", true },
+                    { new Guid("3f47bb5b-0f2e-40a2-8cb9-b370c01f4717"), "", true, "Juno", true },
+                    { new Guid("496cab73-3994-4ea7-bff4-2f77a920ad3e"), "", true, "Michael Kors", true },
+                    { new Guid("57ac4476-d736-46c0-ac3a-31171117410e"), "", true, "Coach", true },
+                    { new Guid("af00fda2-a10a-4179-aaa1-98c9f32f11d3"), "", true, "Chanel", true },
+                    { new Guid("b178a127-9e58-42e4-b2f1-fde80d0026cf"), "", true, "JW Anderson", true }
                 });
 
             migrationBuilder.InsertData(
@@ -657,8 +657,8 @@ namespace CTN4_Data.Migrations
                 columns: new[] { "Id", "GhiChu", "Is_detele", "TenNSX", "TrangThai" },
                 values: new object[,]
                 {
-                    { new Guid("d2210412-6f2a-43b7-a92b-08ca4a006861"), "", true, "JW Anderson", true },
-                    { new Guid("edad5ce4-cb79-406f-84d6-a094d77a9ae2"), "", true, "Coach", true }
+                    { new Guid("ce7f6f6b-0381-49b0-a8eb-2d291bc346d2"), "", true, "Gucci", true },
+                    { new Guid("f805141f-76c9-476a-a1f3-5e7202b1fdf2"), "", true, "MLB Korea", true }
                 });
 
             migrationBuilder.InsertData(
@@ -666,16 +666,16 @@ namespace CTN4_Data.Migrations
                 columns: new[] { "Id", "AnhDaiDiem", "Is_detele", "TenSanPham", "TrangThai" },
                 values: new object[,]
                 {
-                    { new Guid("00634307-c911-47e6-8693-5f8ec9cb02e8"), "", true, "Túi Xách Nhỏ Top Handle Cozy", true },
-                    { new Guid("182b5646-e907-44c7-9d12-a784cc625c0b"), "", true, "Túi Xách Nhỏ Hobo Time Travelling", true },
-                    { new Guid("93e3a5ef-3dcf-40a0-9f65-5f7f7e7c9b22"), "", true, "Túi Xách Nhỏ Dây Kéo Phối 2 Chất Liệu", true },
-                    { new Guid("a36cff49-a02c-40d7-9138-30932c228591"), "", true, "Túi Xách Nhỏ Shoulder Bag Trang Trí Khóa Logo Cách Điệu", true },
-                    { new Guid("b3c0600e-92f1-4a6a-918d-c34238707adf"), "", true, "Túi Xách Nhỏ Đeo Vai Time Travelling", true },
-                    { new Guid("b408cfc5-3394-4f54-baee-aff744c1d3c1"), "", true, "Túi Xách Nhỏ Top Handle Phối Hoa 3D", true },
-                    { new Guid("c2b33031-ac34-485c-b992-a4e1e0f55ba1"), "", true, "Túi Xách Nhỏ Hobo Dập Logo Jn", true },
-                    { new Guid("e987e6c0-3506-4b3b-b33e-b04647aa7d70"), "", true, "Túi Xách Nhỏ Đeo Vai Elite Of The Class", true },
-                    { new Guid("f0a68696-d90e-43b4-ab6a-c45eb5eff7d5"), "", true, "Túi Xách Nhỏ Nắp Gập Khóa Trang Trí", true },
-                    { new Guid("fd7ffec8-9f4d-48b4-962a-a99a56a2c46e"), "", true, "Túi Xách Nhỏ Dáng Boho New Moon", true }
+                    { new Guid("3b802f76-398e-426f-864b-544989efa3ee"), "", true, "Túi Xách Nhỏ Dáng Boho New Moon", true },
+                    { new Guid("3d37ba9d-c1c8-4c58-9e09-e483c599e44b"), "", true, "Túi Xách Nhỏ Hobo Dập Logo Jn", true },
+                    { new Guid("4a2b1746-1982-4b8c-a50e-a9de0577807f"), "", true, "Túi Xách Nhỏ Nắp Gập Khóa Trang Trí", true },
+                    { new Guid("582df4f8-e272-4819-b96a-b2e224bbd1a2"), "", true, "Túi Xách Nhỏ Top Handle Phối Hoa 3D", true },
+                    { new Guid("6b26e07b-d461-473e-ab38-eab8a260d4a2"), "", true, "Túi Xách Nhỏ Top Handle Cozy", true },
+                    { new Guid("8da2f9f9-5773-417d-ab69-ad823d58f259"), "", true, "Túi Xách Nhỏ Đeo Vai Elite Of The Class", true },
+                    { new Guid("a0ae2d7e-de52-4845-b355-db823911e263"), "", true, "Túi Xách Nhỏ Shoulder Bag Trang Trí Khóa Logo Cách Điệu", true },
+                    { new Guid("ac9cb53d-82ae-46b2-b68d-dd43c2032967"), "", true, "Túi Xách Nhỏ Hobo Time Travelling", true },
+                    { new Guid("c8494008-02f5-4956-8d61-1051878a5702"), "", true, "Túi Xách Nhỏ Đeo Vai Time Travelling", true },
+                    { new Guid("cfb7967c-bcc5-4878-926b-d21339bcd5cd"), "", true, "Túi Xách Nhỏ Dây Kéo Phối 2 Chất Liệu", true }
                 });
 
             migrationBuilder.InsertData(
@@ -683,12 +683,17 @@ namespace CTN4_Data.Migrations
                 columns: new[] { "Id", "Is_detele", "TenSize", "TrangThai" },
                 values: new object[,]
                 {
-                    { new Guid("0da55823-cb4d-4310-80df-b7d49ddd69c1"), true, "Small", true },
-                    { new Guid("29bc9d3e-5492-4277-898e-134fdc752155"), true, "Extra Small", true },
-                    { new Guid("7b6baa57-b1ed-49ab-896f-24b2805dfad0"), true, "Standard (Medium)", true },
-                    { new Guid("e8e4ddd3-ddad-4eea-95da-2e98d9955144"), true, "Extra Large", true },
-                    { new Guid("faefdc0f-963f-4701-8572-d75ed0138b12"), true, "Large", true }
+                    { new Guid("05a370fa-0ac0-425b-93dd-d14e4f8f95b7"), true, "Large", true },
+                    { new Guid("279d6a87-b3d9-4736-a2bf-abd1c9854fa0"), true, "Extra Large", true },
+                    { new Guid("81a4a957-a297-4162-8b5c-517aaa1e8027"), true, "Small", true },
+                    { new Guid("bd334274-0227-4c41-941a-3df1220399cb"), true, "Extra Small", true },
+                    { new Guid("ca913147-645e-467d-937d-53a0c87d504e"), true, "Standard (Medium)", true }
                 });
+
+            migrationBuilder.InsertData(
+                table: "NhanViens",
+                columns: new[] { "Id", "AnhDaiDien", "DiaChi", "Email", "GioiTinh", "Ho", "IdChucVu", "MatKhau", "SDT", "Ten", "TenDangNhap", "Trangthai" },
+                values: new object[] { new Guid("28f2ff81-3bf2-4590-a566-4c96ccb20856"), "", "Hà Nội", "nothing@gmail.com", "Nữ", "Nguyễn", new Guid("d16ac357-3ced-4c2c-bcdc-d38971214414"), "12345678", "0912384746", "Trang", "trangnt34", true });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Anhs_IdSanPhamChiTiet",
