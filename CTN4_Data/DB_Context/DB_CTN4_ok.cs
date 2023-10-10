@@ -49,6 +49,8 @@ namespace CTN4_Data.DB_Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             modelBuilder.Send();
         }
     }
