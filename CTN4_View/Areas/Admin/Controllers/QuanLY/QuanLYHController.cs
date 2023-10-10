@@ -82,13 +82,60 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [ValidateAntiForgeryToken]
         public ActionResult Create(SanPhamChiTiet a)
         {
-            if (_sv.Them(a)) // Nếu thêm thành công
+            var b = new SanPhamChiTiet()
+            {
+                MaSp = a.MaSp,
+                IdChatLieu = Guid.Parse(a.IdChatLieu.Value.ToString()),
+                IdNSX = Guid.Parse(a.IdNSX.Value.ToString()),
+                IdMau = Guid.Parse(a.IdMau.Value.ToString()),
+                IdSize = Guid.Parse(a.IdSize.Value.ToString()),
+                IdSp = Guid.Parse(a.IdSp.Value.ToString()),
+                SoLuong = a.SoLuong,
+                MoTa = a.MoTa,
+                TrangThai = a.TrangThai,
+                GiaNhap = a.
+                    GiaNhap,
+                GiaBan = a.GiaBan,
+                GiaNiemYet = a.GiaNiemYet,
+                GhiChu = a.GhiChu,
+                Is_detele = a.Is_detele
+            };
+            if (_sv.Them(b)) // Nếu thêm thành công
             {
 
                 return RedirectToAction("Index");
             }
+            var viewModel = new SanPhamChiTietView()
+            {
+                ChalieuItems = _chatLieuService.GetAll().Select(s => new SelectListItem
+                {
+                    Value = s.Id.ToString(),
+                    Text = s.TenChatLieu
+                }).ToList(),
+                MauItems = _mauService.GetAll().Select(s => new SelectListItem
+                {
+                    Value = s.Id.ToString(),
+                    Text = s.TenMau
+                }).ToList(),
+                NsxItems = _nsxService.GetAll().Select(s => new SelectListItem
+                {
+                    Value = s.Id.ToString(),
+                    Text = s.TenNSX
+                }).ToList(),
+                SpItems = _spService.GetAll().Select(s => new SelectListItem
+                {
+                    Value = s.Id.ToString(),
+                    Text = s.TenSanPham
+                }).ToList(),
+                SizeItems = _sizeService.GetAll().Select(s => new SelectListItem
+                {
+                    Value = s.Id.ToString(),
+                    Text = s.TenSize
+                }).ToList(),
 
-            return View();
+            };
+
+            return View(viewModel);
         }
 
         // GET: PhanLoaiController/Edit/5

@@ -20,7 +20,7 @@
         public Guid? IdSize { get; set; }
         public Guid? IdSp { get; set; }
 
-        public virtual List<Anh> Anhs { get; set; }
+        public virtual List<Anh>? Anhs { get; set; }
 
         public virtual ChatLieu? ChatLieu { get; set; }
         public virtual Mau? Mau { get; set; }

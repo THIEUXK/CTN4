@@ -85,119 +85,23 @@ namespace CTN4_Data.DB_Context
                 new ChucVu() { TenChucVu = "Quản lý", Id = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971214414"), TrangThai = true },
                 new ChucVu() { TenChucVu = "Nhân viên", Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f70877e9"), TrangThai = true }
             );
-            modelBuilder.Entity<NhanVien>().HasData(
-                new NhanVien()
-                {
-                    Ho = "Nguyễn",
-                    Ten = "Trang",
-                    Id = Guid.NewGuid(),
-                    TenDangNhap = "trangnt34",
-                    SDT = "0912384746",
-                    AnhDaiDien = "",
-                    MatKhau = "12345678",
-                    GioiTinh = "Nữ",
-                    DiaChi = "Hà Nội",
-                    Email = "nothing@gmail.com",
-                    Trangthai = true,
-                },
-                new NhanVien()
-                {
-                    Ho = "Trần",
-                    Ten = "Hà",
-                    Id = Guid.NewGuid(),
-                    TenDangNhap = "Hatl12",
-                    SDT = "0819265834",
-                    AnhDaiDien = "",
-                    MatKhau = "12345678",
-                    GioiTinh = "Nam",
-                    DiaChi = "Ninh Bình",
-                    Email = "nothing2@gmail.com",
-                    Trangthai = true
-                }, new NhanVien()
-                {
-                    Ho = "Lê",
-                    Ten = "Minh",
-                    Id = Guid.NewGuid(),
-                    TenDangNhap = "Leminh66",
-                    SDT = "0817236583",
-                    AnhDaiDien = "",
-                    MatKhau = "12345678",
-                    GioiTinh = "Nam",
-                    DiaChi = "Bình Thuận",
-                    Email = "nothing3@gmail.com",
-                    Trangthai = true
-                },
-                new NhanVien()
-                {
-                    Ho = "Phùng",
-                    Ten = "Hoàng",
-                    Id = Guid.NewGuid(),
-                    TenDangNhap = "Hoangpv14",
-                    SDT = "0129837582",
-                    AnhDaiDien = "",
-                    MatKhau = "12345678",
-                    GioiTinh = "Nam",
-                    DiaChi = "thành phố Hồ Chí Minh",
-                    Email = "nothing4@gmail.com",
-                    Trangthai = true
-                },
-                new NhanVien()
-                {
-                    Ho = "Bùi",
-                    Ten = "Huyền",
-                    Id = Guid.NewGuid(),
-                    TenDangNhap = "Huyenbt62",
-                    SDT = "0982647912",
-                    AnhDaiDien = "",
-                    MatKhau = "12345678",
-                    GioiTinh = "Nữ",
-                    DiaChi = "Quảng Ninh",
-                    Email = "nothing5@gmail.com",
-                    Trangthai = true
-                },
-                new NhanVien()
-                {
-                    Ho = "Kenny",
-                    Ten = "Nguyen",
-                    Id = Guid.NewGuid(),
-                    TenDangNhap = "kennynguyen145",
-                    SDT = "0576947384",
-                    AnhDaiDien = "",
-                    MatKhau = "12345678",
-                    GioiTinh = "Nam",
-                    DiaChi = "New York",
-                    Email = "nothing6@gmail.com",
-                    Trangthai = true
-                },
-                new NhanVien()
-                {
-                    Ho = "Báo thủ",
-                    Ten = "Bách",
-                    Id = Guid.NewGuid(),
-                    TenDangNhap = "Bachbaothu13",
-                    SDT = "0975846374",
-                    AnhDaiDien = "",
-                    MatKhau = "12345678",
-                    GioiTinh = "Nam",
-                    DiaChi = "Hà Nội",
-                    Email = "nothing9@gmail.com",
-                    Trangthai = true
-                },
-                new NhanVien()
-                {
-                    Ho = "Trần",
-                    Ten = "Boss",
-                    Id = Guid.NewGuid(),
-                    TenDangNhap = "Bosshidden69",
-                    SDT = "0292304805",
-                    AnhDaiDien = "",
-                    MatKhau = "12345678",
-                    GioiTinh = "Nam",
-                    DiaChi = "Paris",
-                    Email = "nothing7@gmail.com",
-                    Trangthai = true
-                }
-            );
+            //modelBuilder.Entity<NhanVien>().HasData(
+            //    new NhanVien()
+            //    {
+            //        Ho = "Nguyễn",
+            //        Ten = "Trang",
+            //        Id = Guid.NewGuid(),
+            //        TenDangNhap = "trangnt34",
+            //        SDT = "0912384746",
+            //        AnhDaiDien = "",
+            //        MatKhau = "12345678",
+            //        GioiTinh = "Nữ",
+            //        DiaChi = "Hà Nội",
+            //        Email = "nothing@gmail.com",
+            //        Trangthai = true,
+            //        IdChucVu = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971214414")
+            //    }
+            //);
         }
     }
 }
