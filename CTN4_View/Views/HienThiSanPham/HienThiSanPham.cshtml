@@ -234,14 +234,14 @@
 						<!-- single product -->
 						<div class="col-lg-4 col-md-6">
 							<div class="single-product">
-								@if (System.IO.Path.GetExtension(sp.SanPham.AnhDaiDiem) == ".jpg" ||
-										System.IO.Path.GetExtension(sp.SanPham.AnhDaiDiem) == ".png" ||
-										System.IO.Path.GetExtension(sp.SanPham.AnhDaiDiem) == ".jpeg" ||
-										System.IO.Path.GetExtension(sp.SanPham.AnhDaiDiem) == ".tiff" ||
-										System.IO.Path.GetExtension(sp.SanPham.AnhDaiDiem) == ".webp" ||
-										System.IO.Path.GetExtension(sp.SanPham.AnhDaiDiem) == ".gif")
+								@if (System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".jpg" ||
+										System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".png" ||
+										System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".jpeg" ||
+										System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".tiff" ||
+										System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".webp" ||
+										System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".gif")
 								{
-									<img src="~/image/@sp.SanPham.AnhDaiDiem" height="300">
+									<img src="~/image/@sp.SanPham.AnhDaiDien" height="300">
 								}
 								else
 								{

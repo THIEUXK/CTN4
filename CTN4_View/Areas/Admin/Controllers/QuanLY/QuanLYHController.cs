@@ -1,6 +1,7 @@
 ﻿using CTN4_Data.Models.DB_CTN4;
 using CTN4_Serv.Service;
 using CTN4_Serv.Service.IService;
+using CTN4_Serv.ServiceJoin;
 using CTN4_Serv.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -16,6 +17,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         public INSXService _nsxService;
         public ISanPhamService _spService;
         public ISizeService _sizeService;
+        public SanPhamCuaHangService _sanPhamCuaHangService;
 
         public QuanLYHController()
         {
@@ -25,12 +27,14 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             _nsxService = new NSXService();
             _spService = new SanPhamService();
             _sizeService = new SizeService();
+            _sanPhamCuaHangService = new SanPhamCuaHangService();
+
         }
         // GET: PhanLoaiController
         [HttpGet]
         public ActionResult Index()
         {
-            var a = _sv.GetAll();
+            var a = _sanPhamCuaHangService.GetAll();
             return View(a);
         }
 

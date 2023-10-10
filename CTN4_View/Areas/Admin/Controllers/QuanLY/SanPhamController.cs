@@ -55,7 +55,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                 }
 
                 // Gán lại giá trị cho Description của đối tượng bằng tên file ảnh đã được sao chép
-                p.AnhDaiDiem = imageFile.FileName;
+                p.AnhDaiDien = imageFile.FileName;
             }
 
             if (_sv.Them(p)) // Nếu thêm thành công
@@ -92,7 +92,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                 }
 
                 // Gán lại giá trị cho Description của đối tượng bằng tên file ảnh đã được sao chép
-                p.AnhDaiDiem = imageFile.FileName;
+                p.AnhDaiDien = imageFile.FileName;
             }
 
             if (_sv.Sua(p))

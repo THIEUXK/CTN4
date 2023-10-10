@@ -13,7 +13,7 @@
         <br></br>
         <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="AnhDaiDiem" />
+            <input type="hidden" asp-for="AnhDaiDien" />
             <div class="form-group">    
                 <label asp-for="Id" class="control-label"></label>
                 <input asp-for="Id" class="form-control"/>
@@ -27,7 +27,7 @@
             <div class="form-group">
                 @* <label>Chọn ảnh từ Máy tính:</label>
                 <input type="file" name="imageFile"/>*@
-                <label asp-for="AnhDaiDiem" class="control-label">AnhDaiDiem</label>
+                <label asp-for="AnhDaiDien" class="control-label">AnhDaiDien</label>
 
                 <input type="file" name="imageFile" />
             </div>

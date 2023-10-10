@@ -25,17 +25,17 @@
                             @Html.DisplayFor(model => model.TenSanPham)
                         </dd>
                         <dt class="col-sm-4">
-                            @Html.DisplayNameFor(model => model.AnhDaiDiem)
+                            @Html.DisplayNameFor(model => model.AnhDaiDien)
                         </dt>
                         <dd class="col-sm-8">
-                            @if (System.IO.Path.GetExtension(Model.AnhDaiDiem) == ".jpg" ||
-                                 System.IO.Path.GetExtension(Model.AnhDaiDiem) == ".png" ||
-                                 System.IO.Path.GetExtension(Model.AnhDaiDiem) == ".jpeg" ||
-                                 System.IO.Path.GetExtension(Model.AnhDaiDiem) == ".tiff" ||
-                                 System.IO.Path.GetExtension(Model.AnhDaiDiem) == ".webp" ||
-                                 System.IO.Path.GetExtension(Model.AnhDaiDiem) == ".gif")
+                            @if (System.IO.Path.GetExtension(Model.AnhDaiDien) == ".jpg" ||
+                                 System.IO.Path.GetExtension(Model.AnhDaiDien) == ".png" ||
+                                 System.IO.Path.GetExtension(Model.AnhDaiDien) == ".jpeg" ||
+                                 System.IO.Path.GetExtension(Model.AnhDaiDien) == ".tiff" ||
+                                 System.IO.Path.GetExtension(Model.AnhDaiDien) == ".webp" ||
+                                 System.IO.Path.GetExtension(Model.AnhDaiDien) == ".gif")
                             {
-                                <img src="~/image/@Model.AnhDaiDiem" height="100">
+                                <img src="~/image/@Model.AnhDaiDien" height="100">
                             }
                             else
                             {
