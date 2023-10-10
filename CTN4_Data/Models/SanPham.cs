@@ -4,7 +4,7 @@
     {
         public Guid Id { get; set; }
         public string TenSanPham { get; set; }
-        public string AnhDaiDiem { get; set; }
+        public string AnhDaiDien { get; set; }
         public bool TrangThai { get; set; }
         public bool Is_detele { get; set; }
         public virtual List<SanPhamChiTiet>? SanPhamChiTiets { get; set; }
