@@ -102,6 +102,22 @@ namespace CTN4_Data.DB_Context
                     IdChucVu = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971214414")
                 }
             );
-        }
+            modelBuilder.Entity<KhachHang>().HasData(
+	            new KhachHang()
+	            {
+		            Ho = "Bùi Văm",
+		            Ten = "Thiều",
+		            Id = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971214499"),
+					TenDangNhap = "thieuxk",
+		            SDT = "0912384746",
+		            AnhDaiDien = "",
+		            MatKhau = "thieuxk",
+		            GioiTinh = "Nam",
+		            DiaChi = "Hà Nội",
+		            Email = "thieubvph20221@gmail.com",
+		            Trangthai = true,
+	            }
+            );
+		}
     }
 }
