@@ -1,4 +1,10 @@
-﻿@model IEnumerable<CTN4_Data.Models.DB_CTN4.DanhMucChiTiet>
+﻿
+@{
+    ViewData["Title"] = "SanPhamDanhMuc";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model IEnumerable<CTN4_Data.Models.DB_CTN4.DanhMucChiTiet>
 
 <!-- End Header Area -->
 <!-- Start Banner Area -->
@@ -120,7 +126,6 @@
                     @foreach (var sp in Model)
                     {
                         <!-- single product -->
-                       
                         {
                             <div class="col-lg-4 col-md-6">
                                 <div class="single-product">
@@ -174,7 +179,8 @@
                                     </div>
                                 </div>
                             </div>
-                        }}
+                        }
+                    }
                 </div>
             </section>
             <!-- End Best Seller -->
