@@ -1,6 +1,5 @@
 ﻿@model CTN4_Serv.ViewModel.SanPhamBan
 @{
-    ViewData["Title"] = "HienThiSanPhamChiTiet";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -67,8 +66,7 @@
 						something that can make your interior look awesome, and at the same time give you the pleasant warm feeling
 						during the winter.
 					</p>
-					<form asp-controller="HienThiSanPham" asp-action="AddTOCard">
-						<input type="hidden" name="idSPCT" value="@Model.SanPhamChiTiet.Id" />
+					<form asp-controller="HienThiSanPham" asp-action="ThemVaoGio">
 						<br></br>
 						<a>Số lượng:</a>
 
@@ -84,17 +82,13 @@
 								<i class="lnr lnr-chevron-down"></i>
 							</button>
 						</div>
-						<div class="card_area d-flex align-items-center">
-							<button class="primary-btn" type="submit" href="#">Add to Cart</button>
-							<a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
-							<a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
-						</div>
+                        <div class="card_area d-flex align-items-center">
+                            <button class="primary-btn" type="submit" href="#">Add to Cart</button>
+                            <a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
+                            <a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
+                        </div>
+                        <input type="hidden" name="idSP"  value="@Model.SanPhamChiTiet.Id" >
 					</form>
-					<div class="card_area d-flex align-items-center">
-						<a class="primary-btn" href="#">Add to Cart</a>
-						<a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
-						<a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
-					</div>
 				</div>
 			</div>
 		</div>

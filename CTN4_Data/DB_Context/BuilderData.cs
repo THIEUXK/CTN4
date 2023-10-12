@@ -116,6 +116,7 @@ namespace CTN4_Data.DB_Context
 		            DiaChi = "Hà Nội",
 		            Email = "thieubvph20221@gmail.com",
 		            Trangthai = true,
+                    Is_detele = true
 	            }
             );
 		}
