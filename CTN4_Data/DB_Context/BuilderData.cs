@@ -15,17 +15,23 @@ namespace CTN4_Data.DB_Context
             modelBuilder.Entity<Mau>().HasData(
                 new Mau() { TenMau = "đen", Id = Guid.NewGuid(), Is_detele = true,TrangThai = true},
                 new Mau() { TenMau = "trắng", Id = Guid.NewGuid(), Is_detele = true, TrangThai = true },
-                new Mau() { TenMau = "nâu da", Id = Guid.NewGuid(), Is_detele = true, TrangThai = true },
+                new Mau() { TenMau = "nâu", Id = Guid.NewGuid(), Is_detele = true, TrangThai = true },
                 new Mau() { TenMau = "xám", Id = Guid.NewGuid(),  Is_detele = true, TrangThai = true },
                 new Mau() { TenMau = "vàng", Id = Guid.NewGuid(),  Is_detele = true, TrangThai = true },
+                new Mau() { TenMau = "ghi", Id = Guid.NewGuid(),  Is_detele = true, TrangThai = true },
                 new Mau() { TenMau = "cam", Id = Guid.NewGuid(),  Is_detele = true, TrangThai = true },
+                new Mau() { TenMau = "xanh dương đậm", Id = Guid.NewGuid(),  Is_detele = true, TrangThai = true },
                 new Mau() { TenMau = "xanh lục", Id = Guid.NewGuid(),  Is_detele = true, TrangThai = true },
-                new Mau() { TenMau = "xanh đương", Id = Guid.NewGuid(),  Is_detele = true, TrangThai = true },
+                new Mau() { TenMau = "xanh dương", Id = Guid.NewGuid(),  Is_detele = true, TrangThai = true },
+                new Mau() { TenMau = "xanh lá", Id = Guid.NewGuid(),  Is_detele = true, TrangThai = true },
+                new Mau() { TenMau = "xanh nhạt", Id = Guid.NewGuid(),  Is_detele = true, TrangThai = true },
                 new Mau() { TenMau = "tràm", Id =Guid.NewGuid(), Is_detele = true, TrangThai = true },
                 new Mau() { TenMau = "tím", Id = Guid.NewGuid(), Is_detele = true, TrangThai = true },
                 new Mau() { TenMau = "xanh lá đậm", Id = Guid.NewGuid(), Is_detele = true, TrangThai = true },
+                new Mau() { TenMau = "xanh tím", Id = Guid.NewGuid(), Is_detele = true, TrangThai = true },
                 new Mau() { TenMau = "hồng", Id = Guid.NewGuid(), Is_detele = true, TrangThai = true },
-                new Mau() { TenMau = "kem", Id = Guid.NewGuid(), Is_detele = true, TrangThai = true }
+                new Mau() { TenMau = "kem", Id = Guid.NewGuid(), Is_detele = true, TrangThai = true },
+                new Mau() { TenMau = "kem Đậm", Id = Guid.NewGuid(), Is_detele = true, TrangThai = true }
                 );
             modelBuilder.Entity<SanPham>().HasData(
                new SanPham() { TenSanPham = "TXT Da Rắn Khóa Bạc _QuanChau_Trang_Da PU cao cấp(1)", AnhDaiDien = "TXT Da Rắn Khóa Bạc _QuanChau_Trang_Da PU cao cấp(1).jpg", Id=Guid.NewGuid(),Is_detele = true,TrangThai = true },
@@ -52,20 +58,32 @@ namespace CTN4_Data.DB_Context
                 new NSX() { TenNSX = "Louis Vuitton", Id = Guid.NewGuid(), GhiChu = "", Is_detele = true, TrangThai = true }
             );
             modelBuilder.Entity<ChatLieu>().HasData(
-                new ChatLieu() { TenChatLieu = "Da thuộc (real leather)", Id = Guid.NewGuid(), GhiChu = "", Is_detele = true, TrangThai = true },
-                new ChatLieu() { TenChatLieu = "Vải bông (Cotton)", Id = Guid.NewGuid(), GhiChu = "", Is_detele = true, TrangThai = true },
-                new ChatLieu() { TenChatLieu = "Canvas", Id = Guid.NewGuid(), GhiChu = "", Is_detele = true, TrangThai = true },
-                new ChatLieu() { TenChatLieu = "Nylon (Polyester)", Id = Guid.NewGuid(), GhiChu = "", Is_detele = true, TrangThai = true },
-                new ChatLieu() { TenChatLieu = "Tricot (Vải dệt kim)", Id = Guid.NewGuid(), GhiChu = "", Is_detele = true, TrangThai = true },
-                new ChatLieu() { TenChatLieu = "Vải không dệt (Micro Polyester)", Id = Guid.NewGuid(), GhiChu = "", Is_detele = true, TrangThai = true },
-                new ChatLieu() { TenChatLieu = "Vải Simili (Giả da)", Id = Guid.NewGuid(), GhiChu = "", Is_detele = true, TrangThai = true }
+                new ChatLieu() { TenChatLieu = "Da PU cao cấp", Id = Guid.NewGuid(), GhiChu = "", Is_detele = true, TrangThai = true },
+                new ChatLieu() { TenChatLieu = "Da PU mềm mịn, cao cấp", Id = Guid.NewGuid(), GhiChu = "", Is_detele = true, TrangThai = true },
+                new ChatLieu() { TenChatLieu = "Vai Canvat", Id = Guid.NewGuid(), GhiChu = "", Is_detele = true, TrangThai = true },
+                new ChatLieu() { TenChatLieu = "Da tổng hợp", Id = Guid.NewGuid(), GhiChu = "", Is_detele = true, TrangThai = true }
+                //new ChatLieu() { TenChatLieu = "Tricot (Vải dệt kim)", Id = Guid.NewGuid(), GhiChu = "", Is_detele = true, TrangThai = true },
+                //new ChatLieu() { TenChatLieu = "Vải không dệt (Micro Polyester)", Id = Guid.NewGuid(), GhiChu = "", Is_detele = true, TrangThai = true },
+                //new ChatLieu() { TenChatLieu = "Vải Simili (Giả da)", Id = Guid.NewGuid(), GhiChu = "", Is_detele = true, TrangThai = true }
             );
             modelBuilder.Entity<Size>().HasData(
-                new Size() { TenSize = "Extra Small", Id = Guid.NewGuid(), Is_detele = true, TrangThai = true},
-                new Size() { TenSize = "Small", Id = Guid.NewGuid(), Is_detele = true, TrangThai = true },
-                new Size() { TenSize = "Standard (Medium)", Id = Guid.NewGuid(), Is_detele = true, TrangThai = true },
-                new Size() { TenSize = "Large", Id = Guid.NewGuid(), Is_detele = true, TrangThai = true },
-                new Size() { TenSize = "Extra Large", Id = Guid.NewGuid(), Is_detele = true, TrangThai = true }
+                new Size() { TenSize = "30cm x 20cm x 10cm", Id = Guid.NewGuid(), Is_detele = true, TrangThai = true},
+                new Size() { TenSize = "28cm x 22cm x 10cm", Id = Guid.NewGuid(), Is_detele = true, TrangThai = true },
+                new Size() { TenSize = "27cm x 12cm x 8cm", Id = Guid.NewGuid(), Is_detele = true, TrangThai = true },
+                new Size() { TenSize = "23cm x 13cm x 6cm", Id = Guid.NewGuid(), Is_detele = true, TrangThai = true },
+                new Size() { TenSize = "23cm x 15cm x 5cm", Id = Guid.NewGuid(), Is_detele = true, TrangThai = true},
+                new Size() { TenSize = "22cm x 18cm x 8cm", Id = Guid.NewGuid(), Is_detele = true, TrangThai = true },
+                new Size() { TenSize = "20cm x 12cm x 7cm", Id = Guid.NewGuid(), Is_detele = true, TrangThai = true },
+                new Size() { TenSize = "22cm x 15cm x 6cm", Id = Guid.NewGuid(), Is_detele = true, TrangThai = true },
+                new Size() { TenSize = "17cm x 16cm x 7cm", Id = Guid.NewGuid(), Is_detele = true, TrangThai = true },
+                new Size() { TenSize = "22cm x 12cm x 6cm", Id = Guid.NewGuid(), Is_detele = true, TrangThai = true},
+                new Size() { TenSize = "21cm x 8cm x 13cm", Id = Guid.NewGuid(), Is_detele = true, TrangThai = true },
+                new Size() { TenSize = "27cm x 6cm x 19cm", Id = Guid.NewGuid(), Is_detele = true, TrangThai = true },
+                new Size() { TenSize = "20cm x 6cm x 13cm", Id = Guid.NewGuid(), Is_detele = true, TrangThai = true },
+                new Size() { TenSize = "37cm x 13cm x 28cm", Id = Guid.NewGuid(), Is_detele = true, TrangThai = true},
+                new Size() { TenSize = "20cm x 13.5cm x 7.5cm ", Id = Guid.NewGuid(), Is_detele = true, TrangThai = true },
+                new Size() { TenSize = "19cm x 13cm x 7cm", Id = Guid.NewGuid(), Is_detele = true, TrangThai = true }
+               
             );
             modelBuilder.Entity<DanhMuc>().HasData(
                 new DanhMuc() { TenDanhMuc = "Túi đeo chéo Nữ – Cross body", Id = Guid.NewGuid(), Is_detele = true},
