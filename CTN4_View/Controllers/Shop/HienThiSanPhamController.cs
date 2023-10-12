@@ -14,6 +14,8 @@ namespace CTN4_View.Controllers.Shop
 		public IGioHangService _GioHang;
 		public IGioHangChiTietService _GioHangChiTiet;
         public GioHangjoiin _GioHangjoiin;
+		public IDanhMucService _danhMucService;
+		public IDanhMucChiTietService _danhMucChiTiet;
 
 		public HienThiSanPhamController()
 		{
@@ -21,12 +23,23 @@ namespace CTN4_View.Controllers.Shop
 			_GioHang=new GioHangService();
 			_GioHangChiTiet = new GioHangChiTietService();
 			_GioHangjoiin =new GioHangjoiin();
+			_danhMucService = new DanhMucMucService();
+			_danhMucChiTiet = new DanhMucChiTietMucChiTietService();
 		}
 		[HttpGet]
 		public IActionResult HienThiSanPham()
 		{
+
+			var danhMuc = _danhMucService.GetAll();
+			var danhMucChiTiets = _danhMucChiTiet.GetAll();
 			var listSpCt = _sanPhamCuaHangService.GetAll();
-			return View(listSpCt);
+			var a = new HienThiSanPhamView()
+			{
+				danhMucs = danhMuc,
+				danhMucChiTiets = danhMucChiTiets,
+				sanPhamChiTiets = listSpCt,
+			};
+			return View(a);
 		}
 		//[Route("/{Alias}-{id}.html", Name ="SanPhamChiTiet")]
 		public IActionResult HienThiSanPhamChiTiet(Guid id)
