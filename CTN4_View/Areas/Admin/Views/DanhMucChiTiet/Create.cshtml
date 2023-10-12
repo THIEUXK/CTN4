@@ -1,0 +1,39 @@
+﻿@model CTN4_Data.Models.DB_CTN4.DanhMucChiTiet
+
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-9">
+        <br></br>
+        <h1>Create</h1>
+
+        <h4>Danh Muc Chi Tiet</h4>
+        <hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="IdSanPhamChiTiet" class="control-label"></label>
+                <input asp-for="IdSanPhamChiTiet" class="form-control" />
+                <span asp-validation-for="IdSanPhamChiTiet" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdDanhMuc" class="control-label"></label>
+                <input asp-for="IdDanhMuc" class="form-control" />
+                <span asp-validation-for="IdDanhMuc" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

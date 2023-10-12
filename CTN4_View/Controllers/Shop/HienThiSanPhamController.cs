@@ -3,6 +3,7 @@ using CTN4_Serv.Service;
 using CTN4_Serv.ServiceJoin;
 using CTN4_Serv.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using CTN4_Data.Models.DB_CTN4;
 
 namespace CTN4_View.Controllers.Shop
 {
@@ -21,6 +22,7 @@ namespace CTN4_View.Controllers.Shop
 			var listSpCt = _sanPhamCuaHangService.GetAll();
 			return View(listSpCt);
 		}
+		//[Route("/{Alias}-{id}.html", Name ="SanPhamChiTiet")]
 		public IActionResult HienThiSanPhamChiTiet(Guid id)
 		{
 			var view = new SanPhamBan()
@@ -29,6 +31,7 @@ namespace CTN4_View.Controllers.Shop
 				Anh = _sanPhamCuaHangService.GeAnhs(id)
 			};
 			return View(view);
+
 		}
 		//public IActionResult AddTOCard(Guid idSPCT, int soluong)
 		//{
