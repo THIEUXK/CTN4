@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CTN4_Data.DB_Context;
 using CTN4_Data.Models.DB_CTN4;
+using Microsoft.EntityFrameworkCore;
 
 namespace CTN4_Serv.ServiceJoin
 {
@@ -19,11 +20,32 @@ namespace CTN4_Serv.ServiceJoin
 
         public List<GioHangChiTiet> GetAll()
         {
-            return _db.GioHangChiTiets.ToList();
+            return _db.GioHangChiTiets.Include(c=>c.GioHang).Include(c=>c.SanPhamChiTiet).Include(c=>c.SanPhamChiTiet.SanPham).ToList();
         }
         public GioHangChiTiet GetById(Guid id)
         {
             return GetAll().FirstOrDefault(c => c.Id == id);
+        }
+
+        public bool ThemGio(GioHangChiTiet a)
+        {
+	        try
+	        {
+		        var b = new GioHangChiTiet()
+		        {
+			        Id = Guid.NewGuid(),
+			        IdSanPhamChiTiet = a.IdSanPhamChiTiet,
+			        IdGioHang = a.IdGioHang,
+			        SoLuong = a.SoLuong
+		        };
+		        _db.GioHangChiTiets.Add(b);
+		        _db.SaveChanges();
+		        return true;
+	        }
+	        catch (Exception e)
+	        {
+		        return false;
+	        }
         }
     }
 }

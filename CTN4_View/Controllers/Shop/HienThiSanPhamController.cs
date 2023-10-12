@@ -13,12 +13,14 @@ namespace CTN4_View.Controllers.Shop
 		private readonly SanPhamCuaHangService _sanPhamCuaHangService;
 		public IGioHangService _GioHang;
 		public IGioHangChiTietService _GioHangChiTiet;
+        public GioHangjoiin _GioHangjoiin;
 
 		public HienThiSanPhamController()
 		{
 			_sanPhamCuaHangService = new SanPhamCuaHangService();
 			_GioHang=new GioHangService();
 			_GioHangChiTiet = new GioHangChiTietService();
+			_GioHangjoiin =new GioHangjoiin();
 		}
 		[HttpGet]
 		public IActionResult HienThiSanPham()
@@ -35,7 +37,8 @@ namespace CTN4_View.Controllers.Shop
 			};
 			return View(view);
 		}
-		public IActionResult AddTOCard(Guid idSPCT, int soluong)
+		[HttpPost]
+		public IActionResult ThemVaoGio(int soluong,Guid idSP)
 		{
 
 			var gioHang = _GioHang.GetAll();
@@ -49,39 +52,75 @@ namespace CTN4_View.Controllers.Shop
 				};
 				if (_GioHang.Them(a))
 				{
-					return RedirectToAction("GioHang");
+					{
+						var SP = _GioHangChiTiet.GetAll().FirstOrDefault(c => c.IdSanPhamChiTiet == idSP);
+						if (SP == null)
+						{
+							var d = new GioHangChiTiet()
+							{
+								Id = Guid.NewGuid(),
+								IdSanPhamChiTiet = idSP,
+								IdGioHang = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971214498"),
+								SoLuong = soluong,
+							};
+							if (_GioHangChiTiet.Them(d))
+							{
+								return RedirectToAction("GioHang");
+							}
+						}
+					}
+
 				}
 			}
 
-			var CTGiohangn = _GioHangChiTiet.GetAll().FirstOrDefault(c => c.IdSanPhamChiTiet == idSPCT);
-			if (CTGiohangn == null)
 			{
-				var b = new GioHangChiTiet()
+				var SP = _GioHangChiTiet.GetAll().FirstOrDefault(c => c.IdSanPhamChiTiet == idSP);
+				if (SP == null)
 				{
-					IdSanPhamChiTiet = idSPCT,
-					IdGioHang = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971214498"),
-					SoLuong = soluong,
-				};
-				if (_GioHangChiTiet.Them(b))
+					var d = new GioHangChiTiet()
+					{
+						Id = Guid.NewGuid(),
+						IdSanPhamChiTiet = idSP,
+						IdGioHang = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971214498"),
+						SoLuong = soluong,
+					};
+					if (_GioHangChiTiet.Them(d))
+					{
+						return RedirectToAction("GioHang");
+					}
+				}
+				else
 				{
-					return RedirectToAction("GioHang");
+					SP.SoLuong += soluong;
+					if (_GioHangChiTiet.Sua(SP))
+					{
+						return RedirectToAction("GioHang");
+					}
 				}
 			}
-			else
-			{
-				CTGiohangn.SoLuong += soluong;
-				if (_GioHangChiTiet.Sua(CTGiohangn))
-				{
-					return RedirectToAction("GioHang");
-				}
 
-			}
-			return RedirectToAction("HienThiSanPhamChiTiet",idSPCT);
+			var c = _sanPhamCuaHangService.GetById(idSP);
+
+			return RedirectToAction("HienThiSanPhamChiTiet", c);
 		}
+
+		[HttpGet]
 		public IActionResult GioHang()
 		{
-			
-			return View();
+			var a = _GioHangjoiin.GetAll();
+            float tong=0;
+            foreach (var x in a)
+            {
+                tong += float.Parse(x.SanPhamChiTiet.GiaNiemYet.ToString())*(x.SoLuong);
+
+            }
+
+            var view = new GioHangView()
+            {
+				GioHangChiTiets = a,
+				TongTien = tong
+            };
+            return View(view);
 		}
 	}
 }
