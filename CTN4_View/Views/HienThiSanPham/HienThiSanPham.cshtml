@@ -1,5 +1,4 @@
-﻿@model IEnumerable<CTN4_Data.Models.DB_CTN4.SanPhamChiTiet>
-
+﻿@model CTN4_Serv.ViewModel.HienThiSanPhamView;
 <!-- End Header Area -->
 <!-- Start Banner Area -->
 <section class="banner-area organic-breadcrumb">
@@ -24,10 +23,10 @@
                 <div class="head">Danh mục sản phẩm</div>
                 <ul class="main-categories">
                     <li class="main-nav-list">
-                        @foreach (var sp in Model)
+                        @foreach (var sp in Model.danhMucs)
                         {
                             <a data-toggle="collapse" href="#fruitsVegetable" aria-expanded="false" aria-controls="fruitsVegetable">
-                                <span class="lnr lnr-arrow-right"></span>@sp.SanPham.TenSanPham<span class="number">(53)</span>
+                                <span class="lnr lnr-arrow-right"></span>@sp.TenDanhMuc<span class="number">(@(Model.danhMucChiTiets.Where(c=>c.IdDanhMuc == sp.Id).Count()))</span>
                             </a>
                         }
                     </li>
@@ -116,7 +115,7 @@
             <!-- Start Best Seller -->
             <section class="lattest-product-area pb-40 category-list">
                 <div class="row">
-                    @foreach (var sp in Model)
+                    @foreach (var sp in Model.sanPhamChiTiets)
                     {
                         <!-- single product -->
                         <div class="col-lg-4 col-md-6">
