@@ -50,12 +50,7 @@ namespace CTN4_View.Controllers
         {
             return View();
         }
-        [HttpGet]
-        public IActionResult category()
-        {
-             var listSpCt = _sanPhamCuaHangService.GetAll();
-            return View(listSpCt);
-        }
+       
         public IActionResult confirmation()
         {
             return View();
@@ -72,7 +67,7 @@ namespace CTN4_View.Controllers
         {
             return View();
         }
-      [AllowAnonymous]
+        [AllowAnonymous]
         [Route("login")]
         [HttpGet]
         public IActionResult login()
@@ -104,15 +99,15 @@ namespace CTN4_View.Controllers
         {
             if (string.IsNullOrEmpty(userModel.User) || string.IsNullOrEmpty(userModel.Password))
             {
-                return (RedirectToAction("Error"));
+                return (RedirectToAction(""));
             }
 
             IActionResult response = Unauthorized();
-            var validUser = GetUser(userModel);
+            var validUser = GetUserKH(userModel);
 
             if (validUser != null)
             {
-                generatedToken = _tokenService.BuildToken(_config["Jwt:Key"].ToString(), _config["Jwt:Issuer"].ToString(),
+                generatedToken = _tokenService.BuildTokens(_config["Jwt:Key"].ToString(), _config["Jwt:Issuer"].ToString(),
                 validUser);
 
                 if (generatedToken != null)
@@ -122,18 +117,18 @@ namespace CTN4_View.Controllers
                 }
                 else
                 {
-                    return (RedirectToAction("Error"));
+                    return (RedirectToAction(""));
                 }
             }
             else
             {
-                return (RedirectToAction("Error"));
+                return (RedirectToAction(""));
             }
         }
-        private NhanVien GetUser(Loginviewmodel userModel)
+        private KhachHang GetUserKH(Loginviewmodel userModel)
         {
             //Write your code here to authenticate the user
-            return _userRepository.GetUserNV(userModel);
+            return _userRepository.GetUserKH(userModel);
         }
 
         [Authorize]
@@ -142,7 +137,7 @@ namespace CTN4_View.Controllers
         public IActionResult MainWindow()
         {
             string token = HttpContext.Session.GetString("Token");
-             
+
             if (token == null)
             {
                 return (RedirectToAction("Index"));
