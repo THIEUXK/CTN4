@@ -5,7 +5,6 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-
 <br></br>
 <br></br>
 <br></br>
@@ -71,21 +70,23 @@
         @foreach (var item in Model)
         {
             <tr>
-                <tb>
-                    @if (System.IO.Path.GetExtension(item.SanPham.AnhDaiDien) == ".jpg" ||
-                   System.IO.Path.GetExtension(item.SanPham.AnhDaiDien) == ".png" ||
-                   System.IO.Path.GetExtension(item.SanPham.AnhDaiDien) == ".jpeg" ||
-                   System.IO.Path.GetExtension(item.SanPham.AnhDaiDien) == ".tiff" ||
-                   System.IO.Path.GetExtension(item.SanPham.AnhDaiDien) == ".webp" ||
-                   System.IO.Path.GetExtension(item.SanPham.AnhDaiDien) == ".gif")
-                    {
-                        <img src="~/image/@item.SanPham.AnhDaiDien" height="300">
-                    }
-                    else
-                    {
-                        <a>ảnh lỗi</a>
-                    }
-                </tb>
+                <td>
+                    <tb>
+                        @if (System.IO.Path.GetExtension(item.SanPham.AnhDaiDien) == ".jpg" ||
+                       System.IO.Path.GetExtension(item.SanPham.AnhDaiDien) == ".png" ||
+                       System.IO.Path.GetExtension(item.SanPham.AnhDaiDien) == ".jpeg" ||
+                       System.IO.Path.GetExtension(item.SanPham.AnhDaiDien) == ".tiff" ||
+                       System.IO.Path.GetExtension(item.SanPham.AnhDaiDien) == ".webp" ||
+                       System.IO.Path.GetExtension(item.SanPham.AnhDaiDien) == ".gif")
+                        {
+                            <img src="~/image/@item.SanPham.AnhDaiDien" height="300">
+                        }
+                        else
+                        {
+                            <a>ảnh lỗi</a>
+                        }
+                    </tb>
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.MaSp)
                 </td>
@@ -127,6 +128,8 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.SanPham.TenSanPham)
+                </td>
+                <td>
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
