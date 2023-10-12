@@ -28,6 +28,7 @@ namespace CTN4_View.Controllers.Shop
 			var listSpCt = _sanPhamCuaHangService.GetAll();
 			return View(listSpCt);
 		}
+		//[Route("/{Alias}-{id}.html", Name ="SanPhamChiTiet")]
 		public IActionResult HienThiSanPhamChiTiet(Guid id)
 		{
 			var view = new SanPhamBan()
@@ -36,6 +37,7 @@ namespace CTN4_View.Controllers.Shop
 				Anh = _sanPhamCuaHangService.GeAnhs(id)
 			};
 			return View(view);
+
 		}
 		
 		
