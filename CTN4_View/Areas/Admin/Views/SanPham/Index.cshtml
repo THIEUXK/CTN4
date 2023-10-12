@@ -24,7 +24,7 @@
                             @Html.DisplayNameFor(model => model.TenSanPham)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.AnhDaiDiem)
+                            @Html.DisplayNameFor(model => model.AnhDaiDien)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.TrangThai)
@@ -46,14 +46,14 @@
 
                             <td>
 
-                                @if (System.IO.Path.GetExtension(item.AnhDaiDiem) == ".jpg" ||
-                               System.IO.Path.GetExtension(item.AnhDaiDiem) == ".png" ||
-                               System.IO.Path.GetExtension(item.AnhDaiDiem) == ".jpeg" ||
-                               System.IO.Path.GetExtension(item.AnhDaiDiem) == ".tiff" ||
-                               System.IO.Path.GetExtension(item.AnhDaiDiem) == ".webp" ||
-                               System.IO.Path.GetExtension(item.AnhDaiDiem) == ".gif")
+                                @if (System.IO.Path.GetExtension(item.AnhDaiDien) == ".jpg" ||
+                               System.IO.Path.GetExtension(item.AnhDaiDien) == ".png" ||
+                               System.IO.Path.GetExtension(item.AnhDaiDien) == ".jpeg" ||
+                               System.IO.Path.GetExtension(item.AnhDaiDien) == ".tiff" ||
+                               System.IO.Path.GetExtension(item.AnhDaiDien) == ".webp" ||
+                               System.IO.Path.GetExtension(item.AnhDaiDien) == ".gif")
                                 {
-                                    <img src="~/image/@item.AnhDaiDiem" height="300">
+                                    <img src="~/image/@item.AnhDaiDien" height="300">
                                 }
                                 else
                                 {

@@ -44,12 +44,14 @@ namespace CTN4_Data.DB_Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=MSI;Initial Catalog =CTN4;User ID=sa;Password=thieu12345");
+            optionsBuilder.UseSqlServer("Data Source=MSI;Initial Catalog=CTN4;User ID=sa;Password=thieu12345");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            modelBuilder.Send();
         }
     }
 }
