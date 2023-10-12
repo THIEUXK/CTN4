@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CTN4_View_Admin.Controllers.QuanLY
 {
-    [Area("admin")]
     public class PhuongThucThanhToanController : Controller
     {
          public IPhuongThucThanhToanService _pttt;
