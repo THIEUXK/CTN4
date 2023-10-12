@@ -11,5 +11,7 @@ namespace CTN4_Serv.ViewModel
     {
         public List<GioHangChiTiet> GioHangChiTiets { get; set; }
         public float TongTien { get; set; }
+
+        public float TongTienGioHang { get; set; }
     }
 }

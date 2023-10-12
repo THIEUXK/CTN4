@@ -1,9 +1,4 @@
 ﻿
-@{
-    ViewData["Title"] = "GioHang";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
 @model CTN4_Serv.ViewModel.GioHangView
 @{
     ViewData["Title"] = "GioHang";
@@ -117,7 +112,7 @@
                                 <h5>Subtotal</h5>
                             </td>
                             <td>
-                                <h5>$2160.00</h5>
+                                <h5>@FormatCurrency(Model.TongTien)</h5>
                             </td>
                         </tr>
                         <tr class="shipping_area">
@@ -161,8 +156,8 @@
                             </td>
                             <td>
                                 <div class="checkout_btn_inner d-flex align-items-center">
-                                    <a class="gray_btn" href="#">Continue Shopping</a>
-                                    <a class="primary-btn" href="#">Proceed to checkout</a>
+                                    <a class="gray_btn" asp-controller="HienThiSanPham" asp-action="HienThiSanPham">Tiếp tục mua sắm</a>
+                                    <a class="primary-btn" asp-controller="BanHang" asp-action="ThuTucThanhToan">Tiến hành đặt hàng</a>
                                 </div>
                             </td>
                         </tr>

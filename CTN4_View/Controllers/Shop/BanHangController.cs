@@ -39,6 +39,23 @@ namespace CTN4_View.Controllers.Shop
             };
             return View(view);
         }
+        public IActionResult ThuTucThanhToan()
+        {
+            var a = _GioHangjoiin.GetAll();
+            float tong = 0;
+            foreach (var x in a)
+            {
+                tong += float.Parse(x.SanPhamChiTiet.GiaNiemYet.ToString()) * (x.SoLuong);
+
+            }
+
+            var view = new GioHangView()
+            {
+                GioHangChiTiets = a,
+                TongTien = tong
+            };
+            return View(view);
+        }
         [HttpPost]
         public IActionResult ThemVaoGio(int soluong, Guid idSP)
         {
