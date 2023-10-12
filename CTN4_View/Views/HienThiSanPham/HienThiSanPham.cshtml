@@ -135,7 +135,7 @@
                                 }
                                 <div class="product-details">
                                     <h6>
-                                        <a>@sp.SanPham.TenSanPham</a>
+                                        <a>@Html.ActionLink(sp.SanPham.TenSanPham, "HienThiSanPhamChiTiet", new { id = sp.Id})</a>
                                     </h6>
                                     <div class="price">
                                         @if (sp.GiaNiemYet == sp.GiaBan)
