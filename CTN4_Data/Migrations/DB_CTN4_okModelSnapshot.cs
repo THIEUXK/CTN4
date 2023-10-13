@@ -79,58 +79,34 @@ namespace CTN4_Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("7fba3480-8024-44b2-8cf4-5e5975e103a9"),
+                            Id = new Guid("11a58cf1-2a35-463a-846c-393a8263ae5a"),
                             GhiChu = "",
                             Is_detele = true,
-                            TenChatLieu = "Da thuộc (real leather)",
+                            TenChatLieu = "Da PU cao cấp",
                             TrangThai = true
                         },
                         new
                         {
-                            Id = new Guid("131ebe68-817e-42b9-9500-a782c551538b"),
+                            Id = new Guid("2571a49c-cafd-44b5-b097-ac7d9b0bcd96"),
                             GhiChu = "",
                             Is_detele = true,
-                            TenChatLieu = "Vải bông (Cotton)",
+                            TenChatLieu = "Da PU mềm mịn, cao cấp",
                             TrangThai = true
                         },
                         new
                         {
-                            Id = new Guid("caf4c25a-a041-4ed7-8613-6fdf00e34f9b"),
+                            Id = new Guid("f76c7f09-4deb-4d83-8115-b28d222e52f4"),
                             GhiChu = "",
                             Is_detele = true,
-                            TenChatLieu = "Canvas",
+                            TenChatLieu = "Vai Canvat",
                             TrangThai = true
                         },
                         new
                         {
-                            Id = new Guid("90a0f439-4ddf-414b-a634-0a25c2a6ee23"),
+                            Id = new Guid("ce521b50-a065-4d1d-8933-28be59d1129a"),
                             GhiChu = "",
                             Is_detele = true,
-                            TenChatLieu = "Nylon (Polyester)",
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("c04aa76a-47ba-42ec-887c-476c4b79fb06"),
-                            GhiChu = "",
-                            Is_detele = true,
-                            TenChatLieu = "Tricot (Vải dệt kim)",
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("c285414a-9dec-427e-8da4-f46bfbb4b9ec"),
-                            GhiChu = "",
-                            Is_detele = true,
-                            TenChatLieu = "Vải không dệt (Micro Polyester)",
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("bf5c3467-6814-49e9-82c1-ddfb385319c7"),
-                            GhiChu = "",
-                            Is_detele = true,
-                            TenChatLieu = "Vải Simili (Giả da)",
+                            TenChatLieu = "Da tổng hợp",
                             TrangThai = true
                         });
                 });
@@ -208,73 +184,73 @@ namespace CTN4_Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("56bfc699-1b3c-4531-9968-8b96560e8c9f"),
+                            Id = new Guid("f9f1af17-d9c6-4590-8de5-6420c3536413"),
                             Is_detele = true,
                             TenDanhMuc = "Túi đeo chéo Nữ – Cross body"
                         },
                         new
                         {
-                            Id = new Guid("3d4caaa0-b1e1-495f-952f-60d21d50dcde"),
+                            Id = new Guid("5035f0b8-4ced-459b-9893-d0fe202c3d23"),
                             Is_detele = true,
                             TenDanhMuc = "Túi đeo vai – Shoulder bag"
                         },
                         new
                         {
-                            Id = new Guid("718aeeef-a65c-4a41-8d0a-0d85b4644ed6"),
+                            Id = new Guid("be61710b-46b4-4856-be3a-f52a7c181201"),
                             Is_detele = true,
                             TenDanhMuc = "Túi tote"
                         },
                         new
                         {
-                            Id = new Guid("549b3410-4c0e-4be4-bfbd-cd7d4abee207"),
+                            Id = new Guid("8bf6369f-f17a-437d-837e-93a4e2c042f8"),
                             Is_detele = true,
                             TenDanhMuc = "Túi satchel"
                         },
                         new
                         {
-                            Id = new Guid("f07cde9a-3e2f-4f0a-ac46-35a5888b9803"),
+                            Id = new Guid("202fe108-4dc4-43ef-81df-dc8c27d069be"),
                             Is_detele = true,
                             TenDanhMuc = "Túi baguette"
                         },
                         new
                         {
-                            Id = new Guid("6a0da401-809f-4f61-9c29-5bda2c1d94d9"),
+                            Id = new Guid("3add2fec-6a29-437f-b044-9269e6d92831"),
                             Is_detele = true,
                             TenDanhMuc = "Túi bao tử – Túi bumbag"
                         },
                         new
                         {
-                            Id = new Guid("9b58564e-cd07-4581-9842-e665c8c86b70"),
+                            Id = new Guid("d71949ec-7f01-43cf-9eb9-349aa26215c3"),
                             Is_detele = true,
                             TenDanhMuc = "Túi cầm tay – Clutch"
                         },
                         new
                         {
-                            Id = new Guid("87a70960-e62b-4163-8e30-64cdc3d3ee8a"),
+                            Id = new Guid("ec6c3419-3a19-483f-8e1b-4a02c22dfde0"),
                             Is_detele = true,
                             TenDanhMuc = "Túi Hobo"
                         },
                         new
                         {
-                            Id = new Guid("af02fc7e-787d-4bc2-8232-54edc63f3120"),
+                            Id = new Guid("0f7f8edf-ed4b-4f9e-ba8d-1631bb564cb9"),
                             Is_detele = true,
                             TenDanhMuc = "Túi dây rút – Pouch"
                         },
                         new
                         {
-                            Id = new Guid("566f00b3-2e39-437a-ae3c-b970ab880445"),
+                            Id = new Guid("87cf4a90-90ca-44c7-8cdb-7648f89a19ae"),
                             Is_detele = true,
                             TenDanhMuc = "Túi Bucket"
                         },
                         new
                         {
-                            Id = new Guid("315848fd-720e-4783-8fea-3e9c41c5735b"),
+                            Id = new Guid("ede7be32-49b2-4a9b-9b7a-c1a1bccbde66"),
                             Is_detele = true,
                             TenDanhMuc = "Túi Bowling"
                         },
                         new
                         {
-                            Id = new Guid("6aba43ff-9c48-4828-835c-b08fcaeab1c0"),
+                            Id = new Guid("c9b613dc-87f7-4414-aeb0-5ab459242437"),
                             Is_detele = true,
                             TenDanhMuc = "Túi Ring Bag"
                         });
@@ -681,93 +657,135 @@ namespace CTN4_Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ec2ece9d-bb4a-4d0d-a2ae-ec635f8f76e6"),
+                            Id = new Guid("ff4f69d1-1381-473e-8103-13e1471c0ea0"),
                             Is_detele = true,
                             TenMau = "đen",
                             TrangThai = true
                         },
                         new
                         {
-                            Id = new Guid("f86e0891-a98b-4314-9c56-2f614ca9b1de"),
+                            Id = new Guid("13431a98-cf18-4628-a3de-409c114b3298"),
                             Is_detele = true,
                             TenMau = "trắng",
                             TrangThai = true
                         },
                         new
                         {
-                            Id = new Guid("f96e2063-3e8d-4435-9795-683aa57e52b5"),
+                            Id = new Guid("83e1a80f-baf5-4337-83a1-10bd0fa3a2a0"),
                             Is_detele = true,
-                            TenMau = "nâu da",
+                            TenMau = "nâu",
                             TrangThai = true
                         },
                         new
                         {
-                            Id = new Guid("2651117c-5c4b-4322-a61f-1b7623cf029d"),
+                            Id = new Guid("d1241870-b01a-4832-b2aa-3ed0f9e7dfd6"),
                             Is_detele = true,
                             TenMau = "xám",
                             TrangThai = true
                         },
                         new
                         {
-                            Id = new Guid("f70e19c8-a30e-4bdc-959b-d3490db9052a"),
+                            Id = new Guid("5e5be10e-ca75-4ccb-a4df-0932a1b864fc"),
                             Is_detele = true,
                             TenMau = "vàng",
                             TrangThai = true
                         },
                         new
                         {
-                            Id = new Guid("dcafec03-493b-4ebf-aa2a-8114042921aa"),
+                            Id = new Guid("c2f13edf-2390-4201-8a2c-c9d609bb1e46"),
+                            Is_detele = true,
+                            TenMau = "ghi",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("612ea65a-7ad0-45aa-ba59-2d0628514286"),
                             Is_detele = true,
                             TenMau = "cam",
                             TrangThai = true
                         },
                         new
                         {
-                            Id = new Guid("4b8dff92-605b-4286-b60a-2d224019706a"),
+                            Id = new Guid("35c5c671-2c81-4cf4-8720-481a60919a2e"),
+                            Is_detele = true,
+                            TenMau = "xanh dương đậm",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("363fe4e9-c8b0-47d4-b610-6ec7b78b9ff6"),
                             Is_detele = true,
                             TenMau = "xanh lục",
                             TrangThai = true
                         },
                         new
                         {
-                            Id = new Guid("f51dcf74-d5a1-46ff-84ad-bda18f9481c7"),
+                            Id = new Guid("d28a8a35-c195-453f-ad51-8b6e208b8bf1"),
                             Is_detele = true,
-                            TenMau = "xanh đương",
+                            TenMau = "xanh dương",
                             TrangThai = true
                         },
                         new
                         {
-                            Id = new Guid("f3222ef8-5189-4d04-a197-f748337679c4"),
+                            Id = new Guid("5768d1e6-ecd1-4f6e-978b-c5cbc19c2d4b"),
+                            Is_detele = true,
+                            TenMau = "xanh lá",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("d3e7bb9e-d9d9-4f13-a4e1-88be4387eefc"),
+                            Is_detele = true,
+                            TenMau = "xanh nhạt",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("47dbd6c4-b552-41ae-96c9-2898c0e18ebc"),
                             Is_detele = true,
                             TenMau = "tràm",
                             TrangThai = true
                         },
                         new
                         {
-                            Id = new Guid("f9ca60bd-18e7-4aa2-9467-fa8ce198090f"),
+                            Id = new Guid("6d17f685-b5a4-40e1-adc6-50a35a866982"),
                             Is_detele = true,
                             TenMau = "tím",
                             TrangThai = true
                         },
                         new
                         {
-                            Id = new Guid("7958fdc4-e712-4bba-b43b-ee8b87d8887f"),
+                            Id = new Guid("4a63b31f-3e1c-4ccc-968b-e377e3d9bda5"),
                             Is_detele = true,
                             TenMau = "xanh lá đậm",
                             TrangThai = true
                         },
                         new
                         {
-                            Id = new Guid("a61b7286-953a-417f-8313-3c22b34a28f5"),
+                            Id = new Guid("8eff5a22-0fa8-402d-a0f4-3369671d0465"),
+                            Is_detele = true,
+                            TenMau = "xanh tím",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("a3f674bc-e5d7-4aad-bc6e-8583b5d34229"),
                             Is_detele = true,
                             TenMau = "hồng",
                             TrangThai = true
                         },
                         new
                         {
-                            Id = new Guid("b90217ed-c917-4dd6-876d-5d130e68c73c"),
+                            Id = new Guid("6cc26505-2331-496d-a4c3-76652b629594"),
                             Is_detele = true,
                             TenMau = "kem",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("5dd16586-6973-426a-a78e-c6901b41d7d1"),
+                            Is_detele = true,
+                            TenMau = "kem Đậm",
                             TrangThai = true
                         });
                 });
@@ -829,7 +847,7 @@ namespace CTN4_Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("943b6b80-baea-45d5-8e96-a0ea3a55f0d3"),
+                            Id = new Guid("828b17b0-0ae9-488d-bcdc-187794c53797"),
                             AnhDaiDien = "",
                             DiaChi = "Hà Nội",
                             Email = "nothing@gmail.com",
@@ -871,7 +889,7 @@ namespace CTN4_Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("1bb51547-3274-4c37-8542-d8fc5b19fd63"),
+                            Id = new Guid("da8feee4-e2ba-4b43-a6f7-4a7ffef5cab3"),
                             GhiChu = "",
                             Is_detele = true,
                             TenNSX = "Juno",
@@ -879,7 +897,7 @@ namespace CTN4_Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("6eb43a1f-a5af-4f46-a2b4-103805f82421"),
+                            Id = new Guid("e00cccba-9e13-4a58-be90-78699664f47a"),
                             GhiChu = "",
                             Is_detele = true,
                             TenNSX = "Prada",
@@ -887,7 +905,7 @@ namespace CTN4_Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("9e6e979e-6486-429b-a6c2-a1ce849b9f42"),
+                            Id = new Guid("ec6c31ea-ae1c-443b-823f-39a40bcb2c5d"),
                             GhiChu = "",
                             Is_detele = true,
                             TenNSX = "Gucci",
@@ -895,7 +913,7 @@ namespace CTN4_Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("b50a5b33-ef8a-4316-bcff-348ca032d023"),
+                            Id = new Guid("cdf2ed3d-7a3e-4366-943a-8782953b587e"),
                             GhiChu = "",
                             Is_detele = true,
                             TenNSX = "Chanel",
@@ -903,7 +921,7 @@ namespace CTN4_Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("a0b454b4-d252-446f-b5fb-ab893d7186a7"),
+                            Id = new Guid("a41d9a2a-b9dd-4214-a6a3-495185bce92e"),
                             GhiChu = "",
                             Is_detele = true,
                             TenNSX = "Coach",
@@ -911,7 +929,7 @@ namespace CTN4_Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("9a1587c0-311b-49f3-bc34-dc8fc2858b2a"),
+                            Id = new Guid("7160525e-175f-4143-b15c-767281288b2b"),
                             GhiChu = "",
                             Is_detele = true,
                             TenNSX = "MLB Korea",
@@ -919,7 +937,7 @@ namespace CTN4_Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("dbf3af41-9ef1-4a98-abe7-206349314e1b"),
+                            Id = new Guid("287442f6-e66e-4383-a82f-620b27c7aaa9"),
                             GhiChu = "",
                             Is_detele = true,
                             TenNSX = "Michael Kors",
@@ -927,7 +945,7 @@ namespace CTN4_Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("79f28d09-1151-436f-9b9d-b7553a5e4b9e"),
+                            Id = new Guid("46658551-a636-4852-869e-d9d2106daa29"),
                             GhiChu = "",
                             Is_detele = true,
                             TenNSX = "JW Anderson",
@@ -935,7 +953,7 @@ namespace CTN4_Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("34390bdb-94f0-467b-87b2-58fd516a6669"),
+                            Id = new Guid("efd9c330-93b0-4065-bde9-7287c9e26519"),
                             GhiChu = "",
                             Is_detele = true,
                             TenNSX = "Christian Dior",
@@ -943,7 +961,7 @@ namespace CTN4_Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("f8c38d41-39df-4bfb-96c6-62b5f57d0660"),
+                            Id = new Guid("37a4019f-40fb-42a0-ae0a-b412aef3ef13"),
                             GhiChu = "",
                             Is_detele = true,
                             TenNSX = "Louis Vuitton",
@@ -1016,6 +1034,36 @@ namespace CTN4_Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PhuongThucThanhToans");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("d16ac357-3ced-4c2c-bcdc-d38971211111"),
+                            Is_detele = true,
+                            TenPhuongThuc = "Thanh toán khi nhận hàng",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("d16ac357-3ced-4c2c-bcdc-d38971211112"),
+                            Is_detele = true,
+                            TenPhuongThuc = "Thanh toán tại cửa hàng",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("d16ac357-3ced-4c2c-bcdc-d38971211113"),
+                            Is_detele = true,
+                            TenPhuongThuc = "Thanh toán qua ngân hàng",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("d16ac357-3ced-4c2c-bcdc-d38971211114"),
+                            Is_detele = true,
+                            TenPhuongThuc = "Thanh toán qua VNpay",
+                            TrangThai = true
+                        });
                 });
 
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.SanPham", b =>
@@ -1045,7 +1093,7 @@ namespace CTN4_Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("a335f6c0-657f-403d-b0e8-d70c12a53fe1"),
+                            Id = new Guid("0daa94fb-89ef-439b-a084-c6fae66b6db6"),
                             AnhDaiDien = "TXT Da Rắn Khóa Bạc _QuanChau_Trang_Da PU cao cấp(1).jpg",
                             Is_detele = true,
                             TenSanPham = "TXT Da Rắn Khóa Bạc _QuanChau_Trang_Da PU cao cấp(1)",
@@ -1053,7 +1101,7 @@ namespace CTN4_Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("2c601d72-36df-4025-a5fa-1e7d05173522"),
+                            Id = new Guid("81c17f13-7db0-46a6-b83e-d210e4b19d7a"),
                             AnhDaiDien = "TXT Phủ Màu Tag Vuông_QuanChau_XanhLuc_Da PU mềm mịn, cao cấp(1).jpg",
                             Is_detele = true,
                             TenSanPham = "TXT Phủ Màu Tag Vuông_QuanChau_XanhLuc_Da PU mềm mịn, cao cấp(1)",
@@ -1061,7 +1109,7 @@ namespace CTN4_Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("11e1197e-0a57-4d08-9d4f-ad52b2e3a7a8"),
+                            Id = new Guid("33b07e93-a0ce-473b-ac37-b24a8bdb4ad3"),
                             AnhDaiDien = "TDV Hobo Đáy Tròn_QuanChau_Trang_Da lộn, da PU cao cấp(1).jpg",
                             Is_detele = true,
                             TenSanPham = "TDV Hobo Đáy Tròn_QuanChau_Trang_Da lộn, da PU cao cấp(1)",
@@ -1069,7 +1117,7 @@ namespace CTN4_Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("29c7b5e0-e4b7-4780-9a55-d1a0857bb0a7"),
+                            Id = new Guid("36ffe385-f22b-4381-a766-87b37815a77c"),
                             AnhDaiDien = "Túi Xách Nhỏ Curve 1_Trung Quốc_Xanhduong_Da tổng hợp(1).webp",
                             Is_detele = true,
                             TenSanPham = "Túi Xách Nhỏ Curve 1_Trung Quốc_Xanhduong_Da tổng hợp(1)",
@@ -1077,7 +1125,7 @@ namespace CTN4_Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("84c9d404-4ded-4bb9-acf9-28dfec7dcf2b"),
+                            Id = new Guid("55207b59-91b4-4fe7-88da-459268e04b98"),
                             AnhDaiDien = "TDV Hobo Đáy Tròn_QuanChau_Xanh-Duong_Da lộn, da PU cao cấp(1).jpg",
                             Is_detele = true,
                             TenSanPham = "TDV Hobo Đáy Tròn_QuanChau_Xanh-Duong_Da lộn, da PU cao cấp(1)",
@@ -1085,7 +1133,7 @@ namespace CTN4_Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("fdfa182a-72bb-4c02-88b6-1023222f4a67"),
+                            Id = new Guid("b2e88dfb-ad3f-4c89-872e-09d1196192ca"),
                             AnhDaiDien = "TOT Classic Phối Màu _QuanChau_Ghi_Da PU mềm mịn, cao cấp(1).jpg",
                             Is_detele = true,
                             TenSanPham = "TOT Classic Phối Màu _QuanChau_Ghi_Da PU mềm mịn, cao cấp(1)",
@@ -1093,7 +1141,7 @@ namespace CTN4_Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("708c0668-37eb-4540-8062-03f5be9435c3"),
+                            Id = new Guid("b7e2517a-4f29-410d-aa14-3adf036c267e"),
                             AnhDaiDien = "TOT Classic Phối Màu _QuanChau_Nau_Da PU mềm mịn, cao cấp(1).jpg",
                             Is_detele = true,
                             TenSanPham = "TOT Classic Phối Màu _QuanChau_Nau_Da PU mềm mịn, cao cấp(1)",
@@ -1101,7 +1149,7 @@ namespace CTN4_Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("363a5a0c-994f-4716-97fe-bcda34cbdb1c"),
+                            Id = new Guid("3b4e8333-af58-435a-a3fe-8bf347fd23b1"),
                             AnhDaiDien = "Túi Xách Nhỏ Curve 1_Trung Quốc_XanhLa_Da tổng hợp(1).webp",
                             Is_detele = true,
                             TenSanPham = "Túi Xách Nhỏ Curve 1_Trung Quốc_XanhLa_Da tổng hợp(1)",
@@ -1109,7 +1157,7 @@ namespace CTN4_Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c90e2c7f-7546-4388-8d0a-aa4f8edc631e"),
+                            Id = new Guid("4b96ab38-6a17-4b61-9ab2-afdcf8707902"),
                             AnhDaiDien = "Túi Xách Nhỏ Đeo Vai - Cycling_Trung Quốc_XanhNhat_Da tổng hợp(1).webp",
                             Is_detele = true,
                             TenSanPham = "Túi Xách Nhỏ Đeo Vai - Cycling_Trung Quốc_XanhNhat_Da tổng hợp(1)",
@@ -1117,7 +1165,7 @@ namespace CTN4_Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("fb70ec79-1e06-4d40-9f04-c2308c650fb4"),
+                            Id = new Guid("c621dd2f-640e-4d08-8fd1-f2cbcb28758d"),
                             AnhDaiDien = "TDV Hobo Quai Ngắn_QuanChau_Trang_Da PU mềm mịn, cao cấp(1).jpg",
                             Is_detele = true,
                             TenSanPham = "TDV Hobo Quai Ngắn_QuanChau_Trang_Da PU mềm mịn, cao cấp(1)",
@@ -1230,37 +1278,114 @@ namespace CTN4_Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("b551ea39-dc8e-4811-be74-fd4e54a4f078"),
+                            Id = new Guid("bbd5ee29-93c9-48fb-a70a-48b1c7df05f1"),
                             Is_detele = true,
-                            TenSize = "Extra Small",
+                            TenSize = "30cm x 20cm x 10cm",
                             TrangThai = true
                         },
                         new
                         {
-                            Id = new Guid("f4684415-27b9-4b21-8297-78171ef11e06"),
+                            Id = new Guid("1fb37c42-1c4d-4486-934c-19b83349bd67"),
                             Is_detele = true,
-                            TenSize = "Small",
+                            TenSize = "28cm x 22cm x 10cm",
                             TrangThai = true
                         },
                         new
                         {
-                            Id = new Guid("7a4c7ab4-7e83-4d00-bcfe-14294ff24adc"),
+                            Id = new Guid("dddee698-4ab7-47d5-a537-8128568cfb8a"),
                             Is_detele = true,
-                            TenSize = "Standard (Medium)",
+                            TenSize = "27cm x 12cm x 8cm",
                             TrangThai = true
                         },
                         new
                         {
-                            Id = new Guid("2411a4c6-e46d-4cd1-b5c2-be6a5e61c791"),
+                            Id = new Guid("09127eff-8783-48bc-8008-1014431cfc47"),
                             Is_detele = true,
-                            TenSize = "Large",
+                            TenSize = "23cm x 13cm x 6cm",
                             TrangThai = true
                         },
                         new
                         {
-                            Id = new Guid("b5382171-fd3f-43d6-8b56-845e5176e3e0"),
+                            Id = new Guid("29064b95-128d-4e8b-9c14-7973a0274260"),
                             Is_detele = true,
-                            TenSize = "Extra Large",
+                            TenSize = "23cm x 15cm x 5cm",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("462c5bad-4ed7-45d7-96fe-3aa08aea2b63"),
+                            Is_detele = true,
+                            TenSize = "22cm x 18cm x 8cm",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("3914e2ec-e0d5-47c2-b35c-e172a7635b3d"),
+                            Is_detele = true,
+                            TenSize = "20cm x 12cm x 7cm",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("7a773b5a-d519-49b9-89aa-3efd440752eb"),
+                            Is_detele = true,
+                            TenSize = "22cm x 15cm x 6cm",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("5e6b449e-7b79-4a8b-a8f3-f85b89a6c94d"),
+                            Is_detele = true,
+                            TenSize = "17cm x 16cm x 7cm",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("68784dfa-b674-44ad-a88b-4a97683ea623"),
+                            Is_detele = true,
+                            TenSize = "22cm x 12cm x 6cm",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("88f47a21-51c2-41e5-a33e-ab80327b455e"),
+                            Is_detele = true,
+                            TenSize = "21cm x 8cm x 13cm",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("b7eceefd-df2f-41f5-acb9-4301fb512e79"),
+                            Is_detele = true,
+                            TenSize = "27cm x 6cm x 19cm",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("6ae17509-d2d1-452f-b9e1-38d62a7c0811"),
+                            Is_detele = true,
+                            TenSize = "20cm x 6cm x 13cm",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("238231e3-0eae-4355-9447-0ca4b077fe55"),
+                            Is_detele = true,
+                            TenSize = "37cm x 13cm x 28cm",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("ee0211d5-26fe-4c5c-b1b9-e718f58e2f49"),
+                            Is_detele = true,
+                            TenSize = "20cm x 13.5cm x 7.5cm ",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("fb4cb218-ea67-4997-9ea6-ebeeedf7abb4"),
+                            Is_detele = true,
+                            TenSize = "19cm x 13cm x 7cm",
                             TrangThai = true
                         });
                 });

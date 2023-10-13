@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace CTN4_Serv.Service
 {
@@ -19,7 +20,7 @@ namespace CTN4_Serv.Service
         }
         public List<HoaDon> GetAll()
         {
-            return _db.HoaDons.ToList();
+            return _db.HoaDons.Include(c=>c.KhachHang).Include(c=>c.DiaChiNhanHang).Include(c=>c.PhuongThucThanhToan).ToList();
         }
 
         public HoaDon GetById(Guid id)

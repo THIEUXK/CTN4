@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace CTN4_Serv.Service
 {
@@ -19,7 +20,7 @@ namespace CTN4_Serv.Service
         }
         public List<GioHangChiTiet> GetAll()
         {
-            return _db.GioHangChiTiets.ToList();
+            return _db.GioHangChiTiets.Include(c=>c.SanPhamChiTiet).Include(c=>c.GioHang).ToList();
         }
 
         public GioHangChiTiet GetById(Guid id)

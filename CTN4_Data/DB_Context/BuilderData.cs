@@ -103,6 +103,12 @@ namespace CTN4_Data.DB_Context
                 new ChucVu() { TenChucVu = "Quản lý", Id = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971214414"), TrangThai = true },
                 new ChucVu() { TenChucVu = "Nhân viên", Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f70877e9"), TrangThai = true }
             );
+            modelBuilder.Entity<PhuongThucThanhToan>().HasData(
+                new PhuongThucThanhToan() { TenPhuongThuc = "Thanh toán khi nhận hàng", Id = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971211111"), TrangThai = true,Is_detele = true},
+                new PhuongThucThanhToan() { TenPhuongThuc = "Thanh toán tại cửa hàng", Id = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971211112"), TrangThai = true, Is_detele = true },
+                new PhuongThucThanhToan() { TenPhuongThuc = "Thanh toán qua ngân hàng", Id = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971211113"), TrangThai = true, Is_detele = true },
+                new PhuongThucThanhToan() { TenPhuongThuc = "Thanh toán qua VNpay", Id = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971211114"), TrangThai = true, Is_detele = true }
+            );
             modelBuilder.Entity<NhanVien>().HasData(
                 new NhanVien()
                 {
