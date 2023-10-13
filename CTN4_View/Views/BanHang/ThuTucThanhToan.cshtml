@@ -19,7 +19,11 @@
         </div>
     </div>
 </section>
-<form method="post" asp-controller="shop" asp-action="SauThanhToan">
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+<form method="post" asp-controller="BanHang" asp-action="HoanThanhThanhToan">
     <!-- End Banner Area -->
     <!--================Checkout Area =================-->
     <section class="checkout_area section_gap">
@@ -137,9 +141,12 @@
                                     <li><a href="#">Tên sản Phẩm <span>Giá tiền</span></a></li>
                                     <li><a href="#">@a.SanPhamChiTiet.SanPham.TenSanPham<span class="middle">x @a.SoLuong</span> <span class="last">@FormatCurrency(a.SanPhamChiTiet.GiaNiemYet *a.SoLuong)</span></a></li>
                                 </ul>
-                                <input type="hidden" name="idGHCT" value="@a.Id"/>
+                              @*  <input type="hidden" name="idGHCT" value="@a.Id"/>
                                 <input type="hidden" name="idSPCT" value="@a.IdSanPhamChiTiet"/>
-                                <input type="hidden" name="SoLuong" value="@a.SoLuong"/>
+                                <input type="hidden" name="SoLuong" value="@a.SoLuong"/>*@
+                                <input type="hidden" name="idGH" value="@a.IdGioHang"/>
+                            <input type="hidden" name="ChiTietGioHangs[@(Model.GioHangChiTiets.IndexOf(a))].idGiay" value="@a.IdSanPhamChiTiet" />
+                            <input type="hidden" name="ChiTietGioHangsp[@(Model.GioHangChiTiets.IndexOf(a))].soLuong" value="@a.SoLuong" />
                                 
                                                                                       
                             }
@@ -176,12 +183,11 @@
                                 <label for="f-option4">I’ve read and accept the </label>
                                 <a href="#">terms & conditions*</a>
                             </div>
-                            <a class="primary-btn" href="#">Mua Hàng</a>
+                        <button class="primary-btn" type="submit" href="#">Mua Hàng</button>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     </section>
 </form>
 <script>
