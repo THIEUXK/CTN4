@@ -115,8 +115,6 @@ namespace CTN4_View.Controllers.Shop
                     TrangThai = "Đang xử lí",
                     TongTien = tong,
                     NgayDat = DateTime.Now,
-                    NgayGiao = DateTime.Now,
-                    NgayNhan = DateTime.Now,
                     IdDiaChiNhanHang = null,
                     IdKhachHang = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971214499"),
                     IdPhuongThuc = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971211111")
@@ -163,16 +161,17 @@ namespace CTN4_View.Controllers.Shop
             {
                 return RedirectToAction("ThuTucThanhToan");
             }
-
             return RedirectToAction("SauThanhToan");
-
         }
 
-        public IActionResult HoaDon
-            ()
+        public IActionResult HoaDon()
         {
             var a = _HoaDonService.GetAll();
             return View(a);
+        }
+        public IActionResult SauThanhToan()
+        {
+            return View();
         }
 
         [HttpPost]
