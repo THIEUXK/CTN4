@@ -12,6 +12,7 @@ namespace CTN4_Serv.ViewModel
 {
     public class SanPhamChiTietView
     {
+        
         public List<SelectListItem> ChalieuItems { get; set; }
         public List<SelectListItem> MauItems { get; set; }
         public List<SelectListItem> NsxItems { get; set; }

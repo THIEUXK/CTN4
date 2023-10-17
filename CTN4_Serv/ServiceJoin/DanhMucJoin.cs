@@ -19,11 +19,19 @@ namespace CTN4_Serv.ServiceJoin
         }
         public List<DanhMucChiTiet> getAllDanhMucChitiet()
         {
-            return _db.DanhMucChiTiets.Include(c=>c.DanhMuc).Include(c=>c.SanPhamChiTiet).ToList();
+            return _db.DanhMucChiTiets.Include(c=>c.DanhMuc).Include(c=>c.SanPhamChiTiet.SanPham).ToList();
         } 
         public List<DanhMucChiTiet> sanPhamDanhMuc(string a)
         {
             return getAllDanhMucChitiet().Where(c=>c.DanhMuc.TenDanhMuc == a).ToList();
+        }
+        public List<DanhMucChiTiet> GetById(Guid id)
+        {
+            return getAllDanhMucChitiet().Where(c => c.IdDanhMuc == id).ToList();
+        }
+         public List<DanhMucChiTiet> GetDanhMucChiTiets(Guid id)
+        {
+            return getAllDanhMucChitiet().Where(c=>c.IdDanhMuc == id).OrderByDescending(x=>x.SanPhamChiTiet.SanPham.TenSanPham).ToList();
         }
     }
 }

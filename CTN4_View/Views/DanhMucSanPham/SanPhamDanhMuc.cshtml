@@ -1,11 +1,4 @@
-﻿
-@{
-    ViewData["Title"] = "SanPhamDanhMuc";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-@model IEnumerable<CTN4_Data.Models.DB_CTN4.DanhMucChiTiet>
-
+﻿@model CTN4_Serv.ViewModel.HienThiSanPhamView;
 <!-- End Header Area -->
 <!-- Start Banner Area -->
 <section class="banner-area organic-breadcrumb">
@@ -30,12 +23,18 @@
                 <div class="head">Danh mục sản phẩm</div>
                 <ul class="main-categories">
                     <li class="main-nav-list">
-                        @foreach (var sp in Model)
-                        {
-                            <a data-toggle="collapse" href="#fruitsVegetable" aria-expanded="false" aria-controls="fruitsVegetable">
-                                <span class="lnr lnr-arrow-right"></span>@sp.DanhMuc.TenDanhMuc<span class="number">(53)</span>
-                            </a>
-                        }
+                        <from>
+                            @foreach (var sp in Model.danhMucs)
+                            {
+                                if ((Model.danhMucChiTiets.Where(c => c.IdDanhMuc == sp.Id).Count()) >= 1)
+                                {
+                                    <div style="display: flex; align-items: center;">
+                                        <a>@Html.ActionLink(sp.TenDanhMuc, "SanPhamDanhMuc","DanhMucSanPham", new { id = sp.Id })</a>
+                                        <span>(@(Model.danhMucChiTiets.Where(c => c.IdDanhMuc == sp.Id).Count()))</span>
+                                    </div>
+                                }
+                            }
+                        </from>
                     </li>
                 </ul>
             </div>
@@ -88,6 +87,8 @@
                             <div id="upper-value"></div>
                         </div>
                     </div>
+
+
                 </div>
             </div>
         </div>
@@ -123,7 +124,7 @@
             <section class="lattest-product-area pb-40 category-list">
                 <div class="row">
 
-                    @foreach (var sp in Model)
+                    @foreach (var sp in Model.danhMucChiTiet2)
                     {
                         <!-- single product -->
                         {
@@ -355,3 +356,54 @@
         }
     }
 </script>
+@section scrrip{
+    <script>
+            var priceSlider = $("#slider-range").slider({
+            Range: true,
+            min: 0,
+            max: 100000000000,
+            values: [0, 20000],
+            slide: function (event, ui) {
+                console.log("slided");
+                //$("#amount").val("$"+ui.values[0] +".00"+"-"+"$"+ui.values[1]+".00");
+            }
+        })
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#price-range").slider({
+                range: true,
+                min: 0,
+                max: 1000, // Thay đổi giới hạn max tùy theo nhu cầu
+                values: [0, 1000],
+                slide: function (event, ui) {
+                    $("#price-min").val(ui.values[0]);
+                    $("#price-max").val(ui.values[1]);
+                },
+                stop: function () {
+                    filterProducts();
+                },
+            });
+
+            filterProducts();
+
+            function filterProducts() {
+                var minPrice = $("#price-min").val();
+                var maxPrice = $("#price-max").val();
+
+                $.ajax({
+                    url: "@Url.Action("SearchGiaTien", "HienThiSanPhamController")",
+                    type: "GET",
+                    data: { minPrice: minPrice, maxPrice: maxPrice },
+                    success: function (data) {
+                        $("#products").html(data);
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Error: " + error);
+                    },
+                });
+            }
+        });
+    </script>
+}
+

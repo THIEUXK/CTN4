@@ -1,7 +1,14 @@
-﻿namespace CTN4_Data.Models.DB_CTN4
+﻿using System;
+using System.Collections.Generic;
+using System.Dynamic;
+using System.Linq;
+using System.Text;
+
+namespace CTN4_Data.Models.DB_CTN4
 {
     public class DanhMucChiTiet
     {
+        
         public Guid Id { get; set; }
         public Guid? IdSanPhamChiTiet { get; set; }
         public Guid? IdDanhMuc { get; set; }
