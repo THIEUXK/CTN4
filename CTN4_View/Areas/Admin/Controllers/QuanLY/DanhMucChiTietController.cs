@@ -1,8 +1,11 @@
 ﻿using CTN4_Data.Models.DB_CTN4;
-using CTN4_Serv.Service;
 using CTN4_Serv.Service.IService;
+using CTN4_Serv.Service;
+using CTN4_Serv.ServiceJoin;
+using CTN4_Serv.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CTN4_View.Areas.Admin.Controllers.QuanLY
 {
@@ -10,62 +13,115 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLY
     public class DanhMucChiTietController : Controller
     {
         public IDanhMucChiTietService _dmct;
+        public ISanPhamChiTietService _spct;
+        public IDanhMucService _dm;
+
+        public DanhMucJoin _danhMucJoin;
+
         public DanhMucChiTietController()
         {
             _dmct = new DanhMucChiTietMucChiTietService();
+            _spct = new SanPhamChiTietService();
+            _dm = new DanhMucMucService();
+            _danhMucJoin = new DanhMucJoin();
+
         }
-        // GET: HomeController
+        // GET: PhanLoaiController
         [HttpGet]
         public ActionResult Index()
         {
-            var a = _dmct.GetAll();
+            var a = _danhMucJoin.getAllDanhMucChitiet();
             return View(a);
         }
 
-        // GET: HomeController/Details/5
+        // GET: PhanLoaiController/Details/5
         public ActionResult Details(Guid id)
         {
+
             var a = _dmct.GetById(id);
             return View(a);
         }
 
-        // GET: HomeController/Create
+        // GET: PhanLoaiController/Create
         public ActionResult Create()
         {
-            return View();
+            var viewModel = new DanhMucChiTietView()
+            {
+
+                sanPhamctItems = _spct.GetAll().Select(s => new SelectListItem
+                {
+                    Value = s.Id.ToString(),
+                    Text = s.SanPham.TenSanPham
+                }).ToList(),
+                danhMucItems = _dm.GetAll().Select(s => new SelectListItem
+                {
+                    Value = s.Id.ToString(),
+                    Text = s.TenDanhMuc
+                }).ToList(),
+            };
+            return View(viewModel);
         }
 
-        // POST: SanPhamController/Create
+        // POST: PhanLoaiController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(DanhMucChiTiet p, [Bind] IFormFile imageFile)
+        public ActionResult Create(DanhMucChiTietView a)
         {
+            var b = new DanhMucChiTiet()
+            {
 
+                IdSanPhamChiTiet = Guid.Parse(a.IdSanPhamChiTiet.Value.ToString()),
+                IdDanhMuc = Guid.Parse(a.IdDanhMuc.Value.ToString()),
 
-            if (_dmct.Them(p)) // Nếu thêm thành công
+            };
+            if (_dmct.Them(b)) // Nếu thêm thành công
             {
 
                 return RedirectToAction("Index");
             }
+            var viewModel = new DanhMucChiTietView()
+            {
+                sanPhamctItems = _spct.GetAll().Select(s => new SelectListItem
+                {
+                    Value = s.Id.ToString(),
+                    Text = s.SanPham.TenSanPham
+                }).ToList(),
+                danhMucItems = _dm.GetAll().Select(s => new SelectListItem
+                {
+                    Value = s.Id.ToString(),
+                    Text = s.TenDanhMuc
+                }).ToList(),
+            };
 
-            return View();
+            return View(viewModel);
         }
 
-        // GET: SanPhamController/Edit/5
-        [HttpGet]
+        // GET: PhanLoaiController/Edit/5
         public ActionResult Edit(Guid id)
         {
-            var a = _dmct.GetById(id);
-            return View(a);
+            var viewModel = new DanhMucChiTietView()
+            {
+                sanPhamctItems = _spct.GetAll().Select(s => new SelectListItem
+                {
+                    Value = s.Id.ToString(),
+                    Text = s.SanPham.TenSanPham
+                }).ToList(),
+                danhMucItems = _dm.GetAll().Select(s => new SelectListItem
+                {
+                    Value = s.Id.ToString(),
+                    Text = s.TenDanhMuc
+                }).ToList(),
+
+            };
+            return View(viewModel);
         }
 
-        // POST: SanPhamController/Edit/5
+        // POST: PhanLoaiController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(DanhMucChiTiet p, [Bind] IFormFile imageFile)
+        public ActionResult Edit(DanhMucChiTiet a)
         {
-
-            if (_dmct.Sua(p))
+            if (_dmct.Sua(a))
             {
                 return RedirectToAction("Index");
 
@@ -73,7 +129,8 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLY
             return View();
         }
 
-        // GET: SanPhamController/Delete/5
+
+
         public ActionResult Delete(Guid id)
         {
             if (_dmct.Xoa(id))

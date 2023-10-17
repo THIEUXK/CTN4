@@ -21,35 +21,50 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                Tên sản phẩm
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdSanPhamChiTiet)
+                Ảnh Sản phẩm
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdDanhMuc)
+                Tên danh mục
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdSanPhamChiTiet)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdDanhMuc)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <tb>
+                        @if (System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".jpg" ||
+                       System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".png" ||
+                       System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".jpeg" ||
+                       System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".tiff" ||
+                       System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".webp" ||
+                       System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".gif")
+                        {
+                            <img src="~/image/@item.SanPhamChiTiet.SanPham.AnhDaiDien" height="300">
+                        }
+                        else
+                        {
+                            <a>ảnh lỗi</a>
+                        }
+                    </tb>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SanPhamChiTiet.SanPham.TenSanPham)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DanhMuc.TenDanhMuc)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

@@ -37,7 +37,10 @@ namespace CTN4_Serv.ServiceJoin
         {
             return GetAll().Where(c => c.GiaNiemYet>=GiaDau&&c.GiaNiemYet<=GiaCuoi).ToList();
         }
-
+         public float  MaxTien()
+        {
+            return  _db.SanPhamChiTiets.Max(p => p.GiaNiemYet);
+        }
         public List<Anh> GeAnhs(Guid id)
         {
             return _db.Anhs.Where(c=>c.IdSanPhamChiTiet==id).ToList();

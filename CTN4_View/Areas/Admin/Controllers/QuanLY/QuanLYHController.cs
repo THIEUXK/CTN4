@@ -51,6 +51,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         {
             var viewModel = new SanPhamChiTietView()
             {
+                
                 ChalieuItems = _chatLieuService.GetAll().Select(s => new SelectListItem
                 {
                     Value = s.Id.ToString(),
