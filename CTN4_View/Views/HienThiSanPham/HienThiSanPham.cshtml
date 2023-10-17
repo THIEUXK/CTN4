@@ -24,16 +24,16 @@
                 <ul class="main-categories">
                     <li class="main-nav-list">
                         <from>
-                        @foreach (var sp in Model.danhMucs)
-                        {
-                            if ((Model.danhMucChiTiets.Where(c => c.IdDanhMuc == sp.Id).Count()) >= 1)
+                            @foreach (var sp in Model.danhMucs)
                             {
-                                <div style="display: flex; align-items: center;">
-                                    <a>@Html.ActionLink(sp.TenDanhMuc, "SanPhamDanhMuc","DanhMucSanPham", new { id = sp.Id })</a>
-                                    <span>(@(Model.danhMucChiTiets.Where(c => c.IdDanhMuc == sp.Id).Count()))</span>
-                                </div>
+                                if ((Model.danhMucChiTiets.Where(c => c.IdDanhMuc == sp.Id).Count()) >= 1)
+                                {
+                                    <div style="display: flex; align-items: center;">
+                                        <a>@Html.ActionLink(sp.TenDanhMuc, "SanPhamDanhMuc","DanhMucSanPham", new { id = sp.Id })</a>
+                                        <span>(@(Model.danhMucChiTiets.Where(c => c.IdDanhMuc == sp.Id).Count()))</span>
+                                    </div>
+                                }
                             }
-                        }
                         </from>
                     </li>
                 </ul>
@@ -87,8 +87,8 @@
                             <div id="upper-value"></div>
                         </div>
                     </div>
-                    
-               
+
+
                 </div>
             </div>
         </div>
@@ -123,64 +123,64 @@
             <!-- Start Best Seller -->
             <section class="lattest-product-area pb-40 category-list">
                 <div class="row">
-                    
-                     @foreach (var sp in Model.sanPhamChiTiets)
-                        {
-                            <!-- single product -->
-                            {
-                                <div class="col-lg-4 col-md-6">
-                                    <div class="single-product">
-                                        @if (System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".jpg" ||
-                                       System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".png" ||
-                                       System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".jpeg" ||
-                                       System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".tiff" ||
-                                       System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".webp" ||
-                                       System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".gif")
-                                        {
-                                            <img src="~/image/@sp.SanPham.AnhDaiDien" height="300">
-                                        }
-                                        else
-                                        {
-                                            <span>Ảnh lỗi rồi =)))</span>
-                                        }
-                                        <div class="product-details">
-                                            <h6>
-                                                <a>@sp.SanPham.TenSanPham</a>
-                                            </h6>
-                                            <div class="price">
-                                                @if (sp.GiaNiemYet == sp.GiaBan)
-                                                {
-                                                    <h6>@FormatCurrency(sp.GiaNiemYet)</h6>
-                                                }
-                                                else
-                                                {
-                                                    <h6>@FormatCurrency(sp.GiaNiemYet)</h6>
-                                                    <h6 class="l-through">@FormatCurrency(sp.GiaBan)</h6>
-                                                }
-                                            </div>
-                                            <div class="prd-bottom">
 
-                                                <a href="" class="social-info">
-                                                    <span class="ti-bag"></span>
-                                                    <p class="hover-text">add to bag</p>
-                                                </a>
-                                                <a href="" class="social-info">
-                                                    <span class="lnr lnr-heart"></span>
-                                                    <p class="hover-text">Wishlist</p>
-                                                </a>
-                                                <a href="" class="social-info">
-                                                    <span class="lnr lnr-sync"></span>
-                                                    <p class="hover-text">compare</p>
-                                                </a>
-                                                <a href="" class="social-info">
-                                                    <span class="lnr lnr-move"></span>
-                                                    <p class="hover-text">view more</p>
-                                                </a>
-                                            </div>
+                    @foreach (var sp in Model.sanPhamChiTiets)
+                    {
+                        <!-- single product -->
+                        {
+                            <div class="col-lg-4 col-md-6">
+                                <div class="single-product">
+                                    @if (System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".jpg" ||
+                                   System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".png" ||
+                                   System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".jpeg" ||
+                                   System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".tiff" ||
+                                   System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".webp" ||
+                                   System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".gif")
+                                    {
+                                        <img src="~/image/@sp.SanPham.AnhDaiDien" height="300">
+                                    }
+                                    else
+                                    {
+                                        <span>Ảnh lỗi rồi =)))</span>
+                                    }
+                                    <div class="product-details">
+                                        <h6>
+                                            <a style="color:black"> @Html.ActionLink(sp.SanPham.TenSanPham, "HienThiSanPhamChiTiet", new { id = sp.Id}) </a>
+                                        </h6>
+                                        <div class="price">
+                                            @if (sp.GiaNiemYet == sp.GiaBan)
+                                            {
+                                                <h6>@FormatCurrency(sp.GiaNiemYet)</h6>
+                                            }
+                                            else
+                                            {
+                                                <h6>@FormatCurrency(sp.GiaNiemYet)</h6>
+                                                <h6 class="l-through">@FormatCurrency(sp.GiaBan)</h6>
+                                            }
+                                        </div>
+                                        <div class="prd-bottom">
+
+                                            <a href="" class="social-info">
+                                                <span class="ti-bag"></span>
+                                                <p class="hover-text">add to bag</p>
+                                            </a>
+                                            <a href="" class="social-info">
+                                                <span class="lnr lnr-heart"></span>
+                                                <p class="hover-text">Wishlist</p>
+                                            </a>
+                                            <a href="" class="social-info">
+                                                <span class="lnr lnr-sync"></span>
+                                                <p class="hover-text">compare</p>
+                                            </a>
+                                            <a href="" class="social-info">
+                                                <span class="lnr lnr-move"></span>
+                                                <p class="hover-text">view more</p>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
-                            }
+                            </div>
+                        }
                     }
                 </div>
             </section>
@@ -358,12 +358,12 @@
 </script>
 @section scrrip{
     <script>
-        var priceSlider = $("#slider-range").slider({
+                var priceSlider = $("#slider-range").slider({
             Range: true,
-            min : 0,
+            min: 0,
             max: 100000000000,
-            values : [0,20000],
-            slide : function(event , ui){
+            values: [0, 20000],
+            slide: function (event, ui) {
                 console.log("slided");
                 //$("#amount").val("$"+ui.values[0] +".00"+"-"+"$"+ui.values[1]+".00");
             }
