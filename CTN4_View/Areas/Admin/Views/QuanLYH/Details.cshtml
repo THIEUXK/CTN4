@@ -116,11 +116,87 @@
             @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
             <a asp-action="Index">Back to List</a>
         </div>
-        
-
-
-
+        <div class="m-b-15">
+            <input id="fThumb" type="file" class="form-control-file" />
+            <button id="btnUpload" class="btn btn-primary">
+                <i class="anticon anticon-save"></i>
+                <span>Thêm ảnh</span>
+            </button>
+        </div>
     </div>
 </div>
+<div class="table-responsive">
+    <table class="table table-hover e-commerce-table">
+        <thead>
+        <tr>
+
+            <th>STT</th>
+            <th>Ảnh</th>
+            <th>Trạng thái</th>
+            <th>Thao tác</th>
+        </tr>
+        </thead>
+        <tbody id="records_table">
+        @if (Model != null)
+        {
+            foreach (var item in Model.Anhs)
+            {
+                var index = Model.Anhs.ToList().FindIndex(p => p.Id == item.Id) + 1;
+                <tr>
+                    <td>
+                        @index
+                    </td>
+                    <tb>
+                        @if (System.IO.Path.GetExtension(item.DuongDanAnh) == ".jpg" ||
+                             System.IO.Path.GetExtension(item.DuongDanAnh) == ".png" ||
+                             System.IO.Path.GetExtension(item.DuongDanAnh) == ".jpeg" ||
+                             System.IO.Path.GetExtension(item.DuongDanAnh) == ".tiff" ||
+                             System.IO.Path.GetExtension(item.DuongDanAnh) == ".webp" ||
+                             System.IO.Path.GetExtension(item.DuongDanAnh) == ".gif")
+                        {
+                            <img src="~/image/@item.DuongDanAnh" height="300">
+                        }
+                        else
+                        {
+                            <a>ảnh lỗi</a>
+                        }
+                    </tb>
+                </tr>
+            }
+        }
+        </tbody>
+    </table>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#btnUpload').click(function ()
+        {
+            var productId = "@Model.Id";
+            var fileInput = $('#fThumb')[0];
+            var file = fileInput.files[0];
+            console.log(productId);
+            console.log(file);
+            var formData = new FormData();
+            formData.append('productId', productId);
+            formData.append('fThumb', file);
+
+            $.ajax({
+                url: '/Admin/AdminProductImages/AddImage',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    location.reload();
+                    console.log(result);
+                },
+                error: function (xhr, status, error) {
+                    console.log(error);
+                }
+            });
+        });
+    });
+    </script>
 
 
