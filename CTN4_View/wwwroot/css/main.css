@@ -3434,7 +3434,7 @@ label {
   opacity: 0; }
 
 .pixel-radio {
-  border-radius: 50%;
+  /*border-radius: 50%;*/
   top: 6px; }
 
 .pixel-radio::after {
