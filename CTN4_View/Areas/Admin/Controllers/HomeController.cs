@@ -52,7 +52,7 @@ namespace CTN4_View_Admin.Controllers
         {
             if (string.IsNullOrEmpty(userModel.User) || string.IsNullOrEmpty(userModel.Password))
             {
-                return (RedirectToAction(nameof(Index)));
+                return (RedirectToAction(nameof(DangNhap)));
             }
 
             IActionResult response = Unauthorized();
@@ -65,12 +65,13 @@ namespace CTN4_View_Admin.Controllers
 
                 if (generatedToken != null)
                 {
+                    ModelState.AddModelError("LoginError", "Tên người dùng hoặc mật khẩu không chính xác");
                     HttpContext.Session.SetString("Token", generatedToken);
                     return RedirectToAction("MainWindow");
                 }
                 else
                 {
-                    return (RedirectToAction("Index"));
+                    return (RedirectToAction(nameof(DangNhap)));
                 }
             }
             else

@@ -3,6 +3,8 @@ using CTN4_Serv.Service.IService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.Extensions.DependencyInjection;
+using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddControllersWithViews();
     builder.Services.AddTransient<ILoginService, LoginServices>();
     builder.Services.AddTransient<ITokenService, TokenServices>();
+
 
     builder.Services.AddAuthentication(auth =>
     {

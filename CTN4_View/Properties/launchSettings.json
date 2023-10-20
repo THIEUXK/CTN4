@@ -16,6 +16,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
+
     },
     "IIS Express": {
       "commandName": "IISExpress",
@@ -28,5 +29,12 @@
       "FolderPath": "wwwroot",
       "RequestPath": "/static"
     }
+    {
+      "Jwt": {
+        "Key": "yourSecretKey",
+        "Issuer": "yourIssuer"
+      }
+    }
+
   }
 }
