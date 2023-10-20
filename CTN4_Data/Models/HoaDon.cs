@@ -8,8 +8,8 @@
         public string TrangThai { get; set; }
         public float TongTien { get; set; }
         public DateTime NgayDat { get; set; }
-        public DateTime NgayGiao { get; set; }
-        public DateTime NgayNhan { get; set; }
+        public DateTime? NgayGiao { get; set; }
+        public DateTime? NgayNhan { get; set; }
         public Guid? IdKhachHang { get; set; }
         public Guid? IdPhuongThuc { get;set; }
         public Guid? IdDiaChiNhanHang { get; set; }
