@@ -52,12 +52,13 @@ namespace CTN4_View_Admin.Controllers
         {
             if (string.IsNullOrEmpty(userModel.User) || string.IsNullOrEmpty(userModel.Password))
             {
-                return (RedirectToAction(nameof(Index)));
+                return (RedirectToAction(nameof(DangNhap)));
             }
+
 
             IActionResult response = Unauthorized();
             var validUser = GetUser(userModel);
-
+           
             if (validUser != null)
             {
                 generatedToken = _tokenService.BuildToken(_config["Jwt:Key"].ToString(), _config["Jwt:Issuer"].ToString(),
@@ -65,6 +66,7 @@ namespace CTN4_View_Admin.Controllers
 
                 if (generatedToken != null)
                 {
+                    ModelState.AddModelError("LoginError", "Tên người dùng hoặc mật khẩu không chính xác");
                     HttpContext.Session.SetString("Token", generatedToken);
                     return RedirectToAction("MainWindow");
                 }
@@ -75,7 +77,7 @@ namespace CTN4_View_Admin.Controllers
             }
             else
             {
-                return (RedirectToAction("Index"));
+                return (RedirectToAction(nameof(DangNhap)));
             }
         }
         private NhanVien GetUser(Loginviewmodel userModel)
