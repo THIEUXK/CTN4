@@ -45,5 +45,20 @@ namespace CTN4_Serv.ServiceJoin
         {
             return _db.Anhs.Where(c=>c.IdSanPhamChiTiet==id).ToList();
         }
+        public List<SanPhamChiTiet> GetByIdMs(Guid id)
+        {
+            return GetAll().Where(c => c.IdMau == id).ToList();
+        }
+        public List<SanPhamChiTiet> GetByIdCl(Guid id)
+        {
+            return GetAll().Where(c => c.IdChatLieu == id).ToList();
+        }
+        
+        public List<SanPhamChiTiet> PagIng(int a,int b)
+        {
+            return _db.SanPhamChiTiets.Include(c => c.ChatLieu).Include(c => c.NSX).Include(c => c.Mau)
+                .Include(c => c.Size).Include(c => c.SanPham).Skip((a-1)*b).Take(b).ToList();
+            
+        }
     }
 }
