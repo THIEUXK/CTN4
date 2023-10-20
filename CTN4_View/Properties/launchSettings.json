@@ -29,12 +29,7 @@
       "FolderPath": "wwwroot",
       "RequestPath": "/static"
     }
-    {
-      "Jwt": {
-        "Key": "yourSecretKey",
-        "Issuer": "yourIssuer"
-      }
-    }
+   
 
   }
 }
