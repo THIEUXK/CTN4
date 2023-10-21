@@ -61,7 +61,6 @@ namespace CTN4_View.Controllers.Shop
                 }
 
             }
-
             var message = "Xóa Thất Bại";
             TempData["ErrorMessage"] = message;
             return RedirectToAction("GioHang", "BanHang", new { message });
