@@ -1,4 +1,5 @@
-﻿using CTN4_Data.Models.DB_CTN4;
+﻿using CTN4_Data.DB_Context;
+using CTN4_Data.Models.DB_CTN4;
 using CTN4_Ser.ViewModel;
 using CTN4_Serv.Service.IService;
 using Microsoft.IdentityModel.Tokens;
@@ -14,14 +15,24 @@ namespace CTN4_Serv.Service
 {
     public class TokenServices :ITokenService
     {
-        private const double EXPIRY_DURATION_MINUTES = 30;
-        public string BuildToken(string key,
-        string issuer, NhanVien user)
+        public DB_CTN4_ok _db;
+        public TokenServices() 
         {
+            _db = new DB_CTN4_ok();
+        }
+        private const double EXPIRY_DURATION_MINUTES = 30;
+        public string BuildToken(string key,string issuer, NhanVien user)
+        {
+            var Cv = _db.ChucVus.FirstOrDefault(p => p.Id == user.IdChucVu);
+            if (Cv == null)
+            {
+                return "";
+            }
+            //thg này chưa cí chúc vụ trong sql vào fake đi
             var claims = new[] {
                 
                 new Claim(ClaimTypes.Name, user.TenDangNhap),
-                new Claim(ClaimTypes.Role, user.ChucVu.TenChucVu),
+                new Claim(ClaimTypes.Role, Cv.TenChucVu),
                 new Claim(ClaimTypes.NameIdentifier, Guid.NewGuid().ToString())
             };
 

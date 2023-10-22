@@ -61,6 +61,7 @@ namespace CTN4_View_Admin.Controllers
            
             if (validUser != null)
             {
+                // truyền vào là loginviewmodel
                 generatedToken = _tokenService.BuildToken(_config["Jwt:Key"].ToString(), _config["Jwt:Issuer"].ToString(),
                 validUser);
 
@@ -68,11 +69,11 @@ namespace CTN4_View_Admin.Controllers
                 {
                     ModelState.AddModelError("LoginError", "Tên người dùng hoặc mật khẩu không chính xác");
                     HttpContext.Session.SetString("Token", generatedToken);
-                    return RedirectToAction("MainWindow");
+                    return RedirectToAction(nameof(Index));
                 }
                 else
                 {
-                    return (RedirectToAction("Index"));
+                    return (RedirectToAction("DangNhap"));
                 }
             }
             else
@@ -87,9 +88,9 @@ namespace CTN4_View_Admin.Controllers
         }
 
         [Authorize]
-        [Route("mainwindow")]
+        [Route("mainwindows")]
         [HttpGet]
-        public IActionResult MainWindow()
+        public IActionResult MainWindows()
         {
             string token = HttpContext.Session.GetString("Token");
 

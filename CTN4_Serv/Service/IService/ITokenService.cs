@@ -11,6 +11,7 @@ namespace CTN4_Serv.Service.IService
 {
     public interface ITokenService
     {
+        // xong thg này nhận nhanvien thì chả null
         string BuildToken(string key, string issuer, NhanVien user);
         //string GenerateJSONWebToken(string key, string issuer, UserDTO user);
         bool IsTokenValid(string key, string issuer, string token);
