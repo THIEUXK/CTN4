@@ -96,19 +96,18 @@ namespace CTN4_View_Admin.Controllers
 
             if (token == null)
             {
-                return (RedirectToAction("Index"));
+                return RedirectToAction(nameof(DangNhap));
             }
 
             if (!_tokenService.IsTokenValid(_config["Jwt:Key"].ToString(),
                 _config["Jwt:Issuer"].ToString(), token))
             {
-                return (RedirectToAction("Index"));
+                return RedirectToAction("Index");
             }
 
             ViewBag.Message = BuildMessage(token, 50);
-            return View();
+            return View("Index");
         }
-
         public IActionResult Errors()
         {
             ViewBag.Message = "An error occured...";
