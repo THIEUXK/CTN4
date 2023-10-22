@@ -21,6 +21,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         public ISizeService _sizeService;
         public SanPhamCuaHangService _sanPhamCuaHangService;
         public DB_CTN4_ok _db;
+        public IAnhService _anhService;
 
         public QuanLYHController()
         {
@@ -32,6 +33,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             _sizeService = new SizeService();
             _sanPhamCuaHangService = new SanPhamCuaHangService();
             _db = new DB_CTN4_ok();
+            _anhService= new AnhService();
 
         }
         // GET: PhanLoaiController
@@ -245,6 +247,14 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                 return RedirectToAction("Index");
             }
             return RedirectToAction("Index");
+        }
+        public ActionResult XoaAnh(Guid id,Guid IdSp)
+        {
+            if (_anhService.Xoa(id))
+            {
+                return RedirectToAction("Details", new { id = IdSp });
+            }
+            return RedirectToAction("Details", new { id = IdSp });
         }
     }
 }

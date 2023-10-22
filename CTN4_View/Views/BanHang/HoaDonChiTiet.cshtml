@@ -1,0 +1,84 @@
+﻿@model IEnumerable<CTN4_Data.Models.DB_CTN4.HoaDonChiTiet>
+
+@{
+    ViewData["Title"] = "HoaDonChiTiet";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Lịch Sử Mua Hàng</h1>
+                <nav class="d-flex align-items-center">
+                    <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="category.html">Hóa Đơn Chi Tiết</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<h1>HoaDonChiTiet</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SoLuong)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GiaTien)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrangThai)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Is_detele)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdSanPhamChiTiet)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdHoaDon)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoLuong)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GiaTien)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrangThai)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Is_detele)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdSanPhamChiTiet)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdHoaDon)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

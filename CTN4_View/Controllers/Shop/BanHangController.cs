@@ -168,6 +168,11 @@ namespace CTN4_View.Controllers.Shop
             var a = _HoaDonService.GetAll();
             return View(a);
         }
+        public IActionResult HoaDonChiTiet(Guid id)
+        {
+            var a = _HoaDonChiTiet.GetAll().Where(c=>c.IdHoaDon==id);
+            return View(a);
+        }
         public IActionResult SauThanhToan()
         {
             return View();

@@ -124,12 +124,12 @@
 @foreach (var a in Model.AhList)
 {
     <td>
-@if (System.IO.Path.GetExtension(a.DuongDanAnh) == ".jpg" ||
-       System.IO.Path.GetExtension(a.DuongDanAnh) == ".png" ||
-       System.IO.Path.GetExtension(a.DuongDanAnh) == ".jpeg" ||
-       System.IO.Path.GetExtension(a.DuongDanAnh) == ".tiff" ||
-       System.IO.Path.GetExtension(a.DuongDanAnh) == ".webp" ||
-       System.IO.Path.GetExtension(a.DuongDanAnh) == ".gif")
+        @if (System.IO.Path.GetExtension(a.DuongDanAnh) == ".jpg" ||
+             System.IO.Path.GetExtension(a.DuongDanAnh) == ".png" ||
+             System.IO.Path.GetExtension(a.DuongDanAnh) == ".jpeg" ||
+             System.IO.Path.GetExtension(a.DuongDanAnh) == ".tiff" ||
+             System.IO.Path.GetExtension(a.DuongDanAnh) == ".webp" ||
+             System.IO.Path.GetExtension(a.DuongDanAnh) == ".gif")
         {
             <img src="~/image/@a.DuongDanAnh" height="100">
         }
@@ -138,6 +138,10 @@
             <span>Ảnh lỗi rồi =)))</span>
         }
     </td>
+    <td>
+        @Html.ActionLink("Xóa", "XoaAnh", new { id=a.Id,IdSp=a.IdSanPhamChiTiet}) |
+    </td>
+
 }
 
 @if (TempData["ErrorMessage"] != null)
