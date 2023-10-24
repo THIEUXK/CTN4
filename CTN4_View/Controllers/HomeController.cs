@@ -117,12 +117,12 @@ namespace CTN4_View.Controllers
                 }
                 else
                 {
-                    return (RedirectToAction(""));
+                    return (RedirectToAction("Index"));
                 }
             }
             else
             {
-                return (RedirectToAction(""));
+                return (RedirectToAction("Login"));
             }
         }
         private KhachHang GetUserKH(Loginviewmodel userModel)
@@ -140,7 +140,7 @@ namespace CTN4_View.Controllers
 
             if (token == null)
             {
-                return (RedirectToAction("Index"));
+                return RedirectToAction(nameof(login));
             }
 
             if (!_tokenService.IsTokenValid(_config["Jwt:Key"].ToString(),
