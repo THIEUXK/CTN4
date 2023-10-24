@@ -61,7 +61,6 @@ namespace CTN4_View.Controllers.Shop
                 }
 
             }
-
             var message = "Xóa Thất Bại";
             TempData["ErrorMessage"] = message;
             return RedirectToAction("GioHang", "BanHang", new { message });
@@ -167,6 +166,11 @@ namespace CTN4_View.Controllers.Shop
         public IActionResult HoaDon()
         {
             var a = _HoaDonService.GetAll();
+            return View(a);
+        }
+        public IActionResult HoaDonChiTiet(Guid id)
+        {
+            var a = _HoaDonChiTiet.GetAll().Where(c=>c.IdHoaDon==id);
             return View(a);
         }
         public IActionResult SauThanhToan()

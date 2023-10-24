@@ -1,5 +1,4 @@
-﻿using CTN4_Data.DB_Context;
-using CTN4_Data.Models.DB_CTN4;
+﻿using CTN4_Data.Models.DB_CTN4;
 using CTN4_Ser.ViewModel;
 using CTN4_Serv.Service.IService;
 using Microsoft.IdentityModel.Tokens;
@@ -10,18 +9,19 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using CTN4_Data.DB_Context;
 
 namespace CTN4_Serv.Service
 {
     public class TokenServices :ITokenService
     {
         public DB_CTN4_ok _db;
-        public TokenServices() 
+        public TokenServices()
         {
             _db = new DB_CTN4_ok();
         }
         private const double EXPIRY_DURATION_MINUTES = 30;
-        public string BuildToken(string key,string issuer, NhanVien user)
+        public string BuildToken(string key, string issuer, NhanVien user)
         {
             var Cv = _db.ChucVus.FirstOrDefault(p => p.Id == user.IdChucVu);
             if (Cv == null)

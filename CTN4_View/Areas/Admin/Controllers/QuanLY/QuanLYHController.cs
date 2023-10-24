@@ -1,10 +1,12 @@
-﻿using CTN4_Data.Models.DB_CTN4;
+﻿using CTN4_Data.DB_Context;
+using CTN4_Data.Models.DB_CTN4;
 using CTN4_Serv.Service;
 using CTN4_Serv.Service.IService;
 using CTN4_Serv.ServiceJoin;
 using CTN4_Serv.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace CTN4_View_Admin.Controllers.QuanLY
 {
@@ -18,6 +20,8 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         public ISanPhamService _spService;
         public ISizeService _sizeService;
         public SanPhamCuaHangService _sanPhamCuaHangService;
+        public DB_CTN4_ok _db;
+        public IAnhService _anhService;
 
         public QuanLYHController()
         {
@@ -28,6 +32,8 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             _spService = new SanPhamService();
             _sizeService = new SizeService();
             _sanPhamCuaHangService = new SanPhamCuaHangService();
+            _db = new DB_CTN4_ok();
+            _anhService= new AnhService();
 
         }
         // GET: PhanLoaiController
@@ -41,17 +47,56 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         // GET: PhanLoaiController/Details/5
         public ActionResult Details(Guid id)
         {
-
-            var a = _sv.GetById(id);
-            return View(a);
+            var view = new ThieuxkView()
+            {
+                SanPhamChiTiet = _sv.GetById(id),
+                AhList = _db.Anhs.Where(c=>c.IdSanPhamChiTiet==id).ToList()
+        };
+            return View(view);
         }
 
+        [HttpPost]
+        public async Task<ActionResult> AddAnh(Guid IdSP,[Bind] IFormFile imageFile)
+        {
+            if (imageFile != null && imageFile.Length > 0) // Không null và không trống
+            {
+                //Trỏ tới thư mục wwwroot để lát nữa thực hiện việc Copy sang
+                var path = Path.Combine(
+                    Directory.GetCurrentDirectory(), "wwwroot", "image", imageFile.FileName);
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    imageFile.CopyTo(stream);
+                }
+
+            }
+
+            
+
+
+            if (imageFile != null)
+            {
+                {
+                    _db.Anhs.Add(new Anh()
+                    {
+                        IdSanPhamChiTiet = IdSP,
+                        DuongDanAnh = imageFile.FileName,
+                        Is_delete = true,
+                        TrangThai = true,
+                        TenAnh = imageFile.FileName
+                    });
+                    await _db.SaveChangesAsync();
+                }
+            }
+
+
+            return RedirectToAction("Details", new{id=IdSP});
+        }
         // GET: PhanLoaiController/Create
         public ActionResult Create()
         {
             var viewModel = new SanPhamChiTietView()
             {
-                
+
                 ChalieuItems = _chatLieuService.GetAll().Select(s => new SelectListItem
                 {
                     Value = s.Id.ToString(),
@@ -176,32 +221,40 @@ namespace CTN4_View_Admin.Controllers.QuanLY
 
                 SnaSanPhamChiTiet = _sv.GetById(id)
 
-        };
+            };
             return View(viewModel);
-    }
-
-    // POST: PhanLoaiController/Edit/5
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public ActionResult Edit(SanPhamChiTiet a)
-    {
-        if (_sv.Sua(a))
-        {
-            return RedirectToAction("Index");
-
         }
-        return View();
-    }
 
-
-
-    public ActionResult Delete(Guid id)
-    {
-        if (_sv.Xoa(id))
+        // POST: PhanLoaiController/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(SanPhamChiTiet a)
         {
+            if (_sv.Sua(a))
+            {
+                return RedirectToAction("Index");
+
+            }
+            return View();
+        }
+
+
+
+        public ActionResult Delete(Guid id)
+        {
+            if (_sv.Xoa(id))
+            {
+                return RedirectToAction("Index");
+            }
             return RedirectToAction("Index");
         }
-        return RedirectToAction("Index");
+        public ActionResult XoaAnh(Guid id,Guid IdSp)
+        {
+            if (_anhService.Xoa(id))
+            {
+                return RedirectToAction("Details", new { id = IdSp });
+            }
+            return RedirectToAction("Details", new { id = IdSp });
+        }
     }
-}
 }

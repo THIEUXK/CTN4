@@ -51,7 +51,7 @@ namespace CTN4_View.Controllers
             return View();
         }
        
-           public IActionResult confirmation()
+        public IActionResult confirmation()
         {
             return View();
         }

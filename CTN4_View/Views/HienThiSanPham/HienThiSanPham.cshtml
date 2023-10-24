@@ -41,54 +41,67 @@
             <div class="sidebar-filter mt-50">
                 <div class="top-filter-head">Product Filters</div>
                 <div class="common-filter">
-                    <div class="head">Brands</div>
-                    <form action="#">
+                    <div class="head">ChatLieu</div>
+                    <form id="FillterChatLieu">
                         <ul>
-                            <li class="filter-list"><input class="pixel-radio" type="radio" id="apple" name="brand"><label for="apple">Apple<span>(29)</span></label></li>
-                            <li class="filter-list"><input class="pixel-radio" type="radio" id="asus" name="brand"><label for="asus">Asus<span>(29)</span></label></li>
-                            <li class="filter-list"><input class="pixel-radio" type="radio" id="gionee" name="brand"><label for="gionee">Gionee<span>(19)</span></label></li>
-                            <li class="filter-list"><input class="pixel-radio" type="radio" id="micromax" name="brand"><label for="micromax">Micromax<span>(19)</span></label></li>
-                            <li class="filter-list"><input class="pixel-radio" type="radio" id="samsung" name="brand"><label for="samsung">Samsung<span>(19)</span></label></li>
+                            @{
+                                foreach (var chatLieu in Model.chatLieus)
+                                {
+                                    if ((Model.sanPhamChiTiets.Where(c => c.IdChatLieu == chatLieu.Id).Count()) >= 1)
+                                    {
+                                        <li>
+                                            <input class="pixel-radio" type="checkbox" name="ChatLieu" id="ChatLieu-@chatLieu.Id" value="@chatLieu.TenChatLieu">
+                                            <label for="ChatLieu-@chatLieu.Id">
+                                                @chatLieu.TenChatLieu <span>(@(Model.sanPhamChiTiets.Where(c => c.IdChatLieu == chatLieu.Id).Count()))</span>
+                                            </label>
+                                        </li>
+                                    }
+                                }
+                            }
                         </ul>
                     </form>
+                    <div class="common-filter">
+                        <div class="head">MauSac</div>
+                        <form id="FillterMauSac">
+                            <ul>
+                                @{
+                                    foreach (var mau in Model.maus)
+                                    {
+                                        if ((Model.sanPhamChiTiets.Where(c => c.IdMau == mau.Id).Count()) >= 1)
+                                        {
+                                            <li>
+                                                <input class="pixel-radio" type="checkbox" name="ChatLieu" id="ChatLieu-@mau.Id" value="@mau.TenMau">
+                                                <label for="ChatLieu-@mau.Id">
+                                                    @mau.TenMau <span>(@(Model.sanPhamChiTiets.Where(c => c.IdMau == mau.Id).Count()))</span>
+                                                </label>
+                                            </li>
+                                        }
+                                    }
+                                }
+                            </ul>
+                        </form>
+                    </div>
+                    <div>
+                        <button id="btnFillter" type="submit" class="btn btn-primary btn-block enter-btn fa fa-search">
+                            Filter
+                        </button>
+                    </div>
                 </div>
-                <div class="common-filter">
-                    <div class="head">Color</div>
-                    <form action="#">
-                        <ul>
-                            <li class="filter-list"><input class="pixel-radio" type="radio" id="black" name="color"><label for="black">Black<span>(29)</span></label></li>
-                            <li class="filter-list">
-                                <input class="pixel-radio" type="radio" id="balckleather" name="color"><label for="balckleather">
-                                    Black
-                                    Leather<span>(29)</span>
-                                </label>
-                            </li>
-                            <li class="filter-list">
-                                <input class="pixel-radio" type="radio" id="blackred" name="color"><label for="blackred">
-                                    Black
-                                    with red<span>(19)</span>
-                                </label>
-                            </li>
-                            <li class="filter-list"><input class="pixel-radio" type="radio" id="gold" name="color"><label for="gold">Gold<span>(19)</span></label></li>
-                            <li class="filter-list"><input class="pixel-radio" type="radio" id="spacegrey" name="color"><label for="spacegrey">Spacegrey<span>(19)</span></label></li>
-                        </ul>
-                    </form>
-                </div>
+
+
                 <div class="common-filter">
                     <div class="head">Price</div>
                     <div class="price-range-area">
                         <div id="price-range"></div>
                         <div class="value-wrapper d-flex">
                             <div class="price">Price:</div>
-                            <span>$</span>
                             <div id="lower-value"></div>
+                            <span>d</span>
                             <div class="to">to</div>
-                            <span>$</span>
                             <div id="upper-value"></div>
+                            <span>d</span>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
@@ -96,11 +109,6 @@
             <!-- Start Filter Bar -->
             <div class="filter-bar d-flex flex-wrap align-items-center">
                 <div class="sorting">
-                    <select>
-                        <option value="1">Default sorting</option>
-                        <option value="1">Default sorting</option>
-                        <option value="1">Default sorting</option>
-                    </select>
                 </div>
                 <div class="sorting mr-auto">
                     <select>
@@ -109,22 +117,12 @@
                         <option value="1">Show 12</option>
                     </select>
                 </div>
-                <div class="pagination">
-                    <a href="#" class="prev-arrow"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>
-                    <a href="#" class="active">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#" class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
-                    <a href="#">6</a>
-                    <a href="#" class="next-arrow"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
-                </div>
             </div>
             <!-- End Filter Bar -->
             <!-- Start Best Seller -->
             <section class="lattest-product-area pb-40 category-list">
-                <div class="row">
-
-                    @foreach (var sp in Model.sanPhamChiTiets)
+                <div class="row" id="Fillter-sanPhams">
+                    @foreach (var sp in Model.sanphampaging)
                     {
                         <!-- single product -->
                         {
@@ -145,7 +143,7 @@
                                     }
                                     <div class="product-details">
                                         <h6>
-                                            <a style="color:black"> @Html.ActionLink(sp.SanPham.TenSanPham, "HienThiSanPhamChiTiet", new { id = sp.Id}) </a>
+                                            <a style="color: (internal value);"> @Html.ActionLink(sp.SanPham.TenSanPham, "HienThiSanPhamChiTiet", new { id = sp.Id}) </a>
                                         </h6>
                                         <div class="price">
                                             @if (sp.GiaNiemYet == sp.GiaBan)
@@ -184,6 +182,7 @@
                     }
                 </div>
             </section>
+
             <!-- End Best Seller -->
             <!-- Start Filter Bar -->
             <div class="filter-bar d-flex flex-wrap align-items-center">
@@ -194,14 +193,14 @@
                         <option value="1">Show 12</option>
                     </select>
                 </div>
+                
                 <div class="pagination">
-                    <a href="#" class="prev-arrow"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>
-                    <a href="#" class="active">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#" class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
-                    <a href="#">6</a>
-                    <a href="#" class="next-arrow"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+                    @for (int i = 1; i<= Model.pagingInfo.TotalPages;i++)
+                    {<form asp-action="HienThiSanPham">
+                       <button type="submit" ><input type="submit" name="page" value="@i" /></button>
+                        </form>
+                        //<a href="/HienThiSanPham/HienThiSanPham/?PageSanPham=@i">@Html.ActionLink(i, "HienThiSanPham", "HienThiSanPhamController", new { page = i })</a>
+                    }
                 </div>
             </div>
             <!-- End Filter Bar -->
@@ -354,56 +353,81 @@
             string formattedPrice = string.Format("{0:N0}", price); // Định dạng số và thêm dấu phân cách ngàn
             return formattedPrice + "₫"; // Thêm ký hiệu đồng (₫) vào cuối
         }
-    }
+    };
+  
+   
 </script>
-@section scrrip{
-    <script>
-                var priceSlider = $("#slider-range").slider({
-            Range: true,
-            min: 0,
-            max: 100000000000,
-            values: [0, 20000],
-            slide: function (event, ui) {
-                console.log("slided");
-                //$("#amount").val("$"+ui.values[0] +".00"+"-"+"$"+ui.values[1]+".00");
-            }
-        })
-    </script>
-    <script>
-        $(document).ready(function () {
-            $("#price-range").slider({
-                range: true,
-                min: 0,
-                max: 1000, // Thay đổi giới hạn max tùy theo nhu cầu
-                values: [0, 1000],
-                slide: function (event, ui) {
-                    $("#price-min").val(ui.values[0]);
-                    $("#price-max").val(ui.values[1]);
+
+    @section scrrip{
+    <script src="~/js/jquery-3.6.0.js"></script>
+    
+    @*<script>
+
+    $(document).ready(function () {
+        $('#btnFillter').click(function ()
+        {
+            var productId = "@product.ProductId";
+            var fileInput = $('#fThumb')[0];
+            var file = fileInput.files[0];
+            console.log(productId);
+            console.log(file);
+            var formData = new FormData();
+            formData.append('productId', productId);
+            formData.append('fThumb', file);
+
+            $.ajax({
+                url: '/HienThiSanPham/CheckBoxChatLieu',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    location.reload();
+                    console.log(result);
                 },
-                stop: function () {
-                    filterProducts();
-                },
+                error: function (xhr, status, error) {
+                    console.log(error);
+                }
             });
-
-            filterProducts();
-
-            function filterProducts() {
-                var minPrice = $("#price-min").val();
-                var maxPrice = $("#price-max").val();
-
-                $.ajax({
-                    url: "@Url.Action("SearchGiaTien", "HienThiSanPhamController")",
-                    type: "GET",
-                    data: { minPrice: minPrice, maxPrice: maxPrice },
-                    success: function (data) {
-                        $("#products").html(data);
-                    },
-                    error: function (xhr, status, error) {
-                        console.log("Error: " + error);
-                    },
-                });
-            }
         });
-    </script>
-}
+    });
+    </script>*@
 
+    }
+   <script>
+         document.getElementById('btnFillter').addEventListener("click", function () {
+        var chatLieus = getSetSelectCheckboxes("FillterChatLieu");
+        var maus = getSetSelectCheckboxes("FillterMauSac");
+         console.log(chatLieus);
+         console.log(maus);
+        var data = {
+            Idchatlieu: chatLieus,
+            IdMauSac: maus
+        }
+        fetch('/HienThiSanPham/CheckBoxChatLieu', {
+            method: 'POST',
+            headers: { "Content-type": "application/json" },
+            body: JSON.stringify(data)
+        }).then(function (response) {
+            if (response.ok) {
+                return response.text();
+            }
+            else {
+                throw new Error("Error sedding data controller")
+            }
+        }).then(function(results){
+            $("#Fillter-sanPhams").html(results);
+        })
+        .catch(function (error) {
+            console.log("An error occured:", error)
+        })
+    });
+    function getSetSelectCheckboxes(fromId) {
+        var CheckBoxes = $('#' + fromId + ' input[type=checkbox]:checked'); // Thêm dấu cách sau fromId
+        var value = [];
+        CheckBoxes.each(function () {
+            value.push($(this).val());
+        });
+        return value;
+    }
+    </script>

@@ -55,10 +55,9 @@ namespace CTN4_View_Admin.Controllers
                 return (RedirectToAction(nameof(DangNhap)));
             }
 
-
             IActionResult response = Unauthorized();
             var validUser = GetUser(userModel);
-           
+
             if (validUser != null)
             {
                 // truyền vào là loginviewmodel
@@ -69,7 +68,7 @@ namespace CTN4_View_Admin.Controllers
                 {
                     ModelState.AddModelError("LoginError", "Tên người dùng hoặc mật khẩu không chính xác");
                     HttpContext.Session.SetString("Token", generatedToken);
-                    return RedirectToAction(nameof(Index));
+                     return RedirectToAction(nameof(Index));
                 }
                 else
                 {
@@ -78,7 +77,7 @@ namespace CTN4_View_Admin.Controllers
             }
             else
             {
-                return (RedirectToAction(nameof(DangNhap)));
+                return (RedirectToAction("Index"));
             }
         }
         private NhanVien GetUser(Loginviewmodel userModel)
@@ -108,6 +107,7 @@ namespace CTN4_View_Admin.Controllers
             ViewBag.Message = BuildMessage(token, 50);
             return View("Index");
         }
+
         public IActionResult Errors()
         {
             ViewBag.Message = "An error occured...";
