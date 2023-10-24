@@ -60,6 +60,7 @@ namespace CTN4_View_Admin.Controllers
 
             if (validUser != null)
             {
+                // truyền vào là loginviewmodel
                 generatedToken = _tokenService.BuildToken(_config["Jwt:Key"].ToString(), _config["Jwt:Issuer"].ToString(),
                 validUser);
 
@@ -67,11 +68,11 @@ namespace CTN4_View_Admin.Controllers
                 {
                     ModelState.AddModelError("LoginError", "Tên người dùng hoặc mật khẩu không chính xác");
                     HttpContext.Session.SetString("Token", generatedToken);
-                    return RedirectToAction("MainWindow");
+                     return RedirectToAction(nameof(Index));
                 }
                 else
                 {
-                    return (RedirectToAction(nameof(DangNhap)));
+                    return (RedirectToAction("DangNhap"));
                 }
             }
             else
@@ -86,25 +87,25 @@ namespace CTN4_View_Admin.Controllers
         }
 
         [Authorize]
-        [Route("mainwindow")]
+        [Route("mainwindows")]
         [HttpGet]
-        public IActionResult MainWindow()
+        public IActionResult MainWindows()
         {
             string token = HttpContext.Session.GetString("Token");
 
             if (token == null)
             {
-                return (RedirectToAction("Index"));
+                return RedirectToAction(nameof(DangNhap));
             }
 
             if (!_tokenService.IsTokenValid(_config["Jwt:Key"].ToString(),
                 _config["Jwt:Issuer"].ToString(), token))
             {
-                return (RedirectToAction("Index"));
+                return RedirectToAction("Index");
             }
 
             ViewBag.Message = BuildMessage(token, 50);
-            return View();
+            return View("Index");
         }
 
         public IActionResult Errors()
