@@ -77,7 +77,7 @@ namespace CTN4_View_Admin.Controllers
             }
             else
             {
-                return (RedirectToAction("Index"));
+                return (RedirectToAction("DangNhap"));
             }
         }
         private NhanVien GetUser(Loginviewmodel userModel)

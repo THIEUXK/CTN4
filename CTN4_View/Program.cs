@@ -20,7 +20,7 @@ builder.Services.AddTransient<ITokenService, TokenServices>();
 builder.Services.AddAuthentication(auth =>
  {
      auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-     auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    // auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
  })
     .AddJwtBearer(options =>
     {
@@ -46,26 +46,21 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
 app.UseSession();
-
-
-//app.Use(async (context, next) =>
-//{
-//    var token = context.Session.GetString("Token");
-//    if (!string.IsNullOrEmpty(token))
-//    {
-//        context.Request.Headers.Add("Authorization", "Bearer " + token);
-//    }
-//    await next();
-//});
+app.Use(async (context, next) =>
+{
+	var token = context.Session.GetString("Token");
+	if (!string.IsNullOrEmpty(token))
+	{
+		context.Request.Headers.Add("Authorization", "Bearer " + token);
+	}
+	await next();
+});
 app.UseStaticFiles();
-
-
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
+app.UseHttpsRedirection();
 
 app.UseEndpoints(endpoints =>
 {
