@@ -33,7 +33,7 @@ namespace CTN4_Serv.Service
 
 				new Claim(ClaimTypes.Name, user.TenDangNhap),
 				new Claim(ClaimTypes.Role, Cv.TenChucVu),
-				new Claim(ClaimTypes.NameIdentifier, Guid.NewGuid().ToString())
+				new Claim(ClaimTypes.NameIdentifier, Cv.Id.ToString())
 			};
 
 			var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
@@ -45,11 +45,16 @@ namespace CTN4_Serv.Service
 
 		public string BuildTokens(string key, string issuer, KhachHang user)
 		{
-			var claims = new[] {
+			var Cv = _db.KhachHangs.FirstOrDefault(p => p.Id == user.Id);
+			if (Cv == null)
+			{
+				return "";
+			}
+				var claims = new[] {
 
 				new Claim(ClaimTypes.Name, user.TenDangNhap),
 				new Claim(ClaimTypes.Role, "Khach Hang"),
-				new Claim(ClaimTypes.NameIdentifier, Guid.NewGuid().ToString())
+				new Claim(ClaimTypes.NameIdentifier, Cv.Id.ToString())
 			};
 
 			var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));

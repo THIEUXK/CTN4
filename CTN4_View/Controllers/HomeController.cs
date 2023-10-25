@@ -10,6 +10,7 @@ using CTN4_Ser.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using CTN4_Serv.ViewModel;
 using NuGet.Common;
+using CTN4_Serv.Service.Service;
 
 namespace CTN4_View.Controllers
 {
@@ -21,7 +22,9 @@ namespace CTN4_View.Controllers
         private readonly IConfiguration _config;
         private readonly ILoginService _userRepository;
         private readonly ITokenService _tokenService;
-        private string generatedToken = null;
+		private readonly ICurrentUser _curent;
+        private readonly IKhachHangService _khachHangService;
+		private string generatedToken = null;
 
         public IKhachHangService _KHangService;
         //public HomeController()
@@ -30,10 +33,12 @@ namespace CTN4_View.Controllers
         //    _sanPhamCuaHangService = new SanPhamCuaHangService();
         //}
 
-        public HomeController(ILogger<HomeController> logger, IConfiguration config, ITokenService tokenService, ILoginService userRepository)
+        public HomeController(ILogger<HomeController> logger, IConfiguration config, ITokenService tokenService, ILoginService userRepository,ICurrentUser curent,IKhachHangService khachhang)
         {
+            _khachHangService = khachhang;
             _KHangService = new KhachHangService();
-            _logger = logger;
+            _curent = curent;
+			_logger = logger;
              _phamChiTietService = new SanPhamChiTietService();
             _sanPhamCuaHangService = new SanPhamCuaHangService();
             _config = config;
@@ -92,8 +97,14 @@ namespace CTN4_View.Controllers
         {
             return View();
         }
+		public IActionResult UserDetail()
+		{
+            var a = _curent;
+            var user = _khachHangService.GetById(_curent.Id);
+			return View(user);
+		}
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new CTN4_Data.Models.DB_CTN4.ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

@@ -1,5 +1,7 @@
 ﻿using CTN4_Serv.Service;
 using CTN4_Serv.Service.IService;
+using CTN4_Serv.Service.Service;
+using CTN4_Serv.ViewModel;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -11,8 +13,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddControllersWithViews();
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddTransient<ILoginService, LoginServices>();
 builder.Services.AddTransient<ITokenService, TokenServices>();
+builder.Services.AddScoped<ICurrentUser, CurrentUser>();
+builder.Services.AddTransient<IKhachHangService, KhachHangService>();
 builder.Services.AddSession(option =>
 {
 	//option.IdleTimeout = TimeSpan.FromSeconds(60);
