@@ -82,18 +82,19 @@ namespace CTN4_View.Controllers.Shop
 
         }
         [HttpPost]
-        public IActionResult CheckBoxChatLieu([FromBody] FilterData filter)
+        public string CheckBoxChatLieu(/*[FromBody] FilterData filter*/)
         {
-            var fillterSanPham = _CTN4_Ok.SanPhamChiTiets.ToList();
-            if (filter.Idchatlieu != null && filter.Idchatlieu.Count > 0)
-            {
-                fillterSanPham = fillterSanPham.Where(c => filter.Idchatlieu.Contains(c.ChatLieu.Id)).ToList();
-            }
-            if (filter.IdMauSacs != null && filter.IdMauSacs.Count > 0)
-            {
-                fillterSanPham = fillterSanPham.Where(c => filter.IdMauSacs.Contains(c.Mau.Id)).ToList();
-            }
-            return PartialView("_SanPhamLocCl", fillterSanPham);
+            //var fillterSanPham = _CTN4_Ok.SanPhamChiTiets.ToList();
+            //if (filter.Idchatlieu != null && filter.Idchatlieu.Count > 0)
+            //{
+            //    fillterSanPham = fillterSanPham.Where(c => filter.Idchatlieu.Contains(c.ChatLieu.Id)).ToList();
+            //}
+            //if (filter.IdMauSacs != null && filter.IdMauSacs.Count > 0)
+            //{
+            //    fillterSanPham = fillterSanPham.Where(c => filter.IdMauSacs.Contains(c.Mau.Id)).ToList();
+            //}
+            //return PartialView("_SanPhamLocCl", fillterSanPham);
+            return "oke la";
 
         }
         [HttpGet]
