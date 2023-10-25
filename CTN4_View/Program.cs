@@ -1,4 +1,4 @@
-using CTN4_Serv.Service;
+﻿using CTN4_Serv.Service;
 using CTN4_Serv.Service.IService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,12 +10,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
-
-builder.Services.AddSession();
 builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<ILoginService, LoginServices>();
 builder.Services.AddTransient<ITokenService, TokenServices>();
+builder.Services.AddSession(option =>
+{
+	//option.IdleTimeout = TimeSpan.FromSeconds(60);
+	// Định hình Session này tồn tại trong 30 giây
+}); // Thêm cái này để dùng Session
+
 
 builder.Services.AddAuthentication(auth =>
  {
