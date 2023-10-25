@@ -30,15 +30,15 @@ namespace CTN4_Serv.Service
 			}
 			else return new List<SanPhamChiTiet>();
 		}
-		public static KhachHang KhachHangSS(ISession session, string key)
+		public static List<KhachHang> KhachHangSS(ISession session, string key)
 		{
 			var data = session.GetString(key); // Đọc dữ liệu từ Session ở dạng chuỗi
 			if (data != null)
 			{
-				var listObj = JsonConvert.DeserializeObject<KhachHang>(data);
+				var listObj = JsonConvert.DeserializeObject<List<KhachHang>>(data);
 				return listObj;
 			}
-			else return new KhachHang();
+			else return new List<KhachHang>();
 		}
 
 		public static bool CheckProductInCart(Guid id, List<SanPhamChiTiet> cartProducts)
