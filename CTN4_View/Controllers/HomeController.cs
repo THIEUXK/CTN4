@@ -22,6 +22,8 @@ namespace CTN4_View.Controllers
         private readonly ILoginService _userRepository;
         private readonly ITokenService _tokenService;
         private string generatedToken = null;
+
+        public IKhachHangService _KHangService;
         //public HomeController()
         //{
         //    _phamChiTietService = new SanPhamChiTietService();
@@ -30,6 +32,7 @@ namespace CTN4_View.Controllers
 
         public HomeController(ILogger<HomeController> logger, IConfiguration config, ITokenService tokenService, ILoginService userRepository)
         {
+            _KHangService = new KhachHangService();
             _logger = logger;
              _phamChiTietService = new SanPhamChiTietService();
             _sanPhamCuaHangService = new SanPhamCuaHangService();
@@ -103,6 +106,20 @@ namespace CTN4_View.Controllers
             if (string.IsNullOrEmpty(userModel.User) || string.IsNullOrEmpty(userModel.Password))
             {
                 return (RedirectToAction("Login"));
+            }
+            var TK = _KHangService.GetAll().FirstOrDefault(c=>c.TenDangNhap==userModel.User&&c.MatKhau==userModel.Password);
+            // Đọc dữ liệu từ Session xem trong Cart nó có cái gì chưa?
+            var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
+            if (accnew.Count == 0)
+            {
+                accnew.Add(TK); 
+                SessionServices.SetObjToJson(HttpContext.Session, "ACC", accnew);
+            }
+            else if (accnew.Count != 0)
+            {
+                    accnew.Clear();
+                    accnew.Add(TK); 
+                    SessionServices.SetObjToJson(HttpContext.Session, "ACC", accnew);
             }
 
             IActionResult response = Unauthorized();
