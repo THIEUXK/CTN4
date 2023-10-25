@@ -9,6 +9,7 @@ using CTN4_Serv.ServiceJoin;
 using CTN4_Ser.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using CTN4_Serv.ViewModel;
+using NuGet.Common;
 
 namespace CTN4_View.Controllers
 {
@@ -39,7 +40,9 @@ namespace CTN4_View.Controllers
 
         public IActionResult Index()
         {
-            return View();
+			string token = HttpContext.Session.GetString("Token");
+            var a = User.Identity.Name;
+			return View();
         }
 
         public IActionResult blog()
@@ -99,25 +102,28 @@ namespace CTN4_View.Controllers
         {
             if (string.IsNullOrEmpty(userModel.User) || string.IsNullOrEmpty(userModel.Password))
             {
-                return (RedirectToAction(""));
+                return (RedirectToAction("Login"));
             }
 
             IActionResult response = Unauthorized();
             var validUser = GetUserKH(userModel);
-
             if (validUser != null)
             {
+              
                 generatedToken = _tokenService.BuildTokens(_config["Jwt:Key"].ToString(), _config["Jwt:Issuer"].ToString(),
                 validUser);
 
                 if (generatedToken != null)
                 {
+
                     HttpContext.Session.SetString("Token", generatedToken);
-                    return RedirectToAction("MainWindow");
+
+					
+					return RedirectToAction("Index");
                 }
                 else
                 {
-                    return (RedirectToAction("Index"));
+                    return (RedirectToAction("Login"));
                 }
             }
             else
