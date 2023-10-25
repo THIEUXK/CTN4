@@ -14,5 +14,6 @@ namespace CTN4_Serv.Service.IService
         public bool Them(GioHangChiTiet a);
         public bool Sua(GioHangChiTiet a);
         public bool Xoa(Guid id);
+       
     }
 }

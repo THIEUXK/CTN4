@@ -33,6 +33,7 @@ namespace CTN4_Serv.Service
             {
                 _db.GioHangs.Add(a);
                 _db.SaveChanges();
+                
                 return true;
             }
             catch (Exception e)
@@ -69,5 +70,26 @@ namespace CTN4_Serv.Service
                 return false;
             }
         }
+        public bool Clean(Guid idKH)
+        {
+            try
+            {
+                var gh = GetAll().FirstOrDefault(c => c.IdKhachHang == idKH);
+                if (gh==null)
+                {
+                    return true;
+                }
+                var ghct = _db.GioHangChiTiets.ToList().Where(c => c.IdGioHang == gh.Id);
+                _db.GioHangChiTiets.RemoveRange(ghct);
+                _db.GioHangs.RemoveRange(gh);
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
     }
 }
