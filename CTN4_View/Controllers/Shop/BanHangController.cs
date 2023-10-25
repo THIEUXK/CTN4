@@ -34,11 +34,11 @@ namespace CTN4_View.Controllers.Shop
         {
             var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
             float tong = 0;
-            if (accnew.Count!=0)
+            if (accnew.Count != 0)
             {
                 var gh = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == accnew[0].Id);
-                IEnumerable<GioHangChiTiet> ghct = _GioHangjoiin.GetAll().Where(c=>c.IdGioHang==gh.Id);
-                
+                IEnumerable<GioHangChiTiet> ghct = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh.Id);
+
                 foreach (var x in ghct)
                 {
                     tong += float.Parse(x.SanPhamChiTiet.GiaNiemYet.ToString()) * (x.SoLuong);
@@ -55,7 +55,7 @@ namespace CTN4_View.Controllers.Shop
             else
             {
                 var gh2 = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == null);
-                var a = _GioHangjoiin.GetAll().Where(c=>c.IdGioHang==gh2.Id);
+                var a = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh2.Id);
                 foreach (var x in a)
                 {
                     tong += float.Parse(x.SanPhamChiTiet.GiaNiemYet.ToString()) * (x.SoLuong);
@@ -69,7 +69,7 @@ namespace CTN4_View.Controllers.Shop
                 };
                 return View(view);
             }
-            
+
         }
 
         public IActionResult XoaChiTietGioHang(Guid id)
@@ -93,38 +93,56 @@ namespace CTN4_View.Controllers.Shop
 
         public IActionResult ThuTucThanhToan()
         {
-            var a = _GioHangjoiin.GetAll();
+            var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
             float tong = 0;
-            foreach (var x in a)
+            if (accnew.Count != 0)
             {
-                tong += float.Parse(x.SanPhamChiTiet.GiaNiemYet.ToString()) * (x.SoLuong);
+                var gh = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == accnew[0].Id);
+                IEnumerable<GioHangChiTiet> ghct = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh.Id);
 
+                foreach (var x in ghct)
+                {
+                    tong += float.Parse(x.SanPhamChiTiet.GiaNiemYet.ToString()) * (x.SoLuong);
+
+                }
+
+                var view2 = new GioHangView()
+                {
+                    GioHangChiTiets = ghct,
+                    TongTien = tong
+                };
+                return View(view2);
+            }
+            else
+            {
+                var gh2 = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == null);
+                var a = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh2.Id);
+                foreach (var x in a)
+                {
+                    tong += float.Parse(x.SanPhamChiTiet.GiaNiemYet.ToString()) * (x.SoLuong);
+
+                }
+
+                var view = new GioHangView()
+                {
+                    GioHangChiTiets = a,
+                    TongTien = tong
+                };
+                return View(view);
             }
 
-            var view = new GioHangView()
-            {
-                GioHangChiTiets = a,
-                TongTien = tong
-            };
-            return View(view);
         }
 
         public IActionResult HoanThanhThanhToan()
         {
-            var a1 = new List<SanPhamChiTiet>();
-            //Kiểm tra số lượng sản phẩm trong giỏ hàng với số lượng sản phẩm còn lại
-            foreach (var CT in _GioHangjoiin.GetAll())
-            {
-                var sp = _sanPhamCuaHangService.GetById(CT.SanPhamChiTiet.Id);
-                a1.Add(sp);
-            }
-
-            if (a1.Count > 0)
+            var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
+            var gh = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == accnew[0].Id);
+            if (accnew.Count != 0)
             {
                 Guid idHoaDon = Guid.NewGuid();
                 //Tạo hóa đơn mới
                 int tong = 0;
-                foreach (var inso in _GioHangChiTiet.GetAll())
+                foreach (var inso in _GioHangChiTiet.GetAll().Where(c => c.IdGioHang == gh.Id))
                 {
                     tong += Int32.Parse(inso.SoLuong.ToString()) *
                             Int32.Parse(inso.SanPhamChiTiet.GiaNiemYet.ToString());
@@ -139,7 +157,7 @@ namespace CTN4_View.Controllers.Shop
                     TongTien = tong,
                     NgayDat = DateTime.Now,
                     IdDiaChiNhanHang = null,
-                    IdKhachHang = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971214499"),
+                    IdKhachHang = accnew[0].Id,
                     IdPhuongThuc = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971211111")
 
                 };
@@ -152,7 +170,7 @@ namespace CTN4_View.Controllers.Shop
 
 
                 //Thêm chi tiết hóa đơn cho từng sản phẩm trong giỏ hàng
-                foreach (var ct in _GioHangChiTiet.GetAll())
+                foreach (var ct in _GioHangChiTiet.GetAll().Where(c => c.IdGioHang == gh.Id))
                 {
                     var cthd = new HoaDonChiTiet()
                     {
@@ -182,8 +200,67 @@ namespace CTN4_View.Controllers.Shop
             }
             else
             {
-                return RedirectToAction("ThuTucThanhToan");
+                Guid idHoaDon = Guid.NewGuid();
+                //Tạo hóa đơn mới
+                int tong = 0;
+                var ghnull = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == null);
+                foreach (var inso in _GioHangChiTiet.GetAll().Where(c=>c.IdGioHang==ghnull.Id))
+                {
+                    tong += Int32.Parse(inso.SoLuong.ToString()) *
+                            Int32.Parse(inso.SanPhamChiTiet.GiaNiemYet.ToString());
+                }
+
+                var hd = new HoaDon()
+                {
+                    Id = idHoaDon,
+                    NgayTaoHoaDon = DateTime.Now,
+                    DiaChi = "",
+                    TenKhachHang = "",
+                    SDTNguoiNhan = "",
+                    TrangThai = "Đang xử lí",
+                    TongTien = tong,
+                    NgayDat = DateTime.Now,
+                    IdPhuongThuc = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971211111")
+
+                };
+                if (_HoaDonService.Them(hd) == false)
+                {
+                    var message = "thanh toán lỗi(1)";
+                    TempData["ErrorMessage"] = message;
+                    return RedirectToAction("ThuTucThanhToan", "BanHang", new { message });
+                }
+
+
+                //Thêm chi tiết hóa đơn cho từng sản phẩm trong giỏ hàng
+                foreach (var ct in _GioHangChiTiet.GetAll().Where(c => c.IdGioHang == ghnull.Id))
+                {
+                    var cthd = new HoaDonChiTiet()
+                    {
+                        Id = Guid.NewGuid(),
+                        IdHoaDon = idHoaDon, //Id của hóa đơn vừa tạo
+                        IdSanPhamChiTiet = ct.IdSanPhamChiTiet,
+                        SoLuong = ct.SoLuong,
+                        GiaTien = ct.SanPhamChiTiet.GiaNiemYet,
+                        TrangThai = true,
+                        Is_detele = true,
+                    };
+                    if (_HoaDonChiTiet.Them(cthd) == false)
+                    {
+                        var message = "thanh toán lỗi(2)";
+                        TempData["ErrorMessage"] = message;
+                        return RedirectToAction("ThuTucThanhToan", "BanHang", new { message });
+                    }
+
+                    //Trừ số lượng sản phẩm trong CSDL
+                    if (_GioHangChiTiet.Xoa(ct.Id) == false) //Xóa các bản ghi mà người dùng thêm vào trong giỏ hàng
+                    {
+                        var message = "thanh toán lỗi(3)";
+                        TempData["ErrorMessage"] = message;
+                        return RedirectToAction("ThuTucThanhToan", "BanHang", new { message });
+                    }
+                }
             }
+
             return RedirectToAction("SauThanhToan");
         }
 
@@ -194,7 +271,7 @@ namespace CTN4_View.Controllers.Shop
         }
         public IActionResult HoaDonChiTiet(Guid id)
         {
-            var a = _HoaDonChiTiet.GetAll().Where(c=>c.IdHoaDon==id);
+            var a = _HoaDonChiTiet.GetAll().Where(c => c.IdHoaDon == id);
             return View(a);
         }
         public IActionResult SauThanhToan()
@@ -206,11 +283,11 @@ namespace CTN4_View.Controllers.Shop
         public IActionResult ThemVaoGio(int soluong, Guid idSP)
         {
             var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
-            if (accnew.Count!=0)
+            if (accnew.Count != 0)
             {
                 var tkmoi = accnew[0];
                 var gioHang = _GioHang.GetAll();
-                if (gioHang.Where(c=>c.IdKhachHang==tkmoi.Id).ToList().Count == 0)
+                if (gioHang.Where(c => c.IdKhachHang == tkmoi.Id).ToList().Count == 0)
                 {
                     _GioHang.Clean(tkmoi.Id);
                     var a = new GioHang()
@@ -314,10 +391,10 @@ namespace CTN4_View.Controllers.Shop
 
                 return RedirectToAction("HienThiSanPhamChiTiet", "HienThiSanPham", c);
             }
-            
 
 
-           
+
+
         }
 
     }
