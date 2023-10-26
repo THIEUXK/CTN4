@@ -74,7 +74,7 @@ namespace CTN4_Serv.Service
         {
             try
             {
-                var gh = GetAll().FirstOrDefault(c => c.IdKhachHang == idKH);
+                var gh = GetAll().FirstOrDefault(c => c.Id == idKH);
                 if (gh==null)
                 {
                     return true;
