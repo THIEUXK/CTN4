@@ -4,6 +4,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script src="~/js/checkout.js" asp-append-version="true"></script>
+
 <!-- End Header Area -->
 <!-- Start Banner Area -->
 <section class="banner-area organic-breadcrumb">
@@ -87,7 +89,39 @@
                                 <input type="text" class="form-control" id="email" name="compemailany">
                                 <span class="placeholder" data-placeholder="Email Address"></span>
                             </div>
-                            <div class="col-md-12 form-group p_star">
+                        <div class="col-md-6 form-group">
+                            <label>Chọn Tỉnh/thành<span class="text-danger">(*)</span></label>
+                            <span class="text-danger" id="mess_provin"></span>
+                            <select class="custom-select" asp-items="@ViewBag.Provin" id="provin">
+                                <option selected value="0">Chọn tỉnh thành</option>
+
+                            </select>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Chọn Quận/Huyện<span class="text-danger">(*)</span></label>
+                            <span class="text-danger" id="mess_district"></span>
+                            <select class="custom-select" id="district">
+                                <option selected value="0">Chọn quận huyện </option>
+
+                            </select>
+                        </div>
+
+                        <div class="col-md-6 form-group">
+
+                            <label for="exampleFormControlTextarea1" class="form-label">Ghi chú</label>
+                            <textarea class="form-control" name="note" id="note_ck" rows="3"></textarea>
+
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Chọn Phường/Xã<span class="text-danger">(*)</span></label>
+                            <span class="text-danger" id="mess_ward"></span>
+                            <select class="custom-select" id="ward" name="ward">
+                                <option selected value="0">Chọn Phường Xã</option>
+
+                            </select>
+                        </div>
+
+                        <div class="col-md-12 form-group p_star">
                                 <select class="country_select">
                                     <option value="1">Country</option>
                                     <option value="2">Country</option>
@@ -194,5 +228,6 @@
             return formattedPrice + "₫"; // Thêm ký hiệu đồng (₫) vào cuối
         }
     }
+
 </script>
-<!--================End Checkout Area =================-->
+

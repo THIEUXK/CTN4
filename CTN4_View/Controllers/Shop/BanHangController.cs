@@ -4,11 +4,16 @@ using CTN4_Serv.Service;
 using CTN4_Serv.ServiceJoin;
 using CTN4_Serv.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
+using System.Net.Http;
 
 namespace CTN4_View.Controllers.Shop
 {
     public class BanHangController : Controller
     {
+        private readonly HttpClient _httpClient;
+       
         private readonly SanPhamCuaHangService _sanPhamCuaHangService;
         public IGioHangService _GioHang;
         public IGioHangChiTietService _GioHangChiTiet;
@@ -27,6 +32,9 @@ namespace CTN4_View.Controllers.Shop
             _HoaDonService = new HoaDonService();
             _HoaDonChiTiet = new HoaDonChiTietService();
             _SanPhamChiTiet = new SanPhamChiTietService();
+            
+            _httpClient =new HttpClient();
+            _httpClient.DefaultRequestHeaders.Add("token", "fa31ddca-73b0-11ee-b394-8ac29577e80e");
         }
 
         [HttpGet]
@@ -91,10 +99,56 @@ namespace CTN4_View.Controllers.Shop
 
         }
 
+        public JsonResult GetListDistrict(int idProvin)
+        {
+
+            HttpResponseMessage responseDistrict = _httpClient.GetAsync("https://online-gateway.ghn.vn/shiip/public-api/master-data/district?province_id=" + idProvin).Result;
+
+            District lstDistrict = new District();
+
+            if (responseDistrict.IsSuccessStatusCode)
+            {
+                string jsonData2 = responseDistrict.Content.ReadAsStringAsync().Result;
+
+                lstDistrict = JsonConvert.DeserializeObject<District>(jsonData2);
+            }
+            return Json(lstDistrict, new System.Text.Json.JsonSerializerOptions());
+        }
+        //Lấy địa chỉ phường xã
+
+        public JsonResult GetListWard(int idWard)
+        {
+
+
+            HttpResponseMessage responseWard = _httpClient.GetAsync("https://online-gateway.ghn.vn/shiip/public-api/master-data/ward?district_id=" + idWard).Result;
+
+            Ward lstWard = new Ward();
+
+            if (responseWard.IsSuccessStatusCode)
+            {
+                string jsonData2 = responseWard.Content.ReadAsStringAsync().Result;
+
+                lstWard = JsonConvert.DeserializeObject<Ward>(jsonData2);
+            }
+            return Json(lstWard, new System.Text.Json.JsonSerializerOptions());
+        }
         public IActionResult ThuTucThanhToan()
         {
             var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
             float tong = 0;
+
+            HttpResponseMessage responseProvin = _httpClient.GetAsync("https://online-gateway.ghn.vn/shiip/public-api/master-data/province").Result;
+
+            Provin lstprovin = new Provin();
+
+            if (responseProvin.IsSuccessStatusCode)
+            {
+                string jsonData2 = responseProvin.Content.ReadAsStringAsync().Result;
+
+
+                lstprovin = JsonConvert.DeserializeObject<Provin>(jsonData2);
+                ViewBag.Provin = new SelectList(lstprovin.data, "ProvinceID", "ProvinceName");
+            }
             if (accnew.Count != 0)
             {
                 var gh = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == accnew[0].Id);

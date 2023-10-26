@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CTN4_Data.Migrations
 {
     [DbContext(typeof(DB_CTN4_ok))]
-    [Migration("20231025142754_lkl")]
-    partial class lkl
+    [Migration("20231026030116_a")]
+    partial class a
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1254,7 +1254,7 @@ namespace CTN4_Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ad53e6d4-ea8c-4a7c-a677-613c42ecea29"),
+                            Id = new Guid("c7e54988-8e66-4455-b3df-6543b04a5c40"),
                             GhiChu = "",
                             GiaBan = 500000f,
                             GiaNhap = 300000f,
@@ -1272,7 +1272,7 @@ namespace CTN4_Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("9aad4c17-4c6d-447f-ba5c-ab92f46275b0"),
+                            Id = new Guid("d702138e-0617-4d80-ad48-e47cf009f9c9"),
                             GhiChu = "",
                             GiaBan = 600000f,
                             GiaNhap = 400000f,
@@ -1290,7 +1290,7 @@ namespace CTN4_Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("f0fc441f-8757-411c-896b-29f4e2136c5f"),
+                            Id = new Guid("6787a642-25ad-4c91-97e3-16189b27cd8b"),
                             GhiChu = "",
                             GiaBan = 700000f,
                             GiaNhap = 600000f,
@@ -1308,7 +1308,7 @@ namespace CTN4_Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("513e030a-548c-451e-9d79-b2e277e03cc8"),
+                            Id = new Guid("13b66bbd-9b67-4bd4-b087-b9b80b1f9be4"),
                             GhiChu = "",
                             GiaBan = 600000f,
                             GiaNhap = 300000f,
@@ -1326,7 +1326,7 @@ namespace CTN4_Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("cae4f1fb-feac-486b-9fb4-b53c13d563d4"),
+                            Id = new Guid("0a5d02eb-3768-4359-92d1-354f274a43a0"),
                             GhiChu = "",
                             GiaBan = 4500000f,
                             GiaNhap = 400000f,
@@ -1344,7 +1344,7 @@ namespace CTN4_Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("338c0254-b463-4dfa-b2c4-0f829749344d"),
+                            Id = new Guid("e8419cdd-8936-465b-8ebd-071ded1d8f3d"),
                             GhiChu = "",
                             GiaBan = 700000f,
                             GiaNhap = 300000f,
@@ -1362,7 +1362,7 @@ namespace CTN4_Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("3c7d5983-0cf6-4585-8015-ef6e8724f9c9"),
+                            Id = new Guid("f3ef6bbf-f539-49b8-aa73-369affecf51a"),
                             GhiChu = "",
                             GiaBan = 500000f,
                             GiaNhap = 400000f,
@@ -1380,7 +1380,7 @@ namespace CTN4_Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("67500674-1125-4cf2-82bb-bf8964dc4769"),
+                            Id = new Guid("b2581e32-0dd9-4010-aba6-0a823ee4737b"),
                             GhiChu = "",
                             GiaBan = 650000f,
                             GiaNhap = 400000f,
@@ -1398,7 +1398,7 @@ namespace CTN4_Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("fa00c292-d2a8-49e1-b7f0-34c6b495c87d"),
+                            Id = new Guid("e51593da-1e91-41af-949c-9459a4d720b1"),
                             GhiChu = "",
                             GiaBan = 600000f,
                             GiaNhap = 400000f,
@@ -1416,7 +1416,7 @@ namespace CTN4_Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("d078316c-2ecc-410d-a7ac-cd168a3f3aac"),
+                            Id = new Guid("0f5a019b-88cd-4d04-9552-206818e31751"),
                             GhiChu = "",
                             GiaBan = 600000f,
                             GiaNhap = 400000f,
