@@ -3,19 +3,28 @@
 @{
     ViewData["Title"] = "UserDetail";
 }
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Thông Tin Khách Hàng</h1>
+                <nav class="d-flex align-items-center">
+                    <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="#">Shop<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="single-product.html">Thông Tin Khách Hàng</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="container">
 
-<h1>UserDetail</h1>
 
 <div>
-    <h4>KhachHang</h4>
+    
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
+       
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Ho)
         </dt>
@@ -70,4 +79,5 @@
 <div>
 
     <a asp-action="Index">Back to List</a>
+</div>
 </div>
