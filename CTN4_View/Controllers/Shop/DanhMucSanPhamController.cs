@@ -15,7 +15,7 @@ namespace CTN4_View.Controllers.Shop
         public GioHangjoiin _GioHangjoiin;
 		public IDanhMucService _danhMucService;
 		public IDanhMucChiTietService _danhMucChiTiet;
-       public DanhMucJoin _DanhMucjoiin;
+        public DanhMucJoin _DanhMucjoiin;
         public DanhMucSanPhamController()
         {
             _sanPhamCuaHangService = new SanPhamCuaHangService();

@@ -33,6 +33,19 @@ namespace CTN4_Data.DB_Context
                 new Mau() { TenMau = "kem", Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081191"), Is_detele = true, TrangThai = true },
                 new Mau() { TenMau = "kem Đậm", Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081101"), Is_detele = true, TrangThai = true }
                 );
+            modelBuilder.Entity<Anh>().HasData(
+  /*sp1*/           new Anh() { TenAnh = "", Id = Guid.NewGuid(), DuongDanAnh = "TXT Da Rắn Khóa Bạc _QuanChau_Trang_Da PU cao cấp(1)", TrangThai = true, Is_delete = true, IdSanPhamChiTiet = Guid.Parse("d1d060cc-94dc-49f7-8b78-0d9b29344720") },
+  /*sp2*/           new Anh() { TenAnh = "", Id = Guid.NewGuid(), DuongDanAnh = "TXT Phủ Màu Tag Vuông_QuanChau_XanhLuc_Da PU mềm mịn, cao cấp_Dài 21 x Rộng8 x Cao13 (cm)(1)", TrangThai = true, Is_delete = true, IdSanPhamChiTiet = Guid.Parse("c65b319e-3357-4810-b497-f5d1f4be9be4") },
+  /*sp3*/           new Anh() { TenAnh = "", Id = Guid.NewGuid(), DuongDanAnh = "TDV Hobo Đáy Tròn_QuanChau_Trang_Da lộn, da PU cao cấp_Dài 22 x Cao 12 x Rộng 6 (cm)(1)", TrangThai = true, Is_delete = true, IdSanPhamChiTiet = Guid.Parse("5969666c-d45f-488e-a692-ba9f06e8a12f") },
+  /*sp4*/           new Anh() { TenAnh = "", Id = Guid.NewGuid(), DuongDanAnh = "Túi Xách Nhỏ Curve 1_Trung Quốc_Xanhduong_Da tổng hợp_20cmx12cmx7cm(1)", TrangThai = true, Is_delete = true, IdSanPhamChiTiet = Guid.Parse("1f48c920-00b1-4aad-a2c2-c726ac098fe4") },
+  /*sp5*/           new Anh() { TenAnh = "", Id = Guid.NewGuid(), DuongDanAnh = "TDV Hobo Đáy Tròn_QuanChau_Xanh-Duong_Da lộn, da PU cao cấp_Dài 22 x Cao 12 x Rộng 6 (cm)(1)", TrangThai = true, Is_delete = true, IdSanPhamChiTiet = Guid.Parse("ac817163-5a9e-4506-9f28-5ef9d52f7493") },
+  /*sp6*/           new Anh() { TenAnh = "", Id = Guid.NewGuid(), DuongDanAnh = "TOT Classic Phối Màu _QuanChau_Ghi_Da PU mềm mịn, cao cấp_Dài 20 x Rộng 13.5 x Cao 7.5 (cm)(1)", TrangThai = true, Is_delete = true, IdSanPhamChiTiet = Guid.Parse("aa00a7c7-bf07-47e1-95a6-5e9e9644d564") },
+  /*sp7*/           new Anh() { TenAnh = "", Id = Guid.NewGuid(), DuongDanAnh = "TOT Classic Phối Màu _QuanChau_Nau_Da PU mềm mịn, cao cấp_Dài 20 x Rộng 13.5 x Cao 7.5 (cm)(1)", TrangThai = true, Is_delete = true, IdSanPhamChiTiet = Guid.Parse("d611181e-5553-4bd4-999b-887ab028d2c0") },
+  /*sp8*/           new Anh() { TenAnh = "", Id = Guid.NewGuid(), DuongDanAnh = "Túi Xách Nhỏ Curve 1_Trung Quốc_XanhLa_Da tổng hợp_20cmx12cmx7cm(1)", TrangThai = true, Is_delete = true, IdSanPhamChiTiet = Guid.Parse("2a75ef84-9226-4676-9418-aee89c39da81") },
+  /*sp9*/           new Anh() { TenAnh = "", Id = Guid.NewGuid(), DuongDanAnh = "Túi Xách Nhỏ Đeo Vai-Cycling_Trung Quốc_XanhNhat_Da tổng hợp_23cmx15cmx5cm(1)", TrangThai = true, Is_delete = true, IdSanPhamChiTiet = Guid.Parse("08afdccc-779c-4cc4-8e34-83c5f7b2d832") },
+  /*sp10*/          new Anh() { TenAnh = "", Id = Guid.NewGuid(), DuongDanAnh = "TDV Hobo Quai Ngắn_QuanChau_Trang_Da PU mềm mịn, cao cấp_Dài 27 x Rộng 6 x Cao 19 (cm)(1)", TrangThai = true, Is_delete = true, IdSanPhamChiTiet = Guid.Parse("7c964ee2-cc75-4672-9bf8-654173365d9e") }
+             
+              );
             modelBuilder.Entity<SanPham>().HasData(
                new SanPham() { TenSanPham = "TXT Da Rắn Khóa Bạc _QuanChau_Trang_Da PU cao cấp(1)", AnhDaiDien = "TXT Da Rắn Khóa Bạc _QuanChau_Trang_Da PU cao cấp(1).jpg", Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081211"), Is_detele = true, TrangThai = true },
                new SanPham() { TenSanPham = "TXT Phủ Màu Tag Vuông_QuanChau_XanhLuc_Da PU mềm mịn, cao cấp(1)", AnhDaiDien = "TXT Phủ Màu Tag Vuông_QuanChau_XanhLuc_Da PU mềm mịn, cao cấp(1).jpg", Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081311"), Is_detele = true, TrangThai = true },
@@ -42,7 +55,7 @@ namespace CTN4_Data.DB_Context
                new SanPham() { TenSanPham = "TOT Classic Phối Màu _QuanChau_Ghi_Da PU mềm mịn, cao cấp(1)", AnhDaiDien = "TOT Classic Phối Màu _QuanChau_Ghi_Da PU mềm mịn, cao cấp(1).jpg", Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081711"), Is_detele = true, TrangThai = true },
                new SanPham() { TenSanPham = "TOT Classic Phối Màu _QuanChau_Nau_Da PU mềm mịn, cao cấp(1)", AnhDaiDien = "TOT Classic Phối Màu _QuanChau_Nau_Da PU mềm mịn, cao cấp(1).jpg", Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081811"), Is_detele = true, TrangThai = true },
                new SanPham() { TenSanPham = "Túi Xách Nhỏ Curve 1_Trung Quốc_XanhLa_Da tổng hợp(1)", AnhDaiDien = "Túi Xách Nhỏ Curve 1_Trung Quốc_XanhLa_Da tổng hợp(1).webp", Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081911"), Is_detele = true, TrangThai = true },
-               new SanPham() { TenSanPham = "Túi Xách Nhỏ Đeo Vai - Cycling_Trung Quốc_XanhNhat_Da tổng hợp(1)", AnhDaiDien = "Túi Xách Nhỏ Đeo Vai - Cycling_Trung Quốc_XanhNhat_Da tổng hợp(1).webp", Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081122"), Is_detele = true, TrangThai = true },
+               new SanPham() { TenSanPham = "Túi Xách Nhỏ Đeo Vai-Cycling_Trung Quốc_XanhNhat_Da tổng hợp(1)", AnhDaiDien = "Túi Xách Nhỏ Đeo Vai-Cycling_Trung Quốc_XanhNhat_Da tổng hợp(1).webp", Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081122"), Is_detele = true, TrangThai = true },
                new SanPham() { TenSanPham = "TDV Hobo Quai Ngắn_QuanChau_Trang_Da PU mềm mịn, cao cấp(1)", AnhDaiDien = "TDV Hobo Quai Ngắn_QuanChau_Trang_Da PU mềm mịn, cao cấp(1).jpg", Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081123"), Is_detele = true, TrangThai = true }
             );
             modelBuilder.Entity<NSX>().HasData(
