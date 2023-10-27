@@ -17,13 +17,7 @@ namespace CTN4_Serv.ViewModel
             public int DistrictID { get; set; }
             public string WardName { get; set; }
 
-            //public List<string> NameExtension { get; set; }
-            //public string CanUpdateCOD { get; set; }
-
-            //public string CreatedAt { get; set; }
-            //public string UpdatedAt { get; set; }
-            //public int Status { get; set; }
-            //public int SupportType { get; set; }
+           
         }
     }
 }

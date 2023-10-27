@@ -7,13 +7,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using System.Net.Http;
+using CTN4_Serv.ViewModel.banhangview;
 
 namespace CTN4_View.Controllers.Shop
 {
     public class BanHangController : Controller
     {
         private readonly HttpClient _httpClient;
-       
+
         private readonly SanPhamCuaHangService _sanPhamCuaHangService;
         public IGioHangService _GioHang;
         public IGioHangChiTietService _GioHangChiTiet;
@@ -32,8 +33,7 @@ namespace CTN4_View.Controllers.Shop
             _HoaDonService = new HoaDonService();
             _HoaDonChiTiet = new HoaDonChiTietService();
             _SanPhamChiTiet = new SanPhamChiTietService();
-            
-            _httpClient =new HttpClient();
+            _httpClient = new HttpClient();
             _httpClient.DefaultRequestHeaders.Add("token", "fa31ddca-73b0-11ee-b394-8ac29577e80e");
         }
 
@@ -98,7 +98,8 @@ namespace CTN4_View.Controllers.Shop
             return RedirectToAction("GioHang", "BanHang", new { message });
 
         }
-
+        //Huyen
+        [HttpGet("CheckOut/GetListDistrict")]
         public JsonResult GetListDistrict(int idProvin)
         {
 
@@ -115,7 +116,7 @@ namespace CTN4_View.Controllers.Shop
             return Json(lstDistrict, new System.Text.Json.JsonSerializerOptions());
         }
         //Lấy địa chỉ phường xã
-
+        [HttpGet("/CheckOut/GetListWard")]
         public JsonResult GetListWard(int idWard)
         {
 
@@ -134,8 +135,8 @@ namespace CTN4_View.Controllers.Shop
         }
         public IActionResult ThuTucThanhToan()
         {
-            var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
-            float tong = 0;
+
+            
 
             HttpResponseMessage responseProvin = _httpClient.GetAsync("https://online-gateway.ghn.vn/shiip/public-api/master-data/province").Result;
 
@@ -144,11 +145,11 @@ namespace CTN4_View.Controllers.Shop
             if (responseProvin.IsSuccessStatusCode)
             {
                 string jsonData2 = responseProvin.Content.ReadAsStringAsync().Result;
-
-
                 lstprovin = JsonConvert.DeserializeObject<Provin>(jsonData2);
                 ViewBag.Provin = new SelectList(lstprovin.data, "ProvinceID", "ProvinceName");
             }
+            float tong = 0;
+            var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
             if (accnew.Count != 0)
             {
                 var gh = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == accnew[0].Id);
@@ -184,14 +185,70 @@ namespace CTN4_View.Controllers.Shop
                 };
                 return View(view);
             }
+        }
 
+        [HttpGet("/CheckOut/GetTotalShipping")]
+        public JsonResult GetTotalShipping([FromBody] ShippingOrder shippingOrder)
+        {
+            _httpClient.DefaultRequestHeaders.Add("shop_id", "3630415");
+
+            HttpResponseMessage responseWShipping = _httpClient.GetAsync("https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee?service_id=" + shippingOrder.service_id + "&insurance_value=" + shippingOrder.insurance_value + "&coupon=&from_district_id=" + shippingOrder.from_district_id + "&to_district_id=" + shippingOrder.to_district_id + "&to_ward_code=" + shippingOrder.to_ward_code + "&height=" + shippingOrder.height + "&length=" + shippingOrder.length + "&weight=" + shippingOrder.weight + "&width=" + shippingOrder.width + "").Result;
+            float tong = 0;
+            var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
+            if (accnew.Count != 0)
+            {
+                var gh = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == accnew[0].Id);
+                IEnumerable<GioHangChiTiet> ghct = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh.Id);
+
+                foreach (var x in ghct)
+                {
+                    tong += float.Parse(x.SanPhamChiTiet.GiaNiemYet.ToString()) * (x.SoLuong);
+
+                }
+                Shipping shipping = new Shipping();
+                if (responseWShipping.IsSuccessStatusCode)
+                {
+                    string jsonData2 = responseWShipping.Content.ReadAsStringAsync().Result;
+
+                    shipping = JsonConvert.DeserializeObject<Shipping>(jsonData2);
+                    HttpContext.Session.SetInt32("shiptotal", shipping.data.total);
+                }
+
+                shipping.data.totaloder = shipping.data.total+int.Parse(tong.ToString());
+                return Json(shipping, new System.Text.Json.JsonSerializerOptions());
+
+            }
+            else
+            {
+                var gh2 = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == null);
+                var a = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh2.Id);
+                foreach (var x in a)
+                {
+                    tong += float.Parse(x.SanPhamChiTiet.GiaNiemYet.ToString()) * (x.SoLuong);
+
+                }
+                Shipping shipping = new Shipping();
+                if (responseWShipping.IsSuccessStatusCode)
+                {
+                    string jsonData2 = responseWShipping.Content.ReadAsStringAsync().Result;
+
+                    shipping = JsonConvert.DeserializeObject<Shipping>(jsonData2);
+                    HttpContext.Session.SetInt32("shiptotal", shipping.data.total);
+                }
+
+                shipping.data.totaloder = shipping.data.total+ int.Parse(tong.ToString());
+                return Json(shipping, new System.Text.Json.JsonSerializerOptions());
+
+            }
+
+           
         }
 
         public IActionResult HoanThanhThanhToan()
         {
             var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
             var gh = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == accnew[0].Id);
-            if (accnew.Count != 0)
+            if (accnew.Count != 0 && gh != null)
             {
                 Guid idHoaDon = Guid.NewGuid();
                 //Tạo hóa đơn mới
@@ -258,7 +315,7 @@ namespace CTN4_View.Controllers.Shop
                 //Tạo hóa đơn mới
                 int tong = 0;
                 var ghnull = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == null);
-                foreach (var inso in _GioHangChiTiet.GetAll().Where(c=>c.IdGioHang==ghnull.Id))
+                foreach (var inso in _GioHangChiTiet.GetAll().Where(c => c.IdGioHang == ghnull.Id))
                 {
                     tong += Int32.Parse(inso.SoLuong.ToString()) *
                             Int32.Parse(inso.SanPhamChiTiet.GiaNiemYet.ToString());
