@@ -23,7 +23,7 @@ namespace CTN4_View.Controllers.Shop
         public IDanhMucChiTietService _danhMucChiTiet;
         public IMauService _mauSacService;
         public IChatLieuService _chatLieuService;
-        public DanhMucJoin _DanhMucjoiin;
+        //public DanhMucJoin _DanhMucjoiin;
         public DB_CTN4_ok _CTN4_Ok;
         public int pageSize = 6;
         public PagingInfo _pagingInfo;

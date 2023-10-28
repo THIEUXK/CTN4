@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CTN4_Data.Migrations
 {
     [DbContext(typeof(DB_CTN4_ok))]
-    [Migration("20231027204649_a")]
+    [Migration("20231028194558_a")]
     partial class a
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,14 +34,19 @@ namespace CTN4_Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("IdMau")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid?>("IdSanPhamChiTiet")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Is_delete")
                         .HasColumnType("bit");
 
+                    b.Property<Guid?>("MauId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("TenAnh")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TrangThai")
@@ -50,6 +55,8 @@ namespace CTN4_Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("IdSanPhamChiTiet");
+
+                    b.HasIndex("MauId");
 
                     b.ToTable("Anhs");
                 });
@@ -458,6 +465,9 @@ namespace CTN4_Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("TrangThaiGiaoHang")
+                        .HasColumnType("bit");
+
                     b.HasKey("Id");
 
                     b.HasIndex("IdDiaChiNhanHang");
@@ -632,7 +642,7 @@ namespace CTN4_Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("IdSanPhamChiTiet")
+                    b.Property<Guid?>("IdSanPham")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("IdkhuyenMai")
@@ -640,7 +650,7 @@ namespace CTN4_Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdSanPhamChiTiet");
+                    b.HasIndex("IdSanPham");
 
                     b.HasIndex("IdkhuyenMai");
 
@@ -651,6 +661,16 @@ namespace CTN4_Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AnhMau")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("IdSanPham")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("IdSanPhamChiTiet")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Is_detele")
@@ -665,142 +685,11 @@ namespace CTN4_Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Maus");
+                    b.HasIndex("IdSanPham");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081111"),
-                            Is_detele = true,
-                            TenMau = "đen",
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081112"),
-                            Is_detele = true,
-                            TenMau = "trắng",
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081113"),
-                            Is_detele = true,
-                            TenMau = "nâu",
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081114"),
-                            Is_detele = true,
-                            TenMau = "xám",
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081115"),
-                            Is_detele = true,
-                            TenMau = "vàng",
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081116"),
-                            Is_detele = true,
-                            TenMau = "ghi",
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081117"),
-                            Is_detele = true,
-                            TenMau = "cam",
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081118"),
-                            Is_detele = true,
-                            TenMau = "xanh dương đậm",
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081119"),
-                            Is_detele = true,
-                            TenMau = "xanh lục",
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081110"),
-                            Is_detele = true,
-                            TenMau = "xanh dương",
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081121"),
-                            Is_detele = true,
-                            TenMau = "xanh lá",
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081131"),
-                            Is_detele = true,
-                            TenMau = "xanh nhạt",
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081141"),
-                            Is_detele = true,
-                            TenMau = "tràm",
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081151"),
-                            Is_detele = true,
-                            TenMau = "tím",
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081161"),
-                            Is_detele = true,
-                            TenMau = "xanh lá đậm",
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081171"),
-                            Is_detele = true,
-                            TenMau = "xanh tím",
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081181"),
-                            Is_detele = true,
-                            TenMau = "hồng",
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081191"),
-                            Is_detele = true,
-                            TenMau = "kem",
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081101"),
-                            Is_detele = true,
-                            TenMau = "kem Đậm",
-                            TrangThai = true
-                        });
+                    b.HasIndex("IdSanPhamChiTiet");
+
+                    b.ToTable("Maus");
                 });
 
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.NhanVien", b =>
@@ -1089,107 +978,7 @@ namespace CTN4_Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Is_detele")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("TenSanPham")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TrangThai")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SanPhams");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081211"),
-                            AnhDaiDien = "TXT Da Rắn Khóa Bạc _QuanChau_Trang_Da PU cao cấp(1).jpg",
-                            Is_detele = true,
-                            TenSanPham = "TXT Da Rắn Khóa Bạc _QuanChau_Trang_Da PU cao cấp(1)",
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081311"),
-                            AnhDaiDien = "TXT Phủ Màu Tag Vuông_QuanChau_XanhLuc_Da PU mềm mịn, cao cấp(1).jpg",
-                            Is_detele = true,
-                            TenSanPham = "TXT Phủ Màu Tag Vuông_QuanChau_XanhLuc_Da PU mềm mịn, cao cấp(1)",
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081411"),
-                            AnhDaiDien = "TDV Hobo Đáy Tròn_QuanChau_Trang_Da lộn, da PU cao cấp(1).jpg",
-                            Is_detele = true,
-                            TenSanPham = "TDV Hobo Đáy Tròn_QuanChau_Trang_Da lộn, da PU cao cấp(1)",
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081511"),
-                            AnhDaiDien = "Túi Xách Nhỏ Curve 1_Trung Quốc_Xanhduong_Da tổng hợp(1).webp",
-                            Is_detele = true,
-                            TenSanPham = "Túi Xách Nhỏ Curve 1_Trung Quốc_Xanhduong_Da tổng hợp(1)",
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081611"),
-                            AnhDaiDien = "TDV Hobo Đáy Tròn_QuanChau_Xanh-Duong_Da lộn, da PU cao cấp(1).jpg",
-                            Is_detele = true,
-                            TenSanPham = "TDV Hobo Đáy Tròn_QuanChau_Xanh-Duong_Da lộn, da PU cao cấp(1)",
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081711"),
-                            AnhDaiDien = "TOT Classic Phối Màu _QuanChau_Ghi_Da PU mềm mịn, cao cấp(1).jpg",
-                            Is_detele = true,
-                            TenSanPham = "TOT Classic Phối Màu _QuanChau_Ghi_Da PU mềm mịn, cao cấp(1)",
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081811"),
-                            AnhDaiDien = "TOT Classic Phối Màu _QuanChau_Nau_Da PU mềm mịn, cao cấp(1).jpg",
-                            Is_detele = true,
-                            TenSanPham = "TOT Classic Phối Màu _QuanChau_Nau_Da PU mềm mịn, cao cấp(1)",
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081911"),
-                            AnhDaiDien = "Túi Xách Nhỏ Curve 1_Trung Quốc_XanhLa_Da tổng hợp(1).webp",
-                            Is_detele = true,
-                            TenSanPham = "Túi Xách Nhỏ Curve 1_Trung Quốc_XanhLa_Da tổng hợp(1)",
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081122"),
-                            AnhDaiDien = "Túi Xách Nhỏ Đeo Vai - Cycling_Trung Quốc_XanhNhat_Da tổng hợp(1).webp",
-                            Is_detele = true,
-                            TenSanPham = "Túi Xách Nhỏ Đeo Vai - Cycling_Trung Quốc_XanhNhat_Da tổng hợp(1)",
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081123"),
-                            AnhDaiDien = "TDV Hobo Quai Ngắn_QuanChau_Trang_Da PU mềm mịn, cao cấp(1).jpg",
-                            Is_detele = true,
-                            TenSanPham = "TDV Hobo Quai Ngắn_QuanChau_Trang_Da PU mềm mịn, cao cấp(1)",
-                            TrangThai = true
-                        });
-                });
-
-            modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.SanPhamChiTiet", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<Guid?>("CChatLieuId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("GhiChu")
@@ -1208,10 +997,43 @@ namespace CTN4_Data.Migrations
                     b.Property<Guid?>("IdChatLieu")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("IdMau")
+                    b.Property<Guid?>("IdNSX")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("IdNSX")
+                    b.Property<bool>("Is_detele")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("MaSP")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MoTa")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("NsxsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("TenSanPham")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TrangThai")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CChatLieuId");
+
+                    b.HasIndex("NsxsId");
+
+                    b.ToTable("SanPhams");
+                });
+
+            modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.SanPhamChiTiet", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("IdSize")
@@ -1227,10 +1049,6 @@ namespace CTN4_Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MoTa")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("SoLuong")
                         .HasColumnType("int");
 
@@ -1239,199 +1057,11 @@ namespace CTN4_Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdChatLieu");
-
-                    b.HasIndex("IdMau");
-
-                    b.HasIndex("IdNSX");
-
                     b.HasIndex("IdSize");
 
                     b.HasIndex("IdSp");
 
                     b.ToTable("SanPhamChiTiets");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("0e093b08-6d66-44dc-8331-348b4fd5c304"),
-                            GhiChu = "",
-                            GiaBan = 500000f,
-                            GiaNhap = 300000f,
-                            GiaNiemYet = 450000f,
-                            IdChatLieu = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081137"),
-                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081112"),
-                            IdNSX = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081124"),
-                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081146"),
-                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081211"),
-                            Is_detele = true,
-                            MaSp = "SP01",
-                            MoTa = "oke la",
-                            SoLuong = 100,
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("10f6a0ec-a8d1-4f34-8c5c-6bb9fe3dba70"),
-                            GhiChu = "",
-                            GiaBan = 600000f,
-                            GiaNhap = 400000f,
-                            GiaNiemYet = 550000f,
-                            IdChatLieu = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081138"),
-                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081131"),
-                            IdNSX = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081125"),
-                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081147"),
-                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081311"),
-                            Is_detele = true,
-                            MaSp = "SP02",
-                            MoTa = "oke la",
-                            SoLuong = 100,
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("4bcc9b92-0527-4e79-b10a-23e37a3d4da0"),
-                            GhiChu = "",
-                            GiaBan = 700000f,
-                            GiaNhap = 600000f,
-                            GiaNiemYet = 70000f,
-                            IdChatLieu = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081137"),
-                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081112"),
-                            IdNSX = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081125"),
-                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081148"),
-                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081411"),
-                            Is_detele = true,
-                            MaSp = "SP03",
-                            MoTa = "oke la",
-                            SoLuong = 100,
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("335a49f0-9589-491f-9f79-569f80b0d4ad"),
-                            GhiChu = "",
-                            GiaBan = 600000f,
-                            GiaNhap = 300000f,
-                            GiaNiemYet = 550000f,
-                            IdChatLieu = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081144"),
-                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081110"),
-                            IdNSX = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081126"),
-                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081149"),
-                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081511"),
-                            Is_detele = true,
-                            MaSp = "SP04",
-                            MoTa = "oke la",
-                            SoLuong = 100,
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("64165184-884b-4731-8322-8d8c0cebc324"),
-                            GhiChu = "",
-                            GiaBan = 4500000f,
-                            GiaNhap = 400000f,
-                            GiaNiemYet = 550000f,
-                            IdChatLieu = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081137"),
-                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081110"),
-                            IdNSX = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081127"),
-                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081150"),
-                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081611"),
-                            Is_detele = true,
-                            MaSp = "SP05",
-                            MoTa = "oke la",
-                            SoLuong = 100,
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("0d12726e-619c-4077-934a-ca13476545c4"),
-                            GhiChu = "",
-                            GiaBan = 700000f,
-                            GiaNhap = 300000f,
-                            GiaNiemYet = 750000f,
-                            IdChatLieu = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081138"),
-                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081116"),
-                            IdNSX = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081124"),
-                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081152"),
-                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081711"),
-                            Is_detele = true,
-                            MaSp = "SP06",
-                            MoTa = "oke la",
-                            SoLuong = 100,
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("924b3333-0038-4828-9be8-ef0ed48eda8e"),
-                            GhiChu = "",
-                            GiaBan = 500000f,
-                            GiaNhap = 400000f,
-                            GiaNiemYet = 450000f,
-                            IdChatLieu = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081138"),
-                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081113"),
-                            IdNSX = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081124"),
-                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081153"),
-                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081811"),
-                            Is_detele = true,
-                            MaSp = "SP07",
-                            MoTa = "oke la",
-                            SoLuong = 100,
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("44690686-57c5-46aa-83f6-ef925a439664"),
-                            GhiChu = "",
-                            GiaBan = 650000f,
-                            GiaNhap = 400000f,
-                            GiaNiemYet = 550000f,
-                            IdChatLieu = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081144"),
-                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081121"),
-                            IdNSX = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081124"),
-                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081154"),
-                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081911"),
-                            Is_detele = true,
-                            MaSp = "SP08",
-                            MoTa = "oke la",
-                            SoLuong = 100,
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("4aaddf20-e707-494b-991e-436e15a4bd97"),
-                            GhiChu = "",
-                            GiaBan = 600000f,
-                            GiaNhap = 400000f,
-                            GiaNiemYet = 550000f,
-                            IdChatLieu = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081144"),
-                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081131"),
-                            IdNSX = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081124"),
-                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081155"),
-                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081122"),
-                            Is_detele = true,
-                            MaSp = "SP09",
-                            MoTa = "oke la",
-                            SoLuong = 100,
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("44fa5fe7-1be0-46d6-8f48-c178f92b1ca1"),
-                            GhiChu = "",
-                            GiaBan = 600000f,
-                            GiaNhap = 400000f,
-                            GiaNiemYet = 550000f,
-                            IdChatLieu = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081138"),
-                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081112"),
-                            IdNSX = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081124"),
-                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081156"),
-                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081123"),
-                            Is_detele = true,
-                            MaSp = "SP10",
-                            MoTa = "oke la",
-                            SoLuong = 100,
-                            TrangThai = true
-                        });
                 });
 
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.SanPhamYeuThich", b =>
@@ -1591,13 +1221,19 @@ namespace CTN4_Data.Migrations
                         .WithMany("Anhs")
                         .HasForeignKey("IdSanPhamChiTiet");
 
+                    b.HasOne("CTN4_Data.Models.DB_CTN4.Mau", "Mau")
+                        .WithMany()
+                        .HasForeignKey("MauId");
+
+                    b.Navigation("Mau");
+
                     b.Navigation("SanPhamChiTiet");
                 });
 
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.ChiTietSanPhamYeuThich", b =>
                 {
                     b.HasOne("CTN4_Data.Models.DB_CTN4.SanPhamChiTiet", "SanPhamChiTiet")
-                        .WithMany("CTietSanPhamYeuThiches")
+                        .WithMany("ChiTietSanPhamYeu")
                         .HasForeignKey("IdSanPhamChiTiet");
 
                     b.HasOne("CTN4_Data.Models.DB_CTN4.SanPhamYeuThich", "SanPhamYeuThich")
@@ -1615,13 +1251,13 @@ namespace CTN4_Data.Migrations
                         .WithMany("DanhMucChiTiets")
                         .HasForeignKey("IdDanhMuc");
 
-                    b.HasOne("CTN4_Data.Models.DB_CTN4.SanPhamChiTiet", "SanPhamChiTiet")
+                    b.HasOne("CTN4_Data.Models.DB_CTN4.SanPham", "SanPham")
                         .WithMany("DanhMucChiTiets")
                         .HasForeignKey("IdSanPhamChiTiet");
 
                     b.Navigation("DanhMuc");
 
-                    b.Navigation("SanPhamChiTiet");
+                    b.Navigation("SanPham");
                 });
 
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.DiaChiNhanHang", b =>
@@ -1725,9 +1361,9 @@ namespace CTN4_Data.Migrations
 
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.KhuyenMaiSanPham", b =>
                 {
-                    b.HasOne("CTN4_Data.Models.DB_CTN4.SanPhamChiTiet", "SanPhamChiTiet")
-                        .WithMany("KKhuyenMaiSanPhams")
-                        .HasForeignKey("IdSanPhamChiTiet");
+                    b.HasOne("CTN4_Data.Models.DB_CTN4.SanPham", "SanPham")
+                        .WithMany("KhuyenMaiSanPhams")
+                        .HasForeignKey("IdSanPham");
 
                     b.HasOne("CTN4_Data.Models.DB_CTN4.KhuyenMai", "KhuyenMai")
                         .WithMany("KKhuyenMaiSanPhams")
@@ -1735,7 +1371,22 @@ namespace CTN4_Data.Migrations
 
                     b.Navigation("KhuyenMai");
 
-                    b.Navigation("SanPhamChiTiet");
+                    b.Navigation("SanPham");
+                });
+
+            modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.Mau", b =>
+                {
+                    b.HasOne("CTN4_Data.Models.DB_CTN4.SanPham", "sanPham")
+                        .WithMany("Maus")
+                        .HasForeignKey("IdSanPham");
+
+                    b.HasOne("CTN4_Data.Models.DB_CTN4.SanPhamChiTiet", "SanPhamChiTiets")
+                        .WithMany("Maus")
+                        .HasForeignKey("IdSanPhamChiTiet");
+
+                    b.Navigation("SanPhamChiTiets");
+
+                    b.Navigation("sanPham");
                 });
 
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.NhanVien", b =>
@@ -1753,42 +1404,39 @@ namespace CTN4_Data.Migrations
                         .WithMany("PhanLoaiChiTiets")
                         .HasForeignKey("IdPhanLoai");
 
-                    b.HasOne("CTN4_Data.Models.DB_CTN4.SanPhamChiTiet", "SanPhamChiTiet")
-                        .WithMany("PhanLoaiChiTiets")
+                    b.HasOne("CTN4_Data.Models.DB_CTN4.SanPham", "SanPham")
+                        .WithMany("PPhanLoaiChiTiets")
                         .HasForeignKey("IdSanPhamChiTiet");
 
                     b.Navigation("PhanLoai");
 
-                    b.Navigation("SanPhamChiTiet");
+                    b.Navigation("SanPham");
+                });
+
+            modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.SanPham", b =>
+                {
+                    b.HasOne("CTN4_Data.Models.DB_CTN4.ChatLieu", "CChatLieu")
+                        .WithMany("SanPhams")
+                        .HasForeignKey("CChatLieuId");
+
+                    b.HasOne("CTN4_Data.Models.DB_CTN4.NSX", "Nsxs")
+                        .WithMany("SanPhams")
+                        .HasForeignKey("NsxsId");
+
+                    b.Navigation("CChatLieu");
+
+                    b.Navigation("Nsxs");
                 });
 
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.SanPhamChiTiet", b =>
                 {
-                    b.HasOne("CTN4_Data.Models.DB_CTN4.ChatLieu", "ChatLieu")
-                        .WithMany("SanPhamChiTiets")
-                        .HasForeignKey("IdChatLieu");
-
-                    b.HasOne("CTN4_Data.Models.DB_CTN4.Mau", "Mau")
-                        .WithMany("SanPhamChiTiets")
-                        .HasForeignKey("IdMau");
-
-                    b.HasOne("CTN4_Data.Models.DB_CTN4.NSX", "NSX")
-                        .WithMany("SanPhamChiTiets")
-                        .HasForeignKey("IdNSX");
-
-                    b.HasOne("CTN4_Data.Models.DB_CTN4.Size", "Size")
+                    b.HasOne("CTN4_Data.Models.DB_CTN4.SanPham", "SanPham")
                         .WithMany("SanPhamChiTiets")
                         .HasForeignKey("IdSize");
 
-                    b.HasOne("CTN4_Data.Models.DB_CTN4.SanPham", "SanPham")
+                    b.HasOne("CTN4_Data.Models.DB_CTN4.Size", "Size")
                         .WithMany("SanPhamChiTiets")
                         .HasForeignKey("IdSp");
-
-                    b.Navigation("ChatLieu");
-
-                    b.Navigation("Mau");
-
-                    b.Navigation("NSX");
 
                     b.Navigation("SanPham");
 
@@ -1806,7 +1454,7 @@ namespace CTN4_Data.Migrations
 
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.ChatLieu", b =>
                 {
-                    b.Navigation("SanPhamChiTiets");
+                    b.Navigation("SanPhams");
                 });
 
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.ChucVu", b =>
@@ -1859,14 +1507,9 @@ namespace CTN4_Data.Migrations
                     b.Navigation("KKhuyenMaiSanPhams");
                 });
 
-            modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.Mau", b =>
-                {
-                    b.Navigation("SanPhamChiTiets");
-                });
-
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.NSX", b =>
                 {
-                    b.Navigation("SanPhamChiTiets");
+                    b.Navigation("SanPhams");
                 });
 
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.PhanLoai", b =>
@@ -1883,6 +1526,14 @@ namespace CTN4_Data.Migrations
 
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.SanPham", b =>
                 {
+                    b.Navigation("DanhMucChiTiets");
+
+                    b.Navigation("KhuyenMaiSanPhams");
+
+                    b.Navigation("Maus");
+
+                    b.Navigation("PPhanLoaiChiTiets");
+
                     b.Navigation("SanPhamChiTiets");
                 });
 
@@ -1890,17 +1541,13 @@ namespace CTN4_Data.Migrations
                 {
                     b.Navigation("Anhs");
 
-                    b.Navigation("CTietSanPhamYeuThiches");
-
-                    b.Navigation("DanhMucChiTiets");
+                    b.Navigation("ChiTietSanPhamYeu");
 
                     b.Navigation("GioHangChiTiets");
 
                     b.Navigation("HoaDonChiTiets");
 
-                    b.Navigation("KKhuyenMaiSanPhams");
-
-                    b.Navigation("PhanLoaiChiTiets");
+                    b.Navigation("Maus");
                 });
 
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.SanPhamYeuThich", b =>

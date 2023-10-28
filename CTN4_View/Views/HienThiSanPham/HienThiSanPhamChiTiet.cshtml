@@ -47,14 +47,14 @@
                 <div class="s_product_text">
                     <h3>@Model.SanPhamChiTiet.SanPham.TenSanPham</h3>
                     <div class="price">
-                        @if (Model.SanPhamChiTiet.GiaNiemYet == Model.SanPhamChiTiet.GiaBan)
+                        @if (Model.SanPhamChiTiet.SanPham.GiaNiemYet == Model.SanPhamChiTiet.SanPham.GiaBan)
                         {
-                            <h6>@FormatCurrency(Model.SanPhamChiTiet.GiaNiemYet)</h6>
+                            <h6>@FormatCurrency(Model.SanPhamChiTiet.SanPham.GiaNiemYet)</h6>
                         }
                         else
                         {
-                            <h6>@FormatCurrency(Model.SanPhamChiTiet.GiaNiemYet)</h6>
-                            <h6 class="l-through">@FormatCurrency(Model.SanPhamChiTiet.GiaBan)</h6>
+                            <h6>@FormatCurrency(Model.SanPhamChiTiet.SanPham.GiaNiemYet)</h6>
+                            <h6 class="l-through">@FormatCurrency(Model.SanPhamChiTiet.SanPham.GiaBan)</h6>
                         }
                     </div>
                     <ul class="list">
