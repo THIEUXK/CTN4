@@ -111,20 +111,6 @@ namespace CTN4_Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Maus",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TenMau = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TrangThai = table.Column<bool>(type: "bit", nullable: false),
-                    Is_detele = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Maus", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "NSXs",
                 columns: table => new
                 {
@@ -166,21 +152,6 @@ namespace CTN4_Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PhuongThucThanhToans", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "SanPhams",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TenSanPham = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AnhDaiDien = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TrangThai = table.Column<bool>(type: "bit", nullable: false),
-                    Is_detele = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SanPhams", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -280,6 +251,41 @@ namespace CTN4_Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SanPhams",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    MaSP = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TenSanPham = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AnhDaiDien = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    GiaNhap = table.Column<float>(type: "real", nullable: false),
+                    GiaBan = table.Column<float>(type: "real", nullable: false),
+                    GiaNiemYet = table.Column<float>(type: "real", nullable: false),
+                    GhiChu = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MoTa = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IdChatLieu = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    IdNSX = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    TrangThai = table.Column<bool>(type: "bit", nullable: false),
+                    Is_detele = table.Column<bool>(type: "bit", nullable: false),
+                    NsxsId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    CChatLieuId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SanPhams", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SanPhams_ChatLieus_CChatLieuId",
+                        column: x => x.CChatLieuId,
+                        principalTable: "ChatLieus",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_SanPhams_NSXs_NsxsId",
+                        column: x => x.NsxsId,
+                        principalTable: "NSXs",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "KhuyenMaiPhanLoais",
                 columns: table => new
                 {
@@ -303,56 +309,6 @@ namespace CTN4_Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SanPhamChiTiets",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MaSp = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SoLuong = table.Column<int>(type: "int", nullable: false),
-                    MoTa = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TrangThai = table.Column<bool>(type: "bit", nullable: false),
-                    GiaNhap = table.Column<float>(type: "real", nullable: false),
-                    GiaBan = table.Column<float>(type: "real", nullable: false),
-                    GiaNiemYet = table.Column<float>(type: "real", nullable: false),
-                    GhiChu = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Is_detele = table.Column<bool>(type: "bit", nullable: false),
-                    IdChatLieu = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    IdMau = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    IdNSX = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    IdSize = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    IdSp = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SanPhamChiTiets", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_SanPhamChiTiets_ChatLieus_IdChatLieu",
-                        column: x => x.IdChatLieu,
-                        principalTable: "ChatLieus",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_SanPhamChiTiets_Maus_IdMau",
-                        column: x => x.IdMau,
-                        principalTable: "Maus",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_SanPhamChiTiets_NSXs_IdNSX",
-                        column: x => x.IdNSX,
-                        principalTable: "NSXs",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_SanPhamChiTiets_SanPhams_IdSp",
-                        column: x => x.IdSp,
-                        principalTable: "SanPhams",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_SanPhamChiTiets_Sizes_IdSize",
-                        column: x => x.IdSize,
-                        principalTable: "Sizes",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "HoaDons",
                 columns: table => new
                 {
@@ -367,6 +323,7 @@ namespace CTN4_Data.Migrations
                     SDTNguoiNhan = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DiaChi = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Is_detele = table.Column<bool>(type: "bit", nullable: false),
+                    TrangThaiGiaoHang = table.Column<bool>(type: "bit", nullable: false),
                     IdKhachHang = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     IdPhuongThuc = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     IdDiaChiNhanHang = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
@@ -392,23 +349,121 @@ namespace CTN4_Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Anhs",
+                name: "DanhMucChiTiets",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TenAnh = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DuongDanAnh = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TrangThai = table.Column<bool>(type: "bit", nullable: false),
-                    Is_delete = table.Column<bool>(type: "bit", nullable: false),
-                    IdSanPhamChiTiet = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    IdSanPhamChiTiet = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    IdDanhMuc = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Anhs", x => x.Id);
+                    table.PrimaryKey("PK_DanhMucChiTiets", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Anhs_SanPhamChiTiets_IdSanPhamChiTiet",
+                        name: "FK_DanhMucChiTiets_DanhMucs_IdDanhMuc",
+                        column: x => x.IdDanhMuc,
+                        principalTable: "DanhMucs",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_DanhMucChiTiets_SanPhams_IdSanPhamChiTiet",
                         column: x => x.IdSanPhamChiTiet,
-                        principalTable: "SanPhamChiTiets",
+                        principalTable: "SanPhams",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "KhuyenMaiSanPhams",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    IdSanPham = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    IdkhuyenMai = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_KhuyenMaiSanPhams", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_KhuyenMaiSanPhams_KhuyenMais_IdkhuyenMai",
+                        column: x => x.IdkhuyenMai,
+                        principalTable: "KhuyenMais",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_KhuyenMaiSanPhams_SanPhams_IdSanPham",
+                        column: x => x.IdSanPham,
+                        principalTable: "SanPhams",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PhanLoaiChiTiets",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    IdSanPhamChiTiet = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    IdPhanLoai = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PhanLoaiChiTiets", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PhanLoaiChiTiets_PhanLoais_IdPhanLoai",
+                        column: x => x.IdPhanLoai,
+                        principalTable: "PhanLoais",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_PhanLoaiChiTiets_SanPhams_IdSanPhamChiTiet",
+                        column: x => x.IdSanPhamChiTiet,
+                        principalTable: "SanPhams",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SanPhamChiTiets",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    MaSp = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SoLuong = table.Column<int>(type: "int", nullable: false),
+                    TrangThai = table.Column<bool>(type: "bit", nullable: false),
+                    Is_detele = table.Column<bool>(type: "bit", nullable: false),
+                    IdSize = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    IdSp = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SanPhamChiTiets", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SanPhamChiTiets_SanPhams_IdSize",
+                        column: x => x.IdSize,
+                        principalTable: "SanPhams",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_SanPhamChiTiets_Sizes_IdSp",
+                        column: x => x.IdSp,
+                        principalTable: "Sizes",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GiamGiaChiTiets",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    IdGiamGia = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    IdHoaDon = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GiamGiaChiTiets", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_GiamGiaChiTiets_GiamGias_IdGiamGia",
+                        column: x => x.IdGiamGia,
+                        principalTable: "GiamGias",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_GiamGiaChiTiets_HoaDons_IdHoaDon",
+                        column: x => x.IdHoaDon,
+                        principalTable: "HoaDons",
                         principalColumn: "Id");
                 });
 
@@ -432,29 +487,6 @@ namespace CTN4_Data.Migrations
                         name: "FK_ChiTietSanPhamYeu_SanPhamYeuThichs_IdSanPhamYeuThich",
                         column: x => x.IdSanPhamYeuThich,
                         principalTable: "SanPhamYeuThichs",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "DanhMucChiTiets",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    IdSanPhamChiTiet = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    IdDanhMuc = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DanhMucChiTiets", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_DanhMucChiTiets_DanhMucs_IdDanhMuc",
-                        column: x => x.IdDanhMuc,
-                        principalTable: "DanhMucs",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_DanhMucChiTiets_SanPhamChiTiets_IdSanPhamChiTiet",
-                        column: x => x.IdSanPhamChiTiet,
-                        principalTable: "SanPhamChiTiets",
                         principalColumn: "Id");
                 });
 
@@ -483,75 +515,6 @@ namespace CTN4_Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "KhuyenMaiSanPhams",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    IdSanPhamChiTiet = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    IdkhuyenMai = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_KhuyenMaiSanPhams", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_KhuyenMaiSanPhams_KhuyenMais_IdkhuyenMai",
-                        column: x => x.IdkhuyenMai,
-                        principalTable: "KhuyenMais",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_KhuyenMaiSanPhams_SanPhamChiTiets_IdSanPhamChiTiet",
-                        column: x => x.IdSanPhamChiTiet,
-                        principalTable: "SanPhamChiTiets",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PhanLoaiChiTiets",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    IdSanPhamChiTiet = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    IdPhanLoai = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PhanLoaiChiTiets", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_PhanLoaiChiTiets_PhanLoais_IdPhanLoai",
-                        column: x => x.IdPhanLoai,
-                        principalTable: "PhanLoais",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_PhanLoaiChiTiets_SanPhamChiTiets_IdSanPhamChiTiet",
-                        column: x => x.IdSanPhamChiTiet,
-                        principalTable: "SanPhamChiTiets",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "GiamGiaChiTiets",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    IdGiamGia = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    IdHoaDon = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_GiamGiaChiTiets", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_GiamGiaChiTiets_GiamGias_IdGiamGia",
-                        column: x => x.IdGiamGia,
-                        principalTable: "GiamGias",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_GiamGiaChiTiets_HoaDons_IdHoaDon",
-                        column: x => x.IdHoaDon,
-                        principalTable: "HoaDons",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "HoaDonChiTiets",
                 columns: table => new
                 {
@@ -573,6 +536,61 @@ namespace CTN4_Data.Migrations
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_HoaDonChiTiets_SanPhamChiTiets_IdSanPhamChiTiet",
+                        column: x => x.IdSanPhamChiTiet,
+                        principalTable: "SanPhamChiTiets",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Maus",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TenMau = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AnhMau = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TrangThai = table.Column<bool>(type: "bit", nullable: false),
+                    Is_detele = table.Column<bool>(type: "bit", nullable: false),
+                    IdSanPham = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    IdSanPhamChiTiet = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Maus", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Maus_SanPhamChiTiets_IdSanPhamChiTiet",
+                        column: x => x.IdSanPhamChiTiet,
+                        principalTable: "SanPhamChiTiets",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Maus_SanPhams_IdSanPham",
+                        column: x => x.IdSanPham,
+                        principalTable: "SanPhams",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Anhs",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TenAnh = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DuongDanAnh = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TrangThai = table.Column<bool>(type: "bit", nullable: false),
+                    Is_delete = table.Column<bool>(type: "bit", nullable: false),
+                    IdSanPhamChiTiet = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    IdMau = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    MauId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Anhs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Anhs_Maus_MauId",
+                        column: x => x.MauId,
+                        principalTable: "Maus",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Anhs_SanPhamChiTiets_IdSanPhamChiTiet",
                         column: x => x.IdSanPhamChiTiet,
                         principalTable: "SanPhamChiTiets",
                         principalColumn: "Id");
@@ -623,32 +641,6 @@ namespace CTN4_Data.Migrations
                 values: new object[] { new Guid("d16ac357-3ced-4c2c-bcdc-d38971214499"), "", "Hà Nội", "thieubvph20221@gmail.com", "Nam", "Bùi Văm", true, "thieuxk", "0912384746", "Thiều", "thieuxk", true });
 
             migrationBuilder.InsertData(
-                table: "Maus",
-                columns: new[] { "Id", "Is_detele", "TenMau", "TrangThai" },
-                values: new object[,]
-                {
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081101"), true, "kem Đậm", true },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081110"), true, "xanh dương", true },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081111"), true, "đen", true },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081112"), true, "trắng", true },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081113"), true, "nâu", true },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081114"), true, "xám", true },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081115"), true, "vàng", true },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081116"), true, "ghi", true },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081117"), true, "cam", true },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081118"), true, "xanh dương đậm", true },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081119"), true, "xanh lục", true },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081121"), true, "xanh lá", true },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081131"), true, "xanh nhạt", true },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081141"), true, "tràm", true },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081151"), true, "tím", true },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081161"), true, "xanh lá đậm", true },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081171"), true, "xanh tím", true },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081181"), true, "hồng", true },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081191"), true, "kem", true }
-                });
-
-            migrationBuilder.InsertData(
                 table: "NSXs",
                 columns: new[] { "Id", "GhiChu", "Is_detele", "TenNSX", "TrangThai" },
                 values: new object[,]
@@ -656,14 +648,7 @@ namespace CTN4_Data.Migrations
                     { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081124"), "", true, "Juno", true },
                     { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081125"), "", true, "Prada", true },
                     { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081126"), "", true, "Gucci", true },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081127"), "", true, "Chanel", true }
-                });
-
-            migrationBuilder.InsertData(
-                table: "NSXs",
-                columns: new[] { "Id", "GhiChu", "Is_detele", "TenNSX", "TrangThai" },
-                values: new object[,]
-                {
+                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081127"), "", true, "Chanel", true },
                     { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081128"), "", true, "Coach", true },
                     { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081129"), "", true, "MLB Korea", true },
                     { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081133"), "", true, "Michael Kors", true },
@@ -684,23 +669,6 @@ namespace CTN4_Data.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "SanPhams",
-                columns: new[] { "Id", "AnhDaiDien", "Is_detele", "TenSanPham", "TrangThai" },
-                values: new object[,]
-                {
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081122"), "Túi Xách Nhỏ Đeo Vai - Cycling_Trung Quốc_XanhNhat_Da tổng hợp(1).webp", true, "Túi Xách Nhỏ Đeo Vai - Cycling_Trung Quốc_XanhNhat_Da tổng hợp(1)", true },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081123"), "TDV Hobo Quai Ngắn_QuanChau_Trang_Da PU mềm mịn, cao cấp(1).jpg", true, "TDV Hobo Quai Ngắn_QuanChau_Trang_Da PU mềm mịn, cao cấp(1)", true },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081211"), "TXT Da Rắn Khóa Bạc _QuanChau_Trang_Da PU cao cấp(1).jpg", true, "TXT Da Rắn Khóa Bạc _QuanChau_Trang_Da PU cao cấp(1)", true },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081311"), "TXT Phủ Màu Tag Vuông_QuanChau_XanhLuc_Da PU mềm mịn, cao cấp(1).jpg", true, "TXT Phủ Màu Tag Vuông_QuanChau_XanhLuc_Da PU mềm mịn, cao cấp(1)", true },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081411"), "TDV Hobo Đáy Tròn_QuanChau_Trang_Da lộn, da PU cao cấp(1).jpg", true, "TDV Hobo Đáy Tròn_QuanChau_Trang_Da lộn, da PU cao cấp(1)", true },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081511"), "Túi Xách Nhỏ Curve 1_Trung Quốc_Xanhduong_Da tổng hợp(1).webp", true, "Túi Xách Nhỏ Curve 1_Trung Quốc_Xanhduong_Da tổng hợp(1)", true },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081611"), "TDV Hobo Đáy Tròn_QuanChau_Xanh-Duong_Da lộn, da PU cao cấp(1).jpg", true, "TDV Hobo Đáy Tròn_QuanChau_Xanh-Duong_Da lộn, da PU cao cấp(1)", true },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081711"), "TOT Classic Phối Màu _QuanChau_Ghi_Da PU mềm mịn, cao cấp(1).jpg", true, "TOT Classic Phối Màu _QuanChau_Ghi_Da PU mềm mịn, cao cấp(1)", true },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081811"), "TOT Classic Phối Màu _QuanChau_Nau_Da PU mềm mịn, cao cấp(1).jpg", true, "TOT Classic Phối Màu _QuanChau_Nau_Da PU mềm mịn, cao cấp(1)", true },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081911"), "Túi Xách Nhỏ Curve 1_Trung Quốc_XanhLa_Da tổng hợp(1).webp", true, "Túi Xách Nhỏ Curve 1_Trung Quốc_XanhLa_Da tổng hợp(1)", true }
-                });
-
-            migrationBuilder.InsertData(
                 table: "Sizes",
                 columns: new[] { "Id", "Is_detele", "TenSize", "TrangThai" },
                 values: new object[,]
@@ -713,7 +681,14 @@ namespace CTN4_Data.Migrations
                     { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081152"), true, "22cm x 18cm x 8cm", true },
                     { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081153"), true, "20cm x 12cm x 7cm", true },
                     { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081154"), true, "22cm x 15cm x 6cm", true },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081155"), true, "17cm x 16cm x 7cm", true },
+                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081155"), true, "17cm x 16cm x 7cm", true }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Sizes",
+                columns: new[] { "Id", "Is_detele", "TenSize", "TrangThai" },
+                values: new object[,]
+                {
                     { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081156"), true, "22cm x 12cm x 6cm", true },
                     { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081157"), true, "21cm x 8cm x 13cm", true },
                     { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081158"), true, "27cm x 6cm x 19cm", true },
@@ -728,27 +703,15 @@ namespace CTN4_Data.Migrations
                 columns: new[] { "Id", "AnhDaiDien", "DiaChi", "Email", "GioiTinh", "Ho", "IdChucVu", "MatKhau", "SDT", "Ten", "TenDangNhap", "Trangthai" },
                 values: new object[] { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081173"), "", "Hà Nội", "nothing@gmail.com", "Nữ", "Nguyễn", new Guid("d16ac357-3ced-4c2c-bcdc-d38971214414"), "12345678", "0912384746", "Trang", "trangnt34", true });
 
-            migrationBuilder.InsertData(
-                table: "SanPhamChiTiets",
-                columns: new[] { "Id", "GhiChu", "GiaBan", "GiaNhap", "GiaNiemYet", "IdChatLieu", "IdMau", "IdNSX", "IdSize", "IdSp", "Is_detele", "MaSp", "MoTa", "SoLuong", "TrangThai" },
-                values: new object[,]
-                {
-                    { new Guid("0d12726e-619c-4077-934a-ca13476545c4"), "", 700000f, 300000f, 750000f, new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081138"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081116"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081124"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081152"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081711"), true, "SP06", "oke la", 100, true },
-                    { new Guid("0e093b08-6d66-44dc-8331-348b4fd5c304"), "", 500000f, 300000f, 450000f, new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081137"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081112"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081124"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081146"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081211"), true, "SP01", "oke la", 100, true },
-                    { new Guid("10f6a0ec-a8d1-4f34-8c5c-6bb9fe3dba70"), "", 600000f, 400000f, 550000f, new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081138"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081131"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081125"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081147"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081311"), true, "SP02", "oke la", 100, true },
-                    { new Guid("335a49f0-9589-491f-9f79-569f80b0d4ad"), "", 600000f, 300000f, 550000f, new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081144"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081110"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081126"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081149"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081511"), true, "SP04", "oke la", 100, true },
-                    { new Guid("44690686-57c5-46aa-83f6-ef925a439664"), "", 650000f, 400000f, 550000f, new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081144"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081121"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081124"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081154"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081911"), true, "SP08", "oke la", 100, true },
-                    { new Guid("44fa5fe7-1be0-46d6-8f48-c178f92b1ca1"), "", 600000f, 400000f, 550000f, new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081138"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081112"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081124"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081156"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081123"), true, "SP10", "oke la", 100, true },
-                    { new Guid("4aaddf20-e707-494b-991e-436e15a4bd97"), "", 600000f, 400000f, 550000f, new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081144"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081131"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081124"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081155"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081122"), true, "SP09", "oke la", 100, true },
-                    { new Guid("4bcc9b92-0527-4e79-b10a-23e37a3d4da0"), "", 700000f, 600000f, 70000f, new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081137"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081112"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081125"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081148"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081411"), true, "SP03", "oke la", 100, true },
-                    { new Guid("64165184-884b-4731-8322-8d8c0cebc324"), "", 4500000f, 400000f, 550000f, new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081137"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081110"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081127"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081150"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081611"), true, "SP05", "oke la", 100, true },
-                    { new Guid("924b3333-0038-4828-9be8-ef0ed48eda8e"), "", 500000f, 400000f, 450000f, new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081138"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081113"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081124"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081153"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081811"), true, "SP07", "oke la", 100, true }
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Anhs_IdSanPhamChiTiet",
                 table: "Anhs",
                 column: "IdSanPhamChiTiet");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Anhs_MauId",
+                table: "Anhs",
+                column: "MauId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ChiTietSanPhamYeu_IdSanPhamChiTiet",
@@ -841,8 +804,18 @@ namespace CTN4_Data.Migrations
                 column: "IdkhuyenMai");
 
             migrationBuilder.CreateIndex(
-                name: "IX_KhuyenMaiSanPhams_IdSanPhamChiTiet",
+                name: "IX_KhuyenMaiSanPhams_IdSanPham",
                 table: "KhuyenMaiSanPhams",
+                column: "IdSanPham");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Maus_IdSanPham",
+                table: "Maus",
+                column: "IdSanPham");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Maus_IdSanPhamChiTiet",
+                table: "Maus",
                 column: "IdSanPhamChiTiet");
 
             migrationBuilder.CreateIndex(
@@ -861,21 +834,6 @@ namespace CTN4_Data.Migrations
                 column: "IdSanPhamChiTiet");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SanPhamChiTiets_IdChatLieu",
-                table: "SanPhamChiTiets",
-                column: "IdChatLieu");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SanPhamChiTiets_IdMau",
-                table: "SanPhamChiTiets",
-                column: "IdMau");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SanPhamChiTiets_IdNSX",
-                table: "SanPhamChiTiets",
-                column: "IdNSX");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_SanPhamChiTiets_IdSize",
                 table: "SanPhamChiTiets",
                 column: "IdSize");
@@ -884,6 +842,16 @@ namespace CTN4_Data.Migrations
                 name: "IX_SanPhamChiTiets_IdSp",
                 table: "SanPhamChiTiets",
                 column: "IdSp");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SanPhams_CChatLieuId",
+                table: "SanPhams",
+                column: "CChatLieuId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SanPhams_NsxsId",
+                table: "SanPhams",
+                column: "NsxsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SanPhamYeuThichs_IdKhachHang",
@@ -924,6 +892,9 @@ namespace CTN4_Data.Migrations
                 name: "PhanLoaiChiTiets");
 
             migrationBuilder.DropTable(
+                name: "Maus");
+
+            migrationBuilder.DropTable(
                 name: "SanPhamYeuThichs");
 
             migrationBuilder.DropTable(
@@ -957,15 +928,6 @@ namespace CTN4_Data.Migrations
                 name: "PhuongThucThanhToans");
 
             migrationBuilder.DropTable(
-                name: "ChatLieus");
-
-            migrationBuilder.DropTable(
-                name: "Maus");
-
-            migrationBuilder.DropTable(
-                name: "NSXs");
-
-            migrationBuilder.DropTable(
                 name: "SanPhams");
 
             migrationBuilder.DropTable(
@@ -973,6 +935,12 @@ namespace CTN4_Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "KhachHangs");
+
+            migrationBuilder.DropTable(
+                name: "ChatLieus");
+
+            migrationBuilder.DropTable(
+                name: "NSXs");
         }
     }
 }
