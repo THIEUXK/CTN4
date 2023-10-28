@@ -4,7 +4,7 @@
     {
         public Guid Id { get; set; }
         public DateTime NgayTaoHoaDon { get; set; }
-        
+
         public string TrangThai { get; set; }
         public float TongTien { get; set; }
         public DateTime NgayDat { get; set; }
@@ -14,16 +14,16 @@
         public string TenKhachHang { get; set; }
         public string SDTNguoiNhan { get; set; }
         public string DiaChi { get; set; }
-public bool Is_detele { get; set; }
+        public bool Is_detele { get; set; }
 
-		public Guid? IdKhachHang { get; set; }
-        public Guid? IdPhuongThuc { get;set; }
+        public Guid? IdKhachHang { get; set; }
+        public Guid? IdPhuongThuc { get; set; }
         public Guid? IdDiaChiNhanHang { get; set; }
 
         public virtual List<HoaDonChiTiet>? HoaDonChiTiets { get; set; }
         public virtual List<GiamGiaChiTiet>? GiamGiaChiTiets { get; set; }
         public virtual PhuongThucThanhToan? PhuongThucThanhToan { get; set; }
-        public virtual DiaChiNhanHang? DiaChiNhanHang { get; set;}
-        public virtual KhachHang? KhachHang { get; set;}
+        public virtual DiaChiNhanHang? DiaChiNhanHang { get; set; }
+        public virtual KhachHang? KhachHang { get; set; }
     }
 }

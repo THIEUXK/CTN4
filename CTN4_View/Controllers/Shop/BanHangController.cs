@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using System.Net.Http;
 using CTN4_Serv.ViewModel.banhangview;
+using System.Text;
 
 namespace CTN4_View.Controllers.Shop
 {
@@ -35,6 +36,7 @@ namespace CTN4_View.Controllers.Shop
             _SanPhamChiTiet = new SanPhamChiTietService();
             _httpClient = new HttpClient();
             _httpClient.DefaultRequestHeaders.Add("token", "fa31ddca-73b0-11ee-b394-8ac29577e80e");
+            _httpClient.DefaultRequestHeaders.Add("shop_id", "4189141");
         }
 
         [HttpGet]
@@ -187,62 +189,90 @@ namespace CTN4_View.Controllers.Shop
             }
         }
 
-        [HttpGet("/CheckOut/GetTotalShipping")]
-        public JsonResult GetTotalShipping([FromBody] ShippingOrder shippingOrder)
-        {
-            _httpClient.DefaultRequestHeaders.Add("shop_id", "3630415");
+        //[HttpPost("/CheckOut/GetTotalShipping")]
+        //public async Task<JsonResult> GetTotalShipping([FromBody] ShippingOrder shippingOrder)
+        //{
+            
+        //    var hang = new TinhTienShip()
+        //    {
+        //        //"service_id":53321,
+        //        //"insurance_value":500000,
+        //        //"coupon": null,
+        //        //"from_district_id":1486,
+        //        //"to_district_id":1493,
+        //        //"to_ward_code":"20314",
+        //        //"height": 25,
+        //        //"length":10,
+        //        //"weight":3000,
+        //        //"width": 30
+        //        service_id = shippingOrder.service_id.ToString(),
+        //        insurance_value = shippingOrder.insurance_value.ToString(),
+        //        coupon = null,
+        //        from_district_id = shippingOrder.from_district_id.ToString(),
+        //        to_district_id = shippingOrder.to_district_id.ToString(),
+        //        to_ward_code =shippingOrder.to_ward_code.ToString(),
+        //        height = shippingOrder.height.ToString(),
+        //        length = shippingOrder.length.ToString(),
+        //        weight = shippingOrder.weight.ToString(),
+        //        width = shippingOrder.width.ToString(),
+        //    };
 
-            HttpResponseMessage responseWShipping = _httpClient.GetAsync("https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee?service_id=" + shippingOrder.service_id + "&insurance_value=" + shippingOrder.insurance_value + "&coupon=&from_district_id=" + shippingOrder.from_district_id + "&to_district_id=" + shippingOrder.to_district_id + "&to_ward_code=" + shippingOrder.to_ward_code + "&height=" + shippingOrder.height + "&length=" + shippingOrder.length + "&weight=" + shippingOrder.weight + "&width=" + shippingOrder.width + "").Result;
-            float tong = 0;
-            var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
-            if (accnew.Count != 0)
-            {
-                var gh = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == accnew[0].Id);
-                IEnumerable<GioHangChiTiet> ghct = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh.Id);
+        //    //HttpResponseMessage responseWShipping = _httpClient.GetAsync("https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee").Result;
 
-                foreach (var x in ghct)
-                {
-                    tong += float.Parse(x.SanPhamChiTiet.GiaNiemYet.ToString()) * (x.SoLuong);
+        //    var url = $"https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee";
+        //    var content = new StringContent(JsonConvert.SerializeObject(hang), Encoding.UTF8, "application/json");
+        //    var respose = await _httpClient.PostAsync(url, content);
 
-                }
-                Shipping shipping = new Shipping();
-                if (responseWShipping.IsSuccessStatusCode)
-                {
-                    string jsonData2 = responseWShipping.Content.ReadAsStringAsync().Result;
+        //    float tong = 0;
+        //    var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
+        //    if (accnew.Count != 0)
+        //    {
+        //        var gh = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == accnew[0].Id);
+        //        IEnumerable<GioHangChiTiet> ghct = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh.Id);
 
-                    shipping = JsonConvert.DeserializeObject<Shipping>(jsonData2);
-                    HttpContext.Session.SetInt32("shiptotal", shipping.data.total);
-                }
+        //        foreach (var x in ghct)
+        //        {
+        //            tong += float.Parse(x.SanPhamChiTiet.GiaNiemYet.ToString()) * (x.SoLuong);
 
-                shipping.data.totaloder = shipping.data.total+int.Parse(tong.ToString());
-                return Json(shipping, new System.Text.Json.JsonSerializerOptions());
+        //        }
+        //        Shipping shipping = new Shipping();
+        //        if (respose.IsSuccessStatusCode)
+        //        {
+        //            string jsonData2 = respose.Content.ReadAsStringAsync().Result;
 
-            }
-            else
-            {
-                var gh2 = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == null);
-                var a = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh2.Id);
-                foreach (var x in a)
-                {
-                    tong += float.Parse(x.SanPhamChiTiet.GiaNiemYet.ToString()) * (x.SoLuong);
+        //            shipping = JsonConvert.DeserializeObject<Shipping>(jsonData2);
+        //            HttpContext.Session.SetInt32("shiptotal", shipping.data.total);
+        //        }
 
-                }
-                Shipping shipping = new Shipping();
-                if (responseWShipping.IsSuccessStatusCode)
-                {
-                    string jsonData2 = responseWShipping.Content.ReadAsStringAsync().Result;
+        //        shipping.data.totaloder = shipping.data.total+int.Parse(tong.ToString());
+        //        return Json(shipping, new System.Text.Json.JsonSerializerOptions());
 
-                    shipping = JsonConvert.DeserializeObject<Shipping>(jsonData2);
-                    HttpContext.Session.SetInt32("shiptotal", shipping.data.total);
-                }
+        //    }
+        //    else
+        //    {
+        //        var gh2 = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == null);
+        //        var a = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh2.Id);
+        //        foreach (var x in a)
+        //        {
+        //            tong += float.Parse(x.SanPhamChiTiet.GiaNiemYet.ToString()) * (x.SoLuong);
 
-                shipping.data.totaloder = shipping.data.total+ int.Parse(tong.ToString());
-                return Json(shipping, new System.Text.Json.JsonSerializerOptions());
+        //        }
+        //        Shipping shipping = new Shipping();
+        //        if (respose.IsSuccessStatusCode)
+        //        {
+        //            string jsonData2 = respose.Content.ReadAsStringAsync().Result;
 
-            }
+        //            shipping = JsonConvert.DeserializeObject<Shipping>(jsonData2);
+        //            HttpContext.Session.SetInt32("shiptotal", shipping.data.total);
+        //        }
+
+        //        shipping.data.totaloder = shipping.data.total+ int.Parse(tong.ToString());
+        //        return Json(shipping, new System.Text.Json.JsonSerializerOptions());
+
+        //    }
 
            
-        }
+        //}
 
         public IActionResult HoanThanhThanhToan()
         {
@@ -269,8 +299,10 @@ namespace CTN4_View.Controllers.Shop
                     NgayDat = DateTime.Now,
                     IdDiaChiNhanHang = null,
                     IdKhachHang = accnew[0].Id,
-                    IdPhuongThuc = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971211111")
-
+                    IdPhuongThuc = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971211111"),
+                    SDTNguoiNhan = "",
+                    TenKhachHang ="" ,
+                    Is_detele = true,
                 };
                 if (_HoaDonService.Them(hd) == false)
                 {

@@ -76,16 +76,25 @@
         $("#total_ship").text('');
         if (this.value != 0) {
             var obj = {
-                service_id: 100039,
-                insurance_value: 100000,
-                service_type_id: 3,
+                //"service_id":53321,
+            //"insurance_value":500000,
+            //"coupon": null,
+            //"from_district_id":1486,
+            //"to_district_id":1493,
+            //"to_ward_code":"20314",
+            //"height": 25,
+            //"length":10,
+            //"weight":3000,
+            //"width": 30
+                service_id: 53321,
+                insurance_value: 500000,           
                 coupon: null,
                 from_district_id: 3440,
                 to_ward_code: id_ward,
                 to_district_id: parseInt($('#district').val()),
                 weight: 1000,
                 length: 31,
-                height: 11,
+                height: 21,
                 width: 11,
             }
             $.ajax({
