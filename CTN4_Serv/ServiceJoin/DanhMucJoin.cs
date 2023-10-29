@@ -19,7 +19,7 @@ namespace CTN4_Serv.ServiceJoin
         }
         public List<DanhMucChiTiet> getAllDanhMucChitiet()
         {
-            return _db.DanhMucChiTiets.Include(c=>c.DanhMuc).Include(c=>c.SanPhamChiTiet.SanPham).ToList();
+            return _db.DanhMucChiTiets.Include(c=>c.DanhMuc).Include(c=>c.SanPham).ToList();
         } 
         public List<DanhMucChiTiet> sanPhamDanhMuc(string a)
         {
@@ -31,7 +31,7 @@ namespace CTN4_Serv.ServiceJoin
         }
          public List<DanhMucChiTiet> GetDanhMucChiTiets(Guid id)
         {
-            return getAllDanhMucChitiet().Where(c=>c.IdDanhMuc == id).OrderByDescending(x=>x.SanPhamChiTiet.SanPham.TenSanPham).ToList();
+            return getAllDanhMucChitiet().Where(c=>c.IdDanhMuc == id).OrderByDescending(x=>x.SanPham.TenSanPham).ToList();
         }
     }
 }

@@ -70,7 +70,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLY
             var b = new DanhMucChiTiet()
             {
 
-                IdSanPhamChiTiet = Guid.Parse(a.IdSanPhamChiTiet.Value.ToString()),
+                IdSanPham = Guid.Parse(a.IdSanPhamChiTiet.Value.ToString()),
                 IdDanhMuc = Guid.Parse(a.IdDanhMuc.Value.ToString()),
 
             };

@@ -19,8 +19,7 @@ namespace CTN4_Serv.ServiceJoin
 
         public SanPhamChiTiet SanPhamChiTiet(Guid id)
         {
-            return _db.SanPhamChiTiets.Include(c => c.ChatLieu).Include(c => c.NSX).Include(c => c.Mau)
-                .Include(c => c.Size).Include(c => c.SanPham).FirstOrDefault(c => c.Id == id);
+            return _db.SanPhamChiTiets.FirstOrDefault(c => c.Id == id);
         }
 
         public List<Anh> GetAllanh(Guid id)
