@@ -9,6 +9,8 @@ namespace CTN4_Data.Configurations
         public void Configure(EntityTypeBuilder<SanPham> builder)
         {
             builder.HasKey(c => c.Id);
+            builder.HasOne(c => c.ChatLieu).WithMany(c => c.SanPhams).HasForeignKey(c => c.IdChatLieu);
+            builder.HasOne(c => c.NSX).WithMany(c => c.SanPhams).HasForeignKey(c => c.IdNSX);
         }
     }
 }
