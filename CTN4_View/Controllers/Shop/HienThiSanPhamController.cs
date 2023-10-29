@@ -23,6 +23,7 @@ namespace CTN4_View.Controllers.Shop
         public IDanhMucChiTietService _danhMucChiTiet;
         public IMauService _mauSacService;
         public IChatLieuService _chatLieuService;
+        public ISanPhamChiTietService _sanPhamChiTietService;
         public DanhMucJoin _DanhMucjoiin;
         public DB_CTN4_ok _CTN4_Ok;
         public int pageSize = 6;
@@ -47,9 +48,10 @@ namespace CTN4_View.Controllers.Shop
             if (page == null) {page=1;}
             var danhMuc = _danhMucService.GetAll();
             var danhMucChiTiets = _danhMucChiTiet.GetAll();
-            var listSpCt = _sanPhamCuaHangService.GetAll();
-            var mauSacs = _mauSacService.GetAll();
+            var listSp = _sanPhamCuaHangService.GetAll();
+            //var mauSacs = _mauSacService.GetAll();
             var chatLieus = _chatLieuService.GetAll();
+            //var listSpct = _sanPhamChiTietService.GetAll();
             
             //var Paging = _CTN4_Ok.SanPhamChiTiets.Include(c => c.ChatLieu).Include(c => c.NSX).Include(c => c.Mau).Include(c => c.Size).Include(c => c.SanPham).Skip((page - 1) * pageSize).Take(pageSize).ToList();
             
@@ -57,13 +59,14 @@ namespace CTN4_View.Controllers.Shop
             {
                 danhMucs = danhMuc,
                 danhMucChiTiets = danhMucChiTiets,
-                sanPhamChiTiets = listSpCt,
-                maus = mauSacs,
+                sanPhams = listSp,
+               // maus = mauSacs,
                 chatLieus = chatLieus,
-                sanphampaging = listSpCt.Skip((page - 1) * pageSize).Take(pageSize).ToList(),
+                //sanPhamChiTiets = listSpct,
+                sanphampaging = listSp.Skip((page - 1) * pageSize).Take(pageSize).ToList(),
                 pagingInfo = new PagingInfo()
                 {
-                    TotalItems = listSpCt.Count(),
+                    TotalItems = listSp.Count(),
                     CurrentPage= page,
                     ItemsPerPage = 6,
             
@@ -75,7 +78,7 @@ namespace CTN4_View.Controllers.Shop
         {
             var view = new SanPhamBan()
             {
-                SanPhamChiTiet = _sanPhamCuaHangService.GetById(id),
+                sanPhams = _sanPhamCuaHangService.GetById(id),
                 Anh = _sanPhamCuaHangService.GeAnhs(id)
             };
             return View(view);

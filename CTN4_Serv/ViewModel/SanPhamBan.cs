@@ -10,6 +10,6 @@ namespace CTN4_Serv.ViewModel
 	public class SanPhamBan
 	{
 		public List<Anh> Anh { get; set; }
-		public SanPhamChiTiet SanPhamChiTiet { get; set; }
+		public SanPham sanPhams { get; set; }
 	}
 }
