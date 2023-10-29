@@ -1,41 +1,48 @@
-using CTN4_Serv.Service;
+﻿using CTN4_Serv.Service;
 using CTN4_Serv.Service.IService;
+using CTN4_Serv.Service.Service;
+using CTN4_Serv.ViewModel;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using System.Configuration;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
-
-builder.Services.AddSession();
 builder.Services.AddControllersWithViews();
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddTransient<ILoginService, LoginServices>();
 builder.Services.AddTransient<ITokenService, TokenServices>();
+builder.Services.AddScoped<ICurrentUser, CurrentUser>();
+builder.Services.AddTransient<IKhachHangService, KhachHangService>();
+builder.Services.AddSession(option =>
+{
+	//option.IdleTimeout = TimeSpan.FromSeconds(60);
+	// Định hình Session này tồn tại trong 30 giây
+}); // Thêm cái này để dùng Session
 
 
 builder.Services.AddAuthentication(auth =>
-{
-    auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    //auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-.AddJwtBearer(options =>
-{
-    options.TokenValidationParameters = new TokenValidationParameters
+ {
+     auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    // auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+ })
+    .AddJwtBearer(options =>
     {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        ValidIssuer = builder.Configuration["Jwt:Issuer"],
-        ValidAudience = builder.Configuration["Jwt:Issuer"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
-    };
-});
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Issuer"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+        };
+    });
 var app = builder.Build();
 
 
@@ -47,28 +54,21 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
 app.UseSession();
-
-
-
-//app.Use(async (context, next) =>
-//{
-//    var token = context.Session.GetString("Token");
-//    if (!string.IsNullOrEmpty(token))
-//    {
-//        context.Request.Headers.Add("Authorization", "Bearer " + token);
-//    }
-//    await next();
-//});
-
+app.Use(async (context, next) =>
+{
+	var token = context.Session.GetString("Token");
+	if (!string.IsNullOrEmpty(token))
+	{
+		context.Request.Headers.Add("Authorization", "Bearer " + token);
+	}
+	await next();
+});
 app.UseStaticFiles();
-
-
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
+app.UseHttpsRedirection();
 
 app.UseEndpoints(endpoints =>
 {

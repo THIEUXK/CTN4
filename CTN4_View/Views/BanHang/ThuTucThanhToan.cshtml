@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 <!-- End Header Area -->
 <!-- Start Banner Area -->
 <section class="banner-area organic-breadcrumb">
@@ -29,7 +30,7 @@
     <section class="checkout_area section_gap">
         <div class="container">
             <div class="returning_customer">
-            
+
                 <div class="check_title">
                     <h2>Returning Customer? <a href="#">Click here to login</a></h2>
                 </div>
@@ -64,133 +65,143 @@
                 <a class="tp_btn" href="#">Apply Coupon</a>
             </div>
             <div class="billing_details">
-               
-                    <div >
-                        <h3>Billing Details</h3>
-                        <form class="row contact_form" action="#" method="post" novalidate="novalidate">
-                            <div class="col-md-6 form-group p_star">
-                                <input type="text" class="form-control" id="first" name="name">
-                                <span class="placeholder" data-placeholder="First name"></span>
-                            </div>
-                            <div class="col-md-6 form-group p_star">
-                                <input type="text" class="form-control" id="last" name="name">
-                                <span class="placeholder" data-placeholder="Last name"></span>
-                            </div>
-                            <div class="col-md-12 form-group">
-                                <input type="text" class="form-control" id="company" name="company" placeholder="Company name">
-                            </div>
-                            <div class="col-md-6 form-group p_star">
-                                <input type="text" class="form-control" id="number" name="number">
-                                <span class="placeholder" data-placeholder="Phone number"></span>
-                            </div>
-                            <div class="col-md-6 form-group p_star">
-                                <input type="text" class="form-control" id="email" name="compemailany">
-                                <span class="placeholder" data-placeholder="Email Address"></span>
-                            </div>
-                            <div class="col-md-12 form-group p_star">
-                                <select class="country_select">
-                                    <option value="1">Country</option>
-                                    <option value="2">Country</option>
-                                    <option value="4">Country</option>
-                                </select>
-                            </div>
-                            <div class="col-md-12 form-group p_star">
-                                <input type="text" class="form-control" id="add1" name="add1">
-                                <span class="placeholder" data-placeholder="Address line 01"></span>
-                            </div>
-                            <div class="col-md-12 form-group p_star">
-                                <input type="text" class="form-control" id="add2" name="add2">
-                                <span class="placeholder" data-placeholder="Address line 02"></span>
-                            </div>
-                            <div class="col-md-12 form-group p_star">
-                                <input type="text" class="form-control" id="city" name="city">
-                                <span class="placeholder" data-placeholder="Town/City"></span>
-                            </div>
-                            <div class="col-md-12 form-group p_star">
-                                <select class="country_select">
-                                    <option value="1">District</option>
-                                    <option value="2">District</option>
-                                    <option value="4">District</option>
-                                </select>
-                            </div>
-                            <div class="col-md-12 form-group">
-                                <input type="text" class="form-control" id="zip" name="zip" placeholder="Postcode/ZIP">
-                            </div>
-                            <div class="col-md-12 form-group">
-                                <div class="creat_account">
-                                    <input type="checkbox" id="f-option2" name="selector">
-                                    <label for="f-option2">Create an account?</label>
-                                </div>
-                            </div>
-                            <div class="col-md-12 form-group">
-                                <div class="creat_account">
-                                    <h3>Shipping Details</h3>
-                                    <input type="checkbox" id="f-option3" name="selector">
-                                    <label for="f-option3">Ship to a different address?</label>
-                                </div>
-                                <textarea class="form-control" name="message" id="message" rows="1" placeholder="Order Notes"></textarea>
-                            </div>
-                        </form>
-                    </div>
-                    <div >
-                        <div class="order_box">
-                            <h2>Your Order</h2>
-                            @foreach (var a in Model.GioHangChiTiets)
-                            {
-                                <ul class="list">
-                                    <li><a href="#">Tên sản Phẩm <span>Giá tiền</span></a></li>
-                                    <li><a href="#">@a.SanPhamChiTiet.SanPham.TenSanPham<span class="middle">x @a.SoLuong</span> <span class="last">@FormatCurrency(a.SanPhamChiTiet.GiaNiemYet *a.SoLuong)</span></a></li>
-                                </ul>
-                              @*  <input type="hidden" name="idGHCT" value="@a.Id"/>
-                                <input type="hidden" name="idSPCT" value="@a.IdSanPhamChiTiet"/>
-                                <input type="hidden" name="SoLuong" value="@a.SoLuong"/>*@
-                                <input type="hidden" name="idGH" value="@a.IdGioHang"/>
-                            <input type="hidden" name="ChiTietGioHangs[@(Model.GioHangChiTiets.IndexOf(a))].idGiay" value="@a.IdSanPhamChiTiet" />
-                            <input type="hidden" name="ChiTietGioHangsp[@(Model.GioHangChiTiets.IndexOf(a))].soLuong" value="@a.SoLuong" />
-                                
-                                                                                      
-                            }
-                            <br></br>
-                            <ul class="list">
-                            <li><a href="#">Tổng tiền<span><b style="color:black">@FormatCurrency(Model.TongTien)</b></span></a></li>
-                            </ul>
-                            <br></br>
-                            <div class="payment_item">
-                                <div class="radion_btn">
-                                    <input type="radio" id="f-option5" name="selector">
-                                    <label for="f-option5">Check payments</label>
-                                    <div class="check"></div>
-                                </div>
-                                <p>
-                                    Please send a check to Store Name, Store Street, Store Town, Store State / County,
-                                    Store Postcode.
-                                </p>
-                            </div>
-                            <div class="payment_item active">
-                                <div class="radion_btn">
-                                    <input type="radio" id="f-option6" name="selector">
-                                    <label for="f-option6">Paypal </label>
-                                    <img src="~/img/product/card.jpg" alt="">
-                                    <div class="check"></div>
-                                </div>
-                                <p>
-                                    Pay via PayPal; you can pay with your credit card if you don’t have a PayPal
-                                    account.
-                                </p>
-                            </div>
-                            <div class="creat_account">
-                                <input type="checkbox" id="f-option4" name="selector">
-                                <label for="f-option4">I’ve read and accept the </label>
-                                <a href="#">terms & conditions*</a>
-                            </div>
-                        <button class="primary-btn" type="submit" href="#">Mua Hàng</button>
+
+                <div>
+                    <h3>Billing Details</h3>
+                    <form class="row contact_form" action="#" method="post" novalidate="novalidate">
+                        <div class="col-md-6 form-group p_star">
+                            <input type="text" class="form-control" id="first" name="name">
+                            <span class="placeholder" data-placeholder="First name"></span>
                         </div>
+                        <div class="col-md-6 form-group p_star">
+                            <input type="text" class="form-control" id="last" name="name">
+                            <span class="placeholder" data-placeholder="Last name"></span>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <input type="text" class="form-control" id="company" name="company" placeholder="Company name">
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <input type="text" class="form-control" id="number" name="number">
+                            <span class="placeholder" data-placeholder="Phone number"></span>
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <input type="text" class="form-control" id="email" name="compemailany">
+                            <span class="placeholder" data-placeholder="Email Address"></span>
+                        </div>
+
+                        <div class="col-md-6 form-group">
+                            <label>Chọn Tỉnh/thành<span class="text-danger">(*)</span></label>
+                            <span class="text-danger" id="mess_provin"></span>
+                            <select class="custom-select" asp-items="@ViewBag.Provin" id="provin">
+                                <option selected value="0">Chọn tỉnh thành</option>
+
+                            </select>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Chọn Quận/Huyện<span class="text-danger">(*)</span></label>
+                            <span class="text-danger" id="mess_district"></span>
+                            <select class="custom-select" id="district">
+                                <option selected value="0">Chọn quận huyện </option>
+                            
+                            </select>
+                        </div>
+ 
+                        <div class="col-md-6 form-group">
+                            <label>Chọn Phường/Xã<span class="text-danger">(*)</span></label>
+                            <span class="text-danger" id="mess_ward"></span>
+                            <select class="custom-select" id="ward" name="ward">
+                                <option selected value="0">Chọn Phường Xã</option>
+                            
+                            </select>
+                        </div>
+
+
+                        <div class="col-md-6 form-group">
+
+                            <label for="exampleFormControlTextarea1" class="form-label">Ghi chú</label>
+                            <textarea class="form-control" name="note" id="note_ck" rows="3"></textarea>
+
+                        </div>
+
+                    </form>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label>Địa chỉ <span class="text-danger">(*)</span></label>
+                    <span class="text-danger" id="mess_andress"></span>
+                    <input class="form-control" type="text" id="andress_ck" placeholder="">
+                    <input class="form-control" type="hidden" id="adress_detail" >
+                </div>
+                <div>
+                    <div class="order_box">
+                        <h2>Your Order</h2>
+                        @foreach (var a in Model.GioHangChiTiets)
+                        {
+                            <ul class="list">
+                                <li><a href="#">Tên sản Phẩm <span>Giá tiền</span></a></li>
+                                <li><a href="#">@a.SanPhamChiTiet.SanPham.TenSanPham<span class="middle">x @a.SoLuong</span> <span class="last">@FormatCurrency(a.SanPhamChiTiet.SanPham.GiaNiemYet *a.SoLuong)</span></a></li>
+                            </ul>
+                              <input type="hidden" name="idGHCT" value="@a.Id"/>
+                        <input type="hidden" name="idSPCT" value="@a.IdSanPhamChiTiet"/>
+                        <input type="hidden" name="SoLuong" value="@a.SoLuong"/>
+                            <input type="hidden" name="idGH" value="@a.IdGioHang" />
+                        }
+                        <br></br>
+                        <div class="card border-secondary mb-5">
+                            <div class="card-header bg-dark border-0">
+                                <h4 class="font-weight-semi-bold text-white m-0">Đơn hàng</h4>
+                            </div>
+                            <div class="card-body" id="body_cart_checkout">
+                            </div>
+                            <div class="card-footer border-secondary bg-transparent">
+                                <div class="d-flex justify-content-between mt-2" id="total_ship">
+                                </div>
+                                <div class="d-flex justify-content-between mt-2" id="total_checkout">
+                                </div>
+                            </div>
+                        </div>
+                        <br></br>
+                        <ul class="list">
+                            <li><a href="#">Tổng tiền<span><b style="color:black">@FormatCurrency(Model.TongTien)</b></span></a></li>
+                        </ul>
+                        <br></br>
+                        
+                        <div class="card border-secondary mb-5">
+                        <div class="payment_item">
+                            <div class="radion_btn">
+                                <input type="radio" id="f-option5" name="selector">
+                                <label for="f-option5">Check payments</label>
+                                <div class="check"></div>
+                            </div>
+                            <p>
+                                Please send a check to Store Name, Store Street, Store Town, Store State / County,
+                                Store Postcode.
+                            </p>
+                        </div>
+                        <div class="payment_item active">
+                            <div class="radion_btn">
+                                <input type="radio" id="f-option6" name="selector">
+                                <label for="f-option6">Paypal </label>
+                                <img src="~/img/product/card.jpg" alt="">
+                                <div class="check"></div>
+                            </div>
+                            <p>
+                                Pay via PayPal; you can pay with your credit card if you don’t have a PayPal
+                                account.
+                            </p>
+                        </div>
+                        <div class="creat_account">
+                            <input type="checkbox" id="f-option4" name="selector">
+                            <label for="f-option4">I’ve read and accept the </label>
+                            <a href="#">terms & conditions*</a>
+                        </div>
+                        <button class="primary-btn" type="submit" href="#">Mua Hàng</button>
                     </div>
                 </div>
             </div>
+        </div>
     </section>
 </form>
-<script>
+<script src="~/js/checkout.js" asp-append-version="true">
     @functions {
         public string FormatCurrency(float price)
         {
@@ -199,4 +210,6 @@
         }
     }
 </script>
-<!--================End Checkout Area =================-->
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="~/js/checkout.js"></script>

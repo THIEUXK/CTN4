@@ -9,6 +9,8 @@ using CTN4_Serv.ServiceJoin;
 using CTN4_Ser.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using CTN4_Serv.ViewModel;
+using NuGet.Common;
+using CTN4_Serv.Service.Service;
 
 namespace CTN4_View.Controllers
 {
@@ -20,16 +22,23 @@ namespace CTN4_View.Controllers
         private readonly IConfiguration _config;
         private readonly ILoginService _userRepository;
         private readonly ITokenService _tokenService;
-        private string generatedToken = null;
+		private readonly ICurrentUser _curent;
+        private readonly IKhachHangService _khachHangService;
+		private string generatedToken = null;
+
+        public IKhachHangService _KHangService;
         //public HomeController()
         //{
         //    _phamChiTietService = new SanPhamChiTietService();
         //    _sanPhamCuaHangService = new SanPhamCuaHangService();
         //}
 
-        public HomeController(ILogger<HomeController> logger, IConfiguration config, ITokenService tokenService, ILoginService userRepository)
+        public HomeController(ILogger<HomeController> logger, IConfiguration config, ITokenService tokenService, ILoginService userRepository,ICurrentUser curent,IKhachHangService khachhang)
         {
-            _logger = logger;
+            _khachHangService = khachhang;
+            _KHangService = new KhachHangService();
+            _curent = curent;
+			_logger = logger;
              _phamChiTietService = new SanPhamChiTietService();
             _sanPhamCuaHangService = new SanPhamCuaHangService();
             _config = config;
@@ -39,7 +48,9 @@ namespace CTN4_View.Controllers
 
         public IActionResult Index()
         {
-            return View();
+			string token = HttpContext.Session.GetString("Token");
+            var a = User.Identity.Name;
+			return View();
         }
 
         public IActionResult blog()
@@ -86,8 +97,14 @@ namespace CTN4_View.Controllers
         {
             return View();
         }
+		public IActionResult UserDetail()
+		{
+            var a = _curent;
+            var user = _khachHangService.GetById(_curent.Id);
+			return View(user);
+		}
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new CTN4_Data.Models.DB_CTN4.ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
@@ -99,30 +116,47 @@ namespace CTN4_View.Controllers
         {
             if (string.IsNullOrEmpty(userModel.User) || string.IsNullOrEmpty(userModel.Password))
             {
-                return (RedirectToAction(""));
+                return (RedirectToAction("Login"));
+            }
+            var TK = _KHangService.GetAll().FirstOrDefault(c=>c.TenDangNhap==userModel.User&&c.MatKhau==userModel.Password);
+            // Đọc dữ liệu từ Session xem trong Cart nó có cái gì chưa?
+            var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
+            if (accnew.Count == 0)
+            {
+                accnew.Add(TK); 
+                SessionServices.SetObjToJson(HttpContext.Session, "ACC", accnew);
+            }
+            else if (accnew.Count != 0)
+            {
+                    accnew.Clear();
+                    accnew.Add(TK); 
+                    SessionServices.SetObjToJson(HttpContext.Session, "ACC", accnew);
             }
 
             IActionResult response = Unauthorized();
             var validUser = GetUserKH(userModel);
-
             if (validUser != null)
             {
+              
                 generatedToken = _tokenService.BuildTokens(_config["Jwt:Key"].ToString(), _config["Jwt:Issuer"].ToString(),
                 validUser);
 
                 if (generatedToken != null)
                 {
+
                     HttpContext.Session.SetString("Token", generatedToken);
-                    return RedirectToAction("MainWindow");
+
+					
+					return RedirectToAction("Index");
                 }
                 else
                 {
-                    return (RedirectToAction(""));
+                    return (RedirectToAction("Login"));
                 }
             }
             else
             {
-                return (RedirectToAction(""));
+                return (RedirectToAction("Login"));
             }
         }
         private KhachHang GetUserKH(Loginviewmodel userModel)
@@ -140,7 +174,7 @@ namespace CTN4_View.Controllers
 
             if (token == null)
             {
-                return (RedirectToAction("Index"));
+                return RedirectToAction(nameof(login));
             }
 
             if (!_tokenService.IsTokenValid(_config["Jwt:Key"].ToString(),
@@ -172,5 +206,13 @@ namespace CTN4_View.Controllers
 
             return result;
         }
-    }
+		public IActionResult Logout()
+		{
+			// Xóa dữ liệu phiên của người dùng, bao gồm thông tin đăng nhập và token
+			HttpContext.Session.Clear();
+
+			// Chuyển hướng người dùng đến trang đăng nhập hoặc trang chính của ứng dụng
+			return RedirectToAction("Index");
+		}
+	}
 }

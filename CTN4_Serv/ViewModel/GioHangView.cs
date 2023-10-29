@@ -9,7 +9,7 @@ namespace CTN4_Serv.ViewModel
 {
     public class GioHangView
     {
-        public List<GioHangChiTiet> GioHangChiTiets { get; set; }
+        public IEnumerable<GioHangChiTiet> GioHangChiTiets { get; set; }
         public float TongTien { get; set; }
 
         public Guid idGH { get; set; }

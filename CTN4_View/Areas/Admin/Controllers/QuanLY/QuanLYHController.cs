@@ -15,9 +15,9 @@ namespace CTN4_View_Admin.Controllers.QuanLY
     {
         public ISanPhamChiTietService _sv;
         public IChatLieuService _chatLieuService;
-        public IMauService _mauService;
         public INSXService _nsxService;
         public ISanPhamService _spService;
+        public IMauService _mauService;
         public ISizeService _sizeService;
         public SanPhamCuaHangService _sanPhamCuaHangService;
         public DB_CTN4_ok _db;
@@ -97,21 +97,13 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             var viewModel = new SanPhamChiTietView()
             {
 
-                ChalieuItems = _chatLieuService.GetAll().Select(s => new SelectListItem
-                {
-                    Value = s.Id.ToString(),
-                    Text = s.TenChatLieu
-                }).ToList(),
+                
                 MauItems = _mauService.GetAll().Select(s => new SelectListItem
                 {
                     Value = s.Id.ToString(),
                     Text = s.TenMau
                 }).ToList(),
-                NsxItems = _nsxService.GetAll().Select(s => new SelectListItem
-                {
-                    Value = s.Id.ToString(),
-                    Text = s.TenNSX
-                }).ToList(),
+                
                 SpItems = _spService.GetAll().Select(s => new SelectListItem
                 {
                     Value = s.Id.ToString(),
@@ -134,21 +126,21 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         {
             var b = new SanPhamChiTiet()
             {
-                MaSp = a.MaSp,
-                IdChatLieu = Guid.Parse(a.IdChatLieu.Value.ToString()),
-                IdNSX = Guid.Parse(a.IdNSX.Value.ToString()),
-                IdMau = Guid.Parse(a.IdMau.Value.ToString()),
-                IdSize = Guid.Parse(a.IdSize.Value.ToString()),
-                IdSp = Guid.Parse(a.IdSp.Value.ToString()),
-                SoLuong = a.SoLuong,
-                MoTa = a.MoTa,
-                TrangThai = a.TrangThai,
-                GiaNhap = a.
-                    GiaNhap,
-                GiaBan = a.GiaBan,
-                GiaNiemYet = a.GiaNiemYet,
-                GhiChu = a.GhiChu,
-                Is_detele = a.Is_detele
+                //MaSp = a.MaSp,
+                //IdChatLieu = Guid.Parse(a.IdChatLieu.Value.ToString()),
+                //IdNSX = Guid.Parse(a.IdNSX.Value.ToString()),
+                //IdMau = Guid.Parse(a.IdMau.Value.ToString()),
+                //IdSize = Guid.Parse(a.IdSize.Value.ToString()),
+                //IdSp = Guid.Parse(a.IdSp.Value.ToString()),
+                //SoLuong = a.SoLuong,
+                //MoTa = a.MoTa,
+                //TrangThai = a.TrangThai,
+                //GiaNhap = a.
+                //    GiaNhap,
+                //GiaBan = a.GiaBan,
+                //GiaNiemYet = a.GiaNiemYet,
+                //GhiChu = a.GhiChu,
+                //Is_detele = a.Is_detele
             };
             if (_sv.Them(b)) // Nếu thêm thành công
             {
@@ -157,20 +149,10 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             }
             var viewModel = new SanPhamChiTietView()
             {
-                ChalieuItems = _chatLieuService.GetAll().Select(s => new SelectListItem
-                {
-                    Value = s.Id.ToString(),
-                    Text = s.TenChatLieu
-                }).ToList(),
                 MauItems = _mauService.GetAll().Select(s => new SelectListItem
                 {
                     Value = s.Id.ToString(),
                     Text = s.TenMau
-                }).ToList(),
-                NsxItems = _nsxService.GetAll().Select(s => new SelectListItem
-                {
-                    Value = s.Id.ToString(),
-                    Text = s.TenNSX
                 }).ToList(),
                 SpItems = _spService.GetAll().Select(s => new SelectListItem
                 {
@@ -193,21 +175,13 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         {
             var viewModel = new SanPhamChiTietView()
             {
-                ChalieuItems = _chatLieuService.GetAll().Select(s => new SelectListItem
-                {
-                    Value = s.Id.ToString(),
-                    Text = s.TenChatLieu
-                }).ToList(),
+                
                 MauItems = _mauService.GetAll().Select(s => new SelectListItem
                 {
                     Value = s.Id.ToString(),
                     Text = s.TenMau
                 }).ToList(),
-                NsxItems = _nsxService.GetAll().Select(s => new SelectListItem
-                {
-                    Value = s.Id.ToString(),
-                    Text = s.TenNSX
-                }).ToList(),
+                
                 SpItems = _spService.GetAll().Select(s => new SelectListItem
                 {
                     Value = s.Id.ToString(),

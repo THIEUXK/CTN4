@@ -23,7 +23,7 @@
                 <div class="head">Danh mục sản phẩm</div>
                 <ul class="main-categories">
                     <li class="main-nav-list">
-                        <from>
+                       @* <from>
                             @foreach (var sp in Model.danhMucs)
                             {
                                 if ((Model.danhMucChiTiets.Where(c => c.IdDanhMuc == sp.Id).Count()) >= 1)
@@ -34,7 +34,7 @@
                                     </div>
                                 }
                             }
-                        </from>
+                        </from>*@
                     </li>
                 </ul>
             </div>
@@ -130,14 +130,14 @@
                         {
                             <div class="col-lg-4 col-md-6">
                                 <div class="single-product">
-                                    @if (System.IO.Path.GetExtension(sp.SanPhamChiTiet.SanPham.AnhDaiDien) == ".jpg" ||
-                                   System.IO.Path.GetExtension(sp.SanPhamChiTiet.SanPham.AnhDaiDien) == ".png" ||
-                                   System.IO.Path.GetExtension(sp.SanPhamChiTiet.SanPham.AnhDaiDien) == ".jpeg" ||
-                                   System.IO.Path.GetExtension(sp.SanPhamChiTiet.SanPham.AnhDaiDien) == ".tiff" ||
-                                   System.IO.Path.GetExtension(sp.SanPhamChiTiet.SanPham.AnhDaiDien) == ".webp" ||
-                                   System.IO.Path.GetExtension(sp.SanPhamChiTiet.SanPham.AnhDaiDien) == ".gif")
+                                    @if (System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".jpg" ||
+                                   System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".png" ||
+                                   System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".jpeg" ||
+                                   System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".tiff" ||
+                                   System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".webp" ||
+                                   System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".gif")
                                     {
-                                        <img src="~/image/@sp.SanPhamChiTiet.SanPham.AnhDaiDien" height="300">
+                                        <img src="~/image/@sp.SanPham.AnhDaiDien" height="300">
                                     }
                                     else
                                     {
@@ -145,17 +145,17 @@
                                     }
                                     <div class="product-details">
                                         <h6>
-                                            <a>@sp.SanPhamChiTiet.SanPham.TenSanPham</a>
+                                            <a>@sp.SanPham.TenSanPham</a>
                                         </h6>
                                         <div class="price">
-                                            @if (sp.SanPhamChiTiet.GiaNiemYet == sp.SanPhamChiTiet.GiaBan)
+                                            @if (sp.SanPham.GiaNiemYet == sp.SanPham.GiaBan)
                                             {
-                                                <h6>@FormatCurrency(sp.SanPhamChiTiet.GiaNiemYet)</h6>
+                                                <h6>@FormatCurrency(sp.SanPham.GiaNiemYet)</h6>
                                             }
                                             else
                                             {
-                                                <h6>@FormatCurrency(sp.SanPhamChiTiet.GiaNiemYet)</h6>
-                                                <h6 class="l-through">@FormatCurrency(sp.SanPhamChiTiet.GiaBan)</h6>
+                                                <h6>@FormatCurrency(sp.SanPham.GiaNiemYet)</h6>
+                                                <h6 class="l-through">@FormatCurrency(sp.SanPham.GiaBan)</h6>
                                             }
                                         </div>
                                         <div class="prd-bottom">
