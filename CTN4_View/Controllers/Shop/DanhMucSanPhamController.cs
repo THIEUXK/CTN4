@@ -29,17 +29,17 @@ namespace CTN4_View.Controllers.Shop
         public IActionResult SanPhamDanhMuc(Guid id)
         {
 
-            
+
             var c = _DanhMucjoiin.GetById(id);
             //var a = _sanPhamCuaHangService.GetAll().Where(c=>c.Id == c.)
             var danhMuc = _danhMucService.GetAll();
-			var danhMucChiTiets = _danhMucChiTiet.GetAll();
-			var view = new HienThiSanPhamView()
-			{
-				danhMucs = danhMuc,
-				danhMucChiTiets = danhMucChiTiets,
+            var danhMucChiTiets = _danhMucChiTiet.GetAll();
+            var view = new HienThiSanPhamView()
+            {
+                danhMucs = danhMuc,
+                danhMucChiTiets = danhMucChiTiets,
                 danhMucChiTiet2 = c,
-			};
+            };
             return View(view);
         }
     }

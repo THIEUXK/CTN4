@@ -19,22 +19,22 @@ namespace CTN4_Serv.ServiceJoin
             _db=new DB_CTN4_ok();
         }
 
-        public List<SanPhamChiTiet> GetAll()
+        public List<SanPham> GetAll()
         {
-            return _db.SanPhamChiTiets.ToList();
+            return _db.SanPhams.Include(c=>c.ChatLieu).Include(c=>c.NSX).ToList();
         }
 
-        public SanPhamChiTiet GetById(Guid id)
+        public SanPham GetById(Guid id)
         {
             return GetAll().FirstOrDefault(c => c.Id == id);
         }
-        public List<SanPhamChiTiet> TimKiemTenSanPham(string ten)
+        public List<SanPham> TimKiemTenSanPham(string ten)
         {
-            return GetAll().Where(c => c.SanPham.TenSanPham.ToString() == ten).ToList();
+            return GetAll().Where(c => c.TenSanPham.ToString() == ten).ToList();
         }
-        public List<SanPhamChiTiet> TimKiemTenKhoangGia(float GiaDau,float GiaCuoi)
+        public List<SanPham> TimKiemTenKhoangGia(float GiaDau,float GiaCuoi)
         {
-            return GetAll().Where(c => c.SanPham.GiaNiemYet>=GiaDau&&c.SanPham.GiaNiemYet<=GiaCuoi).ToList();
+            return GetAll().Where(c => c.GiaNiemYet>=GiaDau&&c.GiaNiemYet<=GiaCuoi).ToList();
         }
          public float  MaxTien()
         {
@@ -44,18 +44,9 @@ namespace CTN4_Serv.ServiceJoin
         {
             return _db.Anhs.Where(c=>c.IdSanPhamChiTiet==id).ToList();
         }
-        public List<SanPhamChiTiet> GetByIdMs(Guid id)
+        public List<SanPham> PagIng(int a,int b)
         {
-            return GetAll().Where(c => c.IdMau == id).ToList();
-        }
-        public List<SanPhamChiTiet> GetByIdCl(Guid id)
-        {
-            return GetAll().Where(c => c.SanPham.IdChatLieu == id).ToList();
-        }
-        
-        public List<SanPhamChiTiet> PagIng(int a,int b)
-        {
-            return _db.SanPhamChiTiets.ToList();
+            return _db.SanPhams.ToList();
             
         }
     }

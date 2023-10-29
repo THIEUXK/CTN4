@@ -23,7 +23,7 @@
                 <div class="head">Danh mục sản phẩm</div>
                 <ul class="main-categories">
                     <li class="main-nav-list">
-                        <from>
+                       @* <from>
                             @foreach (var sp in Model.danhMucs)
                             {
                                 if ((Model.danhMucChiTiets.Where(c => c.IdDanhMuc == sp.Id).Count()) >= 1)
@@ -34,7 +34,7 @@
                                     </div>
                                 }
                             }
-                        </from>
+                        </from>*@
                     </li>
                 </ul>
             </div>
