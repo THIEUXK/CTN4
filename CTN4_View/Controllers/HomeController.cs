@@ -97,7 +97,46 @@ namespace CTN4_View.Controllers
         {
             return View();
         }
-		public IActionResult UserDetail()
+        [HttpGet]
+        public IActionResult UpdateKh() {
+            var s = _khachHangService.GetById(_curent.Id);
+            return View(s);
+          
+         }
+        [HttpPost]
+        public IActionResult UpdateKhang(KhachHang khachHangForm)
+        {
+            // Lấy đối tượng KhachHang cần cập nhật dựa trên ID hoặc một thuộc tính khác duy nhất
+            var khachHangToUpdate = _khachHangService.GetById(_curent.Id);
+
+            // Cập nhật các thuộc tính của đối tượng KhachHang từ dữ liệu form
+            
+            khachHangToUpdate.Ho = khachHangForm.Ho;
+            khachHangToUpdate.Ten = khachHangForm.Ten;
+            khachHangToUpdate.TenDangNhap = khachHangForm.TenDangNhap;
+            khachHangToUpdate.MatKhau = khachHangForm.MatKhau;
+            khachHangToUpdate.GioiTinh = khachHangForm.GioiTinh;
+            khachHangToUpdate.Email = khachHangForm.Email;
+            khachHangToUpdate.SDT = khachHangForm.SDT;
+            khachHangToUpdate.DiaChi = khachHangForm.DiaChi;
+            khachHangToUpdate.AnhDaiDien = khachHangForm.AnhDaiDien;
+
+            // Thực hiện cập nhật thông tin KhachHang
+            var result = _khachHangService.Sua(khachHangToUpdate);
+
+            if (result)
+            {
+                // Cập nhật thành công, chuyển hướng về trang danh sách hoặc trang chi tiết
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                // Có lỗi trong quá trình cập nhật, xử lý lỗi tại đây nếu cần
+                // Ví dụ: ModelState.AddModelError("TenThuocTinh", "Thông báo lỗi");
+                return RedirectToAction(nameof(UpdateKh)); // Hiển thị lại form với dữ liệu đã nhập và thông báo lỗi
+            }
+        }
+        public IActionResult UserDetail()
 		{
             var a = _curent;
             var user = _khachHangService.GetById(_curent.Id);
