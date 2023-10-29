@@ -4,6 +4,7 @@ using CTN4_Data.DB_Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CTN4_Data.Migrations
 {
     [DbContext(typeof(DB_CTN4_ok))]
-    partial class DB_CTN4_okModelSnapshot : ModelSnapshot
+    [Migration("20231029063535_lks")]
+    partial class lks
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1252,11 +1254,7 @@ namespace CTN4_Data.Migrations
                     b.HasData(
                         new
                         {
-<<<<<<< Updated upstream
-                            Id = new Guid("0e093b08-6d66-44dc-8331-348b4fd5c304"),
-=======
                             Id = new Guid("6f066217-13a9-4cb2-bf02-8a5e862ab85d"),
->>>>>>> Stashed changes
                             GhiChu = "",
                             GiaBan = 500000f,
                             GiaNhap = 300000f,
@@ -1274,11 +1272,7 @@ namespace CTN4_Data.Migrations
                         },
                         new
                         {
-<<<<<<< Updated upstream
-                            Id = new Guid("10f6a0ec-a8d1-4f34-8c5c-6bb9fe3dba70"),
-=======
                             Id = new Guid("9a08196f-45a1-492d-a6e7-a3bdf1b653d3"),
->>>>>>> Stashed changes
                             GhiChu = "",
                             GiaBan = 600000f,
                             GiaNhap = 400000f,
@@ -1296,11 +1290,7 @@ namespace CTN4_Data.Migrations
                         },
                         new
                         {
-<<<<<<< Updated upstream
-                            Id = new Guid("4bcc9b92-0527-4e79-b10a-23e37a3d4da0"),
-=======
                             Id = new Guid("195dd146-bd5d-4dca-a559-3d0c64e62233"),
->>>>>>> Stashed changes
                             GhiChu = "",
                             GiaBan = 700000f,
                             GiaNhap = 600000f,
@@ -1318,11 +1308,7 @@ namespace CTN4_Data.Migrations
                         },
                         new
                         {
-<<<<<<< Updated upstream
-                            Id = new Guid("335a49f0-9589-491f-9f79-569f80b0d4ad"),
-=======
                             Id = new Guid("e5933606-50f6-4cff-8400-85824d0bd0d9"),
->>>>>>> Stashed changes
                             GhiChu = "",
                             GiaBan = 600000f,
                             GiaNhap = 300000f,
@@ -1340,11 +1326,7 @@ namespace CTN4_Data.Migrations
                         },
                         new
                         {
-<<<<<<< Updated upstream
-                            Id = new Guid("64165184-884b-4731-8322-8d8c0cebc324"),
-=======
                             Id = new Guid("7e16c2e8-9819-4ba4-b2fa-78a308df6f7e"),
->>>>>>> Stashed changes
                             GhiChu = "",
                             GiaBan = 4500000f,
                             GiaNhap = 400000f,
@@ -1362,11 +1344,7 @@ namespace CTN4_Data.Migrations
                         },
                         new
                         {
-<<<<<<< Updated upstream
-                            Id = new Guid("0d12726e-619c-4077-934a-ca13476545c4"),
-=======
                             Id = new Guid("249ebd81-128f-4063-b9a9-59e8014aa885"),
->>>>>>> Stashed changes
                             GhiChu = "",
                             GiaBan = 700000f,
                             GiaNhap = 300000f,
@@ -1384,11 +1362,7 @@ namespace CTN4_Data.Migrations
                         },
                         new
                         {
-<<<<<<< Updated upstream
-                            Id = new Guid("924b3333-0038-4828-9be8-ef0ed48eda8e"),
-=======
                             Id = new Guid("87f9013f-5eab-4658-87b0-82c61d4bd99d"),
->>>>>>> Stashed changes
                             GhiChu = "",
                             GiaBan = 500000f,
                             GiaNhap = 400000f,
@@ -1406,11 +1380,7 @@ namespace CTN4_Data.Migrations
                         },
                         new
                         {
-<<<<<<< Updated upstream
-                            Id = new Guid("44690686-57c5-46aa-83f6-ef925a439664"),
-=======
                             Id = new Guid("177c0a97-1082-4d4c-8d44-c58ee4d24cb3"),
->>>>>>> Stashed changes
                             GhiChu = "",
                             GiaBan = 650000f,
                             GiaNhap = 400000f,
@@ -1428,11 +1398,7 @@ namespace CTN4_Data.Migrations
                         },
                         new
                         {
-<<<<<<< Updated upstream
-                            Id = new Guid("4aaddf20-e707-494b-991e-436e15a4bd97"),
-=======
                             Id = new Guid("e417e146-fe3c-4159-8ad4-8d274330e52c"),
->>>>>>> Stashed changes
                             GhiChu = "",
                             GiaBan = 600000f,
                             GiaNhap = 400000f,
@@ -1450,11 +1416,7 @@ namespace CTN4_Data.Migrations
                         },
                         new
                         {
-<<<<<<< Updated upstream
-                            Id = new Guid("44fa5fe7-1be0-46d6-8f48-c178f92b1ca1"),
-=======
                             Id = new Guid("2f13024f-d777-4852-912b-d5da4ab5840e"),
->>>>>>> Stashed changes
                             GhiChu = "",
                             GiaBan = 600000f,
                             GiaNhap = 400000f,
