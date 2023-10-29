@@ -12,10 +12,12 @@ namespace CTN4_Serv.Service
     public class GiamGiaService : IGiamGiaService
     {
         public DB_CTN4_ok _db;
+  
 
         public GiamGiaService()
         {
             _db = new DB_CTN4_ok();
+           
         }
         public List<GiamGia> GetAll()
         {
@@ -69,5 +71,8 @@ namespace CTN4_Serv.Service
                 return false;
             }
         }
+
+       
+
     }
 }
