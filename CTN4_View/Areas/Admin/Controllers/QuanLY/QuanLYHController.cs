@@ -134,21 +134,21 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         {
             var b = new SanPhamChiTiet()
             {
-                //MaSp = a.MaSp,
-                //IdChatLieu = Guid.Parse(a.IdChatLieu.Value.ToString()),
-                //IdNSX = Guid.Parse(a.IdNSX.Value.ToString()),
-                //IdMau = Guid.Parse(a.IdMau.Value.ToString()),
-                //IdSize = Guid.Parse(a.IdSize.Value.ToString()),
-                //IdSp = Guid.Parse(a.IdSp.Value.ToString()),
-                //SoLuong = a.SoLuong,
-                //MoTa = a.MoTa,
-                //TrangThai = a.TrangThai,
-                //GiaNhap = a.
-                //    GiaNhap,
-                //GiaBan = a.GiaBan,
-                //GiaNiemYet = a.GiaNiemYet,
-                //GhiChu = a.GhiChu,
-                //Is_detele = a.Is_detele
+                MaSp = a.MaSp,
+                IdChatLieu = Guid.Parse(a.IdChatLieu.Value.ToString()),
+                IdNSX = Guid.Parse(a.IdNSX.Value.ToString()),
+                IdMau = Guid.Parse(a.IdMau.Value.ToString()),
+                IdSize = Guid.Parse(a.IdSize.Value.ToString()),
+                IdSp = Guid.Parse(a.IdSp.Value.ToString()),
+                SoLuong = a.SoLuong,
+                MoTa = a.MoTa,
+                TrangThai = a.TrangThai,
+                GiaNhap = a.
+                    GiaNhap,
+                GiaBan = a.GiaBan,
+                GiaNiemYet = a.GiaNiemYet,
+                GhiChu = a.GhiChu,
+                Is_detele = a.Is_detele
             };
             if (_sv.Them(b)) // Nếu thêm thành công
             {

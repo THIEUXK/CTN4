@@ -9,8 +9,6 @@ namespace CTN4_Data.Configurations
         public void Configure(EntityTypeBuilder<Mau> builder)
         {
             builder.HasKey(c => c.Id);
-            builder.HasOne(c => c.sanPham).WithMany(c => c.Maus).HasForeignKey(c => c.IdSanPham);
-            builder.HasOne(c => c.SanPhamChiTiets).WithMany(c => c.Maus).HasForeignKey(c => c.IdSanPhamChiTiet);
         }
     }
 }

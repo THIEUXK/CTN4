@@ -22,17 +22,17 @@
                 }
                 <div class="product-details">
                     <h6>
-                        <a style="color: (internal value);"> @Html.ActionLink(sp.SanPham.TenSanPham, "HienThiSanPhamChiTiet","HienThiSanPham", new { id = sp.Id}) </a>
+                        <a style="color: (internal value);"> @Html.ActionLink(sp.SanPham.TenSanPham, "HienThiSanPhamChiTiet", new { id = sp.Id}) </a>
                     </h6>
                     <div class="price">
-                        @if (sp.SanPham.GiaNiemYet == sp.SanPham.GiaBan)
+                        @if (sp.GiaNiemYet == sp.GiaBan)
                         {
-                            <h6>@FormatCurrency(sp.SanPham.GiaNiemYet)</h6>
+                            <h6>@FormatCurrency(sp.GiaNiemYet)</h6>
                         }
                         else
                         {
-                            <h6>@FormatCurrency(sp.SanPham.GiaNiemYet)</h6>
-                            <h6 class="l-through">@FormatCurrency(sp.SanPham.GiaBan)</h6>
+                            <h6>@FormatCurrency(sp.GiaNiemYet)</h6>
+                            <h6 class="l-through">@FormatCurrency(sp.GiaBan)</h6>
                         }
                     </div>
                     <div class="prd-bottom">
