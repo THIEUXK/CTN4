@@ -44,7 +44,7 @@
                     <div class="head">ChatLieu</div>
                     <form id="FillterChatLieu">
                         <ul>
-                           @* @{
+                            @{
                                 foreach (var chatLieu in Model.chatLieus)
                                 {
                                     if ((Model.sanPhamChiTiets.Where(c => c.IdChatLieu == chatLieu.Id).Count()) >= 1)
@@ -57,14 +57,14 @@
                                         </li>
                                     }
                                 }
-                            }*@
+                            }
                         </ul>
                     </form>
                     <div class="common-filter">
                         <div class="head">MauSac</div>
                         <form id="FillterMauSac">
                             <ul>
-                               @* @{
+                                @{
                                     foreach (var mau in Model.maus)
                                     {
                                         if ((Model.sanPhamChiTiets.Where(c => c.IdMau == mau.Id).Count()) >= 1)
@@ -77,7 +77,7 @@
                                             </li>
                                         }
                                     }
-                                }*@
+                                }
                             </ul>
                         </form>
                     </div>
@@ -146,14 +146,14 @@
                                             <a style="color: (internal value);"> @Html.ActionLink(sp.SanPham.TenSanPham, "HienThiSanPhamChiTiet", new { id = sp.Id}) </a>
                                         </h6>
                                         <div class="price">
-                                            @if (sp.SanPham.GiaNiemYet == sp.SanPham.GiaBan)
+                                            @if (sp.GiaNiemYet == sp.GiaBan)
                                             {
-                                                <h6>@FormatCurrency(sp.SanPham.GiaNiemYet)</h6>
+                                                <h6>@FormatCurrency(sp.GiaNiemYet)</h6>
                                             }
                                             else
                                             {
-                                                <h6>@FormatCurrency(sp.SanPham.GiaNiemYet)</h6>
-                                                <h6 class="l-through">@FormatCurrency(sp.SanPham.GiaBan)</h6>
+                                                <h6>@FormatCurrency(sp.GiaNiemYet)</h6>
+                                                <h6 class="l-through">@FormatCurrency(sp.GiaBan)</h6>
                                             }
                                         </div>
                                         <div class="prd-bottom">

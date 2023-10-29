@@ -17,11 +17,11 @@ namespace CTN4_Serv.ServiceJoin
             _db = new DB_CTN4_ok();
         }
 
-        //public SanPhamChiTiet SanPhamChiTiet(Guid id)
-        //{
-        //    return _db.SanPhamChiTiets.Include(c => c.ChatLieu).Include(c => c.NSX).Include(c => c.Mau)
-        //        .Include(c => c.Size).Include(c => c.SanPham).FirstOrDefault(c => c.Id == id);
-        //}
+        public SanPhamChiTiet SanPhamChiTiet(Guid id)
+        {
+            return _db.SanPhamChiTiets.Include(c => c.ChatLieu).Include(c => c.NSX).Include(c => c.Mau)
+                .Include(c => c.Size).Include(c => c.SanPham).FirstOrDefault(c => c.Id == id);
+        }
 
         public List<Anh> GetAllanh(Guid id)
         {

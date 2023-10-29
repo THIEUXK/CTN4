@@ -10,7 +10,7 @@ namespace CTN4_Data.Configurations
         {
             builder.HasKey(c => c.Id);
             builder.HasOne(c => c.DanhMuc).WithMany(c => c.DanhMucChiTiets).HasForeignKey(c => c.IdDanhMuc);
-            builder.HasOne(c => c.SanPham).WithMany(c => c.DanhMucChiTiets).HasForeignKey(c => c.IdSanPhamChiTiet);
+            builder.HasOne(c => c.SanPhamChiTiet).WithMany(c => c.DanhMucChiTiets).HasForeignKey(c => c.IdSanPhamChiTiet);
 
         }
     }

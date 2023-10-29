@@ -8,6 +8,6 @@
         public string GhiChu { get;set; }
         public bool Is_detele { get; set; }
 
-        public virtual List<SanPham>? SanPhams { get; set; }
+        public virtual List<SanPhamChiTiet>? SanPhamChiTiets { get; set; }
     }
 }

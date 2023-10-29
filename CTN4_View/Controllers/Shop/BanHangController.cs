@@ -51,7 +51,7 @@ namespace CTN4_View.Controllers.Shop
 
                 foreach (var x in ghct)
                 {
-                    tong += float.Parse(x.SanPhamChiTiet.SanPham.GiaNiemYet.ToString()) * (x.SoLuong);
+                    tong += float.Parse(x.SanPhamChiTiet.GiaNiemYet.ToString()) * (x.SoLuong);
 
                 }
 
@@ -68,7 +68,7 @@ namespace CTN4_View.Controllers.Shop
                 var a = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh2.Id);
                 foreach (var x in a)
                 {
-                    tong += float.Parse(x.SanPhamChiTiet.SanPham.GiaNiemYet.ToString()) * (x.SoLuong);
+                    tong += float.Parse(x.SanPhamChiTiet.GiaNiemYet.ToString()) * (x.SoLuong);
 
                 }
 
@@ -159,7 +159,7 @@ namespace CTN4_View.Controllers.Shop
 
                 foreach (var x in ghct)
                 {
-                    tong += float.Parse(x.SanPhamChiTiet.SanPham.GiaNiemYet.ToString()) * (x.SoLuong);
+                    tong += float.Parse(x.SanPhamChiTiet.GiaNiemYet.ToString()) * (x.SoLuong);
 
                 }
 
@@ -176,7 +176,7 @@ namespace CTN4_View.Controllers.Shop
                 var a = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh2.Id);
                 foreach (var x in a)
                 {
-                    tong += float.Parse(x.SanPhamChiTiet.SanPham.GiaNiemYet.ToString()) * (x.SoLuong);
+                    tong += float.Parse(x.SanPhamChiTiet.GiaNiemYet.ToString()) * (x.SoLuong);
 
                 }
 
@@ -286,7 +286,7 @@ namespace CTN4_View.Controllers.Shop
                 foreach (var inso in _GioHangChiTiet.GetAll().Where(c => c.IdGioHang == gh.Id))
                 {
                     tong += Int32.Parse(inso.SoLuong.ToString()) *
-                            Int32.Parse(inso.SanPhamChiTiet.SanPham.GiaNiemYet.ToString());
+                            Int32.Parse(inso.SanPhamChiTiet.GiaNiemYet.ToString());
                 }
 
                 var hd = new HoaDon()
@@ -321,7 +321,7 @@ namespace CTN4_View.Controllers.Shop
                         IdHoaDon = idHoaDon, //Id của hóa đơn vừa tạo
                         IdSanPhamChiTiet = ct.IdSanPhamChiTiet,
                         SoLuong = ct.SoLuong,
-                        GiaTien = ct.SanPhamChiTiet.SanPham.GiaNiemYet,
+                        GiaTien = ct.SanPhamChiTiet.GiaNiemYet,
                         TrangThai = true,
                         Is_detele = true,
                     };
@@ -350,7 +350,7 @@ namespace CTN4_View.Controllers.Shop
                 foreach (var inso in _GioHangChiTiet.GetAll().Where(c => c.IdGioHang == ghnull.Id))
                 {
                     tong += Int32.Parse(inso.SoLuong.ToString()) *
-                            Int32.Parse(inso.SanPhamChiTiet.SanPham.GiaNiemYet.ToString());
+                            Int32.Parse(inso.SanPhamChiTiet.GiaNiemYet.ToString());
                 }
 
                 var hd = new HoaDon()
@@ -383,7 +383,7 @@ namespace CTN4_View.Controllers.Shop
                         IdHoaDon = idHoaDon, //Id của hóa đơn vừa tạo
                         IdSanPhamChiTiet = ct.IdSanPhamChiTiet,
                         SoLuong = ct.SoLuong,
-                        GiaTien = ct.SanPhamChiTiet.SanPham.GiaNiemYet,
+                        GiaTien = ct.SanPhamChiTiet.GiaNiemYet,
                         TrangThai = true,
                         Is_detele = true,
                     };
