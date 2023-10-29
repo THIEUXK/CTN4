@@ -10,6 +10,6 @@ namespace CTN4_Data.Models.DB_CTN4
         public string GhiChu { get; set; }
 
         public virtual bool Is_detele { get; set; }
-        public virtual List<SanPhamChiTiet>? SanPhamChiTiets { get; set; }
+        public virtual List<SanPham>? SanPhams { get; set; }
     }
 }
