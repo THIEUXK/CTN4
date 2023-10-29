@@ -41,10 +41,10 @@
             <div class="sidebar-filter mt-50">
                 <div class="top-filter-head">Product Filters</div>
                 <div class="common-filter">
-                    <div class="head">ChatLieu</div>
+                    <div class="head">Chất Liệu</div>
                     <form id="FillterChatLieu">
                         <ul>
-                            {
+                            
                                 @foreach (var chatLieu in Model.chatLieus)
                                 {
                                 if ((Model.sanPhams.Where(c => c.IdChatLieu == chatLieu.Id).Count()) >= 1)
@@ -57,7 +57,7 @@
                                         </li>
                                     }
                                 }
-                            }
+                            
                         </ul>
                     </form>
                     <div class="common-filter">
