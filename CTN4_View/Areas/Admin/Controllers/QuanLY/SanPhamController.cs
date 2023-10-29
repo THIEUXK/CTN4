@@ -1,8 +1,11 @@
-﻿using CTN4_Data.Models.DB_CTN4;
+﻿using CTN4_Data.DB_Context;
+using CTN4_Data.Models.DB_CTN4;
 using CTN4_Serv.Service;
 using CTN4_Serv.Service.IService;
-using Microsoft.AspNetCore.Http;
+using CTN4_Serv.ServiceJoin;
+using CTN4_Serv.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CTN4_View_Admin.Controllers.QuanLY
 {
@@ -11,16 +14,29 @@ namespace CTN4_View_Admin.Controllers.QuanLY
     {
 
         public ISanPhamService _sv;
-
+        public IChatLieuService _chatLieuService;
+        public INSXService _nsxService;
+        public SanPhamCuaHangService _sanPhamCuaHangService;
+        public DB_CTN4_ok _db;
+        public IAnhService _anhService;
         public SanPhamController()
         {
-            _sv=new SanPhamService();
+            _sv = new SanPhamService();
+
+            _chatLieuService = new ChatLieuService();
+
+            _nsxService = new NSXService();
+
+
+            _sanPhamCuaHangService = new SanPhamCuaHangService();
+            _db = new DB_CTN4_ok();
+            _anhService = new AnhService();
         }
         // GET: SanPhamController
         [HttpGet]
         public ActionResult Index()
         {
-            var a = _sv.GetAll();
+            var a = _sanPhamCuaHangService.GetAll();
             return View(a);
         }
 
@@ -34,13 +50,26 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         // GET: SanPhamController/Create
         public ActionResult Create()
         {
-            return View();
+            var viewModel = new SanPhamView()
+            {
+                NsxItems = _nsxService.GetAll().Select(s => new SelectListItem
+                {
+                    Value = s.Id.ToString(),
+                    Text = s.TenNSX
+                }).ToList(),
+                ChalieuItems = _chatLieuService.GetAll().Select(s => new SelectListItem
+                {
+                    Value = s.Id.ToString(),
+                    Text = s.TenChatLieu
+                }).ToList(),
+            };
+            return View(viewModel);
         }
 
         // POST: SanPhamController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(SanPham p, [Bind] IFormFile imageFile)
+        public ActionResult Create(SanPhamView p, [Bind] IFormFile imageFile)
         {
             var x = imageFile.FileName;
             if (imageFile != null && imageFile.Length > 0) // Không null và không trống
@@ -57,22 +86,63 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                 // Gán lại giá trị cho Description của đối tượng bằng tên file ảnh đã được sao chép
                 p.AnhDaiDien = imageFile.FileName;
             }
+            var a = new SanPham()
+            {
+                Id = Guid.NewGuid(),
+                IdChatLieu = Guid.Parse(p.IdChatLieu.Value.ToString()),
+                IdNSX = Guid.Parse(p.IdNSX.Value.ToString()),
+                MaSp = p.MaSp,
+                MoTa = p.MoTa,
+                TrangThai = p.TrangThai,
+                GiaNhap = p.
+                    GiaNhap,
+                GiaBan = p.GiaBan,
+                GiaNiemYet = p.GiaNiemYet,
+                GhiChu = p.GhiChu,
+                Is_detele = p.Is_detele
 
-            if (_sv.Them(p)) // Nếu thêm thành công
+            };
+            if (_sv.Them(a)) // Nếu thêm thành công
             {
 
                 return RedirectToAction("Index");
             }
-
-            return View();
+            var viewModel = new SanPhamView()
+            {
+                 NsxItems = _nsxService.GetAll().Select(s => new SelectListItem
+                {
+                    Value = s.Id.ToString(),
+                    Text = s.TenNSX
+                }).ToList(),
+                ChalieuItems = _chatLieuService.GetAll().Select(s => new SelectListItem
+                {
+                    Value = s.Id.ToString(),
+                    Text = s.TenChatLieu
+                }).ToList(),
+            };
+            return View(viewModel);
         }
 
         // GET: SanPhamController/Edit/5
         [HttpGet]
         public ActionResult Edit(Guid id)
         {
-            var a = _sv.GetById(id);
-            return View(a);
+            var viewModel = new SanPhamView()
+            {
+                ChalieuItems = _chatLieuService.GetAll().Select(s => new SelectListItem
+                {
+                    Value = s.Id.ToString(),
+                    Text = s.TenChatLieu
+                }).ToList(),
+                NsxItems = _nsxService.GetAll().Select(s => new SelectListItem
+                {
+                    Value = s.Id.ToString(),
+                    Text = s.TenNSX
+                }).ToList(),
+                sanPham = _sv.GetById(id)
+            };
+
+            return View(viewModel);
         }
 
         // POST: SanPhamController/Edit/5
@@ -111,6 +181,13 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                 return RedirectToAction("Index");
             }
             return RedirectToAction("Index");
+        } public ActionResult XoaAnh(Guid id,Guid IdSp)
+        {
+            if (_anhService.Xoa(id))
+            {
+                return RedirectToAction("Details", new { id = IdSp });
+            }
+            return RedirectToAction("Details", new { id = IdSp });
         }
     }
 }
