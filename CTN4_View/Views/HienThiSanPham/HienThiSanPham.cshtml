@@ -44,25 +44,25 @@
                     <div class="head">ChatLieu</div>
                     <form id="FillterChatLieu">
                         <ul>
-                            @*@{
-                                foreach (var chatLieu in Model.chatLieus)
+                            {
+                                @foreach (var chatLieu in Model.chatLieus)
                                 {
-                                    if ((Model.sanPhamChiTiets.Where(c => c.IdChatLieu == chatLieu.Id).Count()) >= 1)
+                                if ((Model.sanPhams.Where(c => c.IdChatLieu == chatLieu.Id).Count()) >= 1)
                                     {
                                         <li>
                                             <input class="pixel-radio" type="checkbox" name="ChatLieu" id="ChatLieu-@chatLieu.Id" value="@chatLieu.TenChatLieu">
                                             <label for="ChatLieu-@chatLieu.Id">
-                                                @chatLieu.TenChatLieu <span>(@(Model.sanPhamChiTiets.Where(c => c.IdChatLieu == chatLieu.Id).Count()))</span>
+                                            @chatLieu.TenChatLieu <span>(@(Model.sanPhams.Where(c => c.IdChatLieu == chatLieu.Id).Count()))</span>
                                             </label>
                                         </li>
                                     }
                                 }
-                            }*@
+                            }
                         </ul>
                     </form>
                     <div class="common-filter">
                         <div class="head">MauSac</div>
-                        <form id="FillterMauSac">
+                        @*<form id="FillterMauSac">
                             <ul>
                                 @{
                                     foreach (var mau in Model.maus)
@@ -79,7 +79,7 @@
                                     }
                                 }
                             </ul>
-                        </form>
+                        </form>*@
                     </div>
                     <div>
                         <button id="btnFillter" type="submit" class="btn btn-primary btn-block enter-btn fa fa-search">
@@ -122,20 +122,20 @@
             <!-- Start Best Seller -->
             <section class="lattest-product-area pb-40 category-list">
                 <div class="row" id="Fillter-sanPhams">
-                    @foreach (var sp in Model.sanphampaging)
+                    @foreach (var sp in Model.sanPhams)
                     {
                         <!-- single product -->
                         {
                             <div class="col-lg-4 col-md-6">
                                 <div class="single-product">
-                                    @if (System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".jpg" ||
-                                   System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".png" ||
-                                   System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".jpeg" ||
-                                   System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".tiff" ||
-                                   System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".webp" ||
-                                   System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".gif")
+                                    @if (System.IO.Path.GetExtension(sp.AnhDaiDien) == ".jpg" ||
+                                   System.IO.Path.GetExtension(sp.AnhDaiDien) == ".png" ||
+                                   System.IO.Path.GetExtension(sp.AnhDaiDien) == ".jpeg" ||
+                                   System.IO.Path.GetExtension(sp.AnhDaiDien) == ".tiff" ||
+                                   System.IO.Path.GetExtension(sp.AnhDaiDien) == ".webp" ||
+                                   System.IO.Path.GetExtension(sp.AnhDaiDien) == ".gif")
                                     {
-                                        <img src="~/image/@sp.SanPham.AnhDaiDien" height="300">
+                                        <img src="~/image/@sp.AnhDaiDien" height="300">
                                     }
                                     else
                                     {
@@ -143,17 +143,17 @@
                                     }
                                     <div class="product-details">
                                         <h6>
-                                            <a style="color: (internal value);"> @Html.ActionLink(sp.SanPham.TenSanPham, "HienThiSanPhamChiTiet", new { id = sp.Id}) </a>
+                                            <a style="color: (internal value);"> @Html.ActionLink(sp.TenSanPham, "HienThiSanPhamChiTiet", new { id = sp.Id}) </a>
                                         </h6>
                                         <div class="price">
-                                            @if (sp.SanPham.GiaNiemYet == sp.SanPham.GiaBan)
+                                            @if (sp.GiaNiemYet == sp.GiaBan)
                                             {
-                                                <h6>@FormatCurrency(sp.SanPham.GiaNiemYet)</h6>
+                                                <h6>@FormatCurrency(sp.GiaNiemYet)</h6>
                                             }
                                             else
                                             {
-                                                <h6>@FormatCurrency(sp.SanPham.GiaNiemYet)</h6>
-                                                <h6 class="l-through">@FormatCurrency(sp.SanPham.GiaBan)</h6>
+                                                <h6>@FormatCurrency(sp.GiaNiemYet)</h6>
+                                                <h6 class="l-through">@FormatCurrency(sp.GiaBan)</h6>
                                             }
                                         </div>
                                         <div class="prd-bottom">

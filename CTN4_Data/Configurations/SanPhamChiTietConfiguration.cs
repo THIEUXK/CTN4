@@ -11,6 +11,7 @@ namespace CTN4_Data.Configurations
             builder.HasKey(c => c.Id);
             builder.HasOne(c => c.Size).WithMany(c => c.SanPhamChiTiets).HasForeignKey(c => c.IdSize);
             builder.HasOne(c => c.SanPham).WithMany(c => c.SanPhamChiTiets).HasForeignKey(c => c.IdSp);
+            builder.HasOne(c => c.Mau).WithMany(c => c.SanPhamChiTiets).HasForeignKey(c => c.IdMau);
         }
     }
 }
