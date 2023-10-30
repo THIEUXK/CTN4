@@ -24,6 +24,7 @@ namespace CTN4_View.Controllers
         private readonly ITokenService _tokenService;
 		private readonly ICurrentUser _curent;
         private readonly IKhachHangService _khachHangService;
+		private readonly ISanPhamService _spService;
 		private string generatedToken = null;
 
         public IKhachHangService _KHangService;
@@ -33,8 +34,9 @@ namespace CTN4_View.Controllers
         //    _sanPhamCuaHangService = new SanPhamCuaHangService();
         //}
 
-        public HomeController(ILogger<HomeController> logger, IConfiguration config, ITokenService tokenService, ILoginService userRepository,ICurrentUser curent,IKhachHangService khachhang)
+        public HomeController(ILogger<HomeController> logger, IConfiguration config, ITokenService tokenService, ILoginService userRepository,ICurrentUser curent,IKhachHangService khachhang,ISanPhamService sanpham)
         {
+            _spService = sanpham;
             _khachHangService = khachhang;
             _KHangService = new KhachHangService();
             _curent = curent;
@@ -49,8 +51,10 @@ namespace CTN4_View.Controllers
         public IActionResult Index()
         {
 			string token = HttpContext.Session.GetString("Token");
+
             var a = User.Identity.Name;
-			return View();
+            var obj = _spService.GetAll();
+			return View(obj);
         }
 
         public IActionResult blog()
