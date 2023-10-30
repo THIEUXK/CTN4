@@ -38,11 +38,13 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         {
             var a = _sanPhamCuaHangService.GetAll();
             return View(a);
+
         }
 
         // GET: SanPhamController/Details/5
         public ActionResult Details(Guid id)
         {
+
             var a = _sv.GetById(id);
             return View(a);
         }
@@ -71,7 +73,9 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [ValidateAntiForgeryToken]
         public ActionResult Create(SanPhamView p, [Bind] IFormFile imageFile)
         {
-            var x = imageFile.FileName;
+            string x = null; // Đảm bảo khởi tạo x là null
+                x = imageFile.FileName;
+            //var x = imageFile.FileName;
             if (imageFile != null && imageFile.Length > 0) // Không null và không trống
             {
                 //Trỏ tới thư mục wwwroot để lát nữa thực hiện việc Copy sang
@@ -85,21 +89,24 @@ namespace CTN4_View_Admin.Controllers.QuanLY
 
                 // Gán lại giá trị cho Description của đối tượng bằng tên file ảnh đã được sao chép
                 p.AnhDaiDien = imageFile.FileName;
+
             }
             var a = new SanPham()
             {
                 Id = Guid.NewGuid(),
+                MaSp = p.MaSp,
+                TenSanPham = p.TenSanPham,
                 IdChatLieu = Guid.Parse(p.IdChatLieu.Value.ToString()),
                 IdNSX = Guid.Parse(p.IdNSX.Value.ToString()),
-                MaSp = p.MaSp,
+                
                 MoTa = p.MoTa,
                 TrangThai = p.TrangThai,
-                GiaNhap = p.
-                    GiaNhap,
+                GiaNhap = p.GiaNhap,
                 GiaBan = p.GiaBan,
                 GiaNiemYet = p.GiaNiemYet,
                 GhiChu = p.GhiChu,
-                Is_detele = p.Is_detele
+                Is_detele = p.Is_detele,
+                AnhDaiDien = p.AnhDaiDien,
 
             };
             if (_sv.Them(a)) // Nếu thêm thành công
@@ -109,7 +116,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             }
             var viewModel = new SanPhamView()
             {
-                 NsxItems = _nsxService.GetAll().Select(s => new SelectListItem
+                NsxItems = _nsxService.GetAll().Select(s => new SelectListItem
                 {
                     Value = s.Id.ToString(),
                     Text = s.TenNSX
@@ -124,7 +131,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         }
 
         // GET: SanPhamController/Edit/5
-        [HttpGet]
+        
         public ActionResult Edit(Guid id)
         {
             var viewModel = new SanPhamView()
@@ -181,7 +188,8 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                 return RedirectToAction("Index");
             }
             return RedirectToAction("Index");
-        } public ActionResult XoaAnh(Guid id,Guid IdSp)
+        }
+        public ActionResult XoaAnh(Guid id, Guid IdSp)
         {
             if (_anhService.Xoa(id))
             {

@@ -1,4 +1,4 @@
-﻿@*@model CTN4_Serv.ViewModel.SanPhamBan
+﻿@model CTN4_Serv.ViewModel.SanPhamBan
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -45,20 +45,20 @@
             </div>
             <div class="col-lg-5 offset-lg-1">
                 <div class="s_product_text">
-                    <h3>@Model.SanPhamChiTiet.SanPham.TenSanPham</h3>
+                    <h3>@Model.sanPhams.TenSanPham</h3>
                     <div class="price">
-                        @if (Model.SanPhamChiTiet.SanPham.GiaNiemYet == Model.SanPhamChiTiet.SanPham.GiaBan)
+                        @if (Model.sanPhams.GiaNiemYet == Model.sanPhams.GiaBan)
                         {
-                            <h6>@FormatCurrency(Model.SanPhamChiTiet.SanPham.GiaNiemYet)</h6>
+                            <h6>@FormatCurrency(Model.sanPhams.GiaNiemYet)</h6>
                         }
                         else
                         {
-                            <h6>@FormatCurrency(Model.SanPhamChiTiet.SanPham.GiaNiemYet)</h6>
-                            <h6 class="l-through">@FormatCurrency(Model.SanPhamChiTiet.SanPham.GiaBan)</h6>
+                            <h6>@FormatCurrency(Model.sanPhams.GiaNiemYet)</h6>
+                            <h6 class="l-through">@FormatCurrency(Model.sanPhams.GiaBan)</h6>
                         }
                     </div>
                     <ul class="list">
-                        <li><a class="active" href="#"><span>Số lượng</span> @Model.SanPhamChiTiet.SoLuong </a></li>
+                        <li><a class="active" href="#"><span>Số lượng</span>  </a></li>
                         <li><a href="#"><span>Availibility</span> : In Stock</a></li>
                     </ul>
                     <p>
@@ -87,7 +87,7 @@
                             <a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
                             <a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
                         </div>
-                        <input type="hidden" name="idSP" value="@Model.SanPhamChiTiet.Id">
+                        <input type="hidden" name="idSP" value="">
                     </form>
                 </div>
             </div>
@@ -616,4 +616,3 @@
 </script>
 
 <!-- End related-product Area -->
-*@
