@@ -57,6 +57,7 @@
                             <h6 class="l-through">@FormatCurrency(Model.sanPhams.GiaBan)</h6>
                         }
                     </div>
+                    <br >
                     <div>
 
                         @{
@@ -81,12 +82,14 @@
                             }
                         </ul>
 
-                    </div><div>
+                    </div>
+                    <br >
+                    <div>
                         @{
                             // Tạo danh sách để theo dõi các Mau.Id đã xuất hiện
                             var SizeDaXuatHien = new List<Guid>();
                         }
-
+                        <ul class="horizontal-list">
                         @foreach (var a in Model.sanPhamChiTiets)
                         {
                             // Kiểm tra xem Mau.Id đã xuất hiện trong danh sách chưa
@@ -94,17 +97,22 @@
                             {
                                 // Nếu chưa xuất hiện, hiển thị nút và thêm Mau.Id vào danh sách
                                 SizeDaXuatHien.Add(a.Size.Id);
-                                <input type="hidden" name="mau" value="@a.Size.Id" />
+                               @* <input type="hidden" name="mau" value="@a.Size.Id" />*@
+                                  <li>
                                 <button class="color-button1 ">
-                                    @a.Size.TenSize
+                                    @a.Size.CoSize
                                 </button>
+                                        </li>
                             }
                         }
+                        </ul>
                     </div>
+                    <br />
                     <ul class="list">
                         <li><a class="active" href="#"><span>Số lượng</span>@Model  </a></li>
                         <li><a href="#"><span>Availibility</span> : In Stock</a></li>
                     </ul>
+                   
                     <p>
                         Mill Oil is an innovative oil filled radiator with the most modern technology. If you are looking for
                         something that can make your interior look awesome, and at the same time give you the pleasant warm feeling
@@ -692,7 +700,7 @@
 </script>
 
 <style>
-    .color-button {
+    .color-button .color-button1 {
         padding: 5px 10px;
         border: 1px solid #ccc;
         cursor: pointer;
