@@ -23,6 +23,7 @@ namespace CTN4_View.Controllers.Shop
         public IDanhMucChiTietService _danhMucChiTiet;
         public IMauService _mauSacService;
         public IChatLieuService _chatLieuService;
+        public ISizeService _sizeService;
         public ISanPhamChiTietService _sanPhamChiTietService;
         public DanhMucJoin _DanhMucjoiin;
         public DB_CTN4_ok _CTN4_Ok;
@@ -38,48 +39,58 @@ namespace CTN4_View.Controllers.Shop
             _danhMucService = new DanhMucMucService();
             _danhMucChiTiet = new DanhMucChiTietMucChiTietService();
             _mauSacService = new MauService();
+            _sizeService = new SizeService();
             _chatLieuService = new ChatLieuService();
             _pagingInfo = new PagingInfo();
             _CTN4_Ok = new DB_CTN4_ok();
         }
         public IActionResult HienThiSanPham(int page)
         {
-            
-            if (page == null) {page=1;}
+
+            if (page == null) { page = 1; }
             var danhMuc = _danhMucService.GetAll();
             var danhMucChiTiets = _danhMucChiTiet.GetAll();
             var listSp = _sanPhamCuaHangService.GetAll();
             //var mauSacs = _mauSacService.GetAll();
             var chatLieus = _chatLieuService.GetAll();
             //var listSpct = _sanPhamChiTietService.GetAll();
-            
+
             //var Paging = _CTN4_Ok.SanPhamChiTiets.Include(c => c.ChatLieu).Include(c => c.NSX).Include(c => c.Mau).Include(c => c.Size).Include(c => c.SanPham).Skip((page - 1) * pageSize).Take(pageSize).ToList();
-            
+
             var view = new HienThiSanPhamView()
             {
                 danhMucs = danhMuc,
                 danhMucChiTiets = danhMucChiTiets,
                 sanPhams = listSp,
-               // maus = mauSacs,
+                // maus = mauSacs,
                 chatLieus = chatLieus,
                 //sanPhamChiTiets = listSpct,
                 sanphampaging = listSp.Skip((page - 1) * pageSize).Take(pageSize).ToList(),
                 pagingInfo = new PagingInfo()
                 {
                     TotalItems = listSp.Count(),
-                    CurrentPage= page,
+                    CurrentPage = page,
                     ItemsPerPage = 6,
-            
+
                 }
             };
             return View(view);
         }
         public IActionResult HienThiSanPhamChiTiet(Guid id)
         {
+           
+            var mau = _mauSacService.GetAll();
+            var size = _sizeService.GetAll();
             var view = new SanPhamBan()
             {
                 sanPhams = _sanPhamCuaHangService.GetById(id),
-                Anh = _sanPhamCuaHangService.GeAnhs(id)
+                Anh = _sanPhamCuaHangService.GeAnhs(id),
+                
+                maus = mau,
+                sizes = size
+                
+
+               
             };
             return View(view);
 

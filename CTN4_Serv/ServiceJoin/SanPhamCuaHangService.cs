@@ -49,5 +49,9 @@ namespace CTN4_Serv.ServiceJoin
             return _db.SanPhams.ToList();
             
         }
+        public List<SanPhamChiTiet> GetAllSpct()
+        {
+            return _db.SanPhamChiTiets.Include(c=>c.Mau).Include(c=>c.Size).Include(c=>c.SanPham).ToList();
+        }
     }
 }

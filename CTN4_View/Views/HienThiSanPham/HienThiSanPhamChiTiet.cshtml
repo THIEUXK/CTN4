@@ -57,6 +57,23 @@
                             <h6 class="l-through">@FormatCurrency(Model.sanPhams.GiaBan)</h6>
                         }
                     </div>
+                    <div>
+                        @foreach(var a in Model.maus)
+                        {
+                            <input type="hidden" name="mau" value="@a.Id" />
+                            <button>
+                                @a.TenMau
+                            </button>
+                        }
+                    </div><div>
+                        @foreach(var a in Model.sizes)
+                        {
+                            <input type="hidden" name="size" value="@a.Id" />
+                            <button>
+                                @a.TenSize
+                            </button>
+                        }
+                    </div>
                     <ul class="list">
                         <li><a class="active" href="#"><span>Số lượng</span>  </a></li>
                         <li><a href="#"><span>Availibility</span> : In Stock</a></li>

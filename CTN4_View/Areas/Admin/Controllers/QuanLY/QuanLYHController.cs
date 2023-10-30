@@ -40,7 +40,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [HttpGet]
         public ActionResult Index()
         {
-            var a = _sanPhamCuaHangService.GetAll();
+            var a = _sanPhamCuaHangService.GetAllSpct();
             return View(a);
         }
 
