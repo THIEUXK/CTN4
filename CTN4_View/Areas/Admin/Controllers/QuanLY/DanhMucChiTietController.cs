@@ -13,7 +13,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLY
     public class DanhMucChiTietController : Controller
     {
         public IDanhMucChiTietService _dmct;
-        public ISanPhamChiTietService _spct;
+        public ISanPhamService _sp;
         public IDanhMucService _dm;
 
         public DanhMucJoin _danhMucJoin;
@@ -21,7 +21,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLY
         public DanhMucChiTietController()
         {
             _dmct = new DanhMucChiTietMucChiTietService();
-            _spct = new SanPhamChiTietService();
+            _sp = new SanPhamService();
             _dm = new DanhMucMucService();
             _danhMucJoin = new DanhMucJoin();
 
@@ -48,10 +48,10 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLY
             var viewModel = new DanhMucChiTietView()
             {
 
-                sanPhamctItems = _spct.GetAll().Select(s => new SelectListItem
+                sanPhamItems = _sp.GetAll().Select(s => new SelectListItem
                 {
                     Value = s.Id.ToString(),
-                    Text = s.SanPham.TenSanPham
+                    Text = s.TenSanPham
                 }).ToList(),
                 danhMucItems = _dm.GetAll().Select(s => new SelectListItem
                 {
@@ -81,10 +81,10 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLY
             }
             var viewModel = new DanhMucChiTietView()
             {
-                sanPhamctItems = _spct.GetAll().Select(s => new SelectListItem
+                sanPhamItems = _sp.GetAll().Select(s => new SelectListItem
                 {
                     Value = s.Id.ToString(),
-                    Text = s.SanPham.TenSanPham
+                    Text = s.TenSanPham
                 }).ToList(),
                 danhMucItems = _dm.GetAll().Select(s => new SelectListItem
                 {
@@ -101,10 +101,10 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLY
         {
             var viewModel = new DanhMucChiTietView()
             {
-                sanPhamctItems = _spct.GetAll().Select(s => new SelectListItem
+                sanPhamItems = _sp.GetAll().Select(s => new SelectListItem
                 {
                     Value = s.Id.ToString(),
-                    Text = s.SanPham.TenSanPham
+                    Text = s.TenSanPham
                 }).ToList(),
                 danhMucItems = _dm.GetAll().Select(s => new SelectListItem
                 {

@@ -57,8 +57,52 @@
                             <h6 class="l-through">@FormatCurrency(Model.sanPhams.GiaBan)</h6>
                         }
                     </div>
+                    <div>
+
+                        @{
+                            // Tạo danh sách để theo dõi các Mau.Id đã xuất hiện
+                            var mauDaXuatHien = new List<Guid>();
+                        }
+                        <ul class="horizontal-list">
+                            @foreach (var a in Model.sanPhamChiTiets)
+                            {
+                                if (!mauDaXuatHien.Contains(a.Mau.Id))
+                                {
+                                    mauDaXuatHien.Add(a.Mau.Id);
+
+                                    <li>
+                                        <button class="color-button " data-tenmau="@a.Mau.TenMau">
+                                            @a.Mau.TenMau
+                                        </button>
+                                    </li>
+
+
+                                }
+                            }
+                        </ul>
+
+                    </div><div>
+                        @{
+                            // Tạo danh sách để theo dõi các Mau.Id đã xuất hiện
+                            var SizeDaXuatHien = new List<Guid>();
+                        }
+
+                        @foreach (var a in Model.sanPhamChiTiets)
+                        {
+                            // Kiểm tra xem Mau.Id đã xuất hiện trong danh sách chưa
+                            if (!SizeDaXuatHien.Contains(a.Size.Id))
+                            {
+                                // Nếu chưa xuất hiện, hiển thị nút và thêm Mau.Id vào danh sách
+                                SizeDaXuatHien.Add(a.Size.Id);
+                                <input type="hidden" name="mau" value="@a.Size.Id" />
+                                <button class="color-button1 ">
+                                    @a.Size.TenSize
+                                </button>
+                            }
+                        }
+                    </div>
                     <ul class="list">
-                        <li><a class="active" href="#"><span>Số lượng</span>  </a></li>
+                        <li><a class="active" href="#"><span>Số lượng</span>@Model  </a></li>
                         <li><a href="#"><span>Availibility</span> : In Stock</a></li>
                     </ul>
                     <p>
@@ -598,6 +642,7 @@
 </script>
 
 <script>
+
     $(function () {
         $("#ddltype").change(function () {
             $.ajax({
@@ -616,3 +661,72 @@
 </script>
 
 <!-- End related-product Area -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        $(".color-button").click(function () {
+            //// Loại bỏ lớp "selected" từ tất cả các nút
+            $(".color-button").removeClass("selected");
+
+            // Thêm lớp "selected" cho nút được nhấn
+            $(this).addClass("selected");
+
+            //// Lấy giá trị màu được chọn
+            //var tenMau = $(this).data("tenmau");
+            //console.log("Màu được chọn: " + tenMau);
+        });
+    }); $(document).ready(function () {
+        $(".color-button1").click(function () {
+            //// Loại bỏ lớp "selected" từ tất cả các nút
+            $(".color-button1").removeClass("selected");
+
+            // Thêm lớp "selected" cho nút được nhấn
+            $(this).addClass("selected");
+
+            //// Lấy giá trị màu được chọn
+            //var tenMau = $(this).data("tenmau");
+            //console.log("Màu được chọn: " + tenMau);
+        });
+    });
+</script>
+
+<style>
+    .color-button {
+        padding: 5px 10px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+    }
+
+    .selected {
+        background-color: #4cd3e3;
+        color: #fff;
+        border: 1px solid #4cd3e3;
+    }
+
+    /* Hiển thị lại nút đã chọn */
+    .selected {
+        display: block;
+    }
+
+    .horizontal-list {
+        list-style-type: none; /* Loại bỏ dấu chấm */
+        padding: 0; /* Loại bỏ khoảng cách đệm */
+        margin: 0; /* Loại bỏ khoảng cách lề */
+    }
+
+        .horizontal-list li {
+            display: inline; /* Hiển thị các mục ngang cùng hàng */
+            margin-right: 10px; /* Thêm khoảng cách giữa các mục (tùy chỉnh) */
+        }
+</style>
+<script src="~/js/vendor/jquery-2.2.4.min.js"></script>
+
+<script src="~/js/vendor/bootstrap.min.js"></script>
+<script src="~/js/jquery.ajaxchimp.min.js"></script>
+<script src="~/js/jquery.nice-select.min.js"></script>
+<script src="~/js/jquery.sticky.js"></script>
+<script src="~/js/nouislider.min.js"></script>
+<script src="~/js/countdown.js"></script>
+<script src="~/js/jquery.magnific-popup.min.js"></script>
+<script src="~/js/owl.carousel.min.js"></script>

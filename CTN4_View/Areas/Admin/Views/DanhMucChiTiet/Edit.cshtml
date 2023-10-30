@@ -1,4 +1,4 @@
-﻿@*@model CTN4_Data.Models.DB_CTN4.DanhMucChiTiet
+﻿@model CTN4_Data.Models.DB_CTN4.DanhMucChiTiet
 
 @{
     ViewData["Title"] = "Edit";
@@ -25,9 +25,9 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="IdSanPhamChiTiet" class="control-label"></label>
-                <input asp-for="IdSanPhamChiTiet" class="form-control" />
-                <span asp-validation-for="IdSanPhamChiTiet" class="text-danger"></span>
+                <label asp-for="IdSanPham" class="control-label"></label>
+                <input asp-for="IdSanPham" class="form-control" />
+                        <span asp-validation-for="IdSanPham" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="IdDanhMuc" class="control-label"></label>
@@ -45,4 +45,3 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-*@

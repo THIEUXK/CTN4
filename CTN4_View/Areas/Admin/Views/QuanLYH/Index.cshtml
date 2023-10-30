@@ -1,4 +1,4 @@
-﻿@*@model IEnumerable<CTN4_Data.Models.DB_CTN4.SanPhamChiTiet>
+﻿@model IEnumerable<CTN4_Data.Models.DB_CTN4.SanPhamChiTiet>
 
 @{
     ViewData["Title"] = "Index";
@@ -19,41 +19,20 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.MaSp)
-            </th>
+            
             <th>
                 @Html.DisplayNameFor(model => model.SoLuong)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MoTa)
-            </th>
+            
             <th>
                 @Html.DisplayNameFor(model => model.TrangThai)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GiaNhap)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GiaBan)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GiaNiemYet)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GhiChu)
-            </th>
+           
             <th>
                 @Html.DisplayNameFor(model => model.Is_detele)
             </th>
             <th>
-                ChatLieu
-            </th>
-            <th>
                 Mau
-            </th>
-            <th>
-                NSX
             </th>
             <th>
                 Size
@@ -62,7 +41,6 @@
                 Sp
             </th>
             <th>
-
             </th>
         </tr>
     </thead>
@@ -88,41 +66,24 @@
                     </tb>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.MaSp)
+                    @Html.DisplayFor(modelItem => item.SanPham.TenSanPham)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.SoLuong)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MoTa)
-                </td>
+               
                 <td>
                     @Html.DisplayFor(modelItem => item.TrangThai)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.GiaNhap)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.GiaBan)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.GiaNiemYet)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.GhiChu)
-                </td>
+               
                 <td>
                     @Html.DisplayFor(modelItem => item.Is_detele)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ChatLieu.TenChatLieu)
-                </td>
+               
                 <td>
                     @Html.DisplayFor(modelItem => item.Mau.TenMau)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NSX.TenNSX)
-                </td>
+              
                 <td>
                     @Html.DisplayFor(modelItem => item.Size.TenSize)
                 </td>
@@ -139,4 +100,4 @@
             </tr>
         }
     </tbody>
-</table>*@
+</table>

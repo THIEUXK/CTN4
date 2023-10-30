@@ -11,5 +11,8 @@ namespace CTN4_Serv.ViewModel
 	{
 		public List<Anh> Anh { get; set; }
 		public SanPham sanPhams { get; set; }
+		public List<SanPhamChiTiet> sanPhamChiTiets { get; set; }
+		public List<Size> sizes { get; set; }
+		public List<Mau> maus { get; set; }
 	}
 }
