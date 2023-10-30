@@ -44,7 +44,9 @@ namespace CTN4_Data.DB_Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=DESKTOP-JV9E5UC\\SQLEXPRESS;Initial Catalog =CTN4;MultipleActiveResultSets=True;User ID=toanck;Password=123456789");
+
+            optionsBuilder.UseSqlServer("Data Source=MSI;Initial Catalog=CTN4;User ID=sa;Password=thieu12345");
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
