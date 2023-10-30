@@ -11,7 +11,8 @@ namespace CTN4_Serv.Service.IService
     {
         public List<NhanVien> GetAll();
         public NhanVien GetById(Guid id);
-        public bool Them(NhanVien a);
+		public NhanVien GetByIdChucVu(Guid id);
+		public bool Them(NhanVien a);
         public bool Sua(NhanVien a);
         public bool Xoa(Guid id);
     }
