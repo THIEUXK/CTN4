@@ -85,7 +85,7 @@ namespace CTN4_Data.DB_Context
                    }, new SanPham()
                    {
                        TenSanPham = "TDV Hobo Quai Ngắn",
-                       AnhDaiDien = "TDV Hobo Quai Ngắn_QuanChau_Den_Da PU mềm mịn, cao cấp_Dài 27 x Rộng 6 x Cao 19 (cm)(1).jpg",
+                       AnhDaiDien = "TDV Hobo Đáy Tròn_QuanChau_Den_Da lộn, da PU cao cấp_Dài 22 x Cao 12 x Rộng 6 (cm)(1).jpeg",
                        Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081511"),
                        MaSp = "SP04",
                        MoTa = "oke la",
@@ -136,10 +136,10 @@ namespace CTN4_Data.DB_Context
                 //new ChatLieu() { TenChatLieu = "Vải Simili (Giả da)", Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081111"), GhiChu = "", Is_detele = true, TrangThai = true }
             );
             modelBuilder.Entity<Size>().HasData(
-                new Size() { TenSize = "15cm x 9.5cm x 7cm", Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081146"), Is_detele = true, TrangThai = true },
-                new Size() { TenSize = "20cm x 12cm x 7cm", Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081147"), Is_detele = true, TrangThai = true },
-                new Size() { TenSize = "25cm x 14.5cm x 8cm", Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081148"), Is_detele = true, TrangThai = true },
-                new Size() { TenSize = "30cm x 21cm x 10cm", Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081149"), Is_detele = true, TrangThai = true }
+                new Size() { TenSize = "15cm x 9.5cm x 7cm",CoSize ="S" , Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081146"), Is_detele = true, TrangThai = true },
+                new Size() { TenSize = "20cm x 12cm x 7cm",CoSize ="M" , Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081147"), Is_detele = true, TrangThai = true },
+                new Size() { TenSize = "25cm x 14.5cm x 8cm",CoSize ="OM" , Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081148"), Is_detele = true, TrangThai = true },
+                new Size() { TenSize = "30cm x 21cm x 10cm",CoSize ="L", Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081149"), Is_detele = true, TrangThai = true }
 
 
             );
@@ -231,252 +231,252 @@ namespace CTN4_Data.DB_Context
                    Is_detele = true,
                }, ///// size M
                   new SanPhamChiTiet()
-               {
-                   Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6013"),
-                   SoLuong = 100,
-                   IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081211"),
-                   IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081112"),
-                   IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081147"),
-                   TrangThai = true,
-                   Is_detele = true,
-               }, new SanPhamChiTiet()
-               {
-                   Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6014"),
-                   SoLuong = 100,
-                   IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081211"),
-                   IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081111"),
-                   IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081147"),
-                   TrangThai = true,
-                   Is_detele = true,
-               }, new SanPhamChiTiet()
-               {
-                   Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6015"),
-                   SoLuong = 100,
-                   IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081211"),
-                   IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081113"),
-                   IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081147"),
-                   TrangThai = true,
-                   Is_detele = true,
-               },///// Size OM
+                  {
+                      Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6013"),
+                      SoLuong = 100,
+                      IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081211"),
+                      IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081112"),
+                      IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081147"),
+                      TrangThai = true,
+                      Is_detele = true,
+                  }, new SanPhamChiTiet()
+                  {
+                      Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6014"),
+                      SoLuong = 100,
+                      IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081211"),
+                      IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081111"),
+                      IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081147"),
+                      TrangThai = true,
+                      Is_detele = true,
+                  }, new SanPhamChiTiet()
+                  {
+                      Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6015"),
+                      SoLuong = 100,
+                      IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081211"),
+                      IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081113"),
+                      IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081147"),
+                      TrangThai = true,
+                      Is_detele = true,
+                  },///// Size OM
                   new SanPhamChiTiet()
-               {
-                   Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6016"),
-                   SoLuong = 100,
-                   IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081211"),
-                   IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081111"),
-                   IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081148"),
-                   TrangThai = true,
-                   Is_detele = true,
-               },new SanPhamChiTiet()
-               {
-                   Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6017"),
-                   SoLuong = 100,
-                   IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081211"),
-                   IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081113"),
-                   IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081148"),
-                   TrangThai = true,
-                   Is_detele = true,
-               },new SanPhamChiTiet()
-               {
-                   Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6018"),
-                   SoLuong = 100,
-                   IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081211"),
-                   IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081114"),
-                   IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081148"),
-                   TrangThai = true,
-                   Is_detele = true,
-               },//////// sp 2 ///// size S
+                  {
+                      Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6016"),
+                      SoLuong = 100,
+                      IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081211"),
+                      IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081111"),
+                      IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081148"),
+                      TrangThai = true,
+                      Is_detele = true,
+                  }, new SanPhamChiTiet()
+                  {
+                      Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6017"),
+                      SoLuong = 100,
+                      IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081211"),
+                      IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081113"),
+                      IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081148"),
+                      TrangThai = true,
+                      Is_detele = true,
+                  }, new SanPhamChiTiet()
+                  {
+                      Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6018"),
+                      SoLuong = 100,
+                      IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081211"),
+                      IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081114"),
+                      IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081148"),
+                      TrangThai = true,
+                      Is_detele = true,
+                  },//////// sp 2 ///// size S
                   new SanPhamChiTiet()
-               {
-                   Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6019"),
-                   SoLuong = 100,
-                   IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081311"),
-                   IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081111"),
-                   IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081146"),
-                   TrangThai = true,
-                   Is_detele = true,
-               },new SanPhamChiTiet()
-               {
-                   Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6020"),
-                   SoLuong = 100,
-                   IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081311"),
-                   IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081151"),
-                   IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081146"),
-                   TrangThai = true,
-                   Is_detele = true,
-               },new SanPhamChiTiet()
-               {
-                   Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6021"),
-                   SoLuong = 100,
-                   IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081311"),
-                   IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081113"),
-                   IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081146"),
-                   TrangThai = true,
-                   Is_detele = true,
-               },///////// Size M
+                  {
+                      Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6019"),
+                      SoLuong = 100,
+                      IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081311"),
+                      IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081111"),
+                      IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081146"),
+                      TrangThai = true,
+                      Is_detele = true,
+                  }, new SanPhamChiTiet()
+                  {
+                      Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6020"),
+                      SoLuong = 100,
+                      IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081311"),
+                      IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081151"),
+                      IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081146"),
+                      TrangThai = true,
+                      Is_detele = true,
+                  }, new SanPhamChiTiet()
+                  {
+                      Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6021"),
+                      SoLuong = 100,
+                      IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081311"),
+                      IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081113"),
+                      IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081146"),
+                      TrangThai = true,
+                      Is_detele = true,
+                  },///////// Size M
                   new SanPhamChiTiet()
-               {
-                   Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6022"),
-                   SoLuong = 100,
-                   IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081311"),
-                   IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081111"),
-                   IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081147"),
-                   TrangThai = true,
-                   Is_detele = true,
-               }, new SanPhamChiTiet()
-               {
-                   Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6023"),
-                   SoLuong = 100,
-                   IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081311"),
-                   IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081151"),
-                   IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081147"),
-                   TrangThai = true,
-                   Is_detele = true,
-               }, new SanPhamChiTiet()
-               {
-                   Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6024"),
-                   SoLuong = 100,
-                   IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081311"),
-                   IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081113"),
-                   IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081147"),
-                   TrangThai = true,
-                   Is_detele = true,
-               },//////// Size OM
+                  {
+                      Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6022"),
+                      SoLuong = 100,
+                      IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081311"),
+                      IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081111"),
+                      IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081147"),
+                      TrangThai = true,
+                      Is_detele = true,
+                  }, new SanPhamChiTiet()
+                  {
+                      Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6023"),
+                      SoLuong = 100,
+                      IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081311"),
+                      IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081151"),
+                      IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081147"),
+                      TrangThai = true,
+                      Is_detele = true,
+                  }, new SanPhamChiTiet()
+                  {
+                      Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6024"),
+                      SoLuong = 100,
+                      IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081311"),
+                      IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081113"),
+                      IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081147"),
+                      TrangThai = true,
+                      Is_detele = true,
+                  },//////// Size OM
                   new SanPhamChiTiet()
-               {
-                   Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6025"),
-                   SoLuong = 100,
-                   IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081311"),
-                   IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081111"),
-                   IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081148"),
-                   TrangThai = true,
-                   Is_detele = true,
-               },new SanPhamChiTiet()
-               {
-                   Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6026"),
-                   SoLuong = 100,
-                   IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081311"),
-                   IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081113"),
-                   IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081148"),
-                   TrangThai = true,
-                   Is_detele = true,
-               },new SanPhamChiTiet()
-               {
-                   Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6027"),
-                   SoLuong = 100,
-                   IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081311"),
-                   IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081151"),
-                   IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081148"),
-                   TrangThai = true,
-                   Is_detele = true,
-               }, //////////// Size L
+                  {
+                      Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6025"),
+                      SoLuong = 100,
+                      IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081311"),
+                      IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081111"),
+                      IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081148"),
+                      TrangThai = true,
+                      Is_detele = true,
+                  }, new SanPhamChiTiet()
+                  {
+                      Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6026"),
+                      SoLuong = 100,
+                      IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081311"),
+                      IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081113"),
+                      IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081148"),
+                      TrangThai = true,
+                      Is_detele = true,
+                  }, new SanPhamChiTiet()
+                  {
+                      Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6027"),
+                      SoLuong = 100,
+                      IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081311"),
+                      IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081151"),
+                      IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081148"),
+                      TrangThai = true,
+                      Is_detele = true,
+                  }, //////////// Size L
                   new SanPhamChiTiet()
-               {
-                   Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6028"),
-                   SoLuong = 100,
-                   IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081311"),
-                   IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081151"),
-                   IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081149"),
-                   TrangThai = true,
-                   Is_detele = true,
-               },new SanPhamChiTiet()
-               {
-                   Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6029"),
-                   SoLuong = 100,
-                   IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081311"),
-                   IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081113"),
-                   IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081149"),
-                   TrangThai = true,
-                   Is_detele = true,
-               },new SanPhamChiTiet()
-               {
-                   Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6030"),
-                   SoLuong = 100,
-                   IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081311"),
-                   IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081111"),
-                   IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081149"),
-                   TrangThai = true,
-                   Is_detele = true,
-               },/////////// Sp 3 /////// Size S
+                  {
+                      Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6028"),
+                      SoLuong = 100,
+                      IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081311"),
+                      IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081151"),
+                      IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081149"),
+                      TrangThai = true,
+                      Is_detele = true,
+                  }, new SanPhamChiTiet()
+                  {
+                      Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6029"),
+                      SoLuong = 100,
+                      IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081311"),
+                      IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081113"),
+                      IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081149"),
+                      TrangThai = true,
+                      Is_detele = true,
+                  }, new SanPhamChiTiet()
+                  {
+                      Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6030"),
+                      SoLuong = 100,
+                      IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081311"),
+                      IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081111"),
+                      IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081149"),
+                      TrangThai = true,
+                      Is_detele = true,
+                  },/////////// Sp 3 /////// Size S
                   new SanPhamChiTiet()
-               {
-                   Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6031"),
-                   SoLuong = 100,
-                   IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081511"),
-                   IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081111"),
-                   IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081146"),
-                   TrangThai = true,
-                   Is_detele = true,
-               },new SanPhamChiTiet()
-               {
-                   Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6032"),
-                   SoLuong = 100,
-                   IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081511"),
-                   IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081112"),
-                   IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081146"),
-                   TrangThai = true,
-                   Is_detele = true,
-               },////////// Size M
+                  {
+                      Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6031"),
+                      SoLuong = 100,
+                      IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081511"),
+                      IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081111"),
+                      IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081146"),
+                      TrangThai = true,
+                      Is_detele = true,
+                  }, new SanPhamChiTiet()
+                  {
+                      Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6032"),
+                      SoLuong = 100,
+                      IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081511"),
+                      IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081112"),
+                      IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081146"),
+                      TrangThai = true,
+                      Is_detele = true,
+                  },////////// Size M
                   new SanPhamChiTiet()
-               {
-                   Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6033"),
-                   SoLuong = 100,
-                   IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081511"),
-                   IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081111"),
-                   IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081147"),
-                   TrangThai = true,
-                   Is_detele = true,
-               },
+                  {
+                      Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6033"),
+                      SoLuong = 100,
+                      IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081511"),
+                      IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081111"),
+                      IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081147"),
+                      TrangThai = true,
+                      Is_detele = true,
+                  },
                   new SanPhamChiTiet()
-               {
-                   Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6034"),
-                   SoLuong = 100,
-                   IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081511"),
-                   IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081112"),
-                   IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081147"),
-                   TrangThai = true,
-                   Is_detele = true,
-               },////////// Size OM
+                  {
+                      Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6034"),
+                      SoLuong = 100,
+                      IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081511"),
+                      IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081112"),
+                      IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081147"),
+                      TrangThai = true,
+                      Is_detele = true,
+                  },////////// Size OM
                   new SanPhamChiTiet()
-               {
-                   Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6035"),
-                   SoLuong = 100,
-                   IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081511"),
-                   IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081111"),
-                   IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081148"),
-                   TrangThai = true,
-                   Is_detele = true,
-               },
+                  {
+                      Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6035"),
+                      SoLuong = 100,
+                      IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081511"),
+                      IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081111"),
+                      IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081148"),
+                      TrangThai = true,
+                      Is_detele = true,
+                  },
                   new SanPhamChiTiet()
-               {
-                   Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6036"),
-                   SoLuong = 100,
-                   IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081511"),
-                   IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081112"),
-                   IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081148"),
-                   TrangThai = true,
-                   Is_detele = true,
-               },/////////////// Size L
+                  {
+                      Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6036"),
+                      SoLuong = 100,
+                      IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081511"),
+                      IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081112"),
+                      IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081148"),
+                      TrangThai = true,
+                      Is_detele = true,
+                  },/////////////// Size L
                   new SanPhamChiTiet()
-               {
-                   Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6037"),
-                   SoLuong = 100,
-                   IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081511"),
-                   IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081111"),
-                   IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081149"),
-                   TrangThai = true,
-                   Is_detele = true,
-               },
+                  {
+                      Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6037"),
+                      SoLuong = 100,
+                      IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081511"),
+                      IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081111"),
+                      IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081149"),
+                      TrangThai = true,
+                      Is_detele = true,
+                  },
                   new SanPhamChiTiet()
-               {
-                   Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6038"),
-                   SoLuong = 100,
-                   IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081511"),
-                   IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081112"),
-                   IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081149"),
-                   TrangThai = true,
-                   Is_detele = true,
-               }
+                  {
+                      Id = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6038"),
+                      SoLuong = 100,
+                      IdSp = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081511"),
+                      IdMau = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081112"),
+                      IdSize = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081149"),
+                      TrangThai = true,
+                      Is_detele = true,
+                  }
           );
         }
     }
