@@ -1,6 +1,7 @@
 ﻿using CTN4_Data.Models.DB_CTN4;
 using CTN4_Serv.Service;
 using CTN4_Serv.Service.IService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,6 +18,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         }
         // GET: PhanLoaiController
         [HttpGet]
+        [Authorize("Quản lý")]
         public ActionResult Index()
         {
             var a = _sv.GetAll();

@@ -18,6 +18,7 @@ builder.Services.AddTransient<ILoginService, LoginServices>();
 builder.Services.AddTransient<ITokenService, TokenServices>();
 builder.Services.AddScoped<ICurrentUser, CurrentUser>();
 builder.Services.AddTransient<IKhachHangService, KhachHangService>();
+builder.Services.AddTransient<ISanPhamService, SanPhamService>();
 builder.Services.AddSession(option =>
 {
 	//option.IdleTimeout = TimeSpan.FromSeconds(60);
@@ -43,6 +44,15 @@ builder.Services.AddAuthentication(auth =>
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
         };
     });
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Nhân viên", policy => { policy.RequireAuthenticatedUser(); policy.RequireRole("Nhân viên"); });
+    options.AddPolicy("Quản lý", policy => { policy.RequireAuthenticatedUser(); policy.RequireRole("Quản lý"); });
+
+
+});
+
 var app = builder.Build();
 
 
