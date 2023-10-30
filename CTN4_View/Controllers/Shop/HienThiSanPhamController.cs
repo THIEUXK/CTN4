@@ -78,19 +78,24 @@ namespace CTN4_View.Controllers.Shop
         }
         public IActionResult HienThiSanPhamChiTiet(Guid id)
         {
-           
-            var mau = _mauSacService.GetAll();
-            var size = _sizeService.GetAll();
+            var listsp1 = _CTN4_Ok.SanPhamChiTiets.Include(c=>c.Mau).Include(c=>c.Size).Include(c=>c.SanPham).Where(c=>c.IdSp == id).ToList();
+            //var listsp = _sanPhamChiTietService.GetSanPhamChiTiets(id).Distinct().ToList();
+            var mau = _mauSacService.GetAll().Distinct().ToList();
+            var size = _sizeService.GetAll().Distinct().ToList();
+            //var QS = (from idmau in listsp
+            //          select mau).Distinct();
+            //foreach (var item in MS)
+            //{
+            //    Console.WriteLine(item);
+            //}
             var view = new SanPhamBan()
             {
                 sanPhams = _sanPhamCuaHangService.GetById(id),
                 Anh = _sanPhamCuaHangService.GeAnhs(id),
-                
+                sanPhamChiTiets = listsp1,
                 maus = mau,
                 sizes = size
                 
-
-               
             };
             return View(view);
 

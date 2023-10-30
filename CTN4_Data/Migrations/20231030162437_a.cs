@@ -174,6 +174,7 @@ namespace CTN4_Data.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     TenSize = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CoSize = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TrangThai = table.Column<bool>(type: "bit", nullable: false),
                     Is_detele = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -685,13 +686,13 @@ namespace CTN4_Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "Sizes",
-                columns: new[] { "Id", "Is_detele", "TenSize", "TrangThai" },
+                columns: new[] { "Id", "CoSize", "Is_detele", "TenSize", "TrangThai" },
                 values: new object[,]
                 {
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081146"), true, "15cm x 9.5cm x 7cm", true },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081147"), true, "20cm x 12cm x 7cm", true },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081148"), true, "25cm x 14.5cm x 8cm", true },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081149"), true, "30cm x 21cm x 10cm", true }
+                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081146"), "S", true, "15cm x 9.5cm x 7cm", true },
+                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081147"), "M", true, "20cm x 12cm x 7cm", true },
+                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081148"), "OM", true, "25cm x 14.5cm x 8cm", true },
+                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081149"), "L", true, "30cm x 21cm x 10cm", true }
                 });
 
             migrationBuilder.InsertData(
@@ -707,7 +708,7 @@ namespace CTN4_Data.Migrations
                     { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081211"), "TXT Da Rắn Khóa Bạc _QuanChau_Trang_Da PU cao cấp(1).jpg", "", 600000f, 400000f, 600000f, new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081144"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081124"), true, "SP01", "oke la", "TXT Da Rắn Khóa Bạc", true },
                     { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081311"), "TXT Phủ Màu Tag Vuông_QuanChau_XanhLuc_Da PU mềm mịn, cao cấp(1).jpg", "", 600000f, 400000f, 600000f, new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081144"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081124"), true, "SP02", "oke la", "TXT Phủ Màu Tag Vuông", true },
                     { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081411"), "TDV Hobo Đáy Tròn_QuanChau_Den_Da lộn, da PU cao cấp_Dài 22 x Cao 12 x Rộng 6 (cm)(1).jpg", "", 600000f, 400000f, 600000f, new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081144"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081124"), true, "SP03", "oke la", "TDV Hobo Đáy Tròn", true },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081511"), "TDV Hobo Quai Ngắn_QuanChau_Den_Da PU mềm mịn, cao cấp_Dài 27 x Rộng 6 x Cao 19 (cm)(1).jpg", "", 600000f, 400000f, 600000f, new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081144"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081124"), true, "SP04", "oke la", "TDV Hobo Quai Ngắn", true },
+                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081511"), "TDV Hobo Đáy Tròn_QuanChau_Den_Da lộn, da PU cao cấp_Dài 22 x Cao 12 x Rộng 6 (cm)(1).jpeg", "", 600000f, 400000f, 600000f, new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081144"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081124"), true, "SP04", "oke la", "TDV Hobo Quai Ngắn", true },
                     { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081611"), "TOT Classic Phối Màu _QuanChau_Den_Da PU mềm mịn, cao cấp_Dài 20 x Rộng 13.5 x Cao 7.5 (cm)(1).jpg", "", 600000f, 400000f, 600000f, new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081144"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081124"), true, "SP05", "oke la", "TOT Classic Phối Màu", true }
                 });
 
