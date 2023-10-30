@@ -18,6 +18,7 @@ builder.Services.AddTransient<ILoginService, LoginServices>();
 builder.Services.AddTransient<ITokenService, TokenServices>();
 builder.Services.AddScoped<ICurrentUser, CurrentUser>();
 builder.Services.AddTransient<IKhachHangService, KhachHangService>();
+builder.Services.AddTransient<INhanVienService, NhanVienService>();
 builder.Services.AddTransient<ISanPhamService, SanPhamService>();
 builder.Services.AddSession(option =>
 {
