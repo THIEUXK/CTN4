@@ -1,5 +1,4 @@
-﻿@model IEnumerable<CTN4_Data.Models.DB_CTN4.HoaDonChiTiet>
-
+﻿@model CTN4_Serv.ViewModel.ThieuxkView
 @{
     ViewData["Title"] = "HoaDonChiTiet";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -17,68 +16,121 @@
         </div>
     </div>
 </section>
-<h1>HoaDonChiTiet</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SoLuong)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GiaTien)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TrangThai)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Is_detele)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdSanPhamChiTiet)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdHoaDon)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SoLuong)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GiaTien)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TrangThai)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Is_detele)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdSanPhamChiTiet)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdHoaDon)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<section class="tracking_box_area section_gap">
+    <div class="container">
+        <h1>Hóa đơn chi tiết</h1>
+        <div>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2">
+                    Id đơn hàng
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoaDon.Id)
+                </dd>
+                <dt class="col-sm-2">
+                    Ngày tạo hóa đơn
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoaDon.NgayTaoHoaDon)
+                </dd>
+                <dt class="col-sm-2">
+                    Tình trạng đơn hàng
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoaDon.TrangThai)
+                </dd>
+                <dt class="col-sm-2">
+                    Tổng tiền hóa đơn
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoaDon.TongTien)
+                </dd>
+                <dt class="col-sm-2">
+                    Ngày đặt
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoaDon.NgayDat)
+                </dd>
+                <dt class="col-sm-2">
+                    Ngày giao
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoaDon.NgayGiao)
+                </dd>
+                <dt class="col-sm-2">
+                    Ngày nhận
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoaDon.NgayNhan)
+                </dd>
+                <dt class="col-sm-2">
+                    Tên khách hàng
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoaDon.TenKhachHang)
+                </dd>
+                <dt class="col-sm-2">
+                    Số điện thoại người nhận
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoaDon.SDTNguoiNhan)
+                </dd>
+                <dt class="col-sm-2">
+                    Địa chỉ
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoaDon.DiaChi)
+                </dd>
+                <dt class="col-sm-2">
+                    Phương thức thanh toán
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoaDon.PhuongThucThanhToan.TenPhuongThuc)
+                </dd>
+            </dl>
+        </div>
+        <div>
+            <button type="button" class="primary-btn">@Html.ActionLink("Xóa hóa đơn","xoahoadonKH", new {  id = Model.HoaDon.Id} , new { @class = "custom-edit-link" })</button>
+        </div>
+        <br> <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Sản Phẩm
+                    </th>
+                    <th>
+                        Số Lượng
+                    </th>
+                    <th>
+                        Giá Tiền
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                    @foreach (var item in Model.hoaDonChiTiets)
+                    {
+                    <tr>
+                        <td>
+                                @Html.DisplayFor(modelItem => item.SanPhamChiTiet.SanPham.TenSanPham)
+                        </td>
+                        <td>
+                                @Html.DisplayFor(modelItem => item.SoLuong)
+                        </td>
+                        <td>
+                                @Html.DisplayFor(modelItem => item.GiaTien)
+                        </td>
+                    </tr>
+                    }
+            </tbody>
+        </table></br>
+       
+    </div>
+</section>
+<style>
+    .custom-edit-link {
+        color: black; /* Màu đỏ */
+        /* Các thuộc tính CSS khác nếu cần */
+    }
+</style>
