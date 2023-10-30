@@ -29,13 +29,14 @@ namespace CTN4_View_Admin.Controllers
         {
             return View();
         }
-
+       // [Authorize(Policy = "Nhân viên")]
         public IActionResult BangQuanLy()
         {
             return View();
         }
         [AllowAnonymous]
         [Route("loginadmin")]
+
         [HttpGet]
         public IActionResult DangNhap()
         {
