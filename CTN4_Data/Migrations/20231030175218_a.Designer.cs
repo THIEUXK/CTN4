@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CTN4_Data.Migrations
 {
     [DbContext(typeof(DB_CTN4_ok))]
-    [Migration("20231030122526_a")]
+    [Migration("20231030175218_a")]
     partial class a
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1186,7 +1186,7 @@ namespace CTN4_Data.Migrations
                         new
                         {
                             Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081511"),
-                            AnhDaiDien = "TDV Hobo Quai Ngắn_QuanChau_Den_Da PU mềm mịn, cao cấp_Dài 27 x Rộng 6 x Cao 19 (cm)(1).jpg",
+                            AnhDaiDien = "TDV Hobo Đáy Tròn_QuanChau_Den_Da lộn, da PU cao cấp_Dài 22 x Cao 12 x Rộng 6 (cm)(1).jpeg",
                             GhiChu = "",
                             GiaBan = 600000f,
                             GiaNhap = 400000f,
@@ -1566,6 +1566,10 @@ namespace CTN4_Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("CoSize")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("Is_detele")
                         .HasColumnType("bit");
 
@@ -1584,6 +1588,7 @@ namespace CTN4_Data.Migrations
                         new
                         {
                             Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081146"),
+                            CoSize = "S",
                             Is_detele = true,
                             TenSize = "15cm x 9.5cm x 7cm",
                             TrangThai = true
@@ -1591,6 +1596,7 @@ namespace CTN4_Data.Migrations
                         new
                         {
                             Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081147"),
+                            CoSize = "M",
                             Is_detele = true,
                             TenSize = "20cm x 12cm x 7cm",
                             TrangThai = true
@@ -1598,6 +1604,7 @@ namespace CTN4_Data.Migrations
                         new
                         {
                             Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081148"),
+                            CoSize = "OM",
                             Is_detele = true,
                             TenSize = "25cm x 14.5cm x 8cm",
                             TrangThai = true
@@ -1605,6 +1612,7 @@ namespace CTN4_Data.Migrations
                         new
                         {
                             Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081149"),
+                            CoSize = "L",
                             Is_detele = true,
                             TenSize = "30cm x 21cm x 10cm",
                             TrangThai = true
