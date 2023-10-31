@@ -21,7 +21,7 @@
                         <label asp-for="IdSanPhamChiTiet">Sản phẩm chi tiết</label>
                         <select asp-for="IdSanPhamChiTiet" class="form-control">
                             <option value="">-- Select ChatLieu --</option>
-                            @foreach (var a in Model.sanPhamctItems)
+                            @foreach (var a in Model.sanPhamItems)
                             {
                                 <option value="@a.Value">@a.Text</option>
                             }

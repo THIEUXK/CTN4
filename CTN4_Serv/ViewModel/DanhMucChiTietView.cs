@@ -12,7 +12,7 @@ namespace CTN4_Serv.ViewModel
     public class DanhMucChiTietView
     {
        public List<SelectListItem> danhMucItems{ get; set; }
-       public List<SelectListItem> sanPhamctItems{ get; set; }
+       public List<SelectListItem> sanPhamItems{ get; set; }
         public List<DanhMucChiTiet> danhMucChiTiets { get; set; }
          public DanhMucChiTiet DanhMucChiTiet { get; set; }
         public DanhMucChiTiet danhMucChiTiet { get; set; }

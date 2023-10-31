@@ -17,7 +17,6 @@ namespace CTN4_Serv.ViewModel
         public List<SelectListItem> SizeItems { get; set; }
         public List<SanPhamChiTiet> SanPhamChiTiets { get; set; }
         public SanPhamChiTiet SnaSanPhamChiTiet { get; set; }
-        public SanPham SapPham { get; set; }
 
         public Guid Id { get; set; }
         public int SoLuong { get; set; }

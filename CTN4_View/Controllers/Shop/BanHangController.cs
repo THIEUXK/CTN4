@@ -39,6 +39,7 @@ namespace CTN4_View.Controllers.Shop
             _httpClient.DefaultRequestHeaders.Add("shop_id", "4189141");
         }
 
+
         [HttpGet]
         public IActionResult GioHang()
         {
@@ -414,8 +415,14 @@ namespace CTN4_View.Controllers.Shop
         }
         public IActionResult HoaDonChiTiet(Guid id)
         {
-            var a = _HoaDonChiTiet.GetAll().Where(c => c.IdHoaDon == id);
-            return View(a);
+            var b = _HoaDonService.GetById(id);
+            var a = _HoaDonChiTiet.GetAll().Where(c=>c.IdHoaDon==id).ToList();
+            var view = new ThieuxkView()
+            {
+                HoaDon = b,
+                hoaDonChiTiets = a,
+            };
+            return View(view);
         }
         public IActionResult SauThanhToan()
         {
@@ -540,5 +547,5 @@ namespace CTN4_View.Controllers.Shop
 
         //}
 
-        }
+    }
 }
