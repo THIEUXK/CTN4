@@ -362,6 +362,29 @@ namespace CTN4_Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ChiTietSanPhamYeu",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    IdSanPham = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    IdSanPhamYeuThich = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ChiTietSanPhamYeu", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ChiTietSanPhamYeu_SanPhams_IdSanPham",
+                        column: x => x.IdSanPham,
+                        principalTable: "SanPhams",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_ChiTietSanPhamYeu_SanPhamYeuThichs_IdSanPhamYeuThich",
+                        column: x => x.IdSanPhamYeuThich,
+                        principalTable: "SanPhamYeuThichs",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "DanhMucChiTiets",
                 columns: table => new
                 {
@@ -503,29 +526,6 @@ namespace CTN4_Data.Migrations
                         name: "FK_Anhs_SanPhamChiTiets_IdSanPhamChiTiet",
                         column: x => x.IdSanPhamChiTiet,
                         principalTable: "SanPhamChiTiets",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ChiTietSanPhamYeu",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    IdSanPhamChiTiet = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    IdSanPhamYeuThich = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ChiTietSanPhamYeu", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ChiTietSanPhamYeu_SanPhamChiTiets_IdSanPhamChiTiet",
-                        column: x => x.IdSanPhamChiTiet,
-                        principalTable: "SanPhamChiTiets",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_ChiTietSanPhamYeu_SanPhamYeuThichs_IdSanPhamYeuThich",
-                        column: x => x.IdSanPhamYeuThich,
-                        principalTable: "SanPhamYeuThichs",
                         principalColumn: "Id");
                 });
 
@@ -759,9 +759,9 @@ namespace CTN4_Data.Migrations
                 column: "IdSanPhamChiTiet");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ChiTietSanPhamYeu_IdSanPhamChiTiet",
+                name: "IX_ChiTietSanPhamYeu_IdSanPham",
                 table: "ChiTietSanPhamYeu",
-                column: "IdSanPhamChiTiet");
+                column: "IdSanPham");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ChiTietSanPhamYeu_IdSanPhamYeuThich",
