@@ -178,7 +178,6 @@ namespace CTN4_Data.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     TenSize = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CoSize = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TrangThai = table.Column<bool>(type: "bit", nullable: false),
                     Is_detele = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -690,13 +689,13 @@ namespace CTN4_Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "Sizes",
-                columns: new[] { "Id", "CoSize", "Is_detele", "TenSize", "TrangThai" },
+                columns: new[] { "Id", "Is_detele", "TenSize", "TrangThai" },
                 values: new object[,]
                 {
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081146"), "S", true, "15cm x 9.5cm x 7cm", true },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081147"), "M", true, "20cm x 12cm x 7cm", true },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081148"), "OM", true, "25cm x 14.5cm x 8cm", true },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081149"), "L", true, "30cm x 21cm x 10cm", true }
+                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081146"), true, "15cm x 9.5cm x 7cm", true },
+                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081147"), true, "20cm x 12cm x 7cm", true },
+                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081148"), true, "25cm x 14.5cm x 8cm", true },
+                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081149"), true, "30cm x 21cm x 10cm", true }
                 });
 
             migrationBuilder.InsertData(
@@ -724,7 +723,7 @@ namespace CTN4_Data.Migrations
                     { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081211"), "TXT Da Rắn Khóa Bạc _QuanChau_Trang_Da PU cao cấp(1).jpg", "", 600000f, 400000f, 600000f, new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081144"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081124"), true, "SP01", "oke la", "TXT Da Rắn Khóa Bạc", true },
                     { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081311"), "TXT Phủ Màu Tag Vuông_QuanChau_XanhLuc_Da PU mềm mịn, cao cấp(1).jpg", "", 600000f, 400000f, 600000f, new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081144"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081124"), true, "SP02", "oke la", "TXT Phủ Màu Tag Vuông", true },
                     { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081411"), "TDV Hobo Đáy Tròn_QuanChau_Den_Da lộn, da PU cao cấp_Dài 22 x Cao 12 x Rộng 6 (cm)(1).jpg", "", 600000f, 400000f, 600000f, new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081144"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081124"), true, "SP03", "oke la", "TDV Hobo Đáy Tròn", true },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081511"), "TDV Hobo Đáy Tròn_QuanChau_Den_Da lộn, da PU cao cấp_Dài 22 x Cao 12 x Rộng 6 (cm)(1).jpeg", "", 600000f, 400000f, 600000f, new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081144"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081124"), true, "SP04", "oke la", "TDV Hobo Quai Ngắn", true },
+                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081511"), "TDV Hobo Quai Ngắn_QuanChau_Den_Da PU mềm mịn, cao cấp_Dài 27 x Rộng 6 x Cao 19 (cm)(1).jpg", "", 600000f, 400000f, 600000f, new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081144"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081124"), true, "SP04", "oke la", "TDV Hobo Quai Ngắn", true },
                     { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081611"), "TOT Classic Phối Màu _QuanChau_Den_Da PU mềm mịn, cao cấp_Dài 20 x Rộng 13.5 x Cao 7.5 (cm)(1).jpg", "", 600000f, 400000f, 600000f, new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081144"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081124"), true, "SP05", "oke la", "TOT Classic Phối Màu", true }
 >>>>>>>> master:CTN4_Data/Migrations/20231029140724_a.cs
                 });
@@ -732,38 +731,7 @@ namespace CTN4_Data.Migrations
             migrationBuilder.InsertData(
                 table: "SanPhamChiTiets",
                 columns: new[] { "Id", "IdMau", "IdSize", "IdSp", "Is_detele", "SoLuong", "TrangThai" },
-                values: new object[,]
-                {
-                    { new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6010"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081112"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081146"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081211"), true, 100, true },
-                    { new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6011"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081111"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081146"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081211"), true, 100, true },
-                    { new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6012"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081113"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081146"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081211"), true, 100, true },
-                    { new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6013"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081112"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081147"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081211"), true, 100, true },
-                    { new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6014"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081111"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081147"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081211"), true, 100, true },
-                    { new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6015"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081113"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081147"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081211"), true, 100, true },
-                    { new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6016"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081111"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081148"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081211"), true, 100, true },
-                    { new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6017"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081113"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081148"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081211"), true, 100, true },
-                    { new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6018"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081114"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081148"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081211"), true, 100, true },
-                    { new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6019"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081111"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081146"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081311"), true, 100, true },
-                    { new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6020"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081151"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081146"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081311"), true, 100, true },
-                    { new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6021"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081113"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081146"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081311"), true, 100, true },
-                    { new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6022"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081111"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081147"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081311"), true, 100, true },
-                    { new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6023"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081151"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081147"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081311"), true, 100, true },
-                    { new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6024"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081113"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081147"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081311"), true, 100, true },
-                    { new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6025"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081111"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081148"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081311"), true, 100, true },
-                    { new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6026"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081113"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081148"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081311"), true, 100, true },
-                    { new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6027"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081151"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081148"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081311"), true, 100, true },
-                    { new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6028"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081151"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081149"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081311"), true, 100, true },
-                    { new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6029"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081113"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081149"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081311"), true, 100, true },
-                    { new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6030"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081111"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081149"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081311"), true, 100, true },
-                    { new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6031"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081111"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081146"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081511"), true, 100, true },
-                    { new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6032"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081112"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081146"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081511"), true, 100, true },
-                    { new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6033"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081111"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081147"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081511"), true, 100, true },
-                    { new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6034"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081112"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081147"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081511"), true, 100, true },
-                    { new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6035"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081111"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081148"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081511"), true, 100, true },
-                    { new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6036"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081112"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081148"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081511"), true, 100, true },
-                    { new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6037"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081111"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081149"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081511"), true, 100, true },
-                    { new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6038"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081112"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081149"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081511"), true, 100, true }
-                });
+                values: new object[] { new Guid("a9db3db9-c67c-49b2-953d-e35e1a83a085"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081112"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081146"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081211"), true, 0, true });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Anhs_IdSanPhamChiTiet",
