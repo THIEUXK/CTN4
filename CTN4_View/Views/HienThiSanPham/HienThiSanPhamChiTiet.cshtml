@@ -25,36 +25,37 @@
         <div class="row s_product_inner">
             <div class="col-lg-6">
                 <div class="s_Product_carousel">
-                    @foreach (var a in Model.Anh)
+                    @foreach (var a in Model.sanPhamChiTiets)
                     {
-                        @if (System.IO.Path.GetExtension(a.DuongDanAnh) == ".jpg" ||
-                       System.IO.Path.GetExtension(a.DuongDanAnh) == ".png" ||
-                       System.IO.Path.GetExtension(a.DuongDanAnh) == ".jpeg" ||
-                       System.IO.Path.GetExtension(a.DuongDanAnh) == ".tiff" ||
-                       System.IO.Path.GetExtension(a.DuongDanAnh) == ".webp" ||
-                       System.IO.Path.GetExtension(a.DuongDanAnh) == ".gif")
+                      @* 
+                        @if (System.IO.Path.GetExtension(a.Anhs.) == ".jpg" ||
+                       System.IO.Path.GetExtension(a.AnhDaiDien) == ".png" ||
+                       System.IO.Path.GetExtension(a.AnhDaiDien) == ".jpeg" ||
+                       System.IO.Path.GetExtension(a.AnhDaiDien) == ".tiff" ||
+                       System.IO.Path.GetExtension(a.AnhDaiDien) == ".webp" ||
+                       System.IO.Path.GetExtension(a.AnhDaiDien) == ".gif")
                         {
-                            <img src="~/image/@a.DuongDanAnh">
+                                <img src="~/image/@a.AnhDaiDien">
                         }
                         else
                         {
                             <span>Ảnh lỗi rồi =)))</span>
-                        }
+                        }*@
                     }
                 </div>
             </div>
             <div class="col-lg-5 offset-lg-1">
                 <div class="s_product_text">
-                    <h3>@Model.sanPhams.TenSanPham</h3>
+                    <h3>@Model.sanPham.TenSanPham</h3>
                     <div class="price">
-                        @if (Model.sanPhams.GiaNiemYet == Model.sanPhams.GiaBan)
+                        @if (Model.sanPham.GiaNiemYet == Model.sanPham.GiaBan)
                         {
-                            <h6>@FormatCurrency(Model.sanPhams.GiaNiemYet)</h6>
+                            <h6>@FormatCurrency(Model.sanPham.GiaNiemYet)</h6>
                         }
                         else
                         {
-                            <h6>@FormatCurrency(Model.sanPhams.GiaNiemYet)</h6>
-                            <h6 class="l-through">@FormatCurrency(Model.sanPhams.GiaBan)</h6>
+                            <h6>@FormatCurrency(Model.sanPham.GiaNiemYet)</h6>
+                            <h6 class="l-through">@FormatCurrency(Model.sanPham.GiaBan)</h6>
                         }
                     </div>
                     <br >

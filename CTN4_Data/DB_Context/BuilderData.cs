@@ -136,10 +136,10 @@ namespace CTN4_Data.DB_Context
                 //new ChatLieu() { TenChatLieu = "Vải Simili (Giả da)", Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081111"), GhiChu = "", Is_detele = true, TrangThai = true }
             );
             modelBuilder.Entity<Size>().HasData(
-                new Size() { TenSize = "15cm x 9.5cm x 7cm",CoSize ="S" , Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081146"), Is_detele = true, TrangThai = true },
-                new Size() { TenSize = "20cm x 12cm x 7cm",CoSize ="M" , Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081147"), Is_detele = true, TrangThai = true },
-                new Size() { TenSize = "25cm x 14.5cm x 8cm",CoSize ="OM" , Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081148"), Is_detele = true, TrangThai = true },
-                new Size() { TenSize = "30cm x 21cm x 10cm",CoSize ="L", Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081149"), Is_detele = true, TrangThai = true }
+                new Size() { TenSize = "15cm x 9.5cm x 7cm", CoSize = "S", Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081146"), Is_detele = true, TrangThai = true },
+                new Size() { TenSize = "20cm x 12cm x 7cm", CoSize = "M", Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081147"), Is_detele = true, TrangThai = true },
+                new Size() { TenSize = "25cm x 14.5cm x 8cm", CoSize = "OM", Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081148"), Is_detele = true, TrangThai = true },
+                new Size() { TenSize = "30cm x 21cm x 10cm", CoSize = "L", Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081149"), Is_detele = true, TrangThai = true }
 
 
             );
@@ -178,6 +178,20 @@ namespace CTN4_Data.DB_Context
                     AnhDaiDien = "",
                     MatKhau = "12345678",
                     GioiTinh = "Nữ",
+                    DiaChi = "Hà Nội",
+                    Email = "nothing@gmail.com",
+                    Trangthai = true,
+                    IdChucVu = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971214414")
+                }, new NhanVien()
+                {
+                    Ho = "Cao",
+                    Ten = "Toan",
+                    Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081174"),
+                    TenDangNhap = "1",
+                    SDT = "0912384746",
+                    AnhDaiDien = "",
+                    MatKhau = "1",
+                    GioiTinh = "Nam",
                     DiaChi = "Hà Nội",
                     Email = "nothing@gmail.com",
                     Trangthai = true,

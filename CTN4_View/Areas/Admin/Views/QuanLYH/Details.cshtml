@@ -53,20 +53,20 @@
                     @Html.DisplayNameFor(model => model.SanPhamChiTiet.IdMau)
                 </dt>
                 <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.SanPhamChiTiet.IdMau)
+                    @Html.DisplayFor(model => model.SanPhamChiTiet.Mau.TenMau)
                 </dd>
                
                 <dt class="col-sm-2">
                     @Html.DisplayNameFor(model => model.SanPhamChiTiet.IdSize)
                 </dt>
                 <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.SanPhamChiTiet.IdSize)
+                    @Html.DisplayFor(model => model.SanPhamChiTiet.Size.CoSize)
                 </dd>
                 <dt class="col-sm-2">
                     @Html.DisplayNameFor(model => model.SanPhamChiTiet.IdSp)
                 </dt>
                 <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.SanPhamChiTiet.IdSp)
+                    @Html.DisplayFor(model => model.SanPhamChiTiet.SanPham.TenSanPham)
                 </dd>
             </dl>
         </div>
@@ -106,7 +106,7 @@
 {
     <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
 }
-<form asp-action="AddAnh" method="post" enctype="multipart/form-data">
+@*<form asp-action="AddAnh" method="post" enctype="multipart/form-data">
     <div class="m-b-15">
         <input type="hidden" name="IdSP" value="@Model.SanPhamChiTiet.Id" />
         <input name="imageFile" type="file" class="form-control-file" />
@@ -115,4 +115,16 @@
         </button>
         <button type="submit">Thêm ảnh</button>
     </div>
+</form>*@
+
+<form asp-action="AddAnh" method="post" enctype="multipart/form-data">
+    <div class="m-b-15">
+        <input type="hidden" name="IdSP" value="@Model.SanPhamChiTiet.Id" />
+        <input name="imageFile" type="file" multiple class="form-control-file" />
+        <button id="btnUpload" class="btn btn-primary">
+            <i class="anticon anticon-save"></i>
+        </button>
+        <button type="submit">Thêm ảnh</button>
+    </div>
 </form>
+

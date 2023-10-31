@@ -12,13 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CTN4_Data.Migrations
 {
     [DbContext(typeof(DB_CTN4_ok))]
-<<<<<<<< HEAD:CTN4_Data/Migrations/20231028155017_sa.Designer.cs
-    [Migration("20231028155017_sa")]
-    partial class sa
-========
-    [Migration("20231029140724_a")]
+    [Migration("20231031153346_a")]
     partial class a
->>>>>>>> master:CTN4_Data/Migrations/20231029140724_a.Designer.cs
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -319,6 +314,9 @@ namespace CTN4_Data.Migrations
 
                     b.Property<float>("DieuKienGiam")
                         .HasColumnType("real");
+
+                    b.Property<bool>("LoaiGiamGia")
+                        .HasColumnType("bit");
 
                     b.Property<string>("MaGiam")
                         .IsRequired()
@@ -877,6 +875,21 @@ namespace CTN4_Data.Migrations
                             Ten = "Trang",
                             TenDangNhap = "trangnt34",
                             Trangthai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081174"),
+                            AnhDaiDien = "",
+                            DiaChi = "Hà Nội",
+                            Email = "nothing@gmail.com",
+                            GioiTinh = "Nam",
+                            Ho = "Cao",
+                            IdChucVu = new Guid("d16ac357-3ced-4c2c-bcdc-d38971214414"),
+                            MatKhau = "1",
+                            SDT = "0912384746",
+                            Ten = "Toan",
+                            TenDangNhap = "1",
+                            Trangthai = true
                         });
                 });
 
@@ -1191,7 +1204,7 @@ namespace CTN4_Data.Migrations
                         new
                         {
                             Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081511"),
-                            AnhDaiDien = "TDV Hobo Quai Ngắn_QuanChau_Den_Da PU mềm mịn, cao cấp_Dài 27 x Rộng 6 x Cao 19 (cm)(1).jpg",
+                            AnhDaiDien = "TDV Hobo Đáy Tròn_QuanChau_Den_Da lộn, da PU cao cấp_Dài 22 x Cao 12 x Rộng 6 (cm)(1).jpeg",
                             GhiChu = "",
                             GiaBan = 600000f,
                             GiaNhap = 400000f,
@@ -1259,189 +1272,292 @@ namespace CTN4_Data.Migrations
                     b.HasData(
                         new
                         {
-<<<<<<<< HEAD:CTN4_Data/Migrations/20231028155017_sa.Designer.cs
-                            Id = new Guid("b76c1fea-d0c0-4cd6-b2b7-457eece327b2"),
-                            GhiChu = "",
-                            GiaBan = 500000f,
-                            GiaNhap = 300000f,
-                            GiaNiemYet = 450000f,
-                            IdChatLieu = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081137"),
-========
-                            Id = new Guid("a9db3db9-c67c-49b2-953d-e35e1a83a085"),
->>>>>>>> master:CTN4_Data/Migrations/20231029140724_a.Designer.cs
+                            Id = new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6010"),
                             IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081112"),
                             IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081146"),
                             IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081211"),
                             Is_detele = true,
-<<<<<<<< HEAD:CTN4_Data/Migrations/20231028155017_sa.Designer.cs
-                            MaSp = "SP01",
-                            MoTa = "oke la",
                             SoLuong = 100,
                             TrangThai = true
                         },
                         new
                         {
-                            Id = new Guid("31440f45-3ba3-4f9f-821c-89260193b427"),
-                            GhiChu = "",
-                            GiaBan = 600000f,
-                            GiaNhap = 400000f,
-                            GiaNiemYet = 550000f,
-                            IdChatLieu = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081138"),
-                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081131"),
-                            IdNSX = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081125"),
+                            Id = new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6011"),
+                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081111"),
+                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081146"),
+                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081211"),
+                            Is_detele = true,
+                            SoLuong = 100,
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6012"),
+                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081113"),
+                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081146"),
+                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081211"),
+                            Is_detele = true,
+                            SoLuong = 100,
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6013"),
+                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081112"),
+                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081147"),
+                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081211"),
+                            Is_detele = true,
+                            SoLuong = 100,
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6014"),
+                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081111"),
+                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081147"),
+                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081211"),
+                            Is_detele = true,
+                            SoLuong = 100,
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6015"),
+                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081113"),
+                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081147"),
+                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081211"),
+                            Is_detele = true,
+                            SoLuong = 100,
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6016"),
+                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081111"),
+                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081148"),
+                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081211"),
+                            Is_detele = true,
+                            SoLuong = 100,
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6017"),
+                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081113"),
+                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081148"),
+                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081211"),
+                            Is_detele = true,
+                            SoLuong = 100,
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6018"),
+                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081114"),
+                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081148"),
+                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081211"),
+                            Is_detele = true,
+                            SoLuong = 100,
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6019"),
+                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081111"),
+                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081146"),
+                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081311"),
+                            Is_detele = true,
+                            SoLuong = 100,
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6020"),
+                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081151"),
+                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081146"),
+                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081311"),
+                            Is_detele = true,
+                            SoLuong = 100,
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6021"),
+                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081113"),
+                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081146"),
+                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081311"),
+                            Is_detele = true,
+                            SoLuong = 100,
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6022"),
+                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081111"),
                             IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081147"),
                             IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081311"),
                             Is_detele = true,
-                            MaSp = "SP02",
-                            MoTa = "oke la",
                             SoLuong = 100,
                             TrangThai = true
                         },
                         new
                         {
-                            Id = new Guid("9305976b-b393-425b-8ef1-f9d97dea5f8b"),
-                            GhiChu = "",
-                            GiaBan = 700000f,
-                            GiaNhap = 600000f,
-                            GiaNiemYet = 70000f,
-                            IdChatLieu = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081137"),
-                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081112"),
-                            IdNSX = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081125"),
-                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081148"),
-                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081411"),
+                            Id = new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6023"),
+                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081151"),
+                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081147"),
+                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081311"),
                             Is_detele = true,
-                            MaSp = "SP03",
-                            MoTa = "oke la",
                             SoLuong = 100,
                             TrangThai = true
                         },
                         new
                         {
-                            Id = new Guid("ab4a90bd-8067-4e84-b034-3b3c27d23bc2"),
-                            GhiChu = "",
-                            GiaBan = 600000f,
-                            GiaNhap = 300000f,
-                            GiaNiemYet = 550000f,
-                            IdChatLieu = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081144"),
-                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081110"),
-                            IdNSX = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081126"),
+                            Id = new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6024"),
+                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081113"),
+                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081147"),
+                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081311"),
+                            Is_detele = true,
+                            SoLuong = 100,
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6025"),
+                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081111"),
+                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081148"),
+                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081311"),
+                            Is_detele = true,
+                            SoLuong = 100,
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6026"),
+                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081113"),
+                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081148"),
+                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081311"),
+                            Is_detele = true,
+                            SoLuong = 100,
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6027"),
+                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081151"),
+                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081148"),
+                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081311"),
+                            Is_detele = true,
+                            SoLuong = 100,
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6028"),
+                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081151"),
+                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081149"),
+                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081311"),
+                            Is_detele = true,
+                            SoLuong = 100,
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6029"),
+                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081113"),
+                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081149"),
+                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081311"),
+                            Is_detele = true,
+                            SoLuong = 100,
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6030"),
+                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081111"),
+                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081149"),
+                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081311"),
+                            Is_detele = true,
+                            SoLuong = 100,
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6031"),
+                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081111"),
+                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081146"),
+                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081511"),
+                            Is_detele = true,
+                            SoLuong = 100,
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6032"),
+                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081112"),
+                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081146"),
+                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081511"),
+                            Is_detele = true,
+                            SoLuong = 100,
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6033"),
+                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081111"),
+                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081147"),
+                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081511"),
+                            Is_detele = true,
+                            SoLuong = 100,
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6034"),
+                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081112"),
+                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081147"),
+                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081511"),
+                            Is_detele = true,
+                            SoLuong = 100,
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6035"),
+                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081111"),
+                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081148"),
+                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081511"),
+                            Is_detele = true,
+                            SoLuong = 100,
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6036"),
+                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081112"),
+                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081148"),
+                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081511"),
+                            Is_detele = true,
+                            SoLuong = 100,
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6037"),
+                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081111"),
                             IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081149"),
                             IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081511"),
                             Is_detele = true,
-                            MaSp = "SP04",
-                            MoTa = "oke la",
                             SoLuong = 100,
                             TrangThai = true
                         },
                         new
                         {
-                            Id = new Guid("0175588f-0cdb-4e98-b201-449d60867dca"),
-                            GhiChu = "",
-                            GiaBan = 4500000f,
-                            GiaNhap = 400000f,
-                            GiaNiemYet = 550000f,
-                            IdChatLieu = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081137"),
-                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081110"),
-                            IdNSX = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081127"),
-                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081150"),
-                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081611"),
-                            Is_detele = true,
-                            MaSp = "SP05",
-                            MoTa = "oke la",
-                            SoLuong = 100,
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("9906ba33-794b-4c6f-ae1c-2925443b179d"),
-                            GhiChu = "",
-                            GiaBan = 700000f,
-                            GiaNhap = 300000f,
-                            GiaNiemYet = 750000f,
-                            IdChatLieu = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081138"),
-                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081116"),
-                            IdNSX = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081124"),
-                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081152"),
-                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081711"),
-                            Is_detele = true,
-                            MaSp = "SP06",
-                            MoTa = "oke la",
-                            SoLuong = 100,
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("4e68f3ae-a223-4e22-99a5-c6d421151acf"),
-                            GhiChu = "",
-                            GiaBan = 500000f,
-                            GiaNhap = 400000f,
-                            GiaNiemYet = 450000f,
-                            IdChatLieu = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081138"),
-                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081113"),
-                            IdNSX = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081124"),
-                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081153"),
-                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081811"),
-                            Is_detele = true,
-                            MaSp = "SP07",
-                            MoTa = "oke la",
-                            SoLuong = 100,
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("df824246-8d0f-40a9-8c32-fb774c12a5eb"),
-                            GhiChu = "",
-                            GiaBan = 650000f,
-                            GiaNhap = 400000f,
-                            GiaNiemYet = 550000f,
-                            IdChatLieu = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081144"),
-                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081121"),
-                            IdNSX = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081124"),
-                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081154"),
-                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081911"),
-                            Is_detele = true,
-                            MaSp = "SP08",
-                            MoTa = "oke la",
-                            SoLuong = 100,
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("9ffe2323-f84e-4f0b-b1c4-a3698f4eb3ca"),
-                            GhiChu = "",
-                            GiaBan = 600000f,
-                            GiaNhap = 400000f,
-                            GiaNiemYet = 550000f,
-                            IdChatLieu = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081144"),
-                            IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081131"),
-                            IdNSX = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081124"),
-                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081155"),
-                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081122"),
-                            Is_detele = true,
-                            MaSp = "SP09",
-                            MoTa = "oke la",
-                            SoLuong = 100,
-                            TrangThai = true
-                        },
-                        new
-                        {
-                            Id = new Guid("3c807aff-ea96-44ac-ba2d-129d93fdd882"),
-                            GhiChu = "",
-                            GiaBan = 600000f,
-                            GiaNhap = 400000f,
-                            GiaNiemYet = 550000f,
-                            IdChatLieu = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081138"),
+                            Id = new Guid("42d4f7d5-0499-4df5-926f-ccce5fbb6038"),
                             IdMau = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081112"),
-                            IdNSX = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081124"),
-                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081156"),
-                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081123"),
+                            IdSize = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081149"),
+                            IdSp = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081511"),
                             Is_detele = true,
-                            MaSp = "SP10",
-                            MoTa = "oke la",
                             SoLuong = 100,
-========
-                            SoLuong = 0,
->>>>>>>> master:CTN4_Data/Migrations/20231029140724_a.Designer.cs
                             TrangThai = true
                         });
                 });
@@ -1468,6 +1584,10 @@ namespace CTN4_Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("CoSize")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("Is_detele")
                         .HasColumnType("bit");
 
@@ -1486,6 +1606,7 @@ namespace CTN4_Data.Migrations
                         new
                         {
                             Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081146"),
+                            CoSize = "S",
                             Is_detele = true,
                             TenSize = "15cm x 9.5cm x 7cm",
                             TrangThai = true
@@ -1493,6 +1614,7 @@ namespace CTN4_Data.Migrations
                         new
                         {
                             Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081147"),
+                            CoSize = "M",
                             Is_detele = true,
                             TenSize = "20cm x 12cm x 7cm",
                             TrangThai = true
@@ -1500,6 +1622,7 @@ namespace CTN4_Data.Migrations
                         new
                         {
                             Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081148"),
+                            CoSize = "OM",
                             Is_detele = true,
                             TenSize = "25cm x 14.5cm x 8cm",
                             TrangThai = true
@@ -1507,6 +1630,7 @@ namespace CTN4_Data.Migrations
                         new
                         {
                             Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081149"),
+                            CoSize = "L",
                             Is_detele = true,
                             TenSize = "30cm x 21cm x 10cm",
                             TrangThai = true
