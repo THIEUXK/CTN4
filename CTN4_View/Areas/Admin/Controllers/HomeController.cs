@@ -127,8 +127,15 @@ namespace CTN4_View_Admin.Controllers
             ViewBag.Message = BuildMessage(token, 50);
             return View("Index");
         }
+		public IActionResult Logouts()
+		{
+			// Xóa dữ liệu phiên của người dùng, bao gồm thông tin đăng nhập và token
+			HttpContext.Session.Clear();
 
-        public IActionResult Errors()
+			// Chuyển hướng người dùng đến trang đăng nhập hoặc trang chính của ứng dụng
+			return RedirectToAction(nameof(DangNhap));
+		}
+		public IActionResult Errors()
         {
             ViewBag.Message = "An error occured...";
             return View();
