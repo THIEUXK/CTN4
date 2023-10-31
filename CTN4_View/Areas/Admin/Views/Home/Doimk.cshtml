@@ -1,0 +1,33 @@
+﻿@model CTN4_Data.Models.DB_CTN4.NhanVien
+
+@{
+
+    Layout = "~/Areas/Admin/Views/Shared/aa.cshtml";
+ 
+}<body>
+<div class="container">
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="DoiMatKhau" method="post">
+            <label for="matKhauCu">Mật khẩu cũ:</label>
+            <input type="password" id="matKhauCu" name="matKhauCu" required><br>
+
+            <label for="matKhauMoi">Mật khẩu mới:</label>
+            <input type="password" id="matKhauMoi" name="matKhauMoi" required><br>
+
+            <label for="xacNhanMatKhauMoi">Xác nhận mật khẩu mới:</label>
+            <input type="password" id="xacNhanMatKhauMoi" name="xacNhanMatKhauMoi" required><br>
+
+            <input type="submit" value="Đổi mật khẩu">
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+</div>
+
+    </body>
+        

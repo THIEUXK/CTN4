@@ -1,0 +1,28 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@model List<CTN4_Data.Models.DB_CTN4.DiaChiNhanHang>
+
+@{
+    ViewData["Title"] = "Themdiachi";
+}
+
+<hr />
+<div class="row" style="margin-top:300px">
+    <div class="col-md-4">
+        <select>
+            @foreach (var item in Model)
+            {
+                <option>@item.name</option>
+            }
+        </select>
+       
+      
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

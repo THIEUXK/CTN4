@@ -107,6 +107,12 @@ namespace CTN4_View.Controllers
             return View(s);
           
          }
+        public IActionResult SignUp()
+        {
+
+            return View();
+
+        }
         [HttpPost]
         public IActionResult UpdateKhang(KhachHang khachHangForm)
         {
