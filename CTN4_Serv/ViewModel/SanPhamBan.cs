@@ -10,9 +10,11 @@ namespace CTN4_Serv.ViewModel
 	public class SanPhamBan
 	{
 		public List<Anh> Anh { get; set; }
-		public SanPham sanPhams { get; set; }
+		public SanPham sanPham { get; set; }
+		public List<SanPham> sanPhams { get; set; }
 		public List<SanPhamChiTiet> sanPhamChiTiets { get; set; }
 		public List<Size> sizes { get; set; }
 		public List<Mau> maus { get; set; }
+		public List<Anh> anhs { get; set; }
 	}
 }

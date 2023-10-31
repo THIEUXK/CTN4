@@ -313,6 +313,9 @@ namespace CTN4_Data.Migrations
                     b.Property<float>("DieuKienGiam")
                         .HasColumnType("real");
 
+                    b.Property<bool>("LoaiGiamGia")
+                        .HasColumnType("bit");
+
                     b.Property<string>("MaGiam")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -869,6 +872,21 @@ namespace CTN4_Data.Migrations
                             SDT = "0912384746",
                             Ten = "Trang",
                             TenDangNhap = "trangnt34",
+                            Trangthai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081174"),
+                            AnhDaiDien = "",
+                            DiaChi = "Hà Nội",
+                            Email = "nothing@gmail.com",
+                            GioiTinh = "Nam",
+                            Ho = "Cao",
+                            IdChucVu = new Guid("d16ac357-3ced-4c2c-bcdc-d38971214414"),
+                            MatKhau = "1",
+                            SDT = "0912384746",
+                            Ten = "Toan",
+                            TenDangNhap = "1",
                             Trangthai = true
                         });
                 });
