@@ -34,39 +34,66 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         public ActionResult Create()
         {
             return View();
+            
         }
-
-        // POST: GiamGIaController/Create
+        // POST: PhanLoaiController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(GiamGia a)
-        { 
-            if (_gg.Them(a)) // Nếu thêm thành công
+        {
+            if (ModelState.IsValid)
             {
+                var tontai = _gg.GetAll().FirstOrDefault(c => c.MaGiam == a.MaGiam && c.Id != a.Id);
+                if (tontai != null)
+                {
+                    ModelState.AddModelError("MaGiam", "Mã giảm không được trùng.");
+                    return View(a);
+                }
 
-                return RedirectToAction("Index");
+                if (_gg.Them(a)) // Nếu thêm thành công
+                {
+                   
+
+                    return RedirectToAction("Index");
+                }
+
+                return View();
             }
-
             return View();
         }
-        public ActionResult Edit(Guid id)
+            public ActionResult Edit(Guid id)
         {
            var a = _gg.GetById(id);
             return View(a);
         }
-        // POST: GiamGIaController/Edit/5
+        // POST: PhanLoaiController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(GiamGia a)
         {
-            if (_gg.Sua(a))
-            {
-                return RedirectToAction("Index");
 
+            //var tontai = _gg.GetAll().FirstOrDefault(c => c.MaGiam == a.MaGiam && c.Id != a.Id);
+            //if (tontai != null)
+            //{
+            //    ModelState.AddModelError("MaGiam", "Mã giảm không được trùng.");
+            //    return View(a);
+            //}
+            if (ModelState.IsValid)
+            {
+                if (_gg.Sua(a))
+                {
+                    return RedirectToAction("Index");
+
+                }
+                return View();
             }
             return View();
+            
+           
         }
 
+
+       
         // GET: GiamGIaController/Delete/5
         public ActionResult Delete(Guid id)
         {

@@ -13,6 +13,7 @@ namespace CTN4_Serv.Service.IService
         public GiamGia GetById(Guid id);
         public bool Them(GiamGia a);
         public bool Sua(GiamGia a);
-        public bool Xoa(Guid id);
+        public bool Xoa(Guid id); 
+
     }
 }
