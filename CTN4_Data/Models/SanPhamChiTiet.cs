@@ -15,9 +15,5 @@
         public virtual SanPham? SanPham { get; set; }
         public virtual List<HoaDonChiTiet>? HoaDonChiTiets { get; set; }
         public virtual List<GioHangChiTiet>? GioHangChiTiets { get; set; }
-        public virtual List<ChiTietSanPhamYeuThich>? CTietSanPhamYeuThiches { get; set; }
-
-
-
     }
 }

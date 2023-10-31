@@ -117,7 +117,7 @@ namespace CTN4_Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("IdSanPhamChiTiet")
+                    b.Property<Guid?>("IdSanPham")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("IdSanPhamYeuThich")
@@ -125,7 +125,7 @@ namespace CTN4_Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdSanPhamChiTiet");
+                    b.HasIndex("IdSanPham");
 
                     b.HasIndex("IdSanPhamYeuThich");
 
@@ -1646,15 +1646,15 @@ namespace CTN4_Data.Migrations
 
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.ChiTietSanPhamYeuThich", b =>
                 {
-                    b.HasOne("CTN4_Data.Models.DB_CTN4.SanPhamChiTiet", "SanPhamChiTiet")
-                        .WithMany("CTietSanPhamYeuThiches")
-                        .HasForeignKey("IdSanPhamChiTiet");
+                    b.HasOne("CTN4_Data.Models.DB_CTN4.SanPham", "SanPham")
+                        .WithMany("CtietSanPhamYeuThiches")
+                        .HasForeignKey("IdSanPham");
 
                     b.HasOne("CTN4_Data.Models.DB_CTN4.SanPhamYeuThich", "SanPhamYeuThich")
                         .WithMany("CTietSanPhamYeuThiches")
                         .HasForeignKey("IdSanPhamYeuThich");
 
-                    b.Navigation("SanPhamChiTiet");
+                    b.Navigation("SanPham");
 
                     b.Navigation("SanPhamYeuThich");
                 });
@@ -1936,6 +1936,8 @@ namespace CTN4_Data.Migrations
 
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.SanPham", b =>
                 {
+                    b.Navigation("CtietSanPhamYeuThiches");
+
                     b.Navigation("DanhMucChiTiets");
 
                     b.Navigation("KhuyenMaiSanPhams");
@@ -1948,8 +1950,6 @@ namespace CTN4_Data.Migrations
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.SanPhamChiTiet", b =>
                 {
                     b.Navigation("Anhs");
-
-                    b.Navigation("CTietSanPhamYeuThiches");
 
                     b.Navigation("GioHangChiTiets");
 
