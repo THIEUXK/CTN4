@@ -1,4 +1,6 @@
-﻿using CTN4_Data.Models.DB_CTN4;
+﻿
+using CTN4_Data.Models.DB_CTN4;
+using CTN4_Serv.Service;
 using CTN4_Serv.Service.IService;
 using CTN4_Serv.ViewModel;
 using Microsoft.AspNetCore.Authorization;
@@ -14,29 +16,47 @@ namespace CTN4_View_Admin.Controllers
         private readonly IConfiguration _config;
         private readonly ILoginService _userRepository;
         private readonly ITokenService _tokenService;
-        private string generatedToken = null;
+		private readonly ICurrentUser _curent;
+        private readonly INhanVienService _nhanvienService;
+		private string generatedToken = null;
 
-        public HomeController(ILogger<HomeController> logger, ITokenService tokenService, ILoginService userRepository, IConfiguration config)
+        public HomeController(ILogger<HomeController> logger, ITokenService tokenService, ILoginService userRepository, IConfiguration config,ICurrentUser curent,
+          INhanVienService nhanvien  )
         {
             _logger = logger;
             _config = config;
             _tokenService = tokenService;
             _userRepository = userRepository;
+            _curent = curent;
+            _nhanvienService = nhanvien;
+
 
         }
 
         public IActionResult Index()
         {
+            string token = HttpContext.Session.GetString("Token");
+
+            var a = User.Identity.Name;
+           
+           
             return View();
         }
-
+       // [Authorize(Policy = "Nhân viên")]
         public IActionResult BangQuanLy()
         {
             return View();
         }
-        [AllowAnonymous]
-        [Route("loginadmin")]
-        [HttpGet]
+      
+		public IActionResult UserDetails()
+		{
+
+			var user = _nhanvienService.GetByIdChucVu(_curent.Id);
+			return View(user);
+		}
+		[AllowAnonymous]
+		[Route("loginadmin")]
+		[HttpGet]
         public IActionResult DangNhap()
         {
             return View();
@@ -107,8 +127,15 @@ namespace CTN4_View_Admin.Controllers
             ViewBag.Message = BuildMessage(token, 50);
             return View("Index");
         }
+		public IActionResult Logouts()
+		{
+			// Xóa dữ liệu phiên của người dùng, bao gồm thông tin đăng nhập và token
+			HttpContext.Session.Clear();
 
-        public IActionResult Errors()
+			// Chuyển hướng người dùng đến trang đăng nhập hoặc trang chính của ứng dụng
+			return RedirectToAction(nameof(DangNhap));
+		}
+		public IActionResult Errors()
         {
             ViewBag.Message = "An error occured...";
             return View();

@@ -26,8 +26,11 @@ namespace CTN4_Serv.Service
         {
             return GetAll().FirstOrDefault(c => c.Id == id);
         }
-
-        public bool Them(NhanVien a)
+		public NhanVien GetByIdChucVu(Guid id)
+		{
+			return _db.NhanViens.FirstOrDefault(c => c.IdChucVu == id);
+		}
+		public bool Them(NhanVien a)
         {
             try
             {

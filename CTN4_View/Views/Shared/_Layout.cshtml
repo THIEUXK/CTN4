@@ -2,6 +2,9 @@
 <html lang="zxx" class="no-js">
 
 <head>
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v18.0" nonce="YGtE5g6S"></script>
+
     <!-- Mobile Specific Meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon-->
@@ -48,7 +51,7 @@
     <!-- meta character set -->
     <meta charset="UTF-8">
     <!-- Site Title -->
-    <title>Karma Shop</title>
+    <title>Karma Shop</title>      
 
     <!--
     CSS
@@ -69,7 +72,7 @@
         <nav class="navbar navbar-expand-lg navbar-light main_box">
             <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
-                <a class="navbar-brand logo_h" href="index.html"><img src="img/logo.png" alt=""></a>
+                    <a class="navbar-brand logo_h" href="index.html"><img src="~/dealsproduct/unnamed-removebg-preview.png" alt="" style="height: 70px; width: 70px; ">BORO</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="icon-bar"></span>
@@ -111,7 +114,7 @@
                         </li>
 
                         <li class="nav-item"><a class="nav-link" asp-controller="BanHang" asp-action="HoaDon">Hóa Đơn</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="contact">Contact</a></li>
+                            <li class="nav-item"><a class="nav-link" href="http://bantuisachnu.atwebpages.com/">Contact</a></li>
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item submenu dropdown">
@@ -188,6 +191,8 @@
             <div class="col-lg-3  col-md-6 col-sm-6">
                 <div class="single-footer-widget mail-chimp">
                     <h6 class="mb-20">Instragram Feed</h6>
+                        <a href="http://bantuisachnu.atwebpages.com/">Liên Hệ Hỗ Trợ tại đây</a>
+
                     <ul class="instafeed d-flex flex-wrap">
                         <li><img src="~/img/i1.jpg" alt=""></li>
                         <li><img src="~/img/i2.jpg" alt=""></li>

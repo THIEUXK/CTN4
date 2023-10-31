@@ -1,6 +1,7 @@
 ﻿using CTN4_Data.DB_Context;
 using CTN4_Data.Models.DB_CTN4;
 using CTN4_Serv.Service.IService;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace CTN4_Serv.Service
         }
         public List<HoaDonChiTiet> GetAll()
         {
-            return _db.HoaDonChiTiets.ToList();
+            return _db.HoaDonChiTiets.Include(c => c.SanPhamChiTiet.SanPham).Include(c => c.SanPhamChiTiet).ToList();
         }
 
         public HoaDonChiTiet GetById(Guid id)

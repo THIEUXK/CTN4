@@ -10,12 +10,12 @@ namespace CTN4_Serv.ViewModel
 {
     public class SanPhamView
     {
-         public List<SelectListItem> ChalieuItems { get; set; }
-       
+        public List<SelectListItem> ChalieuItems { get; set; }
+
         public List<SelectListItem> NsxItems { get; set; }
         public List<SanPham> sanPhams { get; set; }
         public SanPham sanPham { get; set; }
-       public Guid Id { get; set; }
+        public Guid Id { get; set; }
         public Guid? IdChatLieu { get; set; }
         public Guid? IdNSX { get; set; }
         public string MaSp { get; set; }

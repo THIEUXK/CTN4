@@ -33,14 +33,14 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             _sizeService = new SizeService();
             _sanPhamCuaHangService = new SanPhamCuaHangService();
             _db = new DB_CTN4_ok();
-            _anhService= new AnhService();
+            _anhService = new AnhService();
 
         }
         // GET: PhanLoaiController
         [HttpGet]
         public ActionResult Index()
         {
-            var a = _sanPhamCuaHangService.GetAll();
+            var a = _sanPhamCuaHangService.GetAllSpct();
             return View(a);
         }
 
@@ -50,13 +50,13 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             var view = new ThieuxkView()
             {
                 SanPhamChiTiet = _sv.GetById(id),
-                AhList = _db.Anhs.Where(c=>c.IdSanPhamChiTiet==id).ToList()
-        };
+                AhList = _db.Anhs.Where(c => c.IdSanPhamChiTiet == id).ToList()
+            };
             return View(view);
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddAnh(Guid IdSP,[Bind] IFormFile imageFile)
+        public async Task<ActionResult> AddAnh(Guid IdSP, [Bind] IFormFile imageFile)
         {
             if (imageFile != null && imageFile.Length > 0) // Không null và không trống
             {
@@ -69,9 +69,6 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                 }
 
             }
-
-            
-
 
             if (imageFile != null)
             {
@@ -89,7 +86,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             }
 
 
-            return RedirectToAction("Details", new{id=IdSP});
+            return RedirectToAction("Details", new { id = IdSP });
         }
         // GET: PhanLoaiController/Create
         public ActionResult Create()
@@ -97,13 +94,13 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             var viewModel = new SanPhamChiTietView()
             {
 
-                
+
                 MauItems = _mauService.GetAll().Select(s => new SelectListItem
                 {
                     Value = s.Id.ToString(),
                     Text = s.TenMau
                 }).ToList(),
-                
+
                 SpItems = _spService.GetAll().Select(s => new SelectListItem
                 {
                     Value = s.Id.ToString(),
@@ -175,13 +172,13 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         {
             var viewModel = new SanPhamChiTietView()
             {
-                
+
                 MauItems = _mauService.GetAll().Select(s => new SelectListItem
                 {
                     Value = s.Id.ToString(),
                     Text = s.TenMau
                 }).ToList(),
-                
+
                 SpItems = _spService.GetAll().Select(s => new SelectListItem
                 {
                     Value = s.Id.ToString(),
@@ -222,7 +219,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             }
             return RedirectToAction("Index");
         }
-        public ActionResult XoaAnh(Guid id,Guid IdSp)
+        public ActionResult XoaAnh(Guid id, Guid IdSp)
         {
             if (_anhService.Xoa(id))
             {
