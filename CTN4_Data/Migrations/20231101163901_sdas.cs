@@ -4,7 +4,7 @@
 
 namespace CTN4_Data.Migrations
 {
-    public partial class loldgs : Migration
+    public partial class sdas : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

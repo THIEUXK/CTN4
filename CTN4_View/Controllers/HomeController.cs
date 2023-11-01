@@ -38,12 +38,13 @@ namespace CTN4_View.Controllers
         //    _sanPhamCuaHangService = new SanPhamCuaHangService();
         //}
 
-        public HomeController(ILogger<HomeController> logger, IConfiguration config, ITokenService tokenService, ILoginService userRepository,ICurrentUser curent,IKhachHangService khachhang,ISanPhamService sanpham, IHttpClientFactory httpClientFactory)
+        public HomeController(ILogger<HomeController> logger, IConfiguration config, ITokenService tokenService, ILoginService userRepository,ICurrentUser curent,IKhachHangService khachhang,ISanPhamService sanpham, IHttpClientFactory httpClientFactory ,IDiaChiNhanHangService diachi)
         {
             _spService = sanpham;
             _khachHangService = khachhang;
             _KHangService = new KhachHangService();
             _curent = curent;
+            _diachi = diachi;
 			_logger = logger;
              _phamChiTietService = new SanPhamChiTietService();
             _sanPhamCuaHangService = new SanPhamCuaHangService();
@@ -91,13 +92,27 @@ namespace CTN4_View.Controllers
         [HttpPost]
         public IActionResult themdiachis(DiaChiNhanHang a)
         {
-            if (a == null)
+            try
             {
-                return RedirectToAction(nameof(Themdiachi));
+                if (a == null)
+                {
+                    return RedirectToAction(nameof(Themdiachi));
+                }
+                a.Id = Guid.NewGuid();
+                a.TrangThai = true;
+                a.IdKhachHang = _curent.Id;
+                if(_diachi.Them(a))
+                {
+                    return RedirectToAction("Index");
+                }
+                return RedirectToAction("Themdiachi");
             }
-            a.Id = Guid.NewGuid();
-            _diachi.Them(a, _curent.Id);
-            return RedirectToAction("Index");   
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+            
         } 
         public IActionResult blog()
         {

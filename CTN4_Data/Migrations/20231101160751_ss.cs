@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CTN4_Data.Migrations
 {
-    public partial class a : Migration
+    public partial class ss : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -216,10 +216,14 @@ namespace CTN4_Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TenDiaChi = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DiaChi = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TrangThai = table.Column<bool>(type: "bit", nullable: false),
-                    IdKhachHang = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    IdKhachHang = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    code = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    division_type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    phone_code = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    codename = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

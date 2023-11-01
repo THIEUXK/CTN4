@@ -11,7 +11,7 @@ namespace CTN4_Serv.Service.IService
     {
         public List<DiaChiNhanHang> GetAll();
         public DiaChiNhanHang GetById(Guid id);
-        public bool Them(DiaChiNhanHang a, Guid IdUser);
+        public bool Them(DiaChiNhanHang a);
         public bool Sua(DiaChiNhanHang a);
         public bool Xoa(Guid id);
 
