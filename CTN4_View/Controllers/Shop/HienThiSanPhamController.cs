@@ -163,7 +163,7 @@ namespace CTN4_View.Controllers.Shop
                 anhs = anh.Where(c => c.SanPhamChiTiet.IdMau == IdMau && c.SanPhamChiTiet.IdSp == IdSanPham).ToList(),
                 sanPhams = listsp,
                 idmau = IdMau,
-                //idsize = idSize,
+                idsize = idSize,
                 soluong = spcuthe.SoLuong
             };
             //return Json(view);
