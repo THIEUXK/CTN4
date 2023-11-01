@@ -10,7 +10,9 @@
         public string code { get; set; }
         public string division_type { get; set; }
         public string phone_code { get; set; }
+        public string codename { get; set; }
         public virtual KhachHang? KhachHang { get; set;}
+
         public virtual List<HoaDon>? HoaDon { get; set; }
     }
 }

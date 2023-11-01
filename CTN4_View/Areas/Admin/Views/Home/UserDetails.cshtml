@@ -4,6 +4,10 @@
     ViewData["Title"] = "UserDetails";
 
 }
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
 
 
 
@@ -58,7 +62,7 @@
 </div>
 <div>
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Doimk">Đổi Mk</a>
-    <a asp-action="Themdiachi"> Địa chỉ Nhận Hàng</a>
-    <a asp-action="Index">Back to List</a>
+    <button> <a asp-action="Doimk">Đổi Mk</a></button>
+    <button><a asp-action="Themdiachi"> Địa chỉ Nhận Hàng</a></button>
+    <button><a asp-action="Index">Back to List</a></button>
 </div>

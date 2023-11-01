@@ -46,6 +46,7 @@ namespace CTN4_View_Admin.Controllers
            
             return View();
         }
+        
         public async Task<IActionResult> Themdiachi()
         {
             // Tạo một instance của HttpClient từ factory
@@ -77,7 +78,7 @@ namespace CTN4_View_Admin.Controllers
         {
             return View();
         }
-      
+     
 		public IActionResult UserDetails()
 		{
 
