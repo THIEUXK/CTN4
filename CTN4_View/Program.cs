@@ -21,6 +21,7 @@ builder.Services.AddScoped<ICurrentUser, CurrentUser>();
 builder.Services.AddTransient<IKhachHangService, KhachHangService>();
 builder.Services.AddTransient<INhanVienService, NhanVienService>();
 builder.Services.AddTransient<ISanPhamService, SanPhamService>();
+builder.Services.AddTransient<IDiaChiNhanHangService, DiaChiNhDiaChiNhanHangangService>();
 builder.Services.AddSession(option =>
 {
 	//option.IdleTimeout = TimeSpan.FromSeconds(60);

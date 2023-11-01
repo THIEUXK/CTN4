@@ -1,4 +1,9 @@
 ﻿
+@{
+    ViewData["Title"] = "Themdiachi";
+}
+
+
 
 @model List<CTN4_Data.Models.DB_CTN4.DiaChiNhanHang>
 
@@ -10,13 +15,13 @@
 <div class="row" style="margin-top:50px">
     <div class="col-md-6">
     
-        <form asp-action="Themdiachi" method="post">
+        <form  method="post">
         <div class="form-group">
             <label for="Tên">Tên:</label>
                 <select  class="form-control">
                 @foreach (var item in Model)
                 {
-                    <option value="@item.name" >@item.name</option>
+                        <option name="@item.name" value="@item.name">@item.name</option>
                 }
             </select>
         </div>
@@ -26,7 +31,7 @@
             <select class="form-control">
                 @foreach (var item in Model)
                 {
-                        <optionvalue ="@item.code">@item.code</optionvalue>
+                        <option name="code" value="@item.code">@item.code</option>
                 }
             </select>
         </div>
@@ -36,7 +41,7 @@
             <select class="form-control">
                 @foreach (var item in Model)
                 {
-                        <option value="@item.division_type">@item.division_type</option>
+                        <option name="division_type" value="@item.division_type">@item.division_type</option>
                 }
             </select>
         </div>
@@ -46,19 +51,20 @@
             <select class="form-control">
                 @foreach (var item in Model)
                 {
-                        <option value="@item.codename">@item.codename</option>
+                        <option name="codename" value="@item.codename">
+                            @item.codename</option>
                 }
             </select>
             <div class="form-group">
                 <label for="diaChi">Địa chỉ:</label>
                 <input type="text" class="form-control" id="diaChi" name="DiaChi" placeholder="Nhập địa chỉ của bạn" required>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+                <button asp-action="themdiachis" type="submit" class="btn btn-primary">Submit</button>
         </div>
         </form>
     </div>
 </div>
-
+        
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
