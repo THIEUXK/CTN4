@@ -24,7 +24,7 @@ namespace CTN4_View_Admin.Controllers
 		private string generatedToken = null;
         private readonly IHttpClientFactory _httpClientFactory;
         public HomeController(ILogger<HomeController> logger, ITokenService tokenService, ILoginService userRepository, IConfiguration config,ICurrentUser curent,
-          INhanVienService nhanvien, IHttpClientFactory httpClientFactory)
+          INhanVienService nhanvien)
         {
             _logger = logger;
             _config = config;
@@ -32,7 +32,7 @@ namespace CTN4_View_Admin.Controllers
             _userRepository = userRepository;
             _curent = curent;
             _nhanvienService = nhanvien;
-            _httpClientFactory = httpClientFactory;
+           
 
 
         }
@@ -47,32 +47,7 @@ namespace CTN4_View_Admin.Controllers
             return View();
         }
         
-        public async Task<IActionResult> Themdiachi()
-        {
-            // Tạo một instance của HttpClient từ factory
-            var client = _httpClientFactory.CreateClient();
-
-
-            // Đặt URL của API bạn muốn gọi
-            string apiUrl = "https://provinces.open-api.vn/api/p/";
-
-            // Gọi API bằng phương thức GET
-            HttpResponseMessage response = await client.GetAsync(apiUrl);
-
-            if (response.IsSuccessStatusCode)
-            {
-                // Đọc dữ liệu từ response và chuyển đổi thành chuỗi hoặc object tùy vào API của bạn
-                string responseData = await response.Content.ReadAsStringAsync();
-                // Xử lý dữ liệu ở đây
-                List<DiaChiNhanHang> diaChiNhanHangList = JsonConvert.DeserializeObject<List<DiaChiNhanHang>>(responseData);
-                return View(diaChiNhanHangList); // Trả về kết quả thành công
-            }
-            else
-            {
-                // Xử lý lỗi ở đây, ví dụ: response.StatusCode, response.ReasonPhrase
-                return BadRequest("Failed to fetch data from API");
-            }
-        }
+    
         // [Authorize(Policy = "Nhân viên")]
         public IActionResult BangQuanLy()
         {
@@ -95,6 +70,7 @@ namespace CTN4_View_Admin.Controllers
         {
             return View();
         }
+        
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
