@@ -25,6 +25,7 @@ namespace CTN4_View.Controllers.Shop
         public IChatLieuService _chatLieuService;
         public ISizeService _sizeService;
         public ISanPhamChiTietService _sanPhamChiTietService;
+        public IAnhService _anhService;
         public DanhMucJoin _DanhMucjoiin;
         public DB_CTN4_ok _CTN4_Ok;
         public int pageSize = 6;
@@ -41,6 +42,7 @@ namespace CTN4_View.Controllers.Shop
             _mauSacService = new MauService();
             _sizeService = new SizeService();
             _chatLieuService = new ChatLieuService();
+            _anhService = new AnhService();
             _pagingInfo = new PagingInfo();
             _CTN4_Ok = new DB_CTN4_ok();
         }
@@ -78,8 +80,9 @@ namespace CTN4_View.Controllers.Shop
         }
         public IActionResult HienThiSanPhamChiTiet(Guid id)
         {
-            var listsp1 = _CTN4_Ok.SanPhamChiTiets.Include(c=>c.Mau).Include(c=>c.Size).Include(c=>c.SanPham).Where(c=>c.IdSp == id).ToList();
-            //var listsp = _sanPhamChiTietService.GetSanPhamChiTiets(id).Distinct().ToList();
+            var listsp1 = _sanPhamCuaHangService.GetAllSpcts(id);
+            var anh = _anhService.GetAll().Where(c=>c.IdSanPhamChiTiet == id).ToList();
+            var listsp = _sanPhamCuaHangService.GetAll();
             var mau = _mauSacService.GetAll().Distinct().ToList();
             var size = _sizeService.GetAll().Distinct().ToList();
             //var QS = (from idmau in listsp
@@ -90,12 +93,13 @@ namespace CTN4_View.Controllers.Shop
             //}
             var view = new SanPhamBan()
             {
-                sanPhams = _sanPhamCuaHangService.GetById(id),
+                sanPham = _sanPhamCuaHangService.GetById(id),
                 Anh = _sanPhamCuaHangService.GeAnhs(id),
                 sanPhamChiTiets = listsp1,
                 maus = mau,
-                sizes = size
-                
+                sizes = size,
+                anhs = anh,
+                sanPhams = listsp
             };
             return View(view);
 

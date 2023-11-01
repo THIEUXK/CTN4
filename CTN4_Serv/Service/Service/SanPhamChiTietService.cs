@@ -20,7 +20,7 @@ namespace CTN4_Serv.Service
         }
         public List<SanPhamChiTiet> GetAll()
         {
-            return _db.SanPhamChiTiets.Include(c=>c.Mau).Include(c=>c.Size).ToList();
+            return _db.SanPhamChiTiets.Include(c=>c.Mau).Include(c=>c.Size).Include(c=>c.SanPham).ToList();
         }
 
         public SanPhamChiTiet GetById(Guid id)
@@ -72,7 +72,7 @@ namespace CTN4_Serv.Service
         }
         public List<SanPhamChiTiet> GetSanPhamChiTiets( Guid id)
         {
-            return _db.SanPhamChiTiets.Include(c=>c.Mau).Include(c=>c.Size) .Where(c=>c.Id == id).ToList();
+            return _db.SanPhamChiTiets.Include(c=>c.Mau).Include(c=>c.Size).Include(c=>c.SanPham).Where(c=>c.Id == id).ToList();
         }
     }
 }

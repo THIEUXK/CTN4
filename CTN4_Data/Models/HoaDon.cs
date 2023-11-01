@@ -15,6 +15,7 @@
         public string SDTNguoiNhan { get; set; }
         public string DiaChi { get; set; }
         public bool Is_detele { get; set; }
+        public bool TrangThaiThanhToan { get; set; }
 
         public Guid? IdKhachHang { get; set; }
         public Guid? IdPhuongThuc { get; set; }

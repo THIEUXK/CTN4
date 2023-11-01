@@ -15,6 +15,8 @@
         public float GiaNiemYet { get; set; }
         public string GhiChu { get; set; }
         public bool Is_detele { get; set; }
+        public List<ChiTietSanPhamYeuThich> CtietSanPhamYeuThiches
+        { get; set; }
         public virtual NSX? NSX { get; set; }
         public virtual ChatLieu? ChatLieu { get; set; }
         public virtual List<SanPhamChiTiet>? SanPhamChiTiets { get; set; }

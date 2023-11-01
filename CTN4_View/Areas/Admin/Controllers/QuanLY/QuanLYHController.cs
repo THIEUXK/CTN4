@@ -56,34 +56,36 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddAnh(Guid IdSP, [Bind] IFormFile imageFile)
+        public async Task<ActionResult> AddAnh(Guid IdSP, List<IFormFile> imageFile)
         {
-            if (imageFile != null && imageFile.Length > 0) // Không null và không trống
+            var listAnh = imageFile.ToList();
+            foreach(var anh in listAnh){
+            if (anh != null && anh.Length > 0) // Không null và không trống
             {
                 //Trỏ tới thư mục wwwroot để lát nữa thực hiện việc Copy sang
                 var path = Path.Combine(
-                    Directory.GetCurrentDirectory(), "wwwroot", "image", imageFile.FileName);
+                    Directory.GetCurrentDirectory(), "wwwroot", "image", anh.FileName);
                 using (var stream = new FileStream(path, FileMode.Create))
                 {
-                    imageFile.CopyTo(stream);
+                    anh.CopyTo(stream);
                 }
 
             }
 
-            if (imageFile != null)
+            if (anh != null)
             {
                 {
                     _db.Anhs.Add(new Anh()
                     {
                         IdSanPhamChiTiet = IdSP,
-                        DuongDanAnh = imageFile.FileName,
+                        DuongDanAnh = anh.FileName,
                         Is_delete = true,
                         TrangThai = true,
-                        TenAnh = imageFile.FileName
+                        TenAnh = anh.FileName
                     });
                     await _db.SaveChangesAsync();
                 }
-            }
+            } }
 
 
             return RedirectToAction("Details", new { id = IdSP });

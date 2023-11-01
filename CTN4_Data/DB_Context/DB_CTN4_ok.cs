@@ -36,7 +36,6 @@ namespace CTN4_Data.DB_Context
         public DbSet<PhuongThucThanhToan> PhuongThucThanhToans { get; set; }
         public DbSet<SanPham> SanPhams { get; set; }
         public DbSet<SanPhamChiTiet> SanPhamChiTiets { get; set; }
-        public DbSet<SanPhamYeuThich> SanPhamYeuThichs { get; set; }
         public DbSet<Size> Sizes { get; set; }
 
 
@@ -45,7 +44,7 @@ namespace CTN4_Data.DB_Context
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 
-            optionsBuilder.UseSqlServer("Data Source=DESKTOP-OIMSHUN;Initial Catalog=tempdb1;Persist Security Info=True;User ID=sa;Password=123456");
+            optionsBuilder.UseSqlServer("Data Source=MSI;Initial Catalog=CTN4;User ID=sa;Password=thieu12345");
 
         }
 

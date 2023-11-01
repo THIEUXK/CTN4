@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CTN4_Data.Migrations
 {
     [DbContext(typeof(DB_CTN4_ok))]
-    [Migration("20231030175218_a")]
+    [Migration("20231101121456_a")]
     partial class a
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -119,17 +119,17 @@ namespace CTN4_Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("IdSanPhamChiTiet")
+                    b.Property<Guid?>("IdKhachHang")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("IdSanPhamYeuThich")
+                    b.Property<Guid?>("IdSanPham")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdSanPhamChiTiet");
+                    b.HasIndex("IdKhachHang");
 
-                    b.HasIndex("IdSanPhamYeuThich");
+                    b.HasIndex("IdSanPham");
 
                     b.ToTable("ChiTietSanPhamYeu");
                 });
@@ -315,6 +315,9 @@ namespace CTN4_Data.Migrations
                     b.Property<float>("DieuKienGiam")
                         .HasColumnType("real");
 
+                    b.Property<bool>("LoaiGiamGia")
+                        .HasColumnType("bit");
+
                     b.Property<string>("MaGiam")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -457,6 +460,9 @@ namespace CTN4_Data.Migrations
                     b.Property<string>("TrangThai")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TrangThaiThanhToan")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -871,6 +877,21 @@ namespace CTN4_Data.Migrations
                             SDT = "0912384746",
                             Ten = "Trang",
                             TenDangNhap = "trangnt34",
+                            Trangthai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081174"),
+                            AnhDaiDien = "",
+                            DiaChi = "Hà Nội",
+                            Email = "nothing@gmail.com",
+                            GioiTinh = "Nam",
+                            Ho = "Cao",
+                            IdChucVu = new Guid("d16ac357-3ced-4c2c-bcdc-d38971214414"),
+                            MatKhau = "1",
+                            SDT = "0912384746",
+                            Ten = "Toan",
+                            TenDangNhap = "1",
                             Trangthai = true
                         });
                 });
@@ -1544,22 +1565,6 @@ namespace CTN4_Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.SanPhamYeuThich", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("IdKhachHang")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdKhachHang");
-
-                    b.ToTable("SanPhamYeuThichs");
-                });
-
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.Size", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1630,17 +1635,17 @@ namespace CTN4_Data.Migrations
 
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.ChiTietSanPhamYeuThich", b =>
                 {
-                    b.HasOne("CTN4_Data.Models.DB_CTN4.SanPhamChiTiet", "SanPhamChiTiet")
-                        .WithMany("CTietSanPhamYeuThiches")
-                        .HasForeignKey("IdSanPhamChiTiet");
+                    b.HasOne("CTN4_Data.Models.DB_CTN4.KhachHang", "KhachHang")
+                        .WithMany("ChiTietSanPhamYeuThiches")
+                        .HasForeignKey("IdKhachHang");
 
-                    b.HasOne("CTN4_Data.Models.DB_CTN4.SanPhamYeuThich", "SanPhamYeuThich")
-                        .WithMany("CTietSanPhamYeuThiches")
-                        .HasForeignKey("IdSanPhamYeuThich");
+                    b.HasOne("CTN4_Data.Models.DB_CTN4.SanPham", "SanPham")
+                        .WithMany("CtietSanPhamYeuThiches")
+                        .HasForeignKey("IdSanPham");
 
-                    b.Navigation("SanPhamChiTiet");
+                    b.Navigation("KhachHang");
 
-                    b.Navigation("SanPhamYeuThich");
+                    b.Navigation("SanPham");
                 });
 
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.DanhMucChiTiet", b =>
@@ -1832,15 +1837,6 @@ namespace CTN4_Data.Migrations
                     b.Navigation("Size");
                 });
 
-            modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.SanPhamYeuThich", b =>
-                {
-                    b.HasOne("CTN4_Data.Models.DB_CTN4.KhachHang", "KKhachHang")
-                        .WithMany("SanPhamYeuThiches")
-                        .HasForeignKey("IdKhachHang");
-
-                    b.Navigation("KKhachHang");
-                });
-
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.ChatLieu", b =>
                 {
                     b.Navigation("SanPhams");
@@ -1880,13 +1876,13 @@ namespace CTN4_Data.Migrations
 
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.KhachHang", b =>
                 {
+                    b.Navigation("ChiTietSanPhamYeuThiches");
+
                     b.Navigation("DiaChiNhanHangs");
 
                     b.Navigation("GioHang");
 
                     b.Navigation("HoaDon");
-
-                    b.Navigation("SanPhamYeuThiches");
                 });
 
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.KhuyenMai", b =>
@@ -1920,6 +1916,8 @@ namespace CTN4_Data.Migrations
 
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.SanPham", b =>
                 {
+                    b.Navigation("CtietSanPhamYeuThiches");
+
                     b.Navigation("DanhMucChiTiets");
 
                     b.Navigation("KhuyenMaiSanPhams");
@@ -1933,16 +1931,9 @@ namespace CTN4_Data.Migrations
                 {
                     b.Navigation("Anhs");
 
-                    b.Navigation("CTietSanPhamYeuThiches");
-
                     b.Navigation("GioHangChiTiets");
 
                     b.Navigation("HoaDonChiTiets");
-                });
-
-            modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.SanPhamYeuThich", b =>
-                {
-                    b.Navigation("CTietSanPhamYeuThiches");
                 });
 
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.Size", b =>

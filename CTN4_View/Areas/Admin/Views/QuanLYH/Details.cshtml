@@ -1,4 +1,4 @@
-﻿@*@model CTN4_Serv.ViewModel.ThieuxkView
+﻿@model CTN4_Serv.ViewModel.ThieuxkView
 
 @{
     ViewData["Title"] = "Details";
@@ -26,89 +26,47 @@
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.SanPhamChiTiet.Id)
                 </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.SanPhamChiTiet.MaSp)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.SanPhamChiTiet.MaSp)
-                </dd>
+         
                 <dt class="col-sm-2">
                     @Html.DisplayNameFor(model => model.SanPhamChiTiet.SoLuong)
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.SanPhamChiTiet.SoLuong)
                 </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.SanPhamChiTiet.MoTa)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.SanPhamChiTiet.MoTa)
-                </dd>
+         
                 <dt class="col-sm-2">
                     @Html.DisplayNameFor(model => model.SanPhamChiTiet.TrangThai)
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.SanPhamChiTiet.TrangThai)
                 </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.SanPhamChiTiet.GiaNhap)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.SanPhamChiTiet.GiaNhap)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.SanPhamChiTiet.GiaBan)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.SanPhamChiTiet.GiaBan)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.SanPhamChiTiet.GiaNiemYet)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.SanPhamChiTiet.GiaNiemYet)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.SanPhamChiTiet.GhiChu)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.SanPhamChiTiet.GhiChu)
-                </dd>
+           
+             
                 <dt class="col-sm-2">
                     @Html.DisplayNameFor(model => model.SanPhamChiTiet.Is_detele)
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.SanPhamChiTiet.Is_detele)
                 </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.SanPhamChiTiet.IdChatLieu)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.SanPhamChiTiet.IdChatLieu)
-                </dd>
+              
                 <dt class="col-sm-2">
                     @Html.DisplayNameFor(model => model.SanPhamChiTiet.IdMau)
                 </dt>
                 <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.SanPhamChiTiet.IdMau)
+                    @Html.DisplayFor(model => model.SanPhamChiTiet.Mau.TenMau)
                 </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.SanPhamChiTiet.IdNSX)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.SanPhamChiTiet.IdNSX)
-                </dd>
+               
                 <dt class="col-sm-2">
                     @Html.DisplayNameFor(model => model.SanPhamChiTiet.IdSize)
                 </dt>
                 <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.SanPhamChiTiet.IdSize)
+                    @Html.DisplayFor(model => model.SanPhamChiTiet.Size.CoSize)
                 </dd>
                 <dt class="col-sm-2">
                     @Html.DisplayNameFor(model => model.SanPhamChiTiet.IdSp)
                 </dt>
                 <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.SanPhamChiTiet.IdSp)
+                    @Html.DisplayFor(model => model.SanPhamChiTiet.SanPham.TenSanPham)
                 </dd>
             </dl>
         </div>
@@ -148,7 +106,7 @@
 {
     <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
 }
-<form asp-action="AddAnh" method="post" enctype="multipart/form-data">
+@*<form asp-action="AddAnh" method="post" enctype="multipart/form-data">
     <div class="m-b-15">
         <input type="hidden" name="IdSP" value="@Model.SanPhamChiTiet.Id" />
         <input name="imageFile" type="file" class="form-control-file" />
@@ -157,5 +115,16 @@
         </button>
         <button type="submit">Thêm ảnh</button>
     </div>
+</form>*@
+
+<form asp-action="AddAnh" method="post" enctype="multipart/form-data">
+    <div class="m-b-15">
+        <input type="hidden" name="IdSP" value="@Model.SanPhamChiTiet.Id" />
+        <input name="imageFile" type="file" multiple class="form-control-file" />
+        <button id="btnUpload" class="btn btn-primary">
+            <i class="anticon anticon-save"></i>
+        </button>
+        <button type="submit">Thêm ảnh</button>
+    </div>
 </form>
-*@
+

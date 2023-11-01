@@ -57,7 +57,12 @@
                     </div>
                     <div class="form-group form-check">
                         <label class="form-check-label">
-                            <input class="form-check-input" asp-for="TrangThai" /> @Html.DisplayNameFor(model => model.TrangThai)
+                            <input class="form-check-input" asp-for="TrangThai" checked /> @Html.DisplayNameFor(model => model.TrangThai)
+                        </label>
+                    </div>
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="LoaiGiamGia" checked /> @Html.DisplayNameFor(model => model.LoaiGiamGia)
                         </label>
                     </div>
                     <div class="form-group">
@@ -67,6 +72,8 @@
                         <h4>_________________________________________________</h4>
                         <a asp-action="Index">Back to List</a>
                     </div>
+                    
+
 
                 </form>
             </div>
