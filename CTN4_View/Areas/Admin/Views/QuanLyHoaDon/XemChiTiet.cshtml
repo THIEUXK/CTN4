@@ -1,0 +1,240 @@
+﻿@model CTN4_View.Areas.Admin.Viewmodel.ThieuxkViewAdmin
+@{
+    ViewData["Title"] = "XemChiTiet";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<body>
+    <!--  Body Wrapper -->
+    <!--  Header End -->
+    <div class="container-fluid">
+       
+            <div class="div_left">
+                <div class="card w-100">
+                    <div class="card-body p-4">
+                    <div class="container_swap">
+                        <h5 class="card-title fw-semibold mb-4">Đơn Hàng</h5>
+                        
+                        <div class="div_right">
+                            @if (Model.HoaDon.TrangThai != "Đang chờ xử lí")
+                            {
+                                <div>Đơn hàng đã được xác nhận</div>
+                            }
+                            else
+                            {
+                                <p>
+                                    <td class="border-bottom-0">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <span class="badge bg-primary rounded-3 fw-semibold">@Html.ActionLink("xác nhận đợn hàng", "XacNhan", new { /*id=a.Id*/ },new { @class = "custom-edit-link" })</span>
+                                        </div>
+                                    </td>
+                                </p>
+                            }
+
+                            @if (TempData["ErrorMessage"] != null)
+                            {
+                                <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+                            }
+                            <p>
+                                <td class="border-bottom-0">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <span class="badge bg-primary rounded-3 fw-semibold">@Html.ActionLink("Giao Hàng", "XacNhan", new { /*id=a.Id*/ },new { @class = "custom-edit-link" })</span>
+                                    </div>
+                                </td>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+
+                        <thead class="text-dark fs-4">
+                            <tr>
+                                <th class="border-bottom-0">
+                                    <h6 class="fw-semibold mb-0"></h6>
+                                </th>
+                                <th class="border-bottom-0">
+                                    <h6 class="fw-semibold mb-0">Id Hóa Đơn  &nbsp; : &nbsp;  @Model.HoaDon.Id</h6>
+                                </th>
+                                <th class="border-bottom-0">
+                                    <h6 class="fw-semibold mb-0">Thời gian đặt đơn  &nbsp; : &nbsp;  @Model.HoaDon.NgayTaoHoaDon</h6>
+                                </th>
+                                <th class="border-bottom-0">
+                                    <h6 class="fw-semibold mb-0">Trạng thái &nbsp;  : &nbsp;  @Model.HoaDon.TrangThai</h6>
+                                </th>
+                                @if (Model.HoaDon.NgayGiao == null)
+                                {
+                                    <th class="border-bottom-0">
+                                        <h6 class="fw-semibold mb-0">Ngày giao hàng &nbsp;  : &nbsp;  Chưa Giao Hàng</h6>
+                                    </th>
+                                }
+                                else
+                                {
+                                    <th class="border-bottom-0">
+                                        <h6 class="fw-semibold mb-0">Ngày giao hàng &nbsp;  : &nbsp;  @Model.HoaDon.NgayGiao</h6>
+                                    </th>
+                                }
+                                @if (Model.HoaDon.NgayNhan == null)
+                                {
+                                    <th class="border-bottom-0">
+                                        <h6 class="fw-semibold mb-0">Ngày nhận &nbsp;  : &nbsp;  Chưa nhận hàng</h6>
+                                    </th>
+                                }
+                                else
+                                {
+                                    <th class="border-bottom-0">
+                                        <h6 class="fw-semibold mb-0">Ngày nhận &nbsp;  : &nbsp;  @Model.HoaDon.NgayNhan</h6>
+                                    </th>
+                                }
+                              
+                               
+                                @if (Model.HoaDon.TrangThaiThanhToan == true)
+                                {
+                                    <th class="border-bottom-0">
+                                        <h6 class="fw-semibold mb-0">Trạng thái Thanh toán   &nbsp;: &nbsp;  Đã thanh toán</h6>
+                                    </th>
+                                }
+                                else
+                                {
+                                    <th class="border-bottom-0">
+                                        <h6 class="fw-semibold mb-0">Trạng thái Thanh toán   &nbsp;: &nbsp;  Chưa thanh toán</h6>
+                                    </th>
+                                }
+                                <th class="border-bottom-0">
+                                    <h6 class="fw-semibold mb-0">Tổng tiền  &nbsp; : &nbsp; @Model.HoaDon.TongTien</h6>
+                                </th>
+                                <th class="border-bottom-0">
+                                    <h6 class="fw-semibold mb-0">Số điện thoại  &nbsp; : &nbsp; @Model.HoaDon.SDTNguoiNhan</h6>
+                                </th>
+                                <th class="border-bottom-0">
+                                    <h6 class="fw-semibold mb-0">Tên người nhận hàng &nbsp; :&nbsp;   @Model.HoaDon.TenKhachHang</h6>
+                                </th>
+                                <th class="border-bottom-0">
+                                    <h6 class="fw-semibold mb-0">Địa chỉ &nbsp;  : &nbsp;  @Model.HoaDon.DiaChi</h6>
+                                </th>
+                                <th class="border-bottom-0">
+                                    <h6 class="fw-semibold mb-0"></h6>
+                                </th>
+                            </tr>
+                        </thead>
+
+
+                    </div>
+
+                    <div class="div_right">
+                        <p>
+                            <td class="border-bottom-0">
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="badge bg-primary rounded-3 fw-semibold">@Html.ActionLink("Hủy đơn", "XacNhan", new { /*id=a.Id*/ },new { @class = "custom-edit-link" })</span>
+                                </div>
+                            </td>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+
+                </div>
+
+                    </div>
+                </div>
+            </div>
+
+       
+
+
+            
+
+
+</body>
+<style>
+    .custom-edit-link {
+        color: whitesmoke; /* Màu đỏ */
+        /* Các thuộc tính CSS khác nếu cần */
+    }
+</style>
+
+<body>
+    <!--  Body Wrapper -->
+    <!--  Header End -->
+    <div class="container-fluid">
+
+        <div class="card w-100">
+            <div class="card-body p-4">
+                <h5 class="card-title fw-semibold mb-4">Chi Tiết Đơn Hàng</h5>
+                <div class="table-responsive">
+                    <table class="table text-nowrap mb-0 align-middle">
+                        <thead class="text-dark fs-4">
+                            <tr>                            
+                                <th class="border-bottom-0">
+                                    <h6 class="fw-semibold mb-0">Tên sản phẩm</h6>
+                                </th>
+                                <th class="border-bottom-0">
+                                    <h6 class="fw-semibold mb-0">Màu</h6>
+                                </th>
+                                <th class="border-bottom-0">
+                                    <h6 class="fw-semibold mb-0">Size</h6>
+                                </th>
+                                <th class="border-bottom-0">
+                                    <h6 class="fw-semibold mb-0">Số lượng</h6>
+                                </th>
+                                <th class="border-bottom-0">
+                                    <h6 class="fw-semibold mb-0">Giá tiền</h6>
+                                </th>
+                                <th class="border-bottom-0">
+                                    <h6 class="fw-semibold mb-0">trạng thái</h6>
+                                </th>                            
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var a in Model.hoaDonChiTiets)
+                            {
+                                <tr>   
+                                    <td class="border-bottom-0">
+                                        <span>@a.SanPhamChiTiet.SanPham.TenSanPham</span>
+                                    </td>
+                                    <td class="border-bottom-0">
+                                        <span >@a.SanPhamChiTiet.Mau.TenMau</span>
+                                    </td>
+                                    <td class="border-bottom-0">
+                                        <span >@a.SanPhamChiTiet.Size.CoSize</span>
+                                    </td>
+                                    <td class="border-bottom-0">
+                                        <p class="mb-0 fw-normal">@a.SoLuong</p>
+                                    </td>
+                                    <td class="border-bottom-0">
+                                        <p class="mb-0 fw-normal">@a.GiaTien</p>
+                                    </td>
+                                    <td class="border-bottom-0">
+                                        @if (a.TrangThai == true)
+                                        {
+                                            <p class="mb-0 fw-normal">Bình thường</p>
+                                        }
+                                        else
+                                        {
+                                            <p class="mb-0 fw-normal">Trả hàng</p>
+                                        }
+                                    </td>
+                                    <td class="border-bottom-0">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <span class="badge bg-primary rounded-3 fw-semibold">@Html.ActionLink("Hủy sản phẩm", "XacNhan", new { id=a.Id },new { @class = "custom-edit-link" })</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</body>
+<style>
+    .custom-edit-link {
+        color: whitesmoke; /* Màu đỏ */
+        /* Các thuộc tính CSS khác nếu cần */
+    }
+</style>

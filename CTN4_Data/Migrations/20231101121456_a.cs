@@ -250,23 +250,6 @@ namespace CTN4_Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SanPhamYeuThichs",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    IdKhachHang = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SanPhamYeuThichs", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_SanPhamYeuThichs_KhachHangs_IdKhachHang",
-                        column: x => x.IdKhachHang,
-                        principalTable: "KhachHangs",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "SanPhams",
                 columns: table => new
                 {
@@ -337,6 +320,7 @@ namespace CTN4_Data.Migrations
                     SDTNguoiNhan = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DiaChi = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Is_detele = table.Column<bool>(type: "bit", nullable: false),
+                    TrangThaiThanhToan = table.Column<bool>(type: "bit", nullable: false),
                     IdKhachHang = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     IdPhuongThuc = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     IdDiaChiNhanHang = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
@@ -367,20 +351,20 @@ namespace CTN4_Data.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IdSanPham = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    IdSanPhamYeuThich = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    IdKhachHang = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ChiTietSanPhamYeu", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_ChiTietSanPhamYeu_KhachHangs_IdKhachHang",
+                        column: x => x.IdKhachHang,
+                        principalTable: "KhachHangs",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_ChiTietSanPhamYeu_SanPhams_IdSanPham",
                         column: x => x.IdSanPham,
                         principalTable: "SanPhams",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_ChiTietSanPhamYeu_SanPhamYeuThichs_IdSanPhamYeuThich",
-                        column: x => x.IdSanPhamYeuThich,
-                        principalTable: "SanPhamYeuThichs",
                         principalColumn: "Id");
                 });
 
@@ -759,14 +743,14 @@ namespace CTN4_Data.Migrations
                 column: "IdSanPhamChiTiet");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ChiTietSanPhamYeu_IdKhachHang",
+                table: "ChiTietSanPhamYeu",
+                column: "IdKhachHang");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ChiTietSanPhamYeu_IdSanPham",
                 table: "ChiTietSanPhamYeu",
                 column: "IdSanPham");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ChiTietSanPhamYeu_IdSanPhamYeuThich",
-                table: "ChiTietSanPhamYeu",
-                column: "IdSanPhamYeuThich");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DaiChiNhanHangs_IdKhachHang",
@@ -892,11 +876,6 @@ namespace CTN4_Data.Migrations
                 name: "IX_SanPhams_IdNSX",
                 table: "SanPhams",
                 column: "IdNSX");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SanPhamYeuThichs_IdKhachHang",
-                table: "SanPhamYeuThichs",
-                column: "IdKhachHang");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -930,9 +909,6 @@ namespace CTN4_Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "PhanLoaiChiTiets");
-
-            migrationBuilder.DropTable(
-                name: "SanPhamYeuThichs");
 
             migrationBuilder.DropTable(
                 name: "DanhMucs");
