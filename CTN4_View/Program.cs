@@ -9,6 +9,7 @@ using System.Configuration;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddHttpClient();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

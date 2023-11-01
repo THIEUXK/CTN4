@@ -27,12 +27,16 @@ namespace CTN4_Serv.Service
             return GetAll().FirstOrDefault(c => c.Id == id);
         }
 
-        public bool Them(DiaChiNhanHang a)
+        public bool Them(DiaChiNhanHang a, Guid IdUser)
         {
             try
             {
-                _db.DaiChiNhanHangs.Add(a);
-                _db.SaveChanges();
+                var lstByIdUser = _db.DaiChiNhanHangs.AsQueryable().Where(p=>p.IdKhachHang == IdUser).ToList();
+                if (lstByIdUser !=null && lstByIdUser.Count() <= 3)
+                {
+                    _db.DaiChiNhanHangs.Add(a);
+                    _db.SaveChanges();
+                }               
                 return true;
             }
             catch (Exception e)

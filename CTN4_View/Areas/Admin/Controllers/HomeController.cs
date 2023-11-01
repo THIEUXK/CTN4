@@ -4,7 +4,10 @@ using CTN4_Serv.Service;
 using CTN4_Serv.Service.IService;
 using CTN4_Serv.ViewModel;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.Scripting;
+using Newtonsoft.Json;
 using System.Diagnostics;
 
 namespace CTN4_View_Admin.Controllers
@@ -19,9 +22,9 @@ namespace CTN4_View_Admin.Controllers
 		private readonly ICurrentUser _curent;
         private readonly INhanVienService _nhanvienService;
 		private string generatedToken = null;
-
+        private readonly IHttpClientFactory _httpClientFactory;
         public HomeController(ILogger<HomeController> logger, ITokenService tokenService, ILoginService userRepository, IConfiguration config,ICurrentUser curent,
-          INhanVienService nhanvien  )
+          INhanVienService nhanvien, IHttpClientFactory httpClientFactory)
         {
             _logger = logger;
             _config = config;
@@ -29,6 +32,7 @@ namespace CTN4_View_Admin.Controllers
             _userRepository = userRepository;
             _curent = curent;
             _nhanvienService = nhanvien;
+            _httpClientFactory = httpClientFactory;
 
 
         }
@@ -42,19 +46,49 @@ namespace CTN4_View_Admin.Controllers
            
             return View();
         }
-       // [Authorize(Policy = "Nhân viên")]
+        
+        public async Task<IActionResult> Themdiachi()
+        {
+            // Tạo một instance của HttpClient từ factory
+            var client = _httpClientFactory.CreateClient();
+
+
+            // Đặt URL của API bạn muốn gọi
+            string apiUrl = "https://provinces.open-api.vn/api/p/";
+
+            // Gọi API bằng phương thức GET
+            HttpResponseMessage response = await client.GetAsync(apiUrl);
+
+            if (response.IsSuccessStatusCode)
+            {
+                // Đọc dữ liệu từ response và chuyển đổi thành chuỗi hoặc object tùy vào API của bạn
+                string responseData = await response.Content.ReadAsStringAsync();
+                // Xử lý dữ liệu ở đây
+                List<DiaChiNhanHang> diaChiNhanHangList = JsonConvert.DeserializeObject<List<DiaChiNhanHang>>(responseData);
+                return View(diaChiNhanHangList); // Trả về kết quả thành công
+            }
+            else
+            {
+                // Xử lý lỗi ở đây, ví dụ: response.StatusCode, response.ReasonPhrase
+                return BadRequest("Failed to fetch data from API");
+            }
+        }
+        // [Authorize(Policy = "Nhân viên")]
         public IActionResult BangQuanLy()
         {
             return View();
         }
-      
+     
 		public IActionResult UserDetails()
 		{
 
 			var user = _nhanvienService.GetByIdChucVu(_curent.Id);
+            
 			return View(user);
 		}
-		[AllowAnonymous]
+      
+   
+        [AllowAnonymous]
 		[Route("loginadmin")]
 		[HttpGet]
         public IActionResult DangNhap()
@@ -65,6 +99,36 @@ namespace CTN4_View_Admin.Controllers
         public IActionResult Error()
         {
             return View(new CTN4_Data.Models.DB_CTN4.ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        public IActionResult Doimk()
+        {
+            var user = _nhanvienService.GetByIdChucVu(_curent.Id);
+            return View(user);
+        }
+        [HttpPost]
+        public IActionResult DoiMatKhau(string matKhauCu, string matKhauMoi, string xacNhanMatKhauMoi)
+        {
+            // Lấy thông tin người dùng từ cơ sở dữ liệu hoặc bất kỳ nguồn nào khác
+            var user = _nhanvienService.GetByIdChucVu(_curent.Id);
+            // Kiểm tra xem mật khẩu cũ có đúng không
+            if (matKhauCu != user.MatKhau)
+            {
+                ModelState.AddModelError("matKhauCu", "Mật khẩu cũ không đúng.");
+                return View();
+            }
+
+            // Kiểm tra xác nhận mật khẩu mới
+            if (matKhauMoi != xacNhanMatKhauMoi)
+            {
+                ModelState.AddModelError("xacNhanMatKhauMoi", "Xác nhận mật khẩu mới không khớp.");
+                return View();
+            }
+
+            // Lưu mật khẩu mới vào cơ sở dữ liệu
+            user.MatKhau = matKhauMoi;
+            // Lưu người dùng có mật khẩu mới vào cơ sở dữ liệu
+            _nhanvienService.Sua(user);
+            return RedirectToAction("Index", "Home");
         }
         [AllowAnonymous]
         [HttpPost]
@@ -127,6 +191,7 @@ namespace CTN4_View_Admin.Controllers
             ViewBag.Message = BuildMessage(token, 50);
             return View("Index");
         }
+
 		public IActionResult Logouts()
 		{
 			// Xóa dữ liệu phiên của người dùng, bao gồm thông tin đăng nhập và token

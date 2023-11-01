@@ -1,0 +1,67 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@model List<CTN4_Data.Models.DB_CTN4.DiaChiNhanHang>
+
+@{
+    ViewData["Title"] = "Themdiachi";
+}
+
+<hr />
+<div class="row" style="margin-top:50px">
+    <div class="col-md-6">
+    
+        <form>
+        <div class="form-group">
+            <label for="name">Tên:</label>
+            <select class="form-control">
+                @foreach (var item in Model)
+                {
+                    <option>@item.name</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="code">Mã:</label>
+            <select class="form-control">
+                @foreach (var item in Model)
+                {
+                    <option>@item.code</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="division_type">Loại:</label>
+            <select class="form-control">
+                @foreach (var item in Model)
+                {
+                    <option>@item.division_type</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="codename">Mã tên:</label>
+            <select class="form-control">
+                @foreach (var item in Model)
+                {
+                    <option  >@item.codename</option>
+                }
+            </select>
+            <div class="form-group">
+                <label for="diaChi">Địa chỉ:</label>
+                <input type="text" class="form-control" id="diaChi" name="diaChi" placeholder="Nhập địa chỉ của bạn" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

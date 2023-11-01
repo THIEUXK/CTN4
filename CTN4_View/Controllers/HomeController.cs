@@ -61,6 +61,25 @@ namespace CTN4_View.Controllers
         {
             return View();
         }
+        [AllowAnonymous]
+        [Route("DangKy")]
+        [HttpGet]
+        public IActionResult DangKy()
+        {
+            return View();
+        }
+    
+        [HttpPost]
+        public IActionResult DangKy(KhachHang a)
+        {
+            if (a == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            a.Id = Guid.NewGuid();
+            _khachHangService.Them(a);
+            return View();
+        }
         public IActionResult cart()
         {
             return View();
@@ -107,6 +126,12 @@ namespace CTN4_View.Controllers
             return View(s);
           
          }
+        public IActionResult SignUp()
+        {
+
+            return View();
+
+        }
         [HttpPost]
         public IActionResult UpdateKhang(KhachHang khachHangForm)
         {
