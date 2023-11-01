@@ -24,5 +24,16 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             };
             return View(view);
         }
+        public IActionResult XemChiTiet(Guid id)
+        {
+            var hd = _hoaDonService.GetById(id);
+            var hdct = _hoaDonChiTietService.GetAll().Where(c=>c.IdHoaDon==id).ToList();
+            var view = new ThieuxkViewAdmin()
+            {
+                HoaDon = hd,
+                hoaDonChiTiets=hdct
+            };
+            return View(view);
+        }
     }
 }

@@ -5,8 +5,8 @@
         public Guid Id { get; set; }
 
         public Guid? IdSanPham { get; set; }
-        public Guid? IdSanPhamYeuThich { get; set; }
-        public virtual SanPhamYeuThich? SanPhamYeuThich { get; set; }
+        public Guid? IdKhachHang { get; set; }
+        public virtual KhachHang? KhachHang { get; set; }
         public virtual SanPham? SanPham { get; set; }
 
     }
