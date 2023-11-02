@@ -38,7 +38,9 @@ namespace CTN4_View.Controllers
         //    _sanPhamCuaHangService = new SanPhamCuaHangService();
         //}
 
+
         public HomeController(ILogger<HomeController> logger, IConfiguration config, ITokenService tokenService, ILoginService userRepository,ICurrentUser curent,IKhachHangService khachhang,ISanPhamService sanpham, IHttpClientFactory httpClientFactory ,IDiaChiNhanHangService diachi)
+
         {
             _spService = sanpham;
             _khachHangService = khachhang;
@@ -70,6 +72,7 @@ namespace CTN4_View.Controllers
 
             // Đặt URL của API bạn muốn gọi
             string apiUrl = "https://provinces.open-api.vn/api/p/";
+
 
             // Gọi API bằng phương thức GET
             HttpResponseMessage response = await client.GetAsync(apiUrl);
@@ -113,6 +116,7 @@ namespace CTN4_View.Controllers
                 throw new Exception(ex.Message);
             }
             
+
         } 
         public IActionResult blog()
         {

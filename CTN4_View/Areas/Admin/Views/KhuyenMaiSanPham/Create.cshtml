@@ -1,0 +1,50 @@
+﻿@model CTN4_Serv.ViewModel.KhuyenMaiSanPhamView
+
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-9">
+        <br></br>
+        <h1>Create</h1>
+
+        <h4>Khuyen Mai San Pham</h4>
+        <hr />
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="Create" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="IdkhuyenMai">Khuyến Mại</label>
+                        <select asp-for="IdkhuyenMai" class="form-control">
+                            <option value="">-- Select KhuyenMai --</option>
+                            @foreach (var a in Model.KMItems)
+                            {
+                                <option value="@a.Value">@a.Text</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="IdSanPham">San Pham</label>
+                        <select asp-for="IdSanPham" class="form-control">
+                            <option value="">-- Select SanPhamChiTiet --</option>
+                            @foreach (var a in Model.SpctItems)
+                            {
+                                <option value="@a.Value">@a.Text</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div>
+            <a asp-action="Index">Back to List</a>
+        </div>
