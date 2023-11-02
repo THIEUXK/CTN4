@@ -81,28 +81,93 @@ namespace CTN4_View.Controllers.Shop
         public IActionResult HienThiSanPhamChiTiet(Guid id)
         {
             var listsp1 = _sanPhamCuaHangService.GetAllSpcts(id);
-            var anh = _anhService.GetAll().Where(c=>c.IdSanPhamChiTiet == id).ToList();
+            var anh = _anhService.GetAll().Where(c => c.SanPhamChiTiet.SanPham.Id == id).ToList();
             var listsp = _sanPhamCuaHangService.GetAll();
             var mau = _mauSacService.GetAll().Distinct().ToList();
-            var size = _sizeService.GetAll().Distinct().ToList();
-            //var QS = (from idmau in listsp
-            //          select mau).Distinct();
-            //foreach (var item in MS)
-            //{
-            //    Console.WriteLine(item);
-            //}
+            //var size = _sizeService.GetAll().Distinct().ToList();
+            //var spctcuthe = _sanPhamChiTietService.GetAll().Where(c=>c.IdSp== id).ToList();
+            var spctcuthe = _CTN4_Ok.SanPhamChiTiets.Include(c => c.Size).ToList().Where(c => c.IdSp == id);
             var view = new SanPhamBan()
             {
                 sanPham = _sanPhamCuaHangService.GetById(id),
                 Anh = _sanPhamCuaHangService.GeAnhs(id),
                 sanPhamChiTiets = listsp1,
                 maus = mau,
-                sizes = size,
+                sizect = spctcuthe.ToList(),
                 anhs = anh,
                 sanPhams = listsp
             };
             return View(view);
 
+        }
+        //[HttpGet ("hienthisansham/chonmau")]
+        public IActionResult chonMau(Guid IdSanPham, Guid IdMau)
+        {
+            var listsp1 = _sanPhamCuaHangService.GetAllSpcts(IdSanPham);
+            var anh = _anhService.GetAll().Where(c => c.SanPhamChiTiet.SanPham.Id == IdSanPham).ToList();
+
+            var listsp = _sanPhamCuaHangService.GetAll();
+            var mau = _mauSacService.GetAll().Distinct().ToList();
+            var size = _sizeService.GetAll().Distinct().ToList();
+            var spctcuthe = _CTN4_Ok.SanPhamChiTiets.Include(c => c.Size).Where(c => c.IdMau == IdMau && c.IdSp == IdSanPham).ToList();
+            var mauluu = _mauSacService.GetAll().FirstOrDefault(c => c.Id == IdMau);
+            // Đọc dữ liệu từ Session xem trong Cart nó có cái gì chưa?
+            var accnew = SessionServices.LuuMauSS(HttpContext.Session, "Mauss");
+            if (accnew.Count == 0)
+            {
+                accnew.Add(mauluu);
+                SessionServices.SetObjToJson(HttpContext.Session, "Mauss", accnew);
+            }
+            else if (accnew.Count != 0)
+            {
+                accnew.Clear();
+                accnew.Add(mauluu);
+                SessionServices.SetObjToJson(HttpContext.Session, "Mauss", accnew);
+            }
+            var view = new SanPhamBan()
+            {
+                sanPham = _sanPhamCuaHangService.GetById(IdSanPham),
+                sanPhamChiTiets = listsp1,
+                maus = mau,
+                sizect = spctcuthe.ToList(),
+                anhs = anh.Where(c => c.SanPhamChiTiet.IdMau == IdMau && c.SanPhamChiTiet.IdSp == IdSanPham).ToList(),
+                sanPhams = listsp,
+                idmau = IdMau
+            };
+            //return Json(view);
+            return View("HienThiSanPhamChiTiet", view);
+        }
+        public IActionResult chonSize(Guid IdSanPham, Guid idSize, Guid IdMau)
+        {
+            if (IdMau ==Guid.Parse("00000000-0000-0000-0000-000000000000") )
+            {
+                var message = "Chọn màu sắc trước !";
+                TempData["ErrorMessage"] = message;
+                return RedirectToAction("HienThiSanPhamChiTiet", new{id=IdSanPham , message});
+            }
+
+
+            var listsp1 = _sanPhamCuaHangService.GetAllSpcts(IdSanPham);
+            var anh = _anhService.GetAll().Where(c => c.SanPhamChiTiet.SanPham.Id == IdSanPham).ToList();
+            var listsp = _sanPhamCuaHangService.GetAll();
+            var mau = _mauSacService.GetAll().Distinct().ToList();
+            //var size = _sizeService.GetAll().Distinct().ToList();
+            var size = _CTN4_Ok.SanPhamChiTiets.Include(c => c.Size).Where(c => c.IdMau == IdMau && c.IdSp == IdSanPham).ToList();
+            var spcuthe = _CTN4_Ok.SanPhamChiTiets.FirstOrDefault(c => c.IdMau == IdMau && c.IdSp == IdSanPham && c.IdSize == idSize);
+            var view = new SanPhamBan()
+            {
+                 sanPham = _sanPhamCuaHangService.GetById(IdSanPham),
+                sanPhamChiTiets = listsp1,
+                maus = mau,
+                sizect = size.ToList(),
+                anhs = anh.Where(c => c.SanPhamChiTiet.IdMau == IdMau && c.SanPhamChiTiet.IdSp == IdSanPham).ToList(),
+                sanPhams = listsp,
+                idmau = IdMau,
+                idsize = idSize,
+                soluong = spcuthe.SoLuong
+            };
+            //return Json(view);
+            return View("HienThiSanPhamChiTiet", view);
         }
         [HttpPost]
         public string CheckBoxChatLieu(/*[FromBody] FilterData filter*/)

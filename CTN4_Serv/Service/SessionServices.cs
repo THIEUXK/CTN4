@@ -45,5 +45,15 @@ namespace CTN4_Serv.Service
 		{
 			return cartProducts.Any(p => p.Id == id); // Kiểm tra xem có tồn tại sp đó trong GH chưa
 		}
+		public static List<Mau> LuuMauSS(ISession session, string key)
+		{
+			var data = session.GetString(key); // Đọc dữ liệu từ Session ở dạng chuỗi
+			if (data != null)
+			{
+				var listObj = JsonConvert.DeserializeObject<List<Mau>>(data);
+				return listObj;
+			}
+			else return new List<Mau>();
+		}
 	}
 }
