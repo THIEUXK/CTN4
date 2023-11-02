@@ -18,40 +18,54 @@
         <form  method="post">
         <div class="form-group">
             <label for="Tên">Tên:</label>
-                <select  class="form-control">
+
+                <select name="name" class="form-control">
                 @foreach (var item in Model)
                 {
-                        <option name="@item.name" value="@item.name">@item.name</option>
+                        <option value="@item.name">@item.name</option>
                 }
             </select>
         </div>
-
+            <div class="form-group">
+                <label for="code">Phonecode:</label>
+                <select name="phone_code" class="form-control">
+                    @foreach (var item in Model)
+                    {
+                        <option value="@item.phone_code">@item.phone_code</option>
+                    }
+                </select>
+            </div>
         <div class="form-group">
             <label for="code">Mã:</label>
-            <select class="form-control">
+                <select name="code" class="form-control">
                 @foreach (var item in Model)
                 {
-                        <option name="code" value="@item.code">@item.code</option>
+                        <option  value="@item.code">@item.code</option>
+
                 }
             </select>
         </div>
 
         <div class="form-group">
             <label for="division_type">Loại:</label>
-            <select class="form-control">
+
+                <select name="division_type" class="form-control">
                 @foreach (var item in Model)
                 {
-                        <option name="division_type" value="@item.division_type">@item.division_type</option>
+                        <option  value="@item.division_type">@item.division_type</option>
+
                 }
             </select>
         </div>
 
         <div class="form-group">
             <label for="codename">Mã tên:</label>
-            <select class="form-control">
+
+                <select name="codename" class="form-control">
                 @foreach (var item in Model)
                 {
-                        <option name="codename" value="@item.codename">
+                        <option  value="@item.codename">
+
                             @item.codename</option>
                 }
             </select>

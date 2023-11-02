@@ -27,11 +27,11 @@ namespace CTN4_Serv.Service
             return GetAll().FirstOrDefault(c => c.Id == id);
         }
 
-        public bool Them(DiaChiNhanHang a, Guid IdUser)
+        public bool Them(DiaChiNhanHang a)
         {
             try
             {
-                var lstByIdUser = _db.DaiChiNhanHangs.AsQueryable().Where(p=>p.IdKhachHang == IdUser).ToList();
+                var lstByIdUser = _db.DaiChiNhanHangs.AsQueryable().Where(p=>p.IdKhachHang == a.IdKhachHang).ToList();
                 if (lstByIdUser !=null && lstByIdUser.Count() <= 3)
                 {
                     _db.DaiChiNhanHangs.Add(a);
