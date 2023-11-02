@@ -1,6 +1,7 @@
 ﻿using CTN4_Data.DB_Context;
 using CTN4_Data.Models.DB_CTN4;
 using CTN4_Serv.Service.IService;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace CTN4_Serv.Service
         }
         public List<SanPham> GetAll()
         {
-            return _db.SanPhams.ToList();
+            return _db.SanPhams.Include(c => c.ChatLieu).Include(c => c.NSX).ToList();
         }
 
         public SanPham GetById(Guid id)
