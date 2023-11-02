@@ -1,0 +1,48 @@
+﻿@model IEnumerable<CTN4_Data.Models.DB_CTN4.KhuyenMaiPhanLoai>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<br></br>
+<br></br>
+<br></br>
+
+
+<h1>Index</h1>
+
+<p>
+    <button type="button" class="btn btn-warning btn-fw editable-click=" asp-action="Create"><a asp-action="Create" style="color:white">Thêm</a></button>
+
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Tên khuyến mại
+            </th>
+            <th>
+                Tên phân loại
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) 
+        {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.KhuyenMai.MaKhuyenMai)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PhanLoai.TenPhanLoai)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                    </td>
+                </tr>
+        }
+    </tbody>
+</table>

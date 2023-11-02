@@ -4,7 +4,7 @@
 }
 
 <!-- Start Banner Area -->
-<section class="banner-area organic-breadcrumb">
+@*<section class="banner-area organic-breadcrumb">
     <div class="container">
         <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
             <div class="col-first">
@@ -17,7 +17,7 @@
             </div>
         </div>
     </div>
-</section>
+</section>*@
 <!-- End Banner Area -->
 <!--================Single Product Area =================-->
 <div class="product_image_area">
@@ -25,22 +25,22 @@
         <div class="row s_product_inner">
             <div class="col-lg-6">
                 <div class="s_Product_carousel">
-                    @foreach (var a in Model.sanPhamChiTiets)
+                    @foreach (var a in Model.anhs)
                     {
-                      @* 
-                        @if (System.IO.Path.GetExtension(a.Anhs.) == ".jpg" ||
-                       System.IO.Path.GetExtension(a.AnhDaiDien) == ".png" ||
-                       System.IO.Path.GetExtension(a.AnhDaiDien) == ".jpeg" ||
-                       System.IO.Path.GetExtension(a.AnhDaiDien) == ".tiff" ||
-                       System.IO.Path.GetExtension(a.AnhDaiDien) == ".webp" ||
-                       System.IO.Path.GetExtension(a.AnhDaiDien) == ".gif")
+
+                        @if (System.IO.Path.GetExtension(a.DuongDanAnh) == ".jpg" ||
+                       System.IO.Path.GetExtension(a.DuongDanAnh) == ".png" ||
+                       System.IO.Path.GetExtension(a.DuongDanAnh) == ".jpeg" ||
+                       System.IO.Path.GetExtension(a.DuongDanAnh) == ".tiff" ||
+                       System.IO.Path.GetExtension(a.DuongDanAnh) == ".webp" ||
+                       System.IO.Path.GetExtension(a.DuongDanAnh) == ".gif")
                         {
-                                <img src="~/image/@a.AnhDaiDien">
+                            <img src="~/image/@a.DuongDanAnh">
                         }
                         else
                         {
                             <span>Ảnh lỗi rồi =)))</span>
-                        }*@
+                        }
                     }
                 </div>
             </div>
@@ -58,71 +58,104 @@
                             <h6 class="l-through">@FormatCurrency(Model.sanPham.GiaBan)</h6>
                         }
                     </div>
-                    <br >
+                    <br>
                     <div>
 
                         @{
                             // Tạo danh sách để theo dõi các Mau.Id đã xuất hiện
                             var mauDaXuatHien = new List<Guid>();
                         }
-                        <ul class="horizontal-list">
+
+                        <ul class="horizontal-list" style="display: flex;">
                             @foreach (var a in Model.sanPhamChiTiets)
                             {
                                 if (!mauDaXuatHien.Contains(a.Mau.Id))
                                 {
                                     mauDaXuatHien.Add(a.Mau.Id);
-
+                                    <form asp-action="chonMau">
                                     <li>
-                                        <button class="color-button " data-tenmau="@a.Mau.TenMau">
-                                            @a.Mau.TenMau
-                                        </button>
+                                            @if (Model.idmau == a.Mau.Id)
+                                            {
+                                            <input type="hidden" name="IdSanPham" value="@Model.sanPham.Id" id="idsp">
+                                            <input type="hidden" name="IdMau" value="@a.Mau.Id" id="idmau">
+                                            <button class="custom-button after-click" onclick="onsubmit" ata-tenmau="@a.Mau.Id">
+                                                    @a.Mau.TenMau
+                                            </button>
+                                            }
+                                            else
+                                            {
+                                            <input type="hidden" name="IdSanPham" value="@Model.sanPham.Id" id="idsp">
+                                            <input type="hidden" name="IdMau" value="@a.Mau.Id" id="idmau">
+                                            <button class="custom-button before-click" onclick="onsubmit" class="color-button" data-tenmau="@a.Mau.TenMau">
+                                                    @a.Mau.TenMau
+                                            </button>
+                                            }
                                     </li>
-
-
+                                    </form>
                                 }
                             }
                         </ul>
 
                     </div>
-                    <br >
+                    <br>
+                    @if (TempData["ErrorMessage"] != null)
+                    {
+                        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+                    }
                     <div>
                         @{
                             // Tạo danh sách để theo dõi các Mau.Id đã xuất hiện
                             var SizeDaXuatHien = new List<Guid>();
                         }
-                        <ul class="horizontal-list">
-                        @foreach (var a in Model.sanPhamChiTiets)
-                        {
-                            // Kiểm tra xem Mau.Id đã xuất hiện trong danh sách chưa
-                            if (!SizeDaXuatHien.Contains(a.Size.Id))
+                        <ul class="horizontal-list" style="display: flex;">
+
+                            @foreach (var a in Model.sizect)
                             {
-                                // Nếu chưa xuất hiện, hiển thị nút và thêm Mau.Id vào danh sách
-                                SizeDaXuatHien.Add(a.Size.Id);
-                               @* <input type="hidden" name="mau" value="@a.Size.Id" />*@
-                                  <li>
-                                <button class="color-button1 ">
-                                    @a.Size.CoSize
-                                </button>
-                                        </li>
+                                // Kiểm tra xem Mau.Id đã xuất hiện trong danh sách chưa
+                                if (!SizeDaXuatHien.Contains(a.Size.Id))
+                                {
+                                    // Nếu chưa xuất hiện, hiển thị nút và thêm Mau.Id vào danh sách
+                                    SizeDaXuatHien.Add(a.Size.Id);
+                                    @* <input type="hidden" name="mau" value="@a.Size.Id" />*@
+                                    <form asp-action="chonSize">
+                                    <li>
+                                            @if (Model.idsize == a.Size.Id)
+                                            {
+                                            <input type="hidden" name="IdSanPham" value="@Model.sanPham.Id">
+                                            <input type="hidden" name="IdSize" value="@a.IdSize">
+                                            <input type="hidden" name="IdMau" value="@Model.idmau">
+                                            <button class="custom-button after-click" onclick="onsubmit">
+                                                    @a.Size.CoSize
+                                            </button>
+                                            }
+                                            else
+                                            {
+                                            <input type="hidden" name="IdSanPham" value="@Model.sanPham.Id">
+                                            <input type="hidden" name="IdSize" value="@a.IdSize">
+                                            <input type="hidden" name="IdMau" value="@Model.idmau">
+                                            <button class="custom-button before-click" onclick="onsubmit" data-tenmau="@a.Size.CoSize">
+                                                    @a.Size.CoSize
+                                            </button>
+                                            }
+
+                                    </li>
+                                    </form>
+                                }
                             }
-                        }
                         </ul>
                     </div>
                     <br />
                     <ul class="list">
-                        <li><a class="active" href="#"><span>Số lượng</span>@Model  </a></li>
+                        @if (Model.soluong != null)
+                        {
+                            <li><a class="active" href="#"><span>Số lượng</span>@Model.soluong </a></li>
+                        }
+
                         <li><a href="#"><span>Availibility</span> : In Stock</a></li>
                     </ul>
-                   
-                    <p>
-                        Mill Oil is an innovative oil filled radiator with the most modern technology. If you are looking for
-                        something that can make your interior look awesome, and at the same time give you the pleasant warm feeling
-                        during the winter.
-                    </p>
+                    <br />
                     <form asp-controller="BanHang" asp-action="ThemVaoGio">
-                        <br></br>
                         <a>Số lượng:</a>
-
                         <div class="product_count">
 
                             <input type="text" name="soluong" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty">
@@ -142,6 +175,11 @@
                         </div>
                         <input type="hidden" name="idSP" value="">
                     </form>
+                    <p>
+                        Mill Oil is an innovative oil filled radiator with the most modern technology. If you are looking for
+                        something that can make your interior look awesome, and at the same time give you the pleasant warm feeling
+                        during the winter.
+                    </p>
                 </div>
             </div>
         </div>
@@ -670,58 +708,61 @@
 </script>
 
 <!-- End related-product Area -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 
-    $(document).ready(function () {
-        $(".color-button").click(function () {
-            //// Loại bỏ lớp "selected" từ tất cả các nút
-            $(".color-button").removeClass("selected");
+    //$(document).ready(function () {
+    //    $(".color-button").click(function () {
+    //        //// Loại bỏ lớp "selected" từ tất cả các nút
+    //        $(".color-button").removeClass("selected");
 
-            // Thêm lớp "selected" cho nút được nhấn
-            $(this).addClass("selected");
+    //        // Thêm lớp "selected" cho nút được nhấn
+    //        $(this).addClass("selected");
 
-            //// Lấy giá trị màu được chọn
-            //var tenMau = $(this).data("tenmau");
-            //console.log("Màu được chọn: " + tenMau);
-        });
-    }); $(document).ready(function () {
-        $(".color-button1").click(function () {
-            //// Loại bỏ lớp "selected" từ tất cả các nút
-            $(".color-button1").removeClass("selected");
+    //        //// Lấy giá trị màu được chọn
+    //        //var tenMau = $(this).data("tenmau");
+    //        //console.log("Màu được chọn: " + tenMau);
+    //    });
+    //}); $(document).ready(function () {
+    //    $(".color-button1").click(function () {
+    //        //// Loại bỏ lớp "selected" từ tất cả các nút
+    //        $(".color-button1").removeClass("selected");
 
-            // Thêm lớp "selected" cho nút được nhấn
-            $(this).addClass("selected");
+    //        // Thêm lớp "selected" cho nút được nhấn
+    //        $(this).addClass("selected");
 
-            //// Lấy giá trị màu được chọn
-            //var tenMau = $(this).data("tenmau");
-            //console.log("Màu được chọn: " + tenMau);
-        });
-    });
+    //        //// Lấy giá trị màu được chọn
+    //        //var tenMau = $(this).data("tenmau");
+    //        //console.log("Màu được chọn: " + tenMau);
+    //    });
+    //});
+                                    //$(document).ready(function () {
+                                    //    $('.color-button').click(function () {
+
+                                    //         // Ngăn chuyển trang khi nút được bấm
+                                    //        var idSanPham = $('#idsp').val();
+                                    //        var idMau = $('#idmau').val();
+                                    //        $.ajax({
+
+                                    //            type: "GET", // Hoặc "GET" tùy theo yêu cầu của bạn
+                                    //            url: "/hienthisansham/chonmau", // Thay thế bằng đường dẫn tương ứng của bạn
+                                    //            dataType: "json",
+                                    //            contentType: 'application/json;charset=utf-8',
+                                    //            data: { IdSanPham: idSanPham, IdMau: idMau },
+                                    //            success: function (result) {
+                                    //                console.log(result)
+                                    //                // Cập nhật dữ liệu trên trang
+                                    //                // Ví dụ: Thay thế nội dung hoặc thực hiện các thao tác khác cần thiết
+                                    //            },
+                                    //            error: function () {
+                                    //                // Xử lý lỗi nếu có
+                                    //            }
+                                    //        });
+                                    //    });
+                                    //});
 </script>
 
 <style>
-    .color-button .color-button1 {
-        padding: 5px 10px;
-        border: 1px solid #ccc;
-        cursor: pointer;
-    }
-
-    .selected {
-
-        background-color: #4cd3e3;
-        color: #fff;
-        border: 1px solid #4cd3e3;
-    }
-
-    /* Hiển thị lại nút đã chọn */
-    .selected {
-        /*display: block;*/
-       
-        /* Không thay đổi vị trí của nút */
-        position: static;
-    }
-
+    
     .horizontal-list {
         list-style-type: none; /* Loại bỏ dấu chấm */
         padding: 0; /* Loại bỏ khoảng cách đệm */
@@ -732,9 +773,32 @@
             display: inline; /* Hiển thị các mục ngang cùng hàng */
             margin-right: 10px; /* Thêm khoảng cách giữa các mục (tùy chỉnh) */
         }
+
+    .custom-button {
+        color: #000000; /* Màu chữ trên nút */
+        border: none;
+        border-radius: 20px;
+        padding: 10px 20px;
+        font-size: 14px; /* Kích thước chữ */
+        cursor: pointer;
+        font-weight: 400; /* Độ đậm chữ */
+        transition: border-radius 0.3s, box-shadow 0.3s;
+    }
+
+        .custom-button.before-click {
+            background-color: #DDDDDD; /* Màu nền của nút trước khi click */
+        }
+
+        .custom-button.after-click {
+            background-color: #DDDDDD;
+            color: #000000;
+            box-shadow: 0 0 0 2px #000000;
+             /* Vòng tròn màu xanh bo xung quanh nút sau khi click, bán kính là 5px */
+
+
 </style>
 <script src="~/js/vendor/jquery-2.2.4.min.js"></script>
-
+@*<script src="~/js/jquery-3.6.0.js"></script>*@
 <script src="~/js/vendor/bootstrap.min.js"></script>
 <script src="~/js/jquery.ajaxchimp.min.js"></script>
 <script src="~/js/jquery.nice-select.min.js"></script>
