@@ -1,8 +1,9 @@
 ﻿@model CTN4_Data.Models.DB_CTN4.KhachHang
 
 @{
-    ViewData["Title"] = "UserDetail";
+    ViewData["Title"] = "Thông Tin Khách Hàng";
 }
+
 <section class="banner-area organic-breadcrumb">
     <div class="container">
         <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
@@ -17,67 +18,36 @@
         </div>
     </div>
 </section>
-<div class="container">
 
-
-<div>
-    
-    <hr />
+<div class="container mt-5">
     <dl class="row">
-       
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Ho)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Ho)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Ten)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Ten)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TenDangNhap)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TenDangNhap)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MatKhau)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MatKhau)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.GioiTinh)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.GioiTinh)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SDT)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SDT)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DiaChi)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DiaChi)
-        </dd>
+        <dt class="col-sm-2">Họ:</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Ho)</dd>
 
+        <dt class="col-sm-2">Tên:</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Ten)</dd>
+
+        <dt class="col-sm-2">Mật Khẩu:</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.MatKhau)</dd>
+
+        <dt class="col-sm-2">Giới Tính:</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.GioiTinh)</dd>
+
+        <dt class="col-sm-2">Email:</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Email)</dd>
+
+        <dt class="col-sm-2">Số Điện Thoại:</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.SDT)</dd>
+
+        <dt class="col-sm-2">Địa Chỉ:</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.DiaChi)</dd>
     </dl>
-</div>
-<div>
-        <a asp-action="UpdateKH">Update</a>
-    <a asp-action="Index">Back to List</a>
-</div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <a class="btn btn-primary" asp-action="UpdateKH">Cập Nhật</a>
+            <a class="btn btn-secondary" asp-action="Themdiachi">Thêm Địa Chỉ</a>
+            <a class="btn btn-secondary" asp-action="Index">Quay Lại</a>
+        </div>
+    </div>
 </div>

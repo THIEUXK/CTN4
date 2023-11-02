@@ -295,7 +295,7 @@ namespace CTN4_View.Controllers.Shop
                     Id = idHoaDon,
                     NgayTaoHoaDon = DateTime.Now,
                     DiaChi = "",
-                    TrangThai = "Đang xử lí",
+                    TrangThai = "Đang chờ xử lí",
                     TongTien = tong,
                     NgayDat = DateTime.Now,
                     IdDiaChiNhanHang = null,
@@ -361,7 +361,7 @@ namespace CTN4_View.Controllers.Shop
                     DiaChi = "",
                     TenKhachHang = "",
                     SDTNguoiNhan = "",
-                    TrangThai = "Đang xử lí",
+                    TrangThai = "Đang chờ xử lí",
                     TongTien = tong,
                     NgayDat = DateTime.Now,
                     IdPhuongThuc = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971211111")

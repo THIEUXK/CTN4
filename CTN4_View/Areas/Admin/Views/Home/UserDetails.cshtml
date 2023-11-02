@@ -2,10 +2,12 @@
 
 @{
     ViewData["Title"] = "UserDetails";
-   
-    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 
 }
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
 
 
 
@@ -26,18 +28,7 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Ten)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TenDangNhap)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TenDangNhap)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MatKhau)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MatKhau)
-        </dd>
+     
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.GioiTinh)
         </dt>
@@ -71,5 +62,7 @@
 </div>
 <div>
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
+    <button> <a asp-action="Doimk">Đổi Mk</a></button>
+    <button><a asp-action="Themdiachi"> Địa chỉ Nhận Hàng</a></button>
+    <button><a asp-action="Index">Back to List</a></button>
 </div>

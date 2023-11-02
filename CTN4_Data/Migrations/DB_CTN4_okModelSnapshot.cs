@@ -117,17 +117,17 @@ namespace CTN4_Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("IdSanPhamChiTiet")
+                    b.Property<Guid?>("IdKhachHang")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("IdSanPhamYeuThich")
+                    b.Property<Guid?>("IdSanPham")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdSanPhamChiTiet");
+                    b.HasIndex("IdKhachHang");
 
-                    b.HasIndex("IdSanPhamYeuThich");
+                    b.HasIndex("IdSanPham");
 
                     b.ToTable("ChiTietSanPhamYeu");
                 });
@@ -290,12 +290,28 @@ namespace CTN4_Data.Migrations
                     b.Property<Guid?>("IdKhachHang")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("TenDiaChi")
+                    b.Property<bool>("TrangThai")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("code")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("TrangThai")
-                        .HasColumnType("bit");
+                    b.Property<string>("codename")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("division_type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("phone_code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -458,6 +474,9 @@ namespace CTN4_Data.Migrations
                     b.Property<string>("TrangThai")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TrangThaiThanhToan")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -1560,22 +1579,6 @@ namespace CTN4_Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.SanPhamYeuThich", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("IdKhachHang")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdKhachHang");
-
-                    b.ToTable("SanPhamYeuThichs");
-                });
-
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.Size", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1646,17 +1649,17 @@ namespace CTN4_Data.Migrations
 
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.ChiTietSanPhamYeuThich", b =>
                 {
-                    b.HasOne("CTN4_Data.Models.DB_CTN4.SanPhamChiTiet", "SanPhamChiTiet")
-                        .WithMany("CTietSanPhamYeuThiches")
-                        .HasForeignKey("IdSanPhamChiTiet");
+                    b.HasOne("CTN4_Data.Models.DB_CTN4.KhachHang", "KhachHang")
+                        .WithMany("ChiTietSanPhamYeuThiches")
+                        .HasForeignKey("IdKhachHang");
 
-                    b.HasOne("CTN4_Data.Models.DB_CTN4.SanPhamYeuThich", "SanPhamYeuThich")
-                        .WithMany("CTietSanPhamYeuThiches")
-                        .HasForeignKey("IdSanPhamYeuThich");
+                    b.HasOne("CTN4_Data.Models.DB_CTN4.SanPham", "SanPham")
+                        .WithMany("CtietSanPhamYeuThiches")
+                        .HasForeignKey("IdSanPham");
 
-                    b.Navigation("SanPhamChiTiet");
+                    b.Navigation("KhachHang");
 
-                    b.Navigation("SanPhamYeuThich");
+                    b.Navigation("SanPham");
                 });
 
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.DanhMucChiTiet", b =>
@@ -1848,15 +1851,6 @@ namespace CTN4_Data.Migrations
                     b.Navigation("Size");
                 });
 
-            modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.SanPhamYeuThich", b =>
-                {
-                    b.HasOne("CTN4_Data.Models.DB_CTN4.KhachHang", "KKhachHang")
-                        .WithMany("SanPhamYeuThiches")
-                        .HasForeignKey("IdKhachHang");
-
-                    b.Navigation("KKhachHang");
-                });
-
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.ChatLieu", b =>
                 {
                     b.Navigation("SanPhams");
@@ -1896,13 +1890,13 @@ namespace CTN4_Data.Migrations
 
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.KhachHang", b =>
                 {
+                    b.Navigation("ChiTietSanPhamYeuThiches");
+
                     b.Navigation("DiaChiNhanHangs");
 
                     b.Navigation("GioHang");
 
                     b.Navigation("HoaDon");
-
-                    b.Navigation("SanPhamYeuThiches");
                 });
 
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.KhuyenMai", b =>
@@ -1936,6 +1930,8 @@ namespace CTN4_Data.Migrations
 
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.SanPham", b =>
                 {
+                    b.Navigation("CtietSanPhamYeuThiches");
+
                     b.Navigation("DanhMucChiTiets");
 
                     b.Navigation("KhuyenMaiSanPhams");
@@ -1949,16 +1945,9 @@ namespace CTN4_Data.Migrations
                 {
                     b.Navigation("Anhs");
 
-                    b.Navigation("CTietSanPhamYeuThiches");
-
                     b.Navigation("GioHangChiTiets");
 
                     b.Navigation("HoaDonChiTiets");
-                });
-
-            modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.SanPhamYeuThich", b =>
-                {
-                    b.Navigation("CTietSanPhamYeuThiches");
                 });
 
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.Size", b =>

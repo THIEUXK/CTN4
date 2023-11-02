@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Authorization;
 using CTN4_Serv.ViewModel;
 using NuGet.Common;
 using CTN4_Serv.Service.Service;
+using Newtonsoft.Json;
+using System.Net.Http;
 
 namespace CTN4_View.Controllers
 {
@@ -26,6 +28,8 @@ namespace CTN4_View.Controllers
         private readonly IKhachHangService _khachHangService;
 		private readonly ISanPhamService _spService;
 		private string generatedToken = null;
+        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IDiaChiNhanHangService _diachi;
 
         public IKhachHangService _KHangService;
         //public HomeController()
@@ -34,7 +38,7 @@ namespace CTN4_View.Controllers
         //    _sanPhamCuaHangService = new SanPhamCuaHangService();
         //}
 
-        public HomeController(ILogger<HomeController> logger, IConfiguration config, ITokenService tokenService, ILoginService userRepository,ICurrentUser curent,IKhachHangService khachhang,ISanPhamService sanpham)
+        public HomeController(ILogger<HomeController> logger, IConfiguration config, ITokenService tokenService, ILoginService userRepository,ICurrentUser curent,IKhachHangService khachhang,ISanPhamService sanpham, IHttpClientFactory httpClientFactory)
         {
             _spService = sanpham;
             _khachHangService = khachhang;
@@ -46,6 +50,7 @@ namespace CTN4_View.Controllers
             _config = config;
             _tokenService = tokenService;
             _userRepository = userRepository;
+            _httpClientFactory = httpClientFactory;
         }
 
         public IActionResult Index()
@@ -56,10 +61,69 @@ namespace CTN4_View.Controllers
             var obj = _spService.GetAll();
 			return View(obj);
         }
+        public async Task<IActionResult> Themdiachi()
+        {
+            // Tạo một instance của HttpClient từ factory
+            var client = _httpClientFactory.CreateClient();
 
+
+            // Đặt URL của API bạn muốn gọi
+            string apiUrl = "https://provinces.open-api.vn/api/p/";
+
+            // Gọi API bằng phương thức GET
+            HttpResponseMessage response = await client.GetAsync(apiUrl);
+
+            if (response.IsSuccessStatusCode)
+            {
+                // Đọc dữ liệu từ response và chuyển đổi thành chuỗi hoặc object tùy vào API của bạn
+                string responseData = await response.Content.ReadAsStringAsync();
+                // Xử lý dữ liệu ở đây
+                List<DiaChiNhanHang> diaChiNhanHangList = JsonConvert.DeserializeObject<List<DiaChiNhanHang>>(responseData);
+                return View(diaChiNhanHangList); // Trả về kết quả thành công
+            }
+            else
+            {
+                // Xử lý lỗi ở đây, ví dụ: response.StatusCode, response.ReasonPhrase
+                return BadRequest("Failed to fetch data from API");
+            }
+            
+        }
+        [HttpPost]
+        public IActionResult themdiachis(DiaChiNhanHang a)
+        {
+            if (a == null)
+            {
+                return RedirectToAction(nameof(Themdiachi));
+            }
+            a.Id = Guid.NewGuid();
+            _diachi.Them(a, _curent.Id);
+            return RedirectToAction("Index");   
+        } 
         public IActionResult blog()
         {
             return View();
+        }
+        [AllowAnonymous]
+        [Route("DangKy")]
+        [HttpGet]
+        public IActionResult DangKy()
+        {
+            return View();
+        }
+    
+        [HttpPost]
+        public IActionResult DangKys(KhachHang a)
+        {
+            if (a == null)
+            {
+                return RedirectToAction(nameof(DangKy));
+            }
+            
+            a.Id = Guid.NewGuid();
+            a.Trangthai = true;
+            a.AnhDaiDien = "Fall";
+            _khachHangService.Them(a);
+            return RedirectToAction(nameof(login));
         }
         public IActionResult cart()
         {
@@ -107,6 +171,12 @@ namespace CTN4_View.Controllers
             return View(s);
           
          }
+        public IActionResult SignUp()
+        {
+
+            return View();
+
+        }
         [HttpPost]
         public IActionResult UpdateKhang(KhachHang khachHangForm)
         {

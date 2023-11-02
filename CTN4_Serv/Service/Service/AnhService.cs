@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CTN4_Data.DB_Context;
 using CTN4_Data.Models.DB_CTN4;
 using CTN4_Serv.Service.IService;
+using Microsoft.EntityFrameworkCore;
 
 namespace CTN4_Serv.Service
 {
@@ -19,7 +20,7 @@ namespace CTN4_Serv.Service
         }
         public List<Anh> GetAll()
         {
-            return _db.Anhs.ToList();
+            return _db.Anhs.Include(c=>c.SanPhamChiTiet.SanPham).ToList();
         }
 
         public Anh GetById(Guid id)

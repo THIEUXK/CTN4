@@ -20,7 +20,7 @@ namespace CTN4_Serv.Service
         }
         public List<HoaDonChiTiet> GetAll()
         {
-            return _db.HoaDonChiTiets.Include(c => c.SanPhamChiTiet.SanPham).Include(c => c.SanPhamChiTiet).ToList();
+            return _db.HoaDonChiTiets.Include(c=>c.HoaDon).Include(c => c.SanPhamChiTiet.SanPham).Include(c => c.SanPhamChiTiet.Size).Include(c => c.SanPhamChiTiet.Mau).Include(c => c.SanPhamChiTiet).ToList();
         }
 
         public HoaDonChiTiet GetById(Guid id)

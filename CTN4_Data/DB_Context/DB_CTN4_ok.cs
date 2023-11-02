@@ -36,7 +36,6 @@ namespace CTN4_Data.DB_Context
         public DbSet<PhuongThucThanhToan> PhuongThucThanhToans { get; set; }
         public DbSet<SanPham> SanPhams { get; set; }
         public DbSet<SanPhamChiTiet> SanPhamChiTiets { get; set; }
-        public DbSet<SanPhamYeuThich> SanPhamYeuThichs { get; set; }
         public DbSet<Size> Sizes { get; set; }
 
 
