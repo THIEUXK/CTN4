@@ -168,12 +168,34 @@
                                 <i class="lnr lnr-chevron-down"></i>
                             </button>
                         </div>
-                        <div class="card_area d-flex align-items-center">
-                            <button class="primary-btn" type="submit" href="#">Add to Cart</button>
-                            <a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
-                            <a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
-                        </div>
-                        <input type="hidden" name="idSP" value="">
+                      
+                        <div>
+                            @if (Model.idsize != null && Model.idmau != null)
+                            {
+                                <input type="hidden" name="IdSize" value="@Model.idsize">
+                                <input type="hidden" name="IdMau" value="@Model.idmau">
+                            }
+                            else
+                            {
+                                <input type="hidden" name="IdSize" value="null">
+                                <input type="hidden" name="IdMau" value="null">
+                            }
+                            <input type="hidden" name="IdSanPham" value="@Model.sanPham.Id">
+                            @if (TempData["TB1"] != null)
+                            {
+                                <div class="alert alert-danger">@TempData["TB1"]</div>
+                            }
+
+                            @if (TempData["TB2"] != null)
+                            {
+                                <div class="alert alert-danger">@TempData["TB2"]</div>
+                            }
+                            <div class="card_area d-flex align-items-center">
+                                <button class="primary-btn" type="submit" href="#">Add to Cart</button>
+                                <a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
+                                <a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
+                            </div>
+                            <input type="hidden" name="idSP" value="">
                     </form>
                     <p>
                         Mill Oil is an innovative oil filled radiator with the most modern technology. If you are looking for
@@ -762,7 +784,7 @@
 </script>
 
 <style>
-    
+
     .horizontal-list {
         list-style-type: none; /* Loại bỏ dấu chấm */
         padding: 0; /* Loại bỏ khoảng cách đệm */
@@ -793,17 +815,21 @@
             background-color: #DDDDDD;
             color: #000000;
             box-shadow: 0 0 0 2px #000000;
-             /* Vòng tròn màu xanh bo xung quanh nút sau khi click, bán kính là 5px */
-
+            /* Vòng tròn màu xanh bo xung quanh nút sau khi click, bán kính là 5px */
 
 </style>
 <script src="~/js/vendor/jquery-2.2.4.min.js"></script>
-@*<script src="~/js/jquery-3.6.0.js"></script>*@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.~/js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+        crossorigin="anonymous"></script>
 <script src="~/js/vendor/bootstrap.min.js"></script>
 <script src="~/js/jquery.ajaxchimp.min.js"></script>
-<script src="~/js/jquery.nice-select.min.js"></script>
+
 <script src="~/js/jquery.sticky.js"></script>
 <script src="~/js/nouislider.min.js"></script>
 <script src="~/js/countdown.js"></script>
 <script src="~/js/jquery.magnific-popup.min.js"></script>
 <script src="~/js/owl.carousel.min.js"></script>
+<!--gmaps Js-->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+<script src="~/js/gmaps.min.js"></script>
+<script src="~/js/main.js"></script>
