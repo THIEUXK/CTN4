@@ -23,8 +23,6 @@ namespace CTN4_View.Controllers.Shop
         public IHoaDonService _HoaDonService;
         public IHoaDonChiTietService _HoaDonChiTiet;
         public ISanPhamChiTietService _SanPhamChiTiet;
-        public ISanPhamService _sanPhamService;
-        public IAnhService _anhService;
 
 
         public BanHangController()
@@ -37,8 +35,6 @@ namespace CTN4_View.Controllers.Shop
             _HoaDonChiTiet = new HoaDonChiTietService();
             _SanPhamChiTiet = new SanPhamChiTietService();
             _httpClient = new HttpClient();
-            _sanPhamService = new SanPhamService();
-            _anhService = new AnhService();
             _httpClient.DefaultRequestHeaders.Add("token", "fa31ddca-73b0-11ee-b394-8ac29577e80e");
             _httpClient.DefaultRequestHeaders.Add("shop_id", "4189141");
         }
@@ -60,30 +56,26 @@ namespace CTN4_View.Controllers.Shop
 
                 }
 
-                var anh = _anhService.GetAll().ToList();
                 var view2 = new GioHangView()
                 {
                     GioHangChiTiets = ghct,
-                    TongTien = tong,
-                    anhs = anh
+                    TongTien = tong
                 };
                 return View(view2);
             }
             else
             {
-                var gioHang = SessionServices.GioHangSS(HttpContext.Session, "GioHang");
-
-                foreach (var x in gioHang)
+                var gh2 = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == null);
+                var a = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh2.Id);
+                foreach (var x in a)
                 {
-                    var spct = _SanPhamChiTiet.GetAll().FirstOrDefault(c => c.Id == x.IdSanPhamChiTiet);
-                    tong += float.Parse(spct.SanPham.GiaNiemYet.ToString()) * (x.SoLuong);
+                    tong += float.Parse(x.SanPhamChiTiet.SanPham.GiaNiemYet.ToString()) * (x.SoLuong);
 
                 }
 
                 var view = new GioHangView()
                 {
-
-                    GioHangChiTiets = gioHang,
+                    GioHangChiTiets = a,
                     TongTien = tong
                 };
                 return View(view);
@@ -91,24 +83,24 @@ namespace CTN4_View.Controllers.Shop
 
         }
 
-        public IActionResult XoaChiTietGioHang(Guid id)
-        {
-            var b = _GioHangChiTiet.GetById(id);
-            var product = _SanPhamChiTiet.GetById(b.IdSanPhamChiTiet.Value);
-            if (_GioHangChiTiet.Xoa(id))
-            {
-                product.SoLuong += b.SoLuong;
-                if (_SanPhamChiTiet.Sua(product))
-                {
-                    return RedirectToAction("GioHang");
-                }
+        //public IActionResult XoaChiTietGioHang(Guid id)
+        //{
+        //    var b = _GioHangChiTiet.GetById(id);
+        //    var product = _sanPhamCuaHangService.GetById(b.IdSanPhamChiTiet.Value);
+        //    if (_GioHangChiTiet.Xoa(id))
+        //    {
+        //        product.SoLuong += b.SoLuong;
+        //        if (_SanPhamChiTiet.Sua(product))
+        //        {
+        //            return RedirectToAction("GioHang");
+        //        }
 
-            }
-            var message = "Xóa Thất Bại";
-            TempData["ErrorMessage"] = message;
-            return RedirectToAction("GioHang", "BanHang", new { message });
+        //    }
+        //    var message = "Xóa Thất Bại";
+        //    TempData["ErrorMessage"] = message;
+        //    return RedirectToAction("GioHang", "BanHang", new { message });
 
-        }
+        //}
         //Huyen
         [HttpGet("CheckOut/GetListDistrict")]
         public JsonResult GetListDistrict(int idProvin)
@@ -424,7 +416,7 @@ namespace CTN4_View.Controllers.Shop
         public IActionResult HoaDonChiTiet(Guid id)
         {
             var b = _HoaDonService.GetById(id);
-            var a = _HoaDonChiTiet.GetAll().Where(c => c.IdHoaDon == id).ToList();
+            var a = _HoaDonChiTiet.GetAll().Where(c=>c.IdHoaDon==id).ToList();
             var view = new ThieuxkView()
             {
                 HoaDon = b,
@@ -437,188 +429,123 @@ namespace CTN4_View.Controllers.Shop
             return View();
         }
 
-        [HttpPost]
-        public IActionResult ThemVaoGio(int soluong, Guid IdSanPham, Guid IdSize, Guid IdMau)
-        {
-            var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
-            if (accnew.Count != 0)
-            {
-                if (IdMau == Guid.Parse("00000000-0000-0000-0000-000000000000") || IdSize == Guid.Parse("00000000-0000-0000-0000-000000000000"))
-                {
-                    var message1 = "hãy chọn màu và size của bạn !";
-                    TempData["TB1"] = message1;
-                    return RedirectToAction("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = IdSanPham, message1 });
-                }
-                if (soluong <= 0)
-                {
-                    var message2 = "Số lượng phải lớn hơn 0 !";
-                    TempData["TB2"] = message2;
-                    return RedirectToAction("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = IdSanPham, message2 });
-                }
+        //[HttpPost]
+        //public IActionResult ThemVaoGio(int soluong, Guid idSP)
+        //{
+        //    var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
+        //    if (accnew.Count != 0)
+        //    {
+        //        var tkmoi = accnew[0];
+        //        var gioHang = _GioHang.GetAll();
+        //        if (gioHang.Where(c => c.IdKhachHang == tkmoi.Id).ToList().Count == 0)
+        //        {
+        //            _GioHang.Clean(tkmoi.Id);
+        //            var a = new GioHang()
+        //            {
+        //                Id = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971214497"),
+        //                IdKhachHang = tkmoi.Id,
+        //                TrangThai = true
+        //            };
+        //            _GioHang.Them(a);
+        //        }
+        //        {
+        //            var SP = _GioHangChiTiet.GetAll().FirstOrDefault(c => c.IdSanPhamChiTiet == idSP);
+        //            if (SP == null)
+        //            {
+        //                var d = new GioHangChiTiet()
+        //                {
+        //                    Id = Guid.NewGuid(),
+        //                    IdSanPhamChiTiet = idSP,
+        //                    IdGioHang = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971214497"),
+        //                    SoLuong = soluong,
+        //                };
+        //                if (_GioHangChiTiet.Them(d))
+        //                {
+        //                    var product = _sanPhamCuaHangService.GetById(idSP);
+        //                    product.SoLuong -= soluong;
+        //                    if (_SanPhamChiTiet.Sua(product))
+        //                    {
+        //                        return RedirectToAction("GioHang");
+        //                    }
+        //                }
+        //            }
+        //            else
+        //            {
+        //                SP.SoLuong += soluong;
+        //                if (_GioHangChiTiet.Sua(SP))
+        //                {
+        //                    var product = _sanPhamCuaHangService.GetById(idSP);
+        //                    product.SoLuong -= soluong;
+        //                    if (_SanPhamChiTiet.Sua(product))
+        //                    {
+        //                        return RedirectToAction("GioHang");
+        //                    }
+        //                }
+        //            }
+        //        }
 
-                var tkmoi = accnew[0];
-                if (tkmoi != null)
-                {
-                    var sanphamCT = _SanPhamChiTiet.GetAll().FirstOrDefault(c => c.IdSp == IdSanPham && c.IdSize == IdSize && c.IdMau == IdMau);
-                    var gioHang = _GioHang.GetAll();
-                    if (gioHang.Where(c => c.IdKhachHang == tkmoi.Id).ToList().Count == 0)
-                    {
-                        var a = new GioHang()
-                        {
-                            Id = Guid.NewGuid(),
-                            IdKhachHang = tkmoi.Id,
-                            TrangThai = true
-                        };
-                        _GioHang.Them(a);
-                    }
-                    {
-                        var SP = _GioHangChiTiet.GetAll().FirstOrDefault(c => c.IdSanPhamChiTiet == sanphamCT.Id);
-                        if (SP == null)
-                        {
-                            var d = new GioHangChiTiet()
-                            {
-                                Id = Guid.NewGuid(),
-                                IdSanPhamChiTiet = sanphamCT.Id,
-                                IdGioHang = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == tkmoi.Id).Id,
-                                SoLuong = soluong,
-                            };
-                            if (_GioHangChiTiet.Them(d))
-                            {
-                                var product = _SanPhamChiTiet.GetById(sanphamCT.Id);
-                                product.SoLuong -= soluong;
-                                if (_SanPhamChiTiet.Sua(product))
-                                {
-                                    return RedirectToAction("GioHang");
-                                }
-                            }
-                        }
-                        else
-                        {
-                            SP.SoLuong += soluong;
-                            if (_GioHangChiTiet.Sua(SP))
-                            {
-                                var product = _SanPhamChiTiet.GetById(sanphamCT.Id);
-                                product.SoLuong -= soluong;
-                                if (_SanPhamChiTiet.Sua(product))
-                                {
-                                    return RedirectToAction("GioHang");
-                                }
-                            }
-                        }
-                    }
-                    var message3 = "Thêm thất bại !";
-                    TempData["TB1"] = message3;
-                    return RedirectToAction("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = IdSanPham, message3 });
+        //        var e = _sanPhamCuaHangService.GetById(idSP);
 
-                }
-            }
-            else
-            {
-                return RedirectToAction("login", "Home");
-                //var sanphamCT = _SanPhamChiTiet.GetAll().FirstOrDefault(c => c.IdSp == IdSanPham && c.IdSize == IdSize && c.IdMau == IdMau);
+        //        return RedirectToAction("HienThiSanPhamChiTiet", "HienThiSanPham", e);
 
-                ////if (accnew.Count == 0)
-                ////{
-                ////    gioHang.Add(a);
-                ////    SessionServices.SetObjToJson(HttpContext.Session, "GioHang", accnew);
-                ////}
-                ////else if (accnew.Count != 0)
-                ////{
-                ////    gioHang.Clear();
-                ////    gioHang.Add(a);
-                ////    SessionServices.SetObjToJson(HttpContext.Session, "GioHang", accnew);
-                ////}
+        //    }
+        //    else
+        //    {
+        //        var gioHang = _GioHang.GetAll();
+        //        if (gioHang.Count == 0)
+        //        {
+        //            var a = new GioHang()
+        //            {
+        //                Id = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971214498"),
+        //                TrangThai = true
+        //            };
+        //            _GioHang.Them(a);
+        //        }
+        //        {
+        //            var SP = _GioHangChiTiet.GetAll().FirstOrDefault(c => c.IdSanPhamChiTiet == idSP);
+        //            if (SP == null)
+        //            {
+        //                var d = new GioHangChiTiet()
+        //                {
+        //                    Id = Guid.NewGuid(),
+        //                    IdSanPhamChiTiet = idSP,
+        //                    IdGioHang = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971214498"),
+        //                    SoLuong = soluong,
+        //                };
+        //                if (_GioHangChiTiet.Them(d))
+        //                {
+        //                    var product = _sanPhamCuaHangService.GetById(idSP);
+        //                    product.SoLuong -= soluong;
+        //                    if (_SanPhamChiTiet.Sua(product))
+        //                    {
+        //                        return RedirectToAction("GioHang");
+        //                    }
+        //                }
+        //            }
+        //            else
+        //            {
+        //                SP.SoLuong += soluong;
+        //                if (_GioHangChiTiet.Sua(SP))
+        //                {
+        //                    var product = _sanPhamCuaHangService.GetById(idSP);
+        //                    product.SoLuong -= soluong;
+        //                    if (_SanPhamChiTiet.Sua(product))
+        //                    {
+        //                        return RedirectToAction("GioHang");
+        //                    }
+        //                }
+        //            }
+        //        }
 
-                //var gioHang = SessionServices.GioHangSS(HttpContext.Session, "GioHang");
-                //var SP = gioHang.FirstOrDefault(c => c.IdSanPhamChiTiet == sanphamCT.Id);
-                //if (SP == null)
-                //{
-                //    var d = new GioHangChiTiet()
-                //    {
-                //        Id = Guid.NewGuid(),
-                //        IdSanPhamChiTiet = sanphamCT.Id,
-                //        SoLuong = soluong,
-                //    };
-                //    gioHang.Add(d);
-                //    SessionServices.SetObjToJson(HttpContext.Session, "GioHang", gioHang);
+        //        var c = _sanPhamCuaHangService.GetById(idSP);
 
-                //    var product = _SanPhamChiTiet.GetById(sanphamCT.Id);
-                //    product.SoLuong -= soluong;
-                //    if (_SanPhamChiTiet.Sua(product))
-                //    {
-                //        return RedirectToAction("GioHang");
-                //    }
-                //}
-                //else
-                //{
-                //    SP.SoLuong += soluong;
-
-                //    gioHang.Remove(SP);
-                //    gioHang.Add(SP);
-                //    SessionServices.SetObjToJson(HttpContext.Session, "GioHang", gioHang);
-                //    var product = _SanPhamChiTiet.GetById(sanphamCT.Id);
-                //    product.SoLuong -= soluong;
-                //    if (_SanPhamChiTiet.Sua(product))
-                //    {
-                //        return RedirectToAction("GioHang");
-                //    }
-                //}
-            }
-            //var gioHang = _GioHang.GetAll();
-            //if (gioHang.Count == 0)
-            //{
-            //    var a = new GioHang()
-            //    {
-            //        Id = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971214498"),
-            //        TrangThai = true
-            //    };
-            //    _GioHang.Them(a);
-            //}
-            //{
-            //    var SP = _GioHangChiTiet.GetAll().FirstOrDefault(c => c.IdSanPhamChiTiet == idSP);
-            //    if (SP == null)
-            //    {
-            //        var d = new GioHangChiTiet()
-            //        {
-            //            Id = Guid.NewGuid(),
-            //            IdSanPhamChiTiet = idSP,
-            //            IdGioHang = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971214498"),
-            //            SoLuong = soluong,
-            //        };
-            //        if (_GioHangChiTiet.Them(d))
-            //        {
-            //            var product = _sanPhamCuaHangService.GetById(idSP);
-            //            product.SoLuong -= soluong;
-            //            if (_SanPhamChiTiet.Sua(product))
-            //            {
-            //                return RedirectToAction("GioHang");
-            //            }
-            //        }
-            //    }
-            //    else
-            //    {
-            //        SP.SoLuong += soluong;
-            //        if (_GioHangChiTiet.Sua(SP))
-            //        {
-            //            var product = _sanPhamCuaHangService.GetById(idSP);
-            //            product.SoLuong -= soluong;
-            //            if (_SanPhamChiTiet.Sua(product))
-            //            {
-            //                return RedirectToAction("GioHang");
-            //            }
-            //        }
-            //    }
-            //}
-
-            var message4 = "Thêm thất bại !";
-            TempData["TB1"] = message4;
-            return RedirectToAction("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = IdSanPham, message4 });
-        }
+        //        return RedirectToAction("HienThiSanPhamChiTiet", "HienThiSanPham", c);
+        //    }
 
 
 
+
+        //}
 
     }
-
 }
-

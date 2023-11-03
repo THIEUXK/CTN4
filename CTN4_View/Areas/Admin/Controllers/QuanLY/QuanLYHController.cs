@@ -22,11 +22,9 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         public SanPhamCuaHangService _sanPhamCuaHangService;
         public DB_CTN4_ok _db;
         public IAnhService _anhService;
-        public ISanPhamChiTietService _sanPhamChiTietService;
 
         public QuanLYHController()
         {
-            _sanPhamChiTietService = new SanPhamChiTietService();
             _sv = new SanPhamChiTietService();
             _chatLieuService = new ChatLieuService();
             _mauService = new MauService();
@@ -58,7 +56,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddAnh(Guid IdSP, List<IFormFile> imageFile,Guid IdMau,Guid idSPCT)
+        public async Task<ActionResult> AddAnh(Guid IdSP, List<IFormFile> imageFile)
         {
             var listAnh = imageFile.ToList();
             foreach(var anh in listAnh){
@@ -77,23 +75,20 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             if (anh != null)
             {
                 {
-                        foreach (var a in _sanPhamChiTietService.GetAll().Where(c=>c.IdSp==IdSP&&c.IdMau==IdMau))
-                        {
-                            _db.Anhs.Add(new Anh()
-                            {
-                                IdSanPhamChiTiet = a.Id,
-                                DuongDanAnh = anh.FileName,
-                                Is_delete = true,
-                                TrangThai = true,
-                                TenAnh = anh.FileName
-                            });
-                            await _db.SaveChangesAsync();
-                        }             
+                    _db.Anhs.Add(new Anh()
+                    {
+                        IdSanPhamChiTiet = IdSP,
+                        DuongDanAnh = anh.FileName,
+                        Is_delete = true,
+                        TrangThai = true,
+                        TenAnh = anh.FileName
+                    });
+                    await _db.SaveChangesAsync();
                 }
             } }
 
 
-            return RedirectToAction("Details", new { id = idSPCT });
+            return RedirectToAction("Details", new { id = IdSP });
         }
         // GET: PhanLoaiController/Create
         public ActionResult Create()
