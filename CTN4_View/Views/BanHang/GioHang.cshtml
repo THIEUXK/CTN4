@@ -50,30 +50,30 @@
                         {
                             <tr>
                                 <td>
-                                    
-                                        
-                                            @foreach (var b in Model.anhs.Where(c => c.IdSanPhamChiTiet == a.IdSanPhamChiTiet))
-                                            {
 
-                                                @if (System.IO.Path.GetExtension(b.DuongDanAnh) == ".jpg" ||
-                                               System.IO.Path.GetExtension(b.DuongDanAnh) == ".png" ||
-                                               System.IO.Path.GetExtension(b.DuongDanAnh) == ".jpeg" ||
-                                               System.IO.Path.GetExtension(b.DuongDanAnh) == ".tiff" ||
-                                               System.IO.Path.GetExtension(b.DuongDanAnh) == ".webp" ||
-                                               System.IO.Path.GetExtension(b.DuongDanAnh) == ".gif")
-                                                {
-                                                    <img src="~/image/@b.DuongDanAnh" height="150" >
-                                                }
-                                                else
-                                                {
-                                                    <span>Ảnh lỗi rồi =)))</span>
-                                                }
-                                            }
-                                        
-                                        <div class="media-body">
-                                            <p>@a.SanPhamChiTiet.SanPham.TenSanPham</p>
-                                        </div>
-                                   
+
+                                    @foreach (var b in Model.anhs.Where(c => c.IdSanPhamChiTiet == a.IdSanPhamChiTiet))
+                                    {
+
+                                        @if (System.IO.Path.GetExtension(b.DuongDanAnh) == ".jpg" ||
+                                       System.IO.Path.GetExtension(b.DuongDanAnh) == ".png" ||
+                                       System.IO.Path.GetExtension(b.DuongDanAnh) == ".jpeg" ||
+                                       System.IO.Path.GetExtension(b.DuongDanAnh) == ".tiff" ||
+                                       System.IO.Path.GetExtension(b.DuongDanAnh) == ".webp" ||
+                                       System.IO.Path.GetExtension(b.DuongDanAnh) == ".gif")
+                                        {
+                                            <img src="~/image/@b.DuongDanAnh" height="150">
+                                        }
+                                        else
+                                        {
+                                            <span>Ảnh lỗi rồi =)))</span>
+                                        }
+                                    }
+
+                                    <div class="media-body">
+                                        <p>@a.SanPhamChiTiet.SanPham.TenSanPham</p>
+                                    </div>
+
                                 </td>
                                 <td>
                                     <h5>@a.SanPhamChiTiet.Mau.TenMau</h5>

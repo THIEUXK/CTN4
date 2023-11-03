@@ -1,0 +1,132 @@
+﻿@model CTN4_Serv.ViewModel.ThieuxkView
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+<div class="row">
+    <div class="col-md-9">
+        <br></br>
+        <br></br>
+
+
+        <h1>Details</h1>
+
+        <div>
+            <h4>SanPhamChiTiet</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.SanPhamChiTiet.Id)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.SanPhamChiTiet.Id)
+                </dd>
+         
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.SanPhamChiTiet.SoLuong)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.SanPhamChiTiet.SoLuong)
+                </dd>
+         
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.SanPhamChiTiet.TrangThai)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.SanPhamChiTiet.TrangThai)
+                </dd>
+           
+             
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.SanPhamChiTiet.Is_detele)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.SanPhamChiTiet.Is_detele)
+                </dd>
+              
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.SanPhamChiTiet.IdMau)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.SanPhamChiTiet.Mau.TenMau)
+                </dd>
+               
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.SanPhamChiTiet.IdSize)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.SanPhamChiTiet.Size.CoSize)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.SanPhamChiTiet.IdSp)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.SanPhamChiTiet.SanPham.TenSanPham)
+                </dd>
+            </dl>
+        </div>
+        <div>
+            @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+            <a asp-action="Index">Back to List</a>
+        </div>
+        
+
+    </div>
+</div>
+
+@foreach (var a in Model.AhList)
+{
+    <td>
+        @if (System.IO.Path.GetExtension(a.DuongDanAnh) == ".jpg" ||
+             System.IO.Path.GetExtension(a.DuongDanAnh) == ".png" ||
+             System.IO.Path.GetExtension(a.DuongDanAnh) == ".jpeg" ||
+             System.IO.Path.GetExtension(a.DuongDanAnh) == ".tiff" ||
+             System.IO.Path.GetExtension(a.DuongDanAnh) == ".webp" ||
+             System.IO.Path.GetExtension(a.DuongDanAnh) == ".gif")
+        {
+            <img src="~/image/@a.DuongDanAnh" height="100">
+        }
+        else
+        {
+            <span>Ảnh lỗi rồi =)))</span>
+        }
+    </td>
+    <td>
+        @Html.ActionLink("Xóa", "XoaAnh", new { id=a.Id,IdSp=a.IdSanPhamChiTiet}) |
+    </td>
+
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+@*<form asp-action="AddAnh" method="post" enctype="multipart/form-data">
+    <div class="m-b-15">
+        <input type="hidden" name="IdSP" value="@Model.SanPhamChiTiet.Id" />
+        <input name="imageFile" type="file" class="form-control-file" />
+        <button id="btnUpload" class="btn btn-primary">
+            <i class="anticon anticon-save"></i>
+        </button>
+        <button type="submit">Thêm ảnh</button>
+    </div>
+</form>*@
+
+<form asp-action="AddAnh" method="post" enctype="multipart/form-data">
+    <div class="m-b-15">
+        <input type="hidden" name="IdSP" value="@Model.SanPhamChiTiet.IdSp" />
+        <input type="hidden" name="idSPCT" value="@Model.SanPhamChiTiet.Id" />
+        <input type="hidden" name="IdMau" value="@Model.SanPhamChiTiet.IdMau" />
+        <input name="imageFile" type="file" multiple class="form-control-file" />
+        <button id="btnUpload" class="btn btn-primary">
+            <i class="anticon anticon-save"></i>
+        </button>
+        <button type="submit">Thêm ảnh</button>
+    </div>
+</form>
+

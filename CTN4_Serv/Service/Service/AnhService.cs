@@ -70,5 +70,19 @@ namespace CTN4_Serv.Service
                 return false;
             }
         }
+        public bool XoaBySP(Guid id)
+        {
+            try
+            {
+                var b = GetAll().FirstOrDefault(c=>c.IdSanPhamChiTiet==id);
+                _db.Anhs.Remove(b);
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
     }
 }
