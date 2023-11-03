@@ -1,0 +1,162 @@
+﻿@model CTN4_Serv.ViewModel.GioHangView
+@{
+    ViewData["Title"] = "ThuTucThanhToan";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- End Header Area -->
+<!-- Start Banner Area -->
+@*<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Checkout</h1>
+                <nav class="d-flex align-items-center">
+                    <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="single-product.html">Checkout</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>*@
+<br></br>
+<br></br>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+<form method="post" asp-controller="BanHang" asp-action="HoanThanhThanhToan">
+    <!-- End Banner Area -->
+    <!--================Checkout Area =================-->
+    <div class="billing_details">
+        <div class="row">
+            <div class="col-lg-8">
+                <h3>Chi tiết thanh toán</h3>
+                <div class="row contact_form" action="#" method="post" novalidate="novalidate">
+                    <div class="col-md-6 form-group p_star">
+                        <label>Họ</label>
+                        <input type="text" class="form-control" id="first" name="name">
+                       
+                    </div>
+                    <div class="col-md-6 form-group p_star">
+                        <label>Tên</label>
+                        <input type="text" class="form-control" id="last" name="name">
+                      
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <label>Địa chỉ nhận hàng cụ thể</label>
+                        <input type="text" class="form-control" id="company" name="company" >
+                    </div>
+                    <div class="col-md-6 form-group p_star">
+                        <label>Số điện thoại</label>
+                        <input type="text" class="form-control" id="number" name="number">
+                       
+                    </div>
+                    <div class="col-md-6 form-group p_star">
+                        <label>Email</label>
+                        <input type="text" class="form-control" id="email" name="compemailany">
+                      
+                    </div>
+
+                    <div class="col-md-6 form-group">
+                        <label>Chọn Tỉnh/thành<span class="text-danger">(*)</span></label>
+                        <span class="text-danger" id="mess_provin"></span>
+                        <select class="custom-select" asp-items="@ViewBag.Provin" id="provin">
+                            <option selected value="0">Chọn tỉnh thành</option>
+
+                        </select>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Chọn Quận/Huyện<span class="text-danger">(*)</span></label>
+                        <span class="text-danger" id="mess_district"></span>
+                        <select class="custom-select" id="district">
+                            <option selected value="0">Chọn quận huyện </option>
+
+                        </select>
+                    </div>
+
+                    <div class="col-md-6 form-group">
+                        <label>Chọn Phường/Xã<span class="text-danger">(*)</span></label>
+                        <span class="text-danger" id="mess_ward"></span>
+                        <select class="custom-select" id="ward" name="ward">
+                            <option selected value="0">Chọn Phường Xã</option>
+
+                        </select>
+                    </div>
+
+
+                    <div class="col-md-6 form-group">
+
+                        <label for="exampleFormControlTextarea1" class="form-label">Ghi chú</label>
+                        <textarea class="form-control" name="note" id="note_ck" rows="3"></textarea>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="order_box">
+                    <div class="order_box">
+                        <h2>Đơn hàng của bạn</h2>
+                        <ul class="list">
+                            <li><a href="#">Tên sản Phẩm <span>Giá tiền</span></a></li>
+                            @foreach (var a in Model.GioHangChiTiets)
+                            {
+                                <li><a href="#">@a.SanPhamChiTiet.SanPham.TenSanPham<span class="middle">x @a.SoLuong</span> <span class="last">@FormatCurrency(a.SanPhamChiTiet.SanPham.GiaNiemYet *a.SoLuong)</span></a></li>
+
+                                <input type="hidden" name="idGHCT" value="@a.Id" />
+                                <input type="hidden" name="idSPCT" value="@a.IdSanPhamChiTiet" />
+                                <input type="hidden" name="SoLuong" value="@a.SoLuong" />
+                                <input type="hidden" name="idGH" value="@a.IdGioHang" />
+                            }
+                        </ul>
+                        <br></br>
+                        <ul class="list">
+                            <li><a href="#">Tiền ship<span><b style="color:black"></b></span></a></li>
+                        </ul>
+                        <br></br>
+                        <ul class="list">
+                            <li><a href="#">Tổng tiền<span><b style="color:orange">@FormatCurrency(Model.TongTien)</b></span></a></li>
+                        </ul>
+                        <br></br>
+
+                        <div class="card border-secondary mb-5">
+
+                            <button class="primary-btn" type="submit" href="#">Mua Hàng</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script src="~/js/checkout.js" asp-append-version="true">
+    @functions {
+        public string FormatCurrency(float price)
+        {
+            string formattedPrice = string.Format("{0:N0}", price); // Định dạng số và thêm dấu phân cách ngàn
+            return formattedPrice + "₫"; // Thêm ký hiệu đồng (₫) vào cuối
+        }
+    }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="~/js/checkout.js"></script>
+
+
+<script src="~/js/vendor/jquery-2.2.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.~/js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+        crossorigin="anonymous"></script>
+<script src="~/js/vendor/bootstrap.min.js"></script>
+<script src="~/js/jquery.ajaxchimp.min.js"></script>
+<script src="~/js/jquery.sticky.js"></script>
+<script src="~/js/nouislider.min.js"></script>
+<script src="~/js/countdown.js"></script>
+<script src="~/js/jquery.magnific-popup.min.js"></script>
+<script src="~/js/owl.carousel.min.js"></script>
+<!--gmaps Js-->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+<script src="~/js/gmaps.min.js"></script>
+<script src="~/js/main.js"></script>
