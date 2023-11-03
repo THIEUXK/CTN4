@@ -156,16 +156,22 @@
                                                 <h6 class="l-through">@FormatCurrency(sp.GiaBan)</h6>
                                             }
                                         </div>
-                                        <div class="prd-bottom">
-
+                                        <div class="prd-bottom" style="display: flex;">
                                             <a href="" class="social-info">
                                                 <span class="ti-bag"></span>
                                                 <p class="hover-text">add to bag</p>
                                             </a>
-                                            <a href="" class="social-info">
-                                                <span class="lnr lnr-heart"></span>
-                                                <p class="hover-text">Wishlist</p>
-                                            </a>
+                                            <form asp-controller="SanPhamYeuThich" asp-action="ThemYeuThich">
+                                                <input type="hidden" name="IdSanPham" value="@sp.Id"> 
+                                                <button onclick="onsubmit">
+                                                    <a onclick="onsubmit" class="social-info">
+                                                        <span onclick="onsubmit" class="lnr lnr-heart"></span>
+                                                        <p type="button" onclick="onsubmit" class="hover-text">Yêu thích</p>
+                                                    </a>
+                                                </button>
+                                               
+                                            </form>
+                                           
                                             <a href="" class="social-info">
                                                 <span class="lnr lnr-sync"></span>
                                                 <p class="hover-text">compare</p>
