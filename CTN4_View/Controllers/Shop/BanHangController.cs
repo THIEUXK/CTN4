@@ -25,6 +25,7 @@ namespace CTN4_View.Controllers.Shop
         public ISanPhamChiTietService _SanPhamChiTiet;
         public ISanPhamService _sanPhamService;
         public IAnhService _anhService;
+        public IPhuongThucThanhToanService _phuongThucThanhToanService;
 
 
         public BanHangController()
@@ -39,6 +40,7 @@ namespace CTN4_View.Controllers.Shop
             _httpClient = new HttpClient();
             _sanPhamService = new SanPhamService();
             _anhService = new AnhService();
+            _phuongThucThanhToanService = new PhuongThucThanhToanService();
             _httpClient.DefaultRequestHeaders.Add("token", "fa31ddca-73b0-11ee-b394-8ac29577e80e");
             _httpClient.DefaultRequestHeaders.Add("shop_id", "4189141");
         }
@@ -147,8 +149,6 @@ namespace CTN4_View.Controllers.Shop
         public IActionResult ThuTucThanhToan()
         {
 
-
-
             HttpResponseMessage responseProvin = _httpClient.GetAsync("https://online-gateway.ghn.vn/shiip/public-api/master-data/province").Result;
 
             Provin lstprovin = new Provin();
@@ -175,7 +175,13 @@ namespace CTN4_View.Controllers.Shop
                 var view2 = new GioHangView()
                 {
                     GioHangChiTiets = ghct,
-                    TongTien = tong
+                    TongTien = tong,
+                    listPhuongThucs = _phuongThucThanhToanService.GetAll().Select(s => new SelectListItem
+                    {
+                        Value = s.Id.ToString(),
+                        Text = s.TenPhuongThuc
+                    }).ToList(),
+
                 };
                 return View(view2);
             }
@@ -192,7 +198,14 @@ namespace CTN4_View.Controllers.Shop
                 var view = new GioHangView()
                 {
                     GioHangChiTiets = a,
-                    TongTien = tong
+                    TongTien = tong,
+
+                    listPhuongThucs = _phuongThucThanhToanService.GetAll().Select(s => new SelectListItem
+                    {
+                        Value = s.Id.ToString(),
+                        Text = s.TenPhuongThuc
+                    }).ToList(),
+
                 };
                 return View(view);
             }
@@ -616,7 +629,15 @@ namespace CTN4_View.Controllers.Shop
         }
 
 
+        //public IActionResult ThuTucThanhToan()
+        //{
 
+        //    var phuongThucThanhToans = _phuongThucThanhToanService.GetAll(); // Lấy danh sách phương thức thanh toán từ dịch vụ hoặc cơ sở dữ liệu.
+
+        //    ViewBag.SelectedPhuongThuc = new SelectList(phuongThucThanhToans, "Id", "TenPhuongThuc");
+
+        //    return View();
+        //}
 
     }
 

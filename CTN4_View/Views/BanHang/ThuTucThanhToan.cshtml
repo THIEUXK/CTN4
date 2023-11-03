@@ -36,28 +36,31 @@
                 <h3>Chi tiết thanh toán</h3>
                 <div class="row contact_form" action="#" method="post" novalidate="novalidate">
                     <div class="col-md-6 form-group p_star">
-                        <label>Họ</label>
+                        <label>Họ và tên</label>
                         <input type="text" class="form-control" id="first" name="name">
-                       
+
                     </div>
+
                     <div class="col-md-6 form-group p_star">
-                        <label>Tên</label>
-                        <input type="text" class="form-control" id="last" name="name">
-                      
+                        <label>Mã giảm giá</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Coupon Code">
+                            <button type="button" class="btn btn-primary" style="background: linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);">Applly</button>
+                        </div>
                     </div>
                     <div class="col-md-12 form-group">
                         <label>Địa chỉ nhận hàng cụ thể</label>
-                        <input type="text" class="form-control" id="company" name="company" >
+                        <input type="text" class="form-control" id="company" name="company">
                     </div>
                     <div class="col-md-6 form-group p_star">
                         <label>Số điện thoại</label>
                         <input type="text" class="form-control" id="number" name="number">
-                       
+
                     </div>
                     <div class="col-md-6 form-group p_star">
                         <label>Email</label>
                         <input type="text" class="form-control" id="email" name="compemailany">
-                      
+
                     </div>
 
                     <div class="col-md-6 form-group">
@@ -85,6 +88,20 @@
 
                         </select>
                     </div>
+                    <div class="col-md-6 form-group">
+                        <label>Phương thức thanh toán<span class="text-danger">(*)</span></label>
+                        <span class="text-danger" ></span>
+                        <select class="custom-select"
+                        <select asp-for="idphuongthuc" class="form-control">
+                            <option value=""> Chọn phương thức thanh toán</option>
+                            @foreach (var a in Model.listPhuongThucs)
+                            {
+                                <option value="@a.Value">@a.Text</option>
+                            }
+                        </select>
+                        </select>
+                    </div>
+
 
 
                     <div class="col-md-6 form-group">
