@@ -72,7 +72,7 @@ namespace CTN4_View.Controllers.Shop
             else
             {
                 var gioHang = SessionServices.GioHangSS(HttpContext.Session, "GioHang");
-              
+
                 foreach (var x in gioHang)
                 {
                     var spct = _SanPhamChiTiet.GetAll().FirstOrDefault(c => c.Id == x.IdSanPhamChiTiet);
@@ -82,7 +82,7 @@ namespace CTN4_View.Controllers.Shop
 
                 var view = new GioHangView()
                 {
-                  
+
                     GioHangChiTiets = gioHang,
                     TongTien = tong
                 };
@@ -440,21 +440,22 @@ namespace CTN4_View.Controllers.Shop
         [HttpPost]
         public IActionResult ThemVaoGio(int soluong, Guid IdSanPham, Guid IdSize, Guid IdMau)
         {
-            if (IdMau == Guid.Parse("00000000-0000-0000-0000-000000000000") || IdSize == Guid.Parse("00000000-0000-0000-0000-000000000000"))
-            {
-                var message1 = "hãy chọn màu và size của bạn !";
-                TempData["TB1"] = message1;
-                return RedirectToAction("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = IdSanPham, message1 });
-            }
-            if (soluong <= 0)
-            {
-                var message2 = "Số lượng phải lớn hơn 0 !";
-                TempData["TB2"] = message2;
-                return RedirectToAction("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = IdSanPham, message2 });
-            }
             var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
             if (accnew.Count != 0)
             {
+                if (IdMau == Guid.Parse("00000000-0000-0000-0000-000000000000") || IdSize == Guid.Parse("00000000-0000-0000-0000-000000000000"))
+                {
+                    var message1 = "hãy chọn màu và size của bạn !";
+                    TempData["TB1"] = message1;
+                    return RedirectToAction("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = IdSanPham, message1 });
+                }
+                if (soluong <= 0)
+                {
+                    var message2 = "Số lượng phải lớn hơn 0 !";
+                    TempData["TB2"] = message2;
+                    return RedirectToAction("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = IdSanPham, message2 });
+                }
+
                 var tkmoi = accnew[0];
                 if (tkmoi != null)
                 {
@@ -478,7 +479,7 @@ namespace CTN4_View.Controllers.Shop
                             {
                                 Id = Guid.NewGuid(),
                                 IdSanPhamChiTiet = sanphamCT.Id,
-                                IdGioHang = _GioHang.GetAll().FirstOrDefault(c=>c.IdKhachHang==tkmoi.Id).Id,
+                                IdGioHang = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == tkmoi.Id).Id,
                                 SoLuong = soluong,
                             };
                             if (_GioHangChiTiet.Them(d))
@@ -513,55 +514,55 @@ namespace CTN4_View.Controllers.Shop
             }
             else
             {
-               
-                var sanphamCT = _SanPhamChiTiet.GetAll().FirstOrDefault(c => c.IdSp == IdSanPham && c.IdSize == IdSize && c.IdMau == IdMau);
+                return RedirectToAction("login", "Home");
+                //var sanphamCT = _SanPhamChiTiet.GetAll().FirstOrDefault(c => c.IdSp == IdSanPham && c.IdSize == IdSize && c.IdMau == IdMau);
 
-                //if (accnew.Count == 0)
+                ////if (accnew.Count == 0)
+                ////{
+                ////    gioHang.Add(a);
+                ////    SessionServices.SetObjToJson(HttpContext.Session, "GioHang", accnew);
+                ////}
+                ////else if (accnew.Count != 0)
+                ////{
+                ////    gioHang.Clear();
+                ////    gioHang.Add(a);
+                ////    SessionServices.SetObjToJson(HttpContext.Session, "GioHang", accnew);
+                ////}
+
+                //var gioHang = SessionServices.GioHangSS(HttpContext.Session, "GioHang");
+                //var SP = gioHang.FirstOrDefault(c => c.IdSanPhamChiTiet == sanphamCT.Id);
+                //if (SP == null)
                 //{
-                //    gioHang.Add(a);
-                //    SessionServices.SetObjToJson(HttpContext.Session, "GioHang", accnew);
+                //    var d = new GioHangChiTiet()
+                //    {
+                //        Id = Guid.NewGuid(),
+                //        IdSanPhamChiTiet = sanphamCT.Id,
+                //        SoLuong = soluong,
+                //    };
+                //    gioHang.Add(d);
+                //    SessionServices.SetObjToJson(HttpContext.Session, "GioHang", gioHang);
+
+                //    var product = _SanPhamChiTiet.GetById(sanphamCT.Id);
+                //    product.SoLuong -= soluong;
+                //    if (_SanPhamChiTiet.Sua(product))
+                //    {
+                //        return RedirectToAction("GioHang");
+                //    }
                 //}
-                //else if (accnew.Count != 0)
+                //else
                 //{
-                //    gioHang.Clear();
-                //    gioHang.Add(a);
-                //    SessionServices.SetObjToJson(HttpContext.Session, "GioHang", accnew);
+                //    SP.SoLuong += soluong;
+
+                //    gioHang.Remove(SP);
+                //    gioHang.Add(SP);
+                //    SessionServices.SetObjToJson(HttpContext.Session, "GioHang", gioHang);
+                //    var product = _SanPhamChiTiet.GetById(sanphamCT.Id);
+                //    product.SoLuong -= soluong;
+                //    if (_SanPhamChiTiet.Sua(product))
+                //    {
+                //        return RedirectToAction("GioHang");
+                //    }
                 //}
-
-                var gioHang = SessionServices.GioHangSS(HttpContext.Session, "GioHang");
-                var SP = gioHang.FirstOrDefault(c => c.IdSanPhamChiTiet == sanphamCT.Id);
-                if (SP == null)
-                {
-                    var d = new GioHangChiTiet()
-                    {
-                        Id = Guid.NewGuid(),
-                        IdSanPhamChiTiet = sanphamCT.Id,
-                        SoLuong = soluong,
-                    };
-                    gioHang.Add(d);
-                    SessionServices.SetObjToJson(HttpContext.Session, "GioHang", gioHang);
-
-                    var product = _SanPhamChiTiet.GetById(sanphamCT.Id);
-                    product.SoLuong -= soluong;
-                    if (_SanPhamChiTiet.Sua(product))
-                    {
-                        return RedirectToAction("GioHang");
-                    }
-                }
-                else
-                {
-                    SP.SoLuong += soluong;
-
-                    gioHang.Remove(SP);
-                    gioHang.Add(SP);
-                    SessionServices.SetObjToJson(HttpContext.Session, "GioHang", gioHang);
-                    var product = _SanPhamChiTiet.GetById(sanphamCT.Id);
-                    product.SoLuong -= soluong;
-                    if (_SanPhamChiTiet.Sua(product))
-                    {
-                        return RedirectToAction("GioHang");
-                    }
-                }
             }
             //var gioHang = _GioHang.GetAll();
             //if (gioHang.Count == 0)
