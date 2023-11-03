@@ -1,192 +1,97 @@
-﻿﻿@model CTN4_Serv.ViewModel.ThieuxkView
+﻿@model CTN4_Data.Models.DB_CTN4.SanPham
 
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
-<br></br>
-<br></br>
+
+<h1>Details</h1>
 
 <div>
-    <h4>Quản lí sản phẩm</h4>
+    <h4>SanPham</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            Id
+            @Html.DisplayNameFor(model => model.Id)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SanPham.Id)
+            @Html.DisplayFor(model => model.Id)
         </dd>
         <dt class = "col-sm-2">
-            Chất liệu
+            @Html.DisplayNameFor(model => model.IdChatLieu)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SanPham.ChatLieu.TenChatLieu)
+            @Html.DisplayFor(model => model.IdChatLieu)
         </dd>
         <dt class = "col-sm-2">
-            Nhà sản xuất
+            @Html.DisplayNameFor(model => model.IdNSX)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SanPham.NSX.TenNSX)
+            @Html.DisplayFor(model => model.IdNSX)
         </dd>
         <dt class = "col-sm-2">
-            Mã sản Phẩm
+            @Html.DisplayNameFor(model => model.MaSp)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SanPham.MaSp)
+            @Html.DisplayFor(model => model.MaSp)
         </dd>
         <dt class = "col-sm-2">
-            Tên sản phẩm
+            @Html.DisplayNameFor(model => model.TenSanPham)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SanPham.TenSanPham)
+            @Html.DisplayFor(model => model.TenSanPham)
         </dd>
         <dt class = "col-sm-2">
-           Ảnh đại diện
+            @Html.DisplayNameFor(model => model.AnhDaiDien)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SanPham.AnhDaiDien)
+            @Html.DisplayFor(model => model.AnhDaiDien)
         </dd>
         <dt class = "col-sm-2">
-            Trạng thái
+            @Html.DisplayNameFor(model => model.TrangThai)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SanPham.TrangThai)
+            @Html.DisplayFor(model => model.TrangThai)
         </dd>
         <dt class = "col-sm-2">
-            Mô tả
+            @Html.DisplayNameFor(model => model.MoTa)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SanPham.MoTa)
+            @Html.DisplayFor(model => model.MoTa)
         </dd>
         <dt class = "col-sm-2">
-           Giá nhập
+            @Html.DisplayNameFor(model => model.GiaNhap)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SanPham.GiaNhap)
+            @Html.DisplayFor(model => model.GiaNhap)
         </dd>
         <dt class = "col-sm-2">
-            Giá bán
+            @Html.DisplayNameFor(model => model.GiaBan)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SanPham.GiaBan)
+            @Html.DisplayFor(model => model.GiaBan)
         </dd>
         <dt class = "col-sm-2">
-            Gia niên yết
+            @Html.DisplayNameFor(model => model.GiaNiemYet)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SanPham.GiaNiemYet)
+            @Html.DisplayFor(model => model.GiaNiemYet)
         </dd>
         <dt class = "col-sm-2">
-           Ghi chú
+            @Html.DisplayNameFor(model => model.GhiChu)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SanPham.GhiChu)
+            @Html.DisplayFor(model => model.GhiChu)
         </dd>
         <dt class = "col-sm-2">
-            Is_detele
+            @Html.DisplayNameFor(model => model.Is_detele)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SanPham.Is_detele)
+            @Html.DisplayFor(model => model.Is_detele)
         </dd>
     </dl>
 </div>
 <div>
-    <button>@Html.ActionLink("Edit", "Edit", new {id = Model.SanPham.Id }) </button>
-    
-    <button><a asp-action="Index">Back to List</a></button>
-    
+    @Html.ActionLink("Edit", "Edit", new {id = Model.Id }) |
+    <a asp-action="Index">Back to List</a>
 </div>
-
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-               Ảnh sản phẩm
-            </th>
-            <th>
-                Tên sản phẩm
-            </th>
-
-            <th>
-               Số lượng
-            </th>
-
-            <th>
-               Trạng thái
-            </th>
-
-            <th>
-                Is_detele
-            </th>
-            <th>
-                Màu
-            </th>
-            <th>
-                Size
-            </th>
-            
-            <th>
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.sanPhamChiTiets)
-        {
-            <tr>
-                <td>
-                    <tb>
-                        @foreach (var b in Model.AhList.Where(c => c.IdSanPhamChiTiet == item.Id))
-                        {
-
-                            @if (System.IO.Path.GetExtension(b.DuongDanAnh) == ".jpg" ||
-                           System.IO.Path.GetExtension(b.DuongDanAnh) == ".png" ||
-                           System.IO.Path.GetExtension(b.DuongDanAnh) == ".jpeg" ||
-                           System.IO.Path.GetExtension(b.DuongDanAnh) == ".tiff" ||
-                           System.IO.Path.GetExtension(b.DuongDanAnh) == ".webp" ||
-                           System.IO.Path.GetExtension(b.DuongDanAnh) == ".gif")
-                            {
-                                <img src="~/image/@b.DuongDanAnh" height="150">
-                            }
-                            else
-                            {
-                                <span>Ảnh lỗi rồi =)))</span>
-                            }
-                        }
-                    </tb>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SanPham.TenSanPham)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SoLuong)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.TrangThai)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.Is_detele)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.Mau.TenMau)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.Size.TenSize)
-                </td>
-                
-                <td>
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit","QuanLYH", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details","QuanLYH", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete","QuanLYH", new { id = item.Id })
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>

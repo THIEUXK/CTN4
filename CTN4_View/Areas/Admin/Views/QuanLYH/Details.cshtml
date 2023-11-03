@@ -1,4 +1,5 @@
 ﻿@model CTN4_Serv.ViewModel.ThieuxkView
+
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
@@ -70,9 +71,8 @@
             </dl>
         </div>
         <div>
-            <button>@Html.ActionLink("Edit", "Edit", new {id = Model.SanPham.Id }) </button>
-
-            <button>@Html.ActionLink("Back to List", "Details","SanPham" ,new {id = Model.SanPham.Id })</button>
+            @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+            <a asp-action="Index">Back to List</a>
         </div>
         
 
@@ -97,7 +97,7 @@
         }
     </td>
     <td>
-        @Html.ActionLink("Xóa", "XoaAnh", new { NameAnh=a.DuongDanAnh,IdSP=Model.SanPham.Id,IdMau=Model.IdMau,idSPCT=a.IdSanPhamChiTiet}) |
+        @Html.ActionLink("Xóa", "XoaAnh", new { id=a.Id,IdSp=a.IdSanPhamChiTiet}) |
     </td>
 
 }
@@ -119,9 +119,7 @@
 
 <form asp-action="AddAnh" method="post" enctype="multipart/form-data">
     <div class="m-b-15">
-        <input type="hidden" name="IdSP" value="@Model.SanPhamChiTiet.IdSp" />
-        <input type="hidden" name="idSPCT" value="@Model.SanPhamChiTiet.Id" />
-        <input type="hidden" name="IdMau" value="@Model.SanPhamChiTiet.IdMau" />
+        <input type="hidden" name="IdSP" value="@Model.SanPhamChiTiet.Id" />
         <input name="imageFile" type="file" multiple class="form-control-file" />
         <button id="btnUpload" class="btn btn-primary">
             <i class="anticon anticon-save"></i>
@@ -129,3 +127,4 @@
         <button type="submit">Thêm ảnh</button>
     </div>
 </form>
+

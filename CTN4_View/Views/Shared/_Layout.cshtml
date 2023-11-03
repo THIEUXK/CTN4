@@ -119,7 +119,7 @@
                         {
                             <li class="nav-item submenu dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                                   aria-expanded="false"><a class="nav-link">Welcome, @User.Identity.Name!</a></a>
+                                   aria-expanded="false"><a class="nav-link" asp-controller="Home" asp-action="login">Welcome, @User.Identity.Name!</a></a>
                                 <ul class="dropdown-menu">
                                     <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="UserDetail">Quản Lí Thông Tin</a></li>
                                     <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Logout">Đăng Xuất</a></li>
@@ -134,7 +134,7 @@
 
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                            <li class="nav-item"><a asp-controller="BanHang" asp-action="GioHang" class="cart"><span class="ti-bag"></span></a></li>
+                        <li class="nav-item"><a href="#" class="cart"><span class="ti-bag"></span></a></li>
                         <li class="nav-item">
                             <button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
                         </li>
@@ -228,10 +228,20 @@
         </div>
     </div>
 </footer>
-
 <!-- End footer Area -->
+@*<script src="~/js/vendor/jquery-2.2.4.min.js"></script>*@
 
-
+@*<script src="~/js/vendor/bootstrap.min.js"></script>
+<script src="~/js/jquery.ajaxchimp.min.js"></script>
+<script src="~/js/jquery.nice-select.min.js"></script>
+<script src="~/js/jquery.sticky.js"></script>
+<script src="~/js/nouislider.min.js"></script>
+<script src="~/js/countdown.js"></script>
+<script src="~/js/jquery.magnific-popup.min.js"></script>
+<script src="~/js/owl.carousel.min.js"></script>*@
+<!--gmaps Js-->
+<script src="~/js/gmaps.min.js"></script>
+<script src="~/js/main.js"></script>
     
 </body>
 

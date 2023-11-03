@@ -12,30 +12,25 @@ namespace CTN4_View_Admin.Controllers.QuanLY
     [Area("admin")]
     public class SanPhamController : Controller
     {
-        public ISanPhamChiTietService _sv;
+
+        public ISanPhamService _sv;
         public IChatLieuService _chatLieuService;
         public INSXService _nsxService;
-        public ISanPhamService _spService;
-        public ISanPhamService _sanPhamService;
-        public IMauService _mauService;
-        public ISizeService _sizeService;
         public SanPhamCuaHangService _sanPhamCuaHangService;
         public DB_CTN4_ok _db;
         public IAnhService _anhService;
-        public ISanPhamChiTietService _sanPhamChiTietService;
         public SanPhamController()
         {
-            _sanPhamChiTietService = new SanPhamChiTietService();
-            _sv = new SanPhamChiTietService();
+            _sv = new SanPhamService();
+
             _chatLieuService = new ChatLieuService();
-            _mauService = new MauService();
+
             _nsxService = new NSXService();
-            _spService = new SanPhamService();
-            _sizeService = new SizeService();
+
+
             _sanPhamCuaHangService = new SanPhamCuaHangService();
             _db = new DB_CTN4_ok();
             _anhService = new AnhService();
-            _sanPhamService = new SanPhamService();
         }
         // GET: SanPhamController
         [HttpGet]
@@ -49,18 +44,9 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         // GET: SanPhamController/Details/5
         public ActionResult Details(Guid id)
         {
-            var lisanh = _anhService.GetAll();
-            var a = _sanPhamService.GetById(id);
-            var listSPCT = _sanPhamChiTietService.GetAll().Where(c => c.IdSp == id);
 
-            var view = new ThieuxkView()
-            {
-                SanPham = a,
-                sanPhamChiTiets = listSPCT.ToList(),
-                AhList = lisanh.ToList(),
-
-            };
-            return View(view);
+            var a = _sv.GetById(id);
+            return View(a);
         }
 
         // GET: SanPhamController/Create
@@ -88,7 +74,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         public ActionResult Create(SanPhamView p, [Bind] IFormFile imageFile)
         {
             string x = null; // Đảm bảo khởi tạo x là null
-            x = imageFile.FileName;
+                x = imageFile.FileName;
             //var x = imageFile.FileName;
             if (imageFile != null && imageFile.Length > 0) // Không null và không trống
             {
@@ -112,7 +98,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                 TenSanPham = p.TenSanPham,
                 IdChatLieu = Guid.Parse(p.IdChatLieu.Value.ToString()),
                 IdNSX = Guid.Parse(p.IdNSX.Value.ToString()),
-
+                
                 MoTa = p.MoTa,
                 TrangThai = p.TrangThai,
                 GiaNhap = p.GiaNhap,
@@ -123,7 +109,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                 AnhDaiDien = p.AnhDaiDien,
 
             };
-            if (_sanPhamService.Them(a)) // Nếu thêm thành công
+            if (_sv.Them(a)) // Nếu thêm thành công
             {
 
                 return RedirectToAction("Index");
@@ -145,7 +131,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         }
 
         // GET: SanPhamController/Edit/5
-
+        
         public ActionResult Edit(Guid id)
         {
             var viewModel = new SanPhamView()
@@ -160,7 +146,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                     Value = s.Id.ToString(),
                     Text = s.TenNSX
                 }).ToList(),
-                sanPham = _sanPhamService.GetById(id)
+                sanPham = _sv.GetById(id)
             };
 
             return View(viewModel);
@@ -186,7 +172,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                 p.AnhDaiDien = imageFile.FileName;
             }
 
-            if (_sanPhamService.Sua(p))
+            if (_sv.Sua(p))
             {
                 return RedirectToAction("Index");
 

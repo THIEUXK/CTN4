@@ -40,18 +40,8 @@ namespace CTN4_Serv.Service
 			}
 			else return new List<KhachHang>();
 		}
-        public static List<GioHangChiTiet> GioHangSS(ISession session, string key)
-        {
-            var data = session.GetString(key); // Đọc dữ liệu từ Session ở dạng chuỗi
-            if (data != null)
-            {
-                var listObj = JsonConvert.DeserializeObject<List<GioHangChiTiet>>(data);
-                return listObj;
-            }
-            else return new List<GioHangChiTiet>();
-        }
 
-        public static bool CheckProductInCart(Guid id, List<SanPhamChiTiet> cartProducts)
+		public static bool CheckProductInCart(Guid id, List<SanPhamChiTiet> cartProducts)
 		{
 			return cartProducts.Any(p => p.Id == id); // Kiểm tra xem có tồn tại sp đó trong GH chưa
 		}
