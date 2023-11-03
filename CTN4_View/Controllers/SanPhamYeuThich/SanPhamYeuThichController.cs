@@ -1,6 +1,7 @@
 ﻿using CTN4_Data.Models.DB_CTN4;
 using CTN4_Serv.Service;
 using CTN4_Serv.Service.IService;
+using CTN4_Serv.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CTN4_View.Controllers.SanPhamYeuThich
@@ -38,8 +39,22 @@ namespace CTN4_View.Controllers.SanPhamYeuThich
         }
         public IActionResult Index()
         {
+            var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
             var a=  _YT.GetAll();
-            return View(a);
+            var view = new SanPhamYeuThichView(){
+                chiTietSanPhamYeuThiches=a,
+                KhachHang = accnew[0],
+            };
+                 
+            return View(view);
+        }
+        public IActionResult XoaKhoiYeuTich(Guid idSP,Guid IdKhachHang)
+        {
+           var lisSpYT= _YT.GetAll().FirstOrDefault(c=>c.IdKhachHang == IdKhachHang&&c.IdSanPham==idSP);
+            Guid idYT = lisSpYT.Id;
+            _YT.Xoa(idYT);
+            return RedirectToAction("Index");
+
         }
     }
 }

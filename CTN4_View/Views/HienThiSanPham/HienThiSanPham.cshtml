@@ -44,41 +44,41 @@
                     <div class="head">Chất Liệu</div>
                     <form id="FillterChatLieu">
                         <ul>
-                            
-                                @foreach (var chatLieu in Model.chatLieus)
-                                {
+
+                            @foreach (var chatLieu in Model.chatLieus)
+                            {
                                 if ((Model.sanPhams.Where(c => c.IdChatLieu == chatLieu.Id).Count()) >= 1)
-                                    {
-                                        <li>
-                                            <input class="pixel-radio" type="checkbox" name="ChatLieu" id="ChatLieu-@chatLieu.Id" value="@chatLieu.TenChatLieu">
-                                            <label for="ChatLieu-@chatLieu.Id">
+                                {
+                                    <li>
+                                        <input class="pixel-radio" type="checkbox" name="ChatLieu" id="ChatLieu-@chatLieu.Id" value="@chatLieu.TenChatLieu">
+                                        <label for="ChatLieu-@chatLieu.Id">
                                             @chatLieu.TenChatLieu <span>(@(Model.sanPhams.Where(c => c.IdChatLieu == chatLieu.Id).Count()))</span>
-                                            </label>
-                                        </li>
-                                    }
+                                        </label>
+                                    </li>
                                 }
-                            
+                            }
+
                         </ul>
                     </form>
                     <div class="common-filter">
                         <div class="head">MauSac</div>
                         @*<form id="FillterMauSac">
-                            <ul>
-                                @{
-                                    foreach (var mau in Model.maus)
-                                    {
-                                        if ((Model.sanPhamChiTiets.Where(c => c.IdMau == mau.Id).Count()) >= 1)
-                                        {
-                                            <li>
-                                                <input class="pixel-radio" type="checkbox" name="ChatLieu" id="ChatLieu-@mau.Id" value="@mau.TenMau">
-                                                <label for="ChatLieu-@mau.Id">
-                                                    @mau.TenMau <span>(@(Model.sanPhamChiTiets.Where(c => c.IdMau == mau.Id).Count()))</span>
-                                                </label>
-                                            </li>
-                                        }
-                                    }
-                                }
-                            </ul>
+                        <ul>
+                        @{
+                        foreach (var mau in Model.maus)
+                        {
+                        if ((Model.sanPhamChiTiets.Where(c => c.IdMau == mau.Id).Count()) >= 1)
+                        {
+                        <li>
+                        <input class="pixel-radio" type="checkbox" name="ChatLieu" id="ChatLieu-@mau.Id" value="@mau.TenMau">
+                        <label for="ChatLieu-@mau.Id">
+                        @mau.TenMau <span>(@(Model.sanPhamChiTiets.Where(c => c.IdMau == mau.Id).Count()))</span>
+                        </label>
+                        </li>
+                        }
+                        }
+                        }
+                        </ul>
                         </form>*@
                     </div>
                     <div>
@@ -162,16 +162,19 @@
                                                 <p class="hover-text">add to bag</p>
                                             </a>
                                             <form asp-controller="SanPhamYeuThich" asp-action="ThemYeuThich">
-                                                <input type="hidden" name="IdSanPham" value="@sp.Id"> 
-                                                <button onclick="onsubmit">
-                                                    <a onclick="onsubmit" class="social-info">
-                                                        <span onclick="onsubmit" class="lnr lnr-heart"></span>
-                                                        <p type="button" onclick="onsubmit" class="hover-text">Yêu thích</p>
-                                                    </a>
-                                                </button>
-                                               
+                                                <input type="hidden" name="IdSanPham" value="@sp.Id">
+
+                                                <a onclick="onsubmit" class="social-info">
+
+                                                   
+                                                    <button class="lnr lnr-heart" onclick="onsubmit">  </button>
+                                                   
+                                                    <p type="button" onclick="onsubmit" class="hover-text">Yêu thích</p>
+                                                </a>
+
+
                                             </form>
-                                           
+
                                             <a href="" class="social-info">
                                                 <span class="lnr lnr-sync"></span>
                                                 <p class="hover-text">compare</p>
@@ -199,11 +202,12 @@
                         <option value="1">Show 12</option>
                     </select>
                 </div>
-                
+
                 <div class="pagination">
-                    @for (int i = 1; i<= Model.pagingInfo.TotalPages;i++)
-                    {<form asp-action="HienThiSanPham">
-                       <button type="submit" ><input type="submit" name="page" value="@i" /></button>
+                    @for (int i = 1; i <= Model.pagingInfo.TotalPages; i++)
+                    {
+                        <form asp-action="HienThiSanPham">
+                            <button type="submit"><input type="submit" name="page" value="@i" /></button>
                         </form>
                         //<a href="/HienThiSanPham/HienThiSanPham/?PageSanPham=@i">@Html.ActionLink(i, "HienThiSanPham", "HienThiSanPhamController", new { page = i })</a>
                     }
@@ -360,13 +364,13 @@
             return formattedPrice + "₫"; // Thêm ký hiệu đồng (₫) vào cuối
         }
     };
-  
-   
+
+
 </script>
 
     @section scrrip{
     <script src="~/js/jquery-3.6.0.js"></script>
-    
+
     @*<script>
 
     $(document).ready(function () {
@@ -400,12 +404,12 @@
     </script>*@
 
     }
-   <script>
-         document.getElementById('btnFillter').addEventListener("click", function () {
+<script>
+    document.getElementById('btnFillter').addEventListener("click", function () {
         var chatLieus = getSetSelectCheckboxes("FillterChatLieu");
         var maus = getSetSelectCheckboxes("FillterMauSac");
-         console.log(chatLieus);
-         console.log(maus);
+        console.log(chatLieus);
+        console.log(maus);
         var data = {
             Idchatlieu: chatLieus,
             IdMauSac: maus
@@ -421,12 +425,12 @@
             else {
                 throw new Error("Error sedding data controller")
             }
-        }).then(function(results){
+        }).then(function (results) {
             $("#Fillter-sanPhams").html(results);
         })
-        .catch(function (error) {
-            console.log("An error occured:", error)
-        })
+            .catch(function (error) {
+                console.log("An error occured:", error)
+            })
     });
     function getSetSelectCheckboxes(fromId) {
         var CheckBoxes = $('#' + fromId + ' input[type=checkbox]:checked'); // Thêm dấu cách sau fromId
@@ -436,4 +440,19 @@
         });
         return value;
     }
-    </script>
+</script>
+<script src="js/vendor/jquery-2.2.4.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+			crossorigin="anonymous"></script>
+	<script src="js/vendor/bootstrap.min.js"></script>
+	<script src="js/jquery.ajaxchimp.min.js"></script>
+	<script src="js/jquery.nice-select.min.js"></script>
+	<script src="js/jquery.sticky.js"></script>
+	<script src="js/nouislider.min.js"></script>
+	<script src="js/countdown.js"></script>
+	<script src="js/jquery.magnific-popup.min.js"></script>
+	<script src="js/owl.carousel.min.js"></script>
+	<!--gmaps Js-->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+	<script src="js/gmaps.min.js"></script>
+	<script src="js/main.js"></script>
