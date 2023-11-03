@@ -25,21 +25,29 @@
         <div class="row s_product_inner">
             <div class="col-lg-6">
                 <div class="s_Product_carousel">
+                    @{
+                        // Tạo danh sách để theo dõi các Mau.Id đã xuất hiện
+                        var anhxuathien = new List<string>();
+                    }
                     @foreach (var a in Model.anhs)
                     {
+                        if (!anhxuathien.Contains(a.DuongDanAnh))
+                        {
+                            anhxuathien.Add(a.DuongDanAnh);
 
-                        @if (System.IO.Path.GetExtension(a.DuongDanAnh) == ".jpg" ||
-                       System.IO.Path.GetExtension(a.DuongDanAnh) == ".png" ||
-                       System.IO.Path.GetExtension(a.DuongDanAnh) == ".jpeg" ||
-                       System.IO.Path.GetExtension(a.DuongDanAnh) == ".tiff" ||
-                       System.IO.Path.GetExtension(a.DuongDanAnh) == ".webp" ||
-                       System.IO.Path.GetExtension(a.DuongDanAnh) == ".gif")
-                        {
-                            <img src="~/image/@a.DuongDanAnh">
-                        }
-                        else
-                        {
-                            <span>Ảnh lỗi rồi =)))</span>
+                            @if (System.IO.Path.GetExtension(a.DuongDanAnh) == ".jpg" ||
+                           System.IO.Path.GetExtension(a.DuongDanAnh) == ".png" ||
+                           System.IO.Path.GetExtension(a.DuongDanAnh) == ".jpeg" ||
+                           System.IO.Path.GetExtension(a.DuongDanAnh) == ".tiff" ||
+                           System.IO.Path.GetExtension(a.DuongDanAnh) == ".webp" ||
+                           System.IO.Path.GetExtension(a.DuongDanAnh) == ".gif")
+                            {
+                                <img src="~/image/@a.DuongDanAnh">
+                            }
+                            else
+                            {
+                                <span>Ảnh lỗi rồi =)))</span>
+                            }
                         }
                     }
                 </div>
@@ -168,7 +176,7 @@
                                 <i class="lnr lnr-chevron-down"></i>
                             </button>
                         </div>
-                      
+
                         <div>
                             @if (Model.idsize != null && Model.idmau != null)
                             {
@@ -823,7 +831,7 @@
         crossorigin="anonymous"></script>
 <script src="~/js/vendor/bootstrap.min.js"></script>
 <script src="~/js/jquery.ajaxchimp.min.js"></script>
-
+<script src="~/js/jquery.nice-select.min.js"></script>
 <script src="~/js/jquery.sticky.js"></script>
 <script src="~/js/nouislider.min.js"></script>
 <script src="~/js/countdown.js"></script>

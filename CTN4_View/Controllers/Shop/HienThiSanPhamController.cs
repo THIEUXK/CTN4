@@ -111,19 +111,8 @@ namespace CTN4_View.Controllers.Shop
             var size = _sizeService.GetAll().Distinct().ToList();
             var spctcuthe = _CTN4_Ok.SanPhamChiTiets.Include(c => c.Size).Where(c => c.IdMau == IdMau && c.IdSp == IdSanPham).ToList();
             var mauluu = _mauSacService.GetAll().FirstOrDefault(c => c.Id == IdMau);
-            // Đọc dữ liệu từ Session xem trong Cart nó có cái gì chưa?
-            var accnew = SessionServices.LuuMauSS(HttpContext.Session, "Mauss");
-            if (accnew.Count == 0)
-            {
-                accnew.Add(mauluu);
-                SessionServices.SetObjToJson(HttpContext.Session, "Mauss", accnew);
-            }
-            else if (accnew.Count != 0)
-            {
-                accnew.Clear();
-                accnew.Add(mauluu);
-                SessionServices.SetObjToJson(HttpContext.Session, "Mauss", accnew);
-            }
+           
+         
             var view = new SanPhamBan()
             {
                 sanPham = _sanPhamCuaHangService.GetById(IdSanPham),
