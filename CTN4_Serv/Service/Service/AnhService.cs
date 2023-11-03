@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CTN4_Serv.Service
 {
-    public class AnhService:IAnhService
+    public class AnhService : IAnhService
     {
         public DB_CTN4_ok _db;
 
@@ -20,7 +20,7 @@ namespace CTN4_Serv.Service
         }
         public List<Anh> GetAll()
         {
-            return _db.Anhs.Include(c=>c.SanPhamChiTiet.SanPham).ToList();
+            return _db.Anhs.Include(c => c.SanPhamChiTiet.SanPham).ToList();
         }
 
         public Anh GetById(Guid id)
@@ -61,6 +61,20 @@ namespace CTN4_Serv.Service
             try
             {
                 var b = GetById(id);
+                _db.Anhs.Remove(b);
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+        public bool XoaBySP(Guid id)
+        {
+            try
+            {
+                var b = GetAll().FirstOrDefault(c => c.IdSanPhamChiTiet == id);
                 _db.Anhs.Remove(b);
                 _db.SaveChanges();
                 return true;
