@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CTN4_Data.Migrations
 {
     [DbContext(typeof(DB_CTN4_ok))]
-    [Migration("20231101142434_a")]
-    partial class a
+    [Migration("20231101181739_sa")]
+    partial class sa
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
