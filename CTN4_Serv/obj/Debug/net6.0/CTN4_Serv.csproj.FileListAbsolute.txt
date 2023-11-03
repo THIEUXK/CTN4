@@ -1,0 +1,17 @@
+C:\Users\THIEUXK\Downloads\CTN4\bai tot nghiep\CTN4\CTN4_Serv\bin\Debug\net6.0\CTN4_Serv.deps.json
+C:\Users\THIEUXK\Downloads\CTN4\bai tot nghiep\CTN4\CTN4_Serv\bin\Debug\net6.0\CTN4_Serv.runtimeconfig.json
+C:\Users\THIEUXK\Downloads\CTN4\bai tot nghiep\CTN4\CTN4_Serv\bin\Debug\net6.0\CTN4_Serv.dll
+C:\Users\THIEUXK\Downloads\CTN4\bai tot nghiep\CTN4\CTN4_Serv\bin\Debug\net6.0\CTN4_Serv.pdb
+C:\Users\THIEUXK\Downloads\CTN4\bai tot nghiep\CTN4\CTN4_Serv\bin\Debug\net6.0\CTN4_Data.dll
+C:\Users\THIEUXK\Downloads\CTN4\bai tot nghiep\CTN4\CTN4_Serv\bin\Debug\net6.0\CTN4_Data.pdb
+C:\Users\THIEUXK\Downloads\CTN4\bai tot nghiep\CTN4\CTN4_Serv\obj\Debug\net6.0\CTN4_Serv.csproj.AssemblyReference.cache
+C:\Users\THIEUXK\Downloads\CTN4\bai tot nghiep\CTN4\CTN4_Serv\obj\Debug\net6.0\CTN4_Serv.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\THIEUXK\Downloads\CTN4\bai tot nghiep\CTN4\CTN4_Serv\obj\Debug\net6.0\CTN4_Serv.AssemblyInfoInputs.cache
+C:\Users\THIEUXK\Downloads\CTN4\bai tot nghiep\CTN4\CTN4_Serv\obj\Debug\net6.0\CTN4_Serv.AssemblyInfo.cs
+C:\Users\THIEUXK\Downloads\CTN4\bai tot nghiep\CTN4\CTN4_Serv\obj\Debug\net6.0\CTN4_Serv.csproj.CoreCompileInputs.cache
+C:\Users\THIEUXK\Downloads\CTN4\bai tot nghiep\CTN4\CTN4_Serv\obj\Debug\net6.0\CTN4_Serv.csproj.CopyComplete
+C:\Users\THIEUXK\Downloads\CTN4\bai tot nghiep\CTN4\CTN4_Serv\obj\Debug\net6.0\CTN4_Serv.dll
+C:\Users\THIEUXK\Downloads\CTN4\bai tot nghiep\CTN4\CTN4_Serv\obj\Debug\net6.0\refint\CTN4_Serv.dll
+C:\Users\THIEUXK\Downloads\CTN4\bai tot nghiep\CTN4\CTN4_Serv\obj\Debug\net6.0\CTN4_Serv.pdb
+C:\Users\THIEUXK\Downloads\CTN4\bai tot nghiep\CTN4\CTN4_Serv\obj\Debug\net6.0\CTN4_Serv.genruntimeconfig.cache
+C:\Users\THIEUXK\Downloads\CTN4\bai tot nghiep\CTN4\CTN4_Serv\obj\Debug\net6.0\ref\CTN4_Serv.dll
