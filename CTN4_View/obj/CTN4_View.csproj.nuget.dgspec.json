@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "F:\\DaFinal\\CTN4_View\\CTN4_View.csproj": {}
+    "C:\\Users\\THIEUXK\\Downloads\\CTN4\\bai tot nghiep\\CTN4\\CTN4_View\\CTN4_View.csproj": {}
   },
   "projects": {
-    "F:\\DaFinal\\CTN4_Data\\CTN4_Data.csproj": {
+    "C:\\Users\\THIEUXK\\Downloads\\CTN4\\bai tot nghiep\\CTN4\\CTN4_Data\\CTN4_Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\DaFinal\\CTN4_Data\\CTN4_Data.csproj",
+        "projectUniqueName": "C:\\Users\\THIEUXK\\Downloads\\CTN4\\bai tot nghiep\\CTN4\\CTN4_Data\\CTN4_Data.csproj",
         "projectName": "CTN4_Data",
-        "projectPath": "F:\\DaFinal\\CTN4_Data\\CTN4_Data.csproj",
-        "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-        "outputPath": "F:\\DaFinal\\CTN4_Data\\obj\\",
+        "projectPath": "C:\\Users\\THIEUXK\\Downloads\\CTN4\\bai tot nghiep\\CTN4\\CTN4_Data\\CTN4_Data.csproj",
+        "packagesPath": "C:\\Users\\THIEUXK\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\THIEUXK\\Downloads\\CTN4\\bai tot nghiep\\CTN4\\CTN4_Data\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\THIEUXK\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -65,7 +65,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -74,24 +75,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "F:\\DaFinal\\CTN4_Serv\\CTN4_Serv.csproj": {
+    "C:\\Users\\THIEUXK\\Downloads\\CTN4\\bai tot nghiep\\CTN4\\CTN4_Serv\\CTN4_Serv.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\DaFinal\\CTN4_Serv\\CTN4_Serv.csproj",
+        "projectUniqueName": "C:\\Users\\THIEUXK\\Downloads\\CTN4\\bai tot nghiep\\CTN4\\CTN4_Serv\\CTN4_Serv.csproj",
         "projectName": "CTN4_Serv",
-        "projectPath": "F:\\DaFinal\\CTN4_Serv\\CTN4_Serv.csproj",
-        "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-        "outputPath": "F:\\DaFinal\\CTN4_Serv\\obj\\",
+        "projectPath": "C:\\Users\\THIEUXK\\Downloads\\CTN4\\bai tot nghiep\\CTN4\\CTN4_Serv\\CTN4_Serv.csproj",
+        "packagesPath": "C:\\Users\\THIEUXK\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\THIEUXK\\Downloads\\CTN4\\bai tot nghiep\\CTN4\\CTN4_Serv\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\THIEUXK\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -106,8 +107,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "F:\\DaFinal\\CTN4_Data\\CTN4_Data.csproj": {
-                "projectPath": "F:\\DaFinal\\CTN4_Data\\CTN4_Data.csproj"
+              "C:\\Users\\THIEUXK\\Downloads\\CTN4\\bai tot nghiep\\CTN4\\CTN4_Data\\CTN4_Data.csproj": {
+                "projectPath": "C:\\Users\\THIEUXK\\Downloads\\CTN4\\bai tot nghiep\\CTN4\\CTN4_Data\\CTN4_Data.csproj"
               }
             }
           }
@@ -147,7 +148,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -156,24 +158,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "F:\\DaFinal\\CTN4_View\\CTN4_View.csproj": {
+    "C:\\Users\\THIEUXK\\Downloads\\CTN4\\bai tot nghiep\\CTN4\\CTN4_View\\CTN4_View.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\DaFinal\\CTN4_View\\CTN4_View.csproj",
+        "projectUniqueName": "C:\\Users\\THIEUXK\\Downloads\\CTN4\\bai tot nghiep\\CTN4\\CTN4_View\\CTN4_View.csproj",
         "projectName": "CTN4_View",
-        "projectPath": "F:\\DaFinal\\CTN4_View\\CTN4_View.csproj",
-        "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-        "outputPath": "F:\\DaFinal\\CTN4_View\\obj\\",
+        "projectPath": "C:\\Users\\THIEUXK\\Downloads\\CTN4\\bai tot nghiep\\CTN4\\CTN4_View\\CTN4_View.csproj",
+        "packagesPath": "C:\\Users\\THIEUXK\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\THIEUXK\\Downloads\\CTN4\\bai tot nghiep\\CTN4\\CTN4_View\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\THIEUXK\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -182,14 +184,15 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\sdk\\7.0.306\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "F:\\DaFinal\\CTN4_Serv\\CTN4_Serv.csproj": {
-                "projectPath": "F:\\DaFinal\\CTN4_Serv\\CTN4_Serv.csproj"
+              "C:\\Users\\THIEUXK\\Downloads\\CTN4\\bai tot nghiep\\CTN4\\CTN4_Serv\\CTN4_Serv.csproj": {
+                "projectPath": "C:\\Users\\THIEUXK\\Downloads\\CTN4\\bai tot nghiep\\CTN4\\CTN4_Serv\\CTN4_Serv.csproj"
               }
             }
           }
@@ -253,7 +256,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -265,7 +269,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
         }
       }
     }
