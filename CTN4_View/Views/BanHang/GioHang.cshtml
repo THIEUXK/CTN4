@@ -1,4 +1,5 @@
-﻿@model CTN4_Serv.ViewModel.GioHangView
+﻿@using CTN4_Serv.Service;
+@model CTN4_Serv.ViewModel.GioHangView
 @{
     ViewData["Title"] = "GioHang";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -33,36 +34,52 @@
                     <thead>
                         <tr>
                             <th scope="col">Product</th>
+                            <th scope="col">Màu</th>
+                            <th scope="col">Size</th>
                             <th scope="col">Price</th>
+
                             <th scope="col">Quantity</th>
                             <th scope="col">Total</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @{
+
+                        }
                         @foreach (var a in Model.GioHangChiTiets)
                         {
                             <tr>
                                 <td>
-                                    <div class="media">
-                                        <div class="d-flex">
-                                            @if (System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".jpg" ||
-                                           System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".png" ||
-                                           System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".jpeg" ||
-                                           System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".tiff" ||
-                                           System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".webp" ||
-                                           System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".gif")
+                                    
+                                        
+                                            @foreach (var b in Model.anhs.Where(c => c.IdSanPhamChiTiet == a.IdSanPhamChiTiet))
                                             {
-                                                <img src="~/image/@a.SanPhamChiTiet.SanPham.AnhDaiDien" height="300">
+
+                                                @if (System.IO.Path.GetExtension(b.DuongDanAnh) == ".jpg" ||
+                                               System.IO.Path.GetExtension(b.DuongDanAnh) == ".png" ||
+                                               System.IO.Path.GetExtension(b.DuongDanAnh) == ".jpeg" ||
+                                               System.IO.Path.GetExtension(b.DuongDanAnh) == ".tiff" ||
+                                               System.IO.Path.GetExtension(b.DuongDanAnh) == ".webp" ||
+                                               System.IO.Path.GetExtension(b.DuongDanAnh) == ".gif")
+                                                {
+                                                    <img src="~/image/@b.DuongDanAnh" height="150" >
+                                                }
+                                                else
+                                                {
+                                                    <span>Ảnh lỗi rồi =)))</span>
+                                                }
                                             }
-                                            else
-                                            {
-                                                <span>Ảnh lỗi rồi =)))</span>
-                                            }
-                                        </div>
+                                        
                                         <div class="media-body">
                                             <p>@a.SanPhamChiTiet.SanPham.TenSanPham</p>
                                         </div>
-                                    </div>
+                                   
+                                </td>
+                                <td>
+                                    <h5>@a.SanPhamChiTiet.Mau.TenMau</h5>
+                                </td>
+                                <td>
+                                    <h5>@a.SanPhamChiTiet.Size.CoSize</h5>
                                 </td>
                                 <td>
                                     <h5>@FormatCurrency(a.SanPhamChiTiet.SanPham.GiaNiemYet)</h5>
@@ -121,7 +138,7 @@
                                 <h5>@FormatCurrency(Model.TongTien)</h5>
                             </td>
                         </tr>
-                      
+
                         <tr class="out_button_area">
                             <td>
                             </td>

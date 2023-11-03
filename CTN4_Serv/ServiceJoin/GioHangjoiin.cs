@@ -20,7 +20,7 @@ namespace CTN4_Serv.ServiceJoin
 
         public List<GioHangChiTiet> GetAll()
         {
-            return _db.GioHangChiTiets.Include(c=>c.GioHang).Include(c=>c.SanPhamChiTiet).Include(c=>c.SanPhamChiTiet.SanPham).ToList();
+            return _db.GioHangChiTiets.Include(c=>c.GioHang).Include(c=>c.SanPhamChiTiet).Include(c=>c.SanPhamChiTiet.SanPham).Include(c => c.SanPhamChiTiet.Size).Include(c => c.SanPhamChiTiet.Mau).ToList();
         }
         public GioHangChiTiet GetById(Guid id)
         {

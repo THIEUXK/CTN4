@@ -9,9 +9,10 @@ namespace CTN4_Serv.ViewModel
 {
     public class GioHangView
     {
+        public List<Anh> anhs {  get; set; }
         public IEnumerable<GioHangChiTiet> GioHangChiTiets { get; set; }
         public float TongTien { get; set; }
-
+        public List<SanPhamChiTiet> sanPhamChiTietsList { get; set; }
         public Guid idGH { get; set; }
         public float TongTienGioHang { get; set; }
     }
