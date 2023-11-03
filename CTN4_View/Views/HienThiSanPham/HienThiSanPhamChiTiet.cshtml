@@ -25,21 +25,29 @@
         <div class="row s_product_inner">
             <div class="col-lg-6">
                 <div class="s_Product_carousel">
+                    @{
+                        // Tạo danh sách để theo dõi các Mau.Id đã xuất hiện
+                        var anhxuathien = new List<string>();
+                    }
                     @foreach (var a in Model.anhs)
                     {
+                        if (!anhxuathien.Contains(a.DuongDanAnh))
+                        {
+                            anhxuathien.Add(a.DuongDanAnh);
 
-                        @if (System.IO.Path.GetExtension(a.DuongDanAnh) == ".jpg" ||
-                       System.IO.Path.GetExtension(a.DuongDanAnh) == ".png" ||
-                       System.IO.Path.GetExtension(a.DuongDanAnh) == ".jpeg" ||
-                       System.IO.Path.GetExtension(a.DuongDanAnh) == ".tiff" ||
-                       System.IO.Path.GetExtension(a.DuongDanAnh) == ".webp" ||
-                       System.IO.Path.GetExtension(a.DuongDanAnh) == ".gif")
-                        {
-                            <img src="~/image/@a.DuongDanAnh">
-                        }
-                        else
-                        {
-                            <span>Ảnh lỗi rồi =)))</span>
+                            @if (System.IO.Path.GetExtension(a.DuongDanAnh) == ".jpg" ||
+                           System.IO.Path.GetExtension(a.DuongDanAnh) == ".png" ||
+                           System.IO.Path.GetExtension(a.DuongDanAnh) == ".jpeg" ||
+                           System.IO.Path.GetExtension(a.DuongDanAnh) == ".tiff" ||
+                           System.IO.Path.GetExtension(a.DuongDanAnh) == ".webp" ||
+                           System.IO.Path.GetExtension(a.DuongDanAnh) == ".gif")
+                            {
+                                <img src="~/image/@a.DuongDanAnh">
+                            }
+                            else
+                            {
+                                <span>Ảnh lỗi rồi =)))</span>
+                            }
                         }
                     }
                 </div>
@@ -78,7 +86,7 @@
                                             {
                                             <input type="hidden" name="IdSanPham" value="@Model.sanPham.Id" id="idsp">
                                             <input type="hidden" name="IdMau" value="@a.Mau.Id" id="idmau">
-                                            <button style="background-color: #4cd3e3 , " onclick="onsubmit">
+                                            <button class="custom-button after-click" onclick="onsubmit" ata-tenmau="@a.Mau.Id">
                                                     @a.Mau.TenMau
                                             </button>
                                             }
@@ -86,11 +94,10 @@
                                             {
                                             <input type="hidden" name="IdSanPham" value="@Model.sanPham.Id" id="idsp">
                                             <input type="hidden" name="IdMau" value="@a.Mau.Id" id="idmau">
-                                            <button onclick="onsubmit" class="color-button" data-tenmau="@a.Mau.TenMau">
+                                            <button class="custom-button before-click" onclick="onsubmit" class="color-button" data-tenmau="@a.Mau.TenMau">
                                                     @a.Mau.TenMau
                                             </button>
                                             }
-
                                     </li>
                                     </form>
                                 }
@@ -120,13 +127,24 @@
                                     @* <input type="hidden" name="mau" value="@a.Size.Id" />*@
                                     <form asp-action="chonSize">
                                     <li>
-
-                                        <input type="hidden" name="IdSanPham" value="@Model.sanPham.Id">
-                                        <input type="hidden" name="IdSize" value="@a.IdSize">
-                                        <input type="hidden" name="IdMau" value="@Model.idmau">
-                                        <button onclick="onsubmit" class="color-button1" data-tenmau="@a.Size.CoSize">
-                                                @a.Size.CoSize
-                                        </button>
+                                            @if (Model.idsize == a.Size.Id)
+                                            {
+                                            <input type="hidden" name="IdSanPham" value="@Model.sanPham.Id">
+                                            <input type="hidden" name="IdSize" value="@a.IdSize">
+                                            <input type="hidden" name="IdMau" value="@Model.idmau">
+                                            <button class="custom-button after-click" onclick="onsubmit">
+                                                    @a.Size.CoSize
+                                            </button>
+                                            }
+                                            else
+                                            {
+                                            <input type="hidden" name="IdSanPham" value="@Model.sanPham.Id">
+                                            <input type="hidden" name="IdSize" value="@a.IdSize">
+                                            <input type="hidden" name="IdMau" value="@Model.idmau">
+                                            <button class="custom-button before-click" onclick="onsubmit" data-tenmau="@a.Size.CoSize">
+                                                    @a.Size.CoSize
+                                            </button>
+                                            }
 
                                     </li>
                                     </form>
@@ -143,6 +161,7 @@
 
                         <li><a href="#"><span>Availibility</span> : In Stock</a></li>
                     </ul>
+                    <br />
                     <form asp-controller="BanHang" asp-action="ThemVaoGio">
                         <a>Số lượng:</a>
                         <div class="product_count">
@@ -697,80 +716,61 @@
 </script>
 
 <!-- End related-product Area -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 
-    $(document).ready(function () {
-        $(".color-button").click(function () {
-            //// Loại bỏ lớp "selected" từ tất cả các nút
-            $(".color-button").removeClass("selected");
+    //$(document).ready(function () {
+    //    $(".color-button").click(function () {
+    //        //// Loại bỏ lớp "selected" từ tất cả các nút
+    //        $(".color-button").removeClass("selected");
 
-            // Thêm lớp "selected" cho nút được nhấn
-            $(this).addClass("selected");
+    //        // Thêm lớp "selected" cho nút được nhấn
+    //        $(this).addClass("selected");
 
-            //// Lấy giá trị màu được chọn
-            //var tenMau = $(this).data("tenmau");
-            //console.log("Màu được chọn: " + tenMau);
-        });
-    }); $(document).ready(function () {
-        $(".color-button1").click(function () {
-            //// Loại bỏ lớp "selected" từ tất cả các nút
-            $(".color-button1").removeClass("selected");
+    //        //// Lấy giá trị màu được chọn
+    //        //var tenMau = $(this).data("tenmau");
+    //        //console.log("Màu được chọn: " + tenMau);
+    //    });
+    //}); $(document).ready(function () {
+    //    $(".color-button1").click(function () {
+    //        //// Loại bỏ lớp "selected" từ tất cả các nút
+    //        $(".color-button1").removeClass("selected");
 
-            // Thêm lớp "selected" cho nút được nhấn
-            $(this).addClass("selected");
+    //        // Thêm lớp "selected" cho nút được nhấn
+    //        $(this).addClass("selected");
 
-            //// Lấy giá trị màu được chọn
-            //var tenMau = $(this).data("tenmau");
-            //console.log("Màu được chọn: " + tenMau);
-        });
-    });
-                        //$(document).ready(function () {
-                        //    $('.color-button').click(function () {
+    //        //// Lấy giá trị màu được chọn
+    //        //var tenMau = $(this).data("tenmau");
+    //        //console.log("Màu được chọn: " + tenMau);
+    //    });
+    //});
+                                    //$(document).ready(function () {
+                                    //    $('.color-button').click(function () {
 
-                        //         // Ngăn chuyển trang khi nút được bấm
-                        //        var idSanPham = $('#idsp').val();
-                        //        var idMau = $('#idmau').val();
-                        //        $.ajax({
+                                    //         // Ngăn chuyển trang khi nút được bấm
+                                    //        var idSanPham = $('#idsp').val();
+                                    //        var idMau = $('#idmau').val();
+                                    //        $.ajax({
 
-                        //            type: "GET", // Hoặc "GET" tùy theo yêu cầu của bạn
-                        //            url: "/hienthisansham/chonmau", // Thay thế bằng đường dẫn tương ứng của bạn
-                        //            dataType: "json",
-                        //            contentType: 'application/json;charset=utf-8',
-                        //            data: { IdSanPham: idSanPham, IdMau: idMau },
-                        //            success: function (result) {
-                        //                console.log(result)
-                        //                // Cập nhật dữ liệu trên trang
-                        //                // Ví dụ: Thay thế nội dung hoặc thực hiện các thao tác khác cần thiết
-                        //            },
-                        //            error: function () {
-                        //                // Xử lý lỗi nếu có
-                        //            }
-                        //        });
-                        //    });
-                        //});
+                                    //            type: "GET", // Hoặc "GET" tùy theo yêu cầu của bạn
+                                    //            url: "/hienthisansham/chonmau", // Thay thế bằng đường dẫn tương ứng của bạn
+                                    //            dataType: "json",
+                                    //            contentType: 'application/json;charset=utf-8',
+                                    //            data: { IdSanPham: idSanPham, IdMau: idMau },
+                                    //            success: function (result) {
+                                    //                console.log(result)
+                                    //                // Cập nhật dữ liệu trên trang
+                                    //                // Ví dụ: Thay thế nội dung hoặc thực hiện các thao tác khác cần thiết
+                                    //            },
+                                    //            error: function () {
+                                    //                // Xử lý lỗi nếu có
+                                    //            }
+                                    //        });
+                                    //    });
+                                    //});
 </script>
 
 <style>
-    .color-button .color-button1 {
-        padding: 5px 10px;
-        border: 1px solid #ccc;
-        cursor: pointer;
-    }
-
-    .selected {
-        background-color: #4cd3e3;
-        color: #fff;
-        border: 1px solid #4cd3e3;
-    }
-
-    /* Hiển thị lại nút đã chọn */
-    .selected {
-        /*display: block;*/
-        /* Không thay đổi vị trí của nút */
-        position: static;
-    }
-
+    
     .horizontal-list {
         list-style-type: none; /* Loại bỏ dấu chấm */
         padding: 0; /* Loại bỏ khoảng cách đệm */
@@ -781,6 +781,29 @@
             display: inline; /* Hiển thị các mục ngang cùng hàng */
             margin-right: 10px; /* Thêm khoảng cách giữa các mục (tùy chỉnh) */
         }
+
+    .custom-button {
+        color: #000000; /* Màu chữ trên nút */
+        border: none;
+        border-radius: 20px;
+        padding: 10px 20px;
+        font-size: 14px; /* Kích thước chữ */
+        cursor: pointer;
+        font-weight: 400; /* Độ đậm chữ */
+        transition: border-radius 0.3s, box-shadow 0.3s;
+    }
+
+        .custom-button.before-click {
+            background-color: #DDDDDD; /* Màu nền của nút trước khi click */
+        }
+
+        .custom-button.after-click {
+            background-color: #DDDDDD;
+            color: #000000;
+            box-shadow: 0 0 0 2px #000000;
+             /* Vòng tròn màu xanh bo xung quanh nút sau khi click, bán kính là 5px */
+
+
 </style>
 <script src="~/js/vendor/jquery-2.2.4.min.js"></script>
 @*<script src="~/js/jquery-3.6.0.js"></script>*@

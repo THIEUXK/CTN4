@@ -33,6 +33,74 @@ namespace CTN4_Data.DB_Context
                 new Mau() { TenMau = "kem", Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081191"), Is_detele = true, TrangThai = true },
                 new Mau() { TenMau = "kem Đậm", Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081101"), Is_detele = true, TrangThai = true }
                 );
+            modelBuilder.Entity<KhuyenMai>().HasData(
+              new KhuyenMai()
+              {
+                  Id = Guid.Parse("f877e80d-2b32-43b0-be70-cf3b15113056"),
+                  MaKhuyenMai = "km01",
+                  PhanTramGiamGia = 50,
+                  NgayBatDau = Convert.ToDateTime("06/07/2023"),
+                  NgayKetThuc = Convert.ToDateTime("09/11/2023"),
+                  SoTienGiam = 0,
+                  TrangThai = true,
+                  Is_Detele = true
+              },
+              new KhuyenMai()
+              {
+                  Id = Guid.Parse("da810cca-4fca-4291-a52b-875841d49e34"),
+                  MaKhuyenMai = "km02",
+                  PhanTramGiamGia = 0,
+                  NgayBatDau = Convert.ToDateTime("09/07/2023"),
+                  NgayKetThuc = Convert.ToDateTime("09/11/2023"),
+                  SoTienGiam = 50000,
+                  TrangThai = true,
+                  Is_Detele = true
+              },
+              new KhuyenMai()
+              {
+                  Id = Guid.Parse("23bdd26c-d7a3-4307-8e22-d230b653d611"),
+                  MaKhuyenMai = "km03",
+                  PhanTramGiamGia = 20,
+                  NgayBatDau = Convert.ToDateTime("01/07/2023"),
+                  NgayKetThuc = Convert.ToDateTime("09/11/2023"),
+                  SoTienGiam = 0,
+                  TrangThai = true,
+                  Is_Detele = true
+              },
+              new KhuyenMai()
+              {
+                  Id = Guid.Parse("13effe44-e728-48a8-9baa-967da4ee38cd"),
+                  MaKhuyenMai = "km04",
+                  PhanTramGiamGia = 0,
+                  NgayBatDau = Convert.ToDateTime("06/07/2023"),
+                  NgayKetThuc = Convert.ToDateTime("09/08/2023"),
+                  SoTienGiam = 22000,
+                  TrangThai = true,
+                  Is_Detele = true
+              },
+              new KhuyenMai()
+              {
+                  Id = Guid.Parse("fa1ae994-6ab0-4ee6-b8b1-ff336cf994a8"),
+                  MaKhuyenMai = "km05",
+                  PhanTramGiamGia = 10,
+                  NgayBatDau = Convert.ToDateTime("09/09/2023"),
+                  NgayKetThuc = Convert.ToDateTime("09/11/2023"),
+                  SoTienGiam = 0,
+                  TrangThai = true,
+                  Is_Detele = true
+              },
+              new KhuyenMai()
+              {
+                  Id = Guid.Parse("e3e37e9e-7ea3-4f87-94af-1329363a4322"),
+                  MaKhuyenMai = "km06",
+                  PhanTramGiamGia = 25,
+                  NgayBatDau = Convert.ToDateTime("08/10/2023"),
+                  NgayKetThuc = Convert.ToDateTime("09/11/2023"),
+                  SoTienGiam = 0,
+                  TrangThai = true,
+                  Is_Detele = true
+              }
+          );
             modelBuilder.Entity<SanPham>().HasData(
                new SanPham()
                {
