@@ -6,6 +6,7 @@ using CTN4_Serv.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Scripting;
 using Newtonsoft.Json;
 using System.Diagnostics;
@@ -19,12 +20,14 @@ namespace CTN4_View_Admin.Controllers
         private readonly IConfiguration _config;
         private readonly ILoginService _userRepository;
         private readonly ITokenService _tokenService;
-		private readonly ICurrentUser _curent;
+        private readonly ICurrentUser _curent;
         private readonly INhanVienService _nhanvienService;
-		private string generatedToken = null;
+        private string generatedToken = null;
         private readonly IHttpClientFactory _httpClientFactory;
-        public HomeController(ILogger<HomeController> logger, ITokenService tokenService, ILoginService userRepository, IConfiguration config,ICurrentUser curent,
-          INhanVienService nhanvien)
+        private readonly ISanPhamService _spsv;
+        private readonly IGiamGiaService _giamgia;
+        public HomeController(ILogger<HomeController> logger, ITokenService tokenService, ILoginService userRepository, IConfiguration config, ICurrentUser curent,
+          INhanVienService nhanvien, ISanPhamService Sp, IGiamGiaService giamgia)
         {
             _logger = logger;
             _config = config;
@@ -32,7 +35,9 @@ namespace CTN4_View_Admin.Controllers
             _userRepository = userRepository;
             _curent = curent;
             _nhanvienService = nhanvien;
-           
+            _spsv = Sp;
+            _giamgia = giamgia;
+
 
 
         }
@@ -42,35 +47,35 @@ namespace CTN4_View_Admin.Controllers
             string token = HttpContext.Session.GetString("Token");
 
             var a = User.Identity.Name;
-           
-           
+
+
             return View();
         }
-        
-    
+
+
         // [Authorize(Policy = "Nhân viên")]
         public IActionResult BangQuanLy()
         {
             return View();
         }
-     
-		public IActionResult UserDetails()
-		{
 
-			var user = _nhanvienService.GetByIdChucVu(_curent.Id);
-            
-			return View(user);
-		}
-      
-   
+        public IActionResult UserDetails()
+        {
+
+            var user = _nhanvienService.GetByIdChucVu(_curent.Id);
+
+            return View(user);
+        }
+
+
         [AllowAnonymous]
-		[Route("loginadmin")]
-		[HttpGet]
+        [Route("loginadmin")]
+        [HttpGet]
         public IActionResult DangNhap()
         {
             return View();
         }
-        
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
@@ -128,7 +133,7 @@ namespace CTN4_View_Admin.Controllers
                 {
                     ModelState.AddModelError("LoginError", "Tên người dùng hoặc mật khẩu không chính xác");
                     HttpContext.Session.SetString("Token", generatedToken);
-                     return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(Index));
                 }
                 else
                 {
@@ -168,15 +173,15 @@ namespace CTN4_View_Admin.Controllers
             return View("Index");
         }
 
-		public IActionResult Logouts()
-		{
-			// Xóa dữ liệu phiên của người dùng, bao gồm thông tin đăng nhập và token
-			HttpContext.Session.Clear();
+        public IActionResult Logouts()
+        {
+            // Xóa dữ liệu phiên của người dùng, bao gồm thông tin đăng nhập và token
+            HttpContext.Session.Clear();
 
-			// Chuyển hướng người dùng đến trang đăng nhập hoặc trang chính của ứng dụng
-			return RedirectToAction(nameof(DangNhap));
-		}
-		public IActionResult Errors()
+            // Chuyển hướng người dùng đến trang đăng nhập hoặc trang chính của ứng dụng
+            return RedirectToAction(nameof(DangNhap));
+        }
+        public IActionResult Errors()
         {
             ViewBag.Message = "An error occured...";
             return View();
@@ -195,7 +200,54 @@ namespace CTN4_View_Admin.Controllers
 
             return result;
         }
+        public IActionResult Discount()
+        {
+            // Lấy danh sách sản phẩm từ cơ sở dữ liệu dưới dạng List<SanPham>
+            List<SanPham> sanPhamsFromDatabase = _spsv.GetAll(); // Thay thế hàm này bằng hàm lấy sản phẩm từ cơ sở dữ liệu của bạn
 
+            // Chuyển đổi danh sách SanPham thành danh sách ProductDiscountViewModel
+            List<ProductDiscountViewModel> products = sanPhamsFromDatabase.Select(sp => new ProductDiscountViewModel
+            {
+                ProductId = sp.Id,
+                ProductName = sp.TenSanPham,
+                OriginalPrice = sp.GiaBan,
+                IsSelected = false, // Bạn có thể thiết lập giá trị mặc định cho IsSelected ở đây
+                DiscountPercentage = 0, // Bạn có thể thiết lập giá trị mặc định cho DiscountPercentage ở đây
+                StartDate = DateTime.Now, // Bạn có thể thiết lập giá trị mặc định cho StartDate ở đây
+                EndDate = DateTime.Now.AddMonths(1) // Bạn có thể thiết lập giá trị mặc định cho EndDate ở đây
+            }).ToList();
 
+            return View(products);
+
+       
+        }
+
+        [HttpPost]
+        public IActionResult ApplyDiscount(List<ProductDiscountViewModel> products)
+        {
+            // Xử lý logic giảm giá cho các sản phẩm được chọn và lưu thông tin giảm giá vào cơ sở dữ liệu
+            foreach (var product in products)
+            {
+                if (product.IsSelected)
+                {
+                    // Xử lý logic giảm giá cho sản phẩm được chọn
+                    // Sử dụng product.ProductId, product.DiscountPercentage, product.StartDate, product.EndDate để thực hiện giảm giá
+                    // Lưu thông tin giảm giá vào cơ sở dữ liệu
+                }
+            }
+
+            // Chuyển hướng hoặc trả về trang cần thiết
+            return RedirectToAction("Products");
+        }
+
+        [HttpPost]
+        public IActionResult SelectedProducts(List<ProductDiscountViewModel> products)
+        {
+            // Xử lý logic khi người dùng lưu danh sách sản phẩm đã chọn
+            // Điều này có thể bao gồm việc lưu danh sách sản phẩm vào cơ sở dữ liệu hoặc thực hiện các hành động khác tùy thuộc vào yêu cầu của bạn
+
+            // Chuyển hướng hoặc trả về trang cần thiết
+            return RedirectToAction("Products");
+        }
     }
 }

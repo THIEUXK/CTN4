@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CTN4_Data.Migrations
 {
     [DbContext(typeof(DB_CTN4_ok))]
-    [Migration("20231101181739_sa")]
-    partial class sa
+    [Migration("20231104112659_phongs")]
+    partial class phongs
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -625,6 +625,74 @@ namespace CTN4_Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("KhuyenMais");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("f877e80d-2b32-43b0-be70-cf3b15113056"),
+                            Is_Detele = true,
+                            MaKhuyenMai = "km01",
+                            NgayBatDau = new DateTime(2023, 6, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayKetThuc = new DateTime(2023, 9, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PhanTramGiamGia = 50,
+                            SoTienGiam = 0f,
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("da810cca-4fca-4291-a52b-875841d49e34"),
+                            Is_Detele = true,
+                            MaKhuyenMai = "km02",
+                            NgayBatDau = new DateTime(2023, 9, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayKetThuc = new DateTime(2023, 9, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PhanTramGiamGia = 0,
+                            SoTienGiam = 50000f,
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("23bdd26c-d7a3-4307-8e22-d230b653d611"),
+                            Is_Detele = true,
+                            MaKhuyenMai = "km03",
+                            NgayBatDau = new DateTime(2023, 1, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayKetThuc = new DateTime(2023, 9, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PhanTramGiamGia = 20,
+                            SoTienGiam = 0f,
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("13effe44-e728-48a8-9baa-967da4ee38cd"),
+                            Is_Detele = true,
+                            MaKhuyenMai = "km04",
+                            NgayBatDau = new DateTime(2023, 6, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayKetThuc = new DateTime(2023, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PhanTramGiamGia = 0,
+                            SoTienGiam = 22000f,
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("fa1ae994-6ab0-4ee6-b8b1-ff336cf994a8"),
+                            Is_Detele = true,
+                            MaKhuyenMai = "km05",
+                            NgayBatDau = new DateTime(2023, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayKetThuc = new DateTime(2023, 9, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PhanTramGiamGia = 10,
+                            SoTienGiam = 0f,
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("e3e37e9e-7ea3-4f87-94af-1329363a4322"),
+                            Is_Detele = true,
+                            MaKhuyenMai = "km06",
+                            NgayBatDau = new DateTime(2023, 8, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayKetThuc = new DateTime(2023, 9, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PhanTramGiamGia = 25,
+                            SoTienGiam = 0f,
+                            TrangThai = true
+                        });
                 });
 
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.KhuyenMaiPhanLoai", b =>

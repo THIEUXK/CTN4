@@ -1,0 +1,42 @@
+﻿@using CTN4_Serv.ViewModel;
+
+@{
+    ViewData["Title"] = "Discount";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Discount</h1>
+
+@model List<ProductDiscountViewModel>
+
+
+
+
+<h1>Chương trình giảm giá sản phẩm</h1>
+
+<!-- Phần nhập thông tin giảm giá -->
+<div class="discount-info">
+    <h2>Thông tin giảm giá</h2>
+    <form asp-controller="Home" asp-action="ApplyDiscountInfo" method="post">
+        <label>Phần trăm giảm giá:</label>
+        <input type="number" name="DiscountPercentage" required><br>
+        <!-- Thêm các trường input khác cho ngày bắt đầu, ngày kết thúc, và các thông tin khác nếu cần -->
+        <input type="submit" value="Áp dụng">
+    </form>
+</div>
+
+<!-- Phần chọn sản phẩm để áp dụng giảm giá -->
+<div class="product-selection">
+    <h2>Chọn sản phẩm áp dụng giảm giá</h2>
+    <form asp-controller="Home" asp-action="ApplyDiscountProducts" method="post">
+        <!-- Danh sách sản phẩm hoặc checkboxes để chọn sản phẩm -->
+        @foreach (var product in Model)
+        {
+            <label>
+                <input type="checkbox" name="SelectedProducts" value="@product.ProductId">
+                @product.ProductName
+            </label><br>
+        }
+        <input type="submit" value="Áp dụng">
+    </form>
+</div>

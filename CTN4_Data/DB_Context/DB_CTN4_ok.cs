@@ -45,7 +45,7 @@ namespace CTN4_Data.DB_Context
         {
 
 
-            optionsBuilder.UseSqlServer("Data Source=MSI;Initial Catalog=CTN4;User ID=sa;Password=thieu12345");
+            optionsBuilder.UseSqlServer("Data Source=DESKTOP-OIMSHUN;Initial Catalog=phongkaka;User ID=sa;Password=123456");
 
         }
 
