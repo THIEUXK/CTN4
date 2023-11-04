@@ -25,6 +25,7 @@ namespace CTN4_View.Controllers.Shop
         public ISanPhamChiTietService _SanPhamChiTiet;
         public ISanPhamService _sanPhamService;
         public IAnhService _anhService;
+        public IPhuongThucThanhToanService _phuongThucThanhToanService;
 
 
         public BanHangController()
@@ -39,6 +40,7 @@ namespace CTN4_View.Controllers.Shop
             _httpClient = new HttpClient();
             _sanPhamService = new SanPhamService();
             _anhService = new AnhService();
+            _phuongThucThanhToanService = new PhuongThucThanhToanService();
             _httpClient.DefaultRequestHeaders.Add("token", "fa31ddca-73b0-11ee-b394-8ac29577e80e");
             _httpClient.DefaultRequestHeaders.Add("shop_id", "4189141");
         }
@@ -71,24 +73,24 @@ namespace CTN4_View.Controllers.Shop
             }
             else
             {
-				return RedirectToAction("login", "Home");
-				//var gioHang = SessionServices.GioHangSS(HttpContext.Session, "GioHang");
+                return RedirectToAction("login", "Home");
+                //var gioHang = SessionServices.GioHangSS(HttpContext.Session, "GioHang");
 
-				//foreach (var x in gioHang)
-				//{
-				//    var spct = _SanPhamChiTiet.GetAll().FirstOrDefault(c => c.Id == x.IdSanPhamChiTiet);
-				//    tong += float.Parse(spct.SanPham.GiaNiemYet.ToString()) * (x.SoLuong);
+                //foreach (var x in gioHang)
+                //{
+                //    var spct = _SanPhamChiTiet.GetAll().FirstOrDefault(c => c.Id == x.IdSanPhamChiTiet);
+                //    tong += float.Parse(spct.SanPham.GiaNiemYet.ToString()) * (x.SoLuong);
 
-				//}
+                //}
 
-				//var view = new GioHangView()
-				//{
+                //var view = new GioHangView()
+                //{
 
-				//    GioHangChiTiets = gioHang,
-				//    TongTien = tong
-				//};
-				//return View(view);
-			}
+                //    GioHangChiTiets = gioHang,
+                //    TongTien = tong
+                //};
+                //return View(view);
+            }
 
         }
 
@@ -148,8 +150,6 @@ namespace CTN4_View.Controllers.Shop
         public IActionResult ThuTucThanhToan()
         {
 
-
-
             HttpResponseMessage responseProvin = _httpClient.GetAsync("https://online-gateway.ghn.vn/shiip/public-api/master-data/province").Result;
 
             Provin lstprovin = new Provin();
@@ -176,7 +176,13 @@ namespace CTN4_View.Controllers.Shop
                 var view2 = new GioHangView()
                 {
                     GioHangChiTiets = ghct,
-                    TongTien = tong
+                    TongTien = tong,
+                    listPhuongThucs = _phuongThucThanhToanService.GetAll().Select(s => new SelectListItem
+                    {
+                        Value = s.Id.ToString(),
+                        Text = s.TenPhuongThuc
+                    }).ToList(),
+
                 };
                 return View(view2);
             }
@@ -193,96 +199,110 @@ namespace CTN4_View.Controllers.Shop
                 var view = new GioHangView()
                 {
                     GioHangChiTiets = a,
-                    TongTien = tong
+                    TongTien = tong,
+
+                    listPhuongThucs = _phuongThucThanhToanService.GetAll().Select(s => new SelectListItem
+                    {
+                        Value = s.Id.ToString(),
+                        Text = s.TenPhuongThuc
+                    }).ToList(),
+
                 };
                 return View(view);
             }
         }
 
-        //[HttpPost("/CheckOut/GetTotalShipping")]
-        //public async Task<JsonResult> GetTotalShipping([FromBody] ShippingOrder shippingOrder)
-        //{
+        [HttpPost("/CheckOut/GetTotalShipping")]
+        public async Task<JsonResult> GetTotalShipping([FromBody] ShippingOrder shippingOrder)
+        {
 
-        //    var hang = new TinhTienShip()
-        //    {
-        //        //"service_id":53321,
-        //        //"insurance_value":500000,
-        //        //"coupon": null,
-        //        //"from_district_id":1486,
-        //        //"to_district_id":1493,
-        //        //"to_ward_code":"20314",
-        //        //"height": 25,
-        //        //"length":10,
-        //        //"weight":3000,
-        //        //"width": 30
-        //        service_id = shippingOrder.service_id.ToString(),
-        //        insurance_value = shippingOrder.insurance_value.ToString(),
-        //        coupon = null,
-        //        from_district_id = shippingOrder.from_district_id.ToString(),
-        //        to_district_id = shippingOrder.to_district_id.ToString(),
-        //        to_ward_code =shippingOrder.to_ward_code.ToString(),
-        //        height = shippingOrder.height.ToString(),
-        //        length = shippingOrder.length.ToString(),
-        //        weight = shippingOrder.weight.ToString(),
-        //        width = shippingOrder.width.ToString(),
-        //    };
+            var hang = new TinhTienShip()
+            {
+                //"service_id":53321,
+                //"insurance_value":500000,
+                //"coupon": null,
+                //"from_district_id":1486,
+                //"to_district_id":1493,
+                //"to_ward_code":"20314",
+                //"height": 25,
+                //"length":10,
+                //"weight":3000,
+                //"width": 30
+                service_id = shippingOrder.service_id.ToString(),
+                insurance_value = shippingOrder.insurance_value.ToString(),
+                coupon = null,
+                from_district_id = shippingOrder.from_district_id.ToString(),
+                to_district_id = shippingOrder.to_district_id.ToString(),
+                to_ward_code = shippingOrder.to_ward_code.ToString(),
+                height = shippingOrder.height.ToString(),
+                length = shippingOrder.length.ToString(),
+                weight = shippingOrder.weight.ToString(),
+                width = shippingOrder.width.ToString(),
+            };
 
-        //    //HttpResponseMessage responseWShipping = _httpClient.GetAsync("https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee").Result;
+            //HttpResponseMessage responseWShipping = _httpClient.GetAsync("https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee").Result;
 
-        //    var url = $"https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee";
-        //    var content = new StringContent(JsonConvert.SerializeObject(hang), Encoding.UTF8, "application/json");
-        //    var respose = await _httpClient.PostAsync(url, content);
+            var url = $"https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee";
+            var content = new StringContent(JsonConvert.SerializeObject(hang), Encoding.UTF8, "application/json");
+            var respose = await _httpClient.PostAsync(url, content);
 
-        //    float tong = 0;
-        //    var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
-        //    if (accnew.Count != 0)
-        //    {
-        //        var gh = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == accnew[0].Id);
-        //        IEnumerable<GioHangChiTiet> ghct = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh.Id);
+            float tong = 0;
+            var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
+            if (accnew.Count != 0)
+            {
+                var gh = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == accnew[0].Id);
+                IEnumerable<GioHangChiTiet> ghct = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh.Id);
 
-        //        foreach (var x in ghct)
-        //        {
-        //            tong += float.Parse(x.SanPhamChiTiet.GiaNiemYet.ToString()) * (x.SoLuong);
+                foreach (var x in ghct)
+                {
+                    tong += float.Parse(x.SanPhamChiTiet.SanPham.GiaNiemYet.ToString()) * (x.SoLuong);
 
-        //        }
-        //        Shipping shipping = new Shipping();
-        //        if (respose.IsSuccessStatusCode)
-        //        {
-        //            string jsonData2 = respose.Content.ReadAsStringAsync().Result;
+                }
+                //Shipping shipping = new Shipping();
+                //if (respose.IsSuccessStatusCode)
+                //{
+                //    string jsonData2 = respose.Content.ReadAsStringAsync().Result;
 
-        //            shipping = JsonConvert.DeserializeObject<Shipping>(jsonData2);
-        //            HttpContext.Session.SetInt32("shiptotal", shipping.data.total);
-        //        }
+                //    shipping = JsonConvert.DeserializeObject<Shipping>(jsonData2);
+                //    HttpContext.Session.SetInt32("shiptotal", shipping.data.total);
+                //}
+                Shipping shipping = new Shipping()
+                {
+                    totaloder = tong + 52000
+                };
 
-        //        shipping.data.totaloder = shipping.data.total+int.Parse(tong.ToString());
-        //        return Json(shipping, new System.Text.Json.JsonSerializerOptions());
+                //shipping.data.totaloder = shipping.data.total + int.Parse(tong.ToString());
+                return Json(shipping.totaloder, new System.Text.Json.JsonSerializerOptions());
 
-        //    }
-        //    else
-        //    {
-        //        var gh2 = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == null);
-        //        var a = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh2.Id);
-        //        foreach (var x in a)
-        //        {
-        //            tong += float.Parse(x.SanPhamChiTiet.GiaNiemYet.ToString()) * (x.SoLuong);
+            }
+            else
+            {
+                var gh2 = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == null);
+                var a = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh2.Id);
+                foreach (var x in a)
+                {
+                    tong += float.Parse(x.SanPhamChiTiet.SanPham.GiaNiemYet.ToString()) * (x.SoLuong);
 
-        //        }
-        //        Shipping shipping = new Shipping();
-        //        if (respose.IsSuccessStatusCode)
-        //        {
-        //            string jsonData2 = respose.Content.ReadAsStringAsync().Result;
+                }
+                Shipping shipping = new Shipping()
+                {
+                    totaloder = tong + 50000
+            };
+                //if (respose.IsSuccessStatusCode)
+                //{
+                //    string jsonData2 = respose.Content.ReadAsStringAsync().Result;
 
-        //            shipping = JsonConvert.DeserializeObject<Shipping>(jsonData2);
-        //            HttpContext.Session.SetInt32("shiptotal", shipping.data.total);
-        //        }
+                //    shipping = JsonConvert.DeserializeObject<Shipping>(jsonData2);
+                //    HttpContext.Session.SetInt32("shiptotal", shipping.data.total);
+                //}
 
-        //        shipping.data.totaloder = shipping.data.total+ int.Parse(tong.ToString());
-        //        return Json(shipping, new System.Text.Json.JsonSerializerOptions());
+                
+                return Json(shipping, new System.Text.Json.JsonSerializerOptions());
 
-        //    }
+            }
 
 
-        //}
+        }
 
         public IActionResult HoanThanhThanhToan()
         {
@@ -439,24 +459,11 @@ namespace CTN4_View.Controllers.Shop
         }
 
         [HttpPost]
-        public IActionResult ThemVaoGio(int soluong, Guid IdSanPham, Guid IdSize, Guid IdMau,int SoLuongHT)
+        public IActionResult ThemVaoGio(int soluong, Guid IdSanPham, Guid IdSize, Guid IdMau)
         {
             var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
             if (accnew.Count != 0)
             {
-                if (SoLuongHT == 0)
-                {
-                    var message1 = "Sản phẩm này đã hết hàng !";
-                    TempData["TB1"] = message1;
-                    return RedirectToAction("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = IdSanPham, message1 });
-                }
-                if (soluong>SoLuongHT)
-                {
-                    var message1 = "Số lượng không đủ !";
-                    TempData["TB1"] = message1;
-                    return RedirectToAction("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = IdSanPham, message1 });
-                }
-               
                 if (IdMau == Guid.Parse("00000000-0000-0000-0000-000000000000") || IdSize == Guid.Parse("00000000-0000-0000-0000-000000000000"))
                 {
                     var message1 = "hãy chọn màu và size của bạn !";
@@ -630,7 +637,15 @@ namespace CTN4_View.Controllers.Shop
         }
 
 
+        //public IActionResult ThuTucThanhToan()
+        //{
 
+        //    var phuongThucThanhToans = _phuongThucThanhToanService.GetAll(); // Lấy danh sách phương thức thanh toán từ dịch vụ hoặc cơ sở dữ liệu.
+
+        //    ViewBag.SelectedPhuongThuc = new SelectList(phuongThucThanhToans, "Id", "TenPhuongThuc");
+
+        //    return View();
+        //}
 
     }
 
