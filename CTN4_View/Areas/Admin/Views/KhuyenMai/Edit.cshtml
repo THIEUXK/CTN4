@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    var lstSp = ViewBag.lstSp as List<CTN4_Data.Models.DB_CTN4.SanPham>;
 }
 
 
@@ -29,7 +30,7 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="PhanTramGiamGia" class="control-label"></label>
-                        <input asp-for="PhanTramGiamGia" class="form-control" />
+                        <input id="PhanTramGiamGia" asp-for="PhanTramGiamGia" class="form-control" />
                         <span asp-validation-for="PhanTramGiamGia" class="text-danger"></span>
                     </div>
                     <div class="form-group">
@@ -44,7 +45,7 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="SoTienGiam" class="control-label"></label>
-                        <input asp-for="SoTienGiam" class="form-control" />
+                        <input id="SoTienGiam" asp-for="SoTienGiam" class="form-control" />
                         <span asp-validation-for="SoTienGiam" class="text-danger"></span>
                     </div>
                     <div class="form-group form-check">
@@ -70,4 +71,201 @@
 
     </div>
 </div>
+<button id="updateGiaButton" class="btn btn-primary">Cập nhật Giá Sản Phẩm</button>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <p>Ma Sp</p>
+            </th>
+            <th>
+                <p>TenSanPham</p>
+            </th>
+            <th>
+                ChatLieu
+            </th>
+            <th>
+                Nsx
+            </th>
+            <th>
+                Nsx
+
+            </th>
+            <th>
+                Nsx
+
+            </th>
+            <th>
+                Nsx
+
+            </th>
+            <th>
+                Nsx
+
+            </th>
+            <th>
+                Nsx
+
+            </th>
+            <th>
+                Trạng Thái
+
+            </th>
+            <th>
+                Is Deleted
+            </th>
+            <th>
+                Ảnh
+
+            </th>
+            <th>
+               Chức năng
+            </th>
+            <th>
+                CheckBox
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (lstSp != null && lstSp.Count() > 0)
+        {
+            @foreach (var item in lstSp)
+            {
+                <tr>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MaSp)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TenSanPham)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ChatLieu.TenChatLieu)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NSX.TenNSX)
+                    </td>
+
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MoTa)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GiaNhap)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GiaBan)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GiaNiemYet)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GhiChu)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TrangThai)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Is_detele)
+                    </td>
+                    <td>
+                        <tb>
+                            @if (System.IO.Path.GetExtension(item.AnhDaiDien) == ".jpg" ||
+                           System.IO.Path.GetExtension(item.AnhDaiDien) == ".png" ||
+                           System.IO.Path.GetExtension(item.AnhDaiDien) == ".jpeg" ||
+                           System.IO.Path.GetExtension(item.AnhDaiDien) == ".tiff" ||
+                           System.IO.Path.GetExtension(item.AnhDaiDien) == ".webp" ||
+                           System.IO.Path.GetExtension(item.AnhDaiDien) == ".gif")
+                            {
+                                <img src="~/image/@item.AnhDaiDien" height="300">
+                            }
+                            else
+                            {
+                                <a>ảnh lỗi</a>
+                            }
+                        </tb>
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id } )|
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>
+                    <td>
+                        <input type ="checkbox" class="id-sp-button" data-id-sp="@item.Id">
+                    </td>
+
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>
+<script>
+    var selectedMaSps = [];
+
+    // Lấy tất cả các nút cột MaSp
+    var maSpButtons = document.querySelectorAll('.id-sp-button');
+
+    maSpButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            var maSp = button.getAttribute('data-id-sp');
+            if (selectedMaSps.includes(maSp)) {
+                // Nếu mã đã được chọn, bỏ nó ra khỏi mảng
+                selectedMaSps = selectedMaSps.filter(function (item) {
+                    return item !== maSp;
+                });
+            } else {
+                // Nếu mã chưa được chọn, thêm nó vào mảng
+                selectedMaSps.push(maSp);
+            }
+
+            // Hiển thị mã sản phẩm đã chọn trong console.log
+            console.log('Mã sản phẩm đã chọn:', selectedMaSps);
+        });
+    });
+
+
+    // Lấy tham chiếu đến nút theo ID
+    var updateGiaButton = document.getElementById("updateGiaButton");
+
+    // Gắn sự kiện click vào nút
+    updateGiaButton.addEventListener("click", function () {
+        updateGiaSanPham();
+    });
+
+    function updateGiaSanPham() {
+        var giamTheoTien = parseFloat($("#SoTienGiam").val());
+        var giamTheoPh = parseFloat($("#PhanTramGiamGia").val());
+        // Lấy giá trị của các trường dữ liệu từ form hoặc từ các phần tử HTML khác
+        var ids = selectedMaSps // Mảng chứa các giá trị của Ids      
+
+        // TODO: Lấy giá trị của các trường dữ liệu từ form hoặc từ các phần tử HTML khác
+        // Gán giá trị cho biến ids, giamTheoTien, giamTheoPh
+
+        // Tạo đối tượng dữ liệu để gửi lên server
+        var data = {
+            Ids: ids,
+            giamTheoTien: giamTheoTien,
+            giamTheoPh: giamTheoPh
+        };
+
+        // Gọi AJAX
+        $.ajax({
+            url: '/admin/KhuyenMai/UpdateGiaSanPham', // Thay thế ControllerName bằng tên thật của controller
+            type: 'POST',
+            data: data,
+            success: function (response) {
+                // Xử lý kết quả trả về từ server (nếu cần)
+                console.log(response);
+                // TODO: Xử lý kết quả trả về từ server
+            },
+            error: function (xhr, status, error) {
+                // Xử lý lỗi (nếu có)
+                console.log(error);
+                // TODO: Xử lý lỗi
+            }
+        });
+    }
+</script>
 
