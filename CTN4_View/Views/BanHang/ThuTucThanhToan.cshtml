@@ -22,7 +22,7 @@
 </section>*@
 <br></br>
 <br></br>
-
+<div class="container">
 @if (TempData["ErrorMessage"] != null)
 {
     <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
@@ -62,6 +62,11 @@
                         <input type="text" class="form-control" id="email" name="compemailany">
 
                     </div>
+                    <div class="col-md-12 form-group">
+                        <label>Địa chỉ : <span class="text-danger"></span></label>
+                        <b id="adressnew" style="color:orange"></b>
+                    </div>
+                    
 
                     <div class="col-md-6 form-group">
                         <label>Chọn Tỉnh/thành<span class="text-danger">(*)</span></label>
@@ -121,7 +126,7 @@
                             <li><a href="#">Tên sản Phẩm <span>Giá tiền</span></a></li>
                             @foreach (var a in Model.GioHangChiTiets)
                             {
-                                <li><a href="#">@a.SanPhamChiTiet.SanPham.TenSanPham<span class="middle">x @a.SoLuong</span> <span class="last">@FormatCurrency(a.SanPhamChiTiet.SanPham.GiaNiemYet *a.SoLuong)</span></a></li>
+                                    <li><a href="#">@a.SanPhamChiTiet.SanPham.TenSanPham x @a.SoLuong<span class="last">@FormatCurrency(a.SanPhamChiTiet.SanPham.GiaNiemYet *a.SoLuong)</span></a></li>
 
                                 <input type="hidden" name="idGHCT" value="@a.Id" />
                                 <input type="hidden" name="idSPCT" value="@a.IdSanPhamChiTiet" />
@@ -131,11 +136,11 @@
                         </ul>
                         <br></br>
                         <ul class="list">
-                            <li><a href="#">Tiền ship :<span><b style="color:black">Chưa Tính</b></span></a></li>
+                            <li><a href="#">Tiền ship :<span><b id="tienship" style="color:black">Chưa Tính</b></span></a></li>
                         </ul>
                         <br></br>
                         <ul class="list">
-                            <li><a href="#">Tổng tiền :<span><b style="color:orange">@FormatCurrency(Model.TongTien)</b></span></a></li>
+                            <li><a href="#">Tổng tiền :<span><b id="tongtien" style="color:orange">@FormatCurrency(Model.TongTien)</b></span></a></li>
                         </ul>
                         <br></br>
 
@@ -149,6 +154,7 @@
         </div>
     </div>
 </form>
+</div>
 <script src="~/js/checkout.js" asp-append-version="true">
     @functions {
         public string FormatCurrency(float price)
@@ -160,7 +166,7 @@
 </script>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="~/js/checkout.js"></script>
+<script src="~/js/a.js"></script>
 
 
 <script src="~/js/vendor/jquery-2.2.4.min.js"></script>
