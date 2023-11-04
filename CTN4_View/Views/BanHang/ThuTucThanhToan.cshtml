@@ -23,137 +23,141 @@
 <br></br>
 <br></br>
 <div class="container">
-@if (TempData["ErrorMessage"] != null)
-{
-    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
-}
-<form method="post" asp-controller="BanHang" asp-action="HoanThanhThanhToan">
-    <!-- End Banner Area -->
-    <!--================Checkout Area =================-->
-    <div class="billing_details">
-        <div class="row">
-            <div class="col-lg-8">
-                <h3>Chi tiết thanh toán</h3>
-                <div class="row contact_form" action="#" method="post" novalidate="novalidate">
-                    <div class="col-md-6 form-group p_star">
-                        <label>Họ và tên</label>
-                        <input type="text" class="form-control" id="first" name="name">
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+    }
+    <form method="post" asp-controller="BanHang" asp-action="HoanThanhThanhToan">
+        <!-- End Banner Area -->
+        <!--================Checkout Area =================-->
+        <div class="billing_details">
+            <div class="row">
+                <div class="col-lg-7">
+                    <h3>Chi tiết thanh toán</h3>
+                    <div class="row contact_form" action="#" method="post" novalidate="novalidate">
+                        <div class="col-md-6 form-group p_star">
+                            <label>Họ và tên</label>
+                            <input type="text" class="form-control" id="first" name="name">
 
-                    </div>
-
-                    <div class="col-md-6 form-group p_star">
-                        <label>Mã giảm giá</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Coupon Code">
-                            <button type="button" class="btn btn-primary" style="background: linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);">Applly</button>
                         </div>
-                    </div>
-                    <div class="col-md-12 form-group">
-                        <label>Địa chỉ nhận hàng cụ thể</label>
-                        <input type="text" class="form-control" id="company" name="company">
-                    </div>
-                    <div class="col-md-6 form-group p_star">
-                        <label>Số điện thoại</label>
-                        <input type="text" class="form-control" id="number" name="number">
 
-                    </div>
-                    <div class="col-md-6 form-group p_star">
-                        <label>Email</label>
-                        <input type="text" class="form-control" id="email" name="compemailany">
+                        <div class="col-md-6 form-group p_star">
+                            <label>Mã giảm giá</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Coupon Code">
+                                <button type="button" class="btn btn-primary" style="background: linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);">Applly</button>
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <label>Địa chỉ nhận hàng cụ thể</label>
+                            <input type="text" class="form-control" id="company" name="company">
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <label>Số điện thoại</label>
+                            <input type="text" class="form-control" id="number" name="number">
 
-                    </div>
-                    <div class="col-md-12 form-group">
-                        <label>Địa chỉ : <span class="text-danger"></span></label>
-                        <b id="adressnew" style="color:orange"></b>
-                    </div>
-                    
+                        </div>
 
-                    <div class="col-md-6 form-group">
-                        <label>Chọn Tỉnh/thành<span class="text-danger">(*)</span></label>
-                        <span class="text-danger" id="mess_provin"></span>
-                        <select class="custom-select" asp-items="@ViewBag.Provin" id="provin">
-                            <option selected value="0">Chọn tỉnh thành</option>
+                        <div class="col-md-6 form-group p_star">
+                            <label>Email</label>
+                            <input type="text" class="form-control" id="email" name="compemailany">
 
-                        </select>
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label>Chọn Quận/Huyện<span class="text-danger">(*)</span></label>
-                        <span class="text-danger" id="mess_district"></span>
-                        <select class="custom-select" id="district">
-                            <option selected value="0">Chọn quận huyện </option>
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <label>Địa chỉ :</label>
+                            <input type="text" class="form-control" id="adressnew" name="add">
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <label>Địa chỉ của bạn</label>
+                            <input type="text" class="form-control" id="adressnew" name="add">
+                        </div>
 
-                        </select>
-                    </div>
+                        <div class="col-md-6 form-group">
+                            <label>Chọn Tỉnh/thành<span class="text-danger"></span></label>
+                            <span class="text-danger" id="mess_provin"></span>
+                            <select class="custom-select" asp-items="@ViewBag.Provin" id="provin">
+                                <option selected value="0">Chọn tỉnh thành</option>
 
-                    <div class="col-md-6 form-group">
-                        <label>Chọn Phường/Xã<span class="text-danger">(*)</span></label>
-                        <span class="text-danger" id="mess_ward"></span>
-                        <select class="custom-select" id="ward" name="ward">
-                            <option selected value="0">Chọn Phường Xã</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Chọn Quận/Huyện<span class="text-danger"></span></label>
+                            <span class="text-danger" id="mess_district"></span>
+                            <select class="custom-select" id="district">
+                                <option selected value="0">Chọn quận huyện </option>
 
-                        </select>
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label>Phương thức thanh toán<span class="text-danger">(*)</span></label>
-                        <span class="text-danger" ></span>
-                        <select class="custom-select"
+                            </select>
+                        </div>
+
+                        <div class="col-md-6 form-group">
+                            <label>Chọn Phường/Xã<span class="text-danger"></span></label>
+                            <span class="text-danger" id="mess_ward"></span>
+                            <select class="custom-select" id="ward" name="ward">
+                                <option selected value="0">Chọn Phường Xã</option>
+
+                            </select>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Phương thức thanh toán<span class="text-danger"></span></label>
+                            <span class="text-danger"></span>
+                            <select class="custom-select"
                         <select asp-for="idphuongthuc" class="form-control">
                             <option value=""> Chọn phương thức thanh toán</option>
-                            @foreach (var a in Model.listPhuongThucs)
-                            {
-                                <option value="@a.Value">@a.Text</option>
-                            }
+                                    @foreach (var a in Model.listPhuongThucs)
+                                    {
+                                        <option value="@a.Value">@a.Text</option>
+                                    }
                         </select>
                         </select>
+                        </div>
+
+
+
+                        <div class="col-md-6 form-group">
+
+                            <label for="exampleFormControlTextarea1" class="form-label">Ghi chú</label>
+                            <textarea class="form-control" name="note" id="note_ck" rows="3"></textarea>
+
+                        </div>
+
                     </div>
-
-
-
-                    <div class="col-md-6 form-group">
-
-                        <label for="exampleFormControlTextarea1" class="form-label">Ghi chú</label>
-                        <textarea class="form-control" name="note" id="note_ck" rows="3"></textarea>
-
-                    </div>
-
                 </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="order_box">
+                <div class="col-lg-5">
                     <div class="order_box">
-                        <h2>Đơn hàng của bạn</h2>
-                        <ul class="list">
-                            <li><a href="#">Tên sản Phẩm <span>Giá tiền</span></a></li>
-                            @foreach (var a in Model.GioHangChiTiets)
-                            {
+                        <div class="order_box">
+                            <h2>Đơn hàng của bạn</h2>
+                            <ul class="list">
+                                <li><a href="#">Tên sản Phẩm <span>Giá tiền</span></a></li>
+                                @foreach (var a in Model.GioHangChiTiets)
+                                {
                                     <li><a href="#">@a.SanPhamChiTiet.SanPham.TenSanPham x @a.SoLuong<span class="last">@FormatCurrency(a.SanPhamChiTiet.SanPham.GiaNiemYet *a.SoLuong)</span></a></li>
 
-                                <input type="hidden" name="idGHCT" value="@a.Id" />
-                                <input type="hidden" name="idSPCT" value="@a.IdSanPhamChiTiet" />
-                                <input type="hidden" name="SoLuong" value="@a.SoLuong" />
-                                <input type="hidden" name="idGH" value="@a.IdGioHang" />
-                            }
-                        </ul>
-                        <br></br>
-                        <ul class="list">
-                            <li><a href="#">Tiền ship :<span><b id="tienship" style="color:black">Chưa Tính</b></span></a></li>
-                        </ul>
-                        <br></br>
-                        <ul class="list">
-                            <li><a href="#">Tổng tiền :<span><b id="tongtien" style="color:orange">@FormatCurrency(Model.TongTien)</b></span></a></li>
-                        </ul>
-                        <br></br>
+                                    <input type="hidden" name="idGHCT" value="@a.Id" />
+                                    <input type="hidden" name="idSPCT" value="@a.IdSanPhamChiTiet" />
+                                    <input type="hidden" name="SoLuong" value="@a.SoLuong" />
+                                    <input type="hidden" name="idGH" value="@a.IdGioHang" />
+                                }
+                            </ul>
+                            <br></br>
+                            <ul class="list">
+                                <li><a href="#">Tiền ship :<span><b id="tienship" style="color:black">Chưa Tính</b></span></a></li>
+                            </ul>
+                            <br></br>
+                            <ul class="list">
+                                <li><a href="#">Tổng tiền :<span><b id="tongtien" style="color:orange">@FormatCurrency(Model.TongTien)</b></span></a></li>
+                            </ul>
+                            <br></br>
 
-                        <div class="card border-secondary mb-5">
+                            <div class="card border-secondary mb-5">
 
-                            <button class="primary-btn" type="submit" href="#">Mua Hàng</button>
+                                <button class="primary-btn" type="submit" href="#">Mua Hàng</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</form>
+    </form>
 </div>
 <script src="~/js/checkout.js" asp-append-version="true">
     @functions {
