@@ -176,12 +176,35 @@
                                 <i class="lnr lnr-chevron-down"></i>
                             </button>
                         </div>
-                        <div class="card_area d-flex align-items-center">
-                            <button class="primary-btn" type="submit" href="#">Add to Cart</button>
-                            <a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
-                            <a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
-                        </div>
-                        <input type="hidden" name="idSP" value="">
+
+                        <div>
+                            @if (Model.idsize != null && Model.idmau != null)
+                            {
+                                <input type="hidden" name="IdSize" value="@Model.idsize">
+                                <input type="hidden" name="IdMau" value="@Model.idmau">
+                                <input type="hidden" name="SoLuongHT" value="@Model.soluong">
+                            }
+                            else
+                            {
+                                <input type="hidden" name="IdSize" value="null">
+                                <input type="hidden" name="IdMau" value="null">
+                            }
+                            <input type="hidden" name="IdSanPham" value="@Model.sanPham.Id">
+                            @if (TempData["TB1"] != null)
+                            {
+                                <div class="alert alert-danger">@TempData["TB1"]</div>
+                            }
+
+                            @if (TempData["TB2"] != null)
+                            {
+                                <div class="alert alert-danger">@TempData["TB2"]</div>
+                            }
+                            <div class="card_area d-flex align-items-center">
+                                <button class="primary-btn" type="submit" href="#">Add to Cart</button>
+                                <a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
+                                <a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
+                            </div>
+                            <input type="hidden" name="idSP" value="">
                     </form>
                     <p>
                         Mill Oil is an innovative oil filled radiator with the most modern technology. If you are looking for

@@ -197,9 +197,16 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         // GET: SanPhamController/Delete/5
         public ActionResult Delete(Guid id)
         {
-            if (_sv.Xoa(id))
+            var SP = _sanPhamService.GetById(id);
+            if (SP.Is_detele == true)
             {
-                return RedirectToAction("Index");
+                SP.Is_detele = false;
+                _sanPhamService.Sua(SP);
+            }
+            else
+            {
+                SP.Is_detele = true;
+                _sanPhamService.Sua(SP);
             }
             return RedirectToAction("Index");
         }

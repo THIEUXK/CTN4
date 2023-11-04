@@ -52,7 +52,7 @@ namespace CTN4_View.Controllers.Shop
             if (page == null) { page = 1; }
             var danhMuc = _danhMucService.GetAll();
             var danhMucChiTiets = _danhMucChiTiet.GetAll();
-            var listSp = _sanPhamCuaHangService.GetAll();
+            var listSp = _sanPhamCuaHangService.GetAll().Where(c=>c.Is_detele==true).ToList();
             //var mauSacs = _mauSacService.GetAll();
             var chatLieus = _chatLieuService.GetAll();
             //var listSpct = _sanPhamChiTietService.GetAll();
@@ -80,13 +80,13 @@ namespace CTN4_View.Controllers.Shop
         }
         public IActionResult HienThiSanPhamChiTiet(Guid id)
         {
-            var listsp1 = _sanPhamCuaHangService.GetAllSpcts(id);
+            var listsp1 = _sanPhamCuaHangService.GetAllSpcts(id).Where(c=>c.Is_detele==true).ToList();
             var anh = _anhService.GetAll().Where(c => c.SanPhamChiTiet.SanPham.Id == id).ToList();
             var listsp = _sanPhamCuaHangService.GetAll();
-            var mau = _mauSacService.GetAll().Distinct().ToList();
+            var mau = _mauSacService.GetAll().ToList();
             //var size = _sizeService.GetAll().Distinct().ToList();
             //var spctcuthe = _sanPhamChiTietService.GetAll().Where(c=>c.IdSp== id).ToList();
-            var spctcuthe = _CTN4_Ok.SanPhamChiTiets.Include(c => c.Size).ToList().Where(c => c.IdSp == id);
+            var spctcuthe = _CTN4_Ok.SanPhamChiTiets.Include(c => c.Size).ToList().Where(c => c.IdSp == id&&c.Is_detele==true);
             var view = new SanPhamBan()
             {
                 sanPham = _sanPhamCuaHangService.GetById(id),
@@ -103,27 +103,16 @@ namespace CTN4_View.Controllers.Shop
         //[HttpGet ("hienthisansham/chonmau")]
         public IActionResult chonMau(Guid IdSanPham, Guid IdMau)
         {
-            var listsp1 = _sanPhamCuaHangService.GetAllSpcts(IdSanPham);
+            var listsp1 = _sanPhamCuaHangService.GetAllSpcts(IdSanPham).Where(c => c.Is_detele == true).ToList();
             var anh = _anhService.GetAll().Where(c => c.SanPhamChiTiet.SanPham.Id == IdSanPham).ToList();
 
             var listsp = _sanPhamCuaHangService.GetAll();
             var mau = _mauSacService.GetAll().Distinct().ToList();
             var size = _sizeService.GetAll().Distinct().ToList();
-            var spctcuthe = _CTN4_Ok.SanPhamChiTiets.Include(c => c.Size).Where(c => c.IdMau == IdMau && c.IdSp == IdSanPham).ToList();
+            var spctcuthe = _CTN4_Ok.SanPhamChiTiets.Include(c => c.Size).Where(c => c.IdMau == IdMau && c.IdSp == IdSanPham&&c.Is_detele==true).ToList();
             var mauluu = _mauSacService.GetAll().FirstOrDefault(c => c.Id == IdMau);
             // Đọc dữ liệu từ Session xem trong Cart nó có cái gì chưa?
-            var accnew = SessionServices.LuuMauSS(HttpContext.Session, "Mauss");
-            if (accnew.Count == 0)
-            {
-                accnew.Add(mauluu);
-                SessionServices.SetObjToJson(HttpContext.Session, "Mauss", accnew);
-            }
-            else if (accnew.Count != 0)
-            {
-                accnew.Clear();
-                accnew.Add(mauluu);
-                SessionServices.SetObjToJson(HttpContext.Session, "Mauss", accnew);
-            }
+     
             var view = new SanPhamBan()
             {
                 sanPham = _sanPhamCuaHangService.GetById(IdSanPham),
@@ -147,13 +136,13 @@ namespace CTN4_View.Controllers.Shop
             }
 
 
-            var listsp1 = _sanPhamCuaHangService.GetAllSpcts(IdSanPham);
+            var listsp1 = _sanPhamCuaHangService.GetAllSpcts(IdSanPham).Where(c => c.Is_detele == true).ToList();
             var anh = _anhService.GetAll().Where(c => c.SanPhamChiTiet.SanPham.Id == IdSanPham).ToList();
             var listsp = _sanPhamCuaHangService.GetAll();
             var mau = _mauSacService.GetAll().Distinct().ToList();
             //var size = _sizeService.GetAll().Distinct().ToList();
             var size = _CTN4_Ok.SanPhamChiTiets.Include(c => c.Size).Where(c => c.IdMau == IdMau && c.IdSp == IdSanPham).ToList();
-            var spcuthe = _CTN4_Ok.SanPhamChiTiets.FirstOrDefault(c => c.IdMau == IdMau && c.IdSp == IdSanPham && c.IdSize == idSize);
+            var spcuthe = _CTN4_Ok.SanPhamChiTiets.FirstOrDefault(c => c.IdMau == IdMau && c.IdSp == IdSanPham && c.IdSize == idSize&&c.Is_detele==true);
             var view = new SanPhamBan()
             {
                  sanPham = _sanPhamCuaHangService.GetById(IdSanPham),

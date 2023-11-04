@@ -229,11 +229,19 @@ namespace CTN4_View_Admin.Controllers.QuanLY
 
         public ActionResult Delete(Guid id)
         {
-            if (_sv.Xoa(id))
+
+            var SP = _sanPhamChiTietService.GetById(id);
+            if (SP.Is_detele == true)
             {
-                return RedirectToAction("Index");
+                SP.Is_detele = false;
+                _sanPhamChiTietService.Sua(SP);
             }
-            return RedirectToAction("Index");
+            else
+            {
+                SP.Is_detele = true;
+                _sanPhamChiTietService.Sua(SP);
+            }
+            return RedirectToAction("Details", "SanPham", new {id=SP.IdSp});
         }
         public ActionResult XoaAnh(string NameAnh, Guid IdSP, Guid IdMau, Guid idSPCT)
         {
