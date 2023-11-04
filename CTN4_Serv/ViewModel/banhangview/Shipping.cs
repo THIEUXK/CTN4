@@ -10,11 +10,12 @@ namespace CTN4_Serv.ViewModel.banhangview
     {
         public int code { get; set; }
         public string message { get; set; }
+        public float totaloder { get; set; }
         public Data data { get; set; }
         public class Data
         {
             public int total { get; set; }
-            public decimal totaloder { get; set; }
+            public float totaloder { get; set; }
             //public int? service_fee { get; set; }
             //public int? insurance_fee { get; set; }
             //public int? pick_station_fee { get; set; }
