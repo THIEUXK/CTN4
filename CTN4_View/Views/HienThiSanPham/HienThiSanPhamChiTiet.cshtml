@@ -156,10 +156,20 @@
                     <ul class="list">
                         @if (Model.soluong != null)
                         {
-                            <li><a class="active" href="#"><span>Số lượng</span>@Model.soluong </a></li>
+                            <li><a class="active" href="#"><span>Số lượng</span>@Model.soluong </a></li>                          
+                        }
+                        @if (Model.KichCo != null)
+                        {
+
+                            <li><a href="#"><span>Kích cỡ</span> : @Model.KichCo</a><span> (dài x cao x rộng)</span></li>
+                        }
+                        else
+                        {
+                            <li><a href="#"><span>Kích cỡ</span> : </a><span> </span></li>
                         }
 
-                        <li><a href="#"><span>Availibility</span> : In Stock</a></li>
+                        <li><a href="#"><span>Nhà sản xuất</span> : @Model.sanPham.NSX.TenNSX</a></li>
+                        <li><a href="#"><span>Chất liệu</span> : @Model.sanPham.ChatLieu.TenChatLieu</a></li>
                     </ul>
                     <br />
                     <form asp-controller="BanHang" asp-action="ThemVaoGio">

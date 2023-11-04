@@ -135,6 +135,7 @@ namespace CTN4_View.Controllers.Shop
                 return RedirectToAction("HienThiSanPhamChiTiet", new{id=IdSanPham , message});
             }
 
+            var kichCo = _sizeService.GetById(idSize);
 
             var listsp1 = _sanPhamCuaHangService.GetAllSpcts(IdSanPham).Where(c => c.Is_detele == true).ToList();
             var anh = _anhService.GetAll().Where(c => c.SanPhamChiTiet.SanPham.Id == IdSanPham).ToList();
@@ -153,7 +154,9 @@ namespace CTN4_View.Controllers.Shop
                 sanPhams = listsp,
                 idmau = IdMau,
                 idsize = idSize,
-                soluong = spcuthe.SoLuong
+                soluong = spcuthe.SoLuong,
+                KichCo=kichCo.TenSize,
+
             };
             //return Json(view);
             return View("HienThiSanPhamChiTiet", view);
