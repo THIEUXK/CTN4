@@ -71,23 +71,24 @@ namespace CTN4_View.Controllers.Shop
             }
             else
             {
-                var gioHang = SessionServices.GioHangSS(HttpContext.Session, "GioHang");
+				return RedirectToAction("login", "Home");
+				//var gioHang = SessionServices.GioHangSS(HttpContext.Session, "GioHang");
 
-                foreach (var x in gioHang)
-                {
-                    var spct = _SanPhamChiTiet.GetAll().FirstOrDefault(c => c.Id == x.IdSanPhamChiTiet);
-                    tong += float.Parse(spct.SanPham.GiaNiemYet.ToString()) * (x.SoLuong);
+				//foreach (var x in gioHang)
+				//{
+				//    var spct = _SanPhamChiTiet.GetAll().FirstOrDefault(c => c.Id == x.IdSanPhamChiTiet);
+				//    tong += float.Parse(spct.SanPham.GiaNiemYet.ToString()) * (x.SoLuong);
 
-                }
+				//}
 
-                var view = new GioHangView()
-                {
+				//var view = new GioHangView()
+				//{
 
-                    GioHangChiTiets = gioHang,
-                    TongTien = tong
-                };
-                return View(view);
-            }
+				//    GioHangChiTiets = gioHang,
+				//    TongTien = tong
+				//};
+				//return View(view);
+			}
 
         }
 

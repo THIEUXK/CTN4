@@ -20,7 +20,7 @@ namespace CTN4_Serv.ServiceJoin
 
         public List<GioHangChiTiet> GetAll()
         {
-            return _db.GioHangChiTiets.Include(c=>c.GioHang).Include(c=>c.SanPhamChiTiet).Include(c=>c.SanPhamChiTiet.SanPham).ToList();
+            return _db.GioHangChiTiets.Include(c => c.GioHang).Include(c => c.SanPhamChiTiet).Include(c => c.SanPhamChiTiet.SanPham).Include(c => c.SanPhamChiTiet.Size).Include(c => c.SanPhamChiTiet.Mau).ToList();
         }
         public GioHangChiTiet GetById(Guid id)
         {
@@ -29,23 +29,23 @@ namespace CTN4_Serv.ServiceJoin
 
         public bool ThemGio(GioHangChiTiet a)
         {
-	        try
-	        {
-		        var b = new GioHangChiTiet()
-		        {
-			        Id = Guid.NewGuid(),
-			        IdSanPhamChiTiet = a.IdSanPhamChiTiet,
-			        IdGioHang = a.IdGioHang,
-			        SoLuong = a.SoLuong
-		        };
-		        _db.GioHangChiTiets.Add(b);
-		        _db.SaveChanges();
-		        return true;
-	        }
-	        catch (Exception e)
-	        {
-		        return false;
-	        }
+            try
+            {
+                var b = new GioHangChiTiet()
+                {
+                    Id = Guid.NewGuid(),
+                    IdSanPhamChiTiet = a.IdSanPhamChiTiet,
+                    IdGioHang = a.IdGioHang,
+                    SoLuong = a.SoLuong
+                };
+                _db.GioHangChiTiets.Add(b);
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
     }
 }

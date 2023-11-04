@@ -19,5 +19,6 @@ namespace CTN4_Serv.ViewModel
 		public Guid idmau { get; set; }
 		public Guid idsize { get; set; }
 		public int soluong { get; set; }
+		public string KichCo { get; set; }
 	}
 }

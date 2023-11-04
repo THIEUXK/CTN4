@@ -138,7 +138,7 @@ namespace CTN4_Data.DB_Context
                    new SanPham()
                    {
                        TenSanPham = "TDV Hobo Đáy Tròn",
-                       AnhDaiDien = "TDV Hobo Đáy Tròn_QuanChau_Den_Da lộn, da PU cao cấp_Dài 22 x Cao 12 x Rộng 6 (cm)(1).jpg",
+                       AnhDaiDien = "TDV Hobo Đáy Tròn_QuanChau_Xanh-Duong_Da lộn, da PU cao cấp_Dài 22 x Cao 12 x Rộng 6 (cm)(1).jpg",
                        Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081411"),
                        MaSp = "SP03",
                        MoTa = "oke la",
@@ -153,7 +153,7 @@ namespace CTN4_Data.DB_Context
                    }, new SanPham()
                    {
                        TenSanPham = "TDV Hobo Quai Ngắn",
-                       AnhDaiDien = "TDV Hobo Đáy Tròn_QuanChau_Den_Da lộn, da PU cao cấp_Dài 22 x Cao 12 x Rộng 6 (cm)(1).jpeg",
+                       AnhDaiDien = "TDV Hobo Quai Ngắn_QuanChau_Ghi_Da PU mềm mịn, cao cấp_Dài 27 x Rộng 6 x Cao 19 (cm)(1).jpg",
                        Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081511"),
                        MaSp = "SP04",
                        MoTa = "oke la",
