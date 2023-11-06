@@ -107,16 +107,38 @@
 
                     $("#tienship").html(`52,000đ`);
                     $("#tongtien").html(` ${(result)}đ`);
-                 
-                       let adress =   $("#ward option:selected").text() + "," + $("#district option:selected").text() + "," + $("#provin option:selected").text();
+
+                    let adress = $("#ward option:selected").text() + "," + $("#district option:selected").text() + "," + $("#provin option:selected").text();
                     //add địa chỉ
+                    $("#diachinay").val(adress).html(`${(adress)}`);
                     $("#adressnew").val(adress).html(`${(adress)}`);
                 }
             });
         }
     });
+    $('#diachicosan').change(function () {
+        //loadTotal();
 
-      
+        var idDiaChi = this.value;
+        if (idDiaChi != 0) {
+            let adress = $("#diachicosan option:selected").text();
+            //add địa chỉ
+
+            $("#diachinay").val(adress).html(`${(adress)}`);
+            $("#adressnew").val(adress).html(`${(adress)}`);
+        }
+        else {
+            location.reload();
+        }
+
+
+    });
+
+
+
+
+
+
     //    $('#btn_order').click(function () {
     //        if (validateForm() != false) {
 

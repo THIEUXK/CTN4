@@ -108,12 +108,19 @@
                     $("#tienship").html(`50,000đ`);
                     $("#tongtien").html(${ formatVND(result.data.totaloder)
                 }
-                });
+            });
+
             let adress = "," + $("#ward option:selected").text() + "," + $("#district option:selected").text() + "," + $("#provin option:selected").text();
             //add địa chỉ
-            $("#adress_detail").val(adress);
+
+            $("#adressnew").val(adress).html(`${(adress)}`);
+            
+            let adress2 = "," + $("#ward option:selected").text() + "," + $("#district option:selected").text() + "," + $("#provin option:selected").text();
+            $("#adressnew2").val(adress2).html(`${(adress2)}`);
+            
         }
     });
+   
 }
     });
 

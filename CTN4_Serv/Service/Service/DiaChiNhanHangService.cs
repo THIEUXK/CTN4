@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace CTN4_Serv.Service
 {
-    public class DiaChiNhDiaChiNhanHangangService : IDiaChiNhanHangService
+    public class DiaChiNhanHangService : IDiaChiNhanHangService
     {
         public DB_CTN4_ok _db;
 
-        public DiaChiNhDiaChiNhanHangangService()
+        public DiaChiNhanHangService()
         {
             _db = new DB_CTN4_ok();
         }
