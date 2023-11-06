@@ -16,7 +16,11 @@ namespace CTN4_Serv.ViewModel
         public List<SanPhamChiTiet> sanPhamChiTietsList { get; set; }
         public Guid idGH { get; set; }
         public float TongTienGioHang { get; set; }
-        public List<SelectListItem> listPhuongThucs{ get; set; }
+
+        public List<SelectListItem> listPhuongThucs { get; set; }
+        public List<SelectListItem> listDiaChi { get; set; }
+
         public Guid idphuongthuc { get; set; }
+        public Guid IdDiaChi { get; set; }
     }
 }
