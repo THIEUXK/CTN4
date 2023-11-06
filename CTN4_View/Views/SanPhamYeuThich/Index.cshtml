@@ -1,0 +1,74 @@
+﻿@model CTN4_Serv.ViewModel.SanPhamYeuThichView
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="tracking_box_area section_gap">
+    <div class="container">
+        <h1>Danh sách yêu thích</h1>
+
+        <section class="lattest-product-area pb-40 category-list">
+            <div class="row" id="Fillter-sanPhams">
+                @foreach (var sp in Model.chiTietSanPhamYeuThiches)
+                {
+                    <!-- single product -->
+                    {
+                        <div class="col-lg-4 col-md-6">
+                            <div class="single-product">
+                                @if (System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".jpg" ||
+                               System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".png" ||
+                               System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".jpeg" ||
+                               System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".tiff" ||
+                               System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".webp" ||
+                               System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".gif")
+                                {
+                                    <img src="~/image/@sp.SanPham.AnhDaiDien">
+                                }
+                                else
+                                {
+                                    <span>Ảnh lỗi rồi =)))</span>
+                                }
+                                <div class="product-details">
+                                    <h6>
+                                        <a style="color: (internal value);"> @Html.ActionLink(sp.SanPham.TenSanPham, "HienThiSanPhamChiTiet", new { id = sp.Id}) </a>
+                                    </h6>
+                                    <div class="price">
+                                        @if (sp.SanPham.GiaNiemYet == sp.SanPham.GiaBan)
+                                        {
+                                            <h6>@FormatCurrency(sp.SanPham.GiaNiemYet)</h6>
+                                        }
+                                        else
+                                        {
+                                            <h6>@FormatCurrency(sp.SanPham.GiaNiemYet)</h6>
+                                            <h6 class="l-through">@FormatCurrency(sp.SanPham.GiaBan)</h6>
+                                        }
+                                    </div>
+                                    <form asp-controller="SanPhamYeuThich" asp-action="XoaKhoiYeuTich">
+                                        <input type="hidden" name="idSP" value="@sp.IdSanPham" />
+                                        <input type="hidden" name="IdKhachHang" value="@Model.KhachHang.Id" />
+
+                                        <button>Bỏ yêu thích</button>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </section>
+
+    </div>
+</section>
+<script>
+    @functions {
+        public string FormatCurrency(float price)
+        {
+            string formattedPrice = string.Format("{0:N0}", price); // Định dạng số và thêm dấu phân cách ngàn
+            return formattedPrice + "₫"; // Thêm ký hiệu đồng (₫) vào cuối
+        }
+    };
+
+
+</script>

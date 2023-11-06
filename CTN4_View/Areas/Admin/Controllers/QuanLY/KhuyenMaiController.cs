@@ -10,9 +10,10 @@ namespace CTN4_View_Admin.Controllers.QuanLY
     public class KhuyenMaiController : Controller
     {
         public IKhuyenMaiService _sv;
-
+        public ISanPhamService _sp;
         public KhuyenMaiController()
         {
+            _sp = new SanPhamService();
             _sv = new KhuyenMaiService();
         }
         // GET: KhuyenMaiController
@@ -20,6 +21,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         public ActionResult Index()
         {
             var a = _sv.GetAll();
+            
             return View(a);
         }
 
@@ -33,6 +35,8 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         // GET: KhuyenMaiController/Create
         public ActionResult Create()
         {
+            var lstSp = _sp.GetAll();
+            ViewBag.lstSp = lstSp;
             return View();
         }
 
@@ -53,6 +57,8 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         // GET: KhuyenMaiController/Edit/5
         public ActionResult Edit(Guid id)
         {
+            var lstSp = _sp.GetAll();
+            ViewBag.lstSp = lstSp;
             var a = _sv.GetById(id);
             return View(a);
         }
@@ -70,6 +76,25 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             return View();
         }
 
+        [HttpPost]
+        public ActionResult UpdateGiaSanPham(string [] Ids, float giamTheoTien, float giamTheoPh)
+        {
+            foreach (var item in Ids)
+            {
+                var sp = _sp.GetById(Guid.Parse(item.ToString()));
+                if(giamTheoTien > 0)
+                {
+                    sp.GiaNiemYet = sp.GiaNiemYet - giamTheoTien;
+                }
+              // chỉ đc giảm theo tiền hoặc % không có giảm cả 2
+                else if(giamTheoPh > 0)
+                {
+                    sp.GiaNiemYet = sp.GiaNiemYet - (sp.GiaNiemYet * giamTheoPh/100);
+                }             
+                _sp.Sua(sp);
+            }
+            return View();
+        }
 
         public ActionResult Delete(Guid id)
         {

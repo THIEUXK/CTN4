@@ -83,19 +83,8 @@
                 <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                     <ul class="nav navbar-nav menu_nav ml-auto">
                         <li class="nav-item active"><a class="nav-link" asp-controller="Home" asp-action="Index">Home</a></li>
-                        <li class="nav-item submenu dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                               aria-expanded="false">Shop</a>
-                            <ul class="dropdown-menu">
-                                <li class="nav-item"><a class="nav-link" asp-controller="HienThiSanPham" asp-action="HienThiSanPham">Shop Category</a></li>
-                                <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="singleproduct">Product Details</a></li>
-
-                                <li class="nav-item"><a class="nav-link" asp-controller="BanHang" asp-action="ThuTucThanhToan">Product Checkout</a></li>
-                                <li class="nav-item"><a class="nav-link" asp-controller="BanHang" asp-action="GioHang">Shopping Cart</a></li>
-                                <li class="nav-item"><a class="nav-link" asp-controller="BanHang" asp-action="SauThanhToan">Confirmation</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item submenu dropdown">
+                            <li class="nav-item"><a class="nav-link" asp-controller="HienThiSanPham" asp-action="HienThiSanPham">Shop</a></li>
+                            <li class="nav-item submenu dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                                aria-expanded="false">Blog</a>
                             <ul class="dropdown-menu">
@@ -118,10 +107,11 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item submenu dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                                   aria-expanded="false"><a class="nav-link">Welcome, @User.Identity.Name!</a></a>
+                                    <a  class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                       aria-expanded="false"><a class="nav-link" asp-controller="Home" asp-action="Index">Welcome, @User.Identity.Name!</a></a>
                                 <ul class="dropdown-menu">
                                     <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="UserDetail">Quản Lí Thông Tin</a></li>
+                                        <li class="nav-item"><a class="nav-link" asp-controller="SanPhamYeuThich" asp-action="Index">Danh sách yêu thích</a></li>
                                     <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Logout">Đăng Xuất</a></li>
                                 </ul>
                             </li>
@@ -129,7 +119,7 @@
                         else
                         {
                             <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="login">Đăng Nhập</a></li>
-                                <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="DangKy">Đăng Ký</a></li>
+                                
                         }
 
                     </ul>
@@ -228,10 +218,20 @@
         </div>
     </div>
 </footer>
-
 <!-- End footer Area -->
+@*<script src="~/js/vendor/jquery-2.2.4.min.js"></script>*@
 
-
+@*<script src="~/js/vendor/bootstrap.min.js"></script>
+<script src="~/js/jquery.ajaxchimp.min.js"></script>
+<script src="~/js/jquery.nice-select.min.js"></script>
+<script src="~/js/jquery.sticky.js"></script>
+<script src="~/js/nouislider.min.js"></script>
+<script src="~/js/countdown.js"></script>
+<script src="~/js/jquery.magnific-popup.min.js"></script>
+<script src="~/js/owl.carousel.min.js"></script>*@
+<!--gmaps Js-->
+<script src="~/js/gmaps.min.js"></script>
+<script src="~/js/main.js"></script>
     
 </body>
 

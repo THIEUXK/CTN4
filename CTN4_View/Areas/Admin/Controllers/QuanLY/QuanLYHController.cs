@@ -17,6 +17,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         public IChatLieuService _chatLieuService;
         public INSXService _nsxService;
         public ISanPhamService _spService;
+        public ISanPhamService _sanPhamService;
         public IMauService _mauService;
         public ISizeService _sizeService;
         public SanPhamCuaHangService _sanPhamCuaHangService;
@@ -36,6 +37,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             _sanPhamCuaHangService = new SanPhamCuaHangService();
             _db = new DB_CTN4_ok();
             _anhService = new AnhService();
+            _sanPhamService = new SanPhamService();
 
         }
         // GET: PhanLoaiController
@@ -49,35 +51,41 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         // GET: PhanLoaiController/Details/5
         public ActionResult Details(Guid id)
         {
+            var SpCT = _sanPhamChiTietService.GetAll().FirstOrDefault(x => x.Id == id);
+            var SP = _sanPhamService.GetAll().FirstOrDefault(c => c.Id == SpCT.IdSp);
             var view = new ThieuxkView()
             {
+                SanPham = SP,
                 SanPhamChiTiet = _sv.GetById(id),
-                AhList = _db.Anhs.Where(c => c.IdSanPhamChiTiet == id).ToList()
+                AhList = _db.Anhs.Where(c => c.IdSanPhamChiTiet == id).ToList(),
+                IdMau = (Guid)SpCT.IdMau,
+
             };
             return View(view);
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddAnh(Guid IdSP, List<IFormFile> imageFile,Guid IdMau,Guid idSPCT)
+        public async Task<ActionResult> AddAnh(Guid IdSP, List<IFormFile> imageFile, Guid IdMau, Guid idSPCT)
         {
             var listAnh = imageFile.ToList();
-            foreach(var anh in listAnh){
-            if (anh != null && anh.Length > 0) // Không null và không trống
+            foreach (var anh in listAnh)
             {
-                //Trỏ tới thư mục wwwroot để lát nữa thực hiện việc Copy sang
-                var path = Path.Combine(
-                    Directory.GetCurrentDirectory(), "wwwroot", "image", anh.FileName);
-                using (var stream = new FileStream(path, FileMode.Create))
+                if (anh != null && anh.Length > 0) // Không null và không trống
                 {
-                    anh.CopyTo(stream);
+                    //Trỏ tới thư mục wwwroot để lát nữa thực hiện việc Copy sang
+                    var path = Path.Combine(
+                        Directory.GetCurrentDirectory(), "wwwroot", "image", anh.FileName);
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        anh.CopyTo(stream);
+                    }
+
                 }
 
-            }
-
-            if (anh != null)
-            {
+                if (anh != null)
                 {
-                        foreach (var a in _sanPhamChiTietService.GetAll().Where(c=>c.IdSp==IdSP&&c.IdMau==IdMau))
+                    {
+                        foreach (var a in _sanPhamChiTietService.GetAll().Where(c => c.IdSp == IdSP && c.IdMau == IdMau))
                         {
                             _db.Anhs.Add(new Anh()
                             {
@@ -88,9 +96,10 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                                 TenAnh = anh.FileName
                             });
                             await _db.SaveChangesAsync();
-                        }             
+                        }
+                    }
                 }
-            } }
+            }
 
 
             return RedirectToAction("Details", new { id = idSPCT });
@@ -220,19 +229,31 @@ namespace CTN4_View_Admin.Controllers.QuanLY
 
         public ActionResult Delete(Guid id)
         {
-            if (_sv.Xoa(id))
+
+            var SP = _sanPhamChiTietService.GetById(id);
+            if (SP.Is_detele == true)
             {
-                return RedirectToAction("Index");
+                SP.Is_detele = false;
+                _sanPhamChiTietService.Sua(SP);
             }
-            return RedirectToAction("Index");
+            else
+            {
+                SP.Is_detele = true;
+                _sanPhamChiTietService.Sua(SP);
+            }
+            return RedirectToAction("Details", "SanPham", new {id=SP.IdSp});
         }
-        public ActionResult XoaAnh(Guid id, Guid IdSp)
+        public ActionResult XoaAnh(string NameAnh, Guid IdSP, Guid IdMau, Guid idSPCT)
         {
-            if (_anhService.Xoa(id))
+            var lisSPCT = _sanPhamChiTietService.GetAll().Where(c => c.IdSp == IdSP && c.IdMau == IdMau);
+            foreach (var item in lisSPCT)
             {
-                return RedirectToAction("Details", new { id = IdSp });
+                _anhService.XoaBySP(item.Id);
+
             }
-            return RedirectToAction("Details", new { id = IdSp });
+
+            return RedirectToAction("Details", new { id = idSPCT });
+
         }
     }
 }

@@ -72,7 +72,14 @@ namespace CTN4_Serv.Service
             }
         }
 
-       
-
+        public int Laygiamgia()
+        {
+            var giamGia = _db.GiamGias.FirstOrDefault(); // Lấy đối tượng GiamGia đầu tiên từ cơ sở dữ liệu
+            if (giamGia != null)
+            {
+                return giamGia.PhanTramGiam; // Trả về giá trị của PhanTramGiam
+            }
+            return 0; // Trả về 0 hoặc giá trị mặc định khác nếu không tìm thấy đối tượng GiamGia
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿@using CTN4_Serv.Service;
+﻿﻿@using CTN4_Serv.Service;
 @model CTN4_Serv.ViewModel.GioHangView
 @{
     ViewData["Title"] = "GioHang";
@@ -7,7 +7,7 @@
 
 <!-- End Header Area -->
 <!-- Start Banner Area -->
-<section class="banner-area organic-breadcrumb">
+@*<section class="banner-area organic-breadcrumb">
     <div class="container">
         <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
             <div class="col-first">
@@ -19,7 +19,7 @@
             </div>
         </div>
     </div>
-</section>
+</section>*@
 @if (TempData["ErrorMessage"] != null)
 {
     <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
@@ -33,10 +33,10 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">Product</th>
-                            <th scope="col">Màu</th>
-                            <th scope="col">Size</th>
-                            <th scope="col">Price</th>
+                            <th scope="col">Sản phẩm</th>
+                            <th scope="col">Thông tìn sản phẩm</th>
+                          
+                            <th scope="col">Giá tiền</th>
 
                             <th scope="col">Quantity</th>
                             <th scope="col">Total</th>
@@ -50,36 +50,39 @@
                         {
                             <tr>
                                 <td>
-                                    
-                                        
-                                            @foreach (var b in Model.anhs.Where(c => c.IdSanPhamChiTiet == a.IdSanPhamChiTiet))
-                                            {
 
-                                                @if (System.IO.Path.GetExtension(b.DuongDanAnh) == ".jpg" ||
-                                               System.IO.Path.GetExtension(b.DuongDanAnh) == ".png" ||
-                                               System.IO.Path.GetExtension(b.DuongDanAnh) == ".jpeg" ||
-                                               System.IO.Path.GetExtension(b.DuongDanAnh) == ".tiff" ||
-                                               System.IO.Path.GetExtension(b.DuongDanAnh) == ".webp" ||
-                                               System.IO.Path.GetExtension(b.DuongDanAnh) == ".gif")
-                                                {
-                                                    <img src="~/image/@b.DuongDanAnh" height="150" >
-                                                }
-                                                else
-                                                {
-                                                    <span>Ảnh lỗi rồi =)))</span>
-                                                }
-                                            }
-                                        
-                                        <div class="media-body">
-                                            <p>@a.SanPhamChiTiet.SanPham.TenSanPham</p>
-                                        </div>
+
+                                    @foreach (var b in Model.anhs.Where(c => c.IdSanPhamChiTiet == a.IdSanPhamChiTiet))
+                                    {
+
+                                        @if (System.IO.Path.GetExtension(b.DuongDanAnh) == ".jpg" ||
+                                       System.IO.Path.GetExtension(b.DuongDanAnh) == ".png" ||
+                                       System.IO.Path.GetExtension(b.DuongDanAnh) == ".jpeg" ||
+                                       System.IO.Path.GetExtension(b.DuongDanAnh) == ".tiff" ||
+                                       System.IO.Path.GetExtension(b.DuongDanAnh) == ".webp" ||
+                                       System.IO.Path.GetExtension(b.DuongDanAnh) == ".gif")
+                                        {
+                                            <img src="~/image/@b.DuongDanAnh" height="150">
+                                        }
+                                        else
+                                        {
+                                            <span>Ảnh lỗi rồi =)))</span>
+                                        }
+                                    }
+
                                    
+
                                 </td>
                                 <td>
-                                    <h5>@a.SanPhamChiTiet.Mau.TenMau</h5>
-                                </td>
-                                <td>
-                                    <h5>@a.SanPhamChiTiet.Size.CoSize</h5>
+                                    <div class="media-body">
+                                        <p>@a.SanPhamChiTiet.SanPham.TenSanPham</p>
+                                    </div>
+                                    <div class="media-body">
+                                        <h5>Màu : @a.SanPhamChiTiet.Mau.TenMau</h5>
+                                    </div>
+                                    <div class="media-body">
+                                        <h5> Size: @a.SanPhamChiTiet.Size.CoSize</h5>
+                                    </div>
                                 </td>
                                 <td>
                                     <h5>@FormatCurrency(a.SanPhamChiTiet.SanPham.GiaNiemYet)</h5>
@@ -119,6 +122,8 @@
                             <td>
                             </td>
                             <td>
+                            </td>
+                            <td>
                                 <div class="cupon_text d-flex align-items-center">
                                     <input type="text" placeholder="Coupon Code">
                                     <a class="primary-btn" href="#">Apply</a>
@@ -132,14 +137,22 @@
                             <td>
                             </td>
                             <td>
-                                <h5>Subtotal</h5>
                             </td>
                             <td>
+                                <h5>Tiền ship:</h5>
+                                <br>
+                                <h5>Tổng tiền:</h5>
+                            </td>
+                            <td>
+                                <h5>Chưa có</h5>
+                                <br>
                                 <h5>@FormatCurrency(Model.TongTien)</h5>
                             </td>
                         </tr>
 
                         <tr class="out_button_area">
+                            <td>
+                            </td>
                             <td>
                             </td>
                             <td>

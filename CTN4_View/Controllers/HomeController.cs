@@ -30,6 +30,7 @@ namespace CTN4_View.Controllers
 		private string generatedToken = null;
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IDiaChiNhanHangService _diachi;
+        private readonly IGiamGiaService _giamgiact;
 
         public IKhachHangService _KHangService;
         //public HomeController()
@@ -39,7 +40,7 @@ namespace CTN4_View.Controllers
         //}
 
 
-        public HomeController(ILogger<HomeController> logger, IConfiguration config, ITokenService tokenService, ILoginService userRepository,ICurrentUser curent,IKhachHangService khachhang,ISanPhamService sanpham, IHttpClientFactory httpClientFactory ,IDiaChiNhanHangService diachi)
+        public HomeController(ILogger<HomeController> logger, IConfiguration config, ITokenService tokenService, ILoginService userRepository,ICurrentUser curent,IKhachHangService khachhang,ISanPhamService sanpham, IHttpClientFactory httpClientFactory ,IDiaChiNhanHangService diachi,IGiamGiaService giamgia)
 
         {
             _spService = sanpham;
@@ -54,6 +55,7 @@ namespace CTN4_View.Controllers
             _tokenService = tokenService;
             _userRepository = userRepository;
             _httpClientFactory = httpClientFactory;
+            _giamgiact = giamgia;
         }
 
         public IActionResult Index()
@@ -102,7 +104,7 @@ namespace CTN4_View.Controllers
                     return RedirectToAction(nameof(Themdiachi));
                 }
                 a.Id = Guid.NewGuid();
-                a.TrangThai = true;
+                a.TrangThai = false;
                 a.IdKhachHang = _curent.Id;
                 if(_diachi.Them(a))
                 {
@@ -338,13 +340,6 @@ namespace CTN4_View.Controllers
 
             return result;
         }
-		public IActionResult Logout()
-		{
-			// Xóa dữ liệu phiên của người dùng, bao gồm thông tin đăng nhập và token
-			HttpContext.Session.Clear();
 
-			// Chuyển hướng người dùng đến trang đăng nhập hoặc trang chính của ứng dụng
-			return RedirectToAction("Index");
-		}
 	}
 }
