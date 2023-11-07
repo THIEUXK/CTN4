@@ -332,8 +332,7 @@ namespace CTN4_View.Controllers.Shop
             {
                 Guid idHoaDon = Guid.NewGuid();
                 //Tạo hóa đơn mới
-                float tong = tongtien;
-               
+             
 
                 var hd = new HoaDon()
                 {
@@ -341,18 +340,21 @@ namespace CTN4_View.Controllers.Shop
                     NgayTaoHoaDon = DateTime.Now,
                     DiaChi = DiachiNhanChiTiet+" "+addDiaChi,
                     TrangThai = "Đang chờ xử lí",
-                    TongTien = tong,
+                    TongTien = tongtien,
                     NgayDat = DateTime.Now,
                     TrangThaiThanhToan=false,
                     Email =Email,
                     GhiChu=ghiChu,
-                    IdDiaChiNhanHang = IdDiaChi,
                     IdKhachHang = accnew[0].Id,
                     IdPhuongThuc = idphuongthuc,
                     SDTNguoiNhan = Sodienthoai,
                     TenKhachHang = name,
                     Is_detele = true,
                 };
+                if (IdDiaChi != Guid.Parse("00000000-0000-0000-0000-000000000000"))
+                {
+                    hd.IdDiaChiNhanHang = IdDiaChi;
+                }
                 if (_HoaDonService.Them(hd) == false)
                 {
                     var message = "thanh toán lỗi(1)";
