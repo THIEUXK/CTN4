@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CTN4_Data.Migrations
 {
-    public partial class kaka : Migration
+    public partial class a : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -322,9 +322,10 @@ namespace CTN4_Data.Migrations
                     NgayGiao = table.Column<DateTime>(type: "datetime2", nullable: true),
                     NgayNhan = table.Column<DateTime>(type: "datetime2", nullable: true),
                     TenKhachHang = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SDTNguoiNhan = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DiaChi = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    GhiChu = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    GhiChu = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Is_detele = table.Column<bool>(type: "bit", nullable: false),
                     TrangThaiThanhToan = table.Column<bool>(type: "bit", nullable: false),
                     IdKhachHang = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
@@ -619,12 +620,12 @@ namespace CTN4_Data.Migrations
                 columns: new[] { "Id", "Is_Detele", "MaKhuyenMai", "NgayBatDau", "NgayKetThuc", "PhanTramGiamGia", "SoTienGiam", "TrangThai" },
                 values: new object[,]
                 {
-                    { new Guid("13effe44-e728-48a8-9baa-967da4ee38cd"), true, "km04", new DateTime(2023, 6, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, 22000f, true },
-                    { new Guid("23bdd26c-d7a3-4307-8e22-d230b653d611"), true, "km03", new DateTime(2023, 1, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 9, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 20, 0f, true },
-                    { new Guid("da810cca-4fca-4291-a52b-875841d49e34"), true, "km02", new DateTime(2023, 9, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 9, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, 50000f, true },
-                    { new Guid("e3e37e9e-7ea3-4f87-94af-1329363a4322"), true, "km06", new DateTime(2023, 8, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 9, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 25, 0f, true },
-                    { new Guid("f877e80d-2b32-43b0-be70-cf3b15113056"), true, "km01", new DateTime(2023, 6, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 9, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 50, 0f, true },
-                    { new Guid("fa1ae994-6ab0-4ee6-b8b1-ff336cf994a8"), true, "km05", new DateTime(2023, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 9, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 10, 0f, true }
+                    { new Guid("13effe44-e728-48a8-9baa-967da4ee38cd"), true, "km04", new DateTime(2023, 7, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 8, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, 22000f, true },
+                    { new Guid("23bdd26c-d7a3-4307-8e22-d230b653d611"), true, "km03", new DateTime(2023, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 20, 0f, true },
+                    { new Guid("da810cca-4fca-4291-a52b-875841d49e34"), true, "km02", new DateTime(2023, 7, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, 50000f, true },
+                    { new Guid("e3e37e9e-7ea3-4f87-94af-1329363a4322"), true, "km06", new DateTime(2023, 10, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 25, 0f, true },
+                    { new Guid("f877e80d-2b32-43b0-be70-cf3b15113056"), true, "km01", new DateTime(2023, 7, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 50, 0f, true },
+                    { new Guid("fa1ae994-6ab0-4ee6-b8b1-ff336cf994a8"), true, "km05", new DateTime(2023, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 10, 0f, true }
                 });
 
             migrationBuilder.InsertData(
