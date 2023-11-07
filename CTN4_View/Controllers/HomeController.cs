@@ -302,24 +302,7 @@ namespace CTN4_View.Controllers
         [Authorize]
         [Route("mainwindow")]
         [HttpGet]
-        public IActionResult MainWindow()
-        {
-            string token = HttpContext.Session.GetString("Token");
-
-            if (token == null)
-            {
-                return RedirectToAction(nameof(login));
-            }
-
-            if (!_tokenService.IsTokenValid(_config["Jwt:Key"].ToString(),
-                _config["Jwt:Issuer"].ToString(), token))
-            {
-                return (RedirectToAction("Index"));
-            }
-
-            ViewBag.Message = BuildMessage(token, 50);
-            return View();
-        }
+       
 
         public IActionResult Errors()
         {
@@ -335,7 +318,7 @@ namespace CTN4_View.Controllers
 
             foreach (string str in data)
             {
-                result += Environment.NewLine + str;
+                 result += Environment.NewLine + str; 
             }
 
             return result;
