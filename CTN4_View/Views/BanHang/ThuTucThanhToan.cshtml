@@ -37,7 +37,7 @@
                     <div class="row contact_form" action="#" method="post" novalidate="novalidate">
                         <div class="col-md-6 form-group p_star">
                             <label>Họ và tên</label>
-                            <input type="text" class="form-control" id="first" name="name">
+                            <input type="text" class="form-control" id="first" value="@Model.KhachHang.Ho @Model.KhachHang.Ten" name="name">
 
                         </div>
 
@@ -50,29 +50,42 @@
                         </div>
                         <div class="col-md-12 form-group">
                             <label>Địa chỉ nhận hàng cụ thể</label>
-                            <input type="text" class="form-control" id="company" name="company">
+                            <input type="text" class="form-control" value="@Model.DiaChiNhanHang.name" id="company" name="company">
                         </div>
                         <div class="col-md-6 form-group p_star">
                             <label>Số điện thoại</label>
-                            <input type="text" class="form-control" id="number" name="number">
+                            <input type="text" class="form-control" value="@Model.KhachHang.SDT" id="number" name="number">
 
                         </div>
 
                         <div class="col-md-6 form-group p_star">
                             <label>Email</label>
-                            <input type="text" class="form-control" id="email" name="compemailany">
+                            <input type="text" class="form-control" id="email" value="@Model.KhachHang.Email" name="compemailany">
 
                         </div>
-                        <div class="col-md-6 form-group p_star">
-                            <label>Địa chỉ :</label>
-                            <input type="text" class="form-control" id="adressnew" name="" disabled></input>
+                        @if (Model.DiaChiNhanHang.DiaChi != null)
+                        {
+                            <div class="col-md-6 form-group p_star">
+                                <label>Địa chỉ :</label>
+                                <input type="text" class="form-control" value="@Model.DiaChiNhanHang.DiaChi" id="adressnew" name="" disabled></input>
 
-                            <input type="hidden" class="form-control" id="diachinay" name="addDiaChi"></input>
-                        </div>
+                                <input type="hidden" class="form-control" value="@Model.DiaChiNhanHang.DiaChi" id="diachinay" name="addDiaChi"></input>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-md-6 form-group p_star">
+                                <label>Địa chỉ :</label>
+                                <input type="text" class="form-control" id="adressnew" name="" disabled></input>
+
+                                <input type="hidden" class="form-control" id="diachinay" name="addDiaChi"></input>
+                            </div>
+                        }
+
 
 
                         <div class="col-md-6 form-group">
-                            <label>Phương thức thanh toán<span class="text-danger"></span></label>
+                            <label>Chọn chọn địa chỉ có sẵn của bạn<span class="text-danger"></span></label>
                             <span class="text-danger"></span>
                             <select class="custom-select"
 
@@ -80,7 +93,7 @@
                             <option value="0"> Chọn chọn địa chỉ có sẵn của bạn</option>
                                     @foreach (var a in Model.listDiaChi)
                                     {
-                                                                    <option value="@a.Value">@a.Text</option>
+                                                                        <option value="@a.Value">@a.Text</option>
                                     }
                         </select>
 
@@ -119,7 +132,7 @@
                             <option value=""> Chọn phương thức thanh toán</option>
                                     @foreach (var a in Model.listPhuongThucs)
                                     {
-                                                                <option value="@a.Value">@a.Text</option>
+                                                                    <option value="@a.Value">@a.Text</option>
                                     }
                         </select>
                         </select>
@@ -161,8 +174,10 @@
                                 <li><a href="#">Tổng tiền :<span><b id="tongtien" style="color:orange">@FormatCurrency(Model.TongTien)</b></span></a></li>
                             </ul>
                             <br></br>
-
+                            <input type="hidden" name="tienship" value="" id="tienship1"></input>
+                            <input type="hidden" name="tongtien" value="" id="tongtien1"></input>
                             <div class="card border-secondary mb-5">
+
 
                                 <button class="primary-btn" type="submit" href="#">Mua Hàng</button>
                             </div>

@@ -13,6 +13,7 @@
     $('#provin').change(function () {
         //loadTotal();
         var id_provin = this.value;
+      
         $('#district option').remove();
         $('#district').append(new Option("-- Chọn quận/huyện --", 0));
         $('#ward option').remove();
@@ -75,37 +76,37 @@
         sessionStorage.removeItem('shiptotal');
         $("#total_ship").text('');
         if (this.value != 0) {
-            var obj = {
-                //"service_id":53321,
-                //"insurance_value":500000,
-                //"coupon": null,
-                //"from_district_id":1486,
-                //"to_district_id":1493,
-                //"to_ward_code":"20314",
-                //"height": 25,
-                //"length":10,
-                //"weight":3000,
-                //"width": 30
-                service_id: 53321,
-                insurance_value: 500000,
-                coupon: null,
-                from_district_id: 3440,
-                to_ward_code: id_ward,
-                to_district_id: parseInt($('#district').val()),
-                weight: 1000,
-                length: 31,
-                height: 21,
-                width: 11,
-            }
+            //var obj = {
+            //    //"service_id":53321,
+            //    //"insurance_value":500000,
+            //    //"coupon": null,
+            //    //"from_district_id":1486,
+            //    //"to_district_id":1493,
+            //    //"to_ward_code":"20314",
+            //    //"height": 25,
+            //    //"length":10,
+            //    //"weight":3000,
+            //    //"width": 30
+            //    service_id: 53321,
+            //    insurance_value: 500000,
+            //    coupon: null,
+            //    from_district_id: 3440,
+            //    to_ward_code: id_ward,
+            //    to_district_id: parseInt($('#district').val()),
+            //    weight: 1000,
+            //    length: 31,
+            //    height: 21,
+            //    width: 11,
+            //}
             $.ajax({
                 url: '/CheckOut/GetTotalShipping',
-                type: 'POST',
+                type: 'GET',
                 dataType: 'json',
-                data: JSON.stringify(obj),
+               /* data: JSON.stringify(obj),*/
                 contentType: 'application/json',
                 success: function (result) {
 
-                    $("#tienship").html(`52,000đ`);
+                    $("#tienship").html(`52.000đ`);
                     $("#tongtien").html(` ${(result)}đ`);
 
                     let adress = $("#ward option:selected").text() + "," + $("#district option:selected").text() + "," + $("#provin option:selected").text();
@@ -121,11 +122,24 @@
 
         var idDiaChi = this.value;
         if (idDiaChi != 0) {
-            let adress = $("#diachicosan option:selected").text();
-            //add địa chỉ
-
-            $("#diachinay").val(adress).html(`${(adress)}`);
-            $("#adressnew").val(adress).html(`${(adress)}`);
+            
+            
+            $.ajax({
+                url: '/CheckOut/GetTotalShipping',
+                type: 'GET',
+                dataType: 'json',
+                /* data: JSON.stringify(obj),*/
+                contentType: 'application/json',
+                success: function (result) {
+                    let adress = $("#diachicosan option:selected").text();
+                    $("#tienship").html(`52.000đ`);
+                    $("#tongtien").html(` ${(result)}đ`);
+                    $("#tienship1").val(52000);
+                    $("#tongtien1").val(result);
+                    $("#diachinay").val(adress).html(`${(adress)}`);
+                    $("#adressnew").val(adress).html(`${(adress)}`);
+                }
+            });
         }
         else {
             location.reload();
