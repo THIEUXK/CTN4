@@ -53,7 +53,7 @@
                 </div>
             </div>
             <div class="col-lg-5 offset-lg-1">
-                <div class="s_product_text">
+                <ul class="s_product_text">
                     <h3>@Model.sanPham.TenSanPham</h3>
                     <div class="price">
                         @if (Model.sanPham.GiaNiemYet == Model.sanPham.GiaBan)
@@ -66,7 +66,35 @@
                             <h6 class="l-through">@FormatCurrency(Model.sanPham.GiaBan)</h6>
                         }
                     </div>
-                    <br>
+                    <ul class="horizontal-list" style="display: flex;">
+                        @foreach (var x in Model.giamgias)
+                        {
+                            <form asp-action="ThongTinVocher">
+                            @if (x.LoaiGiamGia == true)
+                            {
+                               <li>
+                                    <input type="hidden" name="idVoucher" value="@x.Id">
+                                    <input type="hidden" name="idSp" value="@Model.sanPham.Id">
+                                    <button class="mini-coupon__title" style="color: #000000; " onclick="onsubmit" >Giảm @FormatCurrency(@x.SoTienGiam)</button>
+                               </li> 
+                            }
+                            else
+                            {
+                                <li>
+                                    <input type="hidden" name="idVoucher" value="@x.Id">
+                                    <input type="hidden" name="idSp" value="@Model.sanPham.Id">
+                                    <button class="mini-coupon__title" style="color: #000000;">Giảm @x.PhanTramGiam%</button>
+                                </li>
+                            }</form>
+                        }
+                       
+                    </ul>
+                    <br >
+                    @if (TempData["Notification"] != null)
+                    {
+                        <div class="alert alert-info">@TempData["Notification"]</div>
+                    }
+                    <br/>
                     <div>
 
                         @{
@@ -103,13 +131,13 @@
                                 }
                             }
                         </ul>
-
                     </div>
                     <br>
                     @if (TempData["ErrorMessage"] != null)
                     {
                         <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
                     }
+                    <br/>
                     <div>
                         @{
                             // Tạo danh sách để theo dõi các Mau.Id đã xuất hiện
@@ -152,11 +180,10 @@
                             }
                         </ul>
                     </div>
-                    <br />
                     <ul class="list">
                         @if (Model.soluong != null)
                         {
-                            <li><a class="active" href="#"><span>Số lượng</span>@Model.soluong </a></li>                          
+                            <li><a class="active" href="#"><span>Số lượng</span>@Model.soluong </a></li>
                         }
                         @if (Model.KichCo != null)
                         {
@@ -800,10 +827,13 @@
                                     //        });
                                     //    });
                                     //});
+   
+
+
 </script>
 
 <style>
-    
+
     .horizontal-list {
         list-style-type: none; /* Loại bỏ dấu chấm */
         padding: 0; /* Loại bỏ khoảng cách đệm */
@@ -834,9 +864,33 @@
             background-color: #DDDDDD;
             color: #000000;
             box-shadow: 0 0 0 2px #000000;
-             /* Vòng tròn màu xanh bo xung quanh nút sau khi click, bán kính là 5px */
+        }
+    /* Vòng tròn màu xanh bo xung quanh nút sau khi click, bán kính là 5px */
+    .mini-coupon__wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        row-gap: 0;
+        position: relative;
+        margin-bottom: 1em;
+    }
 
+    
+    
+    .mini-coupon__title {
+        border-radius: 20px;
+        padding: 10px 20px;
+        font-size: 14px; /* Kích thước chữ */
+        cursor: pointer;
+        font-weight: 400; /* Độ đậm chữ */
+        border: none;
+        border-radius: 10px;
+        transition: border-radius 0.3s, box-shadow 0.3s;
+        background-color: #FA8072;
+      
+    }
 
+   
 </style>
 <script src="~/js/vendor/jquery-2.2.4.min.js"></script>
 @*<script src="~/js/jquery-3.6.0.js"></script>*@
