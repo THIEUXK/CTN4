@@ -52,7 +52,10 @@
                         <th>
                             @Html.DisplayNameFor(model => model.LoaiGiamGia)
                         </th>
-                        
+                        <th>
+                            @Html.DisplayNameFor(model => model.Is_detele)
+                        </th>
+
                         <th></th>
                     </tr>
                 </thead>
@@ -89,6 +92,8 @@
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.LoaiGiamGia)
+                            </td> <td>
+                                @Html.DisplayFor(modelItem => item.Is_detele)
                             </td>
                             <td>
                                 @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

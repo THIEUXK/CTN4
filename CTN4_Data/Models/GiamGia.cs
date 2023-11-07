@@ -38,6 +38,7 @@ namespace CTN4_Data.Models.DB_CTN4
         [Range(0, float.MaxValue, ErrorMessage = "Điều kiện giảm phải lớn hơn hoặc bằng 0.")]
         public float DieuKienGiam { get; set; } 
         public bool LoaiGiamGia {get; set; }
+        public bool Is_detele {get; set; }
         public virtual List<GiamGiaChiTiet>? GiamGiaChiTiets { get; set; }
 
     }
