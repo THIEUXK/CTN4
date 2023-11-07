@@ -21,7 +21,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         public ActionResult Index()
         {
             var a = _sv.GetAll();
-            
+
             return View(a);
         }
 
@@ -77,20 +77,36 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         }
 
         [HttpPost]
-        public ActionResult UpdateGiaSanPham(string [] Ids, float giamTheoTien, float giamTheoPh)
+        public ActionResult UpdateGiaSanPham(string[] Ids, float giamTheoTien, float giamTheoPh)
+        {
+            TempData["ErrorMessage"] = "Thông báo lỗi của bạn ở đây.";
+            foreach (var item in Ids)
+            {
+                var sp = _sp.GetById(Guid.Parse(item.ToString()));
+                if (giamTheoTien > 0)
+                {
+                    sp.GiaNiemYet = sp.GiaNiemYet - giamTheoTien;
+                }
+                // chỉ đc giảm theo tiền hoặc % không có giảm cả 2
+                else if (giamTheoPh > 0)
+                {
+                    sp.GiaNiemYet = sp.GiaNiemYet - (sp.GiaNiemYet * giamTheoPh / 100);
+                }
+                _sp.Sua(sp);
+            }
+            if (TempData.ContainsKey("ErrorMessage"))
+            {
+                ViewBag.ErrorMessage = TempData["ErrorMessage"];
+            }
+            return View();
+        }
+        [HttpPost]
+        public ActionResult HuyApDungKm(string[] Ids)
         {
             foreach (var item in Ids)
             {
                 var sp = _sp.GetById(Guid.Parse(item.ToString()));
-                if(giamTheoTien > 0)
-                {
-                    sp.GiaNiemYet = sp.GiaNiemYet - giamTheoTien;
-                }
-              // chỉ đc giảm theo tiền hoặc % không có giảm cả 2
-                else if(giamTheoPh > 0)
-                {
-                    sp.GiaNiemYet = sp.GiaNiemYet - (sp.GiaNiemYet * giamTheoPh/100);
-                }             
+                sp.GiaNiemYet = sp.GiaBan;
                 _sp.Sua(sp);
             }
             return View();
