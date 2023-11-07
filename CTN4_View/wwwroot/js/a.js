@@ -108,7 +108,8 @@
 
                     $("#tienship").html(`52.000đ`);
                     $("#tongtien").html(` ${(result)}đ`);
-
+                    $("#tienship1").val(52000);
+                    $("#tongtien1").val(result);
                     let adress = $("#ward option:selected").text() + "," + $("#district option:selected").text() + "," + $("#provin option:selected").text();
                     //add địa chỉ
                     $("#diachinay").val(adress).html(`${(adress)}`);

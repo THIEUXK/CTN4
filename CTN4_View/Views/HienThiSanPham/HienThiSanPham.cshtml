@@ -17,6 +17,7 @@
 </section>*@
 <br></br>
 <br></br>
+
 <!-- End Banner Area -->
 <div class="container">
     <div class="row">
@@ -167,7 +168,7 @@
                                                 <p class="hover-text">Thêm sản phẩm</p>
                                                 @Html.ActionLink( "","HienThiSanPhamChiTiet", new { id = sp.Id})
                                             </a>
-                                            
+
                                             <form asp-controller="SanPhamYeuThich" asp-action="ThemYeuThich">
                                                 <input type="hidden" name="IdSanPham" value="@sp.Id">
 
