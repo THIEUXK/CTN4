@@ -72,7 +72,6 @@
     </div>
 </div>
 <button id="updateGiaButton" class="btn btn-primary">Cập nhật Giá Sản Phẩm</button>
-<button id="huyApDungButton" class="btn btn-primary">Hủy áp dụng khuyến mại</button>
 
 <table class="table">
     <thead>
@@ -90,23 +89,23 @@
                 Nsx
             </th>
             <th>
-                Mô tả
+                Nsx
 
             </th>
             <th>
-                Giá nhập
+                Nsx
 
             </th>
             <th>
-                Giá bán
+                Nsx
 
             </th>
             <th>
-                Giá niêm yết
+                Nsx
 
             </th>
             <th>
-                Ghi chú
+                Nsx
 
             </th>
             <th>
@@ -229,14 +228,10 @@
 
     // Lấy tham chiếu đến nút theo ID
     var updateGiaButton = document.getElementById("updateGiaButton");
-    var huyApDungButton = document.getElementById("huyApDungButton");
 
     // Gắn sự kiện click vào nút
     updateGiaButton.addEventListener("click", function () {
         updateGiaSanPham();
-    });
-    huyApDungButton.addEventListener("click", function () {
-        huyApDungKhuyenMai();
     });
 
     function updateGiaSanPham() {
@@ -272,40 +267,5 @@
             }
         });
     }
-
-    function huyApDungKhuyenMai() {
-        // Lấy giá trị của các trường dữ liệu từ form hoặc từ các phần tử HTML khác
-        var ids = selectedMaSps // Mảng chứa các giá trị của Ids      
-
-        // TODO: Lấy giá trị của các trường dữ liệu từ form hoặc từ các phần tử HTML khác
-        // Gán giá trị cho biến ids, giamTheoTien, giamTheoPh
-
-        // Tạo đối tượng dữ liệu để gửi lên server
-        var data = {
-            Ids: ids,
-        };
-
-        // Gọi AJAX
-        $.ajax({
-            url: '/admin/KhuyenMai/HuyApDungKm', // Thay thế ControllerName bằng tên thật của controller
-            type: 'POST',
-            data: data,
-            success: function (response) {
-                // Xử lý kết quả trả về từ server (nếu cần)
-                console.log(response);
-                // TODO: Xử lý kết quả trả về từ server
-            },
-            error: function (xhr, status, error) {
-                // Xử lý lỗi (nếu có)
-                console.log(error);
-                // TODO: Xử lý lỗi
-            }
-        });
-    }
 </script>
-@if (ViewBag.ErrorMessage != null)
-{
-    <div class="alert alert-danger">
-        @ViewBag.ErrorMessage
-    </div>
-}
+

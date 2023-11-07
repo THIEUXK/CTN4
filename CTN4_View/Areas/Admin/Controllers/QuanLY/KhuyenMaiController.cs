@@ -79,7 +79,6 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [HttpPost]
         public ActionResult UpdateGiaSanPham(string [] Ids, float giamTheoTien, float giamTheoPh)
         {
-            TempData["ErrorMessage"] = "Thông báo lỗi của bạn ở đây.";
             foreach (var item in Ids)
             {
                 var sp = _sp.GetById(Guid.Parse(item.ToString()));
@@ -92,21 +91,6 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                 {
                     sp.GiaNiemYet = sp.GiaNiemYet - (sp.GiaNiemYet * giamTheoPh/100);
                 }             
-                _sp.Sua(sp);
-            }
-            if (TempData.ContainsKey("ErrorMessage"))
-            {
-                ViewBag.ErrorMessage = TempData["ErrorMessage"];
-            }
-            return View();
-        }
-        [HttpPost]
-        public ActionResult HuyApDungKm(string[] Ids)
-        {
-            foreach (var item in Ids)
-            {
-                var sp = _sp.GetById(Guid.Parse(item.ToString()));
-                sp.GiaNiemYet = sp.GiaBan;
                 _sp.Sua(sp);
             }
             return View();
