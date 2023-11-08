@@ -376,7 +376,7 @@ namespace CTN4_View.Controllers.Shop
 
                 }else
                 {
-                    Guid idHoaDon = Guid.NewGuid();
+                    
                     //Tạo hóa đơn mới
                     var hd = new HoaDon()
                     {
