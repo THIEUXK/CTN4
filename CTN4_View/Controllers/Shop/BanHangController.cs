@@ -523,6 +523,7 @@ namespace CTN4_View.Controllers.Shop
         }
         public IActionResult SauThanhToan(Guid idHoaDon)
         {
+
             return View();
         }
 

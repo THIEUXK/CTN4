@@ -7,27 +7,29 @@
     <!--  Body Wrapper -->
     <!--  Header End -->
     <div class="container-fluid">
-       
-            <div class="div_left">
-                <div class="card w-100">
-                    <div class="card-body p-4">
+
+        <div class="div_left">
+            <div class="card w-100">
+                <div class="card-body p-4">
                     <div class="container_swap">
                         <h5 class="card-title fw-semibold mb-4">Đơn Hàng</h5>
-                        
+
                         <div class="div_right">
                             @if (Model.HoaDon.TrangThai != "Đang chờ xử lí")
                             {
-                                <div>Đơn hàng đã được xác nhận</div>
+                                <div style="color:greenyellow">Đơn hàng đã được xác nhận</div>
+                               
                             }
                             else
                             {
-                                <p>
-                                    <td class="border-bottom-0">
-                                        <div class="d-flex align-items-center gap-2">
-                                            <span class="badge bg-primary rounded-3 fw-semibold">@Html.ActionLink("xác nhận đợn hàng", "XacNhan", new { /*id=a.Id*/ },new { @class = "custom-edit-link" })</span>
-                                        </div>
-                                    </td>
-                                </p>
+                                <div style="color:red">Đơn hàng chưa được xác nhận !</div>
+                                <span>
+                                    <span class="border-bottom-0">
+                                        <span class="d-flex align-items-center gap-2">
+                                            <span class="badge bg-primary rounded-3 fw-semibold">@Html.ActionLink("xác nhận đợn hàng", "XacNhanDonHang", new { /*id=a.Id*/ },new { @class = "custom-edit-link" })</span>
+                                        </span>
+                                    </span>
+                                </span>
                             }
 
                             @if (TempData["ErrorMessage"] != null)
@@ -37,10 +39,27 @@
                             <p>
                                 <td class="border-bottom-0">
                                     <div class="d-flex align-items-center gap-2">
-                                        <span class="badge bg-primary rounded-3 fw-semibold">@Html.ActionLink("Giao Hàng", "XacNhan", new { /*id=a.Id*/ },new { @class = "custom-edit-link" })</span>
+                                        <span class="badge bg-primary rounded-3 fw-semibold">@Html.ActionLink("Giao Hàng", "XacNhanGiaoHang", new { /*id=a.Id*/ },new { @class = "custom-edit-link" })</span>
                                     </div>
                                 </td>
                             </p>
+                            @if (Model.HoaDon.TrangThaiThanhToan == true)
+                            {
+                                <div style="color:greenyellow">Đơn hàng đã được thanh toán</div>
+
+                            }
+                            else
+                            {
+                                <p>
+                                    <div style="color:red">Đơn hàng chưa được thanh toán !</div>
+                                    <td class="border-bottom-0">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <span class="badge bg-primary rounded-3 fw-semibold">@Html.ActionLink("Xác nhận đã thanh toán", "XacNhanThanhToan", new { /*id=a.Id*/ },new { @class = "custom-edit-link" })</span>
+                                        </div>
+                                    </td>
+                                </p>
+                            }
+                           
                         </div>
                     </div>
                     <div class="table-responsive">
@@ -83,22 +102,27 @@
                                         <h6 class="fw-semibold mb-0">Ngày nhận &nbsp;  : &nbsp;  @Model.HoaDon.NgayNhan</h6>
                                     </th>
                                 }
-                              
-                               
+
+
                                 @if (Model.HoaDon.TrangThaiThanhToan == true)
                                 {
                                     <th class="border-bottom-0">
-                                        <h6 class="fw-semibold mb-0">Trạng thái Thanh toán   &nbsp;: &nbsp;  Đã thanh toán</h6>
+                                        <h6 class="fw-semibold mb-0">Trạng thái Thanh toán   &nbsp;: &nbsp; <span style="color:greenyellow">Đã thanh toán</span> </h6>
                                     </th>
                                 }
                                 else
                                 {
                                     <th class="border-bottom-0">
-                                        <h6 class="fw-semibold mb-0">Trạng thái Thanh toán   &nbsp;: &nbsp;  Chưa thanh toán</h6>
+                                        <h6 class="fw-semibold mb-0">
+                                            Trạng thái Thanh toán   &nbsp;: &nbsp;
+                                            <span style="color:red"> Chưa thanh toán</span>
+                                        </h6>
                                     </th>
                                 }
                                 <th class="border-bottom-0">
-                                    <h6 class="fw-semibold mb-0">Tổng tiền  &nbsp; : &nbsp; @Model.HoaDon.TongTien</h6>
+                                    <h6 class="fw-semibold mb-0">
+                                        Tổng tiền  &nbsp; : &nbsp; @Model.HoaDon.TongTien
+                                    </h6>
                                 </th>
                                 <th class="border-bottom-0">
                                     <h6 class="fw-semibold mb-0">Số điện thoại  &nbsp; : &nbsp; @Model.HoaDon.SDTNguoiNhan</h6>
@@ -132,38 +156,17 @@
             </div>
 
 
-                </div>
-
-                    </div>
-                </div>
-            </div>
-
-       
-
-
-            
-
-
-</body>
-<style>
-    .custom-edit-link {
-        color: whitesmoke; /* Màu đỏ */
-        /* Các thuộc tính CSS khác nếu cần */
-    }
-</style>
-
-<body>
-    <!--  Body Wrapper -->
-    <!--  Header End -->
-    <div class="container-fluid">
-
+        </div>
         <div class="card w-100">
             <div class="card-body p-4">
                 <h5 class="card-title fw-semibold mb-4">Chi Tiết Đơn Hàng</h5>
                 <div class="table-responsive">
                     <table class="table text-nowrap mb-0 align-middle">
                         <thead class="text-dark fs-4">
-                            <tr>                            
+                            <tr>
+                                <th class="border-bottom-0">
+                                    <h6 class="fw-semibold mb-0">Ảnh sản phẩm</h6>
+                                </th>
                                 <th class="border-bottom-0">
                                     <h6 class="fw-semibold mb-0">Tên sản phẩm</h6>
                                 </th>
@@ -181,21 +184,40 @@
                                 </th>
                                 <th class="border-bottom-0">
                                     <h6 class="fw-semibold mb-0">trạng thái</h6>
-                                </th>                            
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var a in Model.hoaDonChiTiets)
                             {
-                                <tr>   
+                                <tr>
+                                    <td class="border-bottom-0">
+
+
+                                        @if (System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".jpg" ||
+                                       System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".png" ||
+                                       System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".jpeg" ||
+                                       System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".tiff" ||
+                                       System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".webp" ||
+                                       System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".gif")
+                                        {
+                                            <img src="~/image/@a.SanPhamChiTiet.SanPham.AnhDaiDien" height="100">
+                                        }
+                                        else
+                                        {
+                                            <a>ảnh lỗi</a>
+                                        }
+
+
+                                    </td>
                                     <td class="border-bottom-0">
                                         <span>@a.SanPhamChiTiet.SanPham.TenSanPham</span>
                                     </td>
                                     <td class="border-bottom-0">
-                                        <span >@a.SanPhamChiTiet.Mau.TenMau</span>
+                                        <span>@a.SanPhamChiTiet.Mau.TenMau</span>
                                     </td>
                                     <td class="border-bottom-0">
-                                        <span >@a.SanPhamChiTiet.Size.CoSize</span>
+                                        <span>@a.SanPhamChiTiet.Size.CoSize</span>
                                     </td>
                                     <td class="border-bottom-0">
                                         <p class="mb-0 fw-normal">@a.SoLuong</p>
@@ -227,7 +249,31 @@
             </div>
         </div>
 
+
     </div>
+   
+
+
+
+
+
+   
+
+
+  
+
+
+</body>
+<style>
+    .custom-edit-link {
+        color: whitesmoke; /* Màu đỏ */
+        /* Các thuộc tính CSS khác nếu cần */
+    }
+</style>
+
+<body>
+    <!--  Body Wrapper -->
+    <!--  Header End -->
 
 
 
