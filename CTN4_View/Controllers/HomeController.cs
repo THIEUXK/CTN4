@@ -198,6 +198,36 @@ namespace CTN4_View.Controllers
             return View();
 
         }
+        public IActionResult Doimk()
+        {
+            var user = _khachHangService.GetById(_curent.Id);
+            return View(user);
+        }
+        [HttpPost]
+        public IActionResult DoiMatKhau(string matKhauCu, string matKhauMoi, string xacNhanMatKhauMoi)
+        {
+            // Lấy thông tin người dùng từ cơ sở dữ liệu hoặc bất kỳ nguồn nào khác
+            var user = _khachHangService.GetById(_curent.Id);
+            // Kiểm tra xem mật khẩu cũ có đúng không
+            if (matKhauCu != user.MatKhau)
+            {
+                ModelState.AddModelError("matKhauCu", "Mật khẩu cũ không đúng.");
+                return View();
+            }
+
+            // Kiểm tra xác nhận mật khẩu mới
+            if (matKhauMoi != xacNhanMatKhauMoi)
+            {
+                ModelState.AddModelError("xacNhanMatKhauMoi", "Xác nhận mật khẩu mới không khớp.");
+                return View();
+            }
+
+            // Lưu mật khẩu mới vào cơ sở dữ liệu
+            user.MatKhau = matKhauMoi;
+            // Lưu người dùng có mật khẩu mới vào cơ sở dữ liệu
+            _khachHangService.Sua(user);
+            return RedirectToAction("Index", "Home");
+        }
         [HttpPost]
         public IActionResult UpdateKhang(KhachHang khachHangForm)
         {
@@ -309,6 +339,16 @@ namespace CTN4_View.Controllers
             ViewBag.Message = "An error occured...";
             return View();
         }
+        public IActionResult Logout()
+        {
+            // Xóa dữ liệu phiên của người dùng, bao gồm thông tin đăng nhập và token
+            HttpContext.Session.Clear();
+
+            // Chuyển hướng người dùng đến trang đăng nhập hoặc trang chính của ứng dụng
+            return RedirectToAction(nameof(Index));
+        }
+       
+
         private string BuildMessage(string stringToSplit, int chunkSize)
         {
             var data = Enumerable.Range(0, stringToSplit.Length / chunkSize)
