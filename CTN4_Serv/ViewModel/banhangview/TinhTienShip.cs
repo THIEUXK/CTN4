@@ -19,15 +19,14 @@ namespace CTN4_Serv.ViewModel.banhangview
             //"length":10,
             //"weight":3000,
             //"width": 30
-        public string service_id { get; set; }
-        public string insurance_value { get; set; }
-        public string coupon { get; set; }
-        public string from_district_id { get; set; }
-        public string to_district_id { get; set; }
+        public int service_id { get; set; }
+        public int insurance_value { get; set; }
+        public int from_district_id { get; set; }
+        public int to_district_id { get; set; }
         public string to_ward_code { get; set; }
-        public string height { get; set; }
-        public string length { get; set; }
-        public string weight { get; set; }
-        public string width { get; set; }
+        public int height { get; set; }
+        public int length { get; set; }
+        public int weight { get; set; }
+        public int width { get; set; }
     }
 }
