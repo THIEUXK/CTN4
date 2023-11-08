@@ -15,16 +15,16 @@ namespace CTN4_Data.Models.DB_CTN4
         public float SoTienGiam { get; set; }
 
         [Required(ErrorMessage = "Phần trăm giảm không được bỏ trống.")]
-        [Range(0,100 , ErrorMessage = "Phần trăm giảm phải lớn hơn hoặc bằng 0 và nhỏ hơn 100.")]
+        [Range(0, 100, ErrorMessage = "Phần trăm giảm phải lớn hơn hoặc bằng 0 và nhỏ hơn 100.")]
 
         public int PhanTramGiam { get; set; }
-       
+
         public bool TrangThai { get; set; }
 
         [Required(ErrorMessage = "Số lượng không được bỏ trống.")]
         [Range(1, int.MaxValue, ErrorMessage = "Số lượng phải lớn hơn 0.")]
         public int SoLuong { get; set; }
-       
+
         public DateTime NgayBatDau { get; set; }
 
         [EndDateMustBeGreaterThanStartDate(ErrorMessage = "Ngày kết thúc phải lớn hơn ngày bắt đầu.")]
@@ -36,8 +36,9 @@ namespace CTN4_Data.Models.DB_CTN4
 
         [Required(ErrorMessage = "Điều kiện giảm không được bỏ trống.")]
         [Range(0, float.MaxValue, ErrorMessage = "Điều kiện giảm phải lớn hơn hoặc bằng 0.")]
-        public float DieuKienGiam { get; set; } 
-        public bool LoaiGiamGia {get; set; }
+        public float DieuKienGiam { get; set; }
+        public bool LoaiGiamGia { get; set; }
+        public bool Is_detele { get; set; }
         public virtual List<GiamGiaChiTiet>? GiamGiaChiTiets { get; set; }
 
     }

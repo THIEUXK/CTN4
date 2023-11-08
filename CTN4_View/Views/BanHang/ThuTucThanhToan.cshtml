@@ -63,7 +63,7 @@
                             <input type="text" class="form-control" id="email" value="@Model.KhachHang.Email" name="Email">
 
                         </div>
-                        @if (Model.DiaChiNhanHang.DiaChi != null)
+                        @if (Model.DiaChiNhanHang != null)
                         {
                             <div class="col-md-6 form-group p_star">
                                 <label>Địa chỉ :</label>
@@ -166,6 +166,12 @@
                                 }
                             </ul>
                             <br></br>
+                            @if (Model.DiaChiNhanHang != null)
+                            {
+                                <ul class="list">
+                                    <li><a href="#">Tiền ship :<span><b id="tienship"  style="color:black">52.000đ </b></span></a></li>
+                                </ul>
+                            }
                             <ul class="list">
                                 <li><a href="#">Tiền ship :<span><b id="tienship" style="color:black">Chưa Tính</b></span></a></li>
                             </ul>

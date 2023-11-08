@@ -179,6 +179,7 @@ namespace CTN4_View.Controllers.Shop
                 var a = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh.Id);
                 var nguoidung = _khachHangService.GetAll().FirstOrDefault(c => c.Id == accnew[0].Id);
                 var diachinhanhang = _diaChiNhanHangService.GetAll().Where(c => c.IdKhachHang == accnew[0].Id).FirstOrDefault(c=>c.TrangThai==true);
+
                 var view2 = new GioHangView()
                 {
                     DiaChiNhanHang=diachinhanhang,
@@ -323,7 +324,7 @@ namespace CTN4_View.Controllers.Shop
 
         }
 
-        public IActionResult HoanThanhThanhToan(string name,string DiachiNhanChiTiet,string Sodienthoai,string Email,string diachinay,Guid IdDiaChi,Guid idphuongthuc,string ghiChu,float tienship,float tongtien)
+        public IActionResult HoanThanhThanhToan(string name,string DiachiNhanChiTiet,string Sodienthoai,string Email,string addDiaChi, Guid IdDiaChi,Guid idphuongthuc,string ghiChu,float tienship,float tongtien)
         {
             var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
             var gh = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == accnew[0].Id);
@@ -331,28 +332,29 @@ namespace CTN4_View.Controllers.Shop
             {
                 Guid idHoaDon = Guid.NewGuid();
                 //Tạo hóa đơn mới
-                int tong = 0;
-                foreach (var inso in _GioHangChiTiet.GetAll().Where(c => c.IdGioHang == gh.Id))
-                {
-                    tong += Int32.Parse(inso.SoLuong.ToString()) *
-                            Int32.Parse(inso.SanPhamChiTiet.SanPham.GiaNiemYet.ToString());
-                }
+             
 
                 var hd = new HoaDon()
                 {
                     Id = idHoaDon,
                     NgayTaoHoaDon = DateTime.Now,
-                    DiaChi = "",
+                    DiaChi = DiachiNhanChiTiet+" "+addDiaChi,
                     TrangThai = "Đang chờ xử lí",
-                    TongTien = tong,
+                    TongTien = tongtien,
                     NgayDat = DateTime.Now,
-                    IdDiaChiNhanHang = null,
+                    TrangThaiThanhToan=false,
+                    Email =Email,
+                    GhiChu=ghiChu,
                     IdKhachHang = accnew[0].Id,
-                    IdPhuongThuc = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971211111"),
-                    SDTNguoiNhan = "",
-                    TenKhachHang = "",
+                    IdPhuongThuc = idphuongthuc,
+                    SDTNguoiNhan = Sodienthoai,
+                    TenKhachHang = name,
                     Is_detele = true,
                 };
+                if (IdDiaChi != Guid.Parse("00000000-0000-0000-0000-000000000000"))
+                {
+                    hd.IdDiaChiNhanHang = IdDiaChi;
+                }
                 if (_HoaDonService.Them(hd) == false)
                 {
                     var message = "thanh toán lỗi(1)";

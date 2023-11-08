@@ -12,9 +12,10 @@
         public DateTime? NgayNhan { get; set; }
 
         public string TenKhachHang { get; set; }
+        public string Email { get; set; }
         public string SDTNguoiNhan { get; set; }
         public string DiaChi { get; set; }
-        public string GhiChu { get; set; }
+        public string? GhiChu { get; set; }
         public bool Is_detele { get; set; }
         public bool TrangThaiThanhToan { get; set; }
 
