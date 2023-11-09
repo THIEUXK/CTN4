@@ -3,7 +3,7 @@
     ViewData["Title"] = "HoaDonChiTiet";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<section class="banner-area organic-breadcrumb">
+@*<section class="banner-area organic-breadcrumb">
     <div class="container">
         <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
             <div class="col-first">
@@ -15,7 +15,7 @@
             </div>
         </div>
     </div>
-</section>
+</section>*@
 <section class="tracking_box_area section_gap">
     <div class="container">
         <h1>Hóa đơn chi tiết</h1>
@@ -90,9 +90,21 @@
                 </dd>
             </dl>
         </div>
-        <div>
-            <button type="button" class="primary-btn">@Html.ActionLink("Hủy đơn","huydonKH", new {  id = Model.HoaDon.Id} , new { @class = "custom-edit-link" })</button>
-        </div>
+        @if (TempData["TB4"] != null)
+        {
+            <div class="alert alert-danger">@TempData["TB4"]</div>
+        }
+        @if (Model.HoaDon.Is_detele==true)
+        {
+            <div>
+                <button type="button" class="primary-btn">@Html.ActionLink("Hủy đơn","huydonKH", new {  id = Model.HoaDon.Id} , new { @class = "custom-edit-link" })</button>
+            </div>
+        }
+        else
+        {
+            <div style="color:red" >Đơn hàng của bạn đã bị hủy</div>
+        }
+
         <br> <table class="table">
             <thead>
                 <tr>

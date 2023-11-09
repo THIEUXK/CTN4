@@ -26,6 +26,10 @@
 }
 <!-- End Banner Area -->
 <!--================Cart Area =================-->
+@if (TempData["TB4"] != null)
+{
+    <div class="alert alert-danger">@TempData["TB4"]</div>
+}
 <section class="cart_area">
     <div class="container">
         <div class="cart_inner">
@@ -159,6 +163,7 @@
                             <td>
                             </td>
                             <td>
+                                
                                 <div class="checkout_btn_inner d-flex align-items-center">
                                     <a class="gray_btn" asp-controller="HienThiSanPham" asp-action="HienThiSanPham">Tiếp tục mua sắm</a>
                                     <a class="primary-btn" asp-controller="BanHang" asp-action="ThuTucThanhToan">Tiến hành đặt hàng</a>
