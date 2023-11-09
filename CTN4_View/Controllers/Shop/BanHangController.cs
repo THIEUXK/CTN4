@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using System.Net.Http;
 using CTN4_Serv.ViewModel.banhangview;
 using System.Text;
+using CTN4_View.Areas.Admin.Viewmodel;
 
 namespace CTN4_View.Controllers.Shop
 {
@@ -170,6 +171,12 @@ namespace CTN4_View.Controllers.Shop
             {
                 var gh = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == accnew[0].Id);
                 IEnumerable<GioHangChiTiet> ghct = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh.Id);
+                if (ghct.Count()==0)
+                {
+                    var message = "Giỏ hàng đang trống hãy thêm sản phẩm của bạn để tiến hàng đặt hàng";
+                    TempData["TB4"] = message;
+                    return RedirectToAction("GioHang", new { message });
+                }
 
                 foreach (var x in ghct)
                 {
@@ -310,8 +317,9 @@ namespace CTN4_View.Controllers.Shop
 
 
         }
-        [HttpGet("/CheckOut/GetTotalShipping2")]
-        public async Task<JsonResult> GetTotalShipping2(/*[FromBody] ShippingOrder shippingOrder*/)
+
+        [HttpGet("/CheckOut/chonDiaChi")]
+        public async Task<JsonResult> chonDiaChi(/*[FromBody] ShippingOrder shippingOrder*/)
         {
 
             float tong = 0;
@@ -660,7 +668,31 @@ namespace CTN4_View.Controllers.Shop
             return RedirectToAction("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = IdSanPham, message4 });
         }
 
+        public IActionResult huydonKH(Guid id)
+        {
+            var hd = _HoaDonService.GetById(id);
+            if (hd.NgayGiao == null)
+            {
+                hd.TrangThai = "Quý khách đã hủy đơn hàng thành công";
+                hd.Is_detele = false;
+                _HoaDonService.Sua(hd);
+            }
+            else
+            {
+                var message = "Đơn hàng không thể hủy vì đã và đang được giao";
+                TempData["TB4"] = message;
+                return RedirectToAction("HoaDonChiTiet", new { id = id, message });
+            }
 
+            var b = _HoaDonService.GetById(id);
+            var a = _HoaDonChiTiet.GetAll().Where(c => c.IdHoaDon == id).ToList();
+            var view = new ThieuxkView()
+            {
+                HoaDon = b,
+                hoaDonChiTiets = a,
+            };
+            return View("HoaDonChiTiet", view);
+        }
 
     }
 

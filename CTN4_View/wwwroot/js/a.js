@@ -113,7 +113,7 @@
         var idDiaChi = this.value;
         if (idDiaChi != 0) {
             $.ajax({
-                url: '/CheckOut/GetTotalShipping2',
+                url: '/CheckOut/chonDiaChi',
                 type: 'GET',
                 dataType: 'json',
                 /* data: JSON.stringify(obj),*/

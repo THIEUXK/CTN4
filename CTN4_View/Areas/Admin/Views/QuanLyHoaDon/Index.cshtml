@@ -28,7 +28,10 @@
                                     <h6 class="fw-semibold mb-0">Trạng thái thanh toán</h6>
                                 </th>
                                 <th class="border-bottom-0">
-                                    <h6 class="fw-semibold mb-0">Trạng thái giao hàng</h6>
+                                    <h6 class="fw-semibold mb-0">Ngày giao hàng giao hàng</h6>
+                                </th>
+                                <th class="border-bottom-0">
+                                    <h6 class="fw-semibold mb-0">Ngày nhận hàng</h6>
                                 </th>
                                 <th class="border-bottom-0">
                                     <h6 class="fw-semibold mb-0">Tổng tiền</h6>
@@ -94,6 +97,18 @@
                                     {
                                         <th class="border-bottom-0">
                                             <h6 class="fw-semibold mb-0" style="color:forestgreen">@a.NgayGiao</h6>
+                                        </th>
+                                    }
+                                    @if (a.NgayNhan == null)
+                                    {
+                                        <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0" style="color:red">Chưa nhận hàng </h6>
+                                        </th>
+                                    }
+                                    else
+                                    {
+                                        <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0" style="color:forestgreen">@a.NgayNhan</h6>
                                         </th>
                                     }
                                     <td class="border-bottom-0">

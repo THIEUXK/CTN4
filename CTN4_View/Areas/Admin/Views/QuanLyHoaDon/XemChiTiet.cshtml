@@ -15,51 +15,92 @@
                         <h5 class="card-title fw-semibold mb-4">Đơn Hàng</h5>
 
                         <div class="div_right">
-                            @if (Model.HoaDon.TrangThai != "Đang chờ xử lí")
+                            @if(Model.HoaDon.Is_detele==true)
                             {
-                                <div style="color:greenyellow">Đơn hàng đã được xác nhận</div>
-                               
-                            }
-                            else
-                            {
-                                <div style="color:red">Đơn hàng chưa được xác nhận !</div>
-                                <span>
-                                    <span class="border-bottom-0">
-                                        <span class="d-flex align-items-center gap-2">
-                                            <span class="badge bg-primary rounded-3 fw-semibold">@Html.ActionLink("xác nhận đợn hàng", "XacNhanDonHang", new { /*id=a.Id*/ },new { @class = "custom-edit-link" })</span>
+                                @if (Model.HoaDon.TrangThai != "Đang chờ xử lí")
+                                {
+                                    <div style="color:yellowgreen">Đơn hàng đã được xác nhận</div>
+
+                                }
+                                else
+                                {
+                                    <div style="color:red">Đơn hàng chưa được xác nhận !</div>
+                                    <span>
+                                        <span class="border-bottom-0">
+                                            <span class="d-flex align-items-center gap-2">
+                                                <span class="badge bg-primary rounded-3 fw-semibold">@Html.ActionLink("xác nhận đợn hàng", "XacNhanDonHang", new { id=Model.HoaDon.Id },new { @class = "custom-edit-link" })</span>
+                                            </span>
                                         </span>
                                     </span>
-                                </span>
-                            }
+                                }
 
-                            @if (TempData["ErrorMessage"] != null)
-                            {
-                                <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
-                            }
-                            <p>
-                                <td class="border-bottom-0">
-                                    <div class="d-flex align-items-center gap-2">
-                                        <span class="badge bg-primary rounded-3 fw-semibold">@Html.ActionLink("Giao Hàng", "XacNhanGiaoHang", new { /*id=a.Id*/ },new { @class = "custom-edit-link" })</span>
-                                    </div>
-                                </td>
-                            </p>
-                            @if (Model.HoaDon.TrangThaiThanhToan == true)
-                            {
-                                <div style="color:greenyellow">Đơn hàng đã được thanh toán</div>
+                                @if (TempData["TB1"] != null)
+                                {
+                                    <div class="alert alert-danger">@TempData["TB1"]</div>
+                                }
+                                @if (Model.HoaDon.NgayGiao != null)
+                                {
+                                    <div style="color:yellowgreen">Đơn hàng đã bắt đầu được giao</div>
 
+                                }
+                                else
+                                {
+
+                                    <p>
+                                        <div style="color:red">Đơn hàng chưa được giao !</div>
+                                        <td class="border-bottom-0">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <span class="badge bg-primary rounded-3 fw-semibold">@Html.ActionLink("Giao Hàng", "XacNhanGiaoHang", new { id=Model.HoaDon.Id },new { @class = "custom-edit-link" })</span>
+                                            </div>
+                                        </td>
+                                    </p>
+                                }
+                                @if (TempData["TB3"] != null)
+                                {
+                                    <div class="alert alert-danger">@TempData["TB3"]</div>
+                                }
+                                @if (Model.HoaDon.TrangThaiThanhToan == true)
+                                {
+                                    <div style="color:blue">Đơn hàng đã được thanh toán</div>
+
+                                }
+                                else
+                                {
+                                    <p>
+                                        <div style="color:red">Đơn hàng chưa được thanh toán !</div>
+                                        <td class="border-bottom-0">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <span class="badge bg-primary rounded-3 fw-semibold">@Html.ActionLink("Xác nhận đã thanh toán", "XacNhanThanhToan", new { id=Model.HoaDon.Id },new { @class = "custom-edit-link" })</span>
+                                            </div>
+                                        </td>
+                                    </p>
+                                }
+                                @if (TempData["TB2"] != null)
+                                {
+                                    <div class="alert alert-danger">@TempData["TB2"]</div>
+                                }
+                                @if (Model.HoaDon.NgayNhan != null)
+                                {
+                                    <div style="color:greenyellow">Đơn hàng đã được nhận</div>
+
+                                }
+                                else
+                                {
+                                    <p>
+                                        <div style="color:red">Đơn hàng chưa nhận được !</div>
+                                        <td class="border-bottom-0">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <span class="badge bg-primary rounded-3 fw-semibold">@Html.ActionLink("Xác nhận đã nhận hàng", "XacNhanNhanHang", new {  id=Model.HoaDon.Id },new { @class = "custom-edit-link" })</span>
+                                            </div>
+                                        </td>
+                                    </p>
+                                }
                             }
-                            else
                             {
-                                <p>
-                                    <div style="color:red">Đơn hàng chưa được thanh toán !</div>
-                                    <td class="border-bottom-0">
-                                        <div class="d-flex align-items-center gap-2">
-                                            <span class="badge bg-primary rounded-3 fw-semibold">@Html.ActionLink("Xác nhận đã thanh toán", "XacNhanThanhToan", new { /*id=a.Id*/ },new { @class = "custom-edit-link" })</span>
-                                        </div>
-                                    </td>
-                                </p>
+                            <div style="color:red">Đơn hàng đã bị hủy !</div>
                             }
                            
+
                         </div>
                     </div>
                     <div class="table-responsive">
@@ -81,7 +122,7 @@
                                 @if (Model.HoaDon.NgayGiao == null)
                                 {
                                     <th class="border-bottom-0">
-                                        <h6 class="fw-semibold mb-0">Ngày giao hàng &nbsp;  : &nbsp;  Chưa Giao Hàng</h6>
+                                        <h6 class="fw-semibold mb-0">Ngày giao hàng &nbsp;  : &nbsp; <span style="color:red"> Chưa giao</span></h6>
                                     </th>
                                 }
                                 else
@@ -90,16 +131,19 @@
                                         <h6 class="fw-semibold mb-0">Ngày giao hàng &nbsp;  : &nbsp;  @Model.HoaDon.NgayGiao</h6>
                                     </th>
                                 }
-                                @if (Model.HoaDon.NgayNhan == null)
+                                @if (Model.HoaDon.NgayNhan != null)
                                 {
                                     <th class="border-bottom-0">
-                                        <h6 class="fw-semibold mb-0">Ngày nhận &nbsp;  : &nbsp;  Chưa nhận hàng</h6>
+                                        <h6 class="fw-semibold mb-0">Trạng thái nhận hàng   &nbsp;: &nbsp; <span style="color:greenyellow">Đã nhận hàng</span> </h6>
                                     </th>
                                 }
                                 else
                                 {
                                     <th class="border-bottom-0">
-                                        <h6 class="fw-semibold mb-0">Ngày nhận &nbsp;  : &nbsp;  @Model.HoaDon.NgayNhan</h6>
+                                        <h6 class="fw-semibold mb-0">
+                                            Trạng thái nhận hàng    &nbsp;: &nbsp;
+                                            <span style="color:red"> Chưa nhận được hàng</span>
+                                        </h6>
                                     </th>
                                 }
 
@@ -119,6 +163,7 @@
                                         </h6>
                                     </th>
                                 }
+
                                 <th class="border-bottom-0">
                                     <h6 class="fw-semibold mb-0">
                                         Tổng tiền  &nbsp; : &nbsp; @Model.HoaDon.TongTien
@@ -141,12 +186,15 @@
 
 
                     </div>
-
+                    @if (TempData["TB4"] != null)
+                    {
+                        <div class="alert alert-danger">@TempData["TB4"]</div>
+                    }
                     <div class="div_right">
                         <p>
                             <td class="border-bottom-0">
                                 <div class="d-flex align-items-center gap-2">
-                                    <span class="badge bg-primary rounded-3 fw-semibold">@Html.ActionLink("Hủy đơn", "XacNhan", new { /*id=a.Id*/ },new { @class = "custom-edit-link" })</span>
+                                    <span class="badge bg-primary rounded-3 fw-semibold">@Html.ActionLink("Hủy đơn", "HuyDon", new { id=Model.HoaDon.Id },new { @class = "custom-edit-link" })</span>
                                 </div>
                             </td>
                         </p>
@@ -251,16 +299,16 @@
 
 
     </div>
-   
 
 
 
 
 
-   
 
 
-  
+
+
+
 
 
 </body>

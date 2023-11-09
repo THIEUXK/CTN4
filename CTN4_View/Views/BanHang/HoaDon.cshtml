@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<section class="banner-area organic-breadcrumb">
+@*<section class="banner-area organic-breadcrumb">
     <div class="container">
         <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
             <div class="col-first">
@@ -17,12 +17,31 @@
             </div>
         </div>
     </div>
-</section>
+</section>*@
 <!-- End Banner Area -->
 <!--================Tracking Box Area =================-->
-
-<section class="tracking_box_area section_gap">
+@*<section class="tracking_box_area section_gap">
     <div class="container">
+        
+    </div>
+</section>*@
+<section class="tracking_box_area section_gap">
+    
+    <div class="container">
+        <div class="tracking_box_inner">
+            <p>
+                Hay nhập id đơn hàng của bạn để tìm kiếm nhanh
+            </p>
+            <form class="row tracking_form" action="#" method="post" novalidate="novalidate">
+                <div class="col-md-12 form-group">
+                    <input type="text" class="form-control" id="order" name="order" placeholder="id Hóa đơn" onfocus="this.placeholder = ''" onblur="this.placeholder = 'id Hóa đơn'">
+                </div>
+                <div class="col-md-12 form-group">
+                    <button type="submit" value="submit" class="primary-btn">Tìm</button>
+                </div>
+            </form>
+        </div>
+        <h1>Danh sách hóa đơn của bạn</h1>
         <table class="table">
             <thead>
                 <tr>
@@ -30,34 +49,31 @@
                         @Html.DisplayNameFor(model => model.Id)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.NgayTaoHoaDon)
+                       Ngày đặt hàng
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.TrangThai)
+                        Trạng thái
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.TongTien)
+                        Tổng tiền
+                    </th>               
+                   <th>
+                        Ngày giao hàng
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.NgayDat)
+                        Ngày nhận hàng
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.NgayGiao)
+                        Tên người nhận
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.NgayNhan)
+                        Số điện thoại ngưới nhận
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.TenKhachHang)
+                        Địa chỉ
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.SDTNguoiNhan)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.DiaChi)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.IdPhuongThuc)
+                        Phương thức thanh toán
                     </th>
                     <th></th>
                 </tr>
@@ -78,9 +94,7 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.TongTien)
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.NgayDat)
-                        </td>
+                        
                         <td>
                             @Html.DisplayFor(modelItem => item.NgayGiao)
                         </td>
@@ -109,26 +123,7 @@
         </table>
     </div>
 </section>
-<section class="tracking_box_area section_gap">
-    <div class="container">
-        <div class="tracking_box_inner">
-            <p>
-                Hay nhập một trong những thứ dưới đây để tìm đơn hàng của bạn
-            </p>
-            <form class="row tracking_form" action="#" method="post" novalidate="novalidate">
-                <div class="col-md-12 form-group">
-                    <input type="text" class="form-control" id="order" name="order" placeholder="id Hóa đơn" onfocus="this.placeholder = ''" onblur="this.placeholder = 'id Hóa đơn'">
-                </div>
-                <div class="col-md-12 form-group">
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Số điện thoại của bạn" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Số điện thoại của bạn'">
-                </div>
-                <div class="col-md-12 form-group">
-                    <button type="submit" value="submit" class="primary-btn">Tìm</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</section>
+
 <style>
     .custom-edit-link {
         color: black; /* Màu đỏ */
