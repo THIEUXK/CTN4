@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CTN4_Data.Migrations
 {
     [DbContext(typeof(DB_CTN4_ok))]
-    [Migration("20231107183944_a")]
+    [Migration("20231110022832_a")]
     partial class a
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -479,6 +479,9 @@ namespace CTN4_Data.Migrations
                     b.Property<string>("TenKhachHang")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("TienShip")
+                        .HasColumnType("real");
 
                     b.Property<float>("TongTien")
                         .HasColumnType("real");
@@ -1314,6 +1317,214 @@ namespace CTN4_Data.Migrations
                             MaSp = "SP05",
                             MoTa = "oke la",
                             TenSanPham = "TOT Classic Phối Màu",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("56dd3de2-c4df-4376-b982-e2c0f7081817"),
+                            AnhDaiDien = "TOT Lưới_QuanChau_Den_Vai Canvat_Dài 20 x Rộng 13.5 x Cao 7.5 (cm)(1).jpg",
+                            GhiChu = "",
+                            GiaBan = 600000f,
+                            GiaNhap = 400000f,
+                            GiaNiemYet = 600000f,
+                            IdChatLieu = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081139"),
+                            IdNSX = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081126"),
+                            Is_detele = true,
+                            MaSp = "SP02",
+                            MoTa = "oke la",
+                            TenSanPham = "TOT Lưới",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("56dd3de2-c4df-4376-b982-e2c0f7081818"),
+                            AnhDaiDien = "TOT Ngang Da Mịn_QuanChau_Kem_Da PU mềm mịn, cao cấp__Dài 37 x Rộng 13 x Cao 28 (cm)(1).jpg",
+                            GhiChu = "",
+                            GiaBan = 600000f,
+                            GiaNhap = 400000f,
+                            GiaNiemYet = 600000f,
+                            IdChatLieu = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081139"),
+                            IdNSX = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081126"),
+                            Is_detele = true,
+                            MaSp = "SP03",
+                            MoTa = "oke la",
+                            TenSanPham = "TOT Ngang Da Mịn",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("56dd3de2-c4df-4376-b982-e2c0f7081819"),
+                            AnhDaiDien = "Túi Xách Nhỏ Curve 1_Trung Quốc_XanhLa_Da tổng hợp_20cmx12cmx7cm(1).webp",
+                            GhiChu = "",
+                            GiaBan = 600000f,
+                            GiaNhap = 400000f,
+                            GiaNiemYet = 600000f,
+                            IdChatLieu = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081144"),
+                            IdNSX = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081126"),
+                            Is_detele = true,
+                            MaSp = "SP03",
+                            MoTa = "oke la",
+                            TenSanPham = "Túi Xách Nhỏ Curve 1",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("56dd3de2-c4df-4376-b982-e2c0f7081820"),
+                            AnhDaiDien = "Túi Xách Nhỏ Đeo Vai - Cycling_Trung Quốc_XanhNhat_Da tổng hợp_23cmx15cmx5cm(1).webp",
+                            GhiChu = "",
+                            GiaBan = 600000f,
+                            GiaNhap = 400000f,
+                            GiaNiemYet = 600000f,
+                            IdChatLieu = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081144"),
+                            IdNSX = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081126"),
+                            Is_detele = true,
+                            MaSp = "SP03",
+                            MoTa = "oke la",
+                            TenSanPham = "Túi Xách Nhỏ Đeo Vai",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("56dd3de2-c4df-4376-b982-e2c0f7081821"),
+                            AnhDaiDien = "Túi Xách Nhỏ Hobo Dập Logo Jn_Trung Quốc_Nau_Da PU cao cấp_23cmx13cmx6cm(1).webp",
+                            GhiChu = "",
+                            GiaBan = 600000f,
+                            GiaNhap = 400000f,
+                            GiaNiemYet = 600000f,
+                            IdChatLieu = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081137"),
+                            IdNSX = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081126"),
+                            Is_detele = true,
+                            MaSp = "SP03",
+                            MoTa = "oke la",
+                            TenSanPham = "Túi Xách Nhỏ Hobo Dập Logo Jn",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("56dd3de2-c4df-4376-b982-e2c0f7081822"),
+                            AnhDaiDien = "Túi Xách Nhỏ Saddle Bag Time Travelling_Trung Quốc_Nau_Da tổng hợp_22cmx15cmx6cm(1).webp",
+                            GhiChu = "",
+                            GiaBan = 600000f,
+                            GiaNhap = 400000f,
+                            GiaNiemYet = 600000f,
+                            IdChatLieu = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081144"),
+                            IdNSX = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081126"),
+                            Is_detele = true,
+                            MaSp = "SP03",
+                            MoTa = "oke la",
+                            TenSanPham = "Túi Xách Nhỏ Saddle Bag Time Travelling",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("56dd3de2-c4df-4376-b982-e2c0f7081823"),
+                            AnhDaiDien = "Túi Xách Nhỏ Top Handle Cozy _Trung Quốc_Tim_Da tổng hợp_17cmx16cmx7cm(1).webp",
+                            GhiChu = "",
+                            GiaBan = 600000f,
+                            GiaNhap = 400000f,
+                            GiaNiemYet = 600000f,
+                            IdChatLieu = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081144"),
+                            IdNSX = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081126"),
+                            Is_detele = true,
+                            MaSp = "SP03",
+                            MoTa = "oke la",
+                            TenSanPham = "Túi Xách Nhỏ Top Handle Cozy",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("56dd3de2-c4df-4376-b982-e2c0f7081824"),
+                            AnhDaiDien = "Túi Xách Nhỏ Top Handle Phối Hoa 3D _Trung Quốc_XanhTim_Da tổng hợp_17cmx16cmx7cm(1).webp",
+                            GhiChu = "",
+                            GiaBan = 600000f,
+                            GiaNhap = 400000f,
+                            GiaNiemYet = 600000f,
+                            IdChatLieu = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081144"),
+                            IdNSX = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081126"),
+                            Is_detele = true,
+                            MaSp = "SP03",
+                            MoTa = "oke la",
+                            TenSanPham = "Túi Xách Nhỏ Top Handle Phối Hoa 3D",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("56dd3de2-c4df-4376-b982-e2c0f7081825"),
+                            AnhDaiDien = "Túi Xách Nhỏ Tote Elite Of The Class_Trung Quốc_Kem_Da tổng hợp_22cmx18cmx8cm(1).webp",
+                            GhiChu = "",
+                            GiaBan = 600000f,
+                            GiaNhap = 400000f,
+                            GiaNiemYet = 600000f,
+                            IdChatLieu = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081144"),
+                            IdNSX = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081126"),
+                            Is_detele = true,
+                            MaSp = "SP03",
+                            MoTa = "oke la",
+                            TenSanPham = "Túi Xách Nhỏ Tote Elite Of The Class",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("56dd3de2-c4df-4376-b982-e2c0f7081826"),
+                            AnhDaiDien = "Túi Xách Trung Đeo Vai Wholeheartedly_Trung Quốc_Hong_Da tổng hợp_30cmx20cmx10cm(1).webp",
+                            GhiChu = "",
+                            GiaBan = 600000f,
+                            GiaNhap = 400000f,
+                            GiaNiemYet = 600000f,
+                            IdChatLieu = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081144"),
+                            IdNSX = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081126"),
+                            Is_detele = true,
+                            MaSp = "SP03",
+                            MoTa = "oke la",
+                            TenSanPham = "Túi Xách Trung Đeo Vai Wholeheartedly",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("56dd3de2-c4df-4376-b982-e2c0f7081827"),
+                            AnhDaiDien = "Túi Xách Trung Hobo Cozy_Trung Quốc_Kem_Da tổng hợp_27cmx12cmx8cm(1).webp",
+                            GhiChu = "",
+                            GiaBan = 600000f,
+                            GiaNhap = 400000f,
+                            GiaNiemYet = 600000f,
+                            IdChatLieu = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081144"),
+                            IdNSX = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081126"),
+                            Is_detele = true,
+                            MaSp = "SP03",
+                            MoTa = "oke la",
+                            TenSanPham = "Túi Xách Trung Hobo Cozy",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("56dd3de2-c4df-4376-b982-e2c0f7081828"),
+                            AnhDaiDien = "Túi Xách Trung Satchel Elite Of The Class_Trung Quốc_Xanh_Da tổng hợp_28cmx22cmx10cm(1).webp",
+                            GhiChu = "",
+                            GiaBan = 600000f,
+                            GiaNhap = 400000f,
+                            GiaNiemYet = 600000f,
+                            IdChatLieu = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081144"),
+                            IdNSX = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081126"),
+                            Is_detele = true,
+                            MaSp = "SP03",
+                            MoTa = "oke la",
+                            TenSanPham = "Túi Xách Trung Satchel - Enhanced Confidence",
+                            TrangThai = true
+                        },
+                        new
+                        {
+                            Id = new Guid("56dd3de2-c4df-4376-b982-e2c0f7081829"),
+                            AnhDaiDien = "TXT Hộp Quai Xích_QuanChau_XanhLuc_Da PU mềm mịn, cao cấp_Dài 20 x Rộng 6 x Cao 13 (cm)(1).jpg",
+                            GhiChu = "",
+                            GiaBan = 600000f,
+                            GiaNhap = 400000f,
+                            GiaNiemYet = 600000f,
+                            IdChatLieu = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081137"),
+                            IdNSX = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081126"),
+                            Is_detele = true,
+                            MaSp = "SP03",
+                            MoTa = "oke la",
+                            TenSanPham = "TXT Hộp Quai Xích",
                             TrangThai = true
                         });
                 });
