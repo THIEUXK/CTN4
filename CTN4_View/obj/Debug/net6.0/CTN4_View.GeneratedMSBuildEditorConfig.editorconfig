@@ -9,485 +9,485 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = CTN4_View
 build_property.RootNamespace = CTN4_View
-build_property.ProjectDir = C:\Users\phong\Documents\GitHub\CTN4\CTN4_View\
+build_property.ProjectDir = C:\Users\THIEUXK\Downloads\CTN4\1\CTN4\CTN4_View\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\phong\Documents\GitHub\CTN4\CTN4_View
+build_property.MSBuildProjectDirectory = C:\Users\THIEUXK\Downloads\CTN4\1\CTN4\CTN4_View
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/ChatLieu/Create.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/ChatLieu/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ2hhdExpZXVcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/ChatLieu/Details.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/ChatLieu/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ2hhdExpZXVcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/ChatLieu/Edit.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/ChatLieu/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ2hhdExpZXVcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/ChatLieu/Index.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/ChatLieu/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ2hhdExpZXVcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/ChucVu/Create.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/ChucVu/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ2h1Y1Z1XENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/ChucVu/Delete.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/ChucVu/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ2h1Y1Z1XERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/ChucVu/Details.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/ChucVu/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ2h1Y1Z1XERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/ChucVu/Edit.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/ChucVu/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ2h1Y1Z1XEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/ChucVu/Index.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/ChucVu/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQ2h1Y1Z1XEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/DanhMucChiTiet/Create.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/DanhMucChiTiet/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcRGFuaE11Y0NoaVRpZXRcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/DanhMucChiTiet/Details.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/DanhMucChiTiet/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcRGFuaE11Y0NoaVRpZXRcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/DanhMucChiTiet/Edit.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/DanhMucChiTiet/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcRGFuaE11Y0NoaVRpZXRcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/DanhMucChiTiet/Index.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/DanhMucChiTiet/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcRGFuaE11Y0NoaVRpZXRcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/DanhMuc/Create.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/DanhMuc/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcRGFuaE11Y1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/DanhMuc/Details.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/DanhMuc/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcRGFuaE11Y1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/DanhMuc/Edit.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/DanhMuc/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcRGFuaE11Y1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/DanhMuc/Index.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/DanhMuc/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcRGFuaE11Y1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/GiamGia/Create.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/GiamGia/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcR2lhbUdpYVxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/GiamGia/Details.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/GiamGia/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcR2lhbUdpYVxEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/GiamGia/Edit.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/GiamGia/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcR2lhbUdpYVxFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/GiamGia/Index.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/GiamGia/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcR2lhbUdpYVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/Home/BangQuanLy.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/Home/BangQuanLy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZVxCYW5nUXVhbkx5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/Home/DangNhap.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/Home/DangNhap.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZVxEYW5nTmhhcC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/Home/Discount.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/Home/Discount.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZVxEaXNjb3VudC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/Home/Doimk.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/Home/Doimk.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZVxEb2ltay5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/Home/GiamGiaselect.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/Home/GiamGiaselect.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZVxHaWFtR2lhc2VsZWN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/Home/Index.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/Home/Themdiachi.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/Home/Themdiachi.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZVxUaGVtZGlhY2hpLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/Home/UserDetails.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/Home/UserDetails.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZVxVc2VyRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/KhachHang/Create.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/KhachHang/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcS2hhY2hIYW5nXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/KhachHang/Details.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/KhachHang/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcS2hhY2hIYW5nXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/KhachHang/Edit.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/KhachHang/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcS2hhY2hIYW5nXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/KhachHang/Index.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/KhachHang/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcS2hhY2hIYW5nXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/KhuyenMaiPhanLoai/Create.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/KhuyenMaiPhanLoai/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcS2h1eWVuTWFpUGhhbkxvYWlcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/KhuyenMaiPhanLoai/Details.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/KhuyenMaiPhanLoai/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcS2h1eWVuTWFpUGhhbkxvYWlcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/KhuyenMaiPhanLoai/Edit.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/KhuyenMaiPhanLoai/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcS2h1eWVuTWFpUGhhbkxvYWlcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/KhuyenMaiPhanLoai/Index.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/KhuyenMaiPhanLoai/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcS2h1eWVuTWFpUGhhbkxvYWlcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/KhuyenMaiSanPham/Create.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/KhuyenMaiSanPham/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcS2h1eWVuTWFpU2FuUGhhbVxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/KhuyenMaiSanPham/Details.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/KhuyenMaiSanPham/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcS2h1eWVuTWFpU2FuUGhhbVxEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/KhuyenMaiSanPham/Edit.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/KhuyenMaiSanPham/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcS2h1eWVuTWFpU2FuUGhhbVxFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/KhuyenMaiSanPham/Index.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/KhuyenMaiSanPham/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcS2h1eWVuTWFpU2FuUGhhbVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/KhuyenMai/Create.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/KhuyenMai/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcS2h1eWVuTWFpXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/KhuyenMai/Details.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/KhuyenMai/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcS2h1eWVuTWFpXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/KhuyenMai/Edit.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/KhuyenMai/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcS2h1eWVuTWFpXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/KhuyenMai/Index.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/KhuyenMai/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcS2h1eWVuTWFpXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/Mau/Create.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/Mau/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTWF1XENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/Mau/Details.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/Mau/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTWF1XERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/Mau/Edit.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/Mau/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTWF1XEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/Mau/Index.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/Mau/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTWF1XEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/NhanVien/Create.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/NhanVien/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTmhhblZpZW5cQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/NhanVien/Details.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/NhanVien/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTmhhblZpZW5cRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/NhanVien/Edit.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/NhanVien/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTmhhblZpZW5cRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/NhanVien/Index.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/NhanVien/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTmhhblZpZW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/NSX/Create.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/NSX/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTlNYXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/NSX/Details.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/NSX/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTlNYXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/NSX/Edit.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/NSX/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTlNYXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/NSX/Index.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/NSX/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTlNYXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/PhanLoai/Create.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/PhanLoai/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUGhhbkxvYWlcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/PhanLoai/Details.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/PhanLoai/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUGhhbkxvYWlcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/PhanLoai/Edit.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/PhanLoai/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUGhhbkxvYWlcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/PhanLoai/Index.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/PhanLoai/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUGhhbkxvYWlcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/PhuongThucThanhToan/Create.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/PhuongThucThanhToan/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUGh1b25nVGh1Y1RoYW5oVG9hblxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/PhuongThucThanhToan/Details.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/PhuongThucThanhToan/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUGh1b25nVGh1Y1RoYW5oVG9hblxEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/PhuongThucThanhToan/Edit.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/PhuongThucThanhToan/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUGh1b25nVGh1Y1RoYW5oVG9hblxFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/PhuongThucThanhToan/Index.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/PhuongThucThanhToan/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUGh1b25nVGh1Y1RoYW5oVG9hblxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/QuanLyHoaDon/Index.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/QuanLyHoaDon/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUXVhbkx5SG9hRG9uXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/QuanLyHoaDon/XemChiTiet.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/QuanLyHoaDon/XemChiTiet.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUXVhbkx5SG9hRG9uXFhlbUNoaVRpZXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/QuanLYH/Create.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/QuanLYH/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUXVhbkxZSFxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/QuanLYH/Details.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/QuanLYH/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUXVhbkxZSFxEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/QuanLYH/Edit.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/QuanLYH/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUXVhbkxZSFxFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/QuanLYH/Index.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/QuanLYH/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUXVhbkxZSFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/QuanLySale/Index.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/QuanLySale/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUXVhbkx5U2FsZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/SanPham/Create.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/SanPham/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2FuUGhhbVxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/SanPham/Details.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/SanPham/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2FuUGhhbVxEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/SanPham/Edit.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/SanPham/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2FuUGhhbVxFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/SanPham/Index.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/SanPham/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2FuUGhhbVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/Shared/Error.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/Size/Create.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/Size/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2l6ZVxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/Size/Details.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/Size/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2l6ZVxEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/Size/Edit.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/Size/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2l6ZVxFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/Size/Index.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/Size/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2l6ZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/_ViewImports.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/_ViewStart.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Views/BanHang/GioHang.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Views/BanHang/GioHang.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFuSGFuZ1xHaW9IYW5nLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Views/BanHang/HoaDon.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Views/BanHang/HoaDon.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFuSGFuZ1xIb2FEb24uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Views/BanHang/HoaDonChiTiet.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Views/BanHang/HoaDonChiTiet.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFuSGFuZ1xIb2FEb25DaGlUaWV0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Views/BanHang/SauThanhToan.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Views/BanHang/SauThanhToan.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFuSGFuZ1xTYXVUaGFuaFRvYW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Views/BanHang/ThuTucThanhToan.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Views/BanHang/ThuTucThanhToan.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFuSGFuZ1xUaHVUdWNUaGFuaFRvYW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Views/DanhMucSanPham/SanPhamDanhMuc.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Views/DanhMucSanPham/SanPhamDanhMuc.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFuaE11Y1NhblBoYW1cU2FuUGhhbURhbmhNdWMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Views/HienThiSanPham/HienThiSanPham.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Views/HienThiSanPham/HienThiSanPham.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSGllblRoaVNhblBoYW1cSGllblRoaVNhblBoYW0uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Views/HienThiSanPham/HienThiSanPhamChiTiet.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Views/HienThiSanPham/HienThiSanPhamChiTiet.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSGllblRoaVNhblBoYW1cSGllblRoaVNhblBoYW1DaGlUaWV0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Views/Home/blog.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Views/Home/blog.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxibG9nLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Views/Home/cart.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Views/Home/cart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxjYXJ0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Views/Home/checkout.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Views/Home/checkout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxjaGVja291dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Views/Home/confirmation.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Views/Home/confirmation.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxjb25maXJtYXRpb24uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Views/Home/contact.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Views/Home/contact.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxjb250YWN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Views/Home/DangKy.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Views/Home/DangKy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxEYW5nS3kuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Views/Home/DoimkKh.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Views/Home/DoimkKh.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxEb2lta0toLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Views/Home/elements.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Views/Home/elements.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxlbGVtZW50cy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Views/Home/Error.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Views/Home/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxFcnJvci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Views/Home/Index.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Views/Home/login.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Views/Home/login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxsb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Views/Home/MainWindow.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Views/Home/MainWindow.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxNYWluV2luZG93LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Views/Home/singleblog.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Views/Home/singleblog.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxzaW5nbGVibG9nLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Views/Home/singleproduct.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Views/Home/singleproduct.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxzaW5nbGVwcm9kdWN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Views/Home/Themdiachi.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Views/Home/Themdiachi.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxUaGVtZGlhY2hpLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Views/Home/tracking.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Views/Home/tracking.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVx0cmFja2luZy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Views/Home/UpdateKh.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Views/Home/UpdateKh.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxVcGRhdGVLaC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Views/Home/UserDetail.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Views/Home/UserDetail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxVc2VyRGV0YWlsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Views/SanPhamYeuThich/Index.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Views/SanPhamYeuThich/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FuUGhhbVlldVRoaWNoXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Views/Shared/Error.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Views/Shared/_SanPhamLoc.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Views/Shared/_SanPhamLoc.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9TYW5QaGFtTG9jLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Views/_ViewImports.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Views/_ViewStart.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/Shared/aa.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/Shared/aa.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2hhcmVkXGFhLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = b-9jn5f0juq0
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2hhcmVkXF9MYXlvdXRBZG1pbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = b-vudar954qw
 
-[C:/Users/phong/Documents/GitHub/CTN4/CTN4_View/Views/Shared/_Layout.cshtml]
+[C:/Users/THIEUXK/Downloads/CTN4/1/CTN4/CTN4_View/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-rylen2h5f3
