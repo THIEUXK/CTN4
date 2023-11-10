@@ -171,6 +171,9 @@
                                     </h6>
                                 </th>
                                 <th class="border-bottom-0">
+                                    <h6 class="fw-semibold mb-0">Số tiền ship  &nbsp; : &nbsp; @Model.HoaDon.TienShip</h6>
+                                </th>
+                                <th class="border-bottom-0">
                                     <h6 class="fw-semibold mb-0">Số điện thoại  &nbsp; : &nbsp; @Model.HoaDon.SDTNguoiNhan</h6>
                                 </th>
                                 <th class="border-bottom-0">
@@ -190,6 +193,22 @@
                     @if (TempData["TB4"] != null)
                     {
                         <div class="alert alert-danger">@TempData["TB4"]</div>
+                    }
+                    @if (Model.HoaDon.TrangThai != "Giao hàng thất bại")
+                    {
+                        <div class="div_right">
+                            <p>
+                                <td class="border-bottom-0">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <span class="badge bg-primary rounded-3 fw-semibold">@Html.ActionLink("Giao hàng thất bại", "GiaoHangThatBai", new { id=Model.HoaDon.Id },new { @class = "custom-edit-link" })</span>
+                                    </div>
+                                </td>
+                            </p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div style="color:red">Đơn hàng đã bị hủy !</div>
                     }
                     @if(Model.HoaDon.Is_detele==true){
                         <div class="div_right">
@@ -216,6 +235,10 @@
         </div>
         <div class="card w-100">
             <div class="card-body p-4">
+                @if (TempData["TB5"] != null)
+                {
+                    <div class="alert alert-danger">@TempData["TB5"]</div>
+                }
                 <h5 class="card-title fw-semibold mb-4">Chi Tiết Đơn Hàng</h5>
                 <div class="table-responsive">
                     <table class="table text-nowrap mb-0 align-middle">
@@ -285,17 +308,27 @@
                                     <td class="border-bottom-0">
                                         @if (a.TrangThai == true)
                                         {
-                                            <p class="mb-0 fw-normal">Bình thường</p>
+                                            <p class="mb-0 fw-normal" style="color:limegreen">Bình thường</p>
                                         }
                                         else
                                         {
-                                            <p class="mb-0 fw-normal">Trả hàng</p>
+                                            <p class="mb-0 fw-normal" style="color:red">Hàng bị đổi trả</p>
                                         }
                                     </td>
                                     <td class="border-bottom-0">
-                                        <div class="d-flex align-items-center gap-2">
-                                            <span class="badge bg-primary rounded-3 fw-semibold">@Html.ActionLink("Hủy sản phẩm", "XacNhan", new { id=a.Id },new { @class = "custom-edit-link" })</span>
-                                        </div>
+                                        @if (a.TrangThai == true)
+                                        {
+                                            <div class="d-flex align-items-center gap-2">
+                                                <span class="badge bg-primary rounded-3 fw-semibold">@Html.ActionLink("Bỏ sản phẩm khởi đơn hàng", "BoSanPham", new { idHDCT=a.Id ,idHD=Model.HoaDon.Id},new { @class = "custom-edit-link" })</span>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="d-flex align-items-center gap-2">
+                                                <span class="badge bg-primary rounded-3 fw-semibold">@Html.ActionLink("Hoàn tác", "HoanTacSp", new { idHDCT=a.Id ,idHD=Model.HoaDon.Id},new { @class = "custom-edit-link" })</span>
+                                            </div>
+                                        }
+                                       
                                     </td>
                                 </tr>
                             }
