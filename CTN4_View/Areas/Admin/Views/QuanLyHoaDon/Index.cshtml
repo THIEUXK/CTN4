@@ -19,6 +19,9 @@
                                     <h6 class="fw-semibold mb-0"></h6>
                                 </th>
                                 <th class="border-bottom-0">
+                                    <h6 class="fw-semibold mb-0">Trạng thái đơn hàng</h6>
+                                </th>
+                                <th class="border-bottom-0">
                                     <h6 class="fw-semibold mb-0">Thời gian đặt đơn</h6>
                                 </th>
                                 <th class="border-bottom-0">
@@ -45,9 +48,7 @@
                                 <th class="border-bottom-0">
                                     <h6 class="fw-semibold mb-0">Địa chỉ</h6>
                                 </th>
-                                <th class="border-bottom-0">
-                                    <h6 class="fw-semibold mb-0">Trạng thái</h6>
-                                </th>
+                                
                             </tr>
                         </thead>
                         <tbody>
@@ -59,28 +60,59 @@
                                             <span class="badge bg-primary rounded-3 fw-semibold">@Html.ActionLink("xem chi tiết", "XemChiTiet", new { id=a.Id },new { @class = "custom-edit-link" })</span>
                                         </div>
                                     </td>
+                                    @if (a.Is_detele != false)
+                                    {
+                                        <td class="border-bottom-0">
+                                            <p class="mb-0 fw-normal" style="color:limegreen">Bình thường</p>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td class="border-bottom-0">
+                                            <p class="mb-0 fw-normal" style="color:red">Đơn hàng đã bị hủy</p>
+                                        </td>
+                                    }
                                     <td class="border-bottom-0">
                                         <span class="fw-normal">@a.NgayDat</span>
                                     </td>
                                     <td class="border-bottom-0">
-                                        @if (a.TrangThai != "Đang chờ xử lí")
-                                        {
+                                        @if(a.Is_detele==true){
+                                            @if (a.TrangThai != "Đang chờ xử lí")
+                                            {
 
-                                            <p class="mb-0 fw-normal" style="color:greenyellow">Đơn hàng đã được xác nhận</p>
+                                                <p class="mb-0 fw-normal" style="color:limegreen">Đơn hàng đã được xác nhận</p>
 
+                                            }
+                                            else
+                                            {
+
+                                                <p class="mb-0 fw-normal" style="color:red">Đơn hàng chưa được xác nhận</p>
+
+                                            }
+                                            @if (a.TrangThai != "Giao hàng thành công")
+                                            {
+
+                                                <h6 class="fw-semibold mb-0" style="color:blue">@a.TrangThai</h6>
+
+                                            }
+                                            else
+                                            {
+
+                                                <h6 class="fw-semibold mb-0" style="color:limegreen">@a.TrangThai</h6>
+
+                                            }
+                                            
                                         }
                                         else
                                         {
-
-                                            <p class="mb-0 fw-normal" style="color:red">Đơn hàng chưa được xác nhận</p>
-
+                                        <h6 class="fw-semibold mb-0" style="color:red">@a.TrangThai</h6>
                                         }
-                                        <h6 class="fw-semibold mb-0" style="color:blue">@a.TrangThai</h6>
+                                       
                                     </td>
                                     <td class="border-bottom-0">
                                         @if (a.TrangThaiThanhToan == true)
                                         {
-                                            <h6 class="fw-semibold mb-0" style="color:greenyellow">Đã thanh toán</h6>
+                                            <h6 class="fw-semibold mb-0" style="color:limegreen">Đã thanh toán</h6>
                                         }
                                         else
                                         {
@@ -96,7 +128,7 @@
                                     else
                                     {
                                         <th class="border-bottom-0">
-                                            <h6 class="fw-semibold mb-0" style="color:forestgreen">@a.NgayGiao</h6>
+                                            <h6 class="fw-semibold mb-0" style="color:limegreen">@a.NgayGiao</h6>
                                         </th>
                                     }
                                     @if (a.NgayNhan == null)
@@ -108,7 +140,7 @@
                                     else
                                     {
                                         <th class="border-bottom-0">
-                                            <h6 class="fw-semibold mb-0" style="color:forestgreen">@a.NgayNhan</h6>
+                                            <h6 class="fw-semibold mb-0" style="color:limegreen">@a.NgayNhan</h6>
                                         </th>
                                     }
                                     <td class="border-bottom-0">
@@ -123,18 +155,7 @@
                                     <td class="border-bottom-0">
                                         <p class="mb-0 fw-normal">@a.DiaChi</p>
                                     </td>
-                                    @if (a.Is_detele != false)
-                                    {
-                                        <td class="border-bottom-0">
-                                            <p class="mb-0 fw-normal" style="color:greenyellow">Bình thường</p>
-                                        </td>
-                                    }
-                                    else
-                                    {
-                                        <td class="border-bottom-0">
-                                            <p class="mb-0 fw-normal" style="color:red">Đơn hàng đã bị hủy</p>
-                                        </td>
-                                    }
+                                   
 
                                 </tr>
                             }

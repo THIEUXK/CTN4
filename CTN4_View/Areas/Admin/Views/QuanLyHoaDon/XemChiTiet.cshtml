@@ -96,6 +96,7 @@
                                     </p>
                                 }
                             }
+                            else
                             {
                             <div style="color:red">Đơn hàng đã bị hủy !</div>
                             }
@@ -190,15 +191,23 @@
                     {
                         <div class="alert alert-danger">@TempData["TB4"]</div>
                     }
-                    <div class="div_right">
-                        <p>
-                            <td class="border-bottom-0">
-                                <div class="d-flex align-items-center gap-2">
-                                    <span class="badge bg-primary rounded-3 fw-semibold">@Html.ActionLink("Hủy đơn", "HuyDon", new { id=Model.HoaDon.Id },new { @class = "custom-edit-link" })</span>
-                                </div>
-                            </td>
-                        </p>
-                    </div>
+                    @if(Model.HoaDon.Is_detele==true){
+                        <div class="div_right">
+                            <p>
+                                <td class="border-bottom-0">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <span class="badge bg-primary rounded-3 fw-semibold">@Html.ActionLink("Hủy đơn", "HuyDon", new { id=Model.HoaDon.Id },new { @class = "custom-edit-link" })</span>
+                                    </div>
+                                </td>
+                            </p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div style="color:red">Đơn hàng đã bị hủy !</div>
+                    }
+                   
+                   
                 </div>
 
             </div>
