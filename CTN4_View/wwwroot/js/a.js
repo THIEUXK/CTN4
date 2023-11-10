@@ -13,7 +13,7 @@
     $('#provin').change(function () {
         //loadTotal();
         var id_provin = this.value;
-      
+
         $('#district option').remove();
         $('#district').append(new Option("-- Chọn quận/huyện --", 0));
         $('#ward option').remove();
@@ -76,9 +76,9 @@
         sessionStorage.removeItem('shiptotal');
         $("#total_ship").text('');
         if (this.value != 0) {
-            var obj = {    
+            var obj = {
                 service_id: 53321,
-                insurance_value: 500000,          
+                insurance_value: 500000,
                 from_district_id: 3440,
                 to_ward_code: id_ward,
                 to_district_id: parseInt($('#district').val()),
