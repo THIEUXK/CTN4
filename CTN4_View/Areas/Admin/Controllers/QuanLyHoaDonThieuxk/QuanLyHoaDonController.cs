@@ -75,7 +75,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
         public IActionResult XacNhanThanhToan(Guid id)
         {
             var hd = _hoaDonService.GetById(id);
-            if (hd.TrangThai == "Đang chuẩn bị hàng")
+            if (hd.TrangThai != "Giao hàng thành công")
             {
                 hd.TrangThaiThanhToan = true;
                 _hoaDonService.Sua(hd);

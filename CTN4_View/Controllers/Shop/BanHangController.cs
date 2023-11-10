@@ -256,11 +256,13 @@ namespace CTN4_View.Controllers.Shop
                 width = shippingOrder.width,
             };
             var url = $"https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee";
+            float tong = 0;
             var content = new StringContent(JsonConvert.SerializeObject(hang), Encoding.UTF8, "application/json");
+            var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
             var respose = await _httpClient.PostAsync(url, content);
 
-            float tong = 0;
-            var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
+            
+            
             if (accnew.Count != 0)
             {
                 var gh = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == accnew[0].Id);
