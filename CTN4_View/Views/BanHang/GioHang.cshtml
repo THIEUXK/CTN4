@@ -20,20 +20,23 @@
         </div>
     </div>
 </section>*@
-@if (TempData["ErrorMessage"] != null)
-{
-    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
-}
-<!-- End Banner Area -->
-<!--================Cart Area =================-->
-@if (TempData["TB4"] != null)
-{
-    <div class="alert alert-danger">@TempData["TB4"]</div>
-}
+<br></br>
+<br></br>
+
 <section class="cart_area">
     <div class="container">
         <div class="cart_inner">
             <div class="table-responsive">
+                @if (TempData["ErrorMessage"] != null)
+                {
+                    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+                }
+                <!-- End Banner Area -->
+                <!--================Cart Area =================-->
+                @if (TempData["TB4"] != null)
+                {
+                    <div class="alert alert-danger">@TempData["TB4"]</div>
+                }
                 <table class="table">
                     <thead>
                         <tr>
@@ -130,7 +133,7 @@
                                 <div class="cupon_text d-flex align-items-center">
                                     <input type="text" placeholder="Coupon Code">
                                     <a class="primary-btn" href="#">Apply</a>
-                                    <a class="gray_btn" href="#">Close Coupon</a>
+                                   
                                 </div>
                             </td>
                         </tr>

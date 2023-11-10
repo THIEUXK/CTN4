@@ -113,8 +113,12 @@
     <button>@Html.ActionLink("Edit", "Edit", new {id = Model.SanPham.Id }) </button>
     
     <button><a asp-action="Index">Back to List</a></button>
-    
 </div>
+
+<p>
+    <button type="button" class="btn btn-warning btn-fw editable-click=" ><a asp-controller="QuanLYH" asp-action="Create" style="color:white">Thêm</a></button>
+
+</p>
 
 
 <table class="table">
