@@ -374,6 +374,22 @@ namespace CTN4_View.Controllers.Shop
 
         public IActionResult HoanThanhThanhToan(string name,string DiachiNhanChiTiet,string Sodienthoai,string Email,string addDiaChi, Guid IdDiaChi,Guid idphuongthuc,string ghiChu,float tienship,float tongtien)
         {
+            if (addDiaChi == null)
+            {
+                {
+                    var message = "hãy nhớ chọn địa chỉ của bạn";
+                    TempData["TB2"] = message;
+                    return RedirectToAction("ThuTucThanhToan", "BanHang", new { message });
+                }
+            }
+            if (idphuongthuc == Guid.Parse("00000000-0000-0000-0000-000000000000"))
+            {
+                {
+                    var message = "hãy nhớ chọn phương thức thanh toán của bạn";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("ThuTucThanhToan", "BanHang", new { message });
+                }
+            }
             Guid idHoaDon = Guid.NewGuid();
             var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
             var gh = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == accnew[0].Id);
@@ -381,8 +397,9 @@ namespace CTN4_View.Controllers.Shop
             {
                 if (idphuongthuc== Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971211114"))
                 {
-
-                }else
+                  
+                }
+                else
                 {
                     
                     //Tạo hóa đơn mới

@@ -477,18 +477,48 @@ namespace CTN4_Data.DB_Context
                     Email = "nothing@gmail.com",
                     Trangthai = true,
                     IdChucVu = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971214414")
+                },
+                new NhanVien()
+                {
+                    Ho = "Bùi Văn",
+                    Ten = "Thiều",
+                    Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081176"),
+                    TenDangNhap = "Thieuxk2k3hahl",
+                    SDT = "0912384746",
+                    AnhDaiDien = "",
+                    MatKhau = "Thieuxk2k3hahl",
+                    GioiTinh = "Nam",
+                    DiaChi = "Hà Nội",
+                    Email = "thieubvph20221@gmail.com",
+                    Trangthai = true,
+                    IdChucVu = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971214414")
+                },
+                new NhanVien()
+                {
+                    Ho = "Bùi Văn",
+                    Ten = "Thiều",
+                    Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081175"),
+                    TenDangNhap = "Thieuxk2k3hahl2",
+                    SDT = "0912384746",
+                    AnhDaiDien = "",
+                    MatKhau = "Thieuxk2k3hahl2",
+                    GioiTinh = "Nam",
+                    DiaChi = "Hà Nội",
+                    Email = "thieubvph20221@gmail.com",
+                    Trangthai = true,
+                    IdChucVu = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f70877e9")
                 }
             );
             modelBuilder.Entity<KhachHang>().HasData(
                 new KhachHang()
                 {
-                    Ho = "Bùi Văm",
+                    Ho = "Bùi Văn",
                     Ten = "Thiều",
                     Id = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971214499"),
-                    TenDangNhap = "thieuxk",
+                    TenDangNhap = "thieuxk2k3hahl",
                     SDT = "0912384746",
                     AnhDaiDien = "",
-                    MatKhau = "thieuxk",
+                    MatKhau = "thieuxk2k3hahl",
                     GioiTinh = "Nam",
                     DiaChi = "Hà Nội",
                     Email = "thieubvph20221@gmail.com",

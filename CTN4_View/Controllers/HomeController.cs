@@ -58,6 +58,32 @@ namespace CTN4_View.Controllers
             _giamgiact = giamgia;
         }
 
+        public IActionResult AddAnhDaiDien(Guid IdKh, [Bind] IFormFile imageFile)
+        {
+            var khachhang = _khachHangService.GetById(IdKh);
+            var x = imageFile.FileName;
+            if (imageFile != null && imageFile.Length > 0) // Không null và không trống
+            {
+                //Trỏ tới thư mục wwwroot để lát nữa thực hiện việc Copy sang
+                var path = Path.Combine(
+                    Directory.GetCurrentDirectory(), "wwwroot", "anhdd", imageFile.FileName);
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    // Thực hiện copy ảnh vừa chọn sang thư mục mới (wwwroot)
+                    imageFile.CopyTo(stream);
+                }
+
+                // Gán lại giá trị cho Description của đối tượng bằng tên file ảnh đã được sao chép
+                khachhang.AnhDaiDien = imageFile.FileName;
+            }
+            if (_khachHangService.Sua(khachhang)) // Nếu thêm thành công
+            {
+
+                return RedirectToAction("UserDetail");
+            }
+
+            return RedirectToAction("UserDetail");
+        }
         public IActionResult Index()
         {
 			string token = HttpContext.Session.GetString("Token");

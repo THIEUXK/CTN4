@@ -26,9 +26,24 @@
 
         <dt class="col-sm-2">Tên:</dt>
         <dd class="col-sm-10">@Html.DisplayFor(model => model.Ten)</dd>
-
-        <dt class="col-sm-2">Mật Khẩu:</dt>
-        <dd class="col-sm-10">@Html.DisplayFor(model => model.MatKhau)</dd>
+        
+        <dt class="col-sm-2">Ảnh Đại Diện:</dt>
+        <dd class="col-sm-10">
+            @if (System.IO.Path.GetExtension(Model.AnhDaiDien) == ".jpg" ||
+            System.IO.Path.GetExtension(Model.AnhDaiDien) == ".png" ||
+            System.IO.Path.GetExtension(Model.AnhDaiDien) == ".jpeg" ||
+            System.IO.Path.GetExtension(Model.AnhDaiDien) == ".tiff" ||
+            System.IO.Path.GetExtension(Model.AnhDaiDien) == ".webp" ||
+            System.IO.Path.GetExtension(Model.AnhDaiDien) == ".gif")
+            {
+                <img src="~/anhdd/@Model.AnhDaiDien" height="100">
+            }
+            else
+            {
+                <a>ảnh lỗi</a>
+            }
+        </dd>
+        
 
         <dt class="col-sm-2">Giới Tính:</dt>
         <dd class="col-sm-10">@Html.DisplayFor(model => model.GioiTinh)</dd>
@@ -41,7 +56,18 @@
 
         <dt class="col-sm-2">Địa Chỉ:</dt>
         <dd class="col-sm-10">@Html.DisplayFor(model => model.DiaChi)</dd>
+        <form asp-action="AddAnhDaiDien" method="post" enctype="multipart/form-data">
+            <div class="m-b-15">
+                <input type="hidden" name="IdKh" value="@Model.Id" />
+                <input name="imageFile" type="file" />
+                <button id="btnUpload" class="btn btn-primary">
+                    <i class="anticon anticon-save"></i>
+                </button>
+                <button type="submit">Thêm ảnh đại diện</button>
+            </div>
+        </form>
     </dl>
+    
 
     <div class="row">
         <div class="col-sm-12">
