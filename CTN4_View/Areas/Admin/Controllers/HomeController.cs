@@ -87,34 +87,44 @@ namespace CTN4_View_Admin.Controllers
             return View(user);
         }
         [HttpPost]
-        public IActionResult DoiMatKhau(string matKhauCu, string matKhauMoi, string xacNhanMatKhauMoi)
+        public IActionResult DoiMatKhau(DoiMatKhauKh kh)
         {
+            if (!ModelState.IsValid)
+            {
+             
+
+                return View("Doimk", kh);
+            }
             // Lấy thông tin người dùng từ cơ sở dữ liệu hoặc bất kỳ nguồn nào khác
             var user = _nhanvienService.GetByIdChucVu(_curent.Id);
             // Kiểm tra xem mật khẩu cũ có đúng không
-            if (matKhauCu != user.MatKhau)
+            if (kh.matKhauCu != user.MatKhau)
             {
                 ModelState.AddModelError("matKhauCu", "Mật khẩu cũ không đúng.");
                 return View();
             }
 
             // Kiểm tra xác nhận mật khẩu mới
-            if (matKhauMoi != xacNhanMatKhauMoi)
+            if (kh.matKhauMoi != kh.xacNhanMatKhauMoi)
             {
                 ModelState.AddModelError("xacNhanMatKhauMoi", "Xác nhận mật khẩu mới không khớp.");
                 return View();
             }
 
             // Lưu mật khẩu mới vào cơ sở dữ liệu
-            user.MatKhau = matKhauMoi;
+            user.MatKhau = kh.matKhauMoi;
             // Lưu người dùng có mật khẩu mới vào cơ sở dữ liệu
             _nhanvienService.Sua(user);
             return RedirectToAction("Index", "Home");
         }
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult DangNhapa(Loginviewmodel userModel)
+        public IActionResult DangNhapa(LoginAdmin userModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("DangNhap", userModel); // Trả về view với model và thông báo lỗi
+            }
             if (string.IsNullOrEmpty(userModel.User) || string.IsNullOrEmpty(userModel.Password))
             {
                 return (RedirectToAction(nameof(DangNhap)));
@@ -137,15 +147,15 @@ namespace CTN4_View_Admin.Controllers
                 }
                 else
                 {
-                    return (RedirectToAction("DangNhap"));
+                    return (RedirectToAction(nameof(DangNhap)));
                 }
             }
             else
             {
-                return (RedirectToAction("DangNhap"));
+                return (RedirectToAction(nameof(DangNhap)));
             }
         }
-        private NhanVien GetUser(Loginviewmodel userModel)
+        private NhanVien GetUser(LoginAdmin userModel)
         {
             //Write your code here to authenticate the user
             return _userRepository.GetUserNV(userModel);

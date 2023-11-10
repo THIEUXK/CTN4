@@ -19,7 +19,7 @@ namespace CTN4_Serv.Service
         {
             context = new DB_CTN4_ok(); 
         }
-        public NhanVien GetUserNV(Loginviewmodel userModel)
+        public NhanVien GetUserNV(LoginAdmin userModel)
         {
             return context.NhanViens.Where(x => x.TenDangNhap.ToLower() == userModel.User.ToLower()
                 && x.MatKhau == userModel.Password).FirstOrDefault();

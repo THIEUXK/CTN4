@@ -11,7 +11,7 @@ namespace CTN4_Serv.Service.IService
 {
     public interface ILoginService
     {
-        NhanVien GetUserNV(Loginviewmodel userModel);
+        NhanVien GetUserNV(LoginAdmin userModel);
         KhachHang GetUserKH(Loginviewmodel userModel);
     }
 }

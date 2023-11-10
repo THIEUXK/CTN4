@@ -3,65 +3,77 @@
 @{
     ViewData["Title"] = "DangKy";
 }
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Đăng Ký</h1>
+                <nav class="d-flex align-items-center">
+                    <a href="">Home<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="">Đăng Ký</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
 
-<h1>DangKy</h1>
-
-<h4>KhachHang</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form  method="post">
+    <div class="col-md-6">
+        <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Ho" class="control-label"></label>
-                <input asp-for="Ho" class="form-control" />
-                <span asp-validation-for="Ho" class="text-danger"></span>
+
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label asp-for="Ho" class="control-label">Họ:</label>
+                    <input asp-for="Ho" class="form-control" />
+                    <span asp-validation-for="Ho" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="Ten" class="control-label">Tên:</label>
+                    <input asp-for="Ten" class="form-control" />
+                    <span asp-validation-for="Ten" class="text-danger"></span>
+                </div>
             </div>
+
+           
+
+        
+
             <div class="form-group">
-                <label asp-for="Ten" class="control-label"></label>
-                <input asp-for="Ten" class="form-control" />
-                <span asp-validation-for="Ten" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TenDangNhap" class="control-label"></label>
-                <input asp-for="TenDangNhap" class="form-control" />
-                <span asp-validation-for="TenDangNhap" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MatKhau" class="control-label"></label>
-                <input asp-for="MatKhau" class="form-control" />
-                <span asp-validation-for="MatKhau" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="GioiTinh" class="control-label"></label>
+                <label asp-for="GioiTinh" class="control-label">Giới Tính:</label>
                 <input asp-for="GioiTinh" class="form-control" />
                 <span asp-validation-for="GioiTinh" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
+                <label asp-for="Email" class="control-label">Email:</label>
+                <input asp-for="Email" type="email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="SDT" class="control-label"></label>
+                <label asp-for="SDT" class="control-label">Số Điện Thoại:</label>
                 <input asp-for="SDT" class="form-control" />
                 <span asp-validation-for="SDT" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="DiaChi" class="control-label"></label>
+                <label asp-for="DiaChi" class="control-label">Địa Chỉ:</label>
                 <input asp-for="DiaChi" class="form-control" />
                 <span asp-validation-for="DiaChi" class="text-danger"></span>
             </div>
-      
+
             <div class="form-group">
-                <input asp-action="DangKys" type="submit" value="Create" class="btn btn-primary" />
+                <input asp-action="DangKys" type="submit" value="Đăng Ký" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại danh sách</a>
 </div>
 
 
