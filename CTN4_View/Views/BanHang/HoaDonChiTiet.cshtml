@@ -56,13 +56,22 @@
                     Ngày giao
                 </dt>
                 <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.HoaDon.NgayGiao)
+                    @if (Model.HoaDon.NgayGiao!=null)
+                    {
+                        @Html.DisplayFor(model => model.HoaDon.NgayGiao)
+                    }
+                    <div>Chưa giao</div>
                 </dd>
                 <dt class="col-sm-2">
                     Ngày nhận
                 </dt>
                 <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.HoaDon.NgayNhan)
+                    @if (Model.HoaDon.NgayNhan != null)
+                    {
+                        @Html.DisplayFor(model => model.HoaDon.NgayNhan)
+                    }
+                    <div>Chưa nhận</div>
+                   
                 </dd>
                 <dt class="col-sm-2">
                     Tên khách hàng
@@ -109,7 +118,16 @@
             <thead>
                 <tr>
                     <th>
+                        
+                    </th>
+                    <th>
                         Sản Phẩm
+                    </th>
+                    <th>
+                        Size
+                    </th>
+                    <th>
+                        Màu
                     </th>
                     <th>
                         Số Lượng
@@ -125,8 +143,31 @@
                     {
                     <tr>
                         <td>
+
+                                @if (System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".jpg" ||
+                               System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".png" ||
+                               System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".jpeg" ||
+                               System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".tiff" ||
+                               System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".webp" ||
+                               System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".gif")
+                                {
+                                <img src="~/image/@item.SanPhamChiTiet.SanPham.AnhDaiDien" height="100">
+                                }
+                                else
+                                {
+                                <a>ảnh lỗi</a>
+                                }
+                        </td>
+                        <td>
                                 @Html.DisplayFor(modelItem => item.SanPhamChiTiet.SanPham.TenSanPham)
                         </td>
+                        <td>
+                                @Html.DisplayFor(modelItem => item.SanPhamChiTiet.Size.CoSize)
+                        </td>
+                        <td>
+                                @Html.DisplayFor(modelItem => item.SanPhamChiTiet.Mau.TenMau)
+                        </td>
+                        
                         <td>
                                 @Html.DisplayFor(modelItem => item.SoLuong)
                         </td>

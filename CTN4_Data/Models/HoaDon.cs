@@ -7,6 +7,7 @@
 
         public string TrangThai { get; set; }
         public float TongTien { get; set; }
+        public float TienShip { get; set; }
         public DateTime NgayDat { get; set; }
         public DateTime? NgayGiao { get; set; }
         public DateTime? NgayNhan { get; set; }

@@ -393,6 +393,7 @@ namespace CTN4_View.Controllers.Shop
                         DiaChi = DiachiNhanChiTiet + " " + addDiaChi,
                         TrangThai = "Đang chờ xử lí",
                         TongTien = tongtien,
+                        TienShip=tienship,
                         NgayDat = DateTime.Now,
                         TrangThaiThanhToan = false,
                         Email = Email,
