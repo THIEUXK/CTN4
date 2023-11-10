@@ -211,31 +211,7 @@ namespace CTN4_View.Controllers.Shop
             else
             {
                 return RedirectToAction("login", "Home");
-                //var gh2 = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == null);
-                //var a = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh2.Id);
-                //foreach (var x in a)
-                //{
-                //    tong += float.Parse(x.SanPhamChiTiet.SanPham.GiaNiemYet.ToString()) * (x.SoLuong);
-
-                //}
-
-                //var view = new GioHangView()
-                //{
-                //    GioHangChiTiets = a,
-                //    TongTien = tong,
-                //    listDiaChi = _diaChiNhanHangService.GetAll().Where(c => c.IdKhachHang == accnew[0].Id).Select(s => new SelectListItem
-                //    {
-                //        Value = s.Id.ToString(),
-                //        Text = s.name + s.DiaChi
-                //    }).ToList(),
-                //    listPhuongThucs = _phuongThucThanhToanService.GetAll().Select(s => new SelectListItem
-                //    {
-                //        Value = s.Id.ToString(),
-                //        Text = s.TenPhuongThuc
-                //    }).ToList(),
-
-                //};
-                //return View(view);
+                
             }
         }
 
@@ -280,15 +256,24 @@ namespace CTN4_View.Controllers.Shop
 
                     shipping = JsonConvert.DeserializeObject<Shipping>(jsonData2);
                     HttpContext.Session.SetInt32("shiptotal", shipping.data.total);
+                    shipping.data.totaloder = tong + shipping.data.total;
+
+                    //shipping.data.totaloder = shipping.data.total + int.Parse(tong.ToString());
+                    return Json(shipping, new System.Text.Json.JsonSerializerOptions());
                 }
+                else
+                {
+                    shipping.message = "False";
+
+                    //shipping.data.totaloder = shipping.data.total + int.Parse(tong.ToString());
+                    return Json(shipping, new System.Text.Json.JsonSerializerOptions());
+                }
+
                 //Shipping shipping = new Shipping()
                 //{
                 //    = tong + 52000
                 //};
-                 shipping.data.totaloder = tong + shipping.data.total;
-
-                //shipping.data.totaloder = shipping.data.total + int.Parse(tong.ToString());
-                return Json(shipping, new System.Text.Json.JsonSerializerOptions());
+                
 
             }
             else

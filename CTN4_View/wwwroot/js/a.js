@@ -13,7 +13,7 @@
     $('#provin').change(function () {
         //loadTotal();
         var id_provin = this.value;
-      
+
         $('#district option').remove();
         $('#district').append(new Option("-- Chọn quận/huyện --", 0));
         $('#ward option').remove();
@@ -76,9 +76,9 @@
         sessionStorage.removeItem('shiptotal');
         $("#total_ship").text('');
         if (this.value != 0) {
-            var obj = {    
+            var obj = {
                 service_id: 53321,
-                insurance_value: 500000,          
+                insurance_value: 500000,
                 from_district_id: 3440,
                 to_ward_code: id_ward,
                 to_district_id: parseInt($('#district').val()),
@@ -94,15 +94,21 @@
                 data: JSON.stringify(obj),
                 contentType: 'application/json',
                 success: function (result) {
+                    if (result.message == "False") {
+                        $("#adressnew").val(`Địa chỉ này hiện không hỗ trợ ship`);
+                    }
+                    else {
 
-                    $("#tienship").html(`${(result.data.total)}đ`);
-                    $("#tongtien").html(` ${(result.data.totaloder)}đ`);
-                    $("#tienship1").val(result.data.total);
-                    $("#tongtien1").val(result.data.totaloder);
-                    let adress = $("#ward option:selected").text() + "," + $("#district option:selected").text() + "," + $("#provin option:selected").text();
-                    //add địa chỉ
-                    $("#diachinay").val(adress).html(`${(adress)}`);
-                    $("#adressnew").val(adress).html(`${(adress)}`);
+                        $("#tienship").html(`${(result.data.total)}đ`);
+                        $("#tongtien").html(` ${(result.data.totaloder)}đ`);
+                        $("#tienship1").val(result.data.total);
+                        $("#tongtien1").val(result.data.totaloder);
+                        let adress = $("#ward option:selected").text() + "," + $("#district option:selected").text() + "," + $("#provin option:selected").text();
+                        //add địa chỉ
+                        $("#diachinay").val(adress).html(`${(adress)}`);
+                        $("#adressnew").val(adress).html(`${(adress)}`);
+                    }
+
                 }
             });
         }
