@@ -95,10 +95,10 @@
                             @Html.DisplayFor(modelItem => item.TrangThai)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.TienShip)
+                            @Html.Raw(FormatCurrency(item.TienShip))
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.TongTien)
+                            @Html.Raw(FormatCurrency(item.TongTien))
                         </td>
                         
                         <td>
@@ -129,7 +129,17 @@
         </table>
     </div>
 </section>
+<script>
+    @functions {
+        public string FormatCurrency(float price)
+        {
+            string formattedPrice = string.Format("{0:N0}", price); // Định dạng số và thêm dấu phân cách ngàn
+            return formattedPrice + "₫"; // Thêm ký hiệu đồng (₫) vào cuối
+        }
+    };
 
+
+</script>
 <style>
     .custom-edit-link {
         color: black; /* Màu đỏ */
