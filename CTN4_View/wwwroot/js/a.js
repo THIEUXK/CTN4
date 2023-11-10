@@ -94,15 +94,21 @@
                 data: JSON.stringify(obj),
                 contentType: 'application/json',
                 success: function (result) {
+                    if (result.message = "False") {
+                        $("#adressnew").html(`Địa chỉ này hiện không hỗ trợ ship`);
+                    }
+                    else {
 
-                    $("#tienship").html(`${(result.data.total)}đ`);
-                    $("#tongtien").html(` ${(result.data.totaloder)}đ`);
-                    $("#tienship1").val(result.data.total);
-                    $("#tongtien1").val(result.data.totaloder);
-                    let adress = $("#ward option:selected").text() + "," + $("#district option:selected").text() + "," + $("#provin option:selected").text();
-                    //add địa chỉ
-                    $("#diachinay").val(adress).html(`${(adress)}`);
-                    $("#adressnew").val(adress).html(`${(adress)}`);
+                        $("#tienship").html(`${(result.data.total)}đ`);
+                        $("#tongtien").html(` ${(result.data.totaloder)}đ`);
+                        $("#tienship1").val(result.data.total);
+                        $("#tongtien1").val(result.data.totaloder);
+                        let adress = $("#ward option:selected").text() + "," + $("#district option:selected").text() + "," + $("#provin option:selected").text();
+                        //add địa chỉ
+                        $("#diachinay").val(adress).html(`${(adress)}`);
+                        $("#adressnew").val(adress).html(`${(adress)}`);
+                    }
+
                 }
             });
         }
