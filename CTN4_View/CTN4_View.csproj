@@ -1389,4 +1389,8 @@
     <TypeScriptCompile Include="wwwroot\Admina\assets\libs\simplebar\dist\simplebar.d.ts" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\anhdd\" />
+  </ItemGroup>
+
 </Project>

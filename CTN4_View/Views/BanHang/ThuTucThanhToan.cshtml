@@ -63,6 +63,10 @@
                             <input type="text" class="form-control" id="email" value="@Model.KhachHang.Email" name="Email">
 
                         </div>
+                        @if (TempData["TB2"] != null)
+                        {
+                            <div class="alert alert-danger">@TempData["TB2"]</div>
+                        }
                         @if (Model.DiaChiNhanHang != null)
                         {
                             <div class="col-md-6 form-group p_star">
@@ -124,10 +128,15 @@
 
                             </select>
                         </div>
+                        @if (TempData["TB1"] != null)
+                        {
+                            <div class="alert alert-danger">@TempData["TB1"]</div>
+                        }
                         <div class="col-md-6 form-group">
                             <label>Phương thức thanh toán<span class="text-danger"></span></label>
                             <span class="text-danger"></span>
                             <select class="custom-select"
+                            
                         <select asp-for="idphuongthuc" class="form-control">
                             <option value=""> Chọn phương thức thanh toán</option>
                                     @foreach (var a in Model.listPhuongThucs)

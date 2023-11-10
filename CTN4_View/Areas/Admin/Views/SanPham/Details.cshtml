@@ -17,6 +17,24 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.SanPham.Id)
         </dd>
+        <dt class="col-sm-2">
+            Ảnh đại diện
+        </dt>
+        <dd class="col-sm-10">
+            @if (System.IO.Path.GetExtension(Model.SanPham.AnhDaiDien) == ".jpg" ||
+            System.IO.Path.GetExtension(Model.SanPham.AnhDaiDien) == ".png" ||
+            System.IO.Path.GetExtension(Model.SanPham.AnhDaiDien) == ".jpeg" ||
+            System.IO.Path.GetExtension(Model.SanPham.AnhDaiDien) == ".tiff" ||
+            System.IO.Path.GetExtension(Model.SanPham.AnhDaiDien) == ".webp" ||
+            System.IO.Path.GetExtension(Model.SanPham.AnhDaiDien) == ".gif")
+            {
+                <img src="~/image/@Model.SanPham.AnhDaiDien" height="100">
+            }
+            else
+            {
+                <span>Ảnh lỗi rồi =)))</span>
+            }
+        </dd>
         <dt class = "col-sm-2">
             Chất liệu
         </dt>
