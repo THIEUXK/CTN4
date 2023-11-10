@@ -1,19 +1,37 @@
-﻿@{
+﻿
 
-    Layout = "~/Areas/Admin/Views/Shared/aa.cshtml";
-
-}
 @model CTN4_Serv.ViewModel.DoiMatKhauKh
 
-<div class="container mt-5" style="margin-top: 200px>
+@{
+    ViewData["Title"] = "Doimk";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Đổi Mật Khẩu</h1>
+                <nav class="d-flex align-items-center">
+                    <a href="">Home<span class="lnr lnr-arrow-right"></span></a>
+                    <a href=""> Đổi Mật Khẩu</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="container mt-5 custom-container">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <form asp-action="DoiMatKhau" method="post">
+            <form  method="post">
+
+                <!-- Các trường form -->
 
                 <div class="form-group">
                     <label for="matKhauCu">Mật khẩu cũ:</label>
                     <input type="password" id="matKhauCu" name="matKhauCu" class="form-control" required>
                     <span asp-validation-for="matKhauCu" class="text-danger"></span>
+
                 </div>
 
                 <div class="form-group">
@@ -28,7 +46,7 @@
                     <span asp-validation-for="xacNhanMatKhauMoi" class="text-danger"></span>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Đổi mật khẩu</button>
+                <button asp-action="DoiMatKhaus" type="submit" class="btn btn-primary">Đổi mật khẩu</button>
             </form>
         </div>
     </div>
@@ -37,3 +55,4 @@
 <div class="text-center mt-4">
     <a asp-action="Index" class="btn btn-secondary">Quay lại danh sách</a>
 </div>
+

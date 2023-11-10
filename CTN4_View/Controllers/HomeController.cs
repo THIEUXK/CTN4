@@ -135,6 +135,10 @@ namespace CTN4_View.Controllers
         [HttpPost]
         public IActionResult DangKys(KhachHang a)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("DangKy", a);
+            }
             if (a == null)
             {
                 return RedirectToAction(nameof(DangKy));
@@ -172,6 +176,7 @@ namespace CTN4_View.Controllers
         [HttpGet]
         public IActionResult login()
         {
+
             return View();
         }
         public IActionResult singleblog()
@@ -198,32 +203,40 @@ namespace CTN4_View.Controllers
             return View();
 
         }
-        public IActionResult Doimk()
+        [HttpGet]
+        public IActionResult DoimkKh()
         {
-            var user = _khachHangService.GetById(_curent.Id);
-            return View(user);
+
+            return View();
         }
         [HttpPost]
-        public IActionResult DoiMatKhau(string matKhauCu, string matKhauMoi, string xacNhanMatKhauMoi)
+        public IActionResult DoiMatKhaus(DoiMatKhauKh kh)
         {
+
+            if (!ModelState.IsValid)
+            {
+             
+
+                return View("DoimkKh", kh);
+            }
             // Lấy thông tin người dùng từ cơ sở dữ liệu hoặc bất kỳ nguồn nào khác
             var user = _khachHangService.GetById(_curent.Id);
             // Kiểm tra xem mật khẩu cũ có đúng không
-            if (matKhauCu != user.MatKhau)
+            if (kh.matKhauCu != user.MatKhau)
             {
                 ModelState.AddModelError("matKhauCu", "Mật khẩu cũ không đúng.");
                 return View();
             }
 
             // Kiểm tra xác nhận mật khẩu mới
-            if (matKhauMoi != xacNhanMatKhauMoi)
+            if (kh.matKhauMoi != kh.xacNhanMatKhauMoi)
             {
                 ModelState.AddModelError("xacNhanMatKhauMoi", "Xác nhận mật khẩu mới không khớp.");
                 return View();
             }
 
             // Lưu mật khẩu mới vào cơ sở dữ liệu
-            user.MatKhau = matKhauMoi;
+            user.MatKhau = kh.matKhauMoi;
             // Lưu người dùng có mật khẩu mới vào cơ sở dữ liệu
             _khachHangService.Sua(user);
             return RedirectToAction("Index", "Home");
@@ -231,6 +244,10 @@ namespace CTN4_View.Controllers
         [HttpPost]
         public IActionResult UpdateKhang(KhachHang khachHangForm)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("UpdateKh", khachHangForm);
+            }
             // Lấy đối tượng KhachHang cần cập nhật dựa trên ID hoặc một thuộc tính khác duy nhất
             var khachHangToUpdate = _khachHangService.GetById(_curent.Id);
 
@@ -278,6 +295,10 @@ namespace CTN4_View.Controllers
         [HttpPost]
         public IActionResult Login(Loginviewmodel userModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(userModel); // Trả về view với model và thông báo lỗi
+            }
             if (string.IsNullOrEmpty(userModel.User) || string.IsNullOrEmpty(userModel.Password))
             {
                 return (RedirectToAction("Login"));
@@ -315,11 +336,13 @@ namespace CTN4_View.Controllers
                 }
                 else
                 {
+                    ModelState.AddModelError(string.Empty, "Tên đăng nhập hoặc mật khẩu không đúng."); // Thêm thông báo lỗi vào ModelState
                     return (RedirectToAction("Login"));
                 }
             }
             else
             {
+                ModelState.AddModelError(string.Empty, "Tên đăng nhập hoặc mật khẩu không đúng."); // Thêm thông báo lỗi vào ModelState
                 return (RedirectToAction("Login"));
             }
         }

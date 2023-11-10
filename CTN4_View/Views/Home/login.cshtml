@@ -1,29 +1,10 @@
-﻿
+﻿@model CTN4_Serv.ViewModel.Loginviewmodel
 @{
     ViewData["Title"] = "login";
 }
 
 
 
-	<!-- End Header Area -->
-
-	<!-- Start Banner Area -->
-@*	<section class="banner-area organic-breadcrumb">
-		<div class="container">
-			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
-				<div class="col-first">
-					<h1>Login/Register</h1>
-					<nav class="d-flex align-items-center">
-						<a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
-						<a href="category.html">Login/Register</a>
-					</nav>
-				</div>
-			</div>
-		</div>
-	</section>*@
-	<!-- End Banner Area -->
-
-	<!--================Login Box Area =================-->
 	<section class="login_box_area section_gap">
 		<div class="container">
 			<div class="row">
@@ -43,9 +24,14 @@
                         <form class="row login_form" asp-action="Login" method="post" id="" novalidate="novalidate">
                             <div class="col-md-12 form-group">
                                 <input type="text" class="form-control" id="name" name="User" placeholder="User" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+                              <span asp-validation-for="User" class="text-danger"></span>
+                           
                             </div>
                             <div class="col-md-12 form-group">
+                               
                                 <input type="password" class="form-control" id="name" name="Password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                           
                             </div>
                             <div class="col-md-12 form-group">
                                 <div class="creat_account">
@@ -55,6 +41,7 @@
                             </div>
                             <div class="col-md-12 form-group">
                                 <button type="submit" value="submit" class="primary-btn">Log In</button>
+                          
                                 <a href="#">Forgot Password?</a>
                             </div>
                             <br></br>
@@ -71,5 +58,5 @@
 			</div>
 		</div>
 	</section>
-	<!--================End Login Box Area =================-->
+
 
