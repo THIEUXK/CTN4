@@ -94,8 +94,8 @@
                 data: JSON.stringify(obj),
                 contentType: 'application/json',
                 success: function (result) {
-                    if (result.message = "False") {
-                        $("#adressnew").html(`Địa chỉ này hiện không hỗ trợ ship`);
+                    if (result.message == "False") {
+                        $("#adressnew").val(`Địa chỉ này hiện không hỗ trợ ship`);
                     }
                     else {
 
