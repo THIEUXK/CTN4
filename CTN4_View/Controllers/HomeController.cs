@@ -13,6 +13,7 @@ using NuGet.Common;
 using CTN4_Serv.Service.Service;
 using Newtonsoft.Json;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 
 namespace CTN4_View.Controllers
 {
@@ -24,10 +25,10 @@ namespace CTN4_View.Controllers
         private readonly IConfiguration _config;
         private readonly ILoginService _userRepository;
         private readonly ITokenService _tokenService;
-		private readonly ICurrentUser _curent;
+        private readonly ICurrentUser _curent;
         private readonly IKhachHangService _khachHangService;
-		private readonly ISanPhamService _spService;
-		private string generatedToken = null;
+        private readonly ISanPhamService _spService;
+        private string generatedToken = null;
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IDiaChiNhanHangService _diachi;
         private readonly IGiamGiaService _giamgiact;
@@ -40,7 +41,7 @@ namespace CTN4_View.Controllers
         //}
 
 
-        public HomeController(ILogger<HomeController> logger, IConfiguration config, ITokenService tokenService, ILoginService userRepository,ICurrentUser curent,IKhachHangService khachhang,ISanPhamService sanpham, IHttpClientFactory httpClientFactory ,IDiaChiNhanHangService diachi,IGiamGiaService giamgia)
+        public HomeController(ILogger<HomeController> logger, IConfiguration config, ITokenService tokenService, ILoginService userRepository, ICurrentUser curent, IKhachHangService khachhang, ISanPhamService sanpham, IHttpClientFactory httpClientFactory, IDiaChiNhanHangService diachi, IGiamGiaService giamgia)
 
         {
             _spService = sanpham;
@@ -48,8 +49,8 @@ namespace CTN4_View.Controllers
             _KHangService = new KhachHangService();
             _curent = curent;
             _diachi = diachi;
-			_logger = logger;
-             _phamChiTietService = new SanPhamChiTietService();
+            _logger = logger;
+            _phamChiTietService = new SanPhamChiTietService();
             _sanPhamCuaHangService = new SanPhamCuaHangService();
             _config = config;
             _tokenService = tokenService;
@@ -58,6 +59,14 @@ namespace CTN4_View.Controllers
             _giamgiact = giamgia;
         }
 
+        public IActionResult Index()
+        {
+            string token = HttpContext.Session.GetString("Token");
+
+            var a = User.Identity.Name;
+            var obj = _spService.GetAll();
+            return View(obj);
+        }
         public IActionResult AddAnhDaiDien(Guid IdKh, [Bind] IFormFile imageFile)
         {
             var khachhang = _khachHangService.GetById(IdKh);
@@ -72,25 +81,14 @@ namespace CTN4_View.Controllers
                     // Thực hiện copy ảnh vừa chọn sang thư mục mới (wwwroot)
                     imageFile.CopyTo(stream);
                 }
-
                 // Gán lại giá trị cho Description của đối tượng bằng tên file ảnh đã được sao chép
                 khachhang.AnhDaiDien = imageFile.FileName;
             }
             if (_khachHangService.Sua(khachhang)) // Nếu thêm thành công
             {
-
                 return RedirectToAction("UserDetail");
             }
-
             return RedirectToAction("UserDetail");
-        }
-        public IActionResult Index()
-        {
-			string token = HttpContext.Session.GetString("Token");
-
-            var a = User.Identity.Name;
-            var obj = _spService.GetAll();
-			return View(obj);
         }
         public async Task<IActionResult> Themdiachi()
         {
@@ -118,7 +116,7 @@ namespace CTN4_View.Controllers
                 // Xử lý lỗi ở đây, ví dụ: response.StatusCode, response.ReasonPhrase
                 return BadRequest("Failed to fetch data from API");
             }
-            
+
         }
         [HttpPost]
         public IActionResult themdiachis(DiaChiNhanHang a)
@@ -132,7 +130,7 @@ namespace CTN4_View.Controllers
                 a.Id = Guid.NewGuid();
                 a.TrangThai = false;
                 a.IdKhachHang = _curent.Id;
-                if(_diachi.Them(a))
+                if (_diachi.Them(a))
                 {
                     return RedirectToAction("Index");
                 }
@@ -143,9 +141,9 @@ namespace CTN4_View.Controllers
 
                 throw new Exception(ex.Message);
             }
-            
 
-        } 
+
+        }
         public IActionResult blog()
         {
             return View();
@@ -157,19 +155,41 @@ namespace CTN4_View.Controllers
         {
             return View();
         }
-    
+
         [HttpPost]
         public IActionResult DangKys(KhachHang a)
         {
-            if (!ModelState.IsValid)
+            if (string.IsNullOrEmpty(a.Ho) || string.IsNullOrEmpty(a.Ten) || string.IsNullOrEmpty(a.Email) || string.IsNullOrEmpty(a.SDT) || string.IsNullOrEmpty(a.DiaChi))
             {
+                ViewBag.Message = "Không được để trống";
+
                 return View("DangKy", a);
             }
+            if (!IsValidEmail(a.Email))
+            {
+                ViewBag.Message = "Định dạng email không hợp lệ";
+                return View("DangKy", a);
+            }
+
+            // Kiểm tra độ dài và định dạng số điện thoại
+            if (!IsValidPhoneNumber(a.SDT))
+            {
+                ViewBag.Message = "Số điện thoại không hợp lệ";
+                return View("DangKy", a);
+            }
+            if (a.Ho.Length > 100 || a.Ten.Length > 100 ||
+              a.Email.Length > 100 || a.SDT.Length > 100 ||
+              a.DiaChi.Length > 100)
+            {
+                ViewBag.Message = "Dữ liệu không được vượt quá 100 ký tự";
+                return View("DangKy", a);
+            }
+
             if (a == null)
             {
                 return RedirectToAction(nameof(DangKy));
             }
-            
+
             a.Id = Guid.NewGuid();
             a.Trangthai = true;
             a.AnhDaiDien = "Fall";
@@ -180,7 +200,7 @@ namespace CTN4_View.Controllers
         {
             return View();
         }
-       
+
         public IActionResult confirmation()
         {
             return View();
@@ -218,11 +238,12 @@ namespace CTN4_View.Controllers
             return View();
         }
         [HttpGet]
-        public IActionResult UpdateKh() {
+        public IActionResult UpdateKh()
+        {
             var s = _khachHangService.GetById(_curent.Id);
             return View(s);
-          
-         }
+
+        }
         public IActionResult SignUp()
         {
 
@@ -232,7 +253,7 @@ namespace CTN4_View.Controllers
         [HttpGet]
         public IActionResult DoimkKh()
         {
-
+            var user = _khachHangService.GetById(_curent.Id);
             return View();
         }
         [HttpPost]
@@ -241,8 +262,6 @@ namespace CTN4_View.Controllers
 
             if (!ModelState.IsValid)
             {
-             
-
                 return View("DoimkKh", kh);
             }
             // Lấy thông tin người dùng từ cơ sở dữ liệu hoặc bất kỳ nguồn nào khác
@@ -251,14 +270,14 @@ namespace CTN4_View.Controllers
             if (kh.matKhauCu != user.MatKhau)
             {
                 ModelState.AddModelError("matKhauCu", "Mật khẩu cũ không đúng.");
-                return View();
+                return View("DoimkKh", kh);
             }
 
             // Kiểm tra xác nhận mật khẩu mới
             if (kh.matKhauMoi != kh.xacNhanMatKhauMoi)
             {
                 ModelState.AddModelError("xacNhanMatKhauMoi", "Xác nhận mật khẩu mới không khớp.");
-                return View();
+                return View("DoimkKh", kh);
             }
 
             // Lưu mật khẩu mới vào cơ sở dữ liệu
@@ -270,24 +289,46 @@ namespace CTN4_View.Controllers
         [HttpPost]
         public IActionResult UpdateKhang(KhachHang khachHangForm)
         {
-            if (!ModelState.IsValid)
+            if (string.IsNullOrEmpty(khachHangForm.Ho) || string.IsNullOrEmpty(khachHangForm.Ten) || string.IsNullOrEmpty(khachHangForm.Email) || string.IsNullOrEmpty(khachHangForm.SDT) || string.IsNullOrEmpty(khachHangForm.DiaChi))
             {
+                ViewBag.Message = "Không được để trống";
+
+                return View("UpdateKh", khachHangForm);
+            }
+            if (!IsValidEmail(khachHangForm.Email))
+            {
+                ViewBag.Message = "Định dạng email không hợp lệ";
+                return View("UpdateKh", khachHangForm);
+            }
+
+            // Kiểm tra độ dài và định dạng số điện thoại
+            if (!IsValidPhoneNumber(khachHangForm.SDT))
+            {
+                ViewBag.Message = "Số điện thoại không hợp lệ";
+                return View("UpdateKh", khachHangForm);
+            }
+
+            // Kiểm tra độ dài các trường dữ liệu
+            if (khachHangForm.Ho.Length > 100 || khachHangForm.Ten.Length > 100 ||
+                khachHangForm.Email.Length > 100 || khachHangForm.SDT.Length > 100 ||
+                khachHangForm.DiaChi.Length > 100)
+            {
+                ViewBag.Message = "Dữ liệu không được vượt quá 100 ký tự";
                 return View("UpdateKh", khachHangForm);
             }
             // Lấy đối tượng KhachHang cần cập nhật dựa trên ID hoặc một thuộc tính khác duy nhất
             var khachHangToUpdate = _khachHangService.GetById(_curent.Id);
 
             // Cập nhật các thuộc tính của đối tượng KhachHang từ dữ liệu form
-            
+
             khachHangToUpdate.Ho = khachHangForm.Ho;
             khachHangToUpdate.Ten = khachHangForm.Ten;
-            khachHangToUpdate.TenDangNhap = khachHangForm.TenDangNhap;
-            khachHangToUpdate.MatKhau = khachHangForm.MatKhau;
+
             khachHangToUpdate.GioiTinh = khachHangForm.GioiTinh;
             khachHangToUpdate.Email = khachHangForm.Email;
             khachHangToUpdate.SDT = khachHangForm.SDT;
             khachHangToUpdate.DiaChi = khachHangForm.DiaChi;
-            khachHangToUpdate.AnhDaiDien = khachHangForm.AnhDaiDien;
+
 
             // Thực hiện cập nhật thông tin KhachHang
             var result = _khachHangService.Sua(khachHangToUpdate);
@@ -304,14 +345,34 @@ namespace CTN4_View.Controllers
                 return RedirectToAction(nameof(UpdateKh)); // Hiển thị lại form với dữ liệu đã nhập và thông báo lỗi
             }
         }
+        private bool IsValidEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        // Hàm kiểm tra định dạng và độ dài số điện thoại
+        private bool IsValidPhoneNumber(string phoneNumber)
+        {
+            // Kiểm tra định dạng và độ dài số điện thoại theo quy tắc của bạn
+            // (Ví dụ: định dạng có thể là số và không có ký tự đặc biệt)
+            return Regex.IsMatch(phoneNumber, @"^[0-9]+$") && phoneNumber.Length <= 20;
+        }
         public IActionResult UserDetail()
-		{
+        {
             var a = _curent;
             var user = _khachHangService.GetById(_curent.Id);
-			return View(user);
-		}
+            return View(user);
+        }
 
-		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new CTN4_Data.Models.DB_CTN4.ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
@@ -323,32 +384,33 @@ namespace CTN4_View.Controllers
         {
             if (!ModelState.IsValid)
             {
+                ViewBag.Message = "Có lỗi xảy ra.";
                 return View(userModel); // Trả về view với model và thông báo lỗi
             }
             if (string.IsNullOrEmpty(userModel.User) || string.IsNullOrEmpty(userModel.Password))
             {
                 return (RedirectToAction("Login"));
             }
-            var TK = _KHangService.GetAll().FirstOrDefault(c=>c.TenDangNhap==userModel.User&&c.MatKhau==userModel.Password);
+            var TK = _KHangService.GetAll().FirstOrDefault(c => c.TenDangNhap == userModel.User && c.MatKhau == userModel.Password);
             // Đọc dữ liệu từ Session xem trong Cart nó có cái gì chưa?
             var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
             if (accnew.Count == 0)
             {
-                accnew.Add(TK); 
+                accnew.Add(TK);
                 SessionServices.SetObjToJson(HttpContext.Session, "ACC", accnew);
             }
             else if (accnew.Count != 0)
             {
-                    accnew.Clear();
-                    accnew.Add(TK); 
-                    SessionServices.SetObjToJson(HttpContext.Session, "ACC", accnew);
+                accnew.Clear();
+                accnew.Add(TK);
+                SessionServices.SetObjToJson(HttpContext.Session, "ACC", accnew);
             }
 
             IActionResult response = Unauthorized();
             var validUser = GetUserKH(userModel);
             if (validUser != null)
             {
-              
+
                 generatedToken = _tokenService.BuildTokens(_config["Jwt:Key"].ToString(), _config["Jwt:Issuer"].ToString(),
                 validUser);
 
@@ -357,19 +419,19 @@ namespace CTN4_View.Controllers
 
                     HttpContext.Session.SetString("Token", generatedToken);
 
-					
-					return RedirectToAction("Index");
+
+                    return RedirectToAction("Index");
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Tên đăng nhập hoặc mật khẩu không đúng."); // Thêm thông báo lỗi vào ModelState
-                    return (RedirectToAction("Login"));
+                    ViewBag.Message = "Tên đăng nhập hoặc mật khẩu không đúng";
+                    return View("Login");
                 }
             }
             else
             {
-                ModelState.AddModelError(string.Empty, "Tên đăng nhập hoặc mật khẩu không đúng."); // Thêm thông báo lỗi vào ModelState
-                return (RedirectToAction("Login"));
+                ViewBag.Message = "Tên đăng nhập hoặc mật khẩu không đúng";
+                return View("Login");
             }
         }
         private KhachHang GetUserKH(Loginviewmodel userModel)
@@ -381,7 +443,7 @@ namespace CTN4_View.Controllers
         [Authorize]
         [Route("mainwindow")]
         [HttpGet]
-       
+
 
         public IActionResult Errors()
         {
@@ -396,7 +458,7 @@ namespace CTN4_View.Controllers
             // Chuyển hướng người dùng đến trang đăng nhập hoặc trang chính của ứng dụng
             return RedirectToAction(nameof(Index));
         }
-       
+
 
         private string BuildMessage(string stringToSplit, int chunkSize)
         {
@@ -407,11 +469,11 @@ namespace CTN4_View.Controllers
 
             foreach (string str in data)
             {
-                 result += Environment.NewLine + str; 
+                result += Environment.NewLine + str;
             }
 
             return result;
         }
 
-	}
+    }
 }
