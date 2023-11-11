@@ -1,6 +1,7 @@
 ﻿@model CTN4_Serv.ViewModel.Loginviewmodel
 @{
     ViewData["Title"] = "login";
+    string a = ViewBag.Message;
 }
 
 
@@ -22,11 +23,16 @@
 					<div class="login_form_inner">
 						<h3>Log in to enter</h3>
                         <form class="row login_form" asp-action="Login" method="post" id="" novalidate="novalidate">
-                            <div class="col-md-12 form-group">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="col-md-12 form-group">
                                 <input type="text" class="form-control" id="name" name="User" placeholder="User" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
                               <span asp-validation-for="User" class="text-danger"></span>
-                           
-                            </div>
+                            @if (!string.IsNullOrEmpty(ViewBag.Message))
+                            {
+                                <span class="text-danger">@ViewBag.Message</span>
+                            }
+
+                        </div>
                             <div class="col-md-12 form-group">
                                
                                 <input type="password" class="form-control" id="name" name="Password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">

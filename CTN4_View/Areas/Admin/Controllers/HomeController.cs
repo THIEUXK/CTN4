@@ -10,6 +10,8 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Scripting;
 using Newtonsoft.Json;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace CTN4_View_Admin.Controllers
 {
@@ -81,10 +83,11 @@ namespace CTN4_View_Admin.Controllers
         {
             return View(new CTN4_Data.Models.DB_CTN4.ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        [HttpGet]
         public IActionResult Doimk()
         {
-            var user = _nhanvienService.GetByIdChucVu(_curent.Id);
-            return View(user);
+           
+            return View();
         }
         [HttpPost]
         public IActionResult DoiMatKhau(DoiMatKhauKh kh)
@@ -92,7 +95,6 @@ namespace CTN4_View_Admin.Controllers
             if (!ModelState.IsValid)
             {
              
-
                 return View("Doimk", kh);
             }
             // Lấy thông tin người dùng từ cơ sở dữ liệu hoặc bất kỳ nguồn nào khác
@@ -101,18 +103,18 @@ namespace CTN4_View_Admin.Controllers
             if (kh.matKhauCu != user.MatKhau)
             {
                 ModelState.AddModelError("matKhauCu", "Mật khẩu cũ không đúng.");
-                return View();
+                return View("Doimk",kh);
             }
 
             // Kiểm tra xác nhận mật khẩu mới
-            if (kh.matKhauMoi != kh.xacNhanMatKhauMoi)
+            if (kh.MatKhauMoi != kh.xacNhanMatKhauMoi)
             {
                 ModelState.AddModelError("xacNhanMatKhauMoi", "Xác nhận mật khẩu mới không khớp.");
-                return View();
+                return View("Doimk", kh);
             }
 
             // Lưu mật khẩu mới vào cơ sở dữ liệu
-            user.MatKhau = kh.matKhauMoi;
+            user.MatKhau = kh.MatKhauMoi;
             // Lưu người dùng có mật khẩu mới vào cơ sở dữ liệu
             _nhanvienService.Sua(user);
             return RedirectToAction("Index", "Home");
@@ -209,6 +211,95 @@ namespace CTN4_View_Admin.Controllers
             }
 
             return result;
+        }
+        [HttpGet]
+        public IActionResult UpdateNV()
+        {
+            var s = _nhanvienService.GetByIdChucVu(_curent.Id);
+            return View(s);
+
+        }
+        [HttpPost]
+        public IActionResult UpdateNv(NhanVien khachHangForm)
+        {
+            if(string.IsNullOrEmpty(khachHangForm.Ho) || string.IsNullOrEmpty(khachHangForm.Ten) || string.IsNullOrEmpty(khachHangForm.Email) || string.IsNullOrEmpty(khachHangForm.SDT) || string.IsNullOrEmpty(khachHangForm.DiaChi))
+            {
+                ViewBag.Message = "Không được để trống";
+
+                return View("UpdateNV", khachHangForm);
+            }
+            if (!IsValidEmail(khachHangForm.Email))
+            {
+                ViewBag.Message = "Định dạng email không hợp lệ";
+                return View("UpdateNV", khachHangForm);
+            }
+
+            // Kiểm tra độ dài và định dạng số điện thoại
+            if (!IsValidPhoneNumber(khachHangForm.SDT))
+            {
+                ViewBag.Message = "Số điện thoại không hợp lệ";
+                return View("UpdateNV", khachHangForm);
+            }
+
+            // Kiểm tra độ dài các trường dữ liệu
+            if (khachHangForm.Ho.Length > 100 || khachHangForm.Ten.Length > 100 ||
+                khachHangForm.Email.Length > 100 || khachHangForm.SDT.Length > 100 ||
+                khachHangForm.DiaChi.Length > 100)
+            {
+                ViewBag.Message = "Dữ liệu không được vượt quá 100 ký tự";
+                return View("UpdateNV", khachHangForm);
+            }
+
+            // Lấy đối tượng KhachHang cần cập nhật dựa trên ID hoặc một thuộc tính khác duy nhất
+            var khachHangToUpdate = _nhanvienService.GetByIdChucVu(_curent.Id);
+
+            // Cập nhật các thuộc tính của đối tượng KhachHang từ dữ liệu form
+
+            khachHangToUpdate.Ho = khachHangForm.Ho;
+            khachHangToUpdate.Ten = khachHangForm.Ten;
+            khachHangToUpdate.TenDangNhap = khachHangForm.TenDangNhap;
+            khachHangToUpdate.MatKhau = khachHangForm.MatKhau;
+            khachHangToUpdate.GioiTinh = khachHangForm.GioiTinh;
+            khachHangToUpdate.Email = khachHangForm.Email;
+            khachHangToUpdate.SDT = khachHangForm.SDT;
+            khachHangToUpdate.DiaChi = khachHangForm.DiaChi;
+            khachHangToUpdate.Trangthai = true;
+
+
+             // Thực hiện cập nhật thông tin KhachHang
+             var result = _nhanvienService.Sua(khachHangToUpdate);
+
+            if (result)
+            {
+                // Cập nhật thành công, chuyển hướng về trang danh sách hoặc trang chi tiết
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                // Có lỗi trong quá trình cập nhật, xử lý lỗi tại đây nếu cần
+                // Ví dụ: ModelState.AddModelError("TenThuocTinh", "Thông báo lỗi");
+                return RedirectToAction(nameof(UpdateNV)); // Hiển thị lại form với dữ liệu đã nhập và thông báo lỗi
+            }
+        }
+        private bool IsValidEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        // Hàm kiểm tra định dạng và độ dài số điện thoại
+        private bool IsValidPhoneNumber(string phoneNumber)
+        {
+            // Kiểm tra định dạng và độ dài số điện thoại theo quy tắc của bạn
+            // (Ví dụ: định dạng có thể là số và không có ký tự đặc biệt)
+            return Regex.IsMatch(phoneNumber, @"^[0-9]+$") && phoneNumber.Length <= 20;
         }
         public IActionResult Discount()
         {

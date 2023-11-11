@@ -14,7 +14,7 @@ namespace CTN4_Serv.ViewModel
 
             [Required(ErrorMessage = "Mật khẩu mới là bắt buộc")]
             [StringLength(16, MinimumLength = 8, ErrorMessage = "Mật khẩu mới phải từ 8 đến 16 ký tự")]
-            public string matKhauMoi { get; set; }
+            public string MatKhauMoi { get; set; }
 
             [Compare("MatKhauMoi", ErrorMessage = "Xác nhận mật khẩu mới không khớp")]
             public string xacNhanMatKhauMoi { get; set; }
