@@ -36,11 +36,16 @@
                     <span asp-validation-for="Ten" class="text-danger"></span>
                 </div>
             </div>
-
-           
-
-        
-
+            <div class="form-group">
+                <label asp-for="TenDangNhap" class="control-label"></label>
+                <input asp-for="TenDangNhap" class="form-control" />
+                <span asp-validation-for="TenDangNhap" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MatKhau" class="control-label"></label>
+                <input asp-for="MatKhau" class="form-control" />
+                <span asp-validation-for="MatKhau" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="GioiTinh" class="control-label">Giới Tính:</label>
                 <input asp-for="GioiTinh" class="form-control" />
@@ -64,6 +69,10 @@
                 <input asp-for="DiaChi" class="form-control" />
                 <span asp-validation-for="DiaChi" class="text-danger"></span>
             </div>
+            @if (!string.IsNullOrEmpty(ViewBag.Message))
+            {
+                <span class="text-danger">@ViewBag.Message</span>
+            }
 
             <div class="form-group">
                 <input asp-action="DangKys" type="submit" value="Đăng Ký" class="btn btn-primary" />

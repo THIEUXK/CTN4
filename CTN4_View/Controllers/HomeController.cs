@@ -179,7 +179,9 @@ namespace CTN4_View.Controllers
             }
             if (a.Ho.Length > 100 || a.Ten.Length > 100 ||
               a.Email.Length > 100 || a.SDT.Length > 100 ||
+
               a.DiaChi.Length > 100)
+
             {
                 ViewBag.Message = "Dữ liệu không được vượt quá 100 ký tự";
                 return View("DangKy", a);
@@ -270,18 +272,20 @@ namespace CTN4_View.Controllers
             if (kh.matKhauCu != user.MatKhau)
             {
                 ModelState.AddModelError("matKhauCu", "Mật khẩu cũ không đúng.");
+
                 return View("DoimkKh", kh);
+
             }
 
             // Kiểm tra xác nhận mật khẩu mới
-            if (kh.matKhauMoi != kh.xacNhanMatKhauMoi)
+            if (kh.MatKhauMoi != kh.xacNhanMatKhauMoi)
             {
                 ModelState.AddModelError("xacNhanMatKhauMoi", "Xác nhận mật khẩu mới không khớp.");
                 return View("DoimkKh", kh);
             }
 
             // Lưu mật khẩu mới vào cơ sở dữ liệu
-            user.MatKhau = kh.matKhauMoi;
+            user.MatKhau = kh.MatKhauMoi;
             // Lưu người dùng có mật khẩu mới vào cơ sở dữ liệu
             _khachHangService.Sua(user);
             return RedirectToAction("Index", "Home");
@@ -289,6 +293,7 @@ namespace CTN4_View.Controllers
         [HttpPost]
         public IActionResult UpdateKhang(KhachHang khachHangForm)
         {
+
             if (string.IsNullOrEmpty(khachHangForm.Ho) || string.IsNullOrEmpty(khachHangForm.Ten) || string.IsNullOrEmpty(khachHangForm.Email) || string.IsNullOrEmpty(khachHangForm.SDT) || string.IsNullOrEmpty(khachHangForm.DiaChi))
             {
                 ViewBag.Message = "Không được để trống";
@@ -323,14 +328,11 @@ namespace CTN4_View.Controllers
 
             khachHangToUpdate.Ho = khachHangForm.Ho;
             khachHangToUpdate.Ten = khachHangForm.Ten;
-
             khachHangToUpdate.GioiTinh = khachHangForm.GioiTinh;
             khachHangToUpdate.Email = khachHangForm.Email;
             khachHangToUpdate.SDT = khachHangForm.SDT;
             khachHangToUpdate.DiaChi = khachHangForm.DiaChi;
 
-
-            // Thực hiện cập nhật thông tin KhachHang
             var result = _khachHangService.Sua(khachHangToUpdate);
 
             if (result)
@@ -385,6 +387,7 @@ namespace CTN4_View.Controllers
             if (!ModelState.IsValid)
             {
                 ViewBag.Message = "Có lỗi xảy ra.";
+
                 return View(userModel); // Trả về view với model và thông báo lỗi
             }
             if (string.IsNullOrEmpty(userModel.User) || string.IsNullOrEmpty(userModel.Password))
