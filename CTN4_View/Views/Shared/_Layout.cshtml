@@ -125,28 +125,13 @@
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li class="nav-item"><a asp-controller="BanHang" asp-action="GioHang" class="cart"><span class="ti-bag"></span></a></li>
-                            <li class="nav-item">
-                                <button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
-                            </li>
+                           
                         </ul>
                     </div>
                 </div>
             </nav>
         </div>
-        <div class="search_input" id="search_input_box">
-            <div class="container">
-                @*<form asp-controller="HienThiSanPham" asp-action="HienThiSanPham" method="get" class="d-flex justify-content-between">
-                    <input type="text" class="form-control" id="search_input" name="TenSp" placeholder="Tim kiem san pham">
-                    <button type="submit" class="btn">timkiem</button>
-                    <span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
-                </form>*@
-                <form asp-controller="HienThiSanPham" asp-action="HienThiSanPham" method="get" class="form-inline">
-                    nhap ten danh sach
-                    <input type="text" name="TenSp" />
-                    <button>tim</button>
-                </form>
-            </div>
-        </div>
+        
     </header>
     <!-- End Header Area -->
     @RenderSection("scrrip", required: false)
