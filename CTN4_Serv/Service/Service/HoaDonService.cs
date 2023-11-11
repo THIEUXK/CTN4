@@ -23,7 +23,7 @@ namespace CTN4_Serv.Service
             return _db.HoaDons.Include(c=>c.KhachHang).Include(c=>c.DiaChiNhanHang).Include(c=>c.PhuongThucThanhToan).ToList();
         }
 
-        public HoaDon GetById(Guid id)
+        public HoaDon GetById(int id)
         {
             return GetAll().FirstOrDefault(c => c.Id == id);
         }
@@ -56,7 +56,7 @@ namespace CTN4_Serv.Service
             }
         }
 
-        public bool Xoa(Guid id)
+        public bool Xoa(int id)
         {
             try
             {
