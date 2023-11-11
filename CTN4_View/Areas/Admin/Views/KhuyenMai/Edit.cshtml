@@ -74,6 +74,22 @@
 <button id="updateGiaButton" class="btn btn-primary">Cập nhật Giá Sản Phẩm</button>
 <button id="huyApDungButton" class="btn btn-primary">Hủy áp dụng khuyến mại</button>
 
+<label for="lstSp">Filter by san pham:</label>
+    <select name="lstSp" id="lstSp">
+        <option value="">All</option>
+        <option value="MaSp">Ma sp</option>
+        <option value="TenSanPham">Ten sp</option>
+        <option value="TenChatLieu">Ten Chat Lieu</option>
+        <option value="TenNSX">Ten NSX</option>
+        <option value="MoTa">Mo Ta</option>
+        <option value="GiaNhap">Gia Nhap</option>
+        <option value="GiaBan">Gia Ban</option>
+        <option value="GiaNiemYet">Gia Niem Yet</option>
+        <option value="GhiChu">Ghi Chu</option>
+        <!-- Thêm các tùy chọn danh mục khác nếu cần -->
+    </select>
+    <input type="submit" value="Filter" />
+
 <table class="table">
     <thead>
         <tr>
@@ -114,14 +130,8 @@
 
             </th>
             <th>
-                Is Deleted
-            </th>
-            <th>
                 Ảnh
 
-            </th>
-            <th>
-               Chức năng
             </th>
             <th>
                 CheckBox
@@ -168,9 +178,6 @@
                         @Html.DisplayFor(modelItem => item.TrangThai)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Is_detele)
-                    </td>
-                    <td>
                         <tb>
                             @if (System.IO.Path.GetExtension(item.AnhDaiDien) == ".jpg" ||
                            System.IO.Path.GetExtension(item.AnhDaiDien) == ".png" ||
@@ -186,11 +193,6 @@
                                 <a>ảnh lỗi</a>
                             }
                         </tb>
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.Id } )|
-                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
                     </td>
                     <td>
                         <input type ="checkbox" class="id-sp-button" data-id-sp="@item.Id">
@@ -292,11 +294,14 @@
             data: data,
             success: function (response) {
                 // Xử lý kết quả trả về từ server (nếu cần)
+                location.reload();
                 console.log(response);
                 // TODO: Xử lý kết quả trả về từ server
+                
             },
             error: function (xhr, status, error) {
                 // Xử lý lỗi (nếu có)
+                console.error('Update failed.');
                 console.log(error);
                 // TODO: Xử lý lỗi
             }
