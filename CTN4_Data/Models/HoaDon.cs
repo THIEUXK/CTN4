@@ -2,7 +2,8 @@
 {
     public class HoaDon
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
+        public string MaHoaDon { get; set; }
         public DateTime NgayTaoHoaDon { get; set; }
 
         public string TrangThai { get; set; }
@@ -25,6 +26,7 @@
         public Guid? IdDiaChiNhanHang { get; set; }
 
         public virtual List<HoaDonChiTiet>? HoaDonChiTiets { get; set; }
+        public virtual List<LichSuHoaDon>? LichSuHoaDons { get; set; }
         public virtual List<GiamGiaChiTiet>? GiamGiaChiTiets { get; set; }
         public virtual PhuongThucThanhToan? PhuongThucThanhToan { get; set; }
         public virtual DiaChiNhanHang? DiaChiNhanHang { get; set; }

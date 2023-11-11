@@ -377,7 +377,18 @@ namespace CTN4_View.Controllers.Shop
                     return RedirectToAction("ThuTucThanhToan", "BanHang", new { message });
                 }
             }
-            Guid idHoaDon = Guid.NewGuid();
+            int idHoaDon;
+          var hh=  _HoaDonService.GetAll().ToList();
+            if (hh.Count==0)
+            {
+                 idHoaDon = 1;
+            }
+            else
+            {
+                int a = hh.Count();
+                 idHoaDon = hh[a-1].Id+1;
+            }
+            
             var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
             var gh = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == accnew[0].Id);
             if (accnew.Count != 0 && gh != null)
@@ -393,6 +404,7 @@ namespace CTN4_View.Controllers.Shop
                     var hd = new HoaDon()
                     {
                         Id = idHoaDon,
+                        MaHoaDon=$"HD0{idHoaDon}",
                         NgayTaoHoaDon = DateTime.Now,
                         DiaChi = DiachiNhanChiTiet + " " + addDiaChi,
                         TrangThai = "Đang chờ xử lí",
@@ -523,7 +535,7 @@ namespace CTN4_View.Controllers.Shop
             var a = _HoaDonService.GetAll();
             return View(a);
         }
-        public IActionResult HoaDonChiTiet(Guid id)
+        public IActionResult HoaDonChiTiet(int id)
         {
             var b = _HoaDonService.GetById(id);
             var a = _HoaDonChiTiet.GetAll().Where(c => c.IdHoaDon == id).ToList();
@@ -673,7 +685,7 @@ namespace CTN4_View.Controllers.Shop
             return RedirectToAction("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = IdSanPham, message4 });
         }
 
-        public IActionResult huydonKH(Guid id)
+        public IActionResult huydonKH(int id)
         {
             var hd = _HoaDonService.GetById(id);
             if (hd.NgayGiao == null)
