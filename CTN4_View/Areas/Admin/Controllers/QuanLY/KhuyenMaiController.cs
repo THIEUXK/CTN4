@@ -77,7 +77,8 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         }
 
         [HttpPost]
-        public ActionResult UpdateGiaSanPham(string[] Ids, float giamTheoTien, float giamTheoPh)
+        public ActionResult UpdateGiaSanPham(string[] Ids, float giamTheoTien, float giamTheoPh, string tenSanPham,string maSp, string tenChatLieu, 
+            string tenNSX, string moTa, float giaNhap, float giaBan, float giaNiemYet, string ghiChu)
         {
             TempData["ErrorMessage"] = "Thông báo lỗi của bạn ở đây.";
             foreach (var item in Ids)
@@ -94,11 +95,24 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                 }
                 _sp.Sua(sp);
             }
-            if (TempData.ContainsKey("ErrorMessage"))
+            //if (TempData.ContainsKey("ErrorMessage"))
+            //{
+            //    ViewBag.ErrorMessage = TempData["ErrorMessage"];
+            //}
+            var filteredProducts = _sp.GetAll();
+            if (!string.IsNullOrEmpty(maSp))
             {
-                ViewBag.ErrorMessage = TempData["ErrorMessage"];
+                filteredProducts = (List<SanPham>)filteredProducts.Where(p => p.MaSp == maSp);
             }
-            return View();
+            if (!string.IsNullOrEmpty(tenSanPham))
+            {
+                filteredProducts = (List<SanPham>)filteredProducts.Where(p => p.TenSanPham == tenSanPham);
+            }
+            if (!string.IsNullOrEmpty(maSp))
+            {
+                filteredProducts = (List<SanPham>)filteredProducts.Where(p => p.MaSp == maSp);
+            }
+            return View(filteredProducts);
         }
         [HttpPost]
         public ActionResult HuyApDungKm(string[] Ids)
