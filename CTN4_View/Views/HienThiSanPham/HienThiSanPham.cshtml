@@ -17,7 +17,12 @@
 </section>*@
 <br></br>
 <br></br>
-
+<br>
+@if (TempData["Notification"] != null)
+{
+    <div class="alert alert-info">@TempData["Notification"]</div>
+}
+<br />
 <!-- End Banner Area -->
 <div class="container">
     <div class="row">
@@ -125,7 +130,7 @@
             <!-- Start Best Seller -->
             <section class="lattest-product-area pb-40 category-list">
                 <div class="row" id="Fillter-sanPhams">
-                    @foreach (var sp in Model.sanPhams)
+                    @foreach (var sp in Model.sanphampaging)
                     {
                         <!-- single product -->
                         {
@@ -211,9 +216,15 @@
                 <div class="pagination">
                     @for (int i = 1; i <= Model.pagingInfo.TotalPages; i++)
                     {
-                        <form asp-action="HienThiSanPham">
-                            <button type="submit"><input type="submit" name="page" value="@i" /></button>
+
+                        <form asp-action="HienThiSanPham" class="page-form">
+                            <button type="submit" class="page-button" data-page="@i"><input style="border: none;" type="submit" name="page" value="@i" /></button>
                         </form>
+
+
+                        @*<form asp-action="HienThiSanPham">
+                    <button type="submit" class="active"><input style="border: none;" type="submit" name="page" value="@i" /></button>
+                    </form>*@
                         //<a href="/HienThiSanPham/HienThiSanPham/?PageSanPham=@i">@Html.ActionLink(i, "HienThiSanPham", "HienThiSanPhamController", new { page = i })</a>
                     }
                 </div>
@@ -373,8 +384,8 @@
 
 </script>
 
-    @section scrrip{
-    <script src="~/~/js/jquery-3.6.0.js"></script>
+   @* @section scrrip{*@
+<script src="~/~/js/jquery-3.6.0.js"></script>
 
     @*<script>
 
@@ -410,6 +421,8 @@
 
     }
 <script>
+
+
     document.getElementById('btnFillter').addEventListener("click", function () {
         var chatLieus = getSetSelectCheckboxes("FillterChatLieu");
         var maus = getSetSelectCheckboxes("FillterMauSac");
@@ -445,6 +458,21 @@
         });
         return value;
     }
+    $(document).ready(function () {
+        $(".page-form").on("submit", function (e) {
+            e.preventDefault();
+
+            // Loại bỏ lớp "highlighted-button" từ tất cả các nút
+            $(".page-button").removeClass("highlighted-button");
+
+            // Thêm lớp "highlighted-button" vào nút đã nhấp
+            var clickedButton = $(this).find(".page-button");
+            clickedButton.addClass("highlighted-button");
+
+            // Gửi biểu mẫu
+            $(this).submit();
+        });
+    });
 </script>
 <style>
     .lnr-heart {
@@ -477,6 +505,9 @@
             opacity: 1;
         }
 
+    .highlighted-button {
+        background: linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);
+    }
 </style>
 <script src="~/js/vendor/jquery-2.2.4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.~/js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"

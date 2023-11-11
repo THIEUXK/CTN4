@@ -15,7 +15,7 @@
                         <h5 class="card-title fw-semibold mb-4">Đơn Hàng</h5>
 
                         <div class="div_right">
-                            @if(Model.HoaDon.Is_detele==true)
+                            @if (Model.HoaDon.Is_detele == true)
                             {
                                 @if (Model.HoaDon.TrangThai != "Đang chờ xử lí")
                                 {
@@ -24,14 +24,20 @@
                                 }
                                 else
                                 {
-                                    <div style="color:red">Đơn hàng chưa được xác nhận !</div>
-                                    <span>
-                                        <span class="border-bottom-0">
-                                            <span class="d-flex align-items-center gap-2">
-                                                <span class="badge bg-primary rounded-3 fw-semibold">@Html.ActionLink("xác nhận đợn hàng", "XacNhanDonHang", new { id=Model.HoaDon.Id },new { @class = "custom-edit-link" })</span>
+                                   
+                                     <br /> <div class="row">
+                                        <div class="col-md-6" style="color:red">
+                                            Đơn hàng chưa được xác nhận !
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="border-bottom-0">
+                                                <span class="d-flex align-items-center gap-2">
+                                                    <span class="color-change-button">@Html.ActionLink("Xác nhận đơn hàng", "XacNhanDonHang", new { id=Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span>
+                                                </span>
                                             </span>
-                                        </span>
-                                    </span>
+                                        </div>
+                                    </div>
+
                                 }
 
                                 @if (TempData["TB1"] != null)
@@ -46,14 +52,19 @@
                                 else
                                 {
 
-                                    <p>
-                                        <div style="color:red">Đơn hàng chưa được giao !</div>
-                                        <td class="border-bottom-0">
-                                            <div class="d-flex align-items-center gap-2">
-                                                <span class="badge bg-primary rounded-3 fw-semibold">@Html.ActionLink("Giao Hàng", "XacNhanGiaoHang", new { id=Model.HoaDon.Id },new { @class = "custom-edit-link" })</span>
-                                            </div>
-                                        </td>
-                                    </p>
+                                     <br /> <div class="row">
+                                        <div class="col-md-6">
+                                            <p style="color:red">Đơn hàng chưa được giao !</p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <td class="border-bottom-0">
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <span class="color-change-button">@Html.ActionLink("Giao Hàng", "XacNhanGiaoHang", new { id=Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span>
+                                                </div>
+                                            </td>
+                                        </div>
+                                    </div>
+
                                 }
                                 @if (TempData["TB3"] != null)
                                 {
@@ -66,14 +77,17 @@
                                 }
                                 else
                                 {
-                                    <p>
-                                        <div style="color:red">Đơn hàng chưa được thanh toán !</div>
-                                        <td class="border-bottom-0">
+                                     <br /> <div class="row">
+                                        <div class="col-md-6">
+                                            <div style="color:red">Đơn hàng chưa được thanh toán !</div>
+                                        </div>
+                                        <div class="col-md-6">
                                             <div class="d-flex align-items-center gap-2">
-                                                <span class="badge bg-primary rounded-3 fw-semibold">@Html.ActionLink("Xác nhận đã thanh toán", "XacNhanThanhToan", new { id=Model.HoaDon.Id },new { @class = "custom-edit-link" })</span>
+                                                <span class="color-change-button">@Html.ActionLink("Xác nhận đã thanh toán", "XacNhanThanhToan", new { id=Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span>
                                             </div>
-                                        </td>
-                                    </p>
+                                        </div>
+                                    </div>
+
                                 }
                                 @if (TempData["TB2"] != null)
                                 {
@@ -86,21 +100,26 @@
                                 }
                                 else
                                 {
-                                    <p>
-                                        <div style="color:red">Đơn hàng chưa nhận được !</div>
-                                        <td class="border-bottom-0">
+                                     <br /> <div class="row">
+                                        <div class="col-md-6">
+                                            <div style="color:red">Đơn hàng chưa nhận được !</div>
+                                        </div>
+                                        <div class="col-md-6">
                                             <div class="d-flex align-items-center gap-2">
-                                                <span class="badge bg-primary rounded-3 fw-semibold">@Html.ActionLink("Xác nhận đã nhận hàng", "XacNhanNhanHang", new {  id=Model.HoaDon.Id },new { @class = "custom-edit-link" })</span>
+                                                <span class="color-change-button">
+                                                    @Html.ActionLink("Xác nhận đã nhận hàng", "XacNhanNhanHang", new { id=Model.HoaDon.Id }, new { @class = "custom-edit-link" })
+                                                </span>
                                             </div>
-                                        </td>
-                                    </p>
+                                        </div>
+                                    </div>
+
                                 }
                             }
                             else
                             {
-                            <div style="color:red">Đơn hàng đã bị hủy !</div>
+                                <div style="color:red">Đơn hàng đã bị hủy !</div>
                             }
-                           
+
 
                         </div>
                     </div>
@@ -108,6 +127,7 @@
 
                         <thead class="text-dark fs-4">
                             <tr>
+                                <br />
                                 <th class="border-bottom-0">
                                     <h6 class="fw-semibold mb-0"></h6>
                                 </th>
@@ -200,7 +220,7 @@
                             <p>
                                 <td class="border-bottom-0">
                                     <div class="d-flex align-items-center gap-2">
-                                        <span class="badge bg-primary rounded-3 fw-semibold">@Html.ActionLink("Giao hàng thất bại", "GiaoHangThatBai", new { id=Model.HoaDon.Id },new { @class = "custom-edit-link" })</span>
+                                        <span class="color-change-button">@Html.ActionLink("Giao hàng thất bại", "GiaoHangThatBai", new { id=Model.HoaDon.Id },new { @class = "custom-edit-link" })</span>
                                     </div>
                                 </td>
                             </p>
@@ -210,12 +230,13 @@
                     {
                         <div style="color:red">Đơn hàng đã bị hủy !</div>
                     }
-                    @if(Model.HoaDon.Is_detele==true){
+                    @if (Model.HoaDon.Is_detele == true)
+                    {
                         <div class="div_right">
                             <p>
                                 <td class="border-bottom-0">
                                     <div class="d-flex align-items-center gap-2">
-                                        <span class="badge bg-primary rounded-3 fw-semibold">@Html.ActionLink("Hủy đơn", "HuyDon", new { id=Model.HoaDon.Id },new { @class = "custom-edit-link" })</span>
+                                        <span class="color-change-button">@Html.ActionLink("Hủy đơn", "HuyDon", new { id=Model.HoaDon.Id },new { @class = "custom-edit-link" })</span>
                                     </div>
                                 </td>
                             </p>
@@ -225,8 +246,8 @@
                     {
                         <div style="color:red">Đơn hàng đã bị hủy !</div>
                     }
-                   
-                   
+
+
                 </div>
 
             </div>
@@ -319,16 +340,16 @@
                                         @if (a.TrangThai == true)
                                         {
                                             <div class="d-flex align-items-center gap-2">
-                                                <span class="badge bg-primary rounded-3 fw-semibold">@Html.ActionLink("Bỏ sản phẩm khởi đơn hàng", "BoSanPham", new { idHDCT=a.Id ,idHD=Model.HoaDon.Id},new { @class = "custom-edit-link" })</span>
+                                                <span class="color-change-button">@Html.ActionLink("Bỏ sản phẩm khởi đơn hàng", "BoSanPham", new { idHDCT=a.Id ,idHD=Model.HoaDon.Id},new { @class = "custom-edit-link" })</span>
                                             </div>
                                         }
                                         else
                                         {
                                             <div class="d-flex align-items-center gap-2">
-                                                <span class="badge bg-primary rounded-3 fw-semibold">@Html.ActionLink("Hoàn tác", "HoanTacSp", new { idHDCT=a.Id ,idHD=Model.HoaDon.Id},new { @class = "custom-edit-link" })</span>
+                                                <span class="color-change-button">@Html.ActionLink("Hoàn tác", "HoanTacSp", new { idHDCT=a.Id ,idHD=Model.HoaDon.Id},new { @class = "custom-edit-link" })</span>
                                             </div>
                                         }
-                                       
+
                                     </td>
                                 </tr>
                             }
@@ -370,7 +391,34 @@
 </body>
 <style>
     .custom-edit-link {
-        color: whitesmoke; /* Màu đỏ */
+        color:  whitesmoke; /* Màu đỏ */
+        ; /* Màu đỏ */
         /* Các thuộc tính CSS khác nếu cần */
     }
+
+    /* Thiết lập màu nền và màu chữ mặc định */
+    .color-change-button {
+        color: #ffffff;
+        padding: 5px 10px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease; /* Hiệu ứng chuyển đổi màu sắc */
+        border-radius: 20px; /* Bán kính bo tròn */
+        width: auto; /* Tự động điều chỉnh chiều rộng */
+
+        background-color: rgb(93, 135, 255);
+        border-radius: 15px;
+        font-size: 14px;
+        font-weight: 600;
+        grid-area: auto;
+        line-height: 14px;
+        text-align: center;
+    }
+
+        /* Hiệu ứng hover */
+        .color-change-button:hover {
+            background-color: rgb(93, 135, 255);
+            color: #ecf0f1;
+        }
+
 </style>

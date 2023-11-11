@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using X.PagedList;
 using X.PagedList.Mvc.Core;
 using CTN4_Data.DB_Context;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CTN4_View.Controllers.Shop
 {
@@ -48,7 +49,7 @@ namespace CTN4_View.Controllers.Shop
             _pagingInfo = new PagingInfo();
             _CTN4_Ok = new DB_CTN4_ok();
         }
-        public IActionResult HienThiSanPham(int page)
+        public IActionResult HienThiSanPham(int page, string TenSp)
         {
 
             if (page == null) { page = 1; }
@@ -77,7 +78,12 @@ namespace CTN4_View.Controllers.Shop
                     ItemsPerPage = 6,
 
                 }
+
             };
+            //if (!string.IsNullOrEmpty(TenSp))
+            //{
+            //    listSp = _sanPhamChiTietService.GetAll().Where(c => c.SanPham.TenSanPham.Contains(TenSp)).ToList();
+            //}
             return View(view);
         }
         public IActionResult HienThiSanPhamChiTiet(Guid id)
@@ -173,8 +179,8 @@ namespace CTN4_View.Controllers.Shop
             if (giamgiact.LoaiGiamGia == true)
             {
 
-               var message = $"Nhập Mã {giamgiact.MaGiam} còn ( {giamgiact.SoLuong} lượt). \n" +
-              $"Giảm {giamgiact.SoTienGiam}đ cho đơn hàng từ {giamgiact.DieuKienGiam}đ";
+                var message = $"Nhập Mã {giamgiact.MaGiam} còn ( {giamgiact.SoLuong} lượt). \n" +
+               $"Giảm {giamgiact.SoTienGiam}đ cho đơn hàng từ {giamgiact.DieuKienGiam}đ";
 
                 TempData["Notification"] = message;
                 return RedirectToAction("HienThiSanPhamChiTiet", new { id = idSp, message });
@@ -187,7 +193,7 @@ namespace CTN4_View.Controllers.Shop
                 TempData["Notification"] = message;
                 return RedirectToAction("HienThiSanPhamChiTiet", new { id = idSp, message });
             }
-            
+
         }
         [HttpPost]
         public string CheckBoxChatLieu(/*[FromBody] FilterData filter*/)
@@ -205,15 +211,50 @@ namespace CTN4_View.Controllers.Shop
             return "oke la";
 
         }
-        [HttpGet]
-        //[Route("/SearchGiaTien/{min}/[max]")]
-        public IActionResult SearchGiaTien(float min, float max)
-        {
-            var view = _sanPhamCuaHangService.TimKiemTenKhoangGia(min, max);
-            float maxPrice = _sanPhamCuaHangService.MaxTien();
-            ViewBag.MaxPrice = maxPrice;
-            return View(view);
 
+        [HttpGet]
+        public IActionResult Search(int page, string TenSp)
+        {
+            var searchTenSp = _sanPhamChiTietService.GetAll();
+            if (!string.IsNullOrEmpty(TenSp))
+            {
+
+                if (page == null) { page = 1; }
+                var danhMuc = _danhMucService.GetAll();
+                var danhMucChiTiets = _danhMucChiTiet.GetAll();
+                var listSp = _sanPhamCuaHangService.GetAll().Where(c => c.Is_detele == true && c.TenSanPham.Contains(TenSp)).ToList();
+                //var mauSacs = _mauSacService.GetAll();
+                var chatLieus = _chatLieuService.GetAll();
+                //var listSpct = _sanPhamChiTietService.GetAll();
+
+                //var Paging = _CTN4_Ok.SanPhamChiTiets.Include(c => c.ChatLieu).Include(c => c.NSX).Include(c => c.Mau).Include(c => c.Size).Include(c => c.SanPham).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+                var view = new HienThiSanPhamView()
+                {
+                    danhMucs = danhMuc,
+                    danhMucChiTiets = danhMucChiTiets,
+                    sanPhams = listSp,
+                    // maus = mauSacs,
+                    chatLieus = chatLieus,
+                    //sanPhamChiTiets = listSpct,
+                    sanphampaging = listSp.Skip((page - 1) * pageSize).Take(pageSize).ToList(),
+                    pagingInfo = new PagingInfo()
+                    {
+                        TotalItems = listSp.Count(),
+                        CurrentPage = page,
+                        ItemsPerPage = 6,
+
+                    }
+                };
+                return View("HienThiSanPham", view);
+            }
+            else
+            {
+                var thongbaoSearch = "Không tìm thất sản phẩm nào ";
+                TempData["Notification"] = thongbaoSearch;
+                return RedirectToAction("HienThiSanPham", new { thongbaoSearch });
+            }
+            return RedirectToAction("HienThiSanPham");
         }
     }
 }
