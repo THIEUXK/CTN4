@@ -18,11 +18,30 @@ namespace CTN4_Serv.Service
         {
             _db = new DB_CTN4_ok();
         }
+        public List<SanPham> GetAllProduct()
+        {
+            return _db.SanPhams.ToList();
+        }
         public List<SanPham> GetAll()
         {
             return _db.SanPhams.Include(c => c.ChatLieu).Include(c => c.NSX).ToList();
         }
 
+        public List<SanPham> GetAllBySearch(string MaSp)
+        {
+            if(string.IsNullOrEmpty(MaSp))
+            {
+                return _db.SanPhams.ToList();
+            }
+            else
+            {
+               
+                var product = _db.SanPhams.Where(p => p.MaSp.Equals(MaSp)).ToList();
+                return product;
+            }
+            
+            
+        }
         public SanPham GetById(Guid id)
         {
             return GetAll().FirstOrDefault(c => c.Id == id);
