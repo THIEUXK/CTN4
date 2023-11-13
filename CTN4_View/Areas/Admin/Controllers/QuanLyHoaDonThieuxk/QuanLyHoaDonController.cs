@@ -222,5 +222,61 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             };
             return View("XemChiTiet", view);
         }
+     
+        public IActionResult XemChuaXacNhan()
+        {
+            var hd = _hoaDonService.GetAll();
+            var view = new ThieuxkViewAdmin()
+            {
+                hoaDons = hd.Where(c=>c.TrangThai== "Đang chờ xử lí").ToList(),
+            };
+            return View("Index",view);
+        }
+        public IActionResult XemDaXacNhan()
+        {
+            var hd = _hoaDonService.GetAll();
+            var view = new ThieuxkViewAdmin()
+            {
+                hoaDons = hd.Where(c => c.TrangThai != "Đang chờ xử lí").ToList(),
+            };
+            return View("Index",view);
+        }
+        public IActionResult TimKiem(string ten)
+        {
+            if (ten==null)
+            {
+                return RedirectToAction("Index");
+            }
+            var hd = _hoaDonService.GetAll();
+            var view = new ThieuxkViewAdmin()
+            {
+                hoaDons = hd.Where(c => c.MaHoaDon.ToLower().Contains(ten.ToLower())||c.TenKhachHang.ToLower().Contains(ten.ToLower())).ToList(),
+            };
+            return View("Index", view);
+        }
+        public IActionResult TimKiemNgay(DateTime NgayDau, DateTime NgayCuoi)
+        {
+            if (NgayDau == DateTime.Parse("01/01/0001 12:00:00 SA") || NgayCuoi==DateTime.Parse("01/01/0001 12:00:00 SA"))
+            {
+                return RedirectToAction("Index");
+            }
+            else if (NgayDau>NgayCuoi)
+            {
+                var message = "Ngày bắt đầu phải nhỏ hơn ngày kết thúc !";
+                TempData["TB1"] = message;
+                return RedirectToAction("Index", new { message });
+            }
+            else
+            {
+                var hd = _hoaDonService.GetAll();
+                var view = new ThieuxkViewAdmin()
+                {
+                    hoaDons = hd.Where(c => c.NgayTaoHoaDon > NgayDau && c.NgayTaoHoaDon < NgayCuoi).ToList(),
+                };
+                return View("Index", view);
+            }
+           
+        }
+
     }
 }
