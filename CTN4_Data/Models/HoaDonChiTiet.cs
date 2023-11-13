@@ -9,7 +9,7 @@
         public bool Is_detele { get; set; }
 
         public Guid? IdSanPhamChiTiet { get; set; }
-        public Guid? IdHoaDon { get; set; }
+        public int? IdHoaDon { get; set; }
         public virtual HoaDon? HoaDon { get; set; }
         public virtual SanPhamChiTiet? SanPhamChiTiet { get; set; }
     }
