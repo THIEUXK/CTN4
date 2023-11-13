@@ -171,7 +171,7 @@ namespace CTN4_View.Controllers.Shop
             {
                 var gh = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == accnew[0].Id);
                 IEnumerable<GioHangChiTiet> ghct = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh.Id);
-                if (ghct.Count()==0)
+                if (ghct.Count() == 0)
                 {
                     var message = "Giỏ hàng đang trống hãy thêm sản phẩm của bạn để tiến hàng đặt hàng";
                     TempData["TB4"] = message;
@@ -185,12 +185,12 @@ namespace CTN4_View.Controllers.Shop
                 }
                 var a = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh.Id);
                 var nguoidung = _khachHangService.GetAll().FirstOrDefault(c => c.Id == accnew[0].Id);
-                var diachinhanhang = _diaChiNhanHangService.GetAll().Where(c => c.IdKhachHang == accnew[0].Id).FirstOrDefault(c=>c.TrangThai==true);
+                var diachinhanhang = _diaChiNhanHangService.GetAll().Where(c => c.IdKhachHang == accnew[0].Id).FirstOrDefault(c => c.TrangThai == true);
 
                 var view2 = new GioHangView()
                 {
-                    DiaChiNhanHang=diachinhanhang,
-                    KhachHang=nguoidung,
+                    DiaChiNhanHang = diachinhanhang,
+                    KhachHang = nguoidung,
                     GioHangChiTiets = a,
                     TongTien = tong,
                     listDiaChi = _diaChiNhanHangService.GetAll().Where(c => c.IdKhachHang == accnew[0].Id).Select(s => new SelectListItem
@@ -203,26 +203,26 @@ namespace CTN4_View.Controllers.Shop
                         Value = s.Id.ToString(),
                         Text = s.TenPhuongThuc
                     }).ToList(),
-                    
+
                 };
-               
+
                 return View(view2);
             }
             else
             {
                 return RedirectToAction("login", "Home");
-                
+
             }
         }
 
         [HttpPost("/CheckOut/GetTotalShipping")]
         public async Task<JsonResult> GetTotalShipping([FromBody] ShippingOrder shippingOrder)
         {
-           
+
             var hang = new TinhTienShip()
             {
                 service_id = shippingOrder.service_id,
-                insurance_value = shippingOrder.insurance_value,              
+                insurance_value = shippingOrder.insurance_value,
                 from_district_id = shippingOrder.from_district_id,
                 to_district_id = shippingOrder.to_district_id,
                 to_ward_code = shippingOrder.to_ward_code.ToString(),
@@ -237,8 +237,8 @@ namespace CTN4_View.Controllers.Shop
             var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
             var respose = await _httpClient.PostAsync(url, content);
 
-            
-            
+
+
             if (accnew.Count != 0)
             {
                 var gh = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == accnew[0].Id);
@@ -273,7 +273,7 @@ namespace CTN4_View.Controllers.Shop
                 //{
                 //    = tong + 52000
                 //};
-                
+
 
             }
             else
@@ -288,7 +288,7 @@ namespace CTN4_View.Controllers.Shop
                 Shipping shipping = new Shipping()
                 {
                     totaloder = tong + 50000
-            };
+                };
                 //if (respose.IsSuccessStatusCode)
                 //{
                 //    string jsonData2 = respose.Content.ReadAsStringAsync().Result;
@@ -297,7 +297,7 @@ namespace CTN4_View.Controllers.Shop
                 //    HttpContext.Session.SetInt32("shiptotal", shipping.data.total);
                 //}
 
-                
+
                 return Json(shipping, new System.Text.Json.JsonSerializerOptions());
 
             }
@@ -320,7 +320,7 @@ namespace CTN4_View.Controllers.Shop
                 {
                     tong += float.Parse(x.SanPhamChiTiet.SanPham.GiaNiemYet.ToString()) * (x.SoLuong);
 
-                }           
+                }
                 Shipping shipping = new Shipping()
                 {
                     totaloder = tong + 52000
@@ -359,7 +359,7 @@ namespace CTN4_View.Controllers.Shop
 
         }
 
-        public IActionResult HoanThanhThanhToan(string name,string DiachiNhanChiTiet,string Sodienthoai,string Email,string addDiaChi, Guid IdDiaChi,Guid idphuongthuc,string ghiChu,float tienship,float tongtien)
+        public IActionResult HoanThanhThanhToan(string name, string DiachiNhanChiTiet, string Sodienthoai, string Email, string addDiaChi, Guid IdDiaChi, Guid idphuongthuc, string ghiChu, float tienship, float tongtien)
         {
             if (addDiaChi == null)
             {
@@ -378,38 +378,38 @@ namespace CTN4_View.Controllers.Shop
                 }
             }
             int idHoaDon;
-          var hh=  _HoaDonService.GetAll().ToList();
-            if (hh.Count==0)
+            var hh = _HoaDonService.GetAll().ToList();
+            if (hh.Count == 0)
             {
-                 idHoaDon = 1;
+                idHoaDon = 1;
             }
             else
             {
-                int a = hh.Count();
-                 idHoaDon = hh[a-1].Id+1;
+
+                idHoaDon = hh.Max(c => c.Id) + 1;
             }
-            
+
             var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
             var gh = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == accnew[0].Id);
             if (accnew.Count != 0 && gh != null)
             {
-                if (idphuongthuc== Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971211114"))
+                if (idphuongthuc == Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971211114"))
                 {
-                  
+
                 }
                 else
                 {
-                    
+
                     //Tạo hóa đơn mới
                     var hd = new HoaDon()
                     {
-                        Id = idHoaDon,
-                        MaHoaDon=$"HD0{idHoaDon}",
+                        //Id = idHoaDon,
+                        MaHoaDon = $"HD0{idHoaDon}",
                         NgayTaoHoaDon = DateTime.Now,
                         DiaChi = DiachiNhanChiTiet + " " + addDiaChi,
                         TrangThai = "Đang chờ xử lí",
                         TongTien = tongtien,
-                        TienShip=tienship,
+                        TienShip = tienship,
                         NgayDat = DateTime.Now,
                         TrangThaiThanhToan = false,
                         Email = Email,
@@ -431,14 +431,16 @@ namespace CTN4_View.Controllers.Shop
                         return RedirectToAction("ThuTucThanhToan", "BanHang", new { message });
                     }
 
+                    
 
                     //Thêm chi tiết hóa đơn cho từng sản phẩm trong giỏ hàng
                     foreach (var ct in _GioHangChiTiet.GetAll().Where(c => c.IdGioHang == gh.Id))
                     {
+                        
                         var cthd = new HoaDonChiTiet()
                         {
                             Id = Guid.NewGuid(),
-                            IdHoaDon = idHoaDon, //Id của hóa đơn vừa tạo
+                            IdHoaDon = hd.Id, //Id của hóa đơn vừa tạo
                             IdSanPhamChiTiet = ct.IdSanPhamChiTiet,
                             SoLuong = ct.SoLuong,
                             GiaTien = ct.SanPhamChiTiet.SanPham.GiaNiemYet,
@@ -462,74 +464,24 @@ namespace CTN4_View.Controllers.Shop
                     }
                 }
             }
-                
+
             else
             {
                 return RedirectToAction("login", "Home");
-                //Guid idHoaDon = Guid.NewGuid();
-                ////Tạo hóa đơn mới
-                //int tong = 0;
-                //var ghnull = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == null);
-                //foreach (var inso in _GioHangChiTiet.GetAll().Where(c => c.IdGioHang == ghnull.Id))
-                //{
-                //    tong += Int32.Parse(inso.SoLuong.ToString()) *
-                //            Int32.Parse(inso.SanPhamChiTiet.SanPham.GiaNiemYet.ToString());
-                //}
-
-                //var hd = new HoaDon()
-                //{
-                //    Id = idHoaDon,
-                //    NgayTaoHoaDon = DateTime.Now,
-                //    DiaChi = "",
-                //    TenKhachHang = "",
-                //    SDTNguoiNhan = "",
-                //    TrangThai = "Đang chờ xử lí",
-                //    TongTien = tong,
-                //    NgayDat = DateTime.Now,
-                //    IdPhuongThuc = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971211111")
-
-                //};
-                //if (_HoaDonService.Them(hd) == false)
-                //{
-                //    var message = "thanh toán lỗi(1)";
-                //    TempData["ErrorMessage"] = message;
-                //    return RedirectToAction("ThuTucThanhToan", "BanHang", new { message });
-                //}
-
-
-                ////Thêm chi tiết hóa đơn cho từng sản phẩm trong giỏ hàng
-                //foreach (var ct in _GioHangChiTiet.GetAll().Where(c => c.IdGioHang == ghnull.Id))
-                //{
-                //    var cthd = new HoaDonChiTiet()
-                //    {
-                //        Id = Guid.NewGuid(),
-                //        IdHoaDon = idHoaDon, //Id của hóa đơn vừa tạo
-                //        IdSanPhamChiTiet = ct.IdSanPhamChiTiet,
-                //        SoLuong = ct.SoLuong,
-                //        GiaTien = ct.SanPhamChiTiet.SanPham.GiaNiemYet,
-                //        TrangThai = true,
-                //        Is_detele = true,
-                //    };
-                //    if (_HoaDonChiTiet.Them(cthd) == false)
-                //    {
-                //        var message = "thanh toán lỗi(2)";
-                //        TempData["ErrorMessage"] = message;
-                //        return RedirectToAction("ThuTucThanhToan", "BanHang", new { message });
-                //    }
-
-                //    //Trừ số lượng sản phẩm trong CSDL
-                //    if (_GioHangChiTiet.Xoa(ct.Id) == false) //Xóa các bản ghi mà người dùng thêm vào trong giỏ hàng
-                //    {
-                //        var message = "thanh toán lỗi(3)";
-                //        TempData["ErrorMessage"] = message;
-                //        return RedirectToAction("ThuTucThanhToan", "BanHang", new { message });
-                //    }
-                //}
+                
             }
 
             return RedirectToAction("SauThanhToan", idHoaDon);
         }
+        //public int TraVeIdHoaDon()
+        //{
+        //    var hh2 = _HoaDonService.GetAll().ToList();
+        //    if (hh2.Count == 0)
+        //    {
+        //        int idHoaDon2 = hh2.Max(c => c.Id);
+        //    }
 
+        //}
         public IActionResult HoaDon()
         {
             var a = _HoaDonService.GetAll();
