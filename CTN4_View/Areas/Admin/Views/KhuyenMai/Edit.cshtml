@@ -3,247 +3,308 @@
 @{
     ViewData["Title"] = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
-    var lstSp = ViewBag.lstSp as List<CTN4_Data.Models.DB_CTN4.SanPham>;
 }
+<style>
+    .default-option {
+        font-size: 12px; /* Điều chỉnh kích thước chữ theo ý muốn của bạn */
+    }
+
+   
+    #hideTrangThai {
+        display: none;
+    }
+
+</style>
 
 
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
+<input id="Idkm" type="hidden" value="@Model.Id"/>
+
 <div class="row">
     <div class="col-md-9">
         <br></br>
         <br></br>
 
-        <h1>Edit</h1>
-
-        <h4>KhuyenMai</h4>
-        <hr />
         <div class="row">
             <div class="col-md-9">
-                <form asp-action="Edit">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <div class="form-group">
-                        <label asp-for="MaKhuyenMai" class="control-label"></label>
-                        <input asp-for="MaKhuyenMai" class="form-control" />
-                        <span asp-validation-for="MaKhuyenMai" class="text-danger"></span>
+                <br />
+                <h1>Tạo khuyễn mãi</h1>
+                <hr />
+
+                <div class="row">
+                    <div class="col-md-9">
+                        <form asp-action="Edit">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                            <div class="form-group">
+                                <label asp-for="MaKhuyenMai" class="control-label"></label>
+                                <input asp-for="MaKhuyenMai" class="form-control" readonly />
+                                <span asp-validation-for="MaKhuyenMai" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group" id="DonggiaGroup">
+                                <label asp-for="SoTienGiam" class="control-label"></label>
+                                <input asp-for="SoTienGiam" class="form-control" readonly />
+                                <span asp-validation-for="SoTienGiam" class="text-danger"></span>
+                            </div>
+                          
+                            <div class="form-group" id="DonggiaGroup">
+                                <label asp-for="DongGia" class="control-label"></label>
+                                <input asp-for="DongGia" class="form-control" readonly />
+                                <span asp-validation-for="DongGia" class="text-danger"></span>
+                            </div>
+                            <div class="form-group" id="phanTramGroup">
+                                <label asp-for="PhanTramGiamGia" class="control-label"></label>
+                                <input asp-for="PhanTramGiamGia" class="form-control" readonly />
+                                <span asp-validation-for="PhanTramGiamGia" class="text-danger"></span>
+                            </div>
+                            <div id="hideTrangThai" class="form-group">
+                                <label asp-for="TrangThai" class="control-label"></label>
+                                <input asp-for="TrangThai" class="form-control" readonly />
+                                <span asp-validation-for="TrangThai" class="text-danger"></span>
+                            </div>
+                            <div id="hideTrangThai" class="form-group">
+                                <label asp-for="Is_Detele" class="control-label"></label>
+                                <input asp-for="Is_Detele" class="form-control" readonly />
+                                <span asp-validation-for="Is_Detele" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="NgayBatDau" class="control-label"></label>
+                                <input asp-for="NgayBatDau" class="form-control" pattern="\d*" oninput="validateNumber(this);" readonly />
+                                <span asp-validation-for="NgayBatDau" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="NgayKetThuc" class="control-label"></label>
+                                <input asp-for="NgayKetThuc" class="form-control" readonly />
+                                <span asp-validation-for="NgayKetThuc" class="text-danger"></span>
+                            </div>
+
+                            <div>
+                                <h4>_________________________________________________</h4>
+                                <a asp-action="Index">Back to List</a>
+                            </div>
+                        </form>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="PhanTramGiamGia" class="control-label"></label>
-                        <input id="PhanTramGiamGia" asp-for="PhanTramGiamGia" class="form-control" />
-                        <span asp-validation-for="PhanTramGiamGia" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="NgayBatDau" class="control-label"></label>
-                        <input asp-for="NgayBatDau" class="form-control" />
-                        <span asp-validation-for="NgayBatDau" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="NgayKetThuc" class="control-label"></label>
-                        <input asp-for="NgayKetThuc" class="form-control" />
-                        <span asp-validation-for="NgayKetThuc" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="SoTienGiam" class="control-label"></label>
-                        <input id="SoTienGiam" asp-for="SoTienGiam" class="form-control" />
-                        <span asp-validation-for="SoTienGiam" class="text-danger"></span>
-                    </div>
-                    <div class="form-group form-check">
-                        <label class="form-check-label">
-                            <input class="form-check-input" asp-for="TrangThai" /> @Html.DisplayNameFor(model => model.TrangThai)
-                        </label>
-                    </div>
-                    <div class="form-group form-check">
-                        <label class="form-check-label">
-                            <input class="form-check-input" asp-for="Is_Detele" /> @Html.DisplayNameFor(model => model.Is_Detele)
-                        </label>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" value="Save" class="btn btn-primary" />
-                    </div>
-                    <div>
-                        <h4>_________________________________________________</h4>
-                        <a asp-action="Index">Back to List</a>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
-
-    </div>
-</div>
+        <div id="images"></div>
 <button id="updateGiaButton" class="btn btn-primary">Cập nhật Giá Sản Phẩm</button>
 <button id="huyApDungButton" class="btn btn-primary">Hủy áp dụng khuyến mại</button>
+      
+        <div id="productSelect">
+        </div>
+        <div id="productList">
+            <!-- Danh sách sản phẩm sẽ được hiển thị ở đây -->
 
-<label for="lstSp">Filter by san pham:</label>
-    <select name="lstSp" id="lstSp">
-        <option value="">All</option>
-        <option value="MaSp">Ma sp</option>
-        <option value="TenSanPham">Ten sp</option>
-        <option value="TenChatLieu">Ten Chat Lieu</option>
-        <option value="TenNSX">Ten NSX</option>
-        <option value="MoTa">Mo Ta</option>
-        <option value="GiaNhap">Gia Nhap</option>
-        <option value="GiaBan">Gia Ban</option>
-        <option value="GiaNiemYet">Gia Niem Yet</option>
-        <option value="GhiChu">Ghi Chu</option>
-        <!-- Thêm các tùy chọn danh mục khác nếu cần -->
-    </select>
-    <input type="submit" value="Filter" />
+        </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                <p>Ma Sp</p>
-            </th>
-            <th>
-                <p>TenSanPham</p>
-            </th>
-            <th>
-                ChatLieu
-            </th>
-            <th>
-                Nsx
-            </th>
-            <th>
-                Mô tả
-
-            </th>
-            <th>
-                Giá nhập
-
-            </th>
-            <th>
-                Giá bán
-
-            </th>
-            <th>
-                Giá niêm yết
-
-            </th>
-            <th>
-                Ghi chú
-
-            </th>
-            <th>
-                Trạng Thái
-
-            </th>
-            <th>
-                Ảnh
-
-            </th>
-            <th>
-                CheckBox
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (lstSp != null && lstSp.Count() > 0)
-        {
-            @foreach (var item in lstSp)
-            {
-                <tr>
-
-                    <td>
-                        @Html.DisplayFor(modelItem => item.MaSp)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TenSanPham)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ChatLieu.TenChatLieu)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NSX.TenNSX)
-                    </td>
-
-
-                    <td>
-                        @Html.DisplayFor(modelItem => item.MoTa)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.GiaNhap)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.GiaBan)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.GiaNiemYet)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.GhiChu)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TrangThai)
-                    </td>
-                    <td>
-                        <tb>
-                            @if (System.IO.Path.GetExtension(item.AnhDaiDien) == ".jpg" ||
-                           System.IO.Path.GetExtension(item.AnhDaiDien) == ".png" ||
-                           System.IO.Path.GetExtension(item.AnhDaiDien) == ".jpeg" ||
-                           System.IO.Path.GetExtension(item.AnhDaiDien) == ".tiff" ||
-                           System.IO.Path.GetExtension(item.AnhDaiDien) == ".webp" ||
-                           System.IO.Path.GetExtension(item.AnhDaiDien) == ".gif")
-                            {
-                                <img src="~/image/@item.AnhDaiDien" height="300">
-                            }
-                            else
-                            {
-                                <a>ảnh lỗi</a>
-                            }
-                        </tb>
-                    </td>
-                    <td>
-                        <input type ="checkbox" class="id-sp-button" data-id-sp="@item.Id">
-                    </td>
-
-                </tr>
-            }
-        }
-
-    </tbody>
-</table>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
-    var selectedMaSps = [];
 
-    // Lấy tất cả các nút cột MaSp
-    var maSpButtons = document.querySelectorAll('.id-sp-button');
-
-    maSpButtons.forEach(function (button) {
-        button.addEventListener('click', function () {
-            var maSp = button.getAttribute('data-id-sp');
-            if (selectedMaSps.includes(maSp)) {
-                // Nếu mã đã được chọn, bỏ nó ra khỏi mảng
-                selectedMaSps = selectedMaSps.filter(function (item) {
-                    return item !== maSp;
+            $(document).ready(function () {
+                Data(); // Populate initial data for select
+                fetchDataFromIndexAction(); // Initial fetch
+               
+                $('#productSelect').on('change', function () {
+                    var selectedName = $('#searchSelect').val();
+                    alert("sdadd");
+                    searchProduct(selectedName); // Trigger search with the selected value
                 });
-            } else {
-                // Nếu mã chưa được chọn, thêm nó vào mảng
-                selectedMaSps.push(maSp);
+            
+            });
+
+            function validateNumber(input) {
+                // Xóa bất kỳ ký tự không phải số
+                input.value = input.value.replace(/\D/g, '');
             }
 
-            // Hiển thị mã sản phẩm đã chọn trong console.log
-            console.log('Mã sản phẩm đã chọn:', selectedMaSps);
-        });
-    });
+            var selectedMaSps = [];
 
+
+            // Lấy tất cả các nút cột MaSp
+            var productList = document.getElementById('productList');
+            var productSelect = document.getElementById('productSelect');
+            productList.addEventListener('click', function (event) {
+                if (event.target.classList.contains('id-sp-button')) {
+                    var maSp = event.target.getAttribute('data-id-sp');
+                    console.log('Mã sản phẩm:', maSp);
+
+                    if (selectedMaSps.includes(maSp)) {
+                        // Nếu mã đã được chọn, bỏ nó ra khỏi mảng
+                        selectedMaSps = selectedMaSps.filter(function (item) {
+                            return item !== maSp;
+                        });
+                    } else {
+                        // Nếu mã chưa được chọn, thêm nó vào mảng
+                        selectedMaSps.push(maSp);
+                    }
+
+                    // Hiển thị mã sản phẩm đã chọn trong console.log
+                    console.log('Mã sản phẩm đã chọn:', selectedMaSps);
+                }
+            });
+            //
+        function MspProductList(data) {
+                    var mspSelect = "<select class='form-select' aria-label='Default select example'>";
+
+                    mspSelect += "<option selected>Mã Sp</option>";
+
+                    if (data.length > 0) {
+                        // Iterate through the data array and add options
+                        data.forEach(function (item) {
+                            mspSelect += `<option value='${item.id}'>${item.maSp}</option>`;
+                        });
+                    } else {
+                        mspSelect += "<option disabled>No data available</option>";
+                    }
+
+                    mspSelect += "</select>";
+            productSelect.innerHTML = mspSelect;
+        }
+            function updateProductList(data) {
+                var productListHTML = "<table class='table'>";
+                productListHTML += "<tr><th>Product Name</th><th>Mã Sp</th><th>Giá Nhập</th><th>Giá bán</th><th>Giá Niêm yết</th><th>Ảnh Đại diện</th><th>CheckBox</th></tr>";
+
+                if (data.length > 0) {
+                    productListHTML += data.map(item =>
+                        `<tr>
+                            <td>${item.tenSanPham}</td>
+                            <td>${item.maSp}</td>
+                            <td>${item.giaNhap}</td>
+                            <td>${item.giaBan}</td>
+                            <td>${item.giaNiemYet}</td>
+                            <td><img src='/image/${item.anhDaiDien}' height='100' alt='Product Image'></td>
+                            <td><input type="checkbox" class="id-sp-button" data-id-sp='${item.id ? item.id : ""}'/></td>
+                        </tr>`
+                    ).join('');
+
+                } else {
+                    productListHTML += "<tr><td colspan='6'>No matching products found</td></tr>";
+                }
+
+                productListHTML += "</table>";
+                productList.innerHTML = productListHTML;
+            }
+
+
+
+            function fetchDataFromIndexAction() {
+                $.ajax({
+                    url: '/admin/KhuyenMai/Getallsp',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        console.log(data);
+                     
+                        updateProductList(data); // Update product list
+                    },
+                    error: function (error) {
+                        console.log("Đã xảy ra lỗi: ", error);
+                    }
+                });
+            }
+
+            function searchProduct(name) {
+                $.ajax({
+                    url: '/admin/KhuyenMai/SearchProduct',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: { name: name },
+                    success: function (data) {
+                        var productListHTML = "<table class='table'>";
+                        productListHTML += "<tr><th>Product Name</th><th>Mã Sp</th><th>Giá Nhập</th><th>Giá bán</th><th>Giá Niêm yết</th><th>Ảnh Đại diện</th><th>CheckBox</th></tr>";
+
+                        if (data.length > 0) {
+                            productListHTML += data.map(item =>
+                                `<tr>
+                                        <td>${item.tenSanPham}</td>
+                                        <td>${item.maSp}</td>
+                                        <td>${item.giaNhap}</td>
+                                        <td>${item.giaBan}</td>
+                                        <td>${item.giaNiemYet}</td>
+                                        <td><img src='/image/${item.anhDaiDien}' height='100' alt='Product Image'></td>
+                                        <td><input type="checkbox" class="id-sp-button" data-id-sp='${item.id ? item.id : ""}'/></td>
+                                    </tr>`
+                            ).join('');
+
+                        } else {
+                            productListHTML += "<tr><td colspan='6'>No matching products found</td></tr>";
+                        }
+
+                        productListHTML += "</table>";
+                        productList.innerHTML = productListHTML;
+                    },
+                    error: function (error) {
+                        console.log("Đã xảy ra lỗi: ", error);
+                    }
+                });
+            }
+
+           function Data() {
+           $.ajax({
+          url: '/admin/KhuyenMai/Getallsp',
+          type: 'GET',
+          dataType: 'json',
+          success: function (data) {
+              var selectList = document.getElementById('productSelect'); // Thay 'productList' bằng 'productSelect'
+              var selectListHTML = "<select id='searchSelect'>";
+
+              selectListHTML += "<option value=''>Chọn sản phẩm</option>";
+
+              data.forEach(function (item) {
+                            selectListHTML += "<option value='" + item.maSp + "'>" + item.maSp + "</option>";
+              });
+
+              selectListHTML += "</select>";
+              selectList.innerHTML = selectListHTML; // Cập nhật nội dung của productSelect
+          },
+          error: function (error) {
+              console.log("Đã xảy ra lỗi: ", error);
+          }
+      });
+  }
+
+            // function populateSearchSelect(data) {
+            //     var selectList = document.getElementById('searchSelect');
+            //     var selectListHTML = "<select>";
+
+            //     selectListHTML += "<option value=''>Chọn sản phẩm</option>";
+
+            //     // data.forEach(function (item) {
+            //     //     selectListHTML += "<option value='" + item.name + "'>" + item.name + "</option>";
+            //     // });
+
+            //     selectListHTML += "</select>";
+            //     selectList.innerHTML = selectListHTML;
+            // }
+ 
 
     // Lấy tham chiếu đến nút theo ID
     var updateGiaButton = document.getElementById("updateGiaButton");
-    var huyApDungButton = document.getElementById("huyApDungButton");
-
+    // var huyApDungButton = document.getElementById("huyApDungButton");
+    var search = document.getElementById("searchButton");
     // Gắn sự kiện click vào nút
     updateGiaButton.addEventListener("click", function () {
         updateGiaSanPham();
     });
-    huyApDungButton.addEventListener("click", function () {
-        huyApDungKhuyenMai();
-    });
+    // huyApDungButton.addEventListener("click", function () {
+    //     huyApDungKhuyenMai();
+    // });
+   //  search.addEventListener("click", function () {
+   // //     updateView();
+   //  });
 
     function updateGiaSanPham() {
         var giamTheoTien = parseFloat($("#SoTienGiam").val());
         var giamTheoPh = parseFloat($("#PhanTramGiamGia").val());
+                var DongGia = parseFloat($("#DongGia").val());
         // Lấy giá trị của các trường dữ liệu từ form hoặc từ các phần tử HTML khác
         var ids = selectedMaSps // Mảng chứa các giá trị của Ids      
 
@@ -254,7 +315,8 @@
         var data = {
             Ids: ids,
             giamTheoTien: giamTheoTien,
-            giamTheoPh: giamTheoPh
+            giamTheoPh: giamTheoPh,
+            DongGia :DongGia
         };
 
         // Gọi AJAX
@@ -307,6 +369,8 @@
             }
         });
     }
+   
+
 </script>
 @if (ViewBag.ErrorMessage != null)
 {
@@ -314,3 +378,109 @@
         @ViewBag.ErrorMessage
     </div>
 }
+<script>
+    document.getElementById('updateGiaButton').addEventListener('click', function () {
+        // Reload lại trang
+        location.reload();  
+
+    });
+</script>
+
+
+        @*  @using (Html.BeginForm("SearchProduct", "KhuyenMai", new { Model.Id }, method:FormMethod.Post))
+        {
+
+        <input type="submit" value="Tim Kiem" class="btn btn-primary" />
+        <form id="searchForm">
+
+
+
+
+        <table class="table" style="width: 100%;">
+        <thead>
+        <tr>
+        <th>
+        <select name="MaSp" id="MaSp" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+        <option disabled selected class="default-option">Mã Sản Phẩm</option>
+        @foreach (var item in ViewBag.lstSp as List<CTN4_Data.Models.DB_CTN4.SanPham>)
+        {
+        <option value="@item.MaSp">@item.MaSp</option>
+        }
+        </select>
+        </th>
+        <th>Tên Sản Phẩm</th>
+        <th>
+        <select name="TenCl" id="TenCl" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+        <option disabled selected class="default-option">Chất Liệu</option>
+        @foreach (var item in ViewBag.lstcl as List<CTN4_Data.Models.DB_CTN4.ChatLieu>)
+        {
+        <option value="@item.TenChatLieu">@item.TenChatLieu</option>
+        }
+        </select>
+        </th>
+        <th>
+        <select name="TenNsx" id="TenNsx" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+        <option disabled selected class="default-option">Nhà Sản Xuất</option>
+        @foreach (var item in ViewBag.lstnsx as List<CTN4_Data.Models.DB_CTN4.NSX>)
+        {
+        <option value="@item.TenNSX">@item.TenNSX</option>
+        }
+        </select>
+        </th>
+        <th>Mô tả</th>
+        <th>Giá nhập</th>
+        <th>Giá bán</th>
+        <th>Giá niêm yết</th>
+        <th>Ghi chú</th>
+        <th>Trạng Thái</th>
+        <th>Ảnh</th>
+        <th>CheckBox</th>
+        </tr>
+        </thead>
+        <tbody>
+        @if (ViewBag.lstSp2 as List<CTN4_Data.Models.DB_CTN4.SanPham> != null &&
+        (ViewBag.lstSp2 as List<CTN4_Data.Models.DB_CTN4.SanPham>).Count() > 0)
+        {
+        @foreach (var item in ViewBag.lstSp2 as List<CTN4_Data.Models.DB_CTN4.SanPham>)
+        {
+        <tr>
+        <td>@Html.DisplayFor(modelItem => item.MaSp)</td>
+        <td>@Html.DisplayFor(modelItem => item.TenSanPham)</td>
+        <td>@Html.DisplayFor(modelItem => item.ChatLieu.TenChatLieu)</td>
+        <td>@Html.DisplayFor(modelItem => item.NSX.TenNSX)</td>
+        <td>@Html.DisplayFor(modelItem => item.MoTa)</td>
+        <td>@Html.DisplayFor(modelItem => item.GiaNhap)đ</td>
+        <td>@Html.DisplayFor(modelItem => item.GiaBan)đ</td>
+        <td>@Html.DisplayFor(modelItem => item.GiaNiemYet)đ</td>
+        <td>@Html.DisplayFor(modelItem => item.GhiChu)</td>
+        <td>@Html.DisplayFor(modelItem => item.TrangThai)</td>
+        <td>
+        <div>
+        @if (System.IO.Path.GetExtension(item.AnhDaiDien) == ".jpg" ||
+        System.IO.Path.GetExtension(item.AnhDaiDien) == ".png" ||
+        System.IO.Path.GetExtension(item.AnhDaiDien) == ".jpeg" ||
+        System.IO.Path.GetExtension(item.AnhDaiDien) == ".tiff" ||
+        System.IO.Path.GetExtension(item.AnhDaiDien) == ".webp" ||
+        System.IO.Path.GetExtension(item.AnhDaiDien) == ".gif")
+        {
+        <img src="~/image/@item.AnhDaiDien" height="100" alt="Product Image">
+        }
+        else
+        {
+        <span>Ảnh lỗi</span>
+        }
+        </div>
+        </td>
+        <td>
+        <input type="checkbox" class="id-sp-button" data-id-sp="@item.Id">
+        </td>
+        </tr>
+        }
+        }
+        </tbody>
+        </table>
+
+
+
+        </form>
+        } *@
