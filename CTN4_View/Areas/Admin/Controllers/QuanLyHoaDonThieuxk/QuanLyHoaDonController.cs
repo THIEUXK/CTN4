@@ -24,7 +24,12 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             };
             return View(view);
         }
-        public IActionResult XemChiTiet(Guid id)
+        public IActionResult aa()
+        {
+          
+            return View();
+        }
+        public IActionResult XemChiTiet(int id)
         {
             var hd = _hoaDonService.GetById(id);
             var hdct = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
@@ -35,7 +40,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             };
             return View(view);
         }
-        public IActionResult XacNhanDonHang(Guid id)
+        public IActionResult XacNhanDonHang(int id)
         {
             var hd = _hoaDonService.GetById(id);
             hd.TrangThai = "Đang chuẩn bị hàng";
@@ -48,7 +53,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             };
             return View("XemChiTiet", view);
         }
-        public IActionResult XacNhanGiaoHang(Guid id)
+        public IActionResult XacNhanGiaoHang(int id)
         {
             var hd = _hoaDonService.GetById(id);
             if (hd.TrangThai == "Đang chuẩn bị hàng")
@@ -72,7 +77,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             };
             return View("XemChiTiet", view);
         }
-        public IActionResult XacNhanThanhToan(Guid id)
+        public IActionResult XacNhanThanhToan(int id)
         {
             var hd = _hoaDonService.GetById(id);
             if (hd.TrangThai != "Giao hàng thành công")
@@ -96,7 +101,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             };
             return View("XemChiTiet", view);
         }
-        public IActionResult XacNhanNhanHang(Guid id)
+        public IActionResult XacNhanNhanHang(int id)
         {
             var hd = _hoaDonService.GetById(id);
             if (hd.TrangThai == "Hàng của bạn đang được giao" && hd.TrangThaiThanhToan == true)
@@ -120,7 +125,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             };
             return View("XemChiTiet", view);
         }
-        public IActionResult HuyDon(Guid id)
+        public IActionResult HuyDon(int id)
         {
             var hd = _hoaDonService.GetById(id);
             if (hd.NgayGiao == null)
@@ -144,7 +149,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             };
             return View("XemChiTiet", view);
         }
-        public IActionResult GiaoHangThatBai(Guid id)
+        public IActionResult GiaoHangThatBai(int id)
         {
             var hd = _hoaDonService.GetById(id);
             if (hd.NgayGiao != null)
@@ -167,7 +172,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             };
             return View("XemChiTiet", view);
         }
-        public IActionResult BoSanPham(Guid idHDCT, Guid idHD)
+        public IActionResult BoSanPham(Guid idHDCT, int idHD)
         {
             var hd = _hoaDonService.GetById(idHD);
             var hdct= _hoaDonChiTietService.GetById(idHDCT);
@@ -192,7 +197,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             };
             return View("XemChiTiet", view);
         }
-        public IActionResult HoanTacSp(Guid idHDCT, Guid idHD)
+        public IActionResult HoanTacSp(Guid idHDCT, int idHD)
         {
             var hd = _hoaDonService.GetById(idHD);
             var hdct = _hoaDonChiTietService.GetById(idHDCT);
