@@ -67,22 +67,29 @@
                         {
                             <div class="alert alert-danger">@TempData["TB2"]</div>
                         }
+                        @if (TempData["TBDC"] != null)
+                        {
+                            <div class="alert alert-danger">@TempData["TBDC"]</div>
+                        }
                         @if (Model.DiaChiNhanHang != null)
                         {
-                            <div class="col-md-6 form-group p_star">
-                                <label>Địa chỉ :</label>
-                                <input type="text" class="form-control" value="@Model.DiaChiNhanHang.DiaChi" id="adressnew" name="" disabled></input>
-
-                                <input type="hidden" class="form-control" value="@Model.DiaChiNhanHang.DiaChi" id="diachinay" name="addDiaChi"></input>
-                            </div>
-                        }
-                        else
-                        {
+                            <input type="hidden" name="tienship" value="" id="tienship1"></input>
                             <div class="col-md-6 form-group p_star">
                                 <label>Địa chỉ :</label>
                                 <input type="text" class="form-control" id="adressnew" name="" disabled></input>
 
                                 <input type="hidden" class="form-control" id="diachinay" value="" name="addDiaChi"></input>
+                                <span><input type="button" onclick="onsubmit(a)">Thêm</span>
+                            </div>
+                        }
+                        else
+                        {
+                            <input type="hidden" name="tienship" value="" id="tienship1"></input>
+                            <div class="col-md-6 form-group p_star">
+                                <label>Địa chỉ :</label>
+                                <input type="text" class="form-control" id="adressnew" name="" value="" disabled></input>
+                                <input type="hidden" class="form-control" id="diachinay" value="" name="addDiaChi"></input>
+                                <span><in id="themdiachi">Thêm</in></span>
                             </div>
                         }
 
@@ -91,17 +98,17 @@
                         <div class="col-md-6 form-group">
                             <label>Chọn chọn địa chỉ có sẵn của bạn<span class="text-danger"></span></label>
                             <span class="text-danger"></span>
-                            <select class="custom-select"
 
-                        <select asp-for="IdDiaChi"  class="form-control" id="diachicosan">
-                            <option value="0"> Chọn chọn địa chỉ có sẵn của bạn</option>
-                                    @foreach (var a in Model.listDiaChi)
-                                    {
-                                                                        <option value="@a.Value">@a.Text</option>
-                                    }
-                        </select>
 
-                          </select>
+                            <select asp-for="IdDiaChi" class="custom-select" id="diachicosan">
+                                <option value="0"> Chọn chọn địa chỉ có sẵn của bạn</option>
+                                @foreach (var a in Model.listDiaChi)
+                                {
+                                    <option value="@a.Value">@a.Text</option>
+                                }
+                            </select>
+
+
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Chọn Tỉnh/thành<span class="text-danger"></span></label>
@@ -135,16 +142,16 @@
                         <div class="col-md-6 form-group">
                             <label>Phương thức thanh toán<span class="text-danger"></span></label>
                             <span class="text-danger"></span>
-                            <select class="custom-select"
-                            
-                        <select asp-for="idphuongthuc" class="form-control">
-                            <option value=""> Chọn phương thức thanh toán</option>
-                                    @foreach (var a in Model.listPhuongThucs)
-                                    {
-                                                                    <option value="@a.Value">@a.Text</option>
-                                    }
-                        </select>
-                        </select>
+
+
+                            <select asp-for="idphuongthuc" class="custom-select">
+                                <option value=""> Chọn phương thức thanh toán</option>
+                                @foreach (var a in Model.listPhuongThucs)
+                                {
+                                    <option value="@a.Value">@a.Text</option>
+                                }
+                            </select>
+
                         </div>
 
 
@@ -178,7 +185,7 @@
                             @if (Model.DiaChiNhanHang != null)
                             {
                                 <ul class="list">
-                                    <li><a href="#">Tiền ship :<span><b id="tienship"  style="color:black">52.000đ </b></span></a></li>
+                                    <li><a href="#">Tiền ship :<span><b id="tienship" style="color:black">52.000đ </b></span></a></li>
                                 </ul>
                             }
                             <ul class="list">

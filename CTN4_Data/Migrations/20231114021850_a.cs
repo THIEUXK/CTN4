@@ -104,7 +104,9 @@ namespace CTN4_Data.Migrations
                     NgayBatDau = table.Column<DateTime>(type: "datetime2", nullable: false),
                     NgayKetThuc = table.Column<DateTime>(type: "datetime2", nullable: false),
                     SoTienGiam = table.Column<float>(type: "real", nullable: false),
+                    DongGia = table.Column<float>(type: "real", nullable: false),
                     TrangThai = table.Column<bool>(type: "bit", nullable: false),
+                    Ghichu = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Is_Detele = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -219,12 +221,13 @@ namespace CTN4_Data.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DiaChi = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TrangThai = table.Column<bool>(type: "bit", nullable: false),
+                    TrangThai = table.Column<bool>(type: "bit", nullable: true),
+                    TienShip = table.Column<float>(type: "real", nullable: true),
                     IdKhachHang = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    code = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    division_type = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    phone_code = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    codename = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    code = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    division_type = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    phone_code = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    codename = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -643,15 +646,15 @@ namespace CTN4_Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "KhuyenMais",
-                columns: new[] { "Id", "Is_Detele", "MaKhuyenMai", "NgayBatDau", "NgayKetThuc", "PhanTramGiamGia", "SoTienGiam", "TrangThai" },
+                columns: new[] { "Id", "DongGia", "Ghichu", "Is_Detele", "MaKhuyenMai", "NgayBatDau", "NgayKetThuc", "PhanTramGiamGia", "SoTienGiam", "TrangThai" },
                 values: new object[,]
                 {
-                    { new Guid("13effe44-e728-48a8-9baa-967da4ee38cd"), true, "km04", new DateTime(2023, 7, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 8, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, 22000f, true },
-                    { new Guid("23bdd26c-d7a3-4307-8e22-d230b653d611"), true, "km03", new DateTime(2023, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 20, 0f, true },
-                    { new Guid("da810cca-4fca-4291-a52b-875841d49e34"), true, "km02", new DateTime(2023, 7, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, 50000f, true },
-                    { new Guid("e3e37e9e-7ea3-4f87-94af-1329363a4322"), true, "km06", new DateTime(2023, 10, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 25, 0f, true },
-                    { new Guid("f877e80d-2b32-43b0-be70-cf3b15113056"), true, "km01", new DateTime(2023, 7, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 50, 0f, true },
-                    { new Guid("fa1ae994-6ab0-4ee6-b8b1-ff336cf994a8"), true, "km05", new DateTime(2023, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 10, 0f, true }
+                    { new Guid("13effe44-e728-48a8-9baa-967da4ee38cd"), 0f, null, true, "km04", new DateTime(2023, 7, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 8, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, 22000f, true },
+                    { new Guid("23bdd26c-d7a3-4307-8e22-d230b653d611"), 0f, null, true, "km03", new DateTime(2023, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 20, 0f, true },
+                    { new Guid("da810cca-4fca-4291-a52b-875841d49e34"), 0f, null, true, "km02", new DateTime(2023, 7, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, 50000f, true },
+                    { new Guid("e3e37e9e-7ea3-4f87-94af-1329363a4322"), 0f, null, true, "km06", new DateTime(2023, 10, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 25, 0f, true },
+                    { new Guid("f877e80d-2b32-43b0-be70-cf3b15113056"), 0f, null, true, "km01", new DateTime(2023, 7, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 50, 0f, true },
+                    { new Guid("fa1ae994-6ab0-4ee6-b8b1-ff336cf994a8"), 0f, null, true, "km05", new DateTime(2023, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 10, 0f, true }
                 });
 
             migrationBuilder.InsertData(
