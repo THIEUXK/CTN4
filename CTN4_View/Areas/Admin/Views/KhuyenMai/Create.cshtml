@@ -6,7 +6,44 @@
 }
 
 
+<style>
+    .form-container {
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        margin: 20px;
+        position: relative; /* Đặt vị trí của form là relative để có thể đặt vị trí tuyệt đối cho nội dung trong form */
+    }
 
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        .form-group .text-danger {
+            display: block;
+            margin-top: 5px;
+        }
+
+    .corner-text {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 10px;
+        font-size: 14px;
+    }
+</style>
 
 
 <div>
@@ -22,56 +59,148 @@
         <hr />
         <div class="row">
             <div class="col-md-9">
-                <form asp-action="Create">
+                <form asp-action="Create" id="create-form">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                   
-                    <div class="form-group">
-                        <label asp-for="MaKhuyenMai" class="control-label"></label>
-                        <input asp-for="MaKhuyenMai" class="form-control" />
-                        <span asp-validation-for="MaKhuyenMai" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="PhanTramGiamGia" class="control-label"></label>
-                        <input asp-for="PhanTramGiamGia" class="form-control" />
-                        <span asp-validation-for="PhanTramGiamGia" class="text-danger"></span>
-                    </div>
+                    <div class="form-container">
+                        <div class="corner-text" onclick="generateRandomCode()">Random Code Generator</div>
+                     
+                            <div class="form-group">
+                                <label asp-for="MaKhuyenMai" class="control-label"></label>
+                            <input asp-for="MaKhuyenMai" id="MaKhuyenMai" class="form-control" />
+                                <span asp-validation-for="MaKhuyenMai" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Ghichu" class="control-label"></label>
+                                <input asp-for="Ghichu" class="form-control" />
+                                <span asp-validation-for="Ghichu" class="text-danger"></span>
+                            </div>
+                            </div>
+                            <!-- Thêm 'type="button"' để ngăn chặn sự kiện submit mặc định của form -->
+                        
+
+                    <div class="form-container">
                     <div class="form-group">
                         <label asp-for="NgayBatDau" class="control-label"></label>
                         <input asp-for="NgayBatDau" class="form-control" />
                         <span asp-validation-for="NgayBatDau" class="text-danger"></span>
                     </div>
+
                     <div class="form-group">
                         <label asp-for="NgayKetThuc" class="control-label"></label>
                         <input asp-for="NgayKetThuc" class="form-control" />
                         <span asp-validation-for="NgayKetThuc" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="SoTienGiam" class="control-label"></label>
-                        <input asp-for="SoTienGiam" class="form-control" />
-                        <span asp-validation-for="SoTienGiam" class="text-danger"></span>
                     </div>
-                    <div class="form-group form-check">
-                        <label class="form-check-label">
-                            <input class="form-check-input" asp-for="TrangThai" /> @Html.DisplayNameFor(model => model.TrangThai)
-                        </label>
+
+                    <div class="form-container">
+                        <th>
+                            <select class="form-select form-select-lg mb-3" id="selectOption">
+                                <option disabled selected class="default-option">Chọn...</option>
+                                <option value="1">Đồng giá</option>
+                                <option value="2">Giảm Giá Sản Phẩm</option>
+                            </select>
+                        </th>
                     </div>
-                    <div class="form-group form-check">
-                        <label class="form-check-label">
-                            <input class="form-check-input" asp-for="Is_Detele" /> @Html.DisplayNameFor(model => model.Is_Detele)
-                        </label>
+
+                    <div class="form-container" id="soTienGiamGroup" style="display: none;">  
+                            <select id="luaChonGiamGia" class="form-select" aria-label="Default select example">
+                                <option selected disabled>Chọn giảm giá theo... </option>
+                                <option value="1">Giảm Giá theo %</option>
+                                <option value="2">Giảm Giá theo tiền</option>
+                            </select>
+                        <div class="form-group" id="phanTramGroup" style="display: none;">
+                            <label asp-for="PhanTramGiamGia" class="control-label"></label>
+                            <input asp-for="PhanTramGiamGia" class="form-control" />
+                            <span asp-validation-for="PhanTramGiamGia" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group" id="soTienGroup" style="display: none;">
+                            <label asp-for="SoTienGiam" class="control-label"></label>
+                            <input asp-for="SoTienGiam" class="form-control" />
+                            <span asp-validation-for="SoTienGiam" class="text-danger"></span>
+                        </div>
+                    </div>  
+                    <div class="form-container" id="dongGiaGroup" style="display: none;">
+                        
+                            <label asp-for="DongGia" class="control-label"></label>
+                            <input asp-for="DongGia" class="form-control" />
+                            <span asp-validation-for="DongGia" class="text-danger"></span>
+                       
                     </div>
+
+
                     <div class="form-group">
                         <input type="submit" value="Create" class="btn btn-primary" />
                     </div>
+                </form>
                     <div>
                         <h4>_________________________________________________</h4>
                         <a asp-action="Index">Back to List</a>
                     </div>
-                </form>
+                    </div>
+                                      
             </div>
         </div>
-
-    </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+            <!-- Mã JavaScript để xử lý tạo mã tự động và hiển thị ô nhập liệu phù hợp -->
+            <script>
+    document.getElementById("luaChonGiamGia").addEventListener("change", function () {
+        var luaChon = this.value;
+        if (luaChon === "1") {
+            document.getElementById("phanTramGroup").style.display = "block";
+            document.getElementById("soTienGroup").style.display = "none";
+        } else if (luaChon === "2") {
+            document.getElementById("phanTramGroup").style.display = "none";
+            document.getElementById("soTienGroup").style.display = "block";
+        } else {
+            document.getElementById("phanTramGroup").style.display = "none";
+            document.getElementById("soTienGroup").style.display = "none";
+        }
+    });
+
+    $(document).ready(function () {
+        // Ẩn tất cả các nhóm khi trang được load lên
+        $("#giaDonViGroup, #soTienGiamGroup, #dongGiaGroup").hide();
+
+        // Xử lý sự kiện khi select thay đổi giá trị
+        $("#selectOption").change(function () {
+            // Ẩn tất cả các nhóm trước khi hiển thị nhóm mới
+            $("#giaDonViGroup, #soTienGiamGroup, #dongGiaGroup").hide();
+
+            // Lấy giá trị của select
+            var selectedOption = $(this).val();
+
+            // Hiển thị nhóm tương ứng
+            if (selectedOption === "1") {
+                $("#dongGiaGroup").show();
+            } else if (selectedOption === "2") {
+                $("#soTienGiamGroup").show();
+            }
+        });
+    });
+
+    // Hoặc nếu bạn muốn đặt giá trị mặc định khi có sự kiện khác, bạn có thể sử dụng
+    // một hàm JavaScript và gọi nó từ sự kiện đó.
+    function setDefaultValue() {
+        document.getElementById('loaiGiamGia').value = '1'; // Chọn giảm giá sản phẩm
+    }
+
+        // Hoặc nếu bạn muốn đặt giá trị mặc định khi có sự kiện khác, bạn có thể sử dụng
+        // một hàm JavaScript và gọi nó từ sự kiện đó.
+        function setDefaultValue() {
+            document.getElementById('loaiGiamGia').value = '1'; // Chọn giảm giá sản phẩm
+        }
+
+                function generateRandomCode() {
+                    var randomCode = "KM" + Math.floor(Math.random() * 1000);
+                    document.getElementById("MaKhuyenMai").value = randomCode;
+                }
+        
+            </script>
+
+
+     
 
 
