@@ -139,7 +139,7 @@
 
                     let adress = $("#diachicosan option:selected").text();
                     $("#tienship").html(`${(x1)}`);
-                    $("#tongtien").html(` ${(x2)}đ`);
+                    $("#tongtien").html(` ${(x2)}`);
                     $("#tienship1").val(result.TienShip);
                     $("#tongtien1").val(result.totaloder);
                     $("#diachinay").val(adress).html(`${(adress)}`);

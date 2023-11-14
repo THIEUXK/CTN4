@@ -458,8 +458,17 @@ namespace CTN4_View.Controllers.Shop
         //}
         public IActionResult HoaDon()
         {
-            var a = _HoaDonService.GetAll();
-            return View(a);
+            var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
+            if (accnew.Count != 0)
+            {
+                var a = _HoaDonService.GetAll().Where(c => c.IdKhachHang == accnew[0].Id);
+                return View(a);
+            }
+            else
+            {
+                return RedirectToAction("login", "Home");
+            }
+            
         }
         public IActionResult HoaDonChiTiet(int id)
         {

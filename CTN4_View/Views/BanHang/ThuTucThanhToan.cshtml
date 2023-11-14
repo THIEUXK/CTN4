@@ -77,9 +77,7 @@
                             <div class="col-md-6 form-group p_star">
                                 <label>Địa chỉ :</label>
                                 <input type="text" class="form-control" id="adressnew" name="" disabled></input>
-
                                 <input type="hidden" class="form-control" id="diachinay" value="" name="addDiaChi"></input>
-                                <span><input type="button" onclick="onsubmit(a)">Thêm</span>
                             </div>
                         }
                         else
@@ -215,7 +213,7 @@
         public string FormatCurrency(float price)
         {
             string formattedPrice = string.Format("{0:N0}", price); // Định dạng số và thêm dấu phân cách ngàn
-            return formattedPrice + "₫"; // Thêm ký hiệu đồng (₫) vào cuối
+            return formattedPrice +" "+ "VND"; // Thêm ký hiệu đồng (₫) vào cuối
         }
     }
 </script>
