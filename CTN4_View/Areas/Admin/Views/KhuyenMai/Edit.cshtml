@@ -13,7 +13,42 @@
     #hideTrangThai {
         display: none;
     }
+    .form-container {
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        margin: 20px;
+        position: relative; /* Đặt vị trí của form là relative để có thể đặt vị trí tuyệt đối cho nội dung trong form */
+    }
 
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        .form-group .text-danger {
+            display: block;
+            margin-top: 5px;
+        }
+
+    .corner-text {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 10px;
+        font-size: 14px;
+    }
 </style>
 
 
@@ -23,44 +58,62 @@
 
 <input id="Idkm" type="hidden" value="@Model.Id"/>
 
-<div class="row">
-    <div class="col-md-9">
-        <br></br>
-        <br></br>
-
-        <div class="row">
+        <div class="row" style="margin-top: 100px">
             <div class="col-md-9">
                 <br />
-                <h1>Tạo khuyễn mãi</h1>
+                <h1>Thên sản phẩm vào Khuyễn Mãi</h1>
                 <hr />
 
                 <div class="row">
                     <div class="col-md-9">
                         <form asp-action="Edit">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
+                            <div class="form-container">
                             <div class="form-group">
-                                <label asp-for="MaKhuyenMai" class="control-label"></label>
+                                <label asp-for="MaKhuyenMai" class="control-label"> Mã khuyến mại</label>
                                 <input asp-for="MaKhuyenMai" class="form-control" readonly />
                                 <span asp-validation-for="MaKhuyenMai" class="text-danger"></span>
                             </div>
-
-                            <div class="form-group" id="DonggiaGroup">
-                                <label asp-for="SoTienGiam" class="control-label"></label>
-                                <input asp-for="SoTienGiam" class="form-control" readonly />
+                            <div class="form-group">
+                                <label asp-for="Ghichu" class="control-label"> Mã khuyến mại</label>
+                                <input asp-for="Ghichu" class="form-control" readonly />
+                                <span asp-validation-for="Ghichu" class="text-danger"></span>
+                            </div>
+                            </div>
+                            <div class="form-container">
+                            <div class="form-group">
+                                <label asp-for="DongGia" class="control-label">Đồng giá</label>
+                                <div class="input-group">
+                                    <input id="DongGia" asp-for="DongGia" class="form-control formatted-number" readonly />
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">đ</span>
+                                    </div>
+                                </div>
                                 <span asp-validation-for="SoTienGiam" class="text-danger"></span>
                             </div>
-                          
-                            <div class="form-group" id="DonggiaGroup">
-                                <label asp-for="DongGia" class="control-label"></label>
-                                <input asp-for="DongGia" class="form-control" readonly />
-                                <span asp-validation-for="DongGia" class="text-danger"></span>
+                            <div class="form-group">
+                                <label asp-for="SoTienGiam" class="control-label">Số tiền giảm</label>
+                                <div class="input-group">
+                                    <input id="SoTienGiam" asp-for="SoTienGiam" class="form-control formatted-number" readonly />
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">đ</span>
+                                    </div>
+                                </div>
+                                <span asp-validation-for="SoTienGiam" class="text-danger"></span>
                             </div>
-                            <div class="form-group" id="phanTramGroup">
-                                <label asp-for="PhanTramGiamGia" class="control-label"></label>
-                                <input asp-for="PhanTramGiamGia" class="form-control" readonly />
+
+                            <div class="form-group">
+                                <label asp-for="PhanTramGiamGia" class="control-label">Phần trăm giảm</label>
+                                <div class="input-group">
+                                    <input id="PhanTramGiamGia" asp-for="PhanTramGiamGia" class="form-control" readonly />
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">%</span>
+                                    </div>
+                                </div>
                                 <span asp-validation-for="PhanTramGiamGia" class="text-danger"></span>
                             </div>
+                            
+                           </div>
                             <div id="hideTrangThai" class="form-group">
                                 <label asp-for="TrangThai" class="control-label"></label>
                                 <input asp-for="TrangThai" class="form-control" readonly />
@@ -71,21 +124,20 @@
                                 <input asp-for="Is_Detele" class="form-control" readonly />
                                 <span asp-validation-for="Is_Detele" class="text-danger"></span>
                             </div>
-
+                            <div class="form-container">
                             <div class="form-group">
-                                <label asp-for="NgayBatDau" class="control-label"></label>
+                                <label asp-for="NgayBatDau" class="control-label">Ngày bắt đầu</label>
                                 <input asp-for="NgayBatDau" class="form-control" pattern="\d*" oninput="validateNumber(this);" readonly />
                                 <span asp-validation-for="NgayBatDau" class="text-danger"></span>
                             </div>
 
                             <div class="form-group">
-                                <label asp-for="NgayKetThuc" class="control-label"></label>
+                                <label asp-for="NgayKetThuc" class="control-label">Ngày kết thúc</label>
                                 <input asp-for="NgayKetThuc" class="form-control" readonly />
                                 <span asp-validation-for="NgayKetThuc" class="text-danger"></span>
                             </div>
-
+                            </div>
                             <div>
-                                <h4>_________________________________________________</h4>
                                 <a asp-action="Index">Back to List</a>
                             </div>
                         </form>
@@ -97,7 +149,7 @@
 <button id="updateGiaButton" class="btn btn-primary">Cập nhật Giá Sản Phẩm</button>
 <button id="huyApDungButton" class="btn btn-primary">Hủy áp dụng khuyến mại</button>
       
-        <div id="productSelect">
+        <div id="productSelect" style="margin-top:50px">
         </div>
         <div id="productList">
             <!-- Danh sách sản phẩm sẽ được hiển thị ở đây -->
@@ -106,7 +158,29 @@
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
+            // $(document).ready(function () {
+            //     $('.formatted-number').on('input', function () {
+            //         let value = $(this).val();
+            //         value = value.replace(/[^0-9]/g, '');
+            //         value = value.replace(/\B(?=(\d{3})+(?!\d))/g, '');
+
+            //         // Hiển thị giá trị và chữ "đ"
+            //         $(this).val(value);
+            //         $(this).next('.input-group-addon').text('đ');
+            //     });
+            // });
+            // $(document).ready(function () {
+            //     // Đối với trường PhanTramGiamGia
+            //     $('#PhanTramGiamGia').on('input', function () {
+            //         let value = $(this).val();
+            //         value = value.replace(/[^0-9]/g, '');
+
+            //         // Hiển thị giá trị và chữ "%"
+            //         $(this).val(value);
+            //     });
+            // });
 
             $(document).ready(function () {
                 Data(); // Populate initial data for select
@@ -114,7 +188,7 @@
                
                 $('#productSelect').on('change', function () {
                     var selectedName = $('#searchSelect').val();
-                    alert("sdadd");
+                  
                     searchProduct(selectedName); // Trigger search with the selected value
                 });
             
@@ -170,21 +244,20 @@
         }
             function updateProductList(data) {
                 var productListHTML = "<table class='table'>";
-                productListHTML += "<tr><th>Product Name</th><th>Mã Sp</th><th>Giá Nhập</th><th>Giá bán</th><th>Giá Niêm yết</th><th>Ảnh Đại diện</th><th>CheckBox</th></tr>";
+                productListHTML += "<tr><th>Mã Sp</th><th>Tên Sản Phẩm  </th><th>Giá Nhập</th><th>Giá bán</th><th>Giá Niêm yết</th><th>Ảnh Đại diện</th><th>CheckBox</th></tr>";
 
                 if (data.length > 0) {
                     productListHTML += data.map(item =>
                         `<tr>
-                            <td>${item.tenSanPham}</td>
-                            <td>${item.maSp}</td>
-                            <td>${item.giaNhap}</td>
-                            <td>${item.giaBan}</td>
-                            <td>${item.giaNiemYet}</td>
+                             <td>${item.maSp}</td>
+                             <td>${item.tenSanPham}</td>
+                            <td>${formatCurrency(item.giaNhap)}đ</td>
+                            <td>${formatCurrency(item.giaBan)}đ</td>
+                            <td>${formatCurrency(item.giaNiemYet)}đ</td>
                             <td><img src='/image/${item.anhDaiDien}' height='100' alt='Product Image'></td>
                             <td><input type="checkbox" class="id-sp-button" data-id-sp='${item.id ? item.id : ""}'/></td>
                         </tr>`
                     ).join('');
-
                 } else {
                     productListHTML += "<tr><td colspan='6'>No matching products found</td></tr>";
                 }
@@ -193,6 +266,10 @@
                 productList.innerHTML = productListHTML;
             }
 
+            // Hàm định dạng số với dấu chấm ngăn cách hàng nghìn
+            function formatCurrency(number) {
+                return number.toLocaleString('en-US');
+            }
 
 
             function fetchDataFromIndexAction() {
@@ -219,21 +296,20 @@
                     data: { name: name },
                     success: function (data) {
                         var productListHTML = "<table class='table'>";
-                        productListHTML += "<tr><th>Product Name</th><th>Mã Sp</th><th>Giá Nhập</th><th>Giá bán</th><th>Giá Niêm yết</th><th>Ảnh Đại diện</th><th>CheckBox</th></tr>";
+                        productListHTML += "<tr><th>Mã Sp</th><th>Tên Sản Phẩm</th><th>Giá Nhập</th><th>Giá bán</th><th>Giá Niêm yết</th><th>Ảnh Đại diện</th><th>CheckBox</th></tr>";
 
                         if (data.length > 0) {
                             productListHTML += data.map(item =>
                                 `<tr>
-                                        <td>${item.tenSanPham}</td>
-                                        <td>${item.maSp}</td>
-                                        <td>${item.giaNhap}</td>
-                                        <td>${item.giaBan}</td>
-                                        <td>${item.giaNiemYet}</td>
+                                                    <td>${item.maSp}</td>
+                                                    <td>${item.tenSanPham}</td>
+                                        <td>${formatCurrency(item.giaNhap)}đ</td>
+                                        <td>${formatCurrency(item.giaBan)}đ</td>
+                                        <td>${formatCurrency(item.giaNiemYet)}đ</td>
                                         <td><img src='/image/${item.anhDaiDien}' height='100' alt='Product Image'></td>
                                         <td><input type="checkbox" class="id-sp-button" data-id-sp='${item.id ? item.id : ""}'/></td>
                                     </tr>`
                             ).join('');
-
                         } else {
                             productListHTML += "<tr><td colspan='6'>No matching products found</td></tr>";
                         }
@@ -304,7 +380,7 @@
     function updateGiaSanPham() {
         var giamTheoTien = parseFloat($("#SoTienGiam").val());
         var giamTheoPh = parseFloat($("#PhanTramGiamGia").val());
-                var DongGia = parseFloat($("#DongGia").val());
+        var DongGia = parseFloat($("#DongGia").val());
         // Lấy giá trị của các trường dữ liệu từ form hoặc từ các phần tử HTML khác
         var ids = selectedMaSps // Mảng chứa các giá trị của Ids      
 
@@ -318,7 +394,7 @@
             giamTheoPh: giamTheoPh,
             DongGia :DongGia
         };
-
+        console.log(data);
         // Gọi AJAX
         $.ajax({
             url: '/admin/KhuyenMai/UpdateGiaSanPham', // Thay thế ControllerName bằng tên thật của controller
@@ -384,6 +460,7 @@
         location.reload();  
 
     });
+         
 </script>
 
 

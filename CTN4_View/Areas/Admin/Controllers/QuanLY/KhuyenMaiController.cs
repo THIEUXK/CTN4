@@ -50,7 +50,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         // POST: KhuyenMaiController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(KhuyenMai a)
+        public ActionResult Creates(KhuyenMai a)
         {
 
             a.TrangThai = true;
