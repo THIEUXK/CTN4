@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using CTN4_Data.Models;
 using CTN4_Data.Models.DB_CTN4;
 using Microsoft.EntityFrameworkCore;
 
@@ -37,6 +38,8 @@ namespace CTN4_Data.DB_Context
         public DbSet<SanPham> SanPhams { get; set; }
         public DbSet<SanPhamChiTiet> SanPhamChiTiets { get; set; }
         public DbSet<Size> Sizes { get; set; }
+        public DbSet<LichSuHoaDon> LichSuHoaDons { get; set; }
+
 
 
 
