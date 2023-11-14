@@ -148,13 +148,26 @@
         <div id="images"></div>
 <button id="updateGiaButton" class="btn btn-primary">Cập nhật Giá Sản Phẩm</button>
 <button id="huyApDungButton" class="btn btn-primary">Hủy áp dụng khuyến mại</button>
-      
-        <div id="productSelect" style="margin-top:50px">
+<div class="row" style="margin: 20px;" >
+   
+        <div class="col-md-3">
+        <div class="control-label" id="productSelect">
+                <!-- Nội dung của productSelect -->
+            </div>
         </div>
+
+      <div class="col-md-3">
+            
+            <input id="searchproduct" placeholder="Tìm kiếm" class="form-control" />
+        </div>
+    </div>
+   
+
         <div id="productList">
             <!-- Danh sách sản phẩm sẽ được hiển thị ở đây -->
 
         </div>
+
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -190,9 +203,15 @@
                     var selectedName = $('#searchSelect').val();
                   
                     searchProduct(selectedName); // Trigger search with the selected value
+
                 });
-            
+        $('#searchproduct').on('change', function () {
+            var search = $('#searchproduct').val();
+
+            searchFull(search); // Trigger search with the selected value
+        });
             });
+         
 
             function validateNumber(input) {
                 // Xóa bất kỳ ký tự không phải số
@@ -322,7 +341,40 @@
                     }
                 });
             }
+    function searchFull(product) {
+        $.ajax({
+            url: '/admin/KhuyenMai/SearchFull',
+            type: 'GET',
+            dataType: 'json',
+            data: { dieukien: product },
+            success: function (data) {
+                var productListHTML = "<table class='table'>";
+                productListHTML += "<tr><th>Mã Sp</th><th>Tên Sản Phẩm</th><th>Giá Nhập</th><th>Giá bán</th><th>Giá Niêm yết</th><th>Ảnh Đại diện</th><th>CheckBox</th></tr>";
 
+                if (data.length > 0) {
+                    productListHTML += data.map(item =>
+                        `<tr>
+                                                        <td>${item.maSp}</td>
+                                                        <td>${item.tenSanPham}</td>
+                                            <td>${formatCurrency(item.giaNhap)}đ</td>
+                                            <td>${formatCurrency(item.giaBan)}đ</td>
+                                            <td>${formatCurrency(item.giaNiemYet)}đ</td>
+                                            <td><img src='/image/${item.anhDaiDien}' height='100' alt='Product Image'></td>
+                                            <td><input type="checkbox" class="id-sp-button" data-id-sp='${item.id ? item.id : ""}'/></td>
+                                        </tr>`
+                    ).join('');
+                } else {
+                    productListHTML += "<tr><td colspan='6'>No matching products found</td></tr>";
+                }
+
+                productListHTML += "</table>";
+                productList.innerHTML = productListHTML;
+            },
+            error: function (error) {
+                console.log("Đã xảy ra lỗi: ", error);
+            }
+        });
+    }
            function Data() {
            $.ajax({
           url: '/admin/KhuyenMai/Getallsp',
@@ -330,9 +382,9 @@
           dataType: 'json',
           success: function (data) {
               var selectList = document.getElementById('productSelect'); // Thay 'productList' bằng 'productSelect'
-              var selectListHTML = "<select id='searchSelect'>";
+                var selectListHTML = "<select id='searchSelect'  class='form-select'>";
 
-              selectListHTML += "<option value=''>Chọn sản phẩm</option>";
+              selectListHTML += "<option value=''>Chọn Mã Sp</option>";
 
               data.forEach(function (item) {
                             selectListHTML += "<option value='" + item.maSp + "'>" + item.maSp + "</option>";
@@ -345,8 +397,9 @@
               console.log("Đã xảy ra lỗi: ", error);
           }
       });
-  }
 
+  }
+  
             // function populateSearchSelect(data) {
             //     var selectList = document.getElementById('searchSelect');
             //     var selectListHTML = "<select>";

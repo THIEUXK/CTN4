@@ -102,10 +102,16 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             }
             catch (Exception)
             {
-                throw;
+               return View();
             }
         }
-
+        public ActionResult SearchFull(string dieukien)
+        {
+         
+                var search = _sp.TimSanPhamTheoDieuKien(dieukien);
+                return Json(search);
+           
+        }
         public ActionResult Getallcl()
         {
 
