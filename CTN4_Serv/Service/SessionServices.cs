@@ -40,6 +40,16 @@ namespace CTN4_Serv.Service
             }
             else return new List<KhachHang>();
         }
+        public static List<NhanVien> NhanVienSS(ISession session, string key)
+        {
+            var data = session.GetString(key); // Đọc dữ liệu từ Session ở dạng chuỗi
+            if (data != null)
+            {
+                var listObj = JsonConvert.DeserializeObject<List<NhanVien>>(data);
+                return listObj;
+            }
+            else return new List<NhanVien>();
+        }
         public static List<GioHangChiTiet> GioHangSS(ISession session, string key)
         {
             var data = session.GetString(key); // Đọc dữ liệu từ Session ở dạng chuỗi

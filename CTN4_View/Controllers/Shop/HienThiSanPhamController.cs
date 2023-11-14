@@ -10,6 +10,7 @@ using X.PagedList;
 using X.PagedList.Mvc.Core;
 using CTN4_Data.DB_Context;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Drawing.Printing;
 
 namespace CTN4_View.Controllers.Shop
 {
@@ -32,6 +33,7 @@ namespace CTN4_View.Controllers.Shop
         public DB_CTN4_ok _CTN4_Ok;
         public int pageSize = 6;
         public PagingInfo _pagingInfo;
+        public ISanPhamService _sanphamService;
 
         public HienThiSanPhamController()
         {
@@ -48,11 +50,12 @@ namespace CTN4_View.Controllers.Shop
             _giamGiaService = new GiamGiaService();
             _pagingInfo = new PagingInfo();
             _CTN4_Ok = new DB_CTN4_ok();
+            _sanphamService = new SanPhamService();
         }
-        public IActionResult HienThiSanPham(int page, string TenSp)
+        public IActionResult HienThiSanPham(int page, int Soluonghienthi)
         {
-
-            if (page == null) { page = 1; }
+            if(Soluonghienthi == 0) {Soluonghienthi = 6;}
+            if (page == 0) { page = 1; }
             var danhMuc = _danhMucService.GetAll();
             var danhMucChiTiets = _danhMucChiTiet.GetAll();
             var listSp = _sanPhamCuaHangService.GetAll().Where(c => c.Is_detele == true).ToList();
@@ -70,20 +73,17 @@ namespace CTN4_View.Controllers.Shop
                 // maus = mauSacs,
                 chatLieus = chatLieus,
                 //sanPhamChiTiets = listSpct,
-                sanphampaging = listSp.Skip((page - 1) * pageSize).Take(pageSize).ToList(),
+                sanphampaging = listSp.Skip((page - 1) * Soluonghienthi).Take(Soluonghienthi).ToList(),
                 pagingInfo = new PagingInfo()
                 {
                     TotalItems = listSp.Count(),
                     CurrentPage = page,
-                    ItemsPerPage = 6,
+                    ItemsPerPage = Soluonghienthi,
 
-                }
+                },
+                soluonghienthi = Soluonghienthi
 
             };
-            //if (!string.IsNullOrEmpty(TenSp))
-            //{
-            //    listSp = _sanPhamChiTietService.GetAll().Where(c => c.SanPham.TenSanPham.Contains(TenSp)).ToList();
-            //}
             return View(view);
         }
         public IActionResult HienThiSanPhamChiTiet(Guid id)
@@ -213,16 +213,21 @@ namespace CTN4_View.Controllers.Shop
         }
 
         [HttpGet]
-        public IActionResult Search(int page, string TenSp)
+        public IActionResult Search(int page,int Soluonghienthi, string TenSp)
         {
-            var searchTenSp = _sanPhamChiTietService.GetAll();
-            if (!string.IsNullOrEmpty(TenSp))
+            if(TenSp == null)
             {
-
-                if (page == null) { page = 1; }
+                 return RedirectToAction("HienThiSanPham");
+            }
+            var searchTenSp = _sanphamService.GetAll().Where(c=>c.TenSanPham.ToLower().Contains(TenSp.ToLower())).ToList();
+           
+            if (searchTenSp.Count !=0 )
+            {
+                 if(Soluonghienthi == 0) {Soluonghienthi = 6;}
+                if (page == 0) { page = 1; }
                 var danhMuc = _danhMucService.GetAll();
                 var danhMucChiTiets = _danhMucChiTiet.GetAll();
-                var listSp = _sanPhamCuaHangService.GetAll().Where(c => c.Is_detele == true && c.TenSanPham.Contains(TenSp)).ToList();
+                var listSp = _sanPhamCuaHangService.GetAll().Where(c => c.Is_detele == true && c.TenSanPham.ToLower().Contains(TenSp.ToLower())).ToList();
                 //var mauSacs = _mauSacService.GetAll();
                 var chatLieus = _chatLieuService.GetAll();
                 //var listSpct = _sanPhamChiTietService.GetAll();
@@ -237,24 +242,63 @@ namespace CTN4_View.Controllers.Shop
                     // maus = mauSacs,
                     chatLieus = chatLieus,
                     //sanPhamChiTiets = listSpct,
-                    sanphampaging = listSp.Skip((page - 1) * pageSize).Take(pageSize).ToList(),
+                    sanphampaging = listSp.Skip((page - 1) * Soluonghienthi).Take(Soluonghienthi).ToList(),
                     pagingInfo = new PagingInfo()
                     {
                         TotalItems = listSp.Count(),
                         CurrentPage = page,
-                        ItemsPerPage = 6,
+                        ItemsPerPage = Soluonghienthi,
 
-                    }
+                    },
+                     soluonghienthi = Soluonghienthi
                 };
                 return View("HienThiSanPham", view);
             }
             else
             {
+               
                 var thongbaoSearch = "Không tìm thất sản phẩm nào ";
                 TempData["Notification"] = thongbaoSearch;
-                return RedirectToAction("HienThiSanPham", new { thongbaoSearch });
+                return RedirectToAction("viewSpRong", new { thongbaoSearch });
             }
-            return RedirectToAction("HienThiSanPham");
+
+
+        }
+        public IActionResult viewSpRong()
+        {
+            
+            return View();
+        }
+        public IActionResult ChonShowSp(int Soluonghienthi, int page)
+        {
+             if (Soluonghienthi == 0) { Soluonghienthi = 1; }
+            if (page == 0) { page = 1; }
+            var danhMuc = _danhMucService.GetAll();
+            var danhMucChiTiets = _danhMucChiTiet.GetAll();
+            var listSp = _sanPhamCuaHangService.GetAll().Where(c => c.Is_detele == true).ToList();
+            var chatLieus = _chatLieuService.GetAll();
+            var view = new HienThiSanPhamView()
+            {
+                danhMucs = danhMuc,
+                danhMucChiTiets = danhMucChiTiets,
+                sanPhams = listSp,
+                // maus = mauSacs,
+                chatLieus = chatLieus,
+                //sanPhamChiTiets = listSpct,
+                sanphampaging = listSp.Skip((page - 1) * Soluonghienthi).Take(Soluonghienthi).ToList(),
+                pagingInfo = new PagingInfo()
+                {
+                    TotalItems = listSp.Count(),
+                    CurrentPage = page,
+                    ItemsPerPage = Soluonghienthi,
+
+                },
+                soluonghienthi = Soluonghienthi
+
+            };
+            return View("HienThiSanPham", view);
+
+
         }
     }
 }

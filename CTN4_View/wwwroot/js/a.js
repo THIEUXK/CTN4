@@ -98,9 +98,13 @@
                         $("#adressnew").val(`Địa chỉ này hiện không hỗ trợ ship`);
                     }
                     else {
+                        var x1 = result.data.total;
+                        x1 = x1.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
+                        var x2 = result.data.totaloder;
+                        x2 = x2.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
 
-                        $("#tienship").html(`${(result.data.total)}đ`);
-                        $("#tongtien").html(` ${(result.data.totaloder)}đ`);
+                        $("#tienship").html(`${(x1)}`);
+                        $("#tongtien").html(` ${(x2)}`);
                         $("#tienship1").val(result.data.total);
                         $("#tongtien1").val(result.data.totaloder);
                         let adress = $("#ward option:selected").text() + "," + $("#district option:selected").text() + "," + $("#provin option:selected").text();
@@ -122,14 +126,22 @@
                 url: '/CheckOut/chonDiaChi',
                 type: 'GET',
                 dataType: 'json',
-                /* data: JSON.stringify(obj),*/
+                data: {
+                    idDiaChiKD: idDiaChi
+
+                },
                 contentType: 'application/json',
                 success: function (result) {
+                    var x1 = result.TienShip;
+                    x1 = x1.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
+                    var x2 = result.totaloder;
+                    x2 = x2.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
+
                     let adress = $("#diachicosan option:selected").text();
-                    $("#tienship").html(`52.000đ`);
-                    $("#tongtien").html(` ${(result)}đ`);
-                    $("#tienship1").val(52000);
-                    $("#tongtien1").val(result);
+                    $("#tienship").html(`${(x1)}`);
+                    $("#tongtien").html(` ${(x2)}`);
+                    $("#tienship1").val(result.TienShip);
+                    $("#tongtien1").val(result.totaloder);
                     $("#diachinay").val(adress).html(`${(adress)}`);
                     $("#adressnew").val(adress).html(`${(adress)}`);
                 }
@@ -141,155 +153,32 @@
 
 
     });
-
-
-
-
-
-
-    //    $('#btn_order').click(function () {
-    //        if (validateForm() != false) {
-
-
-    //            var obj = {
-    //                FullName: $('#fullname_ck').val(),
-    //                Address: $('#andress_ck').val(),
-    //                Phone: $('#phone_ck').val(),
-    //                Email: $('#email_ck').val(),
-    //                Note: $('#note_ck').val(),
-    //            }
-    //            $.ajax({
-    //                url: '/CheckOut/OrderCheckOut', // đường dẫn tới endpoint của phương thức OrderCheckOut
-    //                type: 'POST', // phương thức gửi request là POST
-    //                data: JSON.stringify(obj), // chuyển đối tượng order sang định dạng JSON để gửi đi
-    //                contentType: 'application/json; charset=utf-8', // loại nội dung gửi đi là JSON
-    //                dataType: 'json', // loại dữ liệu trả về là JSON
-    //                success: function (result) {
-    //                    if (result > 1) {
-    //                        // xử lý kết quả trả về từ server
-    //                        MessageSucces("Đặt hàng thành công !");
-    //                        setTimeout(function () {
-    //                            window.location = "/Home";
-    //                        }, 3000);
-    //                    } else {
-    //                        MessageError("Đã có lỗi xảy ra vui lòng thử lại sau", 5000)
-    //                    }
-
-
-
-    //                },
-    //                error: function (error) {
-    //                    // xử lý khi có lỗi xảy ra
-    //                    MessageError(error, 5000)
-    //                }
-    //            });
+    //$('#themdiachi').click(function () {
+    //    //loadTotal();
+    //    var obj = {
+    //        DiaChi=$('#diachinay').val(),
+    //        tiennhip=$('#tienship1').val()
+    //    }
+    //    $.ajax({
+    //        url: '/CheckOut/ThemDiaChi',
+    //        type: 'Post',
+    //        dataType: 'json',
+    //        data: JSON.stringify(obj),
+    //        contentType: 'application/json',
+    //        success: function (result) {
+    //            let adress = $("#diachicosan option:selected").text();
+    //            $("#tienship").html(`${formatVND(52000)}`);
+    //            $("#tongtien").html(` ${formatVND(result)}đ`);
+    //            $("#tienship1").val(52000);
+    //            $("#tongtien1").val(result);
+    //            $("#diachinay").val(adress).html(`${(adress)}`);
+    //            $("#adressnew").val(adress).html(`${(adress)}`);
     //        }
-
-
     //    });
+
+
+
+
     //});
 
-    //function validateForm() {
-    //    // Kiểm tra họ tên
-    //    var fullName = document.getElementById("fullname_ck").value;
-    //    if (fullName == "") {
-    //        document.getElementById("mess_fullname").innerHTML = "Họ tên không được để trống";
-    //        return false;
-    //    } else {
-    //        document.getElementById("mess_fullname").innerHTML = "";
-
-    //    }
-
-    //    // Kiểm tra địa chỉ
-    //    var address = document.getElementById("andress_ck").value;
-    //    if (address == "") {
-    //        document.getElementById("mess_andress").innerHTML = "Địa chỉ không được để trống";
-    //        return false;
-    //    }
-
-    //    // Kiểm tra email
-    //    var email = document.getElementById("email_ck").value;
-    //    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    //    if (!emailPattern.test(email)) {
-    //        document.getElementById("mess_email").innerHTML = "Email không hợp lệ";
-    //        return false;
-    //    }
-
-    //    // Kiểm tra số điện thoại
-    //    var phone = document.getElementById("phone_ck").value;
-    //    var phonePattern = /(03|05|07|08|09)+([0-9]{8})\b/g;
-    //    if (!phonePattern.test(phone)) {
-    //        document.getElementById("mess_phone").innerHTML = "Số điện thoại không hợp lệ!";
-    //        return false;
-    //    } else {
-    //        document.getElementById("mess_phone").innerHTML = "";
-    //    }
-    //    // Kiểm tra tỉnh/thành
-    //    var province = document.getElementById("provin").value;
-    //    if (parseInt(province) < 1) {
-    //        document.getElementById("mess_provin").innerHTML = "Tỉnh/Thành không được để trống";
-    //        return false;
-    //    } else {
-    //        document.getElementById("mess_provin").innerHTML = "";
-    //    }
-
-    //    // Kiểm tra quận/huyện
-    //    var district = document.getElementById("district").value;
-    //    if (parseInt(district) < 1) {
-    //        document.getElementById("mess_district").innerHTML = "Quận/Huyện không được để trống";
-    //        return false;
-    //    } else {
-    //        document.getElementById("mess_district").innerHTML = "";
-    //    }
-
-
-
-    //    // Kiểm tra phường/xã
-    //    var ward = document.getElementById("ward").value;
-    //    if (parseInt(ward) < 1) {
-    //        document.getElementById("mess_ward").innerHTML = "Phường/Xã không được để trống";
-    //        return false;
-    //    } else {
-    //        document.getElementById("mess_ward").innerHTML = "";
-    //    }
-
-    //    return true;
-    //}
-
-    //function loadCartCheckout() {
-    //    $('#btn_order').show();
-    //    $.ajax({
-    //        type: 'GET',
-    //        url: '/Cart/GetCarts',
-    //        success: function (response) {
-
-    //            if (response.length > 0) {
-
-    //                var html = '';
-    //                const totalCart = response.reduce((accumulator, currentItem) => {
-    //                    return accumulator + currentItem.total;
-    //                }, 0);
-    //                html += `<h5 class="font-weight-medium mb-3">Sản phẩm</h5>`;
-    //                $.each(response, function (index, value) {
-    //                    html += ` <div class="d-flex justify-content-between">
-    //                        <p>${value.productName} Số lượng: ${value.quantity}</p>
-    //                        <p>${formatVND(value.total)}</p>
-    //                    </div>`;
-
-
-    //                });
-    //                $('#body_cart_checkout').html(html);
-
-    //                $('#total_checkout').html(`<h5 class="font-weight-bold">Tổng tiền</h5>
-    //                        <h5 class="font-weight-bold">${formatVND(totalCart)}</h5> `);
-    //            } else {
-    //                $('#btn_order').hide();
-
-    //            }
-
-    //        },
-    //        error: function (xhr, status, error) {
-    //            MessageError(error, 5000)
-    //        }
-    //    });
 });

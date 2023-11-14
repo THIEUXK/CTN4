@@ -24,10 +24,10 @@
             <hr />
             <dl class="row">
                 <dt class="col-sm-2">
-                    Id đơn hàng
+                    Mã đơn hàng
                 </dt>
                 <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.HoaDon.Id)
+                    @Html.DisplayFor(model => model.HoaDon.MaHoaDon)
                 </dd>
                 <dt class="col-sm-2">
                     Ngày tạo hóa đơn
@@ -199,7 +199,7 @@
         public string FormatCurrency(float price)
         {
             string formattedPrice = string.Format("{0:N0}", price); // Định dạng số và thêm dấu phân cách ngàn
-            return formattedPrice + "₫"; // Thêm ký hiệu đồng (₫) vào cuối
+            return formattedPrice + "VND"; // Thêm ký hiệu đồng (₫) vào cuối
         }
     };
 

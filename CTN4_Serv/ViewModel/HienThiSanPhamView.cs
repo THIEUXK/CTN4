@@ -19,11 +19,11 @@ namespace CTN4_Serv.ViewModel
         public List<DanhMucChiTiet> danhMucChiTiet2;
         public List<SanPhamChiTiet> sanPhamChiTiets;
         public PagingInfo pagingInfo { get; set; } = new PagingInfo();
-        public List<SanPham>  sanphampaging {get;set;} = new List<SanPham>();
+        public List<SanPham> sanphampaging { get; set; } = new List<SanPham>();
         public int TotalItems { get; set; }
         public int ItemsPerPage { get; set; }
         public int CurrentPage { get; set; }
         public int dem;
-        
+        public int soluonghienthi { get; set; }
     }
 }

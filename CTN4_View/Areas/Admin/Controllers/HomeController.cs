@@ -123,6 +123,20 @@ namespace CTN4_View_Admin.Controllers
         [HttpPost]
         public IActionResult DangNhapa(LoginAdmin userModel)
         {
+            var TK = _nhanvienService.GetAll().FirstOrDefault(c => c.TenDangNhap == userModel.User && c.MatKhau == userModel.Password);
+            // Đọc dữ liệu từ Session xem trong Cart nó có cái gì chưa?
+            var nvnew = SessionServices.NhanVienSS(HttpContext.Session, "ACC");
+            if (nvnew.Count == 0)
+            {
+                nvnew.Add(TK);
+                SessionServices.SetObjToJson(HttpContext.Session, "ACC", nvnew);
+            }
+            else if (nvnew.Count != 0)
+            {
+                nvnew.Clear();
+                nvnew.Add(TK);
+                SessionServices.SetObjToJson(HttpContext.Session, "ACC", nvnew);
+            }
             if (!ModelState.IsValid)
             {
                 return View("DangNhap", userModel); // Trả về view với model và thông báo lỗi
@@ -131,6 +145,7 @@ namespace CTN4_View_Admin.Controllers
             {
                 return (RedirectToAction(nameof(DangNhap)));
             }
+
 
             IActionResult response = Unauthorized();
             var validUser = GetUser(userModel);

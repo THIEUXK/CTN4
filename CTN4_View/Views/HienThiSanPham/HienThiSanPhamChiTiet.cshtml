@@ -62,39 +62,44 @@
                         }
                         else
                         {
-                            <h6>@FormatCurrency(Model.sanPham.GiaNiemYet)</h6>
-                            <h6 class="l-through">@FormatCurrency(Model.sanPham.GiaBan)</h6>
+                            <div class="price-container">
+                                <h6>@FormatCurrency(Model.sanPham.GiaNiemYet)</h6>
+                            </div>
+
+                            <div class="price-container">
+                                <h6 class="strikethrough">@FormatCurrency(Model.sanPham.GiaBan)</h6>
+                            </div>
                         }
                     </div>
                     <ul class="horizontal-list" style="display: flex;">
                         @foreach (var x in Model.giamgias)
                         {
                             <form asp-action="ThongTinVocher">
-                            @if (x.LoaiGiamGia == true)
-                            {
-                               <li>
+                                @if (x.LoaiGiamGia == true)
+                                {
+                                <li>
                                     <input type="hidden" name="idVoucher" value="@x.Id">
                                     <input type="hidden" name="idSp" value="@Model.sanPham.Id">
-                                    <button class="mini-coupon__title" style="color: #000000; " onclick="onsubmit" >Giảm @FormatCurrency(@x.SoTienGiam)</button>
-                               </li> 
-                            }
-                            else
-                            {
+                                    <button class="mini-coupon__title" style="color: #000000; " onclick="onsubmit">Giảm @FormatCurrency(@x.SoTienGiam)</button>
+                                </li>
+                                }
+                                else
+                                {
                                 <li>
                                     <input type="hidden" name="idVoucher" value="@x.Id">
                                     <input type="hidden" name="idSp" value="@Model.sanPham.Id">
                                     <button class="mini-coupon__title" style="color: #000000;">Giảm @x.PhanTramGiam%</button>
                                 </li>
-                            }</form>
+                                }</form>
                         }
-                       
+
                     </ul>
-                    <br >
+                    <br>
                     @if (TempData["Notification"] != null)
                     {
                         <div class="alert alert-info">@TempData["Notification"]</div>
                     }
-                    <br/>
+                    <br />
                     <div>
 
                         @{
@@ -137,7 +142,7 @@
                     {
                         <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
                     }
-                    <br/>
+                    <br />
                     <div>
                         @{
                             // Tạo danh sách để theo dõi các Mau.Id đã xuất hiện
@@ -248,10 +253,10 @@
                         something that can make your interior look awesome, and at the same time give you the pleasant warm feeling
                         during the winter.
                     </p>
-                </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 <!--================End Single Product Area =================-->
 <!--================Product Description Area =================-->
@@ -751,7 +756,7 @@
         public string FormatCurrency(float price)
         {
             string formattedPrice = string.Format("{0:N0}", price); // Định dạng số và thêm dấu phân cách ngàn
-            return formattedPrice + "₫"; // Thêm ký hiệu đồng (₫) vào cuối
+            return formattedPrice + "VND"; // Thêm ký hiệu đồng (₫) vào cuối
         }
     }
 </script>
@@ -827,7 +832,7 @@
                                     //        });
                                     //    });
                                     //});
-   
+
 
 
 </script>
@@ -875,8 +880,8 @@
         margin-bottom: 1em;
     }
 
-    
-    
+
+
     .mini-coupon__title {
         border-radius: 20px;
         padding: 10px 20px;
@@ -887,10 +892,17 @@
         border-radius: 10px;
         transition: border-radius 0.3s, box-shadow 0.3s;
         background-color: #FA8072;
-      
     }
 
-   
+    .price-container {
+        display: inline-block;
+        margin-right: 10px; /* Khoảng cách giữa hai thẻ */
+    }
+
+    .strikethrough {
+        text-decoration: line-through;
+        color: #cccccc;
+    }
 </style>
 <script src="~/js/vendor/jquery-2.2.4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.~/js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"

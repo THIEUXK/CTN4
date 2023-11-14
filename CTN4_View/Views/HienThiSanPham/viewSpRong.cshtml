@@ -1,4 +1,5 @@
-﻿@model CTN4_Serv.ViewModel.HienThiSanPhamView;
+﻿
+
 <!-- End Header Area -->
 <!-- Start Banner Area -->
 @*<section class="banner-area organic-breadcrumb">
@@ -28,24 +29,14 @@
             <a class="lnr lnr-magnifier" style="width: 25px; height: 25px;"></a>
         </button>
     </form>
+
     <div class="row">
         <div class="col-xl-3 col-lg-4 col-md-5">
             <div class="sidebar-categories">
                 <div class="head">Danh mục sản phẩm</div>
                 <ul class="main-categories">
                     <li class="main-nav-list">
-                        <from>
-                            @foreach (var sp in Model.danhMucs)
-                            {
-                                if ((Model.danhMucChiTiets.Where(c => c.IdDanhMuc == sp.Id).Count()) >= 1)
-                                {
-                                    <div style="display: flex; align-items: center;">
-                                        <a>@Html.ActionLink(sp.TenDanhMuc, "SanPhamDanhMuc","DanhMucSanPham", new { id = sp.Id })</a>
-                                        <span>(@(Model.danhMucChiTiets.Where(c => c.IdDanhMuc == sp.Id).Count()))</span>
-                                    </div>
-                                }
-                            }
-                        </from>
+                       
                     </li>
                 </ul>
             </div>
@@ -56,18 +47,7 @@
                     <form id="FillterChatLieu">
                         <ul>
 
-                            @foreach (var chatLieu in Model.chatLieus)
-                            {
-                                if ((Model.sanPhams.Where(c => c.IdChatLieu == chatLieu.Id).Count()) >= 1)
-                                {
-                                    <li>
-                                        <input class="pixel-radio" type="checkbox" name="ChatLieu" id="ChatLieu-@chatLieu.Id" value="@chatLieu.TenChatLieu">
-                                        <label for="ChatLieu-@chatLieu.Id">
-                                            @chatLieu.TenChatLieu <span>(@(Model.sanPhams.Where(c => c.IdChatLieu == chatLieu.Id).Count()))</span>
-                                        </label>
-                                    </li>
-                                }
-                            }
+                           
 
                         </ul>
                     </form>
@@ -124,10 +104,7 @@
                 <div class="sorting mr-auto">
                     <form asp-action="ChonShowSp" class="page-form">
                         <select onchange="this.form.submit()" name="Soluonghienthi">
-                            @if (Model.soluonghienthi != null)
-                            {
-                                <option>Đang xem @Model.soluonghienthi</option>
-                            }
+                            
                             <option value="10"> 10</option>
                             <option value="15"> 15</option>
                             <option value="15"> 20</option>
@@ -147,75 +124,7 @@
                 }
                 <br />
                 <div class="row" id="Fillter-sanPhams">
-                    @foreach (var sp in Model.sanphampaging)
-                    {
-                        <!-- single product -->
-                        {
-                            <div class="col-lg-4 col-md-6">
-                                <div class="single-product">
-                                    @if (System.IO.Path.GetExtension(sp.AnhDaiDien) == ".jpg" ||
-                                   System.IO.Path.GetExtension(sp.AnhDaiDien) == ".png" ||
-                                   System.IO.Path.GetExtension(sp.AnhDaiDien) == ".jpeg" ||
-                                   System.IO.Path.GetExtension(sp.AnhDaiDien) == ".tiff" ||
-                                   System.IO.Path.GetExtension(sp.AnhDaiDien) == ".webp" ||
-                                   System.IO.Path.GetExtension(sp.AnhDaiDien) == ".gif")
-                                    {
-                                        <a href="@Url.Action("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = sp.Id })">
-                                            <img src="~/image/@sp.AnhDaiDien" height="300" alt="@sp.TenSanPham" />
-                                        </a>
-
-                                    }
-                                    else
-                                    {
-                                        <span>Ảnh lỗi rồi =)))</span>
-                                    }
-                                    <div class="product-details">
-                                        <h6>
-                                            <a style="color: (internal value);"> @Html.ActionLink(sp.TenSanPham, "HienThiSanPhamChiTiet", new { id = sp.Id}) </a>
-                                        </h6>
-                                        <div class="price">
-                                            @if (sp.GiaNiemYet == sp.GiaBan)
-                                            {
-                                                <h6>@FormatCurrency(sp.GiaNiemYet)</h6>
-                                            }
-                                            else
-                                            {
-                                                <h6>@FormatCurrency(sp.GiaNiemYet)</h6>
-                                                <h6 class="l-through">@FormatCurrency(sp.GiaBan)</h6>
-                                            }
-                                        </div>
-                                        <div class="prd-bottom" style="display: flex;">
-                                            <a href="@Url.Action("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = sp.Id })" class="social-info">
-                                                <span class="ti-bag"></span>
-                                                <p class="hover-text">Thêm sản phẩm</p>
-                                                @Html.ActionLink( "","HienThiSanPhamChiTiet", new { id = sp.Id})
-                                            </a>
-
-                                            <form asp-controller="SanPhamYeuThich" asp-action="ThemYeuThich">
-                                                <input type="hidden" name="IdSanPham" value="@sp.Id">
-
-                                                <a onclick="onsubmit" class="social-info">
-                                                    <span class="lnr lnr-heart"><button onclick="onsubmit">  </button></span>
-
-                                                    <p type="button" onclick="onsubmit" class="hover-text">Yêu thích</p>
-                                                </a>
-                                            </form>
-
-                                            <a href="" class="social-info">
-                                                <span class="lnr lnr-sync"></span>
-                                                <p class="hover-text">compare</p>
-                                            </a>
-                                            <a href="@Url.Action("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = sp.Id })" class="social-info">
-                                                <span class="lnr lnr-move"></span>
-                                                <p class="hover-text">Xem thêm</p>
-                                            </a>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                    }
+                   
                 </div>
             </section>
 
@@ -225,10 +134,7 @@
                 <div class="sorting mr-auto">
                     <form asp-action="ChonShowSp" class="page-form">
                         <select onchange="this.form.submit()" name="Soluonghienthi">
-                            @if (Model.soluonghienthi != null)
-                            {
-                                <option>Đang xem @Model.soluonghienthi</option>
-                            }
+                           
                             <option value="10"> 10</option>
                             <option value="15"> 15</option>
                             <option value="15"> 20</option>
@@ -238,14 +144,7 @@
                 </div>
 
                 <div class="pagination">
-                    @for (int i = 1; i <= Model.pagingInfo.TotalPages; i++)
-                    {
-
-                        <form asp-action="HienThiSanPham" class="page-form">
-                            <input name="soluonghienthi" value="@Model.soluonghienthi" type="hidden" />
-                            <button type="submit" class="page-button" data-page="@i"><input style="border: none;" type="submit" name="page" value="@i" /></button>
-                        </form>
-                    }
+                   
                 </div>
             </div>
             <!-- End Filter Bar -->
@@ -396,7 +295,7 @@
         public string FormatCurrency(float price)
         {
             string formattedPrice = string.Format("{0:N0}", price); // Định dạng số và thêm dấu phân cách ngàn
-            return formattedPrice + "VND"; // Thêm ký hiệu đồng (₫) vào cuối
+            return formattedPrice + "₫"; // Thêm ký hiệu đồng (₫) vào cuối
         }
     };
 
@@ -574,3 +473,4 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 <script src="~/js/gmaps.min.js"></script>
 <script src="~/js/main.js"></script>
+

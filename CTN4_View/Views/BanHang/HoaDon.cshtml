@@ -22,19 +22,19 @@
 <!--================Tracking Box Area =================-->
 @*<section class="tracking_box_area section_gap">
     <div class="container">
-        
+
     </div>
 </section>*@
 <section class="tracking_box_area section_gap">
-    
+
     <div class="container">
         <div class="tracking_box_inner">
             <p>
-                Hay nhập id đơn hàng của bạn để tìm kiếm nhanh
+                Hay nhập mã đơn hàng của bạn để tìm kiếm nhanh
             </p>
             <form class="row tracking_form" action="#" method="post" novalidate="novalidate">
                 <div class="col-md-12 form-group">
-                    <input type="text" class="form-control" id="order" name="order" placeholder="id Hóa đơn" onfocus="this.placeholder = ''" onblur="this.placeholder = 'id Hóa đơn'">
+                    <input type="text" class="form-control" id="order" name="TimKiemHoaDon" placeholder="id Hóa đơn" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Mã Hóa đơn'">
                 </div>
                 <div class="col-md-12 form-group">
                     <button type="submit" value="submit" class="primary-btn">Tìm</button>
@@ -46,10 +46,10 @@
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Id)
+                        Mã hóa đơn
                     </th>
                     <th>
-                       Ngày đặt hàng
+                        Ngày đặt hàng
                     </th>
                     <th>
                         Trạng thái
@@ -59,24 +59,12 @@
                     </th>
                     <th>
                         Tổng tiền
-                    </th>               
-                   <th>
-                        Ngày giao hàng
                     </th>
                     <th>
-                        Ngày nhận hàng
+                        Thanh toán
                     </th>
                     <th>
-                        Tên người nhận
-                    </th>
-                    <th>
-                        Số điện thoại ngưới nhận
-                    </th>
-                    <th>
-                        Địa chỉ
-                    </th>
-                    <th>
-                        Phương thức thanh toán
+                        Giao hàng
                     </th>
                     <th></th>
                 </tr>
@@ -86,7 +74,7 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Id)
+                            @Html.ActionLink(@item.MaHoaDon, "HoaDonChiTiet", new {  id=item.Id  })
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.NgayTaoHoaDon)
@@ -100,28 +88,32 @@
                         <td>
                             @Html.Raw(FormatCurrency(item.TongTien))
                         </td>
-                        
+                        @if (item.TrangThaiThanhToan == true)
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TrangThaiThanhToan)
+                            </td>
+
+                        }
+                        else
+                        {
+                            <td><div>Chưa thanh toán</div></td>
+                        }
+                        @if (item.NgayGiao != null)
+                        {
+
+                            <td>
+                                @item.NgayGiao
+                            </td>
+                        }
+                        else
+                        {
+                            <td><div>Chưa giao hàng</div></td>
+                        }
+
                         <td>
-                            @Html.DisplayFor(modelItem => item.NgayGiao)
-                        </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.NgayNhan)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TenKhachHang)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.SDTNguoiNhan)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DiaChi)
-                        </td>
-                        <td>
-                            @item.PhuongThucThanhToan.TenPhuongThuc.ToString()
-                        </td>
-                        <td>
-                        <td>
-                                @Html.ActionLink("Xem chi tiết", "HoaDonChiTiet", new {  id=item.Id  }, new { @class = "custom-edit-link" }) |
+                                @Html.ActionLink("Xem chi tiết", "HoaDonChiTiet", new {  id=item.Id  }, new { @class = "custom-edit-link" }) 
                         </td>
                     </tr>
                 }
@@ -134,7 +126,7 @@
         public string FormatCurrency(float price)
         {
             string formattedPrice = string.Format("{0:N0}", price); // Định dạng số và thêm dấu phân cách ngàn
-            return formattedPrice + "₫"; // Thêm ký hiệu đồng (₫) vào cuối
+            return formattedPrice + "VND"; // Thêm ký hiệu đồng (₫) vào cuối
         }
     };
 

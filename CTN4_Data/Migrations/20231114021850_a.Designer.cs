@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CTN4_Data.Migrations
 {
     [DbContext(typeof(DB_CTN4_ok))]
-    [Migration("20231111184107_a")]
+    [Migration("20231114021850_a")]
     partial class a
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -292,19 +292,19 @@ namespace CTN4_Data.Migrations
                     b.Property<Guid?>("IdKhachHang")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("TrangThai")
+                    b.Property<float?>("TienShip")
+                        .HasColumnType("real");
+
+                    b.Property<bool?>("TrangThai")
                         .HasColumnType("bit");
 
                     b.Property<string>("code")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("codename")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("division_type")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("name")
@@ -312,7 +312,6 @@ namespace CTN4_Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("phone_code")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -625,6 +624,12 @@ namespace CTN4_Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<float>("DongGia")
+                        .HasColumnType("real");
+
+                    b.Property<string>("Ghichu")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("Is_Detele")
                         .HasColumnType("bit");
 
@@ -655,6 +660,7 @@ namespace CTN4_Data.Migrations
                         new
                         {
                             Id = new Guid("f877e80d-2b32-43b0-be70-cf3b15113056"),
+                            DongGia = 0f,
                             Is_Detele = true,
                             MaKhuyenMai = "km01",
                             NgayBatDau = new DateTime(2023, 7, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -666,6 +672,7 @@ namespace CTN4_Data.Migrations
                         new
                         {
                             Id = new Guid("da810cca-4fca-4291-a52b-875841d49e34"),
+                            DongGia = 0f,
                             Is_Detele = true,
                             MaKhuyenMai = "km02",
                             NgayBatDau = new DateTime(2023, 7, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -677,6 +684,7 @@ namespace CTN4_Data.Migrations
                         new
                         {
                             Id = new Guid("23bdd26c-d7a3-4307-8e22-d230b653d611"),
+                            DongGia = 0f,
                             Is_Detele = true,
                             MaKhuyenMai = "km03",
                             NgayBatDau = new DateTime(2023, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -688,6 +696,7 @@ namespace CTN4_Data.Migrations
                         new
                         {
                             Id = new Guid("13effe44-e728-48a8-9baa-967da4ee38cd"),
+                            DongGia = 0f,
                             Is_Detele = true,
                             MaKhuyenMai = "km04",
                             NgayBatDau = new DateTime(2023, 7, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -699,6 +708,7 @@ namespace CTN4_Data.Migrations
                         new
                         {
                             Id = new Guid("fa1ae994-6ab0-4ee6-b8b1-ff336cf994a8"),
+                            DongGia = 0f,
                             Is_Detele = true,
                             MaKhuyenMai = "km05",
                             NgayBatDau = new DateTime(2023, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -710,6 +720,7 @@ namespace CTN4_Data.Migrations
                         new
                         {
                             Id = new Guid("e3e37e9e-7ea3-4f87-94af-1329363a4322"),
+                            DongGia = 0f,
                             Is_Detele = true,
                             MaKhuyenMai = "km06",
                             NgayBatDau = new DateTime(2023, 10, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
