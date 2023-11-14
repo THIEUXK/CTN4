@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 
 namespace CTN4_Serv.Service
@@ -25,6 +26,18 @@ namespace CTN4_Serv.Service
         public List<SanPham> GetAll()
         {
             return _db.SanPhams.Include(c => c.ChatLieu).Include(c => c.NSX).ToList();
+        }
+        public List<SanPham> GetFull(string Tensp, string gianhap, string giaban, string gianiemyet)
+        {
+            // Lọc danh sách dựa trên các điều kiện
+            var result = _db.SanPhams.Where(sp =>
+                (string.IsNullOrEmpty(Tensp) || sp.TenSanPham.Contains(Tensp)) &&
+                (string.IsNullOrEmpty(gianhap) || sp.GiaNhap.ToString().Contains(gianhap)) &&
+                (string.IsNullOrEmpty(giaban) || sp.GiaBan.ToString().Contains(giaban)) &&
+                (string.IsNullOrEmpty(gianiemyet) || sp.GiaNiemYet.ToString().Contains(gianiemyet))
+            ).ToList();
+
+            return   result;
         }
 
         public List<SanPham> GetAllBySearch(string MaSp)
