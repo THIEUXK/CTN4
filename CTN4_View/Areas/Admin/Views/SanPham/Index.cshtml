@@ -16,48 +16,54 @@
     <button type="button" class="btn btn-warning btn-fw editable-click=" asp-action="Create"><a asp-action="Create" style="color:white">Thêm</a></button>
 
 </p>
+<form  asp-action="Index" method="get" class="form-inline">
+    Danh sách sản phẩm
+    <input type="text" name="TenSp" />
+    <button>Tìm kiếm</button>
+</form></br>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.MaSp)
+                Mã sản phẩm
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TenSanPham)
+                Tên sản phẩm
             </th>
             <th>
-                ChatLieu
+                Chất liệu
             </th>
             <th>
                 Nsx
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MoTa)
+                Mô tả
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.GiaNhap)
+                Giá nhập
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.GiaBan)
+                Giá bán
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.GiaNiemYet)
+               Giá niên yết
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.GhiChu)
+                Ghi chú
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TrangThai)
+                Trạng thái
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Is_detele)
+                Tình trạng sản phẩm 
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AnhDaiDien)
+               Ảnh đại diện
             </th>
             <th></th>
         </tr>
     </thead>
+
     <tbody>
         @foreach (var item in Model)
         {
@@ -74,19 +80,17 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.NSX.TenNSX)
                 </td>
-                
-                
                 <td>
                     @Html.DisplayFor(modelItem => item.MoTa)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.GiaNhap)
+                    @Html.Raw(FormatCurrency(item.GiaNhap))
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.GiaBan)
+                    @Html.Raw(FormatCurrency(item.GiaBan))
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.GiaNiemYet)
+                    @Html.Raw(FormatCurrency(item.GiaNiemYet))
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.GhiChu)
@@ -124,3 +128,14 @@
     </tbody>
 </table>
 
+<script>
+    @functions {
+        public string FormatCurrency(float price)
+        {
+            string formattedPrice = string.Format("{0:N0}", price); // Định dạng số và thêm dấu phân cách ngàn
+            return formattedPrice + "₫"; // Thêm ký hiệu đồng (₫) vào cuối
+        }
+    };
+
+
+</script>
