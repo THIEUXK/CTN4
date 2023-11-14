@@ -268,10 +268,10 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             }
             else
             {
-                var hd = _hoaDonService.GetAll();
+                var hd = _hoaDonService.GetAll().Where(c => c.NgayTaoHoaDon > NgayDau && c.NgayTaoHoaDon < NgayCuoi).ToList();
                 var view = new ThieuxkViewAdmin()
                 {
-                    hoaDons = hd.Where(c => c.NgayTaoHoaDon > NgayDau && c.NgayTaoHoaDon < NgayCuoi).ToList(),
+                    hoaDons = hd,
                 };
                 return View("Index", view);
             }
