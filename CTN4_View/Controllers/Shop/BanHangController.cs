@@ -322,6 +322,38 @@ namespace CTN4_View.Controllers.Shop
 
         public IActionResult HoanThanhThanhToan(string name, string DiachiNhanChiTiet, string Sodienthoai, string Email, string addDiaChi, Guid IdDiaChi, Guid idphuongthuc, string ghiChu, float tienship, float tongtien)
         {
+            if (name == null)
+            {
+                {
+                    var message = "hãy nhớ điền tên của bạn của bạn";
+                    TempData["TB2"] = message;
+                    return RedirectToAction("ThuTucThanhToan", "BanHang", new { message });
+                }
+            }
+            if (DiachiNhanChiTiet == null)
+            {
+                {
+                    var message = "hãy nhớ điền địa chỉ chi tiết của bạn";
+                    TempData["TB2"] = message;
+                    return RedirectToAction("ThuTucThanhToan", "BanHang", new { message });
+                }
+            }
+            if (Sodienthoai == null)
+            {
+                {
+                    var message = "hãy nhớ điền số điện thoại của bạn";
+                    TempData["TB2"] = message;
+                    return RedirectToAction("ThuTucThanhToan", "BanHang", new { message });
+                }
+            }
+            if (Sodienthoai == null)
+            {
+                {
+                    var message = "hãy nhớ điền Email của bạn";
+                    TempData["TB2"] = message;
+                    return RedirectToAction("ThuTucThanhToan", "BanHang", new { message });
+                }
+            }
             if (addDiaChi == null)
             {
                 {
@@ -423,8 +455,8 @@ namespace CTN4_View.Controllers.Shop
                             return RedirectToAction("ThuTucThanhToan", "BanHang", new { message });
                         }
                         var lisdiachi1 = _diaChiNhanHangService.GetAll().Where(c => c.IdKhachHang == accnew[0].Id).ToList();
-                        var lisdiachi = _diaChiNhanHangService.GetAll().Where(c => c.DiaChi == addDiaChi && c.IdKhachHang == accnew[0].Id&&c.TienShip==tienship).ToList();
-                        if (lisdiachi1.Count() < 4&&lisdiachi.Count==0)
+                        var lisdiachi = _diaChiNhanHangService.GetAll().Where(c => c.DiaChi == addDiaChi && c.IdKhachHang == accnew[0].Id && c.TienShip == tienship).ToList();
+                        if (lisdiachi1.Count() < 4 && lisdiachi.Count == 0)
                         {
                             var diachi = new DiaChiNhanHang()
                             {
@@ -468,7 +500,7 @@ namespace CTN4_View.Controllers.Shop
             {
                 return RedirectToAction("login", "Home");
             }
-            
+
         }
         public IActionResult HoaDonChiTiet(int id)
         {
