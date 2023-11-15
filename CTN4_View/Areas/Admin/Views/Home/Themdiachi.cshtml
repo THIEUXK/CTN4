@@ -1,0 +1,65 @@
+﻿
+
+@model List<CTN4_Data.Models.DB_CTN4.DiaChiNhanHang>
+
+@{
+    ViewData["Title"] = "Themdiachi";
+}
+
+<hr />
+<div class="row" style="margin-top:50px">
+    <div class="col-md-6">
+    
+        <form asp-action="Themdiachi" method="post">
+        <div class="form-group">
+            <label for="Tên">Tên:</label>
+                <select  class="form-control">
+                @foreach (var item in Model)
+                {
+                    <option value="@item.name" >@item.name</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="code">Mã:</label>
+            <select class="form-control">
+                @foreach (var item in Model)
+                {
+                        <optionvalue ="@item.code">@item.code</optionvalue>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="division_type">Loại:</label>
+            <select class="form-control">
+                @foreach (var item in Model)
+                {
+                        <option value="@item.division_type">@item.division_type</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="codename">Mã tên:</label>
+            <select class="form-control">
+                @foreach (var item in Model)
+                {
+                        <option value="@item.codename">@item.codename</option>
+                }
+            </select>
+            <div class="form-group">
+                <label for="diaChi">Địa chỉ:</label>
+                <input type="text" class="form-control" id="diaChi" name="DiaChi" placeholder="Nhập địa chỉ của bạn" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

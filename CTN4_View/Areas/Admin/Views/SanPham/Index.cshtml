@@ -1,0 +1,173 @@
+﻿@model IEnumerable<CTN4_Data.Models.DB_CTN4.SanPham>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<br></br>
+<br></br>
+<br></br>
+
+
+<h1>Index</h1>
+
+<p>
+    <button type="button" class="btn btn-warning btn-fw editable-click=" asp-action="Create"><a asp-action="Create" style="color:white">Thêm</a></button>
+
+</p>
+<form asp-action="Index" method="get" class="form-inline">
+    <div>
+        Danh sách sản phẩm
+        <input type="text"  placeholder="Tên sản phẩm" name="TenSp">
+    </div>
+    <div>
+        Giá niêm yết từ
+        <input type="number" name="tu" />
+        đến
+        <input type="number" name="den" />
+    </div>
+    <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="submit">Tìm kiếm</button>
+    </div>
+</form></br>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Mã sản phẩm
+            </th>
+            <th>
+                Tên sản phẩm
+            </th>
+            <th>
+                Chất liệu
+            </th>
+            <th>
+                Nsx
+            </th>
+            <th>
+                Mô tả
+            </th>
+            <th>
+                Giá nhập
+            </th>
+            <th>
+                Giá bán
+            </th>
+            <th>
+               Giá niên yết
+            </th>
+            <th>
+                Ghi chú
+            </th>
+            <th>
+                Trạng thái
+            </th>
+            <th>
+                Tình trạng sản phẩm 
+            </th>
+            <th>
+               Ảnh đại diện
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaSp)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenSanPham)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ChatLieu.TenChatLieu)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NSX.TenNSX)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MoTa)
+                </td>
+                <td>
+                    @Html.Raw(FormatCurrency(item.GiaNhap))
+                </td>
+                <td>
+                    @Html.Raw(FormatCurrency(item.GiaBan))
+                </td>
+                <td>
+                  @Html.Raw(FormatCurrency(item.GiaNiemYet))
+                   
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GhiChu)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TrangThai)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Is_detele)
+                </td>
+                <td>
+                    <tb>
+                        @if (System.IO.Path.GetExtension(item.AnhDaiDien) == ".jpg" ||
+                       System.IO.Path.GetExtension(item.AnhDaiDien) == ".png" ||
+                       System.IO.Path.GetExtension(item.AnhDaiDien) == ".jpeg" ||
+                       System.IO.Path.GetExtension(item.AnhDaiDien) == ".tiff" ||
+                       System.IO.Path.GetExtension(item.AnhDaiDien) == ".webp" ||
+                       System.IO.Path.GetExtension(item.AnhDaiDien) == ".gif")
+                        {
+                            <img src="~/image/@item.AnhDaiDien" height="100">
+                        }
+                        else
+                        {
+                            <a>ảnh lỗi</a>
+                        }
+                    </tb>
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id } )|
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    @functions {
+        public string FormatCurrency(float price)
+        {
+            string formattedPrice = string.Format("{0:N0}", price); // Định dạng số và thêm dấu phân cách ngàn
+            return formattedPrice + "₫"; // Thêm ký hiệu đồng (₫) vào cuối
+        }
+    };
+
+
+</script>
+<style>
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    div {
+        margin-bottom: 10px;
+    }
+
+    input {
+        width: 100%; /* Chiều rộng 100% */
+        box-sizing: border-box; /* Bao gồm cả padding và border vào chiều rộng */
+        margin-bottom: 5px; /* Khoảng cách dưới */
+    }
+
+    button {
+        margin-left: 5px;
+    }
+</style>

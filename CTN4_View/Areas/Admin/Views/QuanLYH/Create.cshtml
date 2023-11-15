@@ -1,0 +1,96 @@
+﻿@model CTN4_Serv.ViewModel.SanPhamChiTietView
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+<body>
+
+
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+</body>
+</html>
+
+
+<div class="row">
+    <div class="col-md-9">
+        <br></br>
+
+        <h4>SanPhamChiTiet</h4>
+        <hr />
+        <form method="post" asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            <div class="form-group">
+                <label asp-for="SoLuong" class="control-label"></label>
+                <input asp-for="SoLuong" class="form-control" />
+                <span asp-validation-for="SoLuong" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="TrangThai" /> @Html.DisplayNameFor(model => model.TrangThai)
+                </label>
+            </div>
+           
+            
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Is_detele" /> @Html.DisplayNameFor(model => model.Is_detele)
+                </label>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="IdMau">mau</label>
+                <select asp-for="IdMau" class="form-control">
+                    <option value="">-- Select Mau --</option>
+                    @foreach (var a in Model.MauItems)
+                    {
+                        <option value="@a.Value">@a.Text</option>
+                    }
+                </select>
+            </div>
+           
+            <div class="form-group">
+                <label asp-for="IdSize">size</label>
+                <select asp-for="IdSize" class="form-control">
+                    <option value="">-- Select size --</option>
+                    @foreach (var a in Model.SizeItems)
+                    {
+                        <option value="@a.Value">@a.Text</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group" >
+                <label asp-for="IdSp">SanPham</label>
+                <select asp-for="IdSp" class="form-control">
+                    <option value="">-- Select SanPham --</option>
+                    @foreach (var a in Model.SpItems)
+                    {
+                        <option value="@a.Value">@a.Text</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+
+            <div>
+                <h4>_________________________________________________</h4>
+                <a asp-action="Index">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+

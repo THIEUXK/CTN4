@@ -1,0 +1,215 @@
+﻿@model CTN4_Serv.ViewModel.ThieuxkView
+@{
+    ViewData["Title"] = "HoaDonChiTiet";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br></br>
+<section class="tracking_box_area section_gap">
+    <div class="container">
+        <h1>Hóa đơn chi tiết</h1>
+        <div>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2">
+                    Mã đơn hàng
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoaDon.MaHoaDon)
+                </dd>
+                <dt class="col-sm-2">
+                    Ngày tạo hóa đơn
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoaDon.NgayTaoHoaDon)
+                </dd>
+                <dt class="col-sm-2">
+                    Tình trạng đơn hàng
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoaDon.TrangThai)
+                </dd>
+                <dt class="col-sm-2">
+                    Tổng tiền hóa đơn
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.Raw(FormatCurrency(Model.HoaDon.TongTien))
+                </dd>
+                <dt class="col-sm-2">
+                    Tiền ship
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.Raw(FormatCurrency(Model.HoaDon.TienShip))
+                </dd>
+                <dt class="col-sm-2">
+                    Ngày đặt
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoaDon.NgayDat)
+                </dd>
+                <dt class="col-sm-2">
+                    Ngày giao
+                </dt>
+                <dd class="col-sm-10">
+                    @if (Model.HoaDon.NgayGiao != null)
+                    {
+                        @Html.DisplayFor(model => model.HoaDon.NgayGiao)
+                    }
+                    <div>Chưa giao</div>
+                </dd>
+                <dt class="col-sm-2">
+                    Ngày nhận
+                </dt>
+                <dd class="col-sm-10">
+                    @if (Model.HoaDon.NgayNhan != null)
+                    {
+                        @Html.DisplayFor(model => model.HoaDon.NgayNhan)
+                    }
+                    <div>Chưa nhận</div>
+
+                </dd>
+                <dt class="col-sm-2">
+                    Tên khách hàng
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoaDon.TenKhachHang)
+                </dd>
+                <dt class="col-sm-2">
+                    Số điện thoại người nhận
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoaDon.SDTNguoiNhan)
+                </dd>
+                <dt class="col-sm-2">
+                    Địa chỉ
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoaDon.DiaChi)
+                </dd>
+                <dt class="col-sm-2">
+                    Phương thức thanh toán
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoaDon.PhuongThucThanhToan.TenPhuongThuc)
+                </dd>
+                <dt class="col-sm-2">
+                    Ghi chú
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoaDon.GhiChu)
+                </dd>
+            </dl>
+        </div>
+        @if (TempData["TB4"] != null)
+        {
+            <div class="alert alert-danger">@TempData["TB4"]</div>
+        }
+        @if (Model.HoaDon.Is_detele == true)
+        {
+            <div>
+                <button type="button" class="primary-btn">@Html.ActionLink("Hủy đơn", "huydonKH", new { id = Model.HoaDon.Id }, new { @class = "custom-edit-link" })</button>
+            </div>
+        }
+        else
+        {
+            <div style="color:red">Đơn hàng của bạn đã bị hủy</div>
+        }
+
+        <br> <table class="table">
+            <thead>
+                <tr>
+                    <th>
+
+                    </th>
+                    <th>
+                        Sản Phẩm
+                    </th>
+                    <th>
+                        Size
+                    </th>
+                    <th>
+                        Màu
+                    </th>
+                    <th>
+                        Số Lượng
+                    </th>
+                    <th>
+                        Giá Tiền
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.hoaDonChiTiets)
+                {
+                    <tr>
+                        <td>
+
+                            @if (System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".jpg" ||
+                           System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".png" ||
+                           System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".jpeg" ||
+                           System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".tiff" ||
+                           System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".webp" ||
+                           System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".gif")
+                            {
+                                <img src="~/image/@item.SanPhamChiTiet.SanPham.AnhDaiDien" height="100">
+                            }
+                            else
+                            {
+                                <a>ảnh lỗi</a>
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SanPhamChiTiet.SanPham.TenSanPham)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SanPhamChiTiet.Size.CoSize)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SanPhamChiTiet.Mau.TenMau)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SoLuong)
+                        </td>
+                        <td>
+                            @Html.Raw(FormatCurrency(item.GiaTien))
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table></br>
+
+    </div>
+</section>
+<script>
+    @functions {
+        public string FormatCurrency(float price)
+        {
+            string formattedPrice = string.Format("{0:N0}", price); // Định dạng số và thêm dấu phân cách ngàn
+            return formattedPrice + "VND"; // Thêm ký hiệu đồng (₫) vào cuối
+        }
+    };
+
+
+</script>
+<style>
+    .custom-edit-link {
+        color: black; /* Màu đỏ */
+        /* Các thuộc tính CSS khác nếu cần */
+    }
+</style>
+<script src="~/js/vendor/jquery-2.2.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.~/js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+        crossorigin="anonymous"></script>
+<script src="~/js/vendor/bootstrap.min.js"></script>
+<script src="~/js/jquery.ajaxchimp.min.js"></script>
+<script src="~/js/jquery.nice-select.min.js"></script>
+<script src="~/js/jquery.sticky.js"></script>
+<script src="~/js/nouislider.min.js"></script>
+<script src="~/js/countdown.js"></script>
+<script src="~/js/jquery.magnific-popup.min.js"></script>
+<script src="~/js/owl.carousel.min.js"></script>
+<!--gmaps Js-->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+<script src="~/js/gmaps.min.js"></script>
+<script src="~/js/main.js"></script>

@@ -1,0 +1,476 @@
+﻿
+
+<!-- End Header Area -->
+<!-- Start Banner Area -->
+@*<section class="banner-area organic-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+            <div class="col-first">
+                <h1>Shop Category page</h1>
+                <nav class="d-flex align-items-center">
+                    <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="#">Shop<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="category.html">Fashon Category</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>*@
+<br></br>
+<br></br>
+<br></br>
+
+<!-- End Banner Area -->
+<div class="container">
+
+    <form asp-action="Search" method="get" class="search-bar">
+        <input type="text" name="TenSp" class="search-input" placeholder="Nhập tên sản phẩm" />
+        <button class="search-button">
+            <a class="lnr lnr-magnifier" style="width: 25px; height: 25px;"></a>
+        </button>
+    </form>
+
+    <div class="row">
+        <div class="col-xl-3 col-lg-4 col-md-5">
+            <div class="sidebar-categories">
+                <div class="head">Danh mục sản phẩm</div>
+                <ul class="main-categories">
+                    <li class="main-nav-list">
+                       
+                    </li>
+                </ul>
+            </div>
+            <div class="sidebar-filter mt-50">
+                <div class="top-filter-head">Product Filters</div>
+                <div class="common-filter">
+                    <div class="head">Chất Liệu</div>
+                    <form id="FillterChatLieu">
+                        <ul>
+
+                           
+
+                        </ul>
+                    </form>
+                    <div class="common-filter">
+                        <div class="head">MauSac</div>
+                        @*<form id="FillterMauSac">
+                        <ul>
+                        @{
+                        foreach (var mau in Model.maus)
+                        {
+                        if ((Model.sanPhamChiTiets.Where(c => c.IdMau == mau.Id).Count()) >= 1)
+                        {
+                        <li>
+                        <input class="pixel-radio" type="checkbox" name="ChatLieu" id="ChatLieu-@mau.Id" value="@mau.TenMau">
+                        <label for="ChatLieu-@mau.Id">
+                        @mau.TenMau <span>(@(Model.sanPhamChiTiets.Where(c => c.IdMau == mau.Id).Count()))</span>
+                        </label>
+                        </li>
+                        }
+                        }
+                        }
+                        </ul>
+                        </form>*@
+                    </div>
+                    <div>
+                        <button id="btnFillter" type="submit" class="btn btn-primary btn-block enter-btn fa fa-search">
+                            Filter
+                        </button>
+                    </div>
+                </div>
+
+
+                <div class="common-filter">
+                    <div class="head">Price</div>
+                    <div class="price-range-area">
+                        <div id="price-range"></div>
+                        <div class="value-wrapper d-flex">
+                            <div class="price">Price:</div>
+                            <div id="lower-value"></div>
+                            <span>d</span>
+                            <div class="to">to</div>
+                            <div id="upper-value"></div>
+                            <span>d</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-9 col-lg-8 col-md-7">
+            <!-- Start Filter Bar -->
+            <div class="filter-bar d-flex flex-wrap align-items-center">
+                <div class="sorting">
+                </div>
+                <div class="sorting mr-auto">
+                    <form asp-action="ChonShowSp" class="page-form">
+                        <select onchange="this.form.submit()" name="Soluonghienthi">
+                            
+                            <option value="10"> 10</option>
+                            <option value="15"> 15</option>
+                            <option value="15"> 20</option>
+                            <option value="50"> 50</option>
+                        </select>
+                    </form>
+                </div>
+            </div>
+            <!-- End Filter Bar -->
+            <!-- Start Best Seller -->
+
+            <section class="lattest-product-area pb-40 category-list">
+                <br>
+                @if (TempData["Notification"] != null)
+                {
+                    <div class="alert alert-info">@TempData["Notification"]</div>
+                }
+                <br />
+                <div class="row" id="Fillter-sanPhams">
+                   
+                </div>
+            </section>
+
+            <!-- End Best Seller -->
+            <!-- Start Filter Bar -->
+            <div class="filter-bar d-flex flex-wrap align-items-center">
+                <div class="sorting mr-auto">
+                    <form asp-action="ChonShowSp" class="page-form">
+                        <select onchange="this.form.submit()" name="Soluonghienthi">
+                           
+                            <option value="10"> 10</option>
+                            <option value="15"> 15</option>
+                            <option value="15"> 20</option>
+                            <option value="50"> 50</option>
+                        </select>
+                    </form>
+                </div>
+
+                <div class="pagination">
+                   
+                </div>
+            </div>
+            <!-- End Filter Bar -->
+        </div>
+    </div>
+</div>
+
+<!-- Start related-product Area -->
+<section class="related-product-area section_gap">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 text-center">
+                <div class="section-title">
+                    <h1>Deals of the Week</h1>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
+                        <div class="single-related-product d-flex">
+                            <a href="#"><img src="~/img/r1.jpg" alt=""></a>
+                            <div class="desc">
+                                <a href="#" class="title">Black lace Heels</a>
+                                <div class="price">
+                                    <h6>$189.00</h6>
+                                    <h6 class="l-through">$210.00</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
+                        <div class="single-related-product d-flex">
+                            <a href="#"><img src="~/img/r2.jpg" alt=""></a>
+                            <div class="desc">
+                                <a href="#" class="title">Black lace Heels</a>
+                                <div class="price">
+                                    <h6>$189.00</h6>
+                                    <h6 class="l-through">$210.00</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
+                        <div class="single-related-product d-flex">
+                            <a href="#"><img src="~/img/r3.jpg" alt=""></a>
+                            <div class="desc">
+                                <a href="#" class="title">Black lace Heels</a>
+                                <div class="price">
+                                    <h6>$189.00</h6>
+                                    <h6 class="l-through">$210.00</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
+                        <div class="single-related-product d-flex">
+                            <a href="#"><img src="~/img/r5.jpg" alt=""></a>
+                            <div class="desc">
+                                <a href="#" class="title">Black lace Heels</a>
+                                <div class="price">
+                                    <h6>$189.00</h6>
+                                    <h6 class="l-through">$210.00</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
+                        <div class="single-related-product d-flex">
+                            <a href="#"><img src="~/img/r6.jpg" alt=""></a>
+                            <div class="desc">
+                                <a href="#" class="title">Black lace Heels</a>
+                                <div class="price">
+                                    <h6>$189.00</h6>
+                                    <h6 class="l-through">$210.00</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
+                        <div class="single-related-product d-flex">
+                            <a href="#"><img src="~/img/r7.jpg" alt=""></a>
+                            <div class="desc">
+                                <a href="#" class="title">Black lace Heels</a>
+                                <div class="price">
+                                    <h6>$189.00</h6>
+                                    <h6 class="l-through">$210.00</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6">
+                        <div class="single-related-product d-flex">
+                            <a href="#"><img src="~/img/r9.jpg" alt=""></a>
+                            <div class="desc">
+                                <a href="#" class="title">Black lace Heels</a>
+                                <div class="price">
+                                    <h6>$189.00</h6>
+                                    <h6 class="l-through">$210.00</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6">
+                        <div class="single-related-product d-flex">
+                            <a href="#"><img src="~/img/r10.jpg" alt=""></a>
+                            <div class="desc">
+                                <a href="#" class="title">Black lace Heels</a>
+                                <div class="price">
+                                    <h6>$189.00</h6>
+                                    <h6 class="l-through">$210.00</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6">
+                        <div class="single-related-product d-flex">
+                            <a href="#"><img src="~/img/r11.jpg" alt=""></a>
+                            <div class="desc">
+                                <a href="#" class="title">Black lace Heels</a>
+                                <div class="price">
+                                    <h6>$189.00</h6>
+                                    <h6 class="l-through">$210.00</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="ctg-right">
+                    <a href="#" target="_blank">
+                        <img class="img-fluid d-block mx-auto" src="~/img/category/c5.jpg" alt="">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End related-product Area -->
+<script>
+    @functions {
+        public string FormatCurrency(float price)
+        {
+            string formattedPrice = string.Format("{0:N0}", price); // Định dạng số và thêm dấu phân cách ngàn
+            return formattedPrice + "₫"; // Thêm ký hiệu đồng (₫) vào cuối
+        }
+    };
+
+
+</script>
+
+   @* @section scrrip{*@
+<script src="~/~/js/jquery-3.6.0.js"></script>
+
+    @*<script>
+
+    $(document).ready(function () {
+        $('#btnFillter').click(function ()
+        {
+            var productId = "@product.ProductId";
+            var fileInput = $('#fThumb')[0];
+            var file = fileInput.files[0];
+            console.log(productId);
+            console.log(file);
+            var formData = new FormData();
+            formData.append('productId', productId);
+            formData.append('fThumb', file);
+
+            $.ajax({
+                url: '/HienThiSanPham/CheckBoxChatLieu',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    location.reload();
+                    console.log(result);
+                },
+                error: function (xhr, status, error) {
+                    console.log(error);
+                }
+            });
+        });
+    });
+    </script>*@
+
+    }
+<script>
+
+
+    document.getElementById('btnFillter').addEventListener("click", function () {
+        var chatLieus = getSetSelectCheckboxes("FillterChatLieu");
+        var maus = getSetSelectCheckboxes("FillterMauSac");
+        console.log(chatLieus);
+        console.log(maus);
+        var data = {
+            Idchatlieu: chatLieus,
+            IdMauSac: maus
+        }
+        fetch('/HienThiSanPham/CheckBoxChatLieu', {
+            method: 'POST',
+            headers: { "Content-type": "application/json" },
+            body: JSON.stringify(data)
+        }).then(function (response) {
+            if (response.ok) {
+                return response.text();
+            }
+            else {
+                throw new Error("Error sedding data controller")
+            }
+        }).then(function (results) {
+            $("#Fillter-sanPhams").html(results);
+        })
+            .catch(function (error) {
+                console.log("An error occured:", error)
+            })
+    });
+    function getSetSelectCheckboxes(fromId) {
+        var CheckBoxes = $('#' + fromId + ' input[type=checkbox]:checked'); // Thêm dấu cách sau fromId
+        var value = [];
+        CheckBoxes.each(function () {
+            value.push($(this).val());
+        });
+        return value;
+    }
+    $(document).ready(function () {
+        $(".page-form").on("submit", function (e) {
+            e.preventDefault();
+
+            // Loại bỏ lớp "highlighted-button" từ tất cả các nút
+            $(".page-button").removeClass("highlighted-button");
+
+            // Thêm lớp "highlighted-button" vào nút đã nhấp
+            var clickedButton = $(this).find(".page-button");
+            clickedButton.addClass("highlighted-button");
+
+            // Gửi biểu mẫu
+            $(this).submit();
+        });
+    });
+</script>
+<style>
+    .lnr-heart {
+        display: inline-block;
+        position: relative;
+        width: 40px;
+        height: 40px;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.3s ease-in-out;
+    }
+
+        .lnr-heart button {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            border: none;
+            border-radius: 50%;
+            opacity: 0;
+            transform: scale(0);
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+
+        .lnr-heart:hover button {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+    .highlighted-button {
+        background: linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);
+    }
+
+    .search-bar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        overflow: hidden;
+    }
+
+    .search-input {
+        padding: 10px;
+        border: none;
+        border-radius: 0;
+        flex-grow: 2;
+    }
+
+    .search-button {
+        padding: 10px;
+        background-color: #828bb3;
+        color: white;
+        border: none;
+        border-radius: 0;
+        cursor: pointer;
+    }
+
+        .search-button a {
+            width: 16px;
+            height: 16px;
+        }
+</style>
+<script src="~/js/vendor/jquery-2.2.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.~/js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+        crossorigin="anonymous"></script>
+<script src="~/js/vendor/bootstrap.min.js"></script>
+<script src="~/js/jquery.ajaxchimp.min.js"></script>
+<script src="~/js/jquery.nice-select.min.js"></script>
+<script src="~/js/jquery.sticky.js"></script>
+<script src="~/js/nouislider.min.js"></script>
+<script src="~/js/countdown.js"></script>
+<script src="~/js/jquery.magnific-popup.min.js"></script>
+<script src="~/js/owl.carousel.min.js"></script>
+<!--gmaps Js-->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+<script src="~/js/gmaps.min.js"></script>
+<script src="~/js/main.js"></script>
+

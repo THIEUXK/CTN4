@@ -1,0 +1,70 @@
+﻿@model IEnumerable<CTN4_Data.Models.DB_CTN4.DanhMucChiTiet>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<br></br>
+<br></br>
+<br></br>
+
+
+<h1>Index</h1>
+
+<p>
+    <button type="button" class="btn btn-warning btn-fw editable-click=" asp-action="Create"><a asp-action="Create" style="color:white">Thêm</a></button>
+
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Tên sản phẩm
+            </th>
+            <th>
+                Ảnh Sản phẩm
+            </th>
+            <th>
+                Tên danh mục
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <tb>
+                        @if (System.IO.Path.GetExtension(item.SanPham.AnhDaiDien) == ".jpg" ||
+                       System.IO.Path.GetExtension(item.SanPham.AnhDaiDien) == ".png" ||
+                       System.IO.Path.GetExtension(item.SanPham.AnhDaiDien) == ".jpeg" ||
+                       System.IO.Path.GetExtension(item.SanPham.AnhDaiDien) == ".tiff" ||
+                       System.IO.Path.GetExtension(item.SanPham.AnhDaiDien) == ".webp" ||
+                       System.IO.Path.GetExtension(item.SanPham.AnhDaiDien) == ".gif")
+                        {
+                            <img src="~/image/@item.SanPham.AnhDaiDien" height="300">
+                        }
+                        else
+                        {
+                            <a>ảnh lỗi</a>
+                        }
+                    </tb>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SanPham.TenSanPham)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DanhMuc.TenDanhMuc)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

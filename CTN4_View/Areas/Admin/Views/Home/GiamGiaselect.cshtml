@@ -1,0 +1,50 @@
+﻿@using CTN4_Serv.ViewModel;
+
+@model List<ProductDiscountViewModel>
+
+@{
+    ViewData["Title"] = "GiamGiaselect";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+
+}
+
+<h1>GiamGiaselect</h1>
+
+
+
+<
+<body>
+    <h1>Giảm giá sản phẩm</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Tên sản phẩm</th>
+                <th>Giá gốc</th>
+                <th>Phần trăm giảm</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ProductName</td>
+                    <td>@item.OriginalPrice</td>
+                    <td>@item.DiscountPercentage%</td>
+                    <td>
+                        <form asp-controller="Home" asp-action="ApplyDiscount" method="post">
+                            <input type="hidden" name="ProductId" value="@item.ProductId" />
+                            <div class="form-group">
+                                <label for="discountPercentage">Phần trăm giảm:</label>
+                                <input type="number" class="form-control" id="discountPercentage" name="DiscountPercentage" value="@item.DiscountPercentage" />
+                            </div>
+                            <button type="submit" class="btn btn-primary">Áp dụng</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <!-- Bổ sung các mã JavaScript hoặc link tới các tệp JavaScript của bạn ở đây -->
+</body>
+</html>

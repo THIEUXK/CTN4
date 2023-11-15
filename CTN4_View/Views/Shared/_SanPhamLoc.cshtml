@@ -1,0 +1,70 @@
+﻿@*@model CTN4_Serv.ViewModel.HienThiSanPhamView;*@
+@model List<CTN4_Data.Models.DB_CTN4.SanPhamChiTiet>
+@foreach (var sp in Model)
+{
+       
+    <!-- single product -->
+    {
+        <div class="col-lg-4 col-md-6">
+            <div class="single-product">
+                @if (System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".jpg" ||
+               System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".png" ||
+               System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".jpeg" ||
+               System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".tiff" ||
+               System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".webp" ||
+               System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".gif")
+                {
+                    <img src="~/image/@sp.SanPham.AnhDaiDien" height="300">
+                }
+                else
+                {
+                    <span>Ảnh lỗi rồi =)))</span>
+                }
+                <div class="product-details">
+                    <h6>
+                        <a style="color: (internal value);"> @Html.ActionLink(sp.SanPham.TenSanPham, "HienThiSanPhamChiTiet", new { id = sp.Id}) </a>
+                    </h6>
+                    <div class="price">
+                        @if (sp.SanPham.GiaNiemYet == sp.SanPham.GiaBan)
+                        {
+                            <h6>@FormatCurrency(sp.SanPham.GiaNiemYet)</h6>
+                        }
+                        else
+                        {
+                            <h6>@FormatCurrency(sp.SanPham.GiaNiemYet)</h6>
+                            <h6 class="l-through">@FormatCurrency(sp.SanPham.GiaBan)</h6>
+                        }
+                    </div>
+                    <div class="prd-bottom">
+
+                        <a href="" class="social-info">
+                            <span class="ti-bag"></span>
+                            <p class="hover-text">add to bag</p>
+                        </a>
+                        <a href="" class="social-info">
+                            <span class="lnr lnr-heart"></span>
+                            <p class="hover-text">Wishlist</p>
+                        </a>
+                        <a href="" class="social-info">
+                            <span class="lnr lnr-sync"></span>
+                            <p class="hover-text">compare</p>
+                        </a>
+                        <a href="" class="social-info">
+                            <span class="lnr lnr-move"></span>
+                            <p class="hover-text">view more</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+<script>
+    @functions {
+        public string FormatCurrency(float price)
+        {
+            string formattedPrice = string.Format("{0:N0}", price); // Định dạng số và thêm dấu phân cách ngàn
+            return formattedPrice + "₫"; // Thêm ký hiệu đồng (₫) vào cuối
+        }
+    }
+</script>

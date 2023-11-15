@@ -1,0 +1,117 @@
+﻿@model CTN4_View.Areas.Admin.Viewmodel.SaleViewModel
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<body>
+    <!--  Body Wrapper -->
+    <!--  Header End -->
+    <div class="container-fluid">
+
+        <div class="row">
+
+
+            <div class="card w-100">
+                <div class="card-body p-4">
+                    <h5 class="card-title fw-semibold mb-4">Recent Transactions</h5>
+                    <div class="table-responsive">
+                        <table class="table text-nowrap mb-0 align-middle">
+                            <thead class="text-dark fs-4">
+                                <tr>
+                                    <th class="border-bottom-0">
+                                        <h6 class="fw-semibold mb-0"></h6>
+                                    </th>
+                                    <th class="border-bottom-0">
+                                        <h6 class="fw-semibold mb-0">Id</h6>
+                                    </th>
+
+                                    <th class="border-bottom-0">
+                                        <h6 class="fw-semibold mb-0">Mã khuyến mại</h6>
+                                    </th>
+
+                                    <th class="border-bottom-0">
+                                        <h6 class="fw-semibold mb-0">Tên sản phẩm</h6>
+                                    </th>
+
+                                    <th class="border-bottom-0">
+                                        <h6 class="fw-semibold mb-0">Ảnh sản phẩm</h6>
+                                    </th>
+                                    
+                                    
+                                    <th class="border-bottom-0">
+                                        <h6 class="fw-semibold mb-0">Phần trăm giảm</h6>
+                                    </th>
+
+                                    
+                                    <th class="border-bottom-0">
+                                        <h6 class="fw-semibold mb-0">Số tiền giảm</h6>
+                                    </th>
+
+                                    
+                                    <th class="border-bottom-0">
+                                        <h6 class="fw-semibold mb-0">Ngày bắt đầu</h6>
+                                    </th>
+                                    
+                                    <th class="border-bottom-0">
+                                        <h6 class="fw-semibold mb-0">Ngày kết thúc</h6>
+                                    </th>
+
+                                    <th class="border-bottom-0">
+                                        <h6 class="fw-semibold mb-0">Trạng thái</h6>
+                                    </th>
+
+                                    <th class="border-bottom-0">
+                                        <h6 class="fw-semibold mb-0"></h6>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var a in Model.khuyenMaiSanPhams)
+                                {
+                                    <tr>
+                                        <td class="border-bottom-0"><h6 class="fw-semibold mb-0"></h6></td>
+                                        <td class="border-bottom-0"><h6 class="fw-semibold mb-0">@a.Id</h6></td>
+                                        
+                                        <td class="border-bottom-0">
+                                            <p class="mb-0 fw-normal">@a.KhuyenMai.MaKhuyenMai</p>
+                                        </td>
+                                        <td class="border-bottom-0">
+                                            <p class="mb-0 fw-normal">@a.SanPham.TenSanPham</p>
+                                        </td>
+                                        <td class="border-bottom-0">
+                                            <p class="mb-0 fw-normal">@a.SanPham.AnhDaiDien</p>
+                                        </td>
+                                        <td class="border-bottom-0">
+                                            <p class="mb-0 fw-normal">@a.KhuyenMai.PhanTramGiamGia</p>
+                                        </td>
+                                        <td class="border-bottom-0">
+                                            <p class="mb-0 fw-normal">@a.KhuyenMai.SoTienGiam</p>
+                                        </td>
+                                        <td class="border-bottom-0">
+                                            <p class="mb-0 fw-normal">@a.KhuyenMai.NgayBatDau</p>
+                                        </td>
+                                        <td class="border-bottom-0">
+                                            <p class="mb-0 fw-normal">@a.KhuyenMai.NgayKetThuc</p>
+                                        </td>
+                                        <td class="border-bottom-0">
+                                            <p class="mb-0 fw-normal">@a.KhuyenMai.TrangThai</p>
+                                        </td>
+                                        <td class="border-bottom-0">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <span class="badge bg-primary rounded-3 fw-semibold">Low</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
