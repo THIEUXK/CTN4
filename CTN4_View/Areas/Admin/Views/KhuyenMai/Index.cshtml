@@ -1,5 +1,5 @@
-﻿@model IEnumerable<CTN4_Data.Models.DB_CTN4.KhuyenMai>
-
+﻿
+@model X.PagedList.IPagedList<CTN4_Data.Models.DB_CTN4.KhuyenMai>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
@@ -59,12 +59,15 @@
                 <button type="button" class="btn btn-outline-dark" style="border-radius: 5px; margin-right: 10px">
                     <i class="fas fa-filter">  Thêm điều kiện lọc  </i>
                 </button>
-                <div class="form-outline">
-                    <input type="search" id="form1" class="form-control" style="width: 980px" placeholder="Search" />
-                </div>
-                <button type="button" class="btn btn-primary">
-                    <i class="fas fa-search"></i>
-                </button>
+                <form method="get" style="display:flex">
+                    <div class="form-outline">
+                        <input type="text" id="form1" class="form-control" name="searchString" style="width: 980px" placeholder="Tìm kiếm..." />
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+                
             </div>
             @*
                     <form>
@@ -84,10 +87,13 @@
                         <thead class="thead-dark" >
                             <tr>
                                 <th>
-                                    <h6 style="color:white; text-align:center">Mã khuyến mại</h6>
+                                    <h6 style="color:white; text-align:center; te">Mã khuyến mãi</h6>
                                 </th>
                                 <th>
-                                    <h6 style="color:white; text-align:center">Phần trăm giảm giá</h6>
+                                    <h6 style="color:white; text-align:center">Loại khuyến mãi</h6>
+                                </th>
+                                <th>
+                                    <h6 style="color:white; text-align:center">Số tiền giảm/ % giảm</h6>
                                 </th>
                                 <th>
                                     <h6 style="color:white; text-align:center">Ngày bắt đầu</h6>
@@ -96,7 +102,7 @@
                                     <h6 style="color:white; text-align:center">Ngày kết thúc</h6>
                                 </th>
                                 <th>
-                                    <h6 style="color:white; text-align:center">Số tiền giảm</h6>
+                                    <h6 style="color:white; text-align:center; white-space:nowrap">Ghi chú</h6>
                                 </th>
                                 <th>
                                     <h6 style="color:white; text-align:center">Trạng thái</h6>
@@ -109,36 +115,64 @@
                             {
                                 <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.MaKhuyenMai)
+                                        <h6 style="text-align:center">@item.MaKhuyenMai</h6>
+                                    </td>
+                                    @if(@item.DongGia !=0) {
+                                        <td>
+                                            <h6 style="text-align:center">Đồng giá</h6>
+                                        </td>
+                                        <td>
+                                            <h6 style="text-align:center">@FormatCurrency(item.DongGia) </h6>
+                                        </td>
+                                    }
+                                    @if(@item.PhanTramGiamGia !=0) {
+                                        <td>
+                                            <h6 style="text-align:center">Giảm %</h6>
+                                        </td>
+                                        <td>
+                                            <h6 style="text-align:center">@item.PhanTramGiamGia % </h6>
+                                        </td>
+                                    }
+                                    @if(@item.SoTienGiam !=0) {
+                                        <td>
+                                            <h6 style="text-align:center">Giảm số tiền</h6>
+                                        </td>
+                                        <td>
+                                            <h6 style="text-align:center">@FormatCurrency(item.SoTienGiam) </h6>
+                                        </td>
+                                    }
+
+                                    
+                                    <td>
+                                        <h6 style="text-align:center">@item.NgayBatDau</h6>
                                     </td>
                                     <td>
-                                        <h6 style="text-align:center">@item.PhanTramGiamGia % </h6>
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.NgayBatDau)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.NgayKetThuc)
-                                    </td>
-                                    <td>
-                                        <h6 style="text-align:center">@item.SoTienGiam ₫ </h6>
+                                        <h6 style="text-align:center">@item.NgayKetThuc</h6>
+                                    </td><td>
+                                        <h6 style="text-align:center">@item.Ghichu</h6>
                                     </td>
                                     @if (item.TrangThai != false)
                                     {
                                         <td class="border-bottom-0">
-                                            <p class="mb-0 fw-normal" style="color:white;text-align :center; background-color: forestgreen; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Đang khuyến mại</p>
+                                            <p class="mb-0 fw-normal" style="white-space: nowrap; color:white;text-align :center; background-color: forestgreen; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Đang khuyến mãi</p>
                                         </td>
                                     }
                                     else
                                     {
                                         <td class="border-bottom-0">
-                                            <p class="mb-0 fw-normal"  style="color:white;text-align :center; background-color: orange; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Tạm ngưng</p>
+                                            <p class="mb-0 fw-normal"  style="white-space: nowrap; color:white;text-align :center; background-color: orange; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Tạm ngưng</p>
                                         </td>
                                     }
                                     <td>
-                                        @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                                        @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-                                        @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                                        <button type="button" style="white-space: nowrap; background-color: wheat; border-color:deepskyblue; border-radius: 10px; font-weight: 400; padding: 0 8px">
+                                            @Html.ActionLink( "Chọn sp","Edit", new { id=item.Id })
+                                        </button>
+                                        @*<button type="button" style="white-space: nowrap; background-color: wheat; border-color:deepskyblue; border-radius: 10px; font-weight: 400; padding: 0 8px">
+                                            @Html.ActionLink( "Thông tin","Details", new { id=item.Id })
+                                        </button>*@
+                                        <button type="button" style="white-space: nowrap; background-color: wheat; border-color:deepskyblue; border-radius: 10px; font-weight: 400; padding: 0 8px">
+                                            @Html.ActionLink( "Xóa","Delete", new { id=item.Id })
+                                        </button>
                                     </td>
                                 </tr>
                             }
@@ -176,10 +210,13 @@
                         <thead class="thead-dark" >
                             <tr>
                                 <th>
-                                    <h6 style="color:white; text-align:center">Mã khuyến mại</h6>
+                                    <h6 style="color:white; text-align:center; te">Mã khuyến mãi</h6>
                                 </th>
                                 <th>
-                                    <h6 style="color:white; text-align:center">Phần trăm giảm giá</h6>
+                                    <h6 style="color:white; text-align:center">Loại khuyến mãi</h6>
+                                </th>
+                                <th>
+                                    <h6 style="color:white; text-align:center">Số tiền giảm/ % giảm</h6>
                                 </th>
                                 <th>
                                     <h6 style="color:white; text-align:center">Ngày bắt đầu</h6>
@@ -188,7 +225,7 @@
                                     <h6 style="color:white; text-align:center">Ngày kết thúc</h6>
                                 </th>
                                 <th>
-                                    <h6 style="color:white; text-align:center">Số tiền giảm</h6>
+                                    <h6 style="color:white; text-align:center; white-space:nowrap">Ghi chú</h6>
                                 </th>
                                 <th>
                                     <h6 style="color:white; text-align:center">Trạng thái</h6>
@@ -201,40 +238,66 @@
                             {
                                 if(item.TrangThai == true)
                                 {
-                                    <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.MaKhuyenMai)
+                                        <h6 style="text-align:center">@item.MaKhuyenMai</h6>
+                                    </td>
+                                    @if(@item.DongGia !=0) {
+                                        <td>
+                                            <h6 style="text-align:center">Đồng giá</h6>
+                                        </td>
+                                        <td>
+                                            <h6 style="text-align:center">@FormatCurrency(item.DongGia) </h6>
+                                        </td>
+                                    }
+                                    @if(@item.PhanTramGiamGia !=0) {
+                                        <td>
+                                            <h6 style="text-align:center">Giảm %</h6>
+                                        </td>
+                                        <td>
+                                            <h6 style="text-align:center">@item.PhanTramGiamGia % </h6>
+                                        </td>
+                                    }
+                                    @if(@item.SoTienGiam !=0) {
+                                        <td>
+                                            <h6 style="text-align:center">Giảm số tiền</h6>
+                                        </td>
+                                        <td>
+                                            <h6 style="text-align:center">@FormatCurrency(item.SoTienGiam) </h6>
+                                        </td>
+                                    }
+
+                                    
+                                    <td>
+                                        <h6 style="text-align:center">@item.NgayBatDau</h6>
                                     </td>
                                     <td>
-                                        <h6 style="text-align:center">@item.PhanTramGiamGia % </h6>
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.NgayBatDau)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.NgayKetThuc)
-                                    </td>
-                                    <td>
-                                        <h6 style="text-align:center">@item.SoTienGiam ₫ </h6>
+                                        <h6 style="text-align:center">@item.NgayKetThuc</h6>
+                                    </td><td>
+                                        <h6 style="text-align:center">@item.Ghichu</h6>
                                     </td>
                                     @if (item.TrangThai != false)
                                     {
                                         <td class="border-bottom-0">
-                                            <p class="mb-0 fw-normal" style="color:white;text-align :center; background-color: forestgreen; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Đang khuyến mại</p>
+                                            <p class="mb-0 fw-normal" style="white-space: nowrap; color:white;text-align :center; background-color: forestgreen; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Đang khuyến mãi</p>
                                         </td>
                                     }
                                     else
                                     {
                                         <td class="border-bottom-0">
-                                            <p class="mb-0 fw-normal"  style="color:white;text-align :center; background-color: orange; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Tạm ngưng</p>
+                                            <p class="mb-0 fw-normal"  style="white-space: nowrap; color:white;text-align :center; background-color: orange; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Tạm ngưng</p>
                                         </td>
                                     }
                                     <td>
-                                        @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                                        @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-                                        @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                                        <button type="button" style="white-space: nowrap; background-color: wheat; border-color:deepskyblue; border-radius: 10px; font-weight: 400; padding: 0 8px">
+                                            @Html.ActionLink( "Chọn sp","Edit", new { id=item.Id })
+                                        </button>
+                                        @*<button type="button" style="white-space: nowrap; background-color: wheat; border-color:deepskyblue; border-radius: 10px; font-weight: 400; padding: 0 8px">
+                                            @Html.ActionLink( "Thông tin","Details", new { id=item.Id })
+                                        </button>*@
+                                        <button type="button" style="white-space: nowrap; background-color: wheat; border-color:deepskyblue; border-radius: 10px; font-weight: 400; padding: 0 8px">
+                                            @Html.ActionLink( "Xóa","Delete", new { id=item.Id })
+                                        </button>
                                     </td>
-                                    </tr>
                                     
                                 }
                                 else
@@ -274,10 +337,13 @@
                         <thead class="thead-dark" >
                             <tr>
                                 <th>
-                                    <h6 style="color:white; text-align:center">Mã khuyến mại</h6>
+                                    <h6 style="color:white; text-align:center; te">Mã khuyến mãi</h6>
                                 </th>
                                 <th>
-                                    <h6 style="color:white; text-align:center">Phần trăm giảm giá</h6>
+                                    <h6 style="color:white; text-align:center">Loại khuyến mãi</h6>
+                                </th>
+                                <th>
+                                    <h6 style="color:white; text-align:center">Số tiền giảm/ % giảm</h6>
                                 </th>
                                 <th>
                                     <h6 style="color:white; text-align:center">Ngày bắt đầu</h6>
@@ -286,7 +352,7 @@
                                     <h6 style="color:white; text-align:center">Ngày kết thúc</h6>
                                 </th>
                                 <th>
-                                    <h6 style="color:white; text-align:center">Số tiền giảm</h6>
+                                    <h6 style="color:white; text-align:center; white-space:nowrap">Ghi chú</h6>
                                 </th>
                                 <th>
                                     <h6 style="color:white; text-align:center">Trạng thái</h6>
@@ -299,40 +365,66 @@
                             {
                                 if(item.TrangThai != true)
                                 {
-                                    <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.MaKhuyenMai)
+                                        <h6 style="text-align:center">@item.MaKhuyenMai</h6>
+                                    </td>
+                                    @if(@item.DongGia !=0) {
+                                        <td>
+                                            <h6 style="text-align:center">Đồng giá</h6>
+                                        </td>
+                                        <td>
+                                            <h6 style="text-align:center">@FormatCurrency(item.DongGia) </h6>
+                                        </td>
+                                    }
+                                    @if(@item.PhanTramGiamGia !=0) {
+                                        <td>
+                                            <h6 style="text-align:center">Giảm %</h6>
+                                        </td>
+                                        <td>
+                                            <h6 style="text-align:center">@item.PhanTramGiamGia % </h6>
+                                        </td>
+                                    }
+                                    @if(@item.SoTienGiam !=0) {
+                                        <td>
+                                            <h6 style="text-align:center">Giảm số tiền</h6>
+                                        </td>
+                                        <td>
+                                            <h6 style="text-align:center">@FormatCurrency(item.SoTienGiam) </h6>
+                                        </td>
+                                    }
+
+                                    
+                                    <td>
+                                        <h6 style="text-align:center">@item.NgayBatDau</h6>
                                     </td>
                                     <td>
-                                        <h6 style="text-align:center">@item.PhanTramGiamGia % </h6>
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.NgayBatDau)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.NgayKetThuc)
-                                    </td>
-                                    <td>
-                                        <h6 style="text-align:center">@item.SoTienGiam ₫ </h6>
+                                        <h6 style="text-align:center">@item.NgayKetThuc</h6>
+                                    </td><td>
+                                        <h6 style="text-align:center">@item.Ghichu</h6>
                                     </td>
                                     @if (item.TrangThai != false)
                                     {
                                         <td class="border-bottom-0">
-                                            <p class="mb-0 fw-normal" style="color:white;text-align :center; background-color: forestgreen; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Đang khuyến mại</p>
+                                            <p class="mb-0 fw-normal" style="white-space: nowrap; color:white;text-align :center; background-color: forestgreen; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Đang khuyến mãi</p>
                                         </td>
                                     }
                                     else
                                     {
                                         <td class="border-bottom-0">
-                                            <p class="mb-0 fw-normal"  style="color:white;text-align :center; background-color: orange; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Tạm ngưng</p>
+                                            <p class="mb-0 fw-normal"  style="white-space: nowrap; color:white;text-align :center; background-color: orange; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Tạm ngưng</p>
                                         </td>
                                     }
                                     <td>
-                                        @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                                        @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-                                        @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                                        <button type="button" style="white-space: nowrap; background-color: wheat; border-color:deepskyblue; border-radius: 10px; font-weight: 400; padding: 0 8px">
+                                            @Html.ActionLink( "Chọn sp","Edit", new { id=item.Id })
+                                        </button>
+                                        @*<button type="button" style="white-space: nowrap; background-color: wheat; border-color:deepskyblue; border-radius: 10px; font-weight: 400; padding: 0 8px">
+                                            @Html.ActionLink( "Thông tin","Details", new { id=item.Id })
+                                        </button>*@
+                                        <button type="button" style="white-space: nowrap; background-color: wheat; border-color:deepskyblue; border-radius: 10px; font-weight: 400; padding: 0 8px">
+                                            @Html.ActionLink( "Xóa","Delete", new { id=item.Id })
+                                        </button>
                                     </td>
-                                    </tr>
                                 }
                                 else
                                 {
@@ -373,6 +465,15 @@
         </div>
     </div>
 </div>
+<script>
+    @functions {
+        public string FormatCurrency(float price)
+        {
+            string formattedPrice = string.Format("{0:N0}", price); // Định dạng số và thêm dấu phân cách ngàn
+            return formattedPrice + "₫"; // Thêm ký hiệu đồng (₫) vào cuối
+        }
+    }
+</script>
 
 
 
