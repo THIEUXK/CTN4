@@ -506,7 +506,7 @@ namespace CTN4_Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "LichSuHoaDon",
+                name: "LichSuHoaDons",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -520,9 +520,9 @@ namespace CTN4_Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LichSuHoaDon", x => x.Id);
+                    table.PrimaryKey("PK_LichSuHoaDons", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_LichSuHoaDon_HoaDons_HoaDonId",
+                        name: "FK_LichSuHoaDons_HoaDons_HoaDonId",
                         column: x => x.HoaDonId,
                         principalTable: "HoaDons",
                         principalColumn: "Id");
@@ -649,12 +649,12 @@ namespace CTN4_Data.Migrations
                 columns: new[] { "Id", "DongGia", "Ghichu", "Is_Detele", "MaKhuyenMai", "NgayBatDau", "NgayKetThuc", "PhanTramGiamGia", "SoTienGiam", "TrangThai" },
                 values: new object[,]
                 {
-                    { new Guid("13effe44-e728-48a8-9baa-967da4ee38cd"), 0f, null, true, "km04", new DateTime(2023, 7, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 8, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, 22000f, true },
-                    { new Guid("23bdd26c-d7a3-4307-8e22-d230b653d611"), 0f, null, true, "km03", new DateTime(2023, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 20, 0f, true },
-                    { new Guid("da810cca-4fca-4291-a52b-875841d49e34"), 0f, null, true, "km02", new DateTime(2023, 7, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, 50000f, true },
-                    { new Guid("e3e37e9e-7ea3-4f87-94af-1329363a4322"), 0f, null, true, "km06", new DateTime(2023, 10, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 25, 0f, true },
-                    { new Guid("f877e80d-2b32-43b0-be70-cf3b15113056"), 0f, null, true, "km01", new DateTime(2023, 7, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 50, 0f, true },
-                    { new Guid("fa1ae994-6ab0-4ee6-b8b1-ff336cf994a8"), 0f, null, true, "km05", new DateTime(2023, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 10, 0f, true }
+                    { new Guid("13effe44-e728-48a8-9baa-967da4ee38cd"), 0f, null, true, "km04", new DateTime(2023, 6, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, 22000f, true },
+                    { new Guid("23bdd26c-d7a3-4307-8e22-d230b653d611"), 0f, null, true, "km03", new DateTime(2023, 1, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 9, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 20, 0f, true },
+                    { new Guid("da810cca-4fca-4291-a52b-875841d49e34"), 0f, null, true, "km02", new DateTime(2023, 9, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 9, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, 50000f, true },
+                    { new Guid("e3e37e9e-7ea3-4f87-94af-1329363a4322"), 0f, null, true, "km06", new DateTime(2023, 8, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 9, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 25, 0f, true },
+                    { new Guid("f877e80d-2b32-43b0-be70-cf3b15113056"), 0f, null, true, "km01", new DateTime(2023, 6, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 9, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 50, 0f, true },
+                    { new Guid("fa1ae994-6ab0-4ee6-b8b1-ff336cf994a8"), 0f, null, true, "km05", new DateTime(2023, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 9, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 10, 0f, true }
                 });
 
             migrationBuilder.InsertData(
@@ -900,8 +900,8 @@ namespace CTN4_Data.Migrations
                 column: "IdSanPham");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LichSuHoaDon_HoaDonId",
-                table: "LichSuHoaDon",
+                name: "IX_LichSuHoaDons_HoaDonId",
+                table: "LichSuHoaDons",
                 column: "HoaDonId");
 
             migrationBuilder.CreateIndex(
@@ -972,7 +972,7 @@ namespace CTN4_Data.Migrations
                 name: "KhuyenMaiSanPhams");
 
             migrationBuilder.DropTable(
-                name: "LichSuHoaDon");
+                name: "LichSuHoaDons");
 
             migrationBuilder.DropTable(
                 name: "NhanViens");

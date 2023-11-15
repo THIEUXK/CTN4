@@ -1999,7 +1999,7 @@ namespace CTN4_Data.Migrations
 
                     b.HasIndex("HoaDonId");
 
-                    b.ToTable("LichSuHoaDon");
+                    b.ToTable("LichSuHoaDons");
                 });
 
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.Anh", b =>

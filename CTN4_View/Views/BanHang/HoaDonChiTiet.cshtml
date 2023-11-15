@@ -19,104 +19,146 @@
 <br></br>
 <section class="tracking_box_area section_gap">
     <div class="container">
-        <h1>Hóa đơn chi tiết</h1>
-        <div>
-            <hr />
-            <dl class="row">
-                <dt class="col-sm-2">
-                    Mã đơn hàng
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.HoaDon.MaHoaDon)
-                </dd>
-                <dt class="col-sm-2">
-                    Ngày tạo hóa đơn
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.HoaDon.NgayTaoHoaDon)
-                </dd>
-                <dt class="col-sm-2">
-                    Tình trạng đơn hàng
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.HoaDon.TrangThai)
-                </dd>
-                <dt class="col-sm-2">
-                    Tổng tiền hóa đơn
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.Raw(FormatCurrency(Model.HoaDon.TongTien))
-                </dd>
-                <dt class="col-sm-2">
-                    Tiền ship
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.Raw(FormatCurrency(Model.HoaDon.TienShip))
-                </dd>
-                <dt class="col-sm-2">
-                    Ngày đặt
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.HoaDon.NgayDat)
-                </dd>
-                <dt class="col-sm-2">
-                    Ngày giao
-                </dt>
-                <dd class="col-sm-10">
-                    @if (Model.HoaDon.NgayGiao!=null)
-                    {
-                        @Html.DisplayFor(model => model.HoaDon.NgayGiao)
-                    }
-                    <div>Chưa giao</div>
-                </dd>
-                <dt class="col-sm-2">
-                    Ngày nhận
-                </dt>
-                <dd class="col-sm-10">
-                    @if (Model.HoaDon.NgayNhan != null)
-                    {
-                        @Html.DisplayFor(model => model.HoaDon.NgayNhan)
-                    }
-                    <div>Chưa nhận</div>
-                   
-                </dd>
-                <dt class="col-sm-2">
-                    Tên khách hàng
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.HoaDon.TenKhachHang)
-                </dd>
-                <dt class="col-sm-2">
-                    Số điện thoại người nhận
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.HoaDon.SDTNguoiNhan)
-                </dd>
-                <dt class="col-sm-2">
-                    Địa chỉ
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.HoaDon.DiaChi)
-                </dd>
-                <dt class="col-sm-2">
-                    Phương thức thanh toán
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.HoaDon.PhuongThucThanhToan.TenPhuongThuc)
-                </dd>
-                <dt class="col-sm-2">
-                    Ghi chú
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.HoaDon.GhiChu)
-                </dd>
-            </dl>
+        <div class="row">
+            <div class="col-6">
+
+                <h1>Hóa đơn chi tiết</h1>
+                <div>
+                    <hr />
+                    <dl class="row">
+                        <dt class="col-sm-2">
+                            Mã đơn hàng
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.HoaDon.MaHoaDon)
+                        </dd>
+                        <dt class="col-sm-2">
+                            Ngày tạo hóa đơn
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.HoaDon.NgayTaoHoaDon)
+                        </dd>
+                        <dt class="col-sm-2">
+                            Tình trạng đơn hàng
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.HoaDon.TrangThai)
+                        </dd>
+                        <dt class="col-sm-2">
+                            Tổng tiền hóa đơn
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.Raw(FormatCurrency(Model.HoaDon.TongTien))
+                        </dd>
+                        <dt class="col-sm-2">
+                            Tiền ship
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.Raw(FormatCurrency(Model.HoaDon.TienShip))
+                        </dd>
+                        <dt class="col-sm-2">
+                            Ngày đặt
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.HoaDon.NgayDat)
+                        </dd>
+                        <dt class="col-sm-2">
+                            Ngày giao
+                        </dt>
+                        <dd class="col-sm-10">
+                            @if (Model.HoaDon.NgayGiao != null)
+                            {
+                                @Html.DisplayFor(model => model.HoaDon.NgayGiao)
+                            }
+                            <div>Chưa giao</div>
+                        </dd>
+                        <dt class="col-sm-2">
+                            Ngày nhận
+                        </dt>
+                        <dd class="col-sm-10">
+                            @if (Model.HoaDon.NgayNhan != null)
+                            {
+                                @Html.DisplayFor(model => model.HoaDon.NgayNhan)
+                            }
+                            <div>Chưa nhận</div>
+
+                        </dd>
+                        <dt class="col-sm-2">
+                            Tên khách hàng
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.HoaDon.TenKhachHang)
+                        </dd>
+                        <dt class="col-sm-2">
+                            Số điện thoại người nhận
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.HoaDon.SDTNguoiNhan)
+                        </dd>
+                        <dt class="col-sm-2">
+                            Địa chỉ
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.HoaDon.DiaChi)
+                        </dd>
+                        <dt class="col-sm-2">
+                            Phương thức thanh toán
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.HoaDon.PhuongThucThanhToan.TenPhuongThuc)
+                        </dd>
+                        <dt class="col-sm-2">
+                            Ghi chú
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.HoaDon.GhiChu)
+                        </dd>
+                    </dl>
+                </div>  
+            </div> <div class="col-6">
+                <form asp-action="ApDungGiamGia" asp-controller="GiamGiaHoaDon">
+                    <input type="hidden" name="IdHoaDon" value="@Model.HoaDon.Id"/>
+                    <label> Giảm giá </label>
+                <input type="text" name="GiamGia" value=""></input>
+                <button type="submit"> Áp dụng</button>
+                </form>
+                @if (TempData["TB1"] != null)
+                {
+                    <div class="alert alert-danger">@TempData["TB1"]</div>
+                }
+                @if (TempData["TB2"] != null)
+                {
+                    <div style="background : greenyellow ; color : black " class="alert alert-danger">@TempData["TB2"]</div>
+                }
+                <br></br>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col"> Mã voucher </th>
+                            <th scope="col"> Loại voucher </th>
+                            <th scope="col"> Loại giảm </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                    
+                        </tr>
+                        
+                           
+                    
+                    </tbody>
+                </table>
+
+            </div>
         </div>
         @if (TempData["TB4"] != null)
         {
             <div class="alert alert-danger">@TempData["TB4"]</div>
         }
-        @if (Model.HoaDon.Is_detele==true)
+        @if (Model.HoaDon.Is_detele == true)
         {
             <div>
                 <button type="button" class="primary-btn">@Html.ActionLink("Hủy đơn","huydonKH", new {  id = Model.HoaDon.Id} , new { @class = "custom-edit-link" })</button>
@@ -124,14 +166,14 @@
         }
         else
         {
-            <div style="color:red" >Đơn hàng của bạn đã bị hủy</div>
+            <div style="color:red">Đơn hàng của bạn đã bị hủy</div>
         }
 
         <br> <table class="table">
             <thead>
                 <tr>
                     <th>
-                        
+
                     </th>
                     <th>
                         Sản Phẩm
@@ -180,7 +222,7 @@
                         <td>
                                 @Html.DisplayFor(modelItem => item.SanPhamChiTiet.Mau.TenMau)
                         </td>
-                        
+
                         <td>
                                 @Html.DisplayFor(modelItem => item.SoLuong)
                         </td>
@@ -191,7 +233,7 @@
                     }
             </tbody>
         </table></br>
-       
+
     </div>
 </section>
 <script>
