@@ -124,18 +124,22 @@ namespace CTN4_View_Admin.Controllers
         public IActionResult DangNhapa(LoginAdmin userModel)
         {
             var TK = _nhanvienService.GetAll().FirstOrDefault(c => c.TenDangNhap == userModel.User && c.MatKhau == userModel.Password);
+            if (TK == null)
+            {
+              return  RedirectToAction("DangNhap");
+            }
             // Đọc dữ liệu từ Session xem trong Cart nó có cái gì chưa?
-            var nvnew = SessionServices.NhanVienSS(HttpContext.Session, "ACC");
+            var nvnew = SessionServices.NhanVienSS(HttpContext.Session, "ACA");
             if (nvnew.Count == 0)
             {
                 nvnew.Add(TK);
-                SessionServices.SetObjToJson(HttpContext.Session, "ACC", nvnew);
+                SessionServices.SetObjToJson(HttpContext.Session, "ACA", nvnew);
             }
             else if (nvnew.Count != 0)
             {
                 nvnew.Clear();
                 nvnew.Add(TK);
-                SessionServices.SetObjToJson(HttpContext.Session, "ACC", nvnew);
+                SessionServices.SetObjToJson(HttpContext.Session, "ACA", nvnew);
             }
             if (!ModelState.IsValid)
             {

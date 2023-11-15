@@ -1,5 +1,8 @@
-﻿using CTN4_Serv.Service;
+﻿using CTN4_Data.Models;
+using CTN4_Data.Models.DB_CTN4;
+using CTN4_Serv.Service;
 using CTN4_Serv.Service.IService;
+using CTN4_Serv.Service.Service;
 using CTN4_View.Areas.Admin.Viewmodel;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,10 +13,12 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
     {
         public IHoaDonService _hoaDonService;
         public IHoaDonChiTietService _hoaDonChiTietService;
+        public ILichSuHoaDonService _LichSuHoaDonService;
         public QuanLyHoaDonController()
         {
             _hoaDonChiTietService = new HoaDonChiTietService();
             _hoaDonService = new HoaDonService();
+            _LichSuHoaDonService = new LichSuHoaDonService();
         }
         public IActionResult Index()
         {
@@ -26,22 +31,45 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
         }
         public IActionResult aa()
         {
-          
+
             return View();
         }
         public IActionResult XemChiTiet(int id)
         {
-            var hd = _hoaDonService.GetById(id);
-            var hdct = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
-            var view = new ThieuxkViewAdmin()
+            var nvnew = SessionServices.NhanVienSS(HttpContext.Session, "ACA");
+            if (nvnew.Count() != 0)
             {
-                HoaDon = hd,
-                hoaDonChiTiets = hdct
-            };
-            return View(view);
+                var hd = _hoaDonService.GetById(id);
+                var hdct = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
+                var lshd = _LichSuHoaDonService.GetAll();
+                int tongSoLuongSP = 0;
+                float tongTienSP = 0;
+                foreach (var a in hdct)
+                {
+                    tongSoLuongSP += a.SoLuong;
+                }
+                foreach (var a in hdct)
+                {
+                    tongTienSP += a.GiaTien;
+                }
+                var view = new ThieuxkViewAdmin()
+                {
+                    HoaDon = hd,
+                    hoaDonChiTiets = hdct,
+                    soLuongTong = tongSoLuongSP,
+                    TongTienHang = tongTienSP,
+                    LichSuHoaDon = lshd
+                };
+                return View(view);
+            }
+            else
+            {
+                return RedirectToAction("DangNhap", "Home");
+            }
         }
         public IActionResult XacNhanDonHang(int id)
         {
+
             var hd = _hoaDonService.GetById(id);
             hd.TrangThai = "Đang chuẩn bị hàng";
             _hoaDonService.Sua(hd);
@@ -174,39 +202,72 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
         }
         public IActionResult BoSanPham(Guid idHDCT, int idHD)
         {
-            var hd = _hoaDonService.GetById(idHD);
-            var hdct= _hoaDonChiTietService.GetById(idHDCT);
-            if (hd.Is_detele != false)
+            var nvnew = SessionServices.NhanVienSS(HttpContext.Session, "ACA");
+            if (nvnew.Count() != 0)
             {
-                hd.TongTien -= hdct.GiaTien;
-                hdct.TrangThai = false;
-                _hoaDonService.Sua(hd);
+                var hd = _hoaDonService.GetById(idHD);
+                var hdct = _hoaDonChiTietService.GetById(idHDCT);
+                if (hd.Is_detele != false)
+                {
+                    hd.TongTien -= hdct.GiaTien;
+                    hdct.TrangThai = false;
+                    _hoaDonService.Sua(hd);
+                    var li = new LichSuDonHang()
+                    {
+                        GhiChu = null,
+                        ThaoTac = $"Bỏ sản phẩm {hdct.SanPhamChiTiet.SanPham.TenSanPham} ",
+                        IdHoaDonn = idHD,
+                        ThoiGianlam = DateTime.Now,
+                        NguoiThucHien = nvnew[0].TenDangNhap,
+                        TrangThai = true,
+                        Is_detele = true
+                    };
+                    _LichSuHoaDonService.Them(li);
+                }
+                else
+                {
+                    var message = "Đơn hàng không thể thay đổi";
+                    TempData["TB5"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = idHD, message });
+                }
+
+                var hdct1 = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == idHD).ToList();
+                var view = new ThieuxkViewAdmin()
+                {
+                    HoaDon = hd,
+                    hoaDonChiTiets = hdct1
+                };
+                return View("XemChiTiet", view);
             }
             else
             {
-                var message = "Đơn hàng không thể thay đổi";
-                TempData["TB5"] = message;
-                return RedirectToAction("XemChiTiet", new { id = idHD, message });
+                return RedirectToAction("DangNhap", "Home");
             }
-
-            var hdct1 = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == idHD).ToList();
-            var view = new ThieuxkViewAdmin()
-            {
-                HoaDon = hd,
-                hoaDonChiTiets = hdct1
-            };
-            return View("XemChiTiet", view);
         }
         public IActionResult HoanTacSp(Guid idHDCT, int idHD)
         {
-            var hd = _hoaDonService.GetById(idHD);
+            var nvnew = SessionServices.NhanVienSS(HttpContext.Session, "ACA");
+            if (nvnew.Count() != 0)
+            {
+                var hd = _hoaDonService.GetById(idHD);
             var hdct = _hoaDonChiTietService.GetById(idHDCT);
             if (hd.Is_detele != false)
             {
                 hd.TongTien += hdct.GiaTien;
                 hdct.TrangThai = true;
                 _hoaDonService.Sua(hd);
-            }
+                var li = new LichSuDonHang()
+                {
+                    GhiChu = null,
+                    ThaoTac = $"Hoàn tác sản phẩm {hdct.SanPhamChiTiet.SanPham.TenSanPham} ",
+                    IdHoaDonn = idHD,
+                    ThoiGianlam = DateTime.Now,
+                    NguoiThucHien = nvnew[0].TenDangNhap,
+                    TrangThai = true,
+                    Is_detele = true
+                };
+                _LichSuHoaDonService.Them(li);
+                }
             else
             {
                 var message = "Đơn hàng không thể thay đổi";
@@ -221,16 +282,21 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                 hoaDonChiTiets = hdct1
             };
             return View("XemChiTiet", view);
+            }
+            else
+            {
+                return RedirectToAction("DangNhap", "Home");
+            }
         }
-     
+
         public IActionResult XemChuaXacNhan()
         {
             var hd = _hoaDonService.GetAll();
             var view = new ThieuxkViewAdmin()
             {
-                hoaDons = hd.Where(c=>c.TrangThai== "Đang chờ xử lí").ToList(),
+                hoaDons = hd.Where(c => c.TrangThai == "Đang chờ xử lí").ToList(),
             };
-            return View("Index",view);
+            return View("Index", view);
         }
         public IActionResult XemDaXacNhan()
         {
@@ -239,28 +305,28 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             {
                 hoaDons = hd.Where(c => c.TrangThai != "Đang chờ xử lí").ToList(),
             };
-            return View("Index",view);
+            return View("Index", view);
         }
         public IActionResult TimKiem(string ten)
         {
-            if (ten==null)
+            if (ten == null)
             {
                 return RedirectToAction("Index");
             }
             var hd = _hoaDonService.GetAll();
             var view = new ThieuxkViewAdmin()
             {
-                hoaDons = hd.Where(c => c.MaHoaDon.ToLower().Contains(ten.ToLower())||c.TenKhachHang.ToLower().Contains(ten.ToLower())).ToList(),
+                hoaDons = hd.Where(c => c.MaHoaDon.ToLower().Contains(ten.ToLower()) || c.TenKhachHang.ToLower().Contains(ten.ToLower())).ToList(),
             };
             return View("Index", view);
         }
         public IActionResult TimKiemNgay(DateTime NgayDau, DateTime NgayCuoi)
         {
-            if (NgayDau == DateTime.Parse("01/01/0001 12:00:00 SA") || NgayCuoi==DateTime.Parse("01/01/0001 12:00:00 SA"))
+            if (NgayDau == DateTime.Parse("01/01/0001 12:00:00 SA") || NgayCuoi == DateTime.Parse("01/01/0001 12:00:00 SA"))
             {
                 return RedirectToAction("Index");
             }
-            else if (NgayDau>NgayCuoi)
+            else if (NgayDau > NgayCuoi)
             {
                 var message = "Ngày bắt đầu phải nhỏ hơn ngày kết thúc !";
                 TempData["TB1"] = message;
@@ -275,8 +341,34 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                 };
                 return View("Index", view);
             }
-           
-        }
 
+        }
+        public IActionResult ThemBinhLuan(int IdHoaDon, string BinhLuan)
+        {
+            var nvnew = SessionServices.NhanVienSS(HttpContext.Session, "ACA");
+            if (nvnew.Count() != 0)
+            {
+                var li = new LichSuDonHang()
+                {
+                    GhiChu = BinhLuan,
+                    IdHoaDonn = IdHoaDon,
+                    ThoiGianlam = DateTime.Now,
+                    NguoiThucHien = nvnew[0].TenDangNhap,
+                    TrangThai = false,
+                    Is_detele = true
+                };
+                if (_LichSuHoaDonService.Them(li) == false)
+                {
+                    var message = "Thêm thất bại";
+                    TempData["TBLS"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = IdHoaDon, message });
+                }
+                return RedirectToAction("XemChiTiet", new { id = IdHoaDon });
+            }
+            else
+            {
+                return RedirectToAction("DangNhap", "Home");
+            }
+        }
     }
 }

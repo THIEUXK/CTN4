@@ -506,26 +506,27 @@ namespace CTN4_Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "LichSuHoaDon",
+                name: "LichSuDonHangs",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    IdHoaDon = table.Column<int>(type: "int", nullable: true),
-                    TenHanhDong = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ThoiGiaoThaoTac = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ThaoTac = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ThoiGianlam = table.Column<DateTime>(type: "datetime2", nullable: false),
                     NguoiThucHien = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Is_detele = table.Column<bool>(type: "bit", nullable: false),
+                    GhiChu = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TrangThai = table.Column<bool>(type: "bit", nullable: false),
-                    HoaDonId = table.Column<int>(type: "int", nullable: true)
+                    Is_detele = table.Column<bool>(type: "bit", nullable: false),
+                    IdHoaDonn = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LichSuHoaDon", x => x.Id);
+                    table.PrimaryKey("PK_LichSuDonHangs", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_LichSuHoaDon_HoaDons_HoaDonId",
-                        column: x => x.HoaDonId,
+                        name: "FK_LichSuDonHangs_HoaDons_IdHoaDonn",
+                        column: x => x.IdHoaDonn,
                         principalTable: "HoaDons",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -900,9 +901,9 @@ namespace CTN4_Data.Migrations
                 column: "IdSanPham");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LichSuHoaDon_HoaDonId",
-                table: "LichSuHoaDon",
-                column: "HoaDonId");
+                name: "IX_LichSuDonHangs_IdHoaDonn",
+                table: "LichSuDonHangs",
+                column: "IdHoaDonn");
 
             migrationBuilder.CreateIndex(
                 name: "IX_NhanViens_IdChucVu",
@@ -972,7 +973,7 @@ namespace CTN4_Data.Migrations
                 name: "KhuyenMaiSanPhams");
 
             migrationBuilder.DropTable(
-                name: "LichSuHoaDon");
+                name: "LichSuDonHangs");
 
             migrationBuilder.DropTable(
                 name: "NhanViens");
