@@ -54,6 +54,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         // GET: KhuyenMaiController/Create
         public ActionResult Create()
         {
+          
             var lstSp = _sp.GetAll();
             ViewBag.lstSp = lstSp;
             return View();
@@ -64,7 +65,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [ValidateAntiForgeryToken]
         public ActionResult Creates(KhuyenMai a)
         {
-
+           
             a.TrangThai = true;
              a.Is_Detele = true;
             _sv.Them(a);
