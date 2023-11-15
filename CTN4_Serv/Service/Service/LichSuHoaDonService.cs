@@ -10,7 +10,7 @@ using CTN4_Serv.Service.IService;
 
 namespace CTN4_Serv.Service.Service
 {
-    public class LichSuHoaDonService:ILichSuHoaDonService
+    public class LichSuHoaDonService : ILichSuHoaDonService
     {
         public DB_CTN4_ok _db;
 
@@ -18,21 +18,21 @@ namespace CTN4_Serv.Service.Service
         {
             _db = new DB_CTN4_ok();
         }
-        public List<LichSuHoaDon> GetAll()
+        public List<LichSuDonHang> GetAll()
         {
-            return _db.LichSuHoaDons.ToList();
+            return _db.LichSuDonHangs.ToList();
         }
 
-        public LichSuHoaDon GetById(Guid id)
+        public LichSuDonHang GetById(Guid id)
         {
             return GetAll().FirstOrDefault(c => c.Id == id);
         }
 
-        public bool Them(LichSuHoaDon a)
+        public bool Them(LichSuDonHang a)
         {
             try
             {
-                _db.LichSuHoaDons.Add(a);
+                _db.LichSuDonHangs.Add(a);
                 _db.SaveChanges();
                 return true;
             }
@@ -42,11 +42,11 @@ namespace CTN4_Serv.Service.Service
             }
         }
 
-        public bool Sua(LichSuHoaDon a)
+        public bool Sua(LichSuDonHang a)
         {
             try
             {
-                _db.LichSuHoaDons.Update(a);
+                _db.LichSuDonHangs.Update(a);
                 _db.SaveChanges();
                 return true;
             }
@@ -61,7 +61,7 @@ namespace CTN4_Serv.Service.Service
             try
             {
                 var b = GetById(id);
-                _db.LichSuHoaDons.Remove(b);
+                _db.LichSuDonHangs.Remove(b);
                 _db.SaveChanges();
                 return true;
             }

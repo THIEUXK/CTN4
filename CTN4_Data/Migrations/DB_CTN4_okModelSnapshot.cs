@@ -661,8 +661,8 @@ namespace CTN4_Data.Migrations
                             DongGia = 0f,
                             Is_Detele = true,
                             MaKhuyenMai = "km01",
-                            NgayBatDau = new DateTime(2023, 6, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            NgayKetThuc = new DateTime(2023, 9, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayBatDau = new DateTime(2023, 7, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayKetThuc = new DateTime(2023, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             PhanTramGiamGia = 50,
                             SoTienGiam = 0f,
                             TrangThai = true
@@ -673,8 +673,8 @@ namespace CTN4_Data.Migrations
                             DongGia = 0f,
                             Is_Detele = true,
                             MaKhuyenMai = "km02",
-                            NgayBatDau = new DateTime(2023, 9, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            NgayKetThuc = new DateTime(2023, 9, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayBatDau = new DateTime(2023, 7, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayKetThuc = new DateTime(2023, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             PhanTramGiamGia = 0,
                             SoTienGiam = 50000f,
                             TrangThai = true
@@ -685,8 +685,8 @@ namespace CTN4_Data.Migrations
                             DongGia = 0f,
                             Is_Detele = true,
                             MaKhuyenMai = "km03",
-                            NgayBatDau = new DateTime(2023, 1, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            NgayKetThuc = new DateTime(2023, 9, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayBatDau = new DateTime(2023, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayKetThuc = new DateTime(2023, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             PhanTramGiamGia = 20,
                             SoTienGiam = 0f,
                             TrangThai = true
@@ -697,8 +697,8 @@ namespace CTN4_Data.Migrations
                             DongGia = 0f,
                             Is_Detele = true,
                             MaKhuyenMai = "km04",
-                            NgayBatDau = new DateTime(2023, 6, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            NgayKetThuc = new DateTime(2023, 9, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayBatDau = new DateTime(2023, 7, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayKetThuc = new DateTime(2023, 8, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             PhanTramGiamGia = 0,
                             SoTienGiam = 22000f,
                             TrangThai = true
@@ -710,7 +710,7 @@ namespace CTN4_Data.Migrations
                             Is_Detele = true,
                             MaKhuyenMai = "km05",
                             NgayBatDau = new DateTime(2023, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            NgayKetThuc = new DateTime(2023, 9, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayKetThuc = new DateTime(2023, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             PhanTramGiamGia = 10,
                             SoTienGiam = 0f,
                             TrangThai = true
@@ -721,8 +721,8 @@ namespace CTN4_Data.Migrations
                             DongGia = 0f,
                             Is_Detele = true,
                             MaKhuyenMai = "km06",
-                            NgayBatDau = new DateTime(2023, 8, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            NgayKetThuc = new DateTime(2023, 9, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayBatDau = new DateTime(2023, 10, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            NgayKetThuc = new DateTime(2023, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             PhanTramGiamGia = 25,
                             SoTienGiam = 0f,
                             TrangThai = true
@@ -769,6 +769,41 @@ namespace CTN4_Data.Migrations
                     b.HasIndex("IdkhuyenMai");
 
                     b.ToTable("KhuyenMaiSanPhams");
+                });
+
+            modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.LichSuDonHang", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("GhiChu")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("IdHoaDonn")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Is_detele")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("NguoiThucHien")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ThaoTac")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ThoiGianlam")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("TrangThai")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdHoaDonn");
+
+                    b.ToTable("LichSuDonHangs");
                 });
 
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.Mau", b =>
@@ -1966,42 +2001,6 @@ namespace CTN4_Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("CTN4_Data.Models.LichSuHoaDon", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int?>("HoaDonId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("IdHoaDon")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Is_detele")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("NguoiThucHien")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TenHanhDong")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("ThoiGiaoThaoTac")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("TrangThai")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("HoaDonId");
-
-                    b.ToTable("LichSuHoaDon");
-                });
-
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.Anh", b =>
                 {
                     b.HasOne("CTN4_Data.Models.DB_CTN4.SanPhamChiTiet", "SanPhamChiTiet")
@@ -2155,6 +2154,17 @@ namespace CTN4_Data.Migrations
                     b.Navigation("SanPham");
                 });
 
+            modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.LichSuDonHang", b =>
+                {
+                    b.HasOne("CTN4_Data.Models.DB_CTN4.HoaDon", "HoaDon")
+                        .WithMany("LichSuDonHangs")
+                        .HasForeignKey("IdHoaDonn")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("HoaDon");
+                });
+
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.NhanVien", b =>
                 {
                     b.HasOne("CTN4_Data.Models.DB_CTN4.ChucVu", "ChucVu")
@@ -2215,15 +2225,6 @@ namespace CTN4_Data.Migrations
                     b.Navigation("Size");
                 });
 
-            modelBuilder.Entity("CTN4_Data.Models.LichSuHoaDon", b =>
-                {
-                    b.HasOne("CTN4_Data.Models.DB_CTN4.HoaDon", "HoaDon")
-                        .WithMany("LichSuHoaDons")
-                        .HasForeignKey("HoaDonId");
-
-                    b.Navigation("HoaDon");
-                });
-
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.ChatLieu", b =>
                 {
                     b.Navigation("SanPhams");
@@ -2260,7 +2261,7 @@ namespace CTN4_Data.Migrations
 
                     b.Navigation("HoaDonChiTiets");
 
-                    b.Navigation("LichSuHoaDons");
+                    b.Navigation("LichSuDonHangs");
                 });
 
             modelBuilder.Entity("CTN4_Data.Models.DB_CTN4.KhachHang", b =>

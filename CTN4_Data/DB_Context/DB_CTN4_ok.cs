@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CTN4_Data.DB_Context
 {
-    public class DB_CTN4_ok:DbContext
+    public class DB_CTN4_ok : DbContext
     {
         public DbSet<Anh> Anhs { get; set; }
         public DbSet<ChatLieu> ChatLieus { get; set; }
@@ -21,7 +21,7 @@ namespace CTN4_Data.DB_Context
         public DbSet<DiaChiNhanHang> DaiChiNhanHangs { get; set; }
         public DbSet<GiamGia> GiamGias { get; set; }
         public DbSet<GiamGiaChiTiet> GiamGiaChiTiets { get; set; }
-        public DbSet<GioHang>GioHangs  { get; set; }
+        public DbSet<GioHang> GioHangs { get; set; }
         public DbSet<GioHangChiTiet> GioHangChiTiets { get; set; }
         public DbSet<HoaDon> HoaDons { get; set; }
         public DbSet<HoaDonChiTiet> HoaDonChiTiets { get; set; }
@@ -29,6 +29,7 @@ namespace CTN4_Data.DB_Context
         public DbSet<KhuyenMai> KhuyenMais { get; set; }
         public DbSet<KhuyenMaiPhanLoai> KhuyenMaiPhanLoais { get; set; }
         public DbSet<KhuyenMaiSanPham> KhuyenMaiSanPhams { get; set; }
+        public DbSet<LichSuDonHang> LichSuDonHangs { get; set; }
         public DbSet<Mau> Maus { get; set; }
         public DbSet<NSX> NSXs { get; set; }
         public DbSet<NhanVien> NhanViens { get; set; }
@@ -38,7 +39,7 @@ namespace CTN4_Data.DB_Context
         public DbSet<SanPham> SanPhams { get; set; }
         public DbSet<SanPhamChiTiet> SanPhamChiTiets { get; set; }
         public DbSet<Size> Sizes { get; set; }
-        public DbSet<LichSuHoaDon> LichSuHoaDons { get; set; }
+      
 
 
 
@@ -46,17 +47,12 @@ namespace CTN4_Data.DB_Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-
-
             optionsBuilder.UseSqlServer("Data Source=MSI;Initial Catalog=CTN4;User ID=sa;Password=thieu12345");
-
         }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             modelBuilder.Send();
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }
 }

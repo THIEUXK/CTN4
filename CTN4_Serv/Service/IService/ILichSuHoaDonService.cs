@@ -4,15 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CTN4_Data.Models.DB_CTN4;
 
 namespace CTN4_Serv.Service.IService
 {
     public interface ILichSuHoaDonService
     {
-        public List<LichSuHoaDon> GetAll();
-        public LichSuHoaDon GetById(Guid id);
-        public bool Them(LichSuHoaDon a);
-        public bool Sua(LichSuHoaDon a);
+        public List<LichSuDonHang> GetAll();
+        public LichSuDonHang GetById(Guid id);
+        public bool Them(LichSuDonHang a);
+        public bool Sua(LichSuDonHang a);
         public bool Xoa(Guid id);
     }
 }
