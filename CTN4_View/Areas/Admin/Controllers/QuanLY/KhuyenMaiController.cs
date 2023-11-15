@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json.Serialization;
 using System.Text.Json;
+using X.PagedList;
 
 namespace CTN4_View_Admin.Controllers.QuanLY
 {
@@ -25,11 +26,22 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         }
         // GET: KhuyenMaiController
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(string searchString, int? page)
         {
+            const int pageSize = 10;
+            var pageNumber = page ?? 1;
+
             var a = _sv.GetAll();
 
-            return View(a);
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                // Lọc sản phẩm theo tên nếu có chuỗi tìm kiếm
+                a = _sv.GetAll().Where(p => p.MaKhuyenMai.Contains(searchString, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+
+            var pagedList = a.ToPagedList(pageNumber, pageSize);
+
+            return View(pagedList);
         }
 
         // GET: KhuyenMaiController/Details/5

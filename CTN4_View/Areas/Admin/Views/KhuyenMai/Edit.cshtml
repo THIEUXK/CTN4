@@ -417,15 +417,15 @@
 
     // Lấy tham chiếu đến nút theo ID
     var updateGiaButton = document.getElementById("updateGiaButton");
-    // var huyApDungButton = document.getElementById("huyApDungButton");
+    var huyApDungButton = document.getElementById("huyApDungButton");
     var search = document.getElementById("searchButton");
     // Gắn sự kiện click vào nút
     updateGiaButton.addEventListener("click", function () {
         updateGiaSanPham();
     });
-    // huyApDungButton.addEventListener("click", function () {
-    //     huyApDungKhuyenMai();
-    // });
+     huyApDungButton.addEventListener("click", function () {
+         huyApDungKhuyenMai();
+     });
    //  search.addEventListener("click", function () {
    // //     updateView();
    //  });
@@ -477,6 +477,7 @@
         var data = {
             Ids: ids,
         };
+        console.log(data);
 
         // Gọi AJAX
         $.ajax({
@@ -485,7 +486,6 @@
             data: data,
             success: function (response) {
                 // Xử lý kết quả trả về từ server (nếu cần)
-                location.reload();
                 console.log(response);
                 // TODO: Xử lý kết quả trả về từ server
                 
@@ -512,6 +512,10 @@
         // Reload lại trang
         location.reload();  
 
+    });
+
+    document.getElementById('huyApDungButton').addEventListener('click', function () {
+        location.reload();  
     });
          
 </script>
