@@ -6,6 +6,7 @@ using CTN4_Serv.ServiceJoin;
 using CTN4_Serv.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
 
 namespace CTN4_View_Admin.Controllers.QuanLY
 {
@@ -39,10 +40,25 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         }
         // GET: SanPhamController
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(string TenSp, float? tu, float? den)
         {
-            var a = _sanPhamCuaHangService.GetAll();
-            return View(a);
+            var sanPhamList = _sanPhamCuaHangService.GetAll();
+
+            if (!string.IsNullOrEmpty(TenSp))
+            {
+                sanPhamList = sanPhamList
+                    .Where(c => c.TenSanPham.ToLower().Contains(TenSp.ToLower()))
+                    .ToList();
+            }
+
+            if (tu != null && den != null)
+            {
+                sanPhamList = sanPhamList
+                    .Where(c => (tu == null || c.GiaNiemYet >= tu) && (den == null || c.GiaNiemYet <= den))
+                    .ToList();
+            }
+
+            return View(sanPhamList);
 
         }
 
