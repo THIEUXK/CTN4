@@ -27,17 +27,25 @@ namespace CTN4_Serv.Service
         {
             return _db.SanPhams.Include(c => c.ChatLieu).Include(c => c.NSX).ToList();
         }
-        public List<SanPham> GetFull(string Tensp, string gianhap, string giaban, string gianiemyet)
+        public List<SanPham> TimSanPhamTheoDieuKien(string dieuKien)
         {
-            // Lọc danh sách dựa trên các điều kiện
-            var result = _db.SanPhams.Where(sp =>
-                (string.IsNullOrEmpty(Tensp) || sp.TenSanPham.Contains(Tensp)) &&
-                (string.IsNullOrEmpty(gianhap) || sp.GiaNhap.ToString().Contains(gianhap)) &&
-                (string.IsNullOrEmpty(giaban) || sp.GiaBan.ToString().Contains(giaban)) &&
-                (string.IsNullOrEmpty(gianiemyet) || sp.GiaNiemYet.ToString().Contains(gianiemyet))
-            ).ToList();
+            if (string.IsNullOrEmpty(dieuKien))
+            {
+                return _db.SanPhams.ToList();
+            }
+            else
+            {
 
-            return   result;
+                return _db.SanPhams
+                .Where(sp =>
+                    sp.GiaNhap.ToString().Contains(dieuKien) ||
+                    sp.GiaBan.ToString().Contains(dieuKien) ||
+                    sp.GiaNiemYet.ToString().Contains(dieuKien) ||
+                    sp.MaSp.Contains(dieuKien) ||
+                    sp.TenSanPham.Contains(dieuKien))
+                .ToList();
+            }
+      
         }
 
         public List<SanPham> GetAllBySearch(string MaSp)

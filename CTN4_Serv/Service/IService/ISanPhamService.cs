@@ -11,8 +11,8 @@ namespace CTN4_Serv.Service.IService
     {
         public List<SanPham> GetAllProduct();
         public List<SanPham> GetAll();
-        public List<SanPham> GetFull(string Tensp, string gianhap, string giaban, string gianiemyet);
         public List<SanPham> GetAllBySearch(string MaSp);
+        public List<SanPham> TimSanPhamTheoDieuKien(string dieuKien);
         public SanPham GetById(Guid id);
         public bool Them(SanPham a);
         public bool Sua(SanPham a);
