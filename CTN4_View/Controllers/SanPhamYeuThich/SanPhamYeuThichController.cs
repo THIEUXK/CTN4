@@ -52,8 +52,18 @@ namespace CTN4_View.Controllers.SanPhamYeuThich
         {
            var lisSpYT= _YT.GetAll().FirstOrDefault(c=>c.IdKhachHang == IdKhachHang&&c.IdSanPham==idSP);
             Guid idYT = lisSpYT.Id;
+
             _YT.Xoa(idYT);
             return RedirectToAction("Index");
+
+        }
+        public IActionResult XoaKhoiYeuTich1(Guid idSP)
+        {
+           var lisSpYT= _YT.GetAll().FirstOrDefault(c=>c.IdSanPham == idSP);
+            Guid idYT = lisSpYT.Id;
+
+            _YT.Xoa(idYT);
+             return RedirectToAction("HienThiSanPham","HienThiSanPham");
 
         }
     }

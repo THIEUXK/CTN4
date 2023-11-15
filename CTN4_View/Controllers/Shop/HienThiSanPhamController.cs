@@ -29,11 +29,13 @@ namespace CTN4_View.Controllers.Shop
         public ISanPhamChiTietService _sanPhamChiTietService;
         public IAnhService _anhService;
         public IGiamGiaService _giamGiaService;
+        public IChiTietSanPhamYeuThichService _chiTietSanPhamYeuThichService;
         public DanhMucJoin _DanhMucjoiin;
         public DB_CTN4_ok _CTN4_Ok;
         public int pageSize = 6;
         public PagingInfo _pagingInfo;
         public ISanPhamService _sanphamService;
+        public IKhachHangService _khachHangService;
 
         public HienThiSanPhamController()
         {
@@ -51,6 +53,8 @@ namespace CTN4_View.Controllers.Shop
             _pagingInfo = new PagingInfo();
             _CTN4_Ok = new DB_CTN4_ok();
             _sanphamService = new SanPhamService();
+            _chiTietSanPhamYeuThichService = new ChiTietSanPhamYeuThichService(); 
+            _khachHangService = new KhachHangService();
         }
         public IActionResult HienThiSanPham(int page, int Soluonghienthi)
         {
@@ -59,9 +63,9 @@ namespace CTN4_View.Controllers.Shop
             var danhMuc = _danhMucService.GetAll();
             var danhMucChiTiets = _danhMucChiTiet.GetAll();
             var listSp = _sanPhamCuaHangService.GetAll().Where(c => c.Is_detele == true).ToList();
-            //var mauSacs = _mauSacService.GetAll();
+            var SpYt = _chiTietSanPhamYeuThichService.GetAll();
             var chatLieus = _chatLieuService.GetAll();
-            //var listSpct = _sanPhamChiTietService.GetAll();
+            var khachhang = _khachHangService.GetAll();
 
             //var Paging = _CTN4_Ok.SanPhamChiTiets.Include(c => c.ChatLieu).Include(c => c.NSX).Include(c => c.Mau).Include(c => c.Size).Include(c => c.SanPham).Skip((page - 1) * pageSize).Take(pageSize).ToList();
 
@@ -81,7 +85,9 @@ namespace CTN4_View.Controllers.Shop
                     ItemsPerPage = Soluonghienthi,
 
                 },
-                soluonghienthi = Soluonghienthi
+                soluonghienthi = Soluonghienthi,
+                sanPhamYeuThiches = SpYt,
+                khachHangs = khachhang,
 
             };
             return View(view);
@@ -227,8 +233,9 @@ namespace CTN4_View.Controllers.Shop
                 if (page == 0) { page = 1; }
                 var danhMuc = _danhMucService.GetAll();
                 var danhMucChiTiets = _danhMucChiTiet.GetAll();
+                var SpYt = _chiTietSanPhamYeuThichService.GetAll();
                 var listSp = _sanPhamCuaHangService.GetAll().Where(c => c.Is_detele == true && c.TenSanPham.ToLower().Contains(TenSp.ToLower())).ToList();
-                //var mauSacs = _mauSacService.GetAll();
+                var khachhang = _khachHangService.GetAll();
                 var chatLieus = _chatLieuService.GetAll();
                 //var listSpct = _sanPhamChiTietService.GetAll();
 
@@ -250,7 +257,9 @@ namespace CTN4_View.Controllers.Shop
                         ItemsPerPage = Soluonghienthi,
 
                     },
-                     soluonghienthi = Soluonghienthi
+                     soluonghienthi = Soluonghienthi,
+                     sanPhamYeuThiches = SpYt,
+                     khachHangs = khachhang,
                 };
                 return View("HienThiSanPham", view);
             }
@@ -275,8 +284,10 @@ namespace CTN4_View.Controllers.Shop
             if (page == 0) { page = 1; }
             var danhMuc = _danhMucService.GetAll();
             var danhMucChiTiets = _danhMucChiTiet.GetAll();
+            var SpYt = _chiTietSanPhamYeuThichService.GetAll().ToList();
             var listSp = _sanPhamCuaHangService.GetAll().Where(c => c.Is_detele == true).ToList();
             var chatLieus = _chatLieuService.GetAll();
+            var khachhang = _khachHangService.GetAll();
             var view = new HienThiSanPhamView()
             {
                 danhMucs = danhMuc,
@@ -293,7 +304,9 @@ namespace CTN4_View.Controllers.Shop
                     ItemsPerPage = Soluonghienthi,
 
                 },
-                soluonghienthi = Soluonghienthi
+                soluonghienthi = Soluonghienthi,
+                sanPhamYeuThiches = SpYt,
+                khachHangs = khachhang,
 
             };
             return View("HienThiSanPham", view);

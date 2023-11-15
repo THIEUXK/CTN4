@@ -20,7 +20,7 @@ namespace CTN4_Serv.Service
         }
         public List<ChiTietSanPhamYeuThich> GetAll()
         {
-            return _db.ChiTietSanPhamYeu.Include(c => c.SanPham).ToList();
+            return _db.ChiTietSanPhamYeu.Include(c => c.SanPham).Include(c=>c.KhachHang).ToList();
         }
 
         public ChiTietSanPhamYeuThich GetById(Guid id)

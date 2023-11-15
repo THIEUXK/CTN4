@@ -18,6 +18,8 @@ namespace CTN4_Serv.ViewModel
         public List<DanhMucChiTiet> danhMucChiTiet;
         public List<DanhMucChiTiet> danhMucChiTiet2;
         public List<SanPhamChiTiet> sanPhamChiTiets;
+        public List<ChiTietSanPhamYeuThich> sanPhamYeuThiches { get; set; } 
+        public List<KhachHang> khachHangs { get; set; } 
         public PagingInfo pagingInfo { get; set; } = new PagingInfo();
         public List<SanPham> sanphampaging { get; set; } = new List<SanPham>();
         public int TotalItems { get; set; }
