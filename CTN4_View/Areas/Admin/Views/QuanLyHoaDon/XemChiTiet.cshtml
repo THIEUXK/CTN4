@@ -28,7 +28,7 @@
                                                 <th scope="row"><h4>@Model.HoaDon.MaHoaDon</h4></th>
                                                 @if (@Model.HoaDon.NgayGiao == null)
                                                 {
-                                                    <td><button>Chưa Giao Hàng</button> </td>
+                                                    <td><button class="custom-button">Chưa Giao Hàng</button> </td>
 
                                                 }
                                                 else
@@ -37,12 +37,12 @@
                                                 }
                                                 @if (@Model.HoaDon.TrangThaiThanhToan == true)
                                                 {
-                                                    <td><button>Đã thanh toán</button> </td>
+                                                    <td><button class="custom-button-1">Đã thanh toán</button> </td>
 
                                                 }
                                                 else
                                                 {
-                                                    <td><button>Chưa thanh toán</button> </td>
+                                                    <td><button class="custom-button">Chưa thanh toán</button> </td>
                                                 }
                                             </tr>
                                         </tbody>
@@ -87,7 +87,7 @@
                             {
                                 <p style="color:red">Đơn hàng chưa được giao !</p>
                             }
-                           
+
                             <hr></hr>
                             <div class="table-responsive">
                                 <table class="table text-nowrap mb-0 align-middle">
@@ -160,7 +160,10 @@
                                                     @if (a.TrangThai == true)
                                                     {
                                                         <div class="d-flex align-items-center gap-2">
-                                                            <span class="color-change-button">@Html.ActionLink("Bỏ", "BoSanPham", new { idHDCT = a.Id, idHD = Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span>
+                                                            <span class="color-change-button">
+                                                                @Html.ActionLink("Bỏ", "BoSanPham", new { idHDCT = a.Id, idHD = Model.HoaDon.Id }, new { @class = "custom-edit-link" })
+
+                                                            </span>
                                                         </div>
                                                     }
                                                     else
@@ -227,7 +230,7 @@
                                         <div class="col">Tiền ship</div>
                                         <div class="col-auto text-right">
                                             @FormatCurrency(Model.HoaDon.TienShip
-                                                     )
+                                            )
                                         </div>
                                     </div>
                                     <br />
@@ -298,8 +301,13 @@
                             <div style="color:red">
                                 Đơn hàng chưa được xác nhận !
                             </div>
+                            <br />
+                            <div>
+                                <span>
+                                    <a class="btn btn-primary m-1" href="@Url.Action("XacNhanDonHang", new { id = Model.HoaDon.Id })" class="custom-edit-link">Xác nhận đơn hàng</a>
 
-                            <div> <span class="color-change-button">@Html.ActionLink("Xác nhận đơn hàng", "XacNhanDonHang", new { id = Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span></div>
+                                </span>
+                            </div>
                         }
                     </div>
                 </div>
@@ -313,7 +321,7 @@
                         <br />
                         @if (Model.HoaDon.IdKhachHang != null)
                         {
-                            <button>Xem thông tin chi tiết</button>
+                            <button class="btn btn-primary m-1">Xem thông tin chi tiết</button>
                         }
                     </div>
                 </div>
@@ -388,11 +396,54 @@
         text-align: center;
     }
 
+       /* .color-change-button button {
+            color: #ffffff;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            border-radius: 20px;
+            width: auto;
+            background-color: rgb(93, 135, 255);
+            border-radius: 15px;
+            font-size: 14px;
+            font-weight: 600;
+            grid-area: auto;
+            line-height: 14px;
+            text-align: center;
+        }
+
         /* Hiệu ứng hover */
         .color-change-button:hover {
             background-color: rgb(93, 135, 255);
             color: #ecf0f1;
-        }
+        }*/
+
+    .custom-button {
+        display: inline-block;
+        padding: 8px 16px;
+        border: none;
+        text-decoration: none;
+        font-size: 14px;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        color: red;
+        background-color: transparent;
+        cursor: pointer;
+        border-radius: 7px;
+    }
+
+    .custom-button-1 {
+        display: inline-block;
+        padding: 8px 16px;
+        border: none;
+        text-decoration: none;
+        font-size: 14px;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        color: yellowgreen;
+        background-color: transparent;
+        cursor: pointer;
+        border-radius: 7px;
+    }
 
 </style>
 <script>
