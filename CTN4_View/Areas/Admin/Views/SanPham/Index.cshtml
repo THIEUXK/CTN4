@@ -16,10 +16,20 @@
     <button type="button" class="btn btn-warning btn-fw editable-click=" asp-action="Create"><a asp-action="Create" style="color:white">Thêm</a></button>
 
 </p>
-<form  asp-action="Index" method="get" class="form-inline">
-    Danh sách sản phẩm
-    <input type="text" name="TenSp" />
-    <button>Tìm kiếm</button>
+<form asp-action="Index" method="get" class="form-inline">
+    <div>
+        Danh sách sản phẩm
+        <input type="text"  placeholder="Tên sản phẩm" name="TenSp">
+    </div>
+    <div>
+        Giá niêm yết từ
+        <input type="number" name="tu" />
+        đến
+        <input type="number" name="den" />
+    </div>
+    <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="submit">Tìm kiếm</button>
+    </div>
 </form></br>
 <table class="table">
     <thead>
@@ -90,7 +100,8 @@
                     @Html.Raw(FormatCurrency(item.GiaBan))
                 </td>
                 <td>
-                    @Html.Raw(FormatCurrency(item.GiaNiemYet))
+                  @Html.Raw(FormatCurrency(item.GiaNiemYet))
+                   
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.GhiChu)
@@ -139,3 +150,24 @@
 
 
 </script>
+<style>
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    div {
+        margin-bottom: 10px;
+    }
+
+    input {
+        width: 100%; /* Chiều rộng 100% */
+        box-sizing: border-box; /* Bao gồm cả padding và border vào chiều rộng */
+        margin-bottom: 5px; /* Khoảng cách dưới */
+    }
+
+    button {
+        margin-left: 5px;
+    }
+</style>

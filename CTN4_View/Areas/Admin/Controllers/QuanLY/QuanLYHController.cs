@@ -42,10 +42,26 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         }
         // GET: PhanLoaiController
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(string TenSp, float? tu, float? den)
         {
-            var a = _sanPhamCuaHangService.GetAllSpct();
-            return View(a);
+            var sanPhamList = _sanPhamCuaHangService.GetAll();
+
+            if (!string.IsNullOrEmpty(TenSp))
+            {
+                sanPhamList = sanPhamList
+                    .Where(c => c.TenSanPham.ToLower().Contains(TenSp.ToLower()))
+                    .ToList();
+            }
+
+            if (tu != null && den != null)
+            {
+                sanPhamList = sanPhamList
+                    .Where(c => (tu == null || c.GiaNiemYet >= tu) && (den == null || c.GiaNiemYet <= den))
+                    .ToList();
+            }
+
+            return View(sanPhamList);
+
         }
 
         // GET: PhanLoaiController/Details/5
@@ -241,7 +257,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                 SP.Is_detele = true;
                 _sanPhamChiTietService.Sua(SP);
             }
-            return RedirectToAction("Details", "SanPham", new {id=SP.IdSp});
+            return RedirectToAction("Details", "SanPham", new { id = SP.IdSp });
         }
         public ActionResult XoaAnh(string NameAnh, Guid IdSP, Guid IdMau, Guid idSPCT)
         {

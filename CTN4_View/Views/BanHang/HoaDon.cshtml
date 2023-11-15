@@ -74,7 +74,7 @@
                 {
                     <tr>
                         <td>
-                            @Html.ActionLink(@item.MaHoaDon, "HoaDonChiTiet", new {  id=item.Id  })
+                            #@Html.ActionLink(@item.MaHoaDon, "HoaDonChiTiet", new {  id=item.Id  })
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.NgayTaoHoaDon)
@@ -85,19 +85,17 @@
                         <td>
                             @Html.Raw(FormatCurrency(item.TienShip))
                         </td>
-                        <td>
+                        <th>
                             @Html.Raw(FormatCurrency(item.TongTien))
-                        </td>
+                        </th>
                         @if (item.TrangThaiThanhToan == true)
                         {
-                            <td>
-                                @Html.DisplayFor(modelItem => item.TrangThaiThanhToan)
-                            </td>
+                            <td><div class="hoanthanh">Đã thanh toán</div></td>
 
                         }
                         else
                         {
-                            <td><div>Chưa thanh toán</div></td>
+                            <td><div class="chuaht">Chưa thanh toán</div></td>
                         }
                         @if (item.NgayGiao != null)
                         {
@@ -108,13 +106,8 @@
                         }
                         else
                         {
-                            <td><div>Chưa giao hàng</div></td>
+                            <td><div class="chuaht">Chưa giao hàng</div></td>
                         }
-
-                        <td>
-                        <td>
-                                @Html.ActionLink("Xem chi tiết", "HoaDonChiTiet", new {  id=item.Id  }, new { @class = "custom-edit-link" }) 
-                        </td>
                     </tr>
                 }
             </tbody>
@@ -133,6 +126,12 @@
 
 </script>
 <style>
+    .chuaht{
+        color: red
+    }
+    .hoanthanh{
+        color: yellowgreen
+    }
     .custom-edit-link {
         color: black; /* Màu đỏ */
         /* Các thuộc tính CSS khác nếu cần */

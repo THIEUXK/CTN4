@@ -10,30 +10,50 @@
 
             <div class="card-body p-4">
                 <h5 class="card-title fw-semibold mb-4">Các Đơn Hàng</h5>
-                <button>  @Html.ActionLink("Tất cả đơn hàng", "Index")    </button>&nbsp;
-                <span> <button>   @Html.ActionLink("  Đơn hàng đã xác nhận  ", "XemDaXacNhan")    </button></span>
-                <span> <button> @Html.ActionLink("Đơn hàng chưa xác nhận ", "XemChuaXacNhan")         </button></span>&nbsp;
-               
+                <button style="border:none">
+                    <a class="btn btn-primary" href="@Url.Action("Index")" class="link-class">Tất cả đơn hàng</a>
+                </button>&nbsp;
+                <span>
+                    <button>
+                        <a class="btn btn-primary" href="@Url.Action("XemDaXacNhan")" class="link-class">Đơn hàng đã xác nhận</a>
+                    </button>
+                </span>&nbsp;
+                <span>
+                    <button>
+                        <a class="btn btn-primary" href="@Url.Action("XemChuaXacNhan")" class="link-class">Đơn hàng chưa xác nhận </a>
+                    </button>
+                </span>&nbsp;
+
                 <br></br>
-                <div style="display: flex;">
-                    <form asp-action="TimKiem"><div>Tìm kiếm:<input name="ten" value="" onchange="this.form.submit()" type="text"></input></div></form>
-                    &emsp;&emsp;
-                    &emsp;&emsp;
-                    &emsp;&emsp;
-                    &emsp;&emsp;
-                    &emsp;&emsp;
-                    &emsp;&emsp;
-                    &emsp;&emsp;
-                    &emsp;&emsp;
-                    &emsp;&emsp;
-                    &emsp;&emsp;
-                    &emsp;&emsp;
-                    &emsp;&emsp;
-                    &emsp;&emsp;
-                    &emsp;&emsp;
-                    &emsp;&emsp;
-                    <form asp-action="TimKiemNgay"><div>Tìm kiếm theo ngày tạo hóa đơn<div> &emsp;&emsp;&emsp;&emsp;     Từ  <input name="NgayDau" value="" type="date"></input> Đến <input name="NgayCuoi" value="" type="date"></input><button type="submit">Tìm</button></div></div></form>
-                   
+                <div>
+                    <div class="row">
+                        <div class="col-7">
+                            <form asp-action="TimKiem">
+                                <div>
+                                    Tìm kiếm:
+                                    <input name="ten" value="" onchange="this.form.submit()" type="text" class="form-control">
+                                    </input>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-5">
+                            <form asp-action="TimKiemNgay">
+                                <div>
+                                    Tìm kiếm theo ngày tạo hóa đơn:
+                                    <div>
+                                        Từ
+                                        <input name="NgayDau" value="" type="date">
+                                        </input>
+                                        Đến
+                                        <input name="NgayCuoi" value="" type="date">
+                                        </input>
+                                        <button type="submit" class="btn btn-primary">Tìm</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
                 </div>
                 @if (TempData["TB1"] != null)
                 {
@@ -82,7 +102,7 @@
                                 <tr>
                                     <td class="border-bottom-0">
                                         <div class="d-flex align-items-center gap-2">
-                                            <b><span>@Html.ActionLink(a.MaHoaDon, "XemChiTiet", new { id=a.Id })</span></b>
+                                            <b><span>#@Html.ActionLink(a.MaHoaDon, "XemChiTiet", new { id=a.Id })</span></b>
                                         </div>
                                     </td>
                                     <td class="border-bottom-0">
@@ -132,6 +152,42 @@
     .custom-edit-link {
         color: whitesmoke; /* Màu đỏ */
         /* Các thuộc tính CSS khác nếu cần */
+    }
+
+    .link-class {
+        /* Thêm các quy tắc CSS tùy chỉnh của bạn ở đây */
+        color: #ffffff; /* Màu chữ trắng */
+        text-decoration: none; /* Loại bỏ gạch chân dưới liên kết */
+        /* và nhiều thuộc tính CSS khác... */
+    }
+
+    input[type="date"] {
+        border-radius: 7px;
+        color: #5a6a85;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 14px;
+        grid-area: auto;
+        line-height: 21px;
+        padding: 8px 16px;
+        /* Tùy chỉnh màu nền */
+        background-color: #ffffff;
+    }
+
+        /* Ẩn mũi tên tăng/giảm và nút xóa mặc định */
+        input[type="date"]::-webkit-inner-spin-button,
+        input[type="date"]::-webkit-outer-spin-button,
+        input[type="date"]::-webkit-clear-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Tùy chỉnh màu nền và màu chữ của mũi tên mở lịch */
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            
+            color: #ffffff;
+        }
+    button {
+        border: none;
     }
 </style>
 <script>
