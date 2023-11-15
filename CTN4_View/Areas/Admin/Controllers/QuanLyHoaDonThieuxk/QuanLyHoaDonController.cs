@@ -370,5 +370,6 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                 return RedirectToAction("DangNhap", "Home");
             }
         }
+        public 
     }
 }

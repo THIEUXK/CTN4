@@ -3,19 +3,6 @@
     ViewData["Title"] = "HoaDonChiTiet";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@*<section class="banner-area organic-breadcrumb">
-    <div class="container">
-        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
-            <div class="col-first">
-                <h1>Lịch Sử Mua Hàng</h1>
-                <nav class="d-flex align-items-center">
-                    <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
-                    <a href="category.html">Hóa Đơn Chi Tiết</a>
-                </nav>
-            </div>
-        </div>
-    </div>
-</section>*@
 <br></br>
 <section class="tracking_box_area section_gap">
     <div class="container">
@@ -63,7 +50,7 @@
                     Ngày giao
                 </dt>
                 <dd class="col-sm-10">
-                    @if (Model.HoaDon.NgayGiao!=null)
+                    @if (Model.HoaDon.NgayGiao != null)
                     {
                         @Html.DisplayFor(model => model.HoaDon.NgayGiao)
                     }
@@ -78,7 +65,7 @@
                         @Html.DisplayFor(model => model.HoaDon.NgayNhan)
                     }
                     <div>Chưa nhận</div>
-                   
+
                 </dd>
                 <dt class="col-sm-2">
                     Tên khách hàng
@@ -116,22 +103,22 @@
         {
             <div class="alert alert-danger">@TempData["TB4"]</div>
         }
-        @if (Model.HoaDon.Is_detele==true)
+        @if (Model.HoaDon.Is_detele == true)
         {
             <div>
-                <button type="button" class="primary-btn">@Html.ActionLink("Hủy đơn","huydonKH", new {  id = Model.HoaDon.Id} , new { @class = "custom-edit-link" })</button>
+                <button type="button" class="primary-btn">@Html.ActionLink("Hủy đơn", "huydonKH", new { id = Model.HoaDon.Id }, new { @class = "custom-edit-link" })</button>
             </div>
         }
         else
         {
-            <div style="color:red" >Đơn hàng của bạn đã bị hủy</div>
+            <div style="color:red">Đơn hàng của bạn đã bị hủy</div>
         }
 
         <br> <table class="table">
             <thead>
                 <tr>
                     <th>
-                        
+
                     </th>
                     <th>
                         Sản Phẩm
@@ -152,46 +139,46 @@
                 </tr>
             </thead>
             <tbody>
-                    @foreach (var item in Model.hoaDonChiTiets)
-                    {
+                @foreach (var item in Model.hoaDonChiTiets)
+                {
                     <tr>
                         <td>
 
-                                @if (System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".jpg" ||
-                               System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".png" ||
-                               System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".jpeg" ||
-                               System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".tiff" ||
-                               System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".webp" ||
-                               System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".gif")
-                                {
+                            @if (System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".jpg" ||
+                           System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".png" ||
+                           System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".jpeg" ||
+                           System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".tiff" ||
+                           System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".webp" ||
+                           System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".gif")
+                            {
                                 <img src="~/image/@item.SanPhamChiTiet.SanPham.AnhDaiDien" height="100">
-                                }
-                                else
-                                {
+                            }
+                            else
+                            {
                                 <a>ảnh lỗi</a>
-                                }
+                            }
                         </td>
                         <td>
-                                @Html.DisplayFor(modelItem => item.SanPhamChiTiet.SanPham.TenSanPham)
+                            @Html.DisplayFor(modelItem => item.SanPhamChiTiet.SanPham.TenSanPham)
                         </td>
                         <td>
-                                @Html.DisplayFor(modelItem => item.SanPhamChiTiet.Size.CoSize)
+                            @Html.DisplayFor(modelItem => item.SanPhamChiTiet.Size.CoSize)
                         </td>
                         <td>
-                                @Html.DisplayFor(modelItem => item.SanPhamChiTiet.Mau.TenMau)
+                            @Html.DisplayFor(modelItem => item.SanPhamChiTiet.Mau.TenMau)
                         </td>
-                        
+
                         <td>
-                                @Html.DisplayFor(modelItem => item.SoLuong)
+                            @Html.DisplayFor(modelItem => item.SoLuong)
                         </td>
                         <td>
-                                @Html.Raw(FormatCurrency(item.GiaTien))
+                            @Html.Raw(FormatCurrency(item.GiaTien))
                         </td>
                     </tr>
-                    }
+                }
             </tbody>
         </table></br>
-       
+
     </div>
 </section>
 <script>
