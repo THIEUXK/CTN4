@@ -58,7 +58,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                     hoaDonChiTiets = hdct,
                     soLuongTong = tongSoLuongSP,
                     TongTienHang = tongTienSP,
-                    LichSuHoaDon = lshd
+                    LichSuHoaDon = lshd.OrderByDescending(c => c.ThoiGianlam).ToList()
                 };
                 return View(view);
             }
@@ -94,7 +94,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                 {
                     HoaDon = hd,
                     hoaDonChiTiets = hdct1,
-                    LichSuHoaDon = lshd
+                    LichSuHoaDon = lshd.OrderByDescending(c => c.ThoiGianlam).ToList()
 
                 };
                 return View("XemChiTiet", view);
@@ -142,7 +142,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             {
                 HoaDon = hd,
                 hoaDonChiTiets = hdct1,
-                LichSuHoaDon = lshd
+                LichSuHoaDon = lshd.OrderByDescending(c => c.ThoiGianlam).ToList()
 
             };
                 return View("XemChiTiet", view);
@@ -191,7 +191,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             {
                 HoaDon = hd,
                 hoaDonChiTiets = hdct1,
-                LichSuHoaDon = lshd
+                LichSuHoaDon = lshd.OrderByDescending(c => c.ThoiGianlam).ToList()
 
             };
                 return View("XemChiTiet", view);
@@ -240,7 +240,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             {
                 HoaDon = hd,
                 hoaDonChiTiets = hdct1,
-                LichSuHoaDon = lshd
+                LichSuHoaDon = lshd.OrderByDescending(c => c.ThoiGianlam).ToList()
 
             };
                 return View("XemChiTiet", view);
@@ -289,7 +289,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             {
                 HoaDon = hd,
                 hoaDonChiTiets = hdct1,
-                LichSuHoaDon = lshd
+                LichSuHoaDon = lshd.OrderByDescending(c => c.ThoiGianlam).ToList()
 
             };
                 return View("XemChiTiet", view);
@@ -337,7 +337,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             {
                 HoaDon = hd,
                 hoaDonChiTiets = hdct1,
-                LichSuHoaDon = lshd
+                LichSuHoaDon = lshd.OrderByDescending(c => c.ThoiGianlam).ToList()
 
             };
                 return View("XemChiTiet", view);
@@ -380,15 +380,26 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                     TempData["TB5"] = message;
                     return RedirectToAction("XemChiTiet", new { id = idHD, message });
                 }
-
+                
                 var hdct1 = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == idHD).ToList();
                 var lshd = _LichSuHoaDonService.GetAll().Where(c => c.IdHoaDonn == idHD).ToList();
+                int tongSoLuongSP = 0;
+                float tongTienSP = 0;
+                foreach (var a in hdct1)
+                {
+                    tongSoLuongSP += a.SoLuong;
+                }
+                foreach (var a in hdct1)
+                {
+                    tongTienSP += a.GiaTien;
+                }
                 var view = new ThieuxkViewAdmin()
                 {
                     HoaDon = hd,
                     hoaDonChiTiets = hdct1,
-                    LichSuHoaDon = lshd
-
+                    LichSuHoaDon = lshd.OrderByDescending(c => c.ThoiGianlam).ToList(),
+                    TongTienHang = tongTienSP,
+                    soLuongTong = tongSoLuongSP
                 };
                 return View("XemChiTiet", view);
             }
@@ -432,11 +443,23 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
 
                 var hdct1 = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == idHD).ToList();
                 var lshd = _LichSuHoaDonService.GetAll().Where(c => c.IdHoaDonn == idHD).ToList();
+                int tongSoLuongSP = 0;
+                float tongTienSP = 0;
+                foreach (var a in hdct1)
+                {
+                    tongSoLuongSP += a.SoLuong;
+                }
+                foreach (var a in hdct1)
+                {
+                    tongTienSP += a.GiaTien;
+                }
                 var view = new ThieuxkViewAdmin()
                 {
                     HoaDon = hd,
                     hoaDonChiTiets = hdct1,
-                    LichSuHoaDon = lshd
+                    LichSuHoaDon = lshd.OrderByDescending(c => c.ThoiGianlam).ToList(),
+                    TongTienHang = tongTienSP,
+                    soLuongTong = tongSoLuongSP
                 };
                 return View("XemChiTiet", view);
             }
