@@ -1,6 +1,7 @@
 ﻿using CTN4_Data.DB_Context;
 using CTN4_Data.Models.DB_CTN4;
 using CTN4_Serv.Service.IService;
+using CTN4_Serv.ViewModel.banhangview;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -19,31 +20,93 @@ namespace CTN4_Serv.Service
         {
             _db = new DB_CTN4_ok();
         }
-        public List<SanPham> GetAllProduct()
+        public List<SanPhamDanhMucVIewModel> GetAllProduct()
         {
-            return _db.SanPhams.ToList();
+            var listProduct = _db.SanPhams.ToList();
+            var lstDanhMuc = _db.DanhMucs.ToList();
+            var lst = _db.DanhMucChiTiets.ToList();
+            var lstAll = from a in listProduct
+                         join b in lst on a.Id equals b.IdSanPham
+                         join c in lstDanhMuc on b.IdDanhMuc equals c.Id
+                         select new SanPhamDanhMucVIewModel
+                         {
+                             Id= a.Id,
+                             MaSp = a.MaSp,
+                             AnhDaiDien = a.AnhDaiDien,
+                             TenSanPham = a.TenSanPham,
+                             GiaNhap = a.GiaNhap,
+                             GiaBan = a.GiaBan,
+                             GiaNiemYet = a.GiaNiemYet,
+                             TenDanhMuc = c.TenDanhMuc,
+                         };
+            return lstAll.ToList();
         }
+      
         public List<SanPham> GetAll()
         {
             return _db.SanPhams.Include(c => c.ChatLieu).Include(c => c.NSX).ToList();
         }
-        public List<SanPham> TimSanPhamTheoDieuKien(string dieuKien)
+        public List<SanPhamDanhMucVIewModel> TimSanPhamTheoDieuKien(string dieuKien)
         {
             if (string.IsNullOrEmpty(dieuKien))
             {
-                return _db.SanPhams.ToList();
+                var sanPhamList = _db.SanPhams.ToList();
+
+                var listProduct = sanPhamList.Select(sp => new SanPhamDanhMucVIewModel
+                {
+                    Id = sp.Id,
+                    MaSp = sp.MaSp,
+                    TenSanPham = sp.TenSanPham,
+                    AnhDaiDien = sp.AnhDaiDien,
+                    // Các thuộc tính khác của SanPhamDanhMucVIewModel cần được ánh xạ tương ứng với SanPham
+                    GiaNhap = sp.GiaNhap,
+                    GiaBan = sp.GiaBan,
+                    GiaNiemYet = sp.GiaNiemYet,
+                    // Ví dụ: TenDanhMuc là một thuộc tính giả sử bạn có thể thêm vào từ một nguồn dữ liệu khác
+                   
+                }).ToList();
+                var lstDanhMuc = _db.DanhMucs.ToList();
+                var lst = _db.DanhMucChiTiets.ToList();
+                var lstAll = from a in listProduct
+                             join b in lst on a.Id equals b.IdSanPham
+                             join c in lstDanhMuc on b.IdDanhMuc equals c.Id
+                             select new SanPhamDanhMucVIewModel
+                             {
+                                 MaSp = a.MaSp,
+                                 AnhDaiDien = a.AnhDaiDien,
+                                 TenSanPham = a.TenSanPham,
+                                 GiaNhap = a.GiaNhap,
+                                 GiaBan = a.GiaBan,
+                                 GiaNiemYet = a.GiaNiemYet,
+                                 TenDanhMuc = c.TenDanhMuc,
+                             };
+                return lstAll.ToList();
             }
             else
             {
-
-                return _db.SanPhams
-                .Where(sp =>
-                    sp.GiaNhap.ToString().Contains(dieuKien) ||
-                    sp.GiaBan.ToString().Contains(dieuKien) ||
-                    sp.GiaNiemYet.ToString().Contains(dieuKien) ||
-                    sp.MaSp.Contains(dieuKien) ||
-                    sp.TenSanPham.Contains(dieuKien))
-                .ToList();
+                var listProduct = _db.SanPhams.ToList();
+                var lstDanhMuc = _db.DanhMucs.ToList();
+                var lst = _db.DanhMucChiTiets.ToList();
+                var lstAll = from a in listProduct
+                             join b in lst on a.Id equals b.IdSanPham
+                             join c in lstDanhMuc on b.IdDanhMuc equals c.Id
+                             where c.TenDanhMuc.ToLower().Contains(dieuKien.ToLower())||
+                             a.GiaNhap.ToString().Contains(dieuKien) ||
+                             a.GiaBan.ToString().Contains(dieuKien) ||
+                             a.GiaNiemYet.ToString().Contains(dieuKien) ||
+                             a.MaSp.ToLower().Contains(dieuKien.ToLower()) ||
+                             a.TenSanPham.ToLower().Contains(dieuKien.ToLower())
+                             select new SanPhamDanhMucVIewModel
+                             {
+                                 MaSp = a.MaSp,
+                                 AnhDaiDien = a.AnhDaiDien,
+                                 TenSanPham =a.TenSanPham,
+                                 GiaNhap =a.GiaNhap,
+                                 GiaBan  = a.GiaBan,
+                                 GiaNiemYet = a.GiaNiemYet,
+                                 TenDanhMuc =c.TenDanhMuc,
+                             };
+                return lstAll.ToList();
             }
       
         }
