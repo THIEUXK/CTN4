@@ -25,7 +25,7 @@ namespace CTN4_View.Controllers.SanPhamYeuThich
                 };
                 if(_YT.Them (SPYT))
                 {
-                    return RedirectToAction("Index");
+                      return RedirectToAction("HienThiSanPham","HienThiSanPham");
                 }
 
             }
@@ -34,7 +34,7 @@ namespace CTN4_View.Controllers.SanPhamYeuThich
 
                 return RedirectToAction("login", "Home");
             }
-            return RedirectToAction("Index");
+              return RedirectToAction("HienThiSanPham","HienThiSanPham");
 
         }
         public IActionResult Index()
