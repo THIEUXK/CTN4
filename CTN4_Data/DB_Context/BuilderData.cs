@@ -329,15 +329,16 @@ namespace CTN4_Data.DB_Context
 
             );
             modelBuilder.Entity<KhuyenMai>().HasData(
-                new KhuyenMai() {
-                    Id = Guid.Parse("f877e80d-2b32-43b0-be70-cf3b15113056"), 
-                    MaKhuyenMai = "km01", 
+                new KhuyenMai()
+                {
+                    Id = Guid.Parse("f877e80d-2b32-43b0-be70-cf3b15113056"),
+                    MaKhuyenMai = "km01",
                     PhanTramGiamGia = 50,
                     NgayBatDau = Convert.ToDateTime("06/07/2023"),
                     NgayKetThuc = Convert.ToDateTime("09/11/2023"),
                     SoTienGiam = 0,
-                    TrangThai = true, 
-                    Is_Detele = true 
+                    TrangThai = true,
+                    Is_Detele = true
                 },
                 new KhuyenMai()
                 {
@@ -438,6 +439,49 @@ namespace CTN4_Data.DB_Context
                 new DanhMuc() { TenDanhMuc = "Túi Bowling", Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081171"), Is_detele = true },
                 new DanhMuc() { TenDanhMuc = "Túi Ring Bag", Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081172"), Is_detele = true }
             );
+            modelBuilder.Entity<DanhMucChiTiet>().HasData(
+               new DanhMucChiTiet
+               {
+                   Id = Guid.Parse("d16ac327-3ced-4c2c-bcdc-d3897121441a"),
+                   IdDanhMuc = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081163"),
+                   IdSanPham = Guid.Parse("56dd3de2-c4df-4376-b982-e2c0f7081829")
+               }, new DanhMucChiTiet
+               {
+                   Id = Guid.Parse("d16ac327-3ced-4c2c-bcdc-d3897121442a"),
+                   IdDanhMuc = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081164"),
+                   IdSanPham = Guid.Parse("56dd3de2-c4df-4376-b982-e2c0f7081829")
+               }, new DanhMucChiTiet
+               {
+                   Id = Guid.Parse("d16ac327-3ced-4c2c-bcdc-d3897121443a"),
+                   IdDanhMuc = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081165"),
+                   IdSanPham = Guid.Parse("56dd3de2-c4df-4376-b982-e2c0f7081824")
+               }, new DanhMucChiTiet
+               {
+                   Id = Guid.Parse("d16ac327-3ced-4c2c-bcdc-d3897121444a"),
+                   IdDanhMuc = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081166"),
+                   IdSanPham = Guid.Parse("56dd3de2-c4df-4376-b982-e2c0f7081825")
+               }, new DanhMucChiTiet
+               {
+                   Id = Guid.Parse("d16ac327-3ced-4c2c-bcdc-d3897121445a"),
+                   IdDanhMuc = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081167"),
+                   IdSanPham = Guid.Parse("56dd3de2-c4df-4376-b982-e2c0f7081826")
+               }, new DanhMucChiTiet
+               {
+                   Id = Guid.Parse("d16ac327-3ced-4c2c-bcdc-d3897121446a"),
+                   IdDanhMuc = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081168"),
+                   IdSanPham = Guid.Parse("56dd3de2-c4df-4376-b982-e2c0f7081827")
+               }, new DanhMucChiTiet
+               {
+                   Id = Guid.Parse("d16ac327-3ced-4c2c-bcdc-d3897121447a"),
+                   IdDanhMuc = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081169"),
+                   IdSanPham = Guid.Parse("56dd3de2-c4df-4376-b982-e2c0f7081828")
+               }, new DanhMucChiTiet
+               {
+                   Id = Guid.Parse("d16ac327-3ced-4c2c-bcdc-d3897121448a"),
+                   IdDanhMuc = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081170"),
+                   IdSanPham = Guid.Parse("56dd3de2-c4df-4376-b982-e2c0f7081829")
+               }
+               );
             modelBuilder.Entity<ChucVu>().HasData(
                 new ChucVu() { TenChucVu = "Quản lý", Id = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971214414"), TrangThai = true },
                 new ChucVu() { TenChucVu = "Nhân viên", Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f70877e9"), TrangThai = true }
@@ -802,7 +846,437 @@ namespace CTN4_Data.DB_Context
                       TrangThai = true,
                       Is_detele = true,
                   }
+
           );
+            modelBuilder.Entity<HoaDon>().HasData(
+               new HoaDon()
+               {
+                   Id = 1,
+                   MaHoaDon = "HD01",
+                   NgayTaoHoaDon = DateTime.Parse("11/15/2023 9:13:13 PM"),
+                   TrangThai = "Hàng của bạn đang được giao",
+                   TongTien = 639001,
+                   TienShip = 39001,
+                   NgayDat = DateTime.Parse("11/15/2023 9:13:13 PM"),
+                   NgayGiao = DateTime.Parse("11/15/2023 9:13:13 PM"),
+                   NgayNhan = DateTime.Parse("11/15/2023 9:13:13 PM"),
+                   TenKhachHang = "Bùi Văn Thiều",
+                   Email = "thieubvph20221@gmail.com",
+                   SDTNguoiNhan = "0912384746",
+                   DiaChi = "lang son family Xã Bính Xá,Huyện Đình Lập,Lạng Sơn",
+                   GhiChu = "",
+                   Is_detele=true,
+                   TrangThaiThanhToan = true,
+                   IdKhachHang = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971214499"),
+                   IdPhuongThuc = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971211111"),
+                   IdDiaChiNhanHang = null,
+               },
+               new HoaDon()
+               {
+                   Id = 2,
+                   MaHoaDon = "HD02",
+                   NgayTaoHoaDon = DateTime.Parse("11/15/2023 9:13:13 PM"),
+                   TrangThai = "Hàng của bạn đang được giao",
+                   TongTien = 639001,
+                   TienShip = 39001,
+                   NgayDat = DateTime.Parse("11/15/2023 9:13:13 PM"),
+                   NgayGiao = DateTime.Parse("11/15/2023 9:13:13 PM"),
+                   NgayNhan = DateTime.Parse("11/15/2023 9:13:13 PM"),
+                   TenKhachHang = "Bùi Văn Thiều",
+                   Email = "thieubvph20221@gmail.com",
+                   SDTNguoiNhan = "0912384746",
+                   DiaChi = "lang son family Xã Bính Xá,Huyện Đình Lập,Lạng Sơn",
+                   GhiChu = "",
+                   Is_detele=true,
+                   TrangThaiThanhToan = true,
+                   IdKhachHang = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971214499"),
+                   IdPhuongThuc = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971211111"),
+                   IdDiaChiNhanHang = null,
+               },
+               new HoaDon()
+               {
+                   Id = 3,
+                   MaHoaDon = "HD03",
+                   NgayTaoHoaDon = DateTime.Parse("11/15/2023 9:13:13 PM"),
+                   TrangThai = "Hàng của bạn đang được giao",
+                   TongTien = 639001,
+                   TienShip = 39001,
+                   NgayDat = DateTime.Parse("11/15/2023 9:13:13 PM"),
+                   NgayGiao = DateTime.Parse("11/15/2023 9:13:13 PM"),
+                   NgayNhan = DateTime.Parse("11/15/2023 9:13:13 PM"),
+                   TenKhachHang = "Bùi Văn Thiều",
+                   Email = "thieubvph20221@gmail.com",
+                   SDTNguoiNhan = "0912384746",
+                   DiaChi = "lang son family Xã Bính Xá,Huyện Đình Lập,Lạng Sơn",
+                   GhiChu = "",
+                   Is_detele=true,
+                   TrangThaiThanhToan = true,
+                   IdKhachHang = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971214499"),
+                   IdPhuongThuc = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971211111"),
+                   IdDiaChiNhanHang = null,
+               },
+               new HoaDon()
+               {
+                   Id = 4,
+                   MaHoaDon = "HD04",
+                   NgayTaoHoaDon = DateTime.Parse("11/15/2023 9:13:13 PM"),
+                   TrangThai = "Hàng của bạn đang được giao",
+                   TongTien = 639001,
+                   TienShip = 39001,
+                   NgayDat = DateTime.Parse("11/15/2023 9:13:13 PM"),
+                   NgayGiao = DateTime.Parse("11/15/2023 9:13:13 PM"),
+                   NgayNhan = DateTime.Parse("11/15/2023 9:13:13 PM"),
+                   TenKhachHang = "Bùi Văn Thiều",
+                   Email = "thieubvph20221@gmail.com",
+                   SDTNguoiNhan = "0912384746",
+                   DiaChi = "lang son family Xã Bính Xá,Huyện Đình Lập,Lạng Sơn",
+                   GhiChu = "",
+                   Is_detele=true,
+                   TrangThaiThanhToan = true,
+                   IdKhachHang = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971214499"),
+                   IdPhuongThuc = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971211111"),
+                   IdDiaChiNhanHang = null,
+               },
+               new HoaDon()
+               {
+                   Id = 5,
+                   MaHoaDon = "HD05",
+                   NgayTaoHoaDon = DateTime.Parse("11/20/2023 9:13:13 PM"),
+                   TrangThai = "Hàng của bạn đang được giao",
+                   TongTien = 639001,
+                   TienShip = 39001,
+                   NgayDat = DateTime.Parse("11/20/2023 9:13:13 PM"),
+                   NgayGiao = DateTime.Parse("11/20/2023 9:13:13 PM"),
+                   NgayNhan = DateTime.Parse("11/20/2023 9:13:13 PM"),
+                   TenKhachHang = "Bùi Văn Thiều",
+                   Email = "thieubvph20221@gmail.com",
+                   SDTNguoiNhan = "0912384746",
+                   DiaChi = "lang son family Xã Bính Xá,Huyện Đình Lập,Lạng Sơn",
+                   GhiChu = "",
+                   Is_detele=true,
+                   TrangThaiThanhToan = true,
+                   IdKhachHang = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971214499"),
+                   IdPhuongThuc = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971211111"),
+                   IdDiaChiNhanHang = null,
+               },
+               new HoaDon()
+               {
+                   Id = 6,
+                   MaHoaDon = "HD06",
+                   NgayTaoHoaDon = DateTime.Parse("11/21/2023 9:13:13 PM"),
+                   TrangThai = "Hàng của bạn đang được giao",
+                   TongTien = 639001,
+                   TienShip = 39001,
+                   NgayDat = DateTime.Parse("11/21/2023 9:13:13 PM"),
+                   NgayGiao = DateTime.Parse("11/21/2023 9:13:13 PM"),
+                   NgayNhan = DateTime.Parse("11/21/2023 9:13:13 PM"),
+                   TenKhachHang = "Bùi Văn Thiều",
+                   Email = "thieubvph20221@gmail.com",
+                   SDTNguoiNhan = "0912384746",
+                   DiaChi = "lang son family Xã Bính Xá,Huyện Đình Lập,Lạng Sơn",
+                   GhiChu = "",
+                   Is_detele=true,
+                   TrangThaiThanhToan = true,
+                   IdKhachHang = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971214499"),
+                   IdPhuongThuc = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971211111"),
+                   IdDiaChiNhanHang = null,
+               },
+               new HoaDon()
+               {
+                   Id = 7,
+                   MaHoaDon = "HD07",
+                   NgayTaoHoaDon = DateTime.Parse("11/22/2023 9:13:13 PM"),
+                   TrangThai = "Hàng của bạn đang được giao",
+                   TongTien = 639001,
+                   TienShip = 39001,
+                   NgayDat = DateTime.Parse("11/22/2023 9:13:13 PM"),
+                   NgayGiao = DateTime.Parse("11/22/2023 9:13:13 PM"),
+                   NgayNhan = DateTime.Parse("11/22/2023 9:13:13 PM"),
+                   TenKhachHang = "Bùi Văn Thiều",
+                   Email = "thieubvph20221@gmail.com",
+                   SDTNguoiNhan = "0912384746",
+                   DiaChi = "lang son family Xã Bính Xá,Huyện Đình Lập,Lạng Sơn",
+                   GhiChu = "",
+                   Is_detele=true,
+                   TrangThaiThanhToan = true,
+                   IdKhachHang = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971214499"),
+                   IdPhuongThuc = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971211111"),
+                   IdDiaChiNhanHang = null,
+               },
+               new HoaDon()
+               {
+                   Id = 8,
+                   MaHoaDon = "HD08",
+                   NgayTaoHoaDon = DateTime.Parse("11/23/2023 9:13:13 PM"),
+                   TrangThai = "Hàng của bạn đang được giao",
+                   TongTien = 639001,
+                   TienShip = 39001,
+                   NgayDat = DateTime.Parse("11/23/2023 9:13:13 PM"),
+                   NgayGiao = DateTime.Parse("11/23/2023 9:13:13 PM"),
+                   NgayNhan = DateTime.Parse("11/23/2023 9:13:13 PM"),
+                   TenKhachHang = "Bùi Văn Thiều",
+                   Email = "thieubvph20221@gmail.com",
+                   SDTNguoiNhan = "0912384746",
+                   DiaChi = "lang son family Xã Bính Xá,Huyện Đình Lập,Lạng Sơn",
+                   GhiChu = "",
+                   Is_detele=true,
+                   TrangThaiThanhToan = true,
+                   IdKhachHang = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971214499"),
+                   IdPhuongThuc = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971211111"),
+                   IdDiaChiNhanHang = null,
+               },
+               new HoaDon()
+               {
+                   Id = 9,
+                   MaHoaDon = "HD09",
+                   NgayTaoHoaDon = DateTime.Parse("11/24/2023 9:13:13 PM"),
+                   TrangThai = "Hàng của bạn đang được giao",
+                   TongTien = 639001,
+                   TienShip = 39001,
+                   NgayDat = DateTime.Parse("11/24/2023 9:13:13 PM"),
+                   NgayGiao = DateTime.Parse("11/24/2023 9:13:13 PM"),
+                   NgayNhan = DateTime.Parse("11/24/2023 9:13:13 PM"),
+                   TenKhachHang = "Bùi Văn Thiều",
+                   Email = "thieubvph20221@gmail.com",
+                   SDTNguoiNhan = "0912384746",
+                   DiaChi = "lang son family Xã Bính Xá,Huyện Đình Lập,Lạng Sơn",
+                   GhiChu = "",
+                   Is_detele=true,
+                   TrangThaiThanhToan = true,
+                   IdKhachHang = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971214499"),
+                   IdPhuongThuc = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971211111"),
+                   IdDiaChiNhanHang = null,
+               },
+               new HoaDon()
+               {
+                   Id = 10,
+                   MaHoaDon = "HD10",
+                   NgayTaoHoaDon = DateTime.Parse("10/25/2023 9:13:13 PM"),
+                   TrangThai = "Hàng của bạn đang được giao",
+                   TongTien = 639001,
+                   TienShip = 39001,
+                   NgayDat = DateTime.Parse("10/25/2023 9:13:13 PM"),
+                   NgayGiao = DateTime.Parse("10/25/2023 9:13:13 PM"),
+                   NgayNhan = DateTime.Parse("10/25/2023 9:13:13 PM"),
+                   TenKhachHang = "Bùi Văn Thiều",
+                   Email = "thieubvph20221@gmail.com",
+                   SDTNguoiNhan = "0912384746",
+                   DiaChi = "lang son family Xã Bính Xá,Huyện Đình Lập,Lạng Sơn",
+                   GhiChu = "",
+                   Is_detele=true,
+                   TrangThaiThanhToan = true,
+                   IdKhachHang = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971214499"),
+                   IdPhuongThuc = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971211111"),
+                   IdDiaChiNhanHang = null,
+               }
+               
+
+               );
+             modelBuilder.Entity<HoaDonChiTiet>().HasData(
+               new HoaDonChiTiet()
+               {
+                   Id = Guid.Parse("24687347-9c21-4d4a-ac6e-8cfd7e527900"),
+                   SoLuong = 1,
+                   GiaTien =600000,
+                   TrangThai = true,
+                   Is_detele = true,
+                   IdSanPhamChiTiet = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6013"),
+                   IdHoaDon = 1
+               },
+               new HoaDonChiTiet()
+               {
+                   Id = Guid.Parse("24687347-9c21-4d4a-ac6e-8cfd7e527901"),
+                   SoLuong = 1,
+                   GiaTien =600000,
+                   TrangThai = true,
+                   Is_detele = true,
+                   IdSanPhamChiTiet = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6014"),
+                   IdHoaDon = 2
+               },
+               new HoaDonChiTiet()
+               {
+                   Id = Guid.Parse("24687347-9c21-4d4a-ac6e-8cfd7e527902"),
+                   SoLuong = 1,
+                   GiaTien =600000,
+                   TrangThai = true,
+                   Is_detele = true,
+                   IdSanPhamChiTiet = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6015"),
+                   IdHoaDon = 3
+               },
+               new HoaDonChiTiet()
+               {
+                   Id = Guid.Parse("24687347-9c21-4d4a-ac6e-8cfd7e527903"),
+                   SoLuong = 1,
+                   GiaTien =600000,
+                   TrangThai = true,
+                   Is_detele = true,
+                   IdSanPhamChiTiet = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6016"),
+                   IdHoaDon = 4
+               },
+               new HoaDonChiTiet()
+               {
+                   Id = Guid.Parse("24687347-9c21-4d4a-ac6e-8cfd7e527904"),
+                   SoLuong = 1,
+                   GiaTien =600000,
+                   TrangThai = true,
+                   Is_detele = true,
+                   IdSanPhamChiTiet = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6017"),
+                   IdHoaDon = 5
+               },
+               new HoaDonChiTiet()
+               {
+                   Id = Guid.Parse("24687347-9c21-4d4a-ac6e-8cfd7e527905"),
+                   SoLuong = 1,
+                   GiaTien =600000,
+                   TrangThai = true,
+                   Is_detele = true,
+                   IdSanPhamChiTiet = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6018"),
+                   IdHoaDon = 6
+               },
+               new HoaDonChiTiet()
+               {
+                   Id = Guid.Parse("24687347-9c21-4d4a-ac6e-8cfd7e527906"),
+                   SoLuong = 1,
+                   GiaTien =600000,
+                   TrangThai = true,
+                   Is_detele = true,
+                   IdSanPhamChiTiet = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6019"),
+                   IdHoaDon = 7
+               },
+               new HoaDonChiTiet()
+               {
+                   Id = Guid.Parse("24687347-9c21-4d4a-ac6e-8cfd7e527907"),
+                   SoLuong = 1,
+                   GiaTien =600000,
+                   TrangThai = true,
+                   Is_detele = true,
+                   IdSanPhamChiTiet = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6020"),
+                   IdHoaDon = 8
+               },
+               new HoaDonChiTiet()
+               {
+                   Id = Guid.Parse("24687347-9c21-4d4a-ac6e-8cfd7e527908"),
+                   SoLuong = 1,
+                   GiaTien =600000,
+                   TrangThai = true,
+                   Is_detele = true,
+                   IdSanPhamChiTiet = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6021"),
+                   IdHoaDon = 9
+               },
+               new HoaDonChiTiet()
+               {
+                   Id = Guid.Parse("24687347-9c21-4d4a-ac6e-8cfd7e527909"),
+                   SoLuong = 1,
+                   GiaTien =600000,
+                   TrangThai = true,
+                   Is_detele = true,
+                   IdSanPhamChiTiet = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6022"),
+                   IdHoaDon = 10
+               }
+               );
+            modelBuilder.Entity<LichSuDonHang>().HasData(
+                new LichSuDonHang()
+                {
+                    Id = Guid.Parse("8015fbec-3a24-4a8e-e261-08dbe5e5011e"),
+                    ThaoTac = null,
+                    ThoiGianlam = DateTime.Parse("11/15/2023 9:13:13 PM"),
+                    NguoiThucHien = "Thieuxk2k3hahl2",
+                    GhiChu = "",
+                    TrangThai = true,
+                    Is_detele = true,
+                    IdHoaDonn = 1
+                },
+                new LichSuDonHang()
+                {
+                    Id = Guid.Parse("8015fbec-3a24-4a8e-e261-08dbe5e5012e"),
+                    ThaoTac = null,
+                    ThoiGianlam = DateTime.Parse("11/15/2023 9:13:13 PM"),
+                    NguoiThucHien = "Thieuxk2k3hahl2",
+                    GhiChu = "",
+                    TrangThai = true,
+                    Is_detele = true,
+                    IdHoaDonn = 2
+                }, new LichSuDonHang()
+                {
+                    Id = Guid.Parse("8015fbec-3a24-4a8e-e261-08dbe5e5013e"),
+                    ThaoTac = null,
+                    ThoiGianlam = DateTime.Parse("11/15/2023 9:13:13 PM"),
+                    NguoiThucHien = "Thieuxk2k3hahl2",
+                    GhiChu = "",
+                    TrangThai = true,
+                    IdHoaDonn = 3
+                }, new LichSuDonHang()
+                {
+                    Id = Guid.Parse("8015fbec-3a24-4a8e-e261-08dbe5e5014e"),
+                    ThaoTac = null,
+                    ThoiGianlam = DateTime.Parse("11/15/2023 9:13:13 PM"),
+                    NguoiThucHien = "Thieuxk2k3hahl2",
+                    GhiChu = "",
+                    TrangThai = true,
+                    Is_detele = true,
+                    IdHoaDonn = 4
+                }, new LichSuDonHang()
+                {
+                    Id = Guid.Parse("8015fbec-3a24-4a8e-e261-08dbe5e5015e"),
+                    ThaoTac = null,
+                    ThoiGianlam = DateTime.Parse("11/20/2023 9:13:13 PM"),
+                    NguoiThucHien = "Thieuxk2k3hahl2",
+                    GhiChu = "",
+                    TrangThai = true,
+                    Is_detele = true,
+                    IdHoaDonn = 5
+                }, new LichSuDonHang()
+                {
+                    Id = Guid.Parse("8015fbec-3a24-4a8e-e261-08dbe5e5016e"),
+                    ThaoTac = null,
+                    ThoiGianlam = DateTime.Parse("11/21/2023 9:13:13 PM"),
+                    NguoiThucHien = "Thieuxk2k3hahl2",
+                    GhiChu = "",
+                    TrangThai = true,
+                    Is_detele = true,
+                    IdHoaDonn = 6
+                }, new LichSuDonHang()
+                {
+                    Id = Guid.Parse("8015fbec-3a24-4a8e-e261-08dbe5e5017e"),
+                    ThaoTac = null,
+                    ThoiGianlam = DateTime.Parse("11/22/2023 9:13:13 PM"),
+                    NguoiThucHien = "Thieuxk2k3hahl2",
+                    GhiChu = "",
+                    TrangThai = true,
+                    Is_detele = true,
+                    IdHoaDonn = 7
+                }, new LichSuDonHang()
+                {
+                    Id = Guid.Parse("8015fbec-3a24-4a8e-e261-08dbe5e5018e"),
+                    ThaoTac = null,
+                    ThoiGianlam = DateTime.Parse("11/23/2023 9:13:13 PM"),
+                    NguoiThucHien = "Thieuxk2k3hahl2",
+                    GhiChu = "",
+                    TrangThai = true,
+                    Is_detele = true,
+                    IdHoaDonn = 8
+                }, new LichSuDonHang()
+                {
+                    Id = Guid.Parse("8015fbec-3a24-4a8e-e261-08dbe5e5019e"),
+                    ThaoTac = null,
+                    ThoiGianlam = DateTime.Parse("11/24/2023 9:13:13 PM"),
+                    NguoiThucHien = "Thieuxk2k3hahl2",
+                    GhiChu = "",
+                    TrangThai = true,
+                    Is_detele = true,
+                    IdHoaDonn = 9
+                }, new LichSuDonHang()
+                {
+                    Id = Guid.Parse("8015fbec-3a24-4a8e-e261-08dbe5e5020e"),
+                    ThaoTac = null,
+                    ThoiGianlam = DateTime.Parse("10/25/2023 9:13:13 PM"),
+                    NguoiThucHien = "Thieuxk2k3hahl2",
+                    GhiChu = "",
+                    TrangThai = true,
+                    Is_detele = true,
+                    IdHoaDonn = 10
+                }
+                );
         }
     }
 }
