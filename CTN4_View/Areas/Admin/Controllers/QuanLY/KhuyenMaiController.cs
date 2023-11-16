@@ -16,6 +16,8 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         public ISanPhamService _sp;
         public IChatLieuService _cl;
         public INSXService _sx;
+        public IDanhMucService _dm;
+        public IDanhMucChiTietService _dmct;
 
         public KhuyenMaiController()
         {
@@ -23,6 +25,8 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             _sv = new KhuyenMaiService();
             _cl = new ChatLieuService();
             _sx = new NSXService();
+            _dm = new DanhMucMucService();
+            _dmct = new DanhMucChiTietMucChiTietService();
         }
         // GET: KhuyenMaiController
         [HttpGet]
@@ -147,11 +151,11 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         }
 
         [HttpPost]
-        public ActionResult UpdateGiaSanPham(string[] Ids, float giamTheoTien, float giamTheoPh, string tenSanPham, string maSp, string tenChatLieu,
+        public ActionResult UpdateGiaSanPham(string[] ids, float giamTheoTien, float giamTheoPh, string tenSanPham, string maSp, string tenChatLieu,
             string tenNSX, string moTa, float giaNhap, float giaBan, float giaNiemYet, string ghiChu, float DongGia)
         {
             TempData["ErrorMessage"] = "Thông báo lỗi của bạn ở đây.";
-            foreach (var item in Ids)
+            foreach (var item in ids)
             {
                 var sp = _sp.GetById(Guid.Parse(item.ToString()));
                 if (giamTheoTien > 0)

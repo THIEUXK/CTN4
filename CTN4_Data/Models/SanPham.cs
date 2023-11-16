@@ -11,11 +11,11 @@ namespace CTN4_Data.Models.DB_CTN4
         public string TenSanPham { get; set; }
         public string AnhDaiDien { get; set; }
         public bool TrangThai { get; set; }
-        public string MoTa { get; set; }
+        public string? MoTa { get; set; }
         public float GiaNhap { get; set; }
         public float GiaBan { get; set; }
         public float GiaNiemYet { get; set; }
-        public string GhiChu { get; set; }
+        public string? GhiChu { get; set; }
         public bool Is_detele { get; set; }
         [JsonIgnore]
         public List<ChiTietSanPhamYeuThich> CtietSanPhamYeuThiches
