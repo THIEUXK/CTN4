@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+
+}
+<div class="row ">
+<div>
+    <canvas id="myChart"></canvas>
+</div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: "/Admin/Home/thongke",
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                // Xử lý dữ liệu trả về ở đây
+                console.log(data);
+                const ctx = document.getElementById('myChart');
+                const myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Month 1', 'Month 2', 'Month 3', 'Month 4', 'Month 5', 'Month 6', 'Month 7', 'Month 8', 'Month 9', 'Month 10', 'Month 11', 'Month 12'],
+                        datasets: [{
+                            label: '# of Orders',
+                            data: data, // Truyền mảng được gọi từ action vào đây
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            },
+            error: function (error) {
+                console.error('Đã xảy ra lỗi:', error);
+            }
+        });
+    });
+</script>
+
+

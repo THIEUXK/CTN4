@@ -28,8 +28,9 @@ namespace CTN4_View_Admin.Controllers
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly ISanPhamService _spsv;
         private readonly IGiamGiaService _giamgia;
+        private readonly ILichSuHoaDonService _ls;
         public HomeController(ILogger<HomeController> logger, ITokenService tokenService, ILoginService userRepository, IConfiguration config, ICurrentUser curent,
-          INhanVienService nhanvien, ISanPhamService Sp, IGiamGiaService giamgia)
+          INhanVienService nhanvien, ISanPhamService Sp, IGiamGiaService giamgia, ILichSuHoaDonService lichsu)
         {
             _logger = logger;
             _config = config;
@@ -39,6 +40,7 @@ namespace CTN4_View_Admin.Controllers
             _nhanvienService = nhanvien;
             _spsv = Sp;
             _giamgia = giamgia;
+            _ls = lichsu;
 
 
 
@@ -86,7 +88,7 @@ namespace CTN4_View_Admin.Controllers
         [HttpGet]
         public IActionResult Doimk()
         {
-           
+
             return View();
         }
         [HttpPost]
@@ -94,7 +96,7 @@ namespace CTN4_View_Admin.Controllers
         {
             if (!ModelState.IsValid)
             {
-             
+
                 return View("Doimk", kh);
             }
             // Lấy thông tin người dùng từ cơ sở dữ liệu hoặc bất kỳ nguồn nào khác
@@ -103,7 +105,7 @@ namespace CTN4_View_Admin.Controllers
             if (kh.matKhauCu != user.MatKhau)
             {
                 ModelState.AddModelError("matKhauCu", "Mật khẩu cũ không đúng.");
-                return View("Doimk",kh);
+                return View("Doimk", kh);
             }
 
             // Kiểm tra xác nhận mật khẩu mới
@@ -126,7 +128,7 @@ namespace CTN4_View_Admin.Controllers
             var TK = _nhanvienService.GetAll().FirstOrDefault(c => c.TenDangNhap == userModel.User && c.MatKhau == userModel.Password);
             if (TK == null)
             {
-              return  RedirectToAction("DangNhap");
+                return RedirectToAction("DangNhap");
             }
             // Đọc dữ liệu từ Session xem trong Cart nó có cái gì chưa?
             var nvnew = SessionServices.NhanVienSS(HttpContext.Session, "ACA");
@@ -241,7 +243,7 @@ namespace CTN4_View_Admin.Controllers
         [HttpPost]
         public IActionResult UpdateNv(NhanVien khachHangForm)
         {
-            if(string.IsNullOrEmpty(khachHangForm.Ho) || string.IsNullOrEmpty(khachHangForm.Ten) || string.IsNullOrEmpty(khachHangForm.Email) || string.IsNullOrEmpty(khachHangForm.SDT) || string.IsNullOrEmpty(khachHangForm.DiaChi))
+            if (string.IsNullOrEmpty(khachHangForm.Ho) || string.IsNullOrEmpty(khachHangForm.Ten) || string.IsNullOrEmpty(khachHangForm.Email) || string.IsNullOrEmpty(khachHangForm.SDT) || string.IsNullOrEmpty(khachHangForm.DiaChi))
             {
                 ViewBag.Message = "Không được để trống";
 
@@ -285,8 +287,8 @@ namespace CTN4_View_Admin.Controllers
             khachHangToUpdate.Trangthai = true;
 
 
-             // Thực hiện cập nhật thông tin KhachHang
-             var result = _nhanvienService.Sua(khachHangToUpdate);
+            // Thực hiện cập nhật thông tin KhachHang
+            var result = _nhanvienService.Sua(khachHangToUpdate);
 
             if (result)
             {
@@ -299,6 +301,17 @@ namespace CTN4_View_Admin.Controllers
                 // Ví dụ: ModelState.AddModelError("TenThuocTinh", "Thông báo lỗi");
                 return RedirectToAction(nameof(UpdateNV)); // Hiển thị lại form với dữ liệu đã nhập và thông báo lỗi
             }
+        }
+        [HttpGet]
+        public IActionResult thongkels()
+        {
+          return View();
+        }
+        public IActionResult thongke()
+        {
+            int[] thongKeArray = _ls.Thongkels();
+
+            return Json(thongKeArray);
         }
         private bool IsValidEmail(string email)
         {
