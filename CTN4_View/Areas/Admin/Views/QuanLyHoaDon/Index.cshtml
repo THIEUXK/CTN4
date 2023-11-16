@@ -9,22 +9,75 @@
         <div class="card w-100">
 
             <div class="card-body p-4">
-                <h5 class="card-title fw-semibold mb-4">Các Đơn Hàng</h5>
-                <button style="border:none">
-                    <a class="btn btn-primary" href="@Url.Action("Index")" class="link-class">Tất cả đơn hàng</a>
-                </button>&nbsp;
-                <span>
-                    <button>
-                        <a class="btn btn-primary" href="@Url.Action("XemDaXacNhan")" class="link-class">Đơn hàng đã xác nhận</a>
-                    </button>
-                </span>&nbsp;
-                <span>
-                    <button>
-                        <a class="btn btn-primary" href="@Url.Action("XemChuaXacNhan")" class="link-class">Đơn hàng chưa xác nhận </a>
-                    </button>
-                </span>&nbsp;
 
-                <br></br>
+                <h5 class="card-title fw-semibold mb-4">Các Đơn Hàng</h5>
+                <div class="d-flex">
+                    <div class="dropdown me-1">
+                        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
+                            Lọc hóa đơn
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("Index")">Tất cả đơn hàng</a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("XemDaXacNhan")">đã xác nhận</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("XemChuaXacNhan")">chưa xác nhận </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("Index")">Tất cả đơn hàng</a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("XemDaXacNhan")">đã xác nhận</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("XemChuaXacNhan")">chưa xác nhận </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("Index")">Tất cả đơn hàng</a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("XemDaXacNhan")">đã xác nhận</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("XemChuaXacNhan")">chưa xác nhận </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("Index")">Tất cả đơn hàng</a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("XemDaXacNhan")">đã xác nhận</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("XemChuaXacNhan")">chưa xác nhận </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="dropdown me-1">
+                        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
+                            Sắp xếp hóa đơn
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("Index")">Đơn hàng mới nhất</a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("XemDaXacNhan")">Đơn hàng cũ nhất</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+
+               
+
                 <div>
                     <div class="row">
                         <div class="col-7">
@@ -102,7 +155,7 @@
                                 <tr>
                                     <td class="border-bottom-0">
                                         <div class="d-flex align-items-center gap-2">
-                                            <b><span>#@Html.ActionLink(a.MaHoaDon, "XemChiTiet", new { id=a.Id })</span></b>
+                                            <b><span>#@Html.ActionLink(a.MaHoaDon, "XemChiTiet", new { id = a.Id })</span></b>
                                         </div>
                                     </td>
                                     <td class="border-bottom-0">
@@ -183,9 +236,9 @@
 
         /* Tùy chỉnh màu nền và màu chữ của mũi tên mở lịch */
         input[type="date"]::-webkit-calendar-picker-indicator {
-            
             color: #ffffff;
         }
+
     button {
         border: none;
     }
