@@ -34,6 +34,18 @@
             <div class="row">
                 <div class="col-lg-7">
                     <h3>Chi tiết thanh toán</h3>
+                    @if (TempData["TB1"] != null)
+                    {
+                        <div class="alert alert-danger">@TempData["TB1"]</div>
+                    }
+                    @if (TempData["TB2"] != null)
+                    {
+                        <div class="alert alert-danger">@TempData["TB2"]</div>
+                    }
+                    @if (TempData["TBDC"] != null)
+                    {
+                        <div class="alert alert-danger">@TempData["TBDC"]</div>
+                    }
                     <div class="row contact_form" action="#" method="post" novalidate="novalidate">
                         <div class="col-md-6 form-group p_star">
                             <label>Họ và tên</label>
@@ -63,14 +75,7 @@
                             <input type="text" class="form-control" id="email" value="@Model.KhachHang.Email" name="Email">
 
                         </div>
-                        @if (TempData["TB2"] != null)
-                        {
-                            <div class="alert alert-danger">@TempData["TB2"]</div>
-                        }
-                        @if (TempData["TBDC"] != null)
-                        {
-                            <div class="alert alert-danger">@TempData["TBDC"]</div>
-                        }
+                        
                         @if (Model.DiaChiNhanHang != null)
                         {
                             <input type="hidden" name="tienship" value="" id="tienship1"></input>
@@ -133,10 +138,7 @@
 
                             </select>
                         </div>
-                        @if (TempData["TB1"] != null)
-                        {
-                            <div class="alert alert-danger">@TempData["TB1"]</div>
-                        }
+                        
                         <div class="col-md-6 form-group">
                             <label>Phương thức thanh toán<span class="text-danger"></span></label>
                             <span class="text-danger"></span>

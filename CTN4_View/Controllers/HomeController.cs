@@ -459,7 +459,7 @@ namespace CTN4_View.Controllers
             HttpContext.Session.Clear();
 
             // Chuyển hướng người dùng đến trang đăng nhập hoặc trang chính của ứng dụng
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("login");
         }
 
 
