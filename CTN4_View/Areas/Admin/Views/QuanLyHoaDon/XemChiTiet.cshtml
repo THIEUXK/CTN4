@@ -203,7 +203,7 @@
                                 <div class="col-md-6">
                                     <div scope="col"><b>Ghi Chú Đơn Hàng</b></div>
                                     <br />
-                                    <form>
+                                    <form asp-action="SuaGhiChu">
                                         <input type="hidden" name="IdHoaDon" value="@Model.HoaDon.Id">
                                         <div class="form-group">
                                             <label for="GhiChu" class="col-form-label">Cập nhật ghi chú cho đơn hàng</label>
@@ -352,7 +352,7 @@
                 </div>
                 <div class="card w-100">
                     <div class="card-body p-4">
-                        <div scope="col"><b>Ghi Chú của khách</b></div>
+                        <div scope="col"><b>Ghi Chú</b></div>
                         <hr></hr>
                         @if (Model.HoaDon.GhiChu != null)
                         {

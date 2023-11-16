@@ -468,7 +468,6 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                 return RedirectToAction("DangNhap", "Home");
             }
         }
-
         public IActionResult XemChuaXacNhan()
         {
             var hd = _hoaDonService.GetAll();
@@ -550,6 +549,118 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                 return RedirectToAction("DangNhap", "Home");
             }
         }
+        public IActionResult XemDaGiao()
+        {
+            var hd = _hoaDonService.GetAll();
+            var view = new ThieuxkViewAdmin()
+            {
+                hoaDons = hd.Where(c => c.NgayGiao != null).ToList(),
+            };
+            return View("Index", view);
+        }
+        public IActionResult XemChuaGiao()
+        {
+            var hd = _hoaDonService.GetAll();
+            var view = new ThieuxkViewAdmin()
+            {
+                hoaDons = hd.Where(c => c.NgayGiao == null).ToList(),
+            };
+            return View("Index", view);
+        }
+        public IActionResult XemChuThanhToan()
+        {
+            var hd = _hoaDonService.GetAll();
+            var view = new ThieuxkViewAdmin()
+            {
+                hoaDons = hd.Where(c => c.TrangThaiThanhToan == false).ToList(),
+            };
+            return View("Index", view);
+        }
+        public IActionResult XemDaThanhToan()
+        {
+            var hd = _hoaDonService.GetAll();
+            var view = new ThieuxkViewAdmin()
+            {
+                hoaDons = hd.Where(c => c.TrangThaiThanhToan == true).ToList(),
+            };
+            return View("Index", view);
+        }
+        public IActionResult XemDaGiaoHoanTat()
+        {
+            var hd = _hoaDonService.GetAll();
+            var view = new ThieuxkViewAdmin()
+            {
+                hoaDons = hd.Where(c => c.TrangThai == "Giao hàng thành công").ToList(),
+            };
+            return View("Index", view);
+        }
+        public IActionResult XemDaGiaoThatBai()
+        {
+            var hd = _hoaDonService.GetAll();
+            var view = new ThieuxkViewAdmin()
+            {
+                hoaDons = hd.Where(c => c.TrangThai == "Giao hàng thất bại").ToList(),
+            };
+            return View("Index", view);
+        }
+        public IActionResult XemDaBiHuy()
+        {
+            var hd = _hoaDonService.GetAll();
+            var view = new ThieuxkViewAdmin()
+            {
+                hoaDons = hd.Where(c => c.Is_detele == false).ToList(),
+            };
+            return View("Index", view);
+        }
 
+        public IActionResult SuaGhiChu(int IdHoaDon,string GhiChu)
+        {
+
+            var nvnew = SessionServices.NhanVienSS(HttpContext.Session, "ACA");
+            if (nvnew.Count() != 0)
+            {
+                var hd = _hoaDonService.GetById(IdHoaDon);
+                if (hd.TrangThai == "Hàng của bạn đang được giao" && hd.TrangThaiThanhToan == true)
+                {
+                    hd.GhiChu = GhiChu;
+                    if (_hoaDonService.Sua(hd) == true)
+                    {
+                        var li = new LichSuDonHang()
+                        {
+                            GhiChu = null,
+                            ThaoTac = $"Sửa lại ghi chú thành : {GhiChu}",
+                            IdHoaDonn = IdHoaDon,
+                            ThoiGianlam = DateTime.Now,
+                            NguoiThucHien = nvnew[0].TenDangNhap,
+                            TrangThai = true,
+                            Is_detele = true
+                        };
+                        _LichSuHoaDonService.Them(li);
+                    }
+                }
+                else
+                {
+                    var message = "Đơn hàng phải được giao vào thanh toán !";
+                    TempData["TB2"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = IdHoaDon, message });
+                }
+
+
+                var hdct1 = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == IdHoaDon).ToList();
+                var lshd = _LichSuHoaDonService.GetAll().Where(c => c.IdHoaDonn == IdHoaDon).ToList();
+                var view = new ThieuxkViewAdmin()
+                {
+                    HoaDon = hd,
+                    hoaDonChiTiets = hdct1,
+                    LichSuHoaDon = lshd.OrderByDescending(c => c.ThoiGianlam).ToList()
+
+                };
+                return View("XemChiTiet", view);
+            }
+            else
+            {
+                return RedirectToAction("DangNhap", "Home");
+            }
+        }
     }
 }
