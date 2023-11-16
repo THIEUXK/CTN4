@@ -1,4 +1,4 @@
-/*--------------------------- Color variations ----------------------*/
+﻿/*--------------------------- Color variations ----------------------*/
 /*--------------------------- Fonts ----------------------*/
 @import url("https://fonts.googleapis.com/css?family=Poppins:500,700|Roboto:400,500");
 /* Medium Layout: 1280px */
@@ -7,6 +7,80 @@
 /* Wide Mobile Layout: 480px */
 /* Section Gaps css
 ============================================================================================ */
+.custom-edit-link {
+    color: #ffffff; /* Màu đỏ tùy chọn */
+    text-decoration: none; /* Loại bỏ gạch chân liên kết */
+}
+
+    .custom-edit-link:hover {
+        color: #ffffff; /* Màu đỏ khi hover (tùy chọn) */
+    }
+
+/* Thiết lập màu nền và màu chữ mặc định */
+
+/*================== CSS TU TAO ==================== */
+.btn-custom-rangen {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #ff6347; /* Màu đỏ tùy chọn */
+    --bs-btn-border-color: #ff6347; /* Màu đỏ tùy chọn */
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #dc4735; /* Màu đỏ tương ứng với hover */
+    --bs-btn-hover-border-color: #c84131; /* Màu đỏ tương ứng với hover */
+    --bs-btn-focus-shadow-rgb: #ff6347; /* Màu đỏ tương ứng với focus */
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #c84131; /* Màu đỏ tương ứng với active */
+    --bs-btn-active-border-color: #b5362d; /* Màu đỏ tương ứng với active */
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0,0,0,0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #ff6347; /* Màu đỏ tương ứng với disabled */
+    --bs-btn-disabled-border-color: #ff6347; /* Màu đỏ tương ứng với disabled */
+}
+
+.btn-custom-primary {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #49BEFF; /* Màu xanh lam tương tự như .btn-primary */
+    --bs-btn-border-color: #49BEFF; /* Màu xanh lam tương tự như .btn-primary */
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #4f73d9; /* Màu xanh lam tương tự như .btn-primary */
+    --bs-btn-hover-border-color: #4a6ccc; /* Màu xanh lam tương tự như .btn-primary */
+    --bs-btn-focus-shadow-rgb: 117,153,255; /* Màu xanh lam tương tự như .btn-primary */
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #4a6ccc; /* Màu xanh lam tương tự như .btn-primary */
+    --bs-btn-active-border-color: #4665bf; /* Màu xanh lam tương tự như .btn-primary */
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0,0,0,0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #49BEFF; /* Màu xanh lam tương tự như .btn-primary */
+    --bs-btn-disabled-border-color: #49BEFF; /* Màu xanh lam tương tự như .btn-primary */
+}
+
+
+.custom-button {
+    display: inline-block;
+    padding: 8px 16px;
+    border: none;
+    text-decoration: none;
+    font-size: 14px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: red;
+    background-color: transparent;
+    cursor: pointer;
+    border-radius: 7px;
+}
+
+.custom-button-1 {
+    display: inline-block;
+    padding: 8px 16px;
+    border: none;
+    text-decoration: none;
+    font-size: 14px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: yellowgreen;
+    background-color: transparent;
+    cursor: pointer;
+    border-radius: 7px;
+}
+
+/*===========================================================================================================*/
 .no-padding {
   padding: 0; }
 

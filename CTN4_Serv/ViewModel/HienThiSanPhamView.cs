@@ -22,6 +22,7 @@ namespace CTN4_Serv.ViewModel
         public List<KhachHang> khachHangs { get; set; } 
         public PagingInfo pagingInfo { get; set; } = new PagingInfo();
         public List<SanPham> sanphampaging { get; set; } = new List<SanPham>();
+        public List<DanhMucChiTiet> sanphampaging1 { get; set; } = new List<DanhMucChiTiet>();
         public int TotalItems { get; set; }
         public int ItemsPerPage { get; set; }
         public int CurrentPage { get; set; }
