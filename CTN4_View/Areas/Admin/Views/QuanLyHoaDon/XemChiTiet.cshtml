@@ -160,7 +160,7 @@
                                                     @if (a.TrangThai == true)
                                                     {
                                                         <div class="d-flex align-items-center gap-2">
-                                                            <span class="color-change-button">
+                                                            <span class="btn btn-custom-rangen">
                                                                 @Html.ActionLink("Bỏ", "BoSanPham", new { idHDCT = a.Id, idHD = Model.HoaDon.Id }, new { @class = "custom-edit-link" })
 
                                                             </span>
@@ -169,7 +169,7 @@
                                                     else
                                                     {
                                                         <div class="d-flex align-items-center gap-2">
-                                                            <span class="color-change-button">@Html.ActionLink("Hoàn tác", "HoanTacSp", new { idHDCT = a.Id, idHD = Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span>
+                                                            <span class="btn btn-custom-primary">@Html.ActionLink("Hoàn tác", "HoanTacSp", new { idHDCT = a.Id, idHD = Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span>
                                                         </div>
                                                     }
                                                 </td>
@@ -184,7 +184,7 @@
                             }
                             else
                             {
-                                <span class="color-change-button">@Html.ActionLink("Giao Hàng", "XacNhanGiaoHang", new { id = Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span>
+                                <span class="btn btn-custom-primary">@Html.ActionLink("Giao Hàng", "XacNhanGiaoHang", new { id = Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span>
                             }
                         </div>
                     </div>
@@ -204,16 +204,34 @@
                                     <div scope="col"><b>Ghi Chú Đơn Hàng</b></div>
                                     <br />
                                     <form>
+                                        <input type="hidden" name="IdHoaDon" value="@Model.HoaDon.Id">
+                                        <div class="form-group">
+                                            <label for="GhiChu" class="col-form-label">Cập nhật ghi chú cho đơn hàng</label>
+                                            <input type="text" name="GhiChu" class="form-control">
+                                        </div>
+                                        <br />
+                                        <div class="form-row">
+                                            <div class="col">
+                                                <button type="submit" class="btn btn-custom-primary">Cập Nhật</button>
+                                            </div>
+                                            <div class="col-auto text-right"></div>
+                                        </div>
+                                        <br />
+                                    </form>
+
+                                    @*<form>
                                         <input type="hidden" name="IdHoaDon" value="@Model.HoaDon.Id"></input>
                                         <div class="col">Cập nhật ghi chú cho đơn hàng</div>
                                         <input type="text" name="GhiChu" value=""></input>
                                         <div class="row">
-                                            <div class="col"> <button type="submit">Cập Nhật</button></div>
+                                            <div class="col"> <button type="submit" class="btn btn-custom-primary">Cập Nhật</button></div>
                                             <div class="col-auto text-right"></div>
                                         </div>
-                                    </form>
+                                    </form>*@
                                 </div>
                                 <div class="col-md-6">
+                                    <br />
+                                    <br />
                                     <div class="row">
                                         <div class="col">Số lượng sản phẩm</div>
                                         <div class="col-auto text-right">@Model.soLuongTong</div>
@@ -240,7 +258,7 @@
                                     </div>
                                 </div>
                                 <hr></hr>
-                                <span class="color-change-button">@Html.ActionLink("Xác nhận đã thanh toán", "XacNhanThanhToan", new { id = Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span>
+                                <span class="btn btn-custom-primary">@Html.ActionLink("Xác nhận đã thanh toán", "XacNhanThanhToan", new { id = Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span>
                             </div>
                         </div>
                     </div>
@@ -250,8 +268,8 @@
                             <form asp-action="ThemBinhLuan">
                                 <div class="row">
                                     <input type="hidden" name="IdHoaDon" value="@Model.HoaDon.Id" />
-                                    <div class="col"><input type="text" name="BinhLuan" value=""></input></div>
-                                    <div class="col-auto text-right"><button>Thêm</button></div>
+                                    <div class="col"><input type="text" name="BinhLuan" value="" class="form-control"></input></div>
+                                    <div class="col-auto text-right"><button class="btn btn-custom-primary fas fa-plus">Thêm</button></div>
                                 </div>
                             </form>
                             @if (TempData["TBLS"] != null)
@@ -372,52 +390,51 @@
 </body>
 <style>
     .custom-edit-link {
-        color: whitesmoke; /* Màu đỏ */
-        ; /* Màu đỏ */
-        /* Các thuộc tính CSS khác nếu cần */
+        color: #ffffff; /* Màu đỏ tùy chọn */
+        text-decoration: none; /* Loại bỏ gạch chân liên kết */
     }
 
-    /* Thiết lập màu nền và màu chữ mặc định */
-    .color-change-button {
-        color: #ffffff;
-        padding: 5px 10px;
-        border: none;
-        cursor: pointer;
-        transition: background-color 0.3s ease, color 0.3s ease; /* Hiệu ứng chuyển đổi màu sắc */
-        border-radius: 20px; /* Bán kính bo tròn */
-        width: auto; /* Tự động điều chỉnh chiều rộng */
-
-        background-color: rgb(93, 135, 255);
-        border-radius: 15px;
-        font-size: 14px;
-        font-weight: 600;
-        grid-area: auto;
-        line-height: 14px;
-        text-align: center;
-    }
-
-       /* .color-change-button button {
-            color: #ffffff;
-            padding: 5px 10px;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            border-radius: 20px;
-            width: auto;
-            background-color: rgb(93, 135, 255);
-            border-radius: 15px;
-            font-size: 14px;
-            font-weight: 600;
-            grid-area: auto;
-            line-height: 14px;
-            text-align: center;
+        .custom-edit-link:hover {
+            color: #ffffff; /* Màu đỏ khi hover (tùy chọn) */
         }
 
-/*         Hiệu ứng hover 
-        .color-change-button:hover {
-            background-color: rgb(93, 135, 255);
-            color: #ecf0f1;
-        }*/
+    /* Thiết lập màu nền và màu chữ mặc định */
+    
+
+    .btn-custom-rangen {
+        --bs-btn-color: #fff;
+        --bs-btn-bg: #ff6347; /* Màu đỏ tùy chọn */
+        --bs-btn-border-color: #ff6347; /* Màu đỏ tùy chọn */
+        --bs-btn-hover-color: #fff;
+        --bs-btn-hover-bg: #dc4735; /* Màu đỏ tương ứng với hover */
+        --bs-btn-hover-border-color: #c84131; /* Màu đỏ tương ứng với hover */
+        --bs-btn-focus-shadow-rgb: #ff6347; /* Màu đỏ tương ứng với focus */
+        --bs-btn-active-color: #fff;
+        --bs-btn-active-bg: #c84131; /* Màu đỏ tương ứng với active */
+        --bs-btn-active-border-color: #b5362d; /* Màu đỏ tương ứng với active */
+        --bs-btn-active-shadow: inset 0 3px 5px rgba(0,0,0,0.125);
+        --bs-btn-disabled-color: #fff;
+        --bs-btn-disabled-bg: #ff6347; /* Màu đỏ tương ứng với disabled */
+        --bs-btn-disabled-border-color: #ff6347; /* Màu đỏ tương ứng với disabled */
+    }
+
+    .btn-custom-primary {
+        --bs-btn-color: #fff;
+        --bs-btn-bg: #5D87FF; /* Màu xanh lam tương tự như .btn-primary */
+        --bs-btn-border-color: #5D87FF; /* Màu xanh lam tương tự như .btn-primary */
+        --bs-btn-hover-color: #fff;
+        --bs-btn-hover-bg: #4f73d9; /* Màu xanh lam tương tự như .btn-primary */
+        --bs-btn-hover-border-color: #4a6ccc; /* Màu xanh lam tương tự như .btn-primary */
+        --bs-btn-focus-shadow-rgb: 117,153,255; /* Màu xanh lam tương tự như .btn-primary */
+        --bs-btn-active-color: #fff;
+        --bs-btn-active-bg: #4a6ccc; /* Màu xanh lam tương tự như .btn-primary */
+        --bs-btn-active-border-color: #4665bf; /* Màu xanh lam tương tự như .btn-primary */
+        --bs-btn-active-shadow: inset 0 3px 5px rgba(0,0,0,0.125);
+        --bs-btn-disabled-color: #fff;
+        --bs-btn-disabled-bg: #5D87FF; /* Màu xanh lam tương tự như .btn-primary */
+        --bs-btn-disabled-border-color: #5D87FF; /* Màu xanh lam tương tự như .btn-primary */
+    }
+
 
     .custom-button {
         display: inline-block;
@@ -461,7 +478,7 @@
         <p>
             <td class="border-bottom-0">
                 <div class="d-flex align-items-center gap-2">
-                    <span class="color-change-button">@Html.ActionLink("Hủy đơn", "HuyDon", new { id = Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span>
+                    <span class="btn btn-custom-rangen">@Html.ActionLink("Hủy đơn", "HuyDon", new { id = Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span>
                 </div>
             </td>
         </p>
