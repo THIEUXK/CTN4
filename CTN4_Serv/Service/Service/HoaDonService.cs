@@ -27,6 +27,81 @@ namespace CTN4_Serv.Service
         {
             return GetAll().FirstOrDefault(c => c.Id == id);
         }
+        public int[] ThongKeTongTienHoaDonTheoThangTrongNam()
+        {
+            // Lấy năm hiện tại
+            int namHienTai = DateTime.Now.Year;
+
+            // Sử dụng LINQ để lấy danh sách các hóa đơn có TrangThaiThanhToan là true và ngày tạo hóa đơn trong năm hiện tại
+            var hoaDonsThanhToanTrongNam = _db.HoaDons
+                .Where(h => h.TrangThaiThanhToan && h.NgayTaoHoaDon.Year == namHienTai)
+                .ToList();
+
+            // Tạo Dictionary để lưu tổng tiền theo tháng
+            Dictionary<int, int> tongTienTheoThang = new Dictionary<int, int>();
+
+            // Tính tổng tiền của từng hóa đơn và nhóm theo tháng
+            foreach (var hoaDon in hoaDonsThanhToanTrongNam)
+            {
+                int thang = hoaDon.NgayTaoHoaDon.Month;
+
+                if (tongTienTheoThang.ContainsKey(thang))
+                {
+                    tongTienTheoThang[thang] += (int)hoaDon.TongTien;
+                }
+                else
+                {
+                    tongTienTheoThang[thang] = (int)hoaDon.TongTien;
+                }
+            }
+
+
+            // Chuyển đổi Dictionary thành mảng int[]
+            int[] result = new int[12];
+            for (int i = 1; i <= 12; i++)
+            {
+                result[i - 1] = tongTienTheoThang.ContainsKey(i) ? tongTienTheoThang[i] : 0;
+            }
+
+            return result;
+        }
+        public int[] ThongKeSoLuongDonHangTheoThangTrongNam()
+        {
+            // Lấy năm hiện tại
+            int namHienTai = DateTime.Now.Year;
+
+            // Sử dụng LINQ để lấy danh sách các hóa đơn có TrangThaiThanhToan là true và ngày tạo hóa đơn trong năm hiện tại
+            var hoaDonsTrangThaiTrue = _db.HoaDons
+                .Where(h => h.TrangThaiThanhToan && h.NgayTaoHoaDon.Year == namHienTai)
+                .ToList();
+
+            // Tạo Dictionary để lưu số lượng đơn hàng theo tháng
+            Dictionary<int, int> soLuongTheoThang = new Dictionary<int, int>();
+
+            // Đếm số lượng đơn hàng của từng tháng
+            foreach (var hoaDon in hoaDonsTrangThaiTrue)
+            {
+                int thang = hoaDon.NgayTaoHoaDon.Month;
+
+                if (soLuongTheoThang.ContainsKey(thang))
+                {
+                    soLuongTheoThang[thang]++;
+                }
+                else
+                {
+                    soLuongTheoThang[thang] = 1;
+                }
+            }
+
+            // Chuyển đổi Dictionary thành mảng int[]
+            int[] result = new int[12];
+            for (int i = 1; i <= 12; i++)
+            {
+                result[i - 1] = soLuongTheoThang.ContainsKey(i) ? soLuongTheoThang[i] : 0;
+            }
+
+            return result;
+        }
 
         public bool Them(HoaDon a)
         {

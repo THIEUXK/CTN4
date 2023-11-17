@@ -24,6 +24,7 @@ builder.Services.AddTransient<INhanVienService, NhanVienService>();
 builder.Services.AddTransient<ISanPhamService, SanPhamService>();
 builder.Services.AddTransient<IDiaChiNhanHangService, DiaChiNhanHangService>();
 builder.Services.AddTransient<IGiamGiaService, GiamGiaService>();
+builder.Services.AddTransient<IHoaDonService, HoaDonService>();
 builder.Services.AddSession(option =>
 {
 	//option.IdleTimeout = TimeSpan.FromSeconds(60);
