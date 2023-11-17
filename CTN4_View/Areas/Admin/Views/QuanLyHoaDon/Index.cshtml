@@ -5,201 +5,238 @@
 }
 
 <body>
-    <div class="container-fluid">
-        <div class="card w-100">
+<div class="container-fluid">
+<div class="card w-100">
 
-            <div class="card-body p-4">
+    <div class="card-body p-4">
 
-                <h5 class="card-title fw-semibold mb-4">Các Đơn Hàng</h5>
-                <div class="d-flex">
-                    <div class="dropdown me-1">
-                        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
-                            Lọc hóa đơn
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a class="dropdown-item" href="@Url.Action("Index")">Tất cả đơn hàng</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="@Url.Action("XemChuaXacNhan")">chưa xác nhận </a>
-                            </li>
+        <h5 class="card-title fw-semibold mb-4">Các Đơn Hàng</h5>
+        <div class="d-flex">
+            <div class="dropdown me-1">
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
+                    Lọc hóa đơn
+                </button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a class="dropdown-item" href="@Url.Action("Index")">Tất cả đơn hàng</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="@Url.Action("XemChuaXacNhan")">chưa xác nhận </a>
+                    </li>
 
-                            <li>
-                                <a class="dropdown-item" href="@Url.Action("XemDaXacNhan")">đã xác nhận</a>
-                            </li>
+                    <li>
+                        <a class="dropdown-item" href="@Url.Action("XemDaXacNhan")">đã xác nhận</a>
+                    </li>
 
-                            <li>
-                                <a class="dropdown-item" href="@Url.Action("XemDaGiao")">Đơn đã giao</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="@Url.Action("XemChuaGiao")">Đơn chưa giao</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="@Url.Action("XemChuThanhToan")">Đơn chưa thanh toán</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="@Url.Action("XemDaThanhToan")">Đơn đã thanh toán</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="@Url.Action("XemDaGiaoHoanTat")">Đơn giao thành công</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="@Url.Action("XemDaGiaoThatBai")">Đơn giao thất bại</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="@Url.Action("XemDaBiHuy")">Đơn đã bị hủy</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="dropdown me-1">
-                        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
-                            Sắp xếp hóa đơn
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a class="dropdown-item" href="@Url.Action("XapXepMoiNhat")">Đơn hàng mới nhất</a>
-                            </li>
+                    <li>
+                        <a class="dropdown-item" href="@Url.Action("XemDaGiao")">Đơn đã giao</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="@Url.Action("XemChuaGiao")">Đơn chưa giao</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="@Url.Action("XemChuThanhToan")">Đơn chưa thanh toán</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="@Url.Action("XemDaThanhToan")">Đơn đã thanh toán</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="@Url.Action("XemDaGiaoHoanTat")">Đơn giao thành công</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="@Url.Action("XemDaGiaoThatBai")">Đơn giao thất bại</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="@Url.Action("XemDaBiHuy")">Đơn đã bị hủy</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="dropdown me-1">
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
+                    Sắp xếp hóa đơn
+                </button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a class="dropdown-item" href="@Url.Action("XapXepMoiNhat")">Đơn hàng mới nhất</a>
+                    </li>
 
-                            <li>
-                                <a class="dropdown-item" href="@Url.Action("XapXepCuNhat")">Đơn hàng cũ nhất</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="@Url.Action("XapXepTienCaoNhat")">Tổng tiền cao nhất</a>
-                            </li>
+                    <li>
+                        <a class="dropdown-item" href="@Url.Action("XapXepCuNhat")">Đơn hàng cũ nhất</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="@Url.Action("XapXepTienCaoNhat")">Tổng tiền cao nhất</a>
+                    </li>
 
-                            <li>
-                                <a class="dropdown-item" href="@Url.Action("XapXepTienThapNhat")">Tổng tiền Thấp nhất</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                    <li>
+                        <a class="dropdown-item" href="@Url.Action("XapXepTienThapNhat")">Tổng tiền Thấp nhất</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="dropdown me-1">
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a class="dropdown-item" href="@Url.Action("XapXepMoiNhat")">Đơn hàng mới nhất</a>
+                    </li>
 
+                    <li>
+                        <a class="dropdown-item" href="@Url.Action("XapXepCuNhat")">Đơn hàng cũ nhất</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="@Url.Action("XapXepTienCaoNhat")">Tổng tiền cao nhất</a>
+                    </li>
 
-
-
-                <div>
-                    <div class="row">
-                        <div class="col-7">
-                            <form asp-action="TimKiem">
-                                <div>
-                                    Tìm kiếm:
-                                    <input name="ten" value="" onchange="this.form.submit()" type="text" class="form-control">
-                                    </input>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="col-5">
-                            <form asp-action="TimKiemNgay">
-                                <div>
-                                    Tìm kiếm theo ngày tạo hóa đơn:
-                                    <div>
-                                        Từ
-                                        <input name="NgayDau" value="" type="date">
-                                        </input>
-                                        Đến
-                                        <input name="NgayCuoi" value="" type="date">
-                                        </input>
-                                        <button type="submit" class="btn btn-primary">Tìm</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
-                </div>
-                @if (TempData["TB1"] != null)
-                {
-                    <div class="alert alert-danger">@TempData["TB1"]</div>
-                }
-
-
+                    <li>
+                        <a class="dropdown-item" href="@Url.Action("XapXepTienThapNhat")">Tổng tiền Thấp nhất</a>
+                    </li>
+                </ul>
             </div>
         </div>
-        <div class="card w-100">
-            <div class="card-body p-4">
-
-                <div class="table-responsive">
-
-                    <table class="table text-nowrap mb-0 align-middle">
-                        <thead class="text-dark fs-4">
-                            <tr>
-                                <th class="border-bottom-0">
-                                    <h6 class="fw-semibold mb-0">Mã hóa đơn</h6>
-                                </th>
-                                <th class="border-bottom-0">
-                                    <h6 class="fw-semibold mb-0">Thời gian đặt đơn</h6>
-                                </th>
-                                <th class="border-bottom-0">
-                                    <h6 class="fw-semibold mb-0">Tên người nhận hàng</h6>
-                                </th>
-                                <th class="border-bottom-0">
-                                    <h6 class="fw-semibold mb-0">Thanh toán</h6>
-                                </th>
-                                <th class="border-bottom-0">
-                                    <h6 class="fw-semibold mb-0">Giao hàng</h6>
-                                </th>
-                                <th class="border-bottom-0">
-                                    <h6 class="fw-semibold mb-0">Tiền ship</h6>
-                                </th>
-                                <th class="border-bottom-0">
-                                    <h6 class="fw-semibold mb-0">Tổng tiền</h6>
-                                </th>
 
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var a in Model.hoaDons)
-                            {
-                                <tr>
-                                    <td class="border-bottom-0">
-                                        <div class="d-flex align-items-center gap-2">
-                                            <b><span>#@Html.ActionLink(a.MaHoaDon, "XemChiTiet", new { id = a.Id })</span></b>
-                                        </div>
-                                    </td>
-                                    <td class="border-bottom-0">
-                                        <span class="fw-normal">@a.NgayDat</span>
-                                    </td>
-                                    <td class="border-bottom-0">
-                                        <p class="mb-0 fw-normal">@a.TenKhachHang</p>
-                                    </td>
-                                    <td class="border-bottom-0">
-                                        @if (a.TrangThaiThanhToan == true)
-                                        {
-                                            <h6 class="fw-semibold mb-0" style="color:limegreen">Đã thanh toán</h6>
-                                        }
-                                        else
-                                        {
-                                            <h6 class="fw-semibold mb-0" style="color:red">Chưa thanh toán</h6>
-                                        }
-                                    </td>
-                                    @if (a.NgayGiao == null)
-                                    {
-                                        <th class="border-bottom-0">
-                                            <h6 class="fw-semibold mb-0" style="color:red">Chưa Giao Hàng</h6>
-                                        </th>
-                                    }
-                                    else
-                                    {
-                                        <th class="border-bottom-0">
-                                            <h6 class="fw-semibold mb-0" style="color:limegreen">@a.NgayGiao</h6>
-                                        </th>
-                                    }
-                                    <td class="border-bottom-0">
-                                        <p class="mb-0 fw-normal">@FormatCurrency(@a.TienShip)</p>
-                                    </td>
-                                    <td class="border-bottom-0">
-                                        <p class="mb-0 fw-normal">@FormatCurrency(@a.TongTien)</p>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+
+
+        <div>
+            <div class="row">
+                <div class="col-7">
+                    <form asp-action="TimKiem">
+                        <div>
+                            Tìm kiếm:
+                            <input name="ten" value="" onchange="this.form.submit()" type="text" class="form-control">
+                            </input>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-5">
+                    <form asp-action="TimKiemNgay">
+                        <div>
+                            Tìm kiếm theo ngày tạo hóa đơn:
+                            <div>
+                                Từ
+                                <input name="NgayDau" value="" type="date">
+                                </input>
+                                Đến
+                                <input name="NgayCuoi" value="" type="date">
+                                </input>
+                                <button type="submit" class="btn btn-primary">Tìm</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
+
+        </div>
+        @if (TempData["TB1"] != null)
+        {
+            <div class="alert alert-danger">@TempData["TB1"]</div>
+        }
+
+
+    </div>
+</div>
+<div class="card w-100">
+    <div class="card-body p-4">
+
+        <div class="table-responsive">
+
+            <table class="table text-nowrap mb-0 align-middle">
+                <thead class="text-dark fs-4">
+                <tr>
+                    <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0">Mã hóa đơn</h6>
+                    </th>
+                    <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0">Thời gian đặt đơn</h6>
+                    </th>
+                    <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0">Tên người nhận hàng</h6>
+                    </th>
+                    <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0">Thanh toán</h6>
+                    </th>
+                    <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0">Giao hàng</h6>
+                    </th>
+                    <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0">Tiền ship</h6>
+                    </th>
+                    <th class="border-bottom-0">
+                        <h6 class="fw-semibold mb-0">Tổng tiền</h6>
+                    </th>
+
+
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var a in Model.hoaDons)
+                {
+                    <tr>
+                        <td class="border-bottom-0">
+                            <div class="d-flex align-items-center gap-2">
+                                <b><span>#@Html.ActionLink(a.MaHoaDon, "XemChiTiet", new { id = a.Id })</span></b>
+                            </div>
+                        </td>
+                        <td class="border-bottom-0">
+                            <span class="fw-normal">@a.NgayDat</span>
+                        </td>
+                        <td class="border-bottom-0">
+                            <p class="mb-0 fw-normal">@a.TenKhachHang</p>
+                        </td>
+                        <td class="border-bottom-0">
+                            @if (a.TrangThaiThanhToan == true)
+                            {
+                                <h6 class="fw-semibold mb-0" style="color:limegreen">Đã thanh toán</h6>
+                            }
+                            else
+                            {
+                                <h6 class="fw-semibold mb-0" style="color:red">Chưa thanh toán</h6>
+                            }
+                        </td>
+                        @if (a.NgayGiao == null)
+                        {
+                            <th class="border-bottom-0">
+                                <h6 class="fw-semibold mb-0" style="color:red">Chưa Giao Hàng</h6>
+                            </th>
+                        }
+                        else
+                        {
+                            <th class="border-bottom-0">
+                                <h6 class="fw-semibold mb-0" style="color:limegreen">@a.NgayGiao</h6>
+                            </th>
+                        }
+                        <td class="border-bottom-0">
+                            <p class="mb-0 fw-normal">@FormatCurrency(@a.TienShip)</p>
+                        </td>
+                        <td class="border-bottom-0">
+                            <p class="mb-0 fw-normal">@FormatCurrency(@a.TongTien)</p>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <button class="btnXuatEx" value="@a.Id"  href="#">Xuất File Excel</button>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
         </div>
     </div>
+</div>
+</div>
 </body>
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="~/js/a.js"></script>
+
+
+
+
 <style>
     .custom-edit-link {
         color: whitesmoke; /* Màu đỏ */
@@ -251,3 +288,4 @@
         }
     }
 </script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
