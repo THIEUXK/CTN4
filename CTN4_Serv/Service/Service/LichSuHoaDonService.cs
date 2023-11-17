@@ -57,12 +57,13 @@ namespace CTN4_Serv.Service.Service
         }
         public int[] Thongkels()
         {
-            DateTime startDate = DateTime.Now.AddMonths(-12);
-            DateTime endDate = DateTime.Now;
+
+            DateTime startDate = new DateTime(DateTime.Now.Year, 1, 1);
 
             var thongKeData = _db.LichSuDonHangs
-                .Where(ls => ls.ThoiGianlam >= startDate && ls.ThoiGianlam <= endDate)
-                .ToList();
+                  .Where(h => h.TrangThai && h.ThoiGianlam >= startDate)
+                  .ToList();
+
 
             // Tạo mảng để lưu trữ số lượng LichSuDonHang cho từng tháng
             int[] thongKeArray = new int[12];
@@ -74,14 +75,9 @@ namespace CTN4_Serv.Service.Service
                 thongKeArray[monthDifference]++;
             }
 
-            // Sắp xếp lại mảng theo thứ tự tháng
-            int[] sortedThongKeArray = new int[12];
-            for (int i = 0; i < 12; i++)
-            {
-                sortedThongKeArray[i] = thongKeArray[(i + startDate.Month - 1) % 12];
-            }
 
-            return sortedThongKeArray;
+            return thongKeArray;
+
         }
 
 
