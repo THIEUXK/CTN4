@@ -12,6 +12,7 @@ namespace CTN4_Serv.Service.IService
     {
         public List<LichSuDonHang> GetAll();
         public LichSuDonHang GetById(Guid id);
+        public int[] Thongkels();
         public bool Them(LichSuDonHang a);
         public bool Sua(LichSuDonHang a);
         public bool Xoa(Guid id);
