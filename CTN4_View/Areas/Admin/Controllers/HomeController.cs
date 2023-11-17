@@ -29,9 +29,11 @@ namespace CTN4_View_Admin.Controllers
         private readonly ISanPhamService _spsv;
         private readonly IGiamGiaService _giamgia;
         private readonly ILichSuHoaDonService _ls;
+
         private readonly IHoaDonService _hd;
         public HomeController(ILogger<HomeController> logger, ITokenService tokenService, ILoginService userRepository, IConfiguration config, ICurrentUser curent,
           INhanVienService nhanvien, ISanPhamService Sp, IGiamGiaService giamgia, ILichSuHoaDonService lichsu,IHoaDonService hoaDon)
+
         {
             _logger = logger;
             _config = config;
@@ -42,7 +44,9 @@ namespace CTN4_View_Admin.Controllers
             _spsv = Sp;
             _giamgia = giamgia;
             _ls = lichsu;
+
             _hd = hoaDon;
+
 
 
 
@@ -321,12 +325,14 @@ namespace CTN4_View_Admin.Controllers
 
             return Json(thongKeArray);
         }
+
         public IActionResult thongkeHd()
         {
             int[] thongKeArray = _hd.ThongKeSoLuongDonHangTheoThangTrongNam();
 
             return Json(thongKeArray);
         }
+
         private bool IsValidEmail(string email)
         {
             try

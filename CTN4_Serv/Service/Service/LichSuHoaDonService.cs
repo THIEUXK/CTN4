@@ -57,11 +57,13 @@ namespace CTN4_Serv.Service.Service
         }
         public int[] Thongkels()
         {
+
             DateTime startDate = new DateTime(DateTime.Now.Year, 1, 1);
 
             var thongKeData = _db.LichSuDonHangs
                   .Where(h => h.TrangThai && h.ThoiGianlam >= startDate)
                   .ToList();
+
 
             // Tạo mảng để lưu trữ số lượng LichSuDonHang cho từng tháng
             int[] thongKeArray = new int[12];
@@ -73,7 +75,9 @@ namespace CTN4_Serv.Service.Service
                 thongKeArray[monthDifference]++;
             }
 
+
             return thongKeArray;
+
         }
 
 
