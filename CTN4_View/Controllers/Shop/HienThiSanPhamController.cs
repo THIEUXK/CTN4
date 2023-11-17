@@ -53,12 +53,12 @@ namespace CTN4_View.Controllers.Shop
             _pagingInfo = new PagingInfo();
             _CTN4_Ok = new DB_CTN4_ok();
             _sanphamService = new SanPhamService();
-            _chiTietSanPhamYeuThichService = new ChiTietSanPhamYeuThichService(); 
+            _chiTietSanPhamYeuThichService = new ChiTietSanPhamYeuThichService();
             _khachHangService = new KhachHangService();
         }
         public IActionResult HienThiSanPham(int page, int Soluonghienthi)
         {
-            if(Soluonghienthi == 0) {Soluonghienthi = 6;}
+            if (Soluonghienthi == 0) { Soluonghienthi = 6; }
             if (page == 0) { page = 1; }
             var danhMuc = _danhMucService.GetAll();
             var danhMucChiTiets = _danhMucChiTiet.GetAll();
@@ -66,17 +66,12 @@ namespace CTN4_View.Controllers.Shop
             var SpYt = _chiTietSanPhamYeuThichService.GetAll();
             var chatLieus = _chatLieuService.GetAll();
             var khachhang = _khachHangService.GetAll();
-
-            //var Paging = _CTN4_Ok.SanPhamChiTiets.Include(c => c.ChatLieu).Include(c => c.NSX).Include(c => c.Mau).Include(c => c.Size).Include(c => c.SanPham).Skip((page - 1) * pageSize).Take(pageSize).ToList();
-
             var view = new HienThiSanPhamView()
             {
                 danhMucs = danhMuc,
                 danhMucChiTiets = danhMucChiTiets,
                 sanPhams = listSp,
-                // maus = mauSacs,
                 chatLieus = chatLieus,
-                //sanPhamChiTiets = listSpct,
                 sanphampaging = listSp.Skip((page - 1) * Soluonghienthi).Take(Soluonghienthi).ToList(),
                 pagingInfo = new PagingInfo()
                 {
@@ -219,17 +214,17 @@ namespace CTN4_View.Controllers.Shop
         }
 
         [HttpGet]
-        public IActionResult Search(int page,int Soluonghienthi, string TenSp)
+        public IActionResult Search(int page, int Soluonghienthi, string TenSp)
         {
-            if(TenSp == null)
+            if (TenSp == null)
             {
-                 return RedirectToAction("HienThiSanPham");
+                return RedirectToAction("HienThiSanPham");
             }
-            var searchTenSp = _sanphamService.GetAll().Where(c=>c.TenSanPham.ToLower().Contains(TenSp.ToLower())).ToList();
-           
-            if (searchTenSp.Count !=0 )
+            var searchTenSp = _sanphamService.GetAll().Where(c => c.TenSanPham.ToLower().Contains(TenSp.ToLower())).ToList();
+
+            if (searchTenSp.Count != 0)
             {
-                 if(Soluonghienthi == 0) {Soluonghienthi = 6;}
+                if (Soluonghienthi == 0) { Soluonghienthi = 6; }
                 if (page == 0) { page = 1; }
                 var danhMuc = _danhMucService.GetAll();
                 var danhMucChiTiets = _danhMucChiTiet.GetAll();
@@ -257,15 +252,15 @@ namespace CTN4_View.Controllers.Shop
                         ItemsPerPage = Soluonghienthi,
 
                     },
-                     soluonghienthi = Soluonghienthi,
-                     sanPhamYeuThiches = SpYt,
-                     khachHangs = khachhang,
+                    soluonghienthi = Soluonghienthi,
+                    sanPhamYeuThiches = SpYt,
+                    khachHangs = khachhang,
                 };
                 return View("HienThiSanPham", view);
             }
             else
             {
-               
+
                 var thongbaoSearch = "Không tìm thất sản phẩm nào ";
                 TempData["Notification"] = thongbaoSearch;
                 return RedirectToAction("viewSpRong", new { thongbaoSearch });
@@ -275,12 +270,12 @@ namespace CTN4_View.Controllers.Shop
         }
         public IActionResult viewSpRong()
         {
-            
+
             return View();
         }
         public IActionResult ChonShowSp(int Soluonghienthi, int page)
         {
-             if (Soluonghienthi == 0) { Soluonghienthi = 1; }
+            if (Soluonghienthi == 0) { Soluonghienthi = 1; }
             if (page == 0) { page = 1; }
             var danhMuc = _danhMucService.GetAll();
             var danhMucChiTiets = _danhMucChiTiet.GetAll();
@@ -313,5 +308,7 @@ namespace CTN4_View.Controllers.Shop
 
 
         }
+       
+       
     }
 }
