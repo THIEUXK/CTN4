@@ -83,6 +83,9 @@ namespace CTN4_View.Controllers.Shop
 
         }
 
+        
+
+
         public IActionResult XoaChiTietGioHang(Guid id)
         {
             var b = _GioHangChiTiet.GetById(id);
@@ -101,6 +104,7 @@ namespace CTN4_View.Controllers.Shop
             return RedirectToAction("GioHang", "BanHang", new { message });
 
         }
+
         //Huyen
         [HttpGet("CheckOut/GetListDistrict")]
         public JsonResult GetListDistrict(int idProvin)
