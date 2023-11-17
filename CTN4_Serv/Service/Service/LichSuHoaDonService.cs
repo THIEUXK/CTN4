@@ -55,6 +55,32 @@ namespace CTN4_Serv.Service.Service
                 return false;
             }
         }
+        public int[] Thongkels()
+        {
+
+            DateTime startDate = new DateTime(DateTime.Now.Year, 1, 1);
+
+            var thongKeData = _db.LichSuDonHangs
+                  .Where(h => h.TrangThai && h.ThoiGianlam >= startDate)
+                  .ToList();
+
+
+            // Tạo mảng để lưu trữ số lượng LichSuDonHang cho từng tháng
+            int[] thongKeArray = new int[12];
+
+            // Lặp qua danh sách và đếm số lượng trong từng tháng
+            foreach (var lichSuDonHang in thongKeData)
+            {
+                int monthDifference = (lichSuDonHang.ThoiGianlam.Month - startDate.Month + 12) % 12;
+                thongKeArray[monthDifference]++;
+            }
+
+
+            return thongKeArray;
+
+        }
+
+
 
         public bool Xoa(Guid id)
         {

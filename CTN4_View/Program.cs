@@ -18,11 +18,13 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddTransient<ILoginService, LoginServices>();
 builder.Services.AddTransient<ITokenService, TokenServices>();
 builder.Services.AddScoped<ICurrentUser, CurrentUser>();
+builder.Services.AddScoped<ILichSuHoaDonService, LichSuHoaDonService>();
 builder.Services.AddTransient<IKhachHangService, KhachHangService>();
 builder.Services.AddTransient<INhanVienService, NhanVienService>();
 builder.Services.AddTransient<ISanPhamService, SanPhamService>();
 builder.Services.AddTransient<IDiaChiNhanHangService, DiaChiNhanHangService>();
 builder.Services.AddTransient<IGiamGiaService, GiamGiaService>();
+builder.Services.AddTransient<IHoaDonService, HoaDonService>();
 builder.Services.AddSession(option =>
 {
 	//option.IdleTimeout = TimeSpan.FromSeconds(60);

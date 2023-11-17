@@ -203,7 +203,7 @@
                                 <div class="col-md-6">
                                     <div scope="col"><b>Ghi Chú Đơn Hàng</b></div>
                                     <br />
-                                    <form>
+                                    <form asp-action="SuaGhiChu">
                                         <input type="hidden" name="IdHoaDon" value="@Model.HoaDon.Id">
                                         <div class="form-group">
                                             <label for="GhiChu" class="col-form-label">Cập nhật ghi chú cho đơn hàng</label>
@@ -218,16 +218,6 @@
                                         </div>
                                         <br />
                                     </form>
-
-                                    @*<form>
-                                        <input type="hidden" name="IdHoaDon" value="@Model.HoaDon.Id"></input>
-                                        <div class="col">Cập nhật ghi chú cho đơn hàng</div>
-                                        <input type="text" name="GhiChu" value=""></input>
-                                        <div class="row">
-                                            <div class="col"> <button type="submit" class="btn btn-custom-primary">Cập Nhật</button></div>
-                                            <div class="col-auto text-right"></div>
-                                        </div>
-                                    </form>*@
                                 </div>
                                 <div class="col-md-6">
                                     <br />
@@ -248,7 +238,7 @@
                                         <div class="col">Tiền ship</div>
                                         <div class="col-auto text-right">
                                             @FormatCurrency(Model.HoaDon.TienShip
-                                            )
+                                                     )
                                         </div>
                                     </div>
                                     <br />
@@ -258,7 +248,10 @@
                                     </div>
                                 </div>
                                 <hr></hr>
-                                <span class="btn btn-custom-primary">@Html.ActionLink("Xác nhận đã thanh toán", "XacNhanThanhToan", new { id = Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span>
+                                @if (Model.HoaDon.TrangThaiThanhToan == false)
+                                {
+                                    <span class="btn btn-custom-primary">@Html.ActionLink("Xác nhận đã thanh toán", "XacNhanThanhToan", new { id = Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span>
+                                }
                             </div>
                         </div>
                     </div>
@@ -299,9 +292,63 @@
                             </table>
                         </div>
                     </div>
+                    <div class="card w-100">
+                        <div class="card-body p-4">
+                            <div>Trạng thái hiện tại của đơn hàng này là: <span style="color:saddlebrown">@Model.HoaDon.TrangThai</span></div>
+                            @if (Model.HoaDon.TrangThai == "Hàng của bạn đang được giao")
+                            {
+                                <div class="div_right">
+                                    <p>
+                                        <td class="border-bottom-0">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <span class="btn btn-custom-rangen">@Html.ActionLink("Giao hàng thành công", "XacNhanNhanHang", new { id = Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span>
+                                            </div>
+                                        </td>
+                                    </p>
+                                </div>
+                            }
+                            @if (Model.HoaDon.TrangThai == "Hàng của bạn đang được giao")
+                            {
+                                <div class="div_right">
+                                    <p>
+                                        <td class="border-bottom-0">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <span class="btn btn-custom-rangen">@Html.ActionLink("Giao thất bại", "GiaoHangThatBai", new { id = Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span>
+                                            </div>
+                                        </td>
+                                    </p>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="card w-100">
+                        <div class="card-body p-4">
+                            @if (Model.HoaDon.Is_detele == true)
+                            {
+                                <form asp-action="HuyDon">
+                                    <input type="hidden" name="id" value="@Model.HoaDon.Id">
+                                    <div class="form-group">
+                                        <label for="GhiChu" class="col-form-label">Lý do hủy đơn</label>
+                                        <input type="text" name="LyDo" class="form-control">
+                                    </div>
+                                    <br />
+                                    <div class="form-row">
+                                        <div class="col">
+                                            <button type="submit" class="btn btn-custom-primary">Hủy đơn</button>
+                                        </div>
+                                        <div class="col-auto text-right"></div>
+                                    </div>
+                                    <br />
+                                </form>
+                            }
+                            else
+                            {
+                                <div style="color:red">Đơn hàng đã bị hủy !</div>
+                            }
+                        </div>
+                    </div>
                 </div>
             </div>
-
             <div class="col-md-3">
                 <div class="card w-100">
                     <div class="card-body p-4">
@@ -309,9 +356,7 @@
                         <hr></hr>
                         @if (Model.HoaDon.TrangThai != "Đang chờ xử lí")
                         {
-
                             <div style="color:yellowgreen">Đơn hàng đã được xác nhận</div>
-
                         }
                         else
                         {
@@ -322,7 +367,7 @@
                             <br />
                             <div>
                                 <span>
-                                    <a class="btn btn-custom-primary" href="@Url.Action("XacNhanDonHang", new { id = Model.HoaDon.Id })" class="custom-edit-link">Xác nhận đơn hàng</a>
+                                    <a class="btn btn-custom-primary" href="@Url.Action("XuatEx", new { id = Model.HoaDon.Id })" class="custom-edit-link">Xác nhận đơn hàng</a>
 
                                 </span>
                             </div>
@@ -352,7 +397,7 @@
                 </div>
                 <div class="card w-100">
                     <div class="card-body p-4">
-                        <div scope="col"><b>Ghi Chú của khách</b></div>
+                        <div scope="col"><b>Ghi Chú</b></div>
                         <hr></hr>
                         @if (Model.HoaDon.GhiChu != null)
                         {
@@ -399,7 +444,7 @@
         }
 
     /* Thiết lập màu nền và màu chữ mặc định */
-    
+
 
     .btn-custom-rangen {
         --bs-btn-color: #fff;
@@ -472,19 +517,3 @@
         }
     }
 </script>
-@if (Model.HoaDon.Is_detele == true)
-{
-    <div class="div_right">
-        <p>
-            <td class="border-bottom-0">
-                <div class="d-flex align-items-center gap-2">
-                    <span class="btn btn-custom-rangen">@Html.ActionLink("Hủy đơn", "HuyDon", new { id = Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span>
-                </div>
-            </td>
-        </p>
-    </div>
-}
-else
-{
-    <div style="color:red">Đơn hàng đã bị hủy !</div>
-}
