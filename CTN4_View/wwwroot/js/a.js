@@ -1,15 +1,28 @@
 ﻿$(document).ready(function () {
 
-    //loadCartCheckout();
-    //$('#fullname_ck, #andress_ck, #email_ck, #phone_ck').keyup(function () {
-
-    //    $('#mess_fullname').text('');
-    //    $('#mess_andress').text('');
-    //    $('#mess_phone').text('');
-    //    $('#mess_email').text('');
-
-    //});
-    //Chọn tỉnh thành
+    $(document).on('click','.btnXuatEx',function () {
+        //loadTotal()
+        var IdHD = this.value;
+        if (IdHD != null) {
+            $.ajax({
+                url: '/QuanLyHd/XuatEx',
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    IdHD: IdHD
+                },
+                contentType: 'application/json',
+                success: function (result) {
+                    if (result != null) {
+                        location.href = "/ex/" + result;
+                    }
+                }
+            });
+        }
+        else {
+            location.reload();
+        }
+    });
     $('#provin').change(function () {
         //loadTotal();
         var id_provin = this.value;

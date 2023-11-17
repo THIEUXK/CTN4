@@ -1,10 +1,13 @@
-﻿using CTN4_Data.Models;
+﻿using ClosedXML.Excel;
+using CTN4_Data.Models;
 using CTN4_Data.Models.DB_CTN4;
 using CTN4_Serv.Service;
 using CTN4_Serv.Service.IService;
 using CTN4_Serv.Service.Service;
+using CTN4_Serv.ViewModel.banhangview;
 using CTN4_View.Areas.Admin.Viewmodel;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
 {
@@ -14,6 +17,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
         public IHoaDonService _hoaDonService;
         public IHoaDonChiTietService _hoaDonChiTietService;
         public ILichSuHoaDonService _LichSuHoaDonService;
+        private readonly HttpClient _httpClient;
         public QuanLyHoaDonController()
         {
             _hoaDonChiTietService = new HoaDonChiTietService();
@@ -753,5 +757,79 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             };
             return View("Index", view);
         }
+
+        [HttpGet("/QuanLyHd/XuatEx")]
+        public JsonResult XuatEx(int IdHD)
+        {
+            var wb = new XLWorkbook();
+            var ws = wb.Worksheets.Add("Contacts");
+            ws.Cell("A1").Value = "Mã hóa đơn";
+            ws.Cell("A2").Value = "Ngày tạo hóa đơn";
+            ws.Cell("A3").Value = "Trạng thái";
+            ws.Cell("A4").Value = "Tổng tiền";
+            ws.Cell("A5").Value = "Tiền ship";
+            ws.Cell("A6").Value = "Ngày giao";
+            ws.Cell("A7").Value = "Ngày nhận";
+            ws.Cell("A8").Value = "Tên khách hàng";
+            ws.Cell("A9").Value = "Email";
+            ws.Cell("A10").Value = "Số điện thoại";
+            ws.Cell("A11").Value = "Địa chỉ";
+            ws.Cell("A12").Value = "Thanh toán";
+
+            var hd = _hoaDonService.GetById(IdHD);
+
+            ws.Cell("B1").Value = hd.MaHoaDon;
+            ws.Cell("B2").Value = hd.NgayTaoHoaDon;
+            ws.Cell("B3").Value = hd.TrangThai;
+            ws.Cell("B4").Value = hd.TongTien;
+            ws.Cell("B5").Value = hd.TienShip;
+            ws.Cell("B6").Value = hd.NgayGiao;
+            ws.Cell("B7").Value = hd.NgayNhan;
+            ws.Cell("B8").Value = hd.TenKhachHang;
+            ws.Cell("B9").Value = hd.Email;
+            ws.Cell("B10").Value = hd.SDTNguoiNhan;
+            ws.Cell("B11").Value = hd.DiaChi;
+            ws.Cell("B12").Value = hd.TrangThaiThanhToan==true?"Đã thanh toán":"Chưa thanh toán";
+
+
+            ws.Cell("A16").Value = "Tên sản phẩm";
+            ws.Cell("B16").Value = "Màu";
+            ws.Cell("C16").Value = "Size";
+            ws.Cell("D16").Value = "Nsx";
+            ws.Cell("E16").Value = "Chất liệu";
+            ws.Cell("F16").Value = "Giá";
+            ws.Cell("G16").Value = "Số lượng";
+            ws.Cell("H16").Value = "Thành tiền";
+            ws.Cell("I17").Value = "Trạng thái";
+
+            var hdct = _hoaDonChiTietService.GetAll().Where(c=>c.IdHoaDon==IdHD).ToList();
+
+            int row = 17;
+            for (int i = 0; i < hdct.Count; i++)
+            {
+
+                ws.Cell("A"+row).Value = hdct[i].SanPhamChiTiet.SanPham.TenSanPham;
+                ws.Cell("B"+row).Value = hdct[i].SanPhamChiTiet.Mau.TenMau;
+                ws.Cell("C"+row).Value = hdct[i].SanPhamChiTiet.Size.CoSize;
+                ws.Cell("D"+row).Value = hdct[i].SanPhamChiTiet.SanPham.NSX.TenNSX;
+                ws.Cell("E"+row).Value = hdct[i].SanPhamChiTiet.SanPham.ChatLieu.TenChatLieu;
+                ws.Cell("F"+row).Value = hdct[i].GiaTien;
+                ws.Cell("G"+row).Value = hdct[i].SoLuong;
+                ws.Cell("H"+row).Value = hdct[i].GiaTien*hdct[i].SoLuong;
+                ws.Cell("I"+row).Value = hdct[i].Is_detele==true?"Bình thường":"Sản phẩm bị đổi trả" ;
+                row++;
+            }
+
+            string fileName = "Ex" + DateTime.Now.Ticks + ".xlsx";
+
+            var path = Path.Combine(
+                Directory.GetCurrentDirectory(), "wwwroot", "ex", fileName);
+            //using (var stream = new FileStream(path, FileMode.Create))
+            //{
+            //}
+            wb.SaveAs(path);
+            return Json(fileName, new System.Text.Json.JsonSerializerOptions());
+        }
+       
     }
 }
