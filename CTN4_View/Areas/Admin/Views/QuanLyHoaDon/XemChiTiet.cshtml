@@ -367,7 +367,15 @@
                             <br />
                             <div>
                                 <span>
-                                    <a class="btn btn-custom-primary" href="@Url.Action("XuatEx", new { id = Model.HoaDon.Id })" class="custom-edit-link">Xác nhận đơn hàng</a>
+                                    <div class="div_right">
+                                        <p>
+                                            <td class="border-bottom-0">
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <span class="btn btn-custom-rangen">@Html.ActionLink("Xác nhận đơn", "XacNhanNhanHang2", new { id = Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span>
+                                                </div>
+                                            </td>
+                                        </p>
+                                    </div>
 
                                 </span>
                             </div>
@@ -381,6 +389,7 @@
                         @*   <div class="row"> <div class="col">Họ tên : </div><div class="col-auto text-right">@Model.HoaDon.TenKhachHang</div></div>*@
                         <div class="col">Họ tên :@Model.HoaDon.TenKhachHang</div>
                         <div>Số ĐT  : @Model.HoaDon.SDTNguoiNhan</div>
+                        <div>Email  : @Model.HoaDon.Email</div>
                         <br />
                         @if (Model.HoaDon.IdKhachHang != null)
                         {

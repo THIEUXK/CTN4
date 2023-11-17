@@ -26,7 +26,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
         }
         public IActionResult Index()
         {
-            var hd = _hoaDonService.GetAll();
+            var hd = _hoaDonService.GetAll().Where(c=>c.Is_detele==true).ToList();
             var view = new ThieuxkViewAdmin()
             {
                 hoaDons = hd,
@@ -71,7 +71,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                 return RedirectToAction("DangNhap", "Home");
             }
         }
-        public IActionResult XacNhanDonHang(int id)
+        public IActionResult XacNhanNhanHang2(int id)
         {
             var nvnew = SessionServices.NhanVienSS(HttpContext.Session, "ACA");
             if (nvnew.Count() != 0)
@@ -125,52 +125,52 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             if (nvnew.Count() != 0)
             {
                 var hd = _hoaDonService.GetById(id);
-            if (hd.TrangThai == "Đang chuẩn bị hàng")
-            {
-                hd.TrangThai = "Hàng của bạn đang được giao";
-                hd.NgayGiao = DateTime.Now;
-                 if (_hoaDonService.Sua(hd) == true)
+                if (hd.TrangThai == "Đang chuẩn bị hàng")
                 {
-                    var li = new LichSuDonHang()
+                    hd.TrangThai = "Hàng của bạn đang được giao";
+                    hd.NgayGiao = DateTime.Now;
+                    if (_hoaDonService.Sua(hd) == true)
                     {
-                        GhiChu = null,
-                        ThaoTac = $"Xác nhận giao hàng đơn hàng {hd.MaHoaDon} ",
-                        IdHoaDonn = id,
-                        ThoiGianlam = DateTime.Now,
-                        NguoiThucHien = nvnew[0].TenDangNhap,
-                        TrangThai = true,
-                        Is_detele = true
-                    };
-                    _LichSuHoaDonService.Them(li);
+                        var li = new LichSuDonHang()
+                        {
+                            GhiChu = null,
+                            ThaoTac = $"Xác nhận giao hàng đơn hàng {hd.MaHoaDon} ",
+                            IdHoaDonn = id,
+                            ThoiGianlam = DateTime.Now,
+                            NguoiThucHien = nvnew[0].TenDangNhap,
+                            TrangThai = true,
+                            Is_detele = true
+                        };
+                        _LichSuHoaDonService.Them(li);
+                    }
                 }
+                else
+                {
+                    var message = "Đơn hàng chưa được xác nhận !";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
                 }
-            else
-            {
-                var message = "Đơn hàng chưa được xác nhận !";
-                TempData["TB1"] = message;
-                return RedirectToAction("XemChiTiet", new { id = id, message });
-            }
 
-            var hdct1 = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
-            var lshd = _LichSuHoaDonService.GetAll().Where(c => c.IdHoaDonn == id).ToList();
-            int tongSoLuongSP = 0;
-            float tongTienSP = 0;
-            foreach (var a in hdct1)
-            {
-                tongSoLuongSP += a.SoLuong;
-            }
-            foreach (var a in hdct1)
-            {
-                tongTienSP += a.GiaTien;
-            }
-            var view = new ThieuxkViewAdmin()
-            {
-                HoaDon = hd,
-                hoaDonChiTiets = hdct1,
-                LichSuHoaDon = lshd.OrderByDescending(c => c.ThoiGianlam).ToList(),
-                TongTienHang = tongTienSP,
-                soLuongTong = tongSoLuongSP
-            };
+                var hdct1 = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
+                var lshd = _LichSuHoaDonService.GetAll().Where(c => c.IdHoaDonn == id).ToList();
+                int tongSoLuongSP = 0;
+                float tongTienSP = 0;
+                foreach (var a in hdct1)
+                {
+                    tongSoLuongSP += a.SoLuong;
+                }
+                foreach (var a in hdct1)
+                {
+                    tongTienSP += a.GiaTien;
+                }
+                var view = new ThieuxkViewAdmin()
+                {
+                    HoaDon = hd,
+                    hoaDonChiTiets = hdct1,
+                    LichSuHoaDon = lshd.OrderByDescending(c => c.ThoiGianlam).ToList(),
+                    TongTienHang = tongTienSP,
+                    soLuongTong = tongSoLuongSP
+                };
                 return View("XemChiTiet", view);
             }
             else
@@ -184,53 +184,53 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             if (nvnew.Count() != 0)
             {
                 var hd = _hoaDonService.GetById(id);
-            if (hd.TrangThai != "Giao hàng thành công")
-            {
-                hd.TrangThaiThanhToan = true;
-                if (_hoaDonService.Sua(hd) == true)
+                if (hd.TrangThai != "Giao hàng thành công")
                 {
-                    var li = new LichSuDonHang()
+                    hd.TrangThaiThanhToan = true;
+                    if (_hoaDonService.Sua(hd) == true)
                     {
-                        GhiChu = null,
-                        ThaoTac = $"Xác nhận thanh toán đơn hàng {hd.MaHoaDon} ",
-                        IdHoaDonn = id,
-                        ThoiGianlam = DateTime.Now,
-                        NguoiThucHien = nvnew[0].TenDangNhap,
-                        TrangThai = true,
-                        Is_detele = true
-                    };
-                    _LichSuHoaDonService.Them(li);
+                        var li = new LichSuDonHang()
+                        {
+                            GhiChu = null,
+                            ThaoTac = $"Xác nhận thanh toán đơn hàng {hd.MaHoaDon} ",
+                            IdHoaDonn = id,
+                            ThoiGianlam = DateTime.Now,
+                            NguoiThucHien = nvnew[0].TenDangNhap,
+                            TrangThai = true,
+                            Is_detele = true
+                        };
+                        _LichSuHoaDonService.Them(li);
+                    }
                 }
+                else
+                {
+                    var message = "Đơn hàng chưa được xác nhận !";
+                    TempData["TB3"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
                 }
-            else
-            {
-                var message = "Đơn hàng chưa được xác nhận !";
-                TempData["TB3"] = message;
-                return RedirectToAction("XemChiTiet", new { id = id, message });
-            }
 
 
 
-            var hdct1 = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
-            var lshd = _LichSuHoaDonService.GetAll().Where(c => c.IdHoaDonn == id).ToList();
-            int tongSoLuongSP = 0;
-            float tongTienSP = 0;
-            foreach (var a in hdct1)
-            {
-                tongSoLuongSP += a.SoLuong;
-            }
-            foreach (var a in hdct1)
-            {
-                tongTienSP += a.GiaTien;
-            }
-            var view = new ThieuxkViewAdmin()
-            {
-                HoaDon = hd,
-                hoaDonChiTiets = hdct1,
-                LichSuHoaDon = lshd.OrderByDescending(c => c.ThoiGianlam).ToList(),
-                TongTienHang = tongTienSP,
-                soLuongTong = tongSoLuongSP
-            };
+                var hdct1 = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
+                var lshd = _LichSuHoaDonService.GetAll().Where(c => c.IdHoaDonn == id).ToList();
+                int tongSoLuongSP = 0;
+                float tongTienSP = 0;
+                foreach (var a in hdct1)
+                {
+                    tongSoLuongSP += a.SoLuong;
+                }
+                foreach (var a in hdct1)
+                {
+                    tongTienSP += a.GiaTien;
+                }
+                var view = new ThieuxkViewAdmin()
+                {
+                    HoaDon = hd,
+                    hoaDonChiTiets = hdct1,
+                    LichSuHoaDon = lshd.OrderByDescending(c => c.ThoiGianlam).ToList(),
+                    TongTienHang = tongTienSP,
+                    soLuongTong = tongSoLuongSP
+                };
                 return View("XemChiTiet", view);
             }
             else
@@ -244,53 +244,53 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             if (nvnew.Count() != 0)
             {
                 var hd = _hoaDonService.GetById(id);
-            if (hd.TrangThai == "Hàng của bạn đang được giao" && hd.TrangThaiThanhToan == true)
-            {
-                hd.TrangThai = "Giao hàng thành công";
-                hd.NgayNhan = DateTime.Now;
-                if (_hoaDonService.Sua(hd) == true)
+                if (hd.TrangThai == "Hàng của bạn đang được giao" && hd.TrangThaiThanhToan == true)
                 {
-                    var li = new LichSuDonHang()
+                    hd.TrangThai = "Giao hàng thành công";
+                    hd.NgayNhan = DateTime.Now;
+                    if (_hoaDonService.Sua(hd) == true)
                     {
-                        GhiChu = null,
-                        ThaoTac = $"Xác nhận nhận hàng của đơn hàng {hd.MaHoaDon} ",
-                        IdHoaDonn = id,
-                        ThoiGianlam = DateTime.Now,
-                        NguoiThucHien = nvnew[0].TenDangNhap,
-                        TrangThai = true,
-                        Is_detele = true
-                    };
-                    _LichSuHoaDonService.Them(li);
+                        var li = new LichSuDonHang()
+                        {
+                            GhiChu = null,
+                            ThaoTac = $"Xác nhận nhận hàng của đơn hàng {hd.MaHoaDon} ",
+                            IdHoaDonn = id,
+                            ThoiGianlam = DateTime.Now,
+                            NguoiThucHien = nvnew[0].TenDangNhap,
+                            TrangThai = true,
+                            Is_detele = true
+                        };
+                        _LichSuHoaDonService.Them(li);
+                    }
                 }
+                else
+                {
+                    var message = "Đơn hàng phải được giao vào thanh toán !";
+                    TempData["TB2"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
                 }
-            else
-            {
-                var message = "Đơn hàng phải được giao vào thanh toán !";
-                TempData["TB2"] = message;
-                return RedirectToAction("XemChiTiet", new { id = id, message });
-            }
 
 
-            var hdct1 = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
-            var lshd = _LichSuHoaDonService.GetAll().Where(c => c.IdHoaDonn == id).ToList();
-            int tongSoLuongSP = 0;
-            float tongTienSP = 0;
-            foreach (var a in hdct1)
-            {
-                tongSoLuongSP += a.SoLuong;
-            }
-            foreach (var a in hdct1)
-            {
-                tongTienSP += a.GiaTien;
-            }
-            var view = new ThieuxkViewAdmin()
-            {
-                HoaDon = hd,
-                hoaDonChiTiets = hdct1,
-                LichSuHoaDon = lshd.OrderByDescending(c => c.ThoiGianlam).ToList(),
-                TongTienHang = tongTienSP,
-                soLuongTong = tongSoLuongSP
-            };
+                var hdct1 = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
+                var lshd = _LichSuHoaDonService.GetAll().Where(c => c.IdHoaDonn == id).ToList();
+                int tongSoLuongSP = 0;
+                float tongTienSP = 0;
+                foreach (var a in hdct1)
+                {
+                    tongSoLuongSP += a.SoLuong;
+                }
+                foreach (var a in hdct1)
+                {
+                    tongTienSP += a.GiaTien;
+                }
+                var view = new ThieuxkViewAdmin()
+                {
+                    HoaDon = hd,
+                    hoaDonChiTiets = hdct1,
+                    LichSuHoaDon = lshd.OrderByDescending(c => c.ThoiGianlam).ToList(),
+                    TongTienHang = tongTienSP,
+                    soLuongTong = tongSoLuongSP
+                };
                 return View("XemChiTiet", view);
             }
             else
@@ -304,41 +304,41 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             if (nvnew.Count() != 0)
             {
                 var hd = _hoaDonService.GetById(id);
-            if (hd.NgayGiao != null)
-            {
-                hd.TrangThai = "Giao hàng thất bại";
-                if (_hoaDonService.Sua(hd) == true)
+                if (hd.NgayGiao != null)
                 {
-                    var li = new LichSuDonHang()
+                    hd.TrangThai = "Giao hàng thất bại";
+                    if (_hoaDonService.Sua(hd) == true)
                     {
-                        GhiChu = null,
-                        ThaoTac = $"Giao hàng thất bại đơn hàng {hd.MaHoaDon} ",
-                        IdHoaDonn = id,
-                        ThoiGianlam = DateTime.Now,
-                        NguoiThucHien = nvnew[0].TenDangNhap,
-                        TrangThai = true,
-                        Is_detele = true
-                    };
-                    _LichSuHoaDonService.Them(li);
+                        var li = new LichSuDonHang()
+                        {
+                            GhiChu = null,
+                            ThaoTac = $"Giao hàng thất bại đơn hàng {hd.MaHoaDon} ",
+                            IdHoaDonn = id,
+                            ThoiGianlam = DateTime.Now,
+                            NguoiThucHien = nvnew[0].TenDangNhap,
+                            TrangThai = true,
+                            Is_detele = true
+                        };
+                        _LichSuHoaDonService.Them(li);
+                    }
                 }
+                else
+                {
+                    var message = "Đơn hàng không thể giao hàng thất bại khi chưa giao hàng";
+                    TempData["TB4"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
                 }
-            else
-            {
-                var message = "Đơn hàng không thể giao hàng thất bại khi chưa giao hàng";
-                TempData["TB4"] = message;
-                return RedirectToAction("XemChiTiet", new { id = id, message });
-            }
 
 
-            var hdct1 = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
-            var lshd = _LichSuHoaDonService.GetAll().Where(c => c.IdHoaDonn == id).ToList();
-            var view = new ThieuxkViewAdmin()
-            {
-                HoaDon = hd,
-                hoaDonChiTiets = hdct1,
-                LichSuHoaDon = lshd.OrderByDescending(c => c.ThoiGianlam).ToList()
+                var hdct1 = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
+                var lshd = _LichSuHoaDonService.GetAll().Where(c => c.IdHoaDonn == id).ToList();
+                var view = new ThieuxkViewAdmin()
+                {
+                    HoaDon = hd,
+                    hoaDonChiTiets = hdct1,
+                    LichSuHoaDon = lshd.OrderByDescending(c => c.ThoiGianlam).ToList()
 
-            };
+                };
                 return View("XemChiTiet", view);
             }
             else
@@ -358,7 +358,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                     hd.TongTien -= hdct.GiaTien * hdct.SoLuong;
                     hdct.TrangThai = false;
 
-                    if (_hoaDonService.Sua(hd) == true&& _hoaDonChiTietService.Sua(hdct)==true)
+                    if (_hoaDonService.Sua(hd) == true && _hoaDonChiTietService.Sua(hdct) == true)
                     {
                         var li = new LichSuDonHang()
                         {
@@ -379,7 +379,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                     TempData["TB5"] = message;
                     return RedirectToAction("XemChiTiet", new { id = idHD, message });
                 }
-                
+
                 var hdct1 = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == idHD).ToList();
                 var lshd = _LichSuHoaDonService.GetAll().Where(c => c.IdHoaDonn == idHD).ToList();
                 int tongSoLuongSP = 0;
@@ -472,7 +472,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             var hd = _hoaDonService.GetAll();
             var view = new ThieuxkViewAdmin()
             {
-                hoaDons = hd.Where(c => c.TrangThai == "Đang chờ xử lí").ToList(),
+                hoaDons = hd.Where(c => c.TrangThai == "Đang chờ xử lí" && c.Is_detele == true).ToList(),
             };
             return View("Index", view);
         }
@@ -481,7 +481,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             var hd = _hoaDonService.GetAll();
             var view = new ThieuxkViewAdmin()
             {
-                hoaDons = hd.Where(c => c.TrangThai != "Đang chờ xử lí").ToList(),
+                hoaDons = hd.Where(c => c.TrangThai != "Đang chờ xử lí" && c.Is_detele == true).ToList(),
             };
             return View("Index", view);
         }
@@ -553,7 +553,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             var hd = _hoaDonService.GetAll();
             var view = new ThieuxkViewAdmin()
             {
-                hoaDons = hd.Where(c => c.NgayGiao != null).ToList(),
+                hoaDons = hd.Where(c => c.NgayGiao != null&&c.Is_detele==true).ToList(),
             };
             return View("Index", view);
         }
@@ -562,7 +562,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             var hd = _hoaDonService.GetAll();
             var view = new ThieuxkViewAdmin()
             {
-                hoaDons = hd.Where(c => c.NgayGiao == null).ToList(),
+                hoaDons = hd.Where(c => c.NgayGiao == null && c.Is_detele == true).ToList(),
             };
             return View("Index", view);
         }
@@ -571,7 +571,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             var hd = _hoaDonService.GetAll();
             var view = new ThieuxkViewAdmin()
             {
-                hoaDons = hd.Where(c => c.TrangThaiThanhToan == false).ToList(),
+                hoaDons = hd.Where(c => c.TrangThaiThanhToan == false && c.Is_detele == true).ToList(),
             };
             return View("Index", view);
         }
@@ -580,7 +580,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             var hd = _hoaDonService.GetAll();
             var view = new ThieuxkViewAdmin()
             {
-                hoaDons = hd.Where(c => c.TrangThaiThanhToan == true).ToList(),
+                hoaDons = hd.Where(c => c.TrangThaiThanhToan == true && c.Is_detele == true).ToList(),
             };
             return View("Index", view);
         }
@@ -589,7 +589,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             var hd = _hoaDonService.GetAll();
             var view = new ThieuxkViewAdmin()
             {
-                hoaDons = hd.Where(c => c.TrangThai == "Giao hàng thành công").ToList(),
+                hoaDons = hd.Where(c => c.TrangThai == "Giao hàng thành công" && c.Is_detele == true).ToList(),
             };
             return View("Index", view);
         }
@@ -598,7 +598,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             var hd = _hoaDonService.GetAll();
             var view = new ThieuxkViewAdmin()
             {
-                hoaDons = hd.Where(c => c.TrangThai == "Giao hàng thất bại").ToList(),
+                hoaDons = hd.Where(c => c.TrangThai == "Giao hàng thất bại" && c.Is_detele == true && c.Is_detele == true).ToList(),
             };
             return View("Index", view);
         }
@@ -611,14 +611,14 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             };
             return View("Index", view);
         }
-        public IActionResult SuaGhiChu(int IdHoaDon,string GhiChu)
+        public IActionResult SuaGhiChu(int IdHoaDon, string GhiChu)
         {
 
             var nvnew = SessionServices.NhanVienSS(HttpContext.Session, "ACA");
             if (nvnew.Count() != 0)
             {
                 var hd = _hoaDonService.GetById(IdHoaDon);
-                if (hd.TrangThai == "Hàng của bạn đang được giao" && hd.TrangThaiThanhToan == true)
+                if (hd.TrangThaiThanhToan == true)
                 {
                     hd.GhiChu = GhiChu;
                     if (_hoaDonService.Sua(hd) == true)
@@ -726,7 +726,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             var hd = _hoaDonService.GetAll();
             var view = new ThieuxkViewAdmin()
             {
-                hoaDons = hd.OrderByDescending(c=>c.NgayTaoHoaDon).ToList(),
+                hoaDons = hd.OrderByDescending(c => c.NgayTaoHoaDon).ToList(),
             };
             return View("Index", view);
         }
@@ -758,40 +758,44 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             return View("Index", view);
         }
 
+
         [HttpGet("/QuanLyHd/XuatEx")]
         public JsonResult XuatEx(int IdHD)
         {
             var wb = new XLWorkbook();
             var ws = wb.Worksheets.Add("Contacts");
-            ws.Cell("A1").Value = "Mã hóa đơn";
-            ws.Cell("A2").Value = "Ngày tạo hóa đơn";
-            ws.Cell("A3").Value = "Trạng thái";
-            ws.Cell("A4").Value = "Tổng tiền";
-            ws.Cell("A5").Value = "Tiền ship";
-            ws.Cell("A6").Value = "Ngày giao";
-            ws.Cell("A7").Value = "Ngày nhận";
-            ws.Cell("A8").Value = "Tên khách hàng";
-            ws.Cell("A9").Value = "Email";
-            ws.Cell("A10").Value = "Số điện thoại";
-            ws.Cell("A11").Value = "Địa chỉ";
-            ws.Cell("A12").Value = "Thanh toán";
+            ws.Cell("A1").Value = "Hóa Đơn";
+            ws.Cell("A2").Value = "Mã hóa đơn";
+            ws.Cell("A3").Value = "Ngày tạo hóa đơn";
+            ws.Cell("A4").Value = "Trạng thái";
+            ws.Cell("A5").Value = "Tổng tiền";
+            ws.Cell("A6").Value = "Tiền ship";
+            ws.Cell("A7").Value = "Ngày giao";
+            ws.Cell("A8").Value = "Ngày nhận";
+            ws.Cell("A9").Value = "Tên khách hàng";
+            ws.Cell("A10").Value = "Email";
+            //ws.Cell("A11").Value = "Số điện thoại";
+            ws.Cell("A12").Value = "Địa chỉ";
+            ws.Cell("A13").Value = "Thanh toán";
+
+           
 
             var hd = _hoaDonService.GetById(IdHD);
 
-            ws.Cell("B1").Value = hd.MaHoaDon;
-            ws.Cell("B2").Value = hd.NgayTaoHoaDon;
-            ws.Cell("B3").Value = hd.TrangThai;
-            ws.Cell("B4").Value = hd.TongTien;
-            ws.Cell("B5").Value = hd.TienShip;
-            ws.Cell("B6").Value = hd.NgayGiao;
-            ws.Cell("B7").Value = hd.NgayNhan;
-            ws.Cell("B8").Value = hd.TenKhachHang;
-            ws.Cell("B9").Value = hd.Email;
-            ws.Cell("B10").Value = hd.SDTNguoiNhan;
-            ws.Cell("B11").Value = hd.DiaChi;
-            ws.Cell("B12").Value = hd.TrangThaiThanhToan==true?"Đã thanh toán":"Chưa thanh toán";
+            ws.Cell("B2").Value = hd.MaHoaDon;
+            ws.Cell("B3").Value = hd.NgayTaoHoaDon;
+            ws.Cell("B4").Value = hd.TrangThai;
+            ws.Cell("B5").Value = hd.TongTien;
+            ws.Cell("B6").Value = hd.TienShip;
+            ws.Cell("B7").Value = hd.NgayGiao;
+            ws.Cell("B8").Value = hd.NgayNhan;
+            ws.Cell("B9").Value = hd.TenKhachHang;
+            ws.Cell("B10").Value = hd.Email;
+            ws.Cell("B11").Value = hd.SDTNguoiNhan;
+            ws.Cell("B12").Value = hd.DiaChi;
+            ws.Cell("B13").Value = hd.TrangThaiThanhToan == true ? "Đã thanh toán" : "Chưa thanh toán";
 
-
+            ws.Cell("A15").Value = "Hóa Đơn Chi Tiết";
             ws.Cell("A16").Value = "Tên sản phẩm";
             ws.Cell("B16").Value = "Màu";
             ws.Cell("C16").Value = "Size";
@@ -802,21 +806,21 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             ws.Cell("H16").Value = "Thành tiền";
             ws.Cell("I17").Value = "Trạng thái";
 
-            var hdct = _hoaDonChiTietService.GetAll().Where(c=>c.IdHoaDon==IdHD).ToList();
+            var hdct = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == IdHD).ToList();
 
             int row = 17;
             for (int i = 0; i < hdct.Count; i++)
             {
 
-                ws.Cell("A"+row).Value = hdct[i].SanPhamChiTiet.SanPham.TenSanPham;
-                ws.Cell("B"+row).Value = hdct[i].SanPhamChiTiet.Mau.TenMau;
-                ws.Cell("C"+row).Value = hdct[i].SanPhamChiTiet.Size.CoSize;
-                ws.Cell("D"+row).Value = hdct[i].SanPhamChiTiet.SanPham.NSX.TenNSX;
-                ws.Cell("E"+row).Value = hdct[i].SanPhamChiTiet.SanPham.ChatLieu.TenChatLieu;
-                ws.Cell("F"+row).Value = hdct[i].GiaTien;
-                ws.Cell("G"+row).Value = hdct[i].SoLuong;
-                ws.Cell("H"+row).Value = hdct[i].GiaTien*hdct[i].SoLuong;
-                ws.Cell("I"+row).Value = hdct[i].Is_detele==true?"Bình thường":"Sản phẩm bị đổi trả" ;
+                ws.Cell("A" + row).Value = hdct[i].SanPhamChiTiet.SanPham.TenSanPham;
+                ws.Cell("B" + row).Value = hdct[i].SanPhamChiTiet.Mau.TenMau;
+                ws.Cell("C" + row).Value = hdct[i].SanPhamChiTiet.Size.CoSize;
+                ws.Cell("D" + row).Value = hdct[i].SanPhamChiTiet.SanPham.NSX.TenNSX;
+                ws.Cell("E" + row).Value = hdct[i].SanPhamChiTiet.SanPham.ChatLieu.TenChatLieu;
+                ws.Cell("F" + row).Value = hdct[i].GiaTien;
+                ws.Cell("G" + row).Value = hdct[i].SoLuong;
+                ws.Cell("H" + row).Value = hdct[i].GiaTien * hdct[i].SoLuong;
+                ws.Cell("I" + row).Value = hdct[i].Is_detele == true ? "Bình thường" : "Sản phẩm bị đổi trả";
                 row++;
             }
 
@@ -824,12 +828,29 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
 
             var path = Path.Combine(
                 Directory.GetCurrentDirectory(), "wwwroot", "ex", fileName);
-            //using (var stream = new FileStream(path, FileMode.Create))
-            //{
-            //}
+            var rngTable = ws.Range("A1:B13");
+            var rngHeaders = rngTable.Range("A1:B1"); // The address is relative to rngTable (NOT the worksheet)
+            rngHeaders.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+            rngHeaders.Style.Font.Bold = true;
+            rngHeaders.Style.Fill.BackgroundColor = XLColor.Aqua;
+            rngTable.Style.Border.BottomBorder = XLBorderStyleValues.Thin;
+            //Add a thick outside border
+            rngTable.Style.Border.OutsideBorder = XLBorderStyleValues.Thick;
+            rngTable.Row(1).Merge(); // We could've also used: rngTable.Range("A1:E1").Merge()
+
+            var rngTable2 = ws.Range("A15:I18");
+            var rngHeaders2 = rngTable2.Range("A15:I15");
+            rngHeaders2.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+            rngHeaders2.Style.Font.Bold = true;
+            rngHeaders2.Style.Fill.BackgroundColor = XLColor.Aqua;
+            rngTable2.Style.Border.BottomBorder = XLBorderStyleValues.Thin;
+            //Add a thick outside border
+            rngTable2.Style.Border.OutsideBorder = XLBorderStyleValues.Thick;
+            rngTable2.Row(1).Merge(); // We could've also used: rngTable.Range("A1:E1").Merge()
+            ws.Columns(1, 100).AdjustToContents();
             wb.SaveAs(path);
             return Json(fileName, new System.Text.Json.JsonSerializerOptions());
         }
-       
+
     }
 }
