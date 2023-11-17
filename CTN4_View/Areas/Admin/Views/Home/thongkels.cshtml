@@ -18,6 +18,7 @@
         <h3>Tổng hóa đơn lịch sử</h3>
         <canvas id="myChart"></canvas>
     </div>
+    <div id="bestSellingProductsContainer"></div> 
 
 </div>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -72,7 +73,7 @@
                     data: {
                         labels: ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12'],
                         datasets: [{
-                            label: 'Hóa Đơn',
+                            label: 'Tổng tiền',
                             data: data, // Truyền mảng được gọi từ action vào đây
                             borderWidth: 1
                         }]
@@ -124,7 +125,41 @@
                 console.error('Đã xảy ra lỗi:', error);
             }
         });
+        $.ajax({
+            url: "/Admin/Home/GetBestSellingProducts",
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                // Xử lý dữ liệu trả về ở đây
+              
+                var container = $('#bestSellingProductsContainer');
+
+                // Xóa bất kỳ nội dung cũ nào trong container
+                container.empty();
+
+                // Duyệt qua danh sách sản phẩm và hiển thị thông tin
+                for (var i = 0; i < data.length; i++) {
+                    var product = data[i];
+                    console.log("data", product);
+                    // Tạo một đối tượng HTML để hiển thị thông tin sản phẩm
+                    var productHtml = '<div>';
+                    productHtml += '<p>Product ID: ' + product.productId + '</p>';
+                    productHtml += '<p>Product Name: ' + product.productName + '</p>';
+                    productHtml += '<p>Total Quantity Sold: ' + product.totalQuantitySold + '</p>';
+                    productHtml += '</div>';
+
+                    // Thêm đối tượng HTML vào container
+                    container.append(productHtml);
+                }
+            },
+            error: function (error) {
+                // Xử lý lỗi ở đây
+                console.error('Error:', error);
+            }
+        });
+
     });
+  
 </script>
 
 

@@ -7,12 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using CTN4_Serv.Service.Service;
 
 namespace CTN4_Serv.Service
 {
     public class HoaDonService : IHoaDonService
     {
         public DB_CTN4_ok _db;
+
 
         public HoaDonService()
         {
@@ -22,7 +24,58 @@ namespace CTN4_Serv.Service
         {
             return _db.HoaDons.Include(c=>c.KhachHang).Include(c=>c.DiaChiNhanHang).Include(c=>c.PhuongThucThanhToan).ToList();
         }
+        public List<BestSellingProductModel> ThongKeSanPhamBanChay()
+        {
+            // Lấy danh sách chi tiết hóa đơn từ cơ sở dữ liệu
 
+            var chiTietHoaDons = _db.HoaDonChiTiets
+                .Where(ct => ct.TrangThai&& !ct.Is_detele )
+                .ToList();
+
+            // Tạo một Dictionary để lưu tổng số lượng bán của từng sản phẩm
+            Dictionary<Guid, int> tongSoLuongBan = new Dictionary<Guid, int>();
+
+            // Duyệt qua danh sách chi tiết hóa đơn để tính tổng số lượng bán của từng sản phẩm
+            foreach (var chiTietHoaDon in chiTietHoaDons)
+            {
+                Guid productId = chiTietHoaDon.IdSanPhamChiTiet.GetValueOrDefault();
+
+                if (tongSoLuongBan.ContainsKey(productId))
+                {
+                    tongSoLuongBan[productId] += chiTietHoaDon.SoLuong;
+                }
+                else
+                {
+                    tongSoLuongBan[productId] = chiTietHoaDon.SoLuong;
+                }
+            }
+
+            // Sắp xếp danh sách theo số lượng bán giảm dần
+            var sortedProducts = tongSoLuongBan.OrderByDescending(pair => pair.Value);
+
+            // Lấy danh sách sản phẩm bán chạy
+            List<BestSellingProductModel> result = new List<BestSellingProductModel>();
+
+            // Lấy thông tin chi tiết của sản phẩm từ cơ sở dữ liệu và thêm vào danh sách kết quả
+            foreach (var sortedProduct in sortedProducts)
+            {
+                var productDetail = _db.SanPhamChiTiets.FirstOrDefault(p => p.Id == sortedProduct.Key);
+                var product = _db.SanPhams.FirstOrDefault(p => p.Id == productDetail.IdSp);
+
+                if (productDetail != null)
+                {
+                    var bestSellingProduct = new BestSellingProductModel
+                    {
+                        ProductId = productDetail.Id,
+                        ProductName = product.TenSanPham,
+                        TotalQuantitySold = sortedProduct.Value
+                    };
+                    result.Add(bestSellingProduct);
+                }
+            }
+
+            return result;
+        }
         public HoaDon GetById(int id)
         {
             return GetAll().FirstOrDefault(c => c.Id == id);
