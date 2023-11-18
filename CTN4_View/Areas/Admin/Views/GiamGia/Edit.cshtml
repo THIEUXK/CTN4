@@ -13,10 +13,14 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
+            <div class="form-group">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="MaGiam" class="control-label"></label>
-                <input type="hidden" asp-for="MaGiam" class="form-control" />
+                <input asp-for="MaGiam" class="form-control" />
                 <span asp-validation-for="MaGiam" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -28,6 +32,11 @@
                 <label asp-for="PhanTramGiam" class="control-label"></label>
                 <input asp-for="PhanTramGiam" class="form-control" />
                 <span asp-validation-for="PhanTramGiam" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="TrangThai" /> @Html.DisplayNameFor(model => model.TrangThai)
+                </label>
             </div>
             <div class="form-group">
                 <label asp-for="SoLuong" class="control-label"></label>
@@ -56,21 +65,16 @@
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="LoaiGiamGia" checked /> @Html.DisplayNameFor(model => model.LoaiGiamGia)
+                    <input class="form-check-input" asp-for="LoaiGiamGia" /> @Html.DisplayNameFor(model => model.LoaiGiamGia)
                 </label>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="TrangThai" checked /> @Html.DisplayNameFor(model => model.TrangThai)
+                    <input class="form-check-input" asp-for="Is_detele" /> @Html.DisplayNameFor(model => model.Is_detele)
                 </label>
-             </div> 
-             <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Is_detele" checked /> @Html.DisplayNameFor(model => model.Is_detele)
-                </label>
-             </div>
+            </div>
             <div class="form-group">
-            <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>

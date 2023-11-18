@@ -61,7 +61,8 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             }
             return View();
         }
-            public ActionResult Edit(Guid id)
+
+        public ActionResult Edit(Guid id)
         {
            var a = _gg.GetById(id);
             return View(a);
@@ -85,7 +86,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                     return RedirectToAction("Index");
 
                 }
-                return View();
+                
             }
             return View();
             
