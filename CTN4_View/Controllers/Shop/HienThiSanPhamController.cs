@@ -94,8 +94,6 @@ namespace CTN4_View.Controllers.Shop
             var giamgia = _giamGiaService.GetAll().Where(c => c.TrangThai == true && c.Is_detele == true && c.NgayBatDau <= DateTime.Now && c.NgayKetThuc >= DateTime.Now).ToList();
             var listsp = _sanPhamCuaHangService.GetAll();
             var mau = _mauSacService.GetAll().ToList();
-            //var size = _sizeService.GetAll().Distinct().ToList();
-            //var spctcuthe = _sanPhamChiTietService.GetAll().Where(c=>c.IdSp== id).ToList();
             var spctcuthe = _CTN4_Ok.SanPhamChiTiets.Include(c => c.Size).ToList().Where(c => c.IdSp == id && c.Is_detele == true);
             var view = new SanPhamBan()
             {
