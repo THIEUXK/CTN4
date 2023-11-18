@@ -89,104 +89,139 @@
                             }
 
                             <hr></hr>
-                            <div class="table-responsive">
-                                <table class="table text-nowrap mb-0 align-middle">
-                                    <thead class="text-dark fs-4">
+
+                            <table class="table text-nowrap mb-0 align-middle">
+                                <thead class="text-dark fs-4">
+                                    <tr>
+                                        <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0">Ảnh sản phẩm</h6>
+                                        </th>
+                                        <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0">Sản phẩm</h6>
+                                        </th>
+                                        <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0">Số lượng</h6>
+                                        </th>
+                                        <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0">Giá tiền</h6>
+                                        </th>
+                                        <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0">trạng thái</h6>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var a in Model.hoaDonChiTiets)
+                                    {
                                         <tr>
-                                            <th class="border-bottom-0">
-                                                <h6 class="fw-semibold mb-0">Ảnh sản phẩm</h6>
-                                            </th>
-                                            <th class="border-bottom-0">
-                                                <h6 class="fw-semibold mb-0">Sản phẩm</h6>
-                                            </th>
-                                            <th class="border-bottom-0">
-                                                <h6 class="fw-semibold mb-0">Số lượng</h6>
-                                            </th>
-                                            <th class="border-bottom-0">
-                                                <h6 class="fw-semibold mb-0">Giá tiền</h6>
-                                            </th>
-                                            <th class="border-bottom-0">
-                                                <h6 class="fw-semibold mb-0">trạng thái</h6>
-                                            </th>
+                                            <td class="border-bottom-0">
+
+
+                                                @if (System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".jpg" ||
+                                               System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".png" ||
+                                               System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".jpeg" ||
+                                               System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".tiff" ||
+                                               System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".webp" ||
+                                               System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".gif")
+                                                {
+                                                    <img src="~/image/@a.SanPhamChiTiet.SanPham.AnhDaiDien" height="100">
+                                                }
+                                                else
+                                                {
+                                                    <a>ảnh lỗi</a>
+                                                }
+
+
+                                            </td>
+                                            <td class="border-bottom-0">
+                                                <div><b>Tên:</b>@a.SanPhamChiTiet.SanPham.TenSanPham</div>
+                                                <div><b>Màu:</b>@a.SanPhamChiTiet.Mau.TenMau</div>
+                                                <div><b>Size:</b>@a.SanPhamChiTiet.Size.CoSize</div>
+                                                <div><b>Đơn giá:</b>@FormatCurrency(a.SanPhamChiTiet.SanPham.GiaNiemYet)</div>
+
+                                            </td>
+                                            <td class="border-bottom-0">
+                                                <p class="mb-0 fw-normal">@a.SoLuong</p>
+                                            </td>
+                                            <td class="border-bottom-0">
+                                                <p class="mb-0 fw-normal">@FormatCurrency(a.GiaTien * a.SoLuong)</p>
+                                            </td>
+                                            <td class="border-bottom-0">
+                                                @if (a.TrangThai == true)
+                                                {
+                                                    <p class="mb-0 fw-normal" style="color:limegreen">Bình thường</p>
+                                                }
+                                                else
+                                                {
+                                                    <p class="mb-0 fw-normal" style="color:red">Hàng bị đổi trả</p>
+                                                }
+                                            </td>
+                                            <td class="border-bottom-0">
+                                                <div class="dropdown">
+                                                    <button type="button" class="btn btn-custom-primary" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                                        ...
+                                                    </button>
+                                                    <div class="dropdown-menu p-4">
+                                                        @if (a.TrangThai == true)
+                                                        {
+                                                            <div class="dropdown">
+                                                                <button type="button" class="btn btn-custom-primary" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                                                    Trả hàng
+                                                                </button>
+                                                                <div class="dropdown-menu p-4">
+                                                                    <form asp-action="BoSanPham">
+                                                                        <input type="hidden" name="idHD" value="@Model.HoaDon.Id">
+                                                                        <input type="hidden" name="idHDCT" value="@a.Id">
+                                                                        <div class="form-group">
+                                                                            <label for="GhiChu" class="col-form-label">Lý do trả sản phẩm</label>
+                                                                            <input type="text" name="LyDo" class="form-control">
+                                                                        </div>
+                                                                        <br />
+                                                                        <div class="form-row">
+                                                                            <div class="col">
+                                                                                <button type="submit" class="btn btn-custom-primary">Xác nhận trả hàng</button>
+                                                                            </div>
+                                                                            <div class="col-auto text-right"></div>
+                                                                        </div>
+                                                                        <br />
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="d-flex align-items-center gap-2">
+                                                                <span class="btn btn-custom-primary">@Html.ActionLink("Hoàn tác", "HoanTacSp", new { idHDCT = a.Id, idHD = Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (var a in Model.hoaDonChiTiets)
-                                        {
-                                            <tr>
-                                                <td class="border-bottom-0">
-
-
-                                                    @if (System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".jpg" ||
-                                                   System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".png" ||
-                                                   System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".jpeg" ||
-                                                   System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".tiff" ||
-                                                   System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".webp" ||
-                                                   System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".gif")
-                                                    {
-                                                        <img src="~/image/@a.SanPhamChiTiet.SanPham.AnhDaiDien" height="100">
-                                                    }
-                                                    else
-                                                    {
-                                                        <a>ảnh lỗi</a>
-                                                    }
-
-
-                                                </td>
-                                                <td class="border-bottom-0">
-                                                    <div><b>Tên:</b>@a.SanPhamChiTiet.SanPham.TenSanPham</div>
-                                                    <div><b>Màu:</b>@a.SanPhamChiTiet.Mau.TenMau</div>
-                                                    <div><b>Size:</b>@a.SanPhamChiTiet.Size.CoSize</div>
-                                                    <div><b>Đơn giá:</b>@FormatCurrency(a.SanPhamChiTiet.SanPham.GiaNiemYet)</div>
-
-                                                </td>
-                                                <td class="border-bottom-0">
-                                                    <p class="mb-0 fw-normal">@a.SoLuong</p>
-                                                </td>
-                                                <td class="border-bottom-0">
-                                                    <p class="mb-0 fw-normal">@FormatCurrency(a.GiaTien * a.SoLuong)</p>
-                                                </td>
-                                                <td class="border-bottom-0">
-                                                    @if (a.TrangThai == true)
-                                                    {
-                                                        <p class="mb-0 fw-normal" style="color:limegreen">Bình thường</p>
-                                                    }
-                                                    else
-                                                    {
-                                                        <p class="mb-0 fw-normal" style="color:red">Hàng bị đổi trả</p>
-                                                    }
-                                                </td>
-                                                <td class="border-bottom-0">
-                                                    @if (a.TrangThai == true)
-                                                    {
-                                                        <div class="d-flex align-items-center gap-2">
-                                                            <span class="btn btn-custom-rangen">
-                                                                @Html.ActionLink("Bỏ", "BoSanPham", new { idHDCT = a.Id, idHD = Model.HoaDon.Id }, new { @class = "custom-edit-link" })
-
-                                                            </span>
-                                                        </div>
-                                                    }
-                                                    else
-                                                    {
-                                                        <div class="d-flex align-items-center gap-2">
-                                                            <span class="btn btn-custom-primary">@Html.ActionLink("Hoàn tác", "HoanTacSp", new { idHDCT = a.Id, idHD = Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span>
-                                                        </div>
-                                                    }
-                                                </td>
-                                            </tr>
-                                        }
-                                    </tbody>
-                                </table>
-                            </div>
-                            <hr></hr>
-                            @if (Model.HoaDon.NgayGiao != null)
-                            {
-                            }
-                            else
-                            {
-                                <span class="btn btn-custom-primary">@Html.ActionLink("Giao Hàng", "XacNhanGiaoHang", new { id = Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span>
-                            }
+                                    }
+                                </tbody>
+                            </table>
                         </div>
+                        <hr></hr>
+                        @if (Model.HoaDon.NgayGiao != null)
+                        {
+                        }
+                        else
+                        {
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-custom-primary" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                    Giao Hàng
+                                </button>
+                                <div class="dropdown-menu p-4">
+
+                                    <span class="btn btn-custom-primary">@Html.ActionLink("Xác nhận", "XacNhanGiaoHang", new { id = Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span>
+
+                                </div>
+                            </div>
+
+                        }
+
                     </div>
                     <div class="card w-100">
                         <div class="card-body p-4">
@@ -218,16 +253,6 @@
                                         </div>
                                         <br />
                                     </form>
-
-                                    @*<form>
-                                        <input type="hidden" name="IdHoaDon" value="@Model.HoaDon.Id"></input>
-                                        <div class="col">Cập nhật ghi chú cho đơn hàng</div>
-                                        <input type="text" name="GhiChu" value=""></input>
-                                        <div class="row">
-                                            <div class="col"> <button type="submit" class="btn btn-custom-primary">Cập Nhật</button></div>
-                                            <div class="col-auto text-right"></div>
-                                        </div>
-                                    </form>*@
                                 </div>
                                 <div class="col-md-6">
                                     <br />
@@ -248,7 +273,7 @@
                                         <div class="col">Tiền ship</div>
                                         <div class="col-auto text-right">
                                             @FormatCurrency(Model.HoaDon.TienShip
-                                            )
+                                                     )
                                         </div>
                                     </div>
                                     <br />
@@ -258,50 +283,158 @@
                                     </div>
                                 </div>
                                 <hr></hr>
-                                <span class="btn btn-custom-primary">@Html.ActionLink("Xác nhận đã thanh toán", "XacNhanThanhToan", new { id = Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span>
+                                @if (Model.HoaDon.TrangThaiThanhToan == false)
+                                {
+                                    <div class="dropdown">
+                                        <button type="button" class="btn btn-custom-primary" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                            Xác nhận đã thanh toán
+                                        </button>
+                                        <div class="dropdown-menu p-4">
+
+                                            <span class="btn btn-custom-primary">@Html.ActionLink("Xác nhận", "XacNhanThanhToan", new { id = Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span>
+
+                                        </div>
+                                    </div>
+                                }
                             </div>
                         </div>
-                    </div>
-                    <div class="card w-100">
-                        <div class="card-body p-4">
-                            <label>Thêm nội dung ghi chú</label>
-                            <form asp-action="ThemBinhLuan">
-                                <div class="row">
-                                    <input type="hidden" name="IdHoaDon" value="@Model.HoaDon.Id" />
-                                    <div class="col"><input type="text" name="BinhLuan" value="" class="form-control"></input></div>
-                                    <div class="col-auto text-right"><button class="btn btn-custom-primary fas fa-plus">Thêm</button></div>
-                                </div>
-                            </form>
-                            @if (TempData["TBLS"] != null)
-                            {
-                                <div class="alert alert-danger">@TempData["TBLS"]</div>
-                            }
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Hành động</th>
-                                        <th scope="col">Ghi chú</th>
-                                        <th scope="col">Người thục hiện</th>
-                                        <th scope="col">Thời gian</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var a in Model.LichSuHoaDon)
-                                    {
+                        <div class="card w-100">
+                            <div class="card-body p-4">
+                                <label>Thêm nội dung ghi chú</label>
+                                <form asp-action="ThemBinhLuan">
+                                    <div class="row">
+                                        <input type="hidden" name="IdHoaDon" value="@Model.HoaDon.Id" />
+                                        <div class="col"><input type="text" name="BinhLuan" value="" class="form-control"></input></div>
+                                        <div class="col-auto text-right"><button class="btn btn-custom-primary fas fa-plus">Thêm</button></div>
+                                    </div>
+                                </form>
+                                @if (TempData["TBLS"] != null)
+                                {
+                                    <div class="alert alert-danger">@TempData["TBLS"]</div>
+                                }
+                                <table class="table">
+                                    <thead>
                                         <tr>
-                                            <th scope="row">@a.ThaoTac</th>
-                                            <td>@a.GhiChu</td>
-                                            <td>@a.NguoiThucHien</td>
-                                            <td>@a.ThoiGianlam</td>
+                                            <th scope="col"></th>
+                                            <th scope="col">Ghi chú</th>
+                                            <th scope="col">Người Ghi</th>
+                                            <th scope="col">Thời gian</th>
                                         </tr>
-                                    }
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var a in Model.LichSuHoaDon.Where(c => c.TrangThai == false))
+                                        {
+                                            <tr>
+                                                <th scope="row">@a.ThaoTac</th>
+                                                <td>@a.GhiChu</td>
+                                                <td>@a.NguoiThucHien</td>
+                                                <td>@a.ThoiGianlam</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                                <br />
+                                <div class="dropdown">
+                                    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                        Xem lịch sử
+                                    </button>
+                                    <div class="dropdown-menu p-4">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Hành động</th>
+                                                    <th scope="col">Ghi chú</th>
+                                                    <th scope="col">Người thục hiện</th>
+                                                    <th scope="col">Thời gian</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var a in Model.LichSuHoaDon)
+                                                {
+                                                    <tr>
+                                                        <th scope="row">@a.ThaoTac</th>
+                                                        <td>@a.GhiChu</td>
+                                                        <td>@a.NguoiThucHien</td>
+                                                        <td>@a.ThoiGianlam</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="card w-100">
+                            <div class="card-body p-4">
+                                <div>Trạng thái hiện tại của đơn hàng này là: <span style="color:saddlebrown">@Model.HoaDon.TrangThai</span></div>
+                                @if (Model.HoaDon.TrangThai == "Hàng của bạn đang được giao")
+                                {
+                                    <div class="dropdown">
+                                        <button type="button" class="btn btn-custom-rangen" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                            Giao hàng thành công
+                                        </button>
+                                        <div class="dropdown-menu p-4">
+
+                                            <span class="btn btn-custom-rangen">@Html.ActionLink("Giao hàng thành công", "XacNhanNhanHang", new { id = Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span>
+
+                                        </div>
+                                    </div>
+                                }
+                                @if (Model.HoaDon.TrangThai == "Hàng của bạn đang được giao")
+                                {
+                                    <div class="dropdown">
+                                        <button type="button" class="btn btn-custom-primary" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                            Giao thất bại
+                                        </button>
+                                        <div class="dropdown-menu p-4">
+
+                                            <span class="btn btn-custom-rangen">@Html.ActionLink("Xác nhận", "GiaoHangThatBai", new { id = Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span>
+
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="card w-100">
+                            <div class="card-body p-4">
+                                @if (Model.HoaDon.Is_detele == true)
+                                {
+                                    <div class="dropdown">
+                                        <button type="button" class="btn btn-custom-rangen " data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                            Hủy đơn hàng
+                                        </button>
+                                        <div class="dropdown-menu p-4">
+
+                                            <form asp-action="HuyDon">
+                                                <input type="hidden" name="id" value="@Model.HoaDon.Id">
+                                                <div class="form-group">
+                                                    <label for="GhiChu" class="col-form-label">Lý do hủy đơn</label>
+                                                    <input type="text" name="LyDo" class="form-control">
+                                                </div>
+                                                <br />
+                                                <div class="form-row">
+                                                    <div class="col">
+                                                        <button type="submit" class="btn btn-custom-primary">Hủy đơn</button>
+                                                    </div>
+                                                    <div class="col-auto text-right"></div>
+                                                </div>
+                                                <br />
+                                            </form>
+
+                                        </div>
+                                    </div>
+
+                                }
+                                else
+                                {
+                                    <div style="color:red">Đơn hàng đã bị hủy !</div>
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
             <div class="col-md-3">
                 <div class="card w-100">
                     <div class="card-body p-4">
@@ -309,9 +442,7 @@
                         <hr></hr>
                         @if (Model.HoaDon.TrangThai != "Đang chờ xử lí")
                         {
-
                             <div style="color:yellowgreen">Đơn hàng đã được xác nhận</div>
-
                         }
                         else
                         {
@@ -321,10 +452,14 @@
                             </div>
                             <br />
                             <div>
-                                <span>
-                                    <a class="btn btn-custom-primary" href="@Url.Action("XacNhanDonHang", new { id = Model.HoaDon.Id })" class="custom-edit-link">Xác nhận đơn hàng</a>
-
-                                </span>
+                                <div class="dropdown">
+                                    <button type="button" class="btn btn-custom-primary" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                        Xác nhận đơn
+                                    </button>
+                                    <div class="dropdown-menu p-4">
+                                        <span class="btn btn-custom-primary">@Html.ActionLink("Xác nhận", "XacNhanNhanHang2", new { id = Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span>
+                                    </div>
+                                </div>
                             </div>
                         }
                     </div>
@@ -336,10 +471,11 @@
                         @*   <div class="row"> <div class="col">Họ tên : </div><div class="col-auto text-right">@Model.HoaDon.TenKhachHang</div></div>*@
                         <div class="col">Họ tên :@Model.HoaDon.TenKhachHang</div>
                         <div>Số ĐT  : @Model.HoaDon.SDTNguoiNhan</div>
+                        <div>Email  : @Model.HoaDon.Email</div>
                         <br />
                         @if (Model.HoaDon.IdKhachHang != null)
                         {
-                            <button class="btn btn-custom-primary">Xem thông tin chi tiết</button>
+                            <span class="btn btn-custom-primary">@Html.ActionLink("Xem thông tin chi tiết", "Details","KhachHang", new { id = Model.HoaDon.IdKhachHang }, new { @class = "custom-edit-link" })</span>
                         }
                     </div>
                 </div>
@@ -399,7 +535,7 @@
         }
 
     /* Thiết lập màu nền và màu chữ mặc định */
-    
+
 
     .btn-custom-rangen {
         --bs-btn-color: #fff;
@@ -472,19 +608,3 @@
         }
     }
 </script>
-@if (Model.HoaDon.Is_detele == true)
-{
-    <div class="div_right">
-        <p>
-            <td class="border-bottom-0">
-                <div class="d-flex align-items-center gap-2">
-                    <span class="btn btn-custom-rangen">@Html.ActionLink("Hủy đơn", "HuyDon", new { id = Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span>
-                </div>
-            </td>
-        </p>
-    </div>
-}
-else
-{
-    <div style="color:red">Đơn hàng đã bị hủy !</div>
-}
