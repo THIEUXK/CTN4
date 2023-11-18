@@ -271,25 +271,55 @@
                             }
                             <table class="table">
                                 <thead>
-                                    <tr>
-                                        <th scope="col">Hành động</th>
-                                        <th scope="col">Ghi chú</th>
-                                        <th scope="col">Người thục hiện</th>
-                                        <th scope="col">Thời gian</th>
-                                    </tr>
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col">Ghi chú</th>
+                                    <th scope="col">Người Ghi</th>
+                                    <th scope="col">Thời gian</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var a in Model.LichSuHoaDon)
-                                    {
-                                        <tr>
-                                            <th scope="row">@a.ThaoTac</th>
-                                            <td>@a.GhiChu</td>
-                                            <td>@a.NguoiThucHien</td>
-                                            <td>@a.ThoiGianlam</td>
-                                        </tr>
-                                    }
+                                @foreach (var a in Model.LichSuHoaDon.Where(c=>c.TrangThai==false))
+                                {
+                                    <tr>
+                                        <th scope="row">@a.ThaoTac</th>
+                                        <td>@a.GhiChu</td>
+                                        <td>@a.NguoiThucHien</td>
+                                        <td>@a.ThoiGianlam</td>
+                                    </tr>
+                                }
                                 </tbody>
                             </table>
+                            <br/>
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                   Xem lịch sử
+                                </button>
+                                <form class="dropdown-menu p-4">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">Hành động</th>
+                                            <th scope="col">Ghi chú</th>
+                                            <th scope="col">Người thục hiện</th>
+                                            <th scope="col">Thời gian</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach (var a in Model.LichSuHoaDon)
+                                        {
+                                            <tr>
+                                                <th scope="row">@a.ThaoTac</th>
+                                                <td>@a.GhiChu</td>
+                                                <td>@a.NguoiThucHien</td>
+                                                <td>@a.ThoiGianlam</td>
+                                            </tr>
+                                        }
+                                        </tbody>
+                                    </table>
+                                </form>
+                            </div>
+                           
                         </div>
                     </div>
                     <div class="card w-100">
