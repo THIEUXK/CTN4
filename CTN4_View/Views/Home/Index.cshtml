@@ -1,6 +1,7 @@
 ﻿@{
 	ViewData["Title"] = "Index ";
 }
+@*@model CTN4_Serv.ViewModel.HienThiSanPhamView;*@
 @model List<CTN4_Data.Models.DB_CTN4.SanPham>
 <html lang="zxx" class="no-js">
 
@@ -118,31 +119,35 @@
 					<div class="row">
 						<div class="col-lg-8 col-md-8">
 							<div class="single-deal">
+								<a href="@Url.Action("SanPhamDanhMuc", "DanhMucSanPham", new { id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081163")})">
 								<div class="overlay"></div>
 								<img class="img-fluid w-100" src="~/img/banner/banner4.png" alt="">
-								<a href="~/img/banner/banner1.png" class="img-pop-up" target="_blank">
 									<div class="deal-details">
 										<h6 class="deal-title">Xu Thế Thời Trang</h6>
 									</div>
 								</a>
 							</div>
+							
 						</div>
 						<div class="col-lg-4 col-md-4">
 							<div class="single-deal">
+								<a href="@Url.Action("SanPhamDanhMuc", "DanhMucSanPham", new { id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081164")})">
 								<div class="overlay"></div>
 								<img class="img-fluid w-100" src="~/img/banner/banner2.png" alt="">
-								<a href="~/img/category/c2.jpg" class="img-pop-up" target="_blank">
+								
 									<div class="deal-details">
 										<h6 class="deal-title">BST Công Sở</h6>
 									</div>
+								
 								</a>
 							</div>
 						</div>
 						<div class="col-lg-4 col-md-4">
 							<div class="single-deal">
+								<a href="@Url.Action("SanPhamDanhMuc", "DanhMucSanPham", new { id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081165")})">
 								<div class="overlay"></div>
 								<img class="img-fluid w-100" src="~/img/banner/pexels-irina-iriser-1800457.jpg" alt="" >
-								<a href="~/img/category/c3.jpg" class="img-pop-up" target="_blank" style="height:300px">
+								
 									<div class="deal-details">
 										<h6 class="deal-title">BST Mùa Hè</h6>
 									</div>
@@ -151,9 +156,10 @@
 						</div>
 						<div class="col-lg-8 col-md-8">
 							<div class="single-deal">
+								<a href="@Url.Action("SanPhamDanhMuc", "DanhMucSanPham", new { id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081166")})">
 								<div class="overlay"></div>
 								<img class="img-fluid w-100" src="~/img/banner/pngs.png" alt="">
-								<a href="~/img/category/c4.jpg" class="img-pop-up" target="_blank">
+								 
 									<div class="deal-details">
 										<h6 class="deal-title">BST Túi Ngôn Tình</h6>
 									</div>
@@ -192,18 +198,10 @@
 						</div>
 					</div>
 				</div>
-			
-				
 					<div class="row">
 					@foreach (var item in Model)
 					{
-						<!-- single product -->
-	
-					
-					
-		
-
-						<!-- single product -->
+						
 						<div class="col-lg-3 col-md-6">
 							<div class="single-product">
 								<img class="img-fluid" src="~/image/@item.AnhDaiDien" alt="">
