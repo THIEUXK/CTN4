@@ -758,7 +758,6 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             return View("Index", view);
         }
 
-
         [HttpGet("/QuanLyHd/XuatEx")]
         public JsonResult XuatEx(int IdHD)
         {
