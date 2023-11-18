@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CTN4_View.Areas.Admin.Controllers.QuanLySpbc
 {
+    [Area("admin")]
     public class QuanLySpBcController : Controller
     {
         public ISanPhamChiTietService _sanPhamChiTietService;
@@ -22,6 +23,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLySpbc
             _hoaDonChiTietService = new HoaDonChiTietService();
         }
         // GET: QuanLySpBcController
+        [HttpGet]
         public ActionResult AllSpindex()
         {
             var listsp = _hoaDonChiTietService.GetAll();
@@ -58,73 +60,6 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLySpbc
             return View(view);
         }
 
-        // GET: QuanLySpBcController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: QuanLySpBcController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: QuanLySpBcController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: QuanLySpBcController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: QuanLySpBcController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: QuanLySpBcController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: QuanLySpBcController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        
     }
 }
