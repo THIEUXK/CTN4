@@ -40,9 +40,10 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyVouvher
         [ValidateAntiForgeryToken]
         public ActionResult Create(GiamGia a)
         {
-            if (ModelState.IsValid)
-            {
-                var tontai = _gg.GetAll().FirstOrDefault(c => c.MaGiam == a.MaGiam && c.Id != a.Id);
+            //if (ModelState.IsValid)
+            a.TrangThai = true;
+            a.Is_detele = false;
+            var tontai = _gg.GetAll().FirstOrDefault(c => c.MaGiam == a.MaGiam && c.Id != a.Id);
                 if (tontai != null)
                 {
                     ModelState.AddModelError("MaGiam", "Mã giảm không được trùng.");
@@ -57,8 +58,8 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyVouvher
                 }
 
                 return View();
-            }
-            return View();
+            
+            //return View();
         }
         public ActionResult Edit(Guid id)
         {
@@ -77,6 +78,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyVouvher
             //    ModelState.AddModelError("MaGiam", "Mã giảm không được trùng.");
             //    return View(a);
             //}
+           
             if (ModelState.IsValid)
             {
                 if (_gg.Sua(a))

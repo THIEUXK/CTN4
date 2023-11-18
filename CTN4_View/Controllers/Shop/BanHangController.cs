@@ -29,7 +29,8 @@ namespace CTN4_View.Controllers.Shop
         public IPhuongThucThanhToanService _phuongThucThanhToanService;
         public IDiaChiNhanHangService _diaChiNhanHangService;
         public IKhachHangService _khachHangService;
-
+        public IGiamGiaService _giamGiaService;
+        public IGiamGiaChiTietService _giamGiaChiTietService;
 
         public BanHangController()
         {
@@ -46,6 +47,8 @@ namespace CTN4_View.Controllers.Shop
             _anhService = new AnhService();
             _khachHangService = new KhachHangService();
             _phuongThucThanhToanService = new PhuongThucThanhToanService();
+            _giamGiaChiTietService = new GiamGiaChiTietService();
+            _giamGiaService = new GiamGiaService();
             _httpClient.DefaultRequestHeaders.Add("token", "fa31ddca-73b0-11ee-b394-8ac29577e80e");
             _httpClient.DefaultRequestHeaders.Add("shop_id", "4189141");
         }
@@ -510,10 +513,14 @@ namespace CTN4_View.Controllers.Shop
         {
             var b = _HoaDonService.GetById(id);
             var a = _HoaDonChiTiet.GetAll().Where(c => c.IdHoaDon == id).ToList();
+            var c = _giamGiaChiTietService.GetAll().Where(c=>c.IdHoaDon == id).ToList();
+
+            
             var view = new ThieuxkView()
             {
                 HoaDon = b,
                 hoaDonChiTiets = a,
+                GiamGiaChiTiets = c
             };
             return View(view);
         }
