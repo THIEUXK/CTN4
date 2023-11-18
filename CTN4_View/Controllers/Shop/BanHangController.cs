@@ -10,6 +10,9 @@ using System.Net.Http;
 using CTN4_Serv.ViewModel.banhangview;
 using System.Text;
 using CTN4_View.Areas.Admin.Viewmodel;
+using CTN4_Serv.Service.Service;
+using Microsoft.AspNetCore.Authorization;
+using System.Text.RegularExpressions;
 
 namespace CTN4_View.Controllers.Shop
 {
@@ -31,8 +34,13 @@ namespace CTN4_View.Controllers.Shop
         public IKhachHangService _khachHangService;
         public IGiamGiaService _giamGiaService;
         public IGiamGiaChiTietService _giamGiaChiTietService;
+        public readonly string _clientId;
+        public readonly string _Secretkey;
+        public readonly IVnPayService _ivnPayService;
+        public readonly ICurrentUser _CurrentUser;
+       
 
-        public BanHangController()
+        public BanHangController(IConfiguration config, IVnPayService vnpay, ICurrentUser currentUser)
         {
             _diaChiNhanHangService = new DiaChiNhanHangService();
             _sanPhamCuaHangService = new SanPhamCuaHangService();
@@ -51,6 +59,11 @@ namespace CTN4_View.Controllers.Shop
             _giamGiaService = new GiamGiaService();
             _httpClient.DefaultRequestHeaders.Add("token", "fa31ddca-73b0-11ee-b394-8ac29577e80e");
             _httpClient.DefaultRequestHeaders.Add("shop_id", "4189141");
+            _ivnPayService = vnpay;
+            _clientId = config["PaypalSettings:ClientId"];
+            _Secretkey = config["PaypalSettings:SecretKey"];
+            _CurrentUser = currentUser;
+
         }
 
 
@@ -86,8 +99,52 @@ namespace CTN4_View.Controllers.Shop
 
         }
 
-        
 
+        [Authorize]
+        public IActionResult PaypalCheckout()
+        {
+            return View();
+        }
+        public IActionResult CreatePaymentUrl(PaymentInformationModel model)
+        {
+            //model.Name = RemoveAccents(model.Name);
+            //model.OrderDescription = RemoveAccents(model.OrderDescription);
+            //model.OrderType = RemoveAccents(model.OrderType);
+            var url = _ivnPayService.CreatePaymentUrl(model, HttpContext);
+
+            return Redirect(url);
+        }
+        private string RemoveAccents(string input)
+        {
+            string normalizedString = input.Normalize(NormalizationForm.FormD);
+            Regex regex = new Regex("[^a-zA-Z0-9 ]");
+            return regex.Replace(normalizedString, "").ToLower();
+        }
+
+        public IActionResult PaymentCallback()
+        {
+            var response = _ivnPayService.PaymentExecute(Request.Query);
+            response.IdUser = _CurrentUser.Id;
+            var hoa  = _khachHangService.GetAll().FirstOrDefault(c=>c.Id == _CurrentUser.Id);
+            HoaDon hd = new HoaDon()
+            {
+                MaHoaDon = response.PaymentId,
+                IdPhuongThuc = Guid.Parse("D16AC357-3CED-4C2C-BCDC-D38971211114"),
+                TongTien = float.Parse(response.Amount.ToString()),
+                NgayDat = DateTime.Now,
+                NgayGiao = DateTime.Now,
+                NgayNhan = DateTime.Now,
+                TrangThai = "1",
+               NgayTaoHoaDon =DateTime.Now,
+      TenKhachHang  = hoa.Ten,
+        Email  = hoa.Email,
+    SDTNguoiNhan = hoa.SDT,
+    DiaChi  = hoa.DiaChi,
+      TrangThaiThanhToan = true
+    };
+            _HoaDonService.Them(hd);
+            return View(response);
+        }
 
         public IActionResult XoaChiTietGioHang(Guid id)
         {
