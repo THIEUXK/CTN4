@@ -130,7 +130,7 @@ namespace CTN4_View.Controllers.Shop
             {
                 MaHoaDon = response.PaymentId,
                 IdPhuongThuc = Guid.Parse("D16AC357-3CED-4C2C-BCDC-D38971211114"),
-                TongTien = float.Parse(response.Amount.ToString()),
+                TongTien = float.Parse(response.OrderDescription.ToString()),
                 NgayDat = DateTime.Now,
                 NgayGiao = DateTime.Now,
                 NgayNhan = DateTime.Now,
