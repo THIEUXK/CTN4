@@ -1,55 +1,42 @@
-﻿@model CTN4_Data.Models.DB_CTN4.KhachHang
+﻿@using CTN4_Data.Migrations
+@model CTN4_Data.Models.DB_CTN4.KhachHang
 
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-<div class="row">
-    <div class="col-md-9">
+<div class="card w-100">
+    <div class="card-body p-4">
         <br></br>
         <br></br>
-
-
-        <h1>Details</h1>
-
         <div>
-            <h4>KhachHang</h4>
+            <h4>Thông tin khách hàng</h4>
             <hr />
             <dl class="row">
                 <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Ho)
+                    Họ
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.Ho)
                 </dd>
                 <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Ten)
+                    Tên
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.Ten)
                 </dd>
                 <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.TenDangNhap)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.TenDangNhap)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.MatKhau)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.MatKhau)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.GioiTinh)
+                    giới tính
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.GioiTinh)
+                </dd>
+                <dt class="col-sm-2">
+                   Tên đăng nhập
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.TenDangNhap)
                 </dd>
                 <dt class="col-sm-2">
                     @Html.DisplayNameFor(model => model.Email)
@@ -58,34 +45,35 @@
                     @Html.DisplayFor(model => model.Email)
                 </dd>
                 <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.SDT)
+                   Số điện thoại
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.SDT)
                 </dd>
                 <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.DiaChi)
+                    Địa chỉ
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.DiaChi)
                 </dd>
                 <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.AnhDaiDien)
+                   Ảnh đại hiện
                 </dt>
                 <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.AnhDaiDien)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Trangthai)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.Trangthai)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Is_detele)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.Is_detele)
+                  
+                    @if (System.IO.Path.GetExtension(Model.AnhDaiDien) == ".jpg" ||
+                         System.IO.Path.GetExtension(Model.AnhDaiDien) == ".png" ||
+                         System.IO.Path.GetExtension(Model.AnhDaiDien) == ".jpeg" ||
+                         System.IO.Path.GetExtension(Model.AnhDaiDien) == ".tiff" ||
+                         System.IO.Path.GetExtension(Model.AnhDaiDien) == ".webp" ||
+                         System.IO.Path.GetExtension(Model.AnhDaiDien) == ".gif")
+                    {
+                        <img src="~/image/@Model.AnhDaiDien" height="100">
+                    }
+                    else
+                    {
+                        <a>ảnh lỗi</a>
+                    }
                 </dd>
             </dl>
         </div>
@@ -93,7 +81,10 @@
             @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
             <a asp-action="Index">Back to List</a>
         </div>
-        }
+
+
+
     </div>
 </div>
+
 
