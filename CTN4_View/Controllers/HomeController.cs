@@ -18,7 +18,6 @@ using CTN4_Data.DB_Context;
 
 namespace CTN4_View.Controllers
 {
-
 	public class HomeController : Controller
 	{
 		private readonly ILogger<HomeController> _logger;
@@ -503,5 +502,4 @@ namespace CTN4_View.Controllers
 		//}
 
 	}
-
 }
