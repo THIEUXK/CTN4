@@ -33,11 +33,18 @@ namespace CTN4_View.Controllers.Shop
         public IPhuongThucThanhToanService _phuongThucThanhToanService;
         public IDiaChiNhanHangService _diaChiNhanHangService;
         public IKhachHangService _khachHangService;
+
         public readonly string _clientId;
         public readonly string _Secretkey;   
         public readonly IVnPayService _ivnPayService;
         public readonly ICurrentUser _CurrentUser;
         public BanHangController(IConfiguration config, IVnPayService vnpay,ICurrentUser currentUser)
+
+        public IGiamGiaService _giamGiaService;
+        public IGiamGiaChiTietService _giamGiaChiTietService;
+
+        public BanHangController()
+
         {
             _diaChiNhanHangService = new DiaChiNhanHangService();
             _sanPhamCuaHangService = new SanPhamCuaHangService();
@@ -52,7 +59,12 @@ namespace CTN4_View.Controllers.Shop
             _anhService = new AnhService();
             _khachHangService = new KhachHangService();
             _phuongThucThanhToanService = new PhuongThucThanhToanService();
+
             _ivnPayService = vnpay;   
+
+            _giamGiaChiTietService = new GiamGiaChiTietService();
+            _giamGiaService = new GiamGiaService();
+
             _httpClient.DefaultRequestHeaders.Add("token", "fa31ddca-73b0-11ee-b394-8ac29577e80e");
             _httpClient.DefaultRequestHeaders.Add("shop_id", "4189141");
             _clientId = config["PaypalSettings:ClientId"];
@@ -93,6 +105,9 @@ namespace CTN4_View.Controllers.Shop
 
         }
 
+        
+
+
         public IActionResult XoaChiTietGioHang(Guid id)
         {
             var b = _GioHangChiTiet.GetById(id);
@@ -111,6 +126,7 @@ namespace CTN4_View.Controllers.Shop
             return RedirectToAction("GioHang", "BanHang", new { message });
 
         }
+
         //Huyen
         [HttpGet("CheckOut/GetListDistrict")]
         public JsonResult GetListDistrict(int idProvin)
@@ -516,10 +532,14 @@ namespace CTN4_View.Controllers.Shop
         {
             var b = _HoaDonService.GetById(id);
             var a = _HoaDonChiTiet.GetAll().Where(c => c.IdHoaDon == id).ToList();
+            var c = _giamGiaChiTietService.GetAll().Where(c=>c.IdHoaDon == id).ToList();
+
+            
             var view = new ThieuxkView()
             {
                 HoaDon = b,
                 hoaDonChiTiets = a,
+                GiamGiaChiTiets = c
             };
             return View(view);
         }

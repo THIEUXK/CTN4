@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Text.Json.Serialization;
 using System.Text.Json;
 using X.PagedList;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CTN4_View_Admin.Controllers.QuanLY
 {
@@ -30,23 +31,109 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         }
         // GET: KhuyenMaiController
         [HttpGet]
-        public ActionResult Index(string searchString, int? page)
+        public ActionResult Index(int? size, string searchString,  int? page)
         {
-            const int pageSize = 10;
-            var pageNumber = page ?? 1;
+            var a = _sv.GetAll().AsQueryable();
 
-            var a = _sv.GetAll();
+            List<SelectListItem> items = new List<SelectListItem>();
+            items.Add(new SelectListItem { Text = "5", Value = "5" });
+            items.Add(new SelectListItem { Text = "10", Value = "10" });
+            items.Add(new SelectListItem { Text = "20", Value = "20" });
+            items.Add(new SelectListItem { Text = "25", Value = "25" });
+            items.Add(new SelectListItem { Text = "50", Value = "50" });
+
+            foreach (var item in items)
+            {
+                if (item.Value == size.ToString()) item.Selected = true;
+            }
+
+            ViewBag.size = items; // ViewBag DropDownList
+            ViewBag.currentSize = size; // tạo biến kích thước trang hiện tại
+            page = page ?? 1;
 
             if (!string.IsNullOrEmpty(searchString))
             {
                 // Lọc sản phẩm theo tên nếu có chuỗi tìm kiếm
-                a = _sv.GetAll().Where(p => p.MaKhuyenMai.Contains(searchString, StringComparison.OrdinalIgnoreCase)).ToList();
+                a = a.Where(p => p.MaKhuyenMai.Contains(searchString, StringComparison.OrdinalIgnoreCase));
             }
 
+            int pageSize = size ?? 5;
+            var pageNumber = page ?? 1;
             var pagedList = a.ToPagedList(pageNumber, pageSize);
 
             return View(pagedList);
         }
+        [HttpGet]
+        public IActionResult GetActiveKhuyenMai(int? size, string searchString, int? page)
+        {
+            List<SelectListItem> items = new List<SelectListItem>();
+            items.Add(new SelectListItem { Text = "5", Value = "5" });
+            items.Add(new SelectListItem { Text = "10", Value = "10" });
+            items.Add(new SelectListItem { Text = "20", Value = "20" });
+            items.Add(new SelectListItem { Text = "25", Value = "25" });
+            items.Add(new SelectListItem { Text = "50", Value = "50" });
+
+            foreach (var item in items)
+            {
+                if (item.Value == size.ToString()) item.Selected = true;
+            }
+
+            ViewBag.size = items; // ViewBag DropDownList
+            ViewBag.currentSize = size; // tạo biến kích thước trang hiện tại
+            page = page ?? 1;
+
+            var activeKhuyenMaiList = _sv.GetAll().Where(km => km.TrangThai == true).AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                // Lọc sản phẩm theo tên nếu có chuỗi tìm kiếm
+                activeKhuyenMaiList = activeKhuyenMaiList.Where(p => p.MaKhuyenMai.Contains(searchString, StringComparison.OrdinalIgnoreCase));
+            }
+
+            const int pageSize = 5;
+            var pageNumber = page ?? 1;
+
+
+            var pagedList = activeKhuyenMaiList.ToPagedList(pageNumber, pageSize);
+
+            return PartialView("_KhuyenMaiList", pagedList);
+        }
+        [HttpGet]
+        public IActionResult GetInactiveKhuyenMai(int? size, string searchString,  int? page)
+        {
+            List<SelectListItem> items = new List<SelectListItem>();
+            items.Add(new SelectListItem { Text = "5", Value = "5" });
+            items.Add(new SelectListItem { Text = "10", Value = "10" });
+            items.Add(new SelectListItem { Text = "20", Value = "20" });
+            items.Add(new SelectListItem { Text = "25", Value = "25" });
+            items.Add(new SelectListItem { Text = "50", Value = "50" });
+
+            foreach (var item in items)
+            {
+                if (item.Value == size.ToString()) item.Selected = true;
+            }
+
+            ViewBag.size = items; // ViewBag DropDownList
+            ViewBag.currentSize = size; // tạo biến kích thước trang hiện tại
+            page = page ?? 1;
+
+            var inactiveKhuyenMaiList = _sv.GetAll().Where(km => !km.TrangThai == true).AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                // Lọc sản phẩm theo tên nếu có chuỗi tìm kiếm
+                inactiveKhuyenMaiList = inactiveKhuyenMaiList.Where(p => p.MaKhuyenMai.Contains(searchString, StringComparison.OrdinalIgnoreCase));
+            }
+
+            const int pageSize = 5;
+            var pageNumber = page ?? 1;
+
+
+            var pagedList = inactiveKhuyenMaiList.ToPagedList(pageNumber, pageSize);
+
+            return PartialView("_KhuyenMaiList", pagedList);
+        }
+
 
         // GET: KhuyenMaiController/Details/5
         public ActionResult Details(Guid id)
@@ -67,16 +154,22 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         // POST: KhuyenMaiController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Creates(KhuyenMai a)
+        public ActionResult Create(KhuyenMai a)
         {
-           
-            a.TrangThai = true;
-             a.Is_Detele = true;
-            _sv.Them(a);
-             return RedirectToAction("Index");
-            
-            
-           
+
+            if (ModelState.IsValid)
+            {
+                var tontai = _sv.GetAll().FirstOrDefault(c => c.MaKhuyenMai == a.MaKhuyenMai && c.Id != a.Id);
+                if (tontai != null)
+                {
+                    ModelState.AddModelError("MaKhuyenMai", "Mã khuyến mại không được trùng.");
+                    return View(a);
+                }
+                _sv.Them(a);
+                return RedirectToAction("Index");
+            }
+            return View(a);
+
         }
 
         // GET: KhuyenMaiController/Edit/5

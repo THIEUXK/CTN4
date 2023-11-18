@@ -11,12 +11,7 @@
     <h4>Quản lí sản phẩm</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            Id
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SanPham.Id)
-        </dd>
+
         <dt class="col-sm-2">
             Ảnh đại diện
         </dt>
@@ -35,120 +30,118 @@
                 <span>Ảnh lỗi rồi =)))</span>
             }
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Chất liệu
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.SanPham.ChatLieu.TenChatLieu)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Nhà sản xuất
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.SanPham.NSX.TenNSX)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Mã sản Phẩm
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.SanPham.MaSp)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Tên sản phẩm
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.SanPham.TenSanPham)
         </dd>
-        <dt class = "col-sm-2">
-           Ảnh đại diện
+        <dt class="col-sm-2">
+            Ảnh đại diện
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.SanPham.AnhDaiDien)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Trạng thái
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.SanPham.TrangThai)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Mô tả
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.SanPham.MoTa)
         </dd>
-        <dt class = "col-sm-2">
-           Giá nhập
+        <dt class="col-sm-2">
+            Giá nhập
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.SanPham.GiaNhap)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Giá bán
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.SanPham.GiaBan)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Gia niên yết
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.SanPham.GiaNiemYet)
         </dd>
-        <dt class = "col-sm-2">
-           Ghi chú
+        <dt class="col-sm-2">
+            Ghi chú
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.SanPham.GhiChu)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Is_detele
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.SanPham.Is_detele)
         </dd>
     </dl>
 </div>
 <div>
-    <button>@Html.ActionLink("Edit", "Edit", new {id = Model.SanPham.Id }) </button>
-    
-    <button><a asp-action="Index">Back to List</a></button>
+    <button class="btn btn-success m-1">@Html.ActionLink("Chỉnh sửa", "Edit", new {id = Model.SanPham.Id }, new { style = "color: white;" }) </button>
+
+    <button class="btn btn-dark m-1"><a asp-action="Index" style="color:white">Quay về</a></button>
 </div>
+<hr />
+<div>
+    <button type="button" class="btn btn-warning m-1"><a asp-controller="QuanLYH" asp-action="Create" style="color:white">Thêm</a></button>
 
-<p>
-    <button type="button" class="btn btn-warning btn-fw editable-click=" ><a asp-controller="QuanLYH" asp-action="Create" style="color:white">Thêm</a></button>
-
-</p>
+</div>
 
 
 <table class="table">
     <thead>
         <tr>
             <th>
-               Ảnh sản phẩm
+                Ảnh sản phẩm
             </th>
             <th>
                 Tên sản phẩm
             </th>
 
             <th>
-               Số lượng
+                Số lượng
             </th>
 
             <th>
-               Trạng thái
+                Trạng thái
             </th>
 
-            <th>
-                Is_detele
-            </th>
+           
             <th>
                 Màu
             </th>
             <th>
                 Size
             </th>
-            
+
             <th>
             </th>
         </tr>
@@ -189,9 +182,7 @@
                     @Html.DisplayFor(modelItem => item.TrangThai)
                 </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.Is_detele)
-                </td>
+               
 
                 <td>
                     @Html.DisplayFor(modelItem => item.Mau.TenMau)
@@ -200,13 +191,20 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Size.CoSize)
                 </td>
-                
+
                 <td>
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit","QuanLYH", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details","QuanLYH", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete","QuanLYH", new { id = item.Id })
+                    <button class="btn btn-success m-1">
+                        @Html.ActionLink("Chỉnh sửa", "Edit","QuanLYH", new { id = item.Id }, new { style = "color: white;" })
+                    </button>
+                    <button class="btn btn-info m-1">
+                        @Html.ActionLink("Xem chi tiết", "Details","QuanLYH", new { id = item.Id }, new { style = "color: white;" })
+                    </button>
+                    <button class="btn btn-danger m-1">
+                        @Html.ActionLink("Xóa", "Delete","QuanLYH", new { id = item.Id }, new { style = "color: white;" })
+                    </button>
+                    
                 </td>
             </tr>
         }
