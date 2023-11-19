@@ -8,6 +8,13 @@
 
 <style>
 
+    th, td {
+        max-width: 150px; /* Giới hạn chiều rộng tối đa của cột */
+        overflow: hidden;
+        text-overflow: ellipsis; /* Hiển thị dấu ba chấm (...) nếu giá trị quá dài */
+        white-space: nowrap; /* Ngăn chuyển dòng */
+        word-wrap: break-word; /* Cho phép xuống dòng nếu giá trị quá dài */
+    }
     .form-container {
         border: 1px solid #ccc;
         padding: 10px;
@@ -151,7 +158,7 @@
         </div>
         </div>
  
-    <div class="col-md-3" style=" margin-top:100px">
+    <div class="col-md-5" style=" margin-top:100px">
 
         <h4> Tóm tắt</h4>
         <div class="form-container">
@@ -256,7 +263,7 @@
         var floatValue = parseFloat(value);
 
         if (!isNaN(floatValue)) {
-            var formattedValue = floatValue.toLocaleString(undefined, { style: 'percent', minimumFractionDigits: 2 });
+            var formattedValue = floatValue.toFixed(2) + '%';
             return formattedValue;
         }
 
