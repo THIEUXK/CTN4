@@ -848,7 +848,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             rngTable.Style.Border.OutsideBorder = XLBorderStyleValues.Thick;
             rngTable.Row(1).Merge(); // We could've also used: rngTable.Range("A1:E1").Merge()
 
-            var rngTable2 = ws.Range("A15:I18");
+            var rngTable2 = ws.Range($"A15:I{16+hdct.Count()}");
             var rngHeaders2 = rngTable2.Range("A15:I15");
             rngHeaders2.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
             rngHeaders2.Style.Font.Bold = true;
