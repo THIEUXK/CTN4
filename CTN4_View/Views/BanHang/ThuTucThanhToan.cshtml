@@ -177,9 +177,12 @@
 
                                     <input type="hidden" name="idGHCT" value="@a.Id" />
                                     <input type="hidden" name="idSPCT" value="@a.IdSanPhamChiTiet" />
+                                    <input type="hidden" name="OrderDescription" value="Mua Tại Shop Boro" />
+                                    <input type="hidden" name="OrderType" value="Túi Sách" >
                                     <input type="hidden" name="SoLuong" value="@a.SoLuong" />
                                     <input type="hidden" name="idGH" value="@a.IdGioHang" />
                                 }
+                              
                             </ul>
                             <br></br>
                             @if (Model.DiaChiNhanHang != null)
@@ -193,7 +196,9 @@
                             </ul>
                             <br></br>
                             <ul class="list">
-                                <li><a href="#">Tổng tiền :<span><b id="tongtien" style="color:orange">@FormatCurrency(Model.TongTien)</b></span></a></li>
+                                <li><a href="#">Tổng tiền :<span><b name="Amount" id="tongtien" style="color:orange">@FormatCurrency(Model.TongTien)</b></span></a></li>
+                               <input hidden name="Amount"  value="@Model.TongTien"/>
+                                
                             </ul>
                             <br></br>
                             <input type="hidden" name="tienship" value="" id="tienship1"></input>
@@ -202,6 +207,11 @@
 
 
                                 <button class="primary-btn" type="submit" href="#">Mua Hàng</button>
+                            </div>
+                            <div class="card border-secondary mb-5">
+
+
+                                <button class="primary-btn" asp-controller="BanHang" asp-action="CreatePaymentUrl" href="#">Thanh Toán Vnpay</button>
                             </div>
                         </div>
                     </div>
