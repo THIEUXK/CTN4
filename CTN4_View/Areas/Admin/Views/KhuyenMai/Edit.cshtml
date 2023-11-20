@@ -5,6 +5,24 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 <style>
+    .pagination button {
+        background-color: #3498db;
+        color: #ffffff;
+        border: 1px solid #3498db;
+        padding: 8px 12px;
+        margin: 4px;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+    }
+
+        .pagination button.active {
+            background-color: #2980b9;
+        }
+
+        .pagination button:hover {
+            background-color: #2076a9;
+        }
     .default-option {
         font-size: 12px; /* Điều chỉnh kích thước chữ theo ý muốn của bạn */
     }
@@ -62,12 +80,12 @@
         <div class="row" style="margin-top: 100px">
         
                 <br />
-                <h1>Thên sản phẩm vào Khuyễn Mãi</h1>
-                <hr />
+               
+          
 
                 <div class="row">
                     <div class="col-md-6">
-
+            <h3>Thên sản phẩm vào Khuyễn Mãi</h3>
                         <form asp-action="Edit">
                           
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -144,16 +162,28 @@
                                 <a asp-action="Index">Back to List</a>
                             </div>
                         </form>
+            <button id="updateGiaButton" class="btn btn-primary">Cập nhật Giá Sản Phẩm</button>
+            <button id="huyApDungButton" class="btn btn-primary">Hủy áp dụng khuyến mại</button>
                     </div>
                     <div class="col-md-6">
-                        <div id="kmsp" >
-                    </div>
+            <h3>Danh sách khuyến mãi</h3>
+            <div id="kmsp" class="form-container">
+                <table class="table" id="productTable">
+                    <thead>
+                        <tr>
+                            <th>Tên Sản Phẩm</th>
+                            <th>Ảnh Đại diện</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productBody"></tbody>
+                </table>
+                <div class="pagination" id="pagination"></div>
+            </div>
                 </div>
           
         </div>
         <div id="images"></div>
-<button id="updateGiaButton" class="btn btn-primary">Cập nhật Giá Sản Phẩm</button>
-<button id="huyApDungButton" class="btn btn-primary">Hủy áp dụng khuyến mại</button>
+
 <div class="row" style="margin: 20px;" >
    
         <div class="col-md-3">
@@ -200,11 +230,18 @@
             //         $(this).val(value);
             //     });
             // });
-
+        var itemsPerPage = 5; // Number of items to display per page
+        var currentPage = 1;  // Current page
             $(document).ready(function () {
                 Data(); // Populate initial data for select
                 fetchDataFromIndexAction(); // Initial fetch
-                kmsp();
+            kmsp(); // Initial load
+
+            // Use jQuery for event handling
+            $(document).on('click', '.pagination button', function () {
+                var page = $(this).text();
+                changePage(page);
+            });
                 $('#productSelect').on('change', function () {
                     var selectedName = $('#searchSelect').val();
                   
@@ -225,7 +262,7 @@
                 type: 'GET',
                 dataType: 'json',
                 success: function (data) {
-                    displayProducts(data);
+                    displayProducts(data, currentPage, itemsPerPage);
                     console.log(data);
                 },
                 error: function (error) {
@@ -234,30 +271,35 @@
             });
         }
 
-        function displayProducts(data) {
-            var kmspHTML = "<div class='form-container'>";
-            kmspHTML += "<table class='table'>";
-            kmspHTML += "<tr><th>Tên Sản Phẩm</th><th>Ảnh Đại diện</th></tr>";
+        function displayProducts(data, page, itemsPerPage) {
+            var start = (page - 1) * itemsPerPage;
+            var end = start + itemsPerPage;
 
-            if (data && data.length > 0) {
-                kmspHTML += data.map(item =>
+            // Update product table body
+            $('#productBody').html(data.length > 0 ?
+                data.slice(start, end).map(item =>
                     `<tr>
                         <td>${item.tenSanPham}</td>
-                        <td><img src='/image/${item.anhDaiDien}' height='100' alt='Product Image'></td>
+                        <td><img src='/image/${item.anhDaiDien}' style='max-width: 50px; max-height: 50px;' alt='Product Image'></td>
                         <td><input type="hidden" class="id-sp-button" data-id-sp='${item.id ? item.id : ""}'/></td>
-                    </tr>`
-                ).join('');
-            } else {
-                kmspHTML += "<tr><td colspan='2'>No matching products found</td></tr>";
+                     </tr>`
+                ).join('') :
+                "<tr><td colspan='2'>No matching products found</td></tr>"
+            );
+
+            // Update pagination controls
+            var paginationHTML = '';
+            for (var i = 1; i <= Math.ceil(data.length / itemsPerPage); i++) {
+                paginationHTML += `<button ${i == currentPage ? "class='active'" : ""}>${i}</button>`;
             }
-
-            kmspHTML += "</table>";
-            kmspHTML += "</div>";
-
-            // Assuming 'kmsp' is a div or other container where you want to display the table
-            $('#kmsp').html(kmspHTML);
+            $('#pagination').html(paginationHTML);
         }
 
+        // Function to change the current page
+        function changePage(page) {
+            currentPage = page;
+            kmsp(); // Reload the data for the new page
+        }
 
             function validateNumber(input) {
                 // Xóa bất kỳ ký tự không phải số

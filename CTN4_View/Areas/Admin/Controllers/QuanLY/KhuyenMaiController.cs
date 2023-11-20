@@ -239,7 +239,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         }
         public ActionResult Getallcl()
         {
-
+         
             var a = _cl.GetAll();
             return Json(a);
         }
@@ -321,6 +321,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
 
         public ActionResult Delete(Guid id)
         {
+            
             if (_sv.Xoa(id))
             {
                 return RedirectToAction("Index");

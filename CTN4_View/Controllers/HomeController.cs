@@ -484,6 +484,10 @@ namespace CTN4_View.Controllers
 
 			return result;
 		}
+		public IActionResult checkForgotpass()
+		{
+			return View();
+		}
 		//public IActionResult SanPhamBanChay(Guid id)
 		//{
 		//	 var spbc = _sanPhamCuaHangService.GetAllSpct()
