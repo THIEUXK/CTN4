@@ -13,6 +13,8 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLySpbc
         public ISanPhamService _sanPhamSv;
         public IHoaDonService _hoaDonService;
         public IHoaDonChiTietService _hoaDonChiTietService;
+        public IDanhMucChiTietService _danhMucChiTietService;
+        public IDanhMucService _danhMucService;
 
 
         public QuanLySpBcController()
@@ -21,6 +23,8 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLySpbc
             _sanPhamSv = new SanPhamService();
             _hoaDonService = new HoaDonService();
             _hoaDonChiTietService = new HoaDonChiTietService();
+            _danhMucChiTietService = new DanhMucChiTietMucChiTietService();
+            _danhMucService = new DanhMucMucService();
         }
         // GET: QuanLySpBcController
         [HttpGet]
@@ -45,21 +49,56 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLySpbc
                 var c = new SanPhamHungView
                 {
                     TenSp = b,
-                    AnhDaiDien= listSpHien.FirstOrDefault(c => c.SanPhamChiTiet.SanPham.TenSanPham == b).SanPhamChiTiet.SanPham.AnhDaiDien,
+                    AnhDaiDien = listSpHien.FirstOrDefault(c => c.SanPhamChiTiet.SanPham.TenSanPham == b).SanPhamChiTiet.SanPham.AnhDaiDien,
                     soluotmua = listSpHien.Count(),
-                    GiaSanPham =listSpHien.FirstOrDefault(c => c.SanPhamChiTiet.SanPham.TenSanPham == b).SanPhamChiTiet.SanPham.GiaNiemYet,
-                    
+                    GiaSanPham = listSpHien.FirstOrDefault(c => c.SanPhamChiTiet.SanPham.TenSanPham == b).SanPhamChiTiet.SanPham.GiaNiemYet,
+
                 };
                 sanPhamHungViews.Add(c);
             }
             var view = new SanphamBcView()
             {
-                SanPhamHungs = sanPhamHungViews.OrderByDescending(c=>c.soluotmua).ToList()
+                SanPhamHungs = sanPhamHungViews.OrderByDescending(c => c.soluotmua).ToList()
 
             };
             return View(view);
         }
+        public ActionResult themsanpham(string tensp)
+        {
+            var sp = _sanPhamSv.GetAll().FirstOrDefault(c => c.TenSanPham == tensp);
+            var danhmuc = _danhMucService.GetAll().FirstOrDefault(c => c.Id == Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081173"));
+            var existingDanhMucChiTiet = _danhMucChiTietService.GetAll()
+    .FirstOrDefault(c => c.IdSanPham == sp.Id && c.IdDanhMuc == danhmuc.Id);
+            if (existingDanhMucChiTiet != null)
+            {
+                var message3 = "Đã tồn tại sản phẩm ";
+                TempData["ErrorMessage3"] = message3;
+                return RedirectToAction("AllSpindex", new { message3 });
+            }
+            else
+            {
+                var danhmucct = new DanhMucChiTiet()
+                {
+                    IdSanPham = sp.Id,
+                    IdDanhMuc = danhmuc.Id,
+                };
+                if (_danhMucChiTietService.Them(danhmucct) == true)
+                {
+                    var message1 = "Thêm Thành Công";
+                    TempData["ErrorMessage1"] = message1;
+                    return RedirectToAction("AllSpindex", new { message1 });
 
-        
+                }
+                var message = "Thêm Thất Bại";
+                TempData["ErrorMessage"] = message;
+                return RedirectToAction("AllSpindex", new { message });
+            }
+
+        }
+
     }
+
+
+
+
 }

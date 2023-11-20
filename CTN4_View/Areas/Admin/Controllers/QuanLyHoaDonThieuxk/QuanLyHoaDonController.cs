@@ -523,7 +523,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             }
             else
             {
-                var hd = _hoaDonService.GetAll().Where(c => c.NgayTaoHoaDon > NgayDau && c.NgayTaoHoaDon < NgayCuoi).ToList();
+                var hd = _hoaDonService.GetAll().Where(c => c.NgayTaoHoaDon > NgayDau && c.NgayTaoHoaDon < NgayCuoi && c.Is_detele==true).ToList();
                 var view = new ThieuxkViewAdmin()
                 {
                     hoaDons = hd,
@@ -737,7 +737,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             var hd = _hoaDonService.GetAll();
             var view = new ThieuxkViewAdmin()
             {
-                hoaDons = hd.OrderByDescending(c => c.NgayTaoHoaDon).ToList(),
+                hoaDons = hd.Where(c=> c.Is_detele == true).OrderByDescending(c => c.NgayTaoHoaDon).ToList(),
             };
             return View("Index", view);
         }
@@ -746,7 +746,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             var hd = _hoaDonService.GetAll();
             var view = new ThieuxkViewAdmin()
             {
-                hoaDons = hd.OrderBy(c => c.NgayTaoHoaDon).ToList(),
+                hoaDons = hd.Where(c => c.Is_detele == true).OrderBy(c => c.NgayTaoHoaDon).ToList(),
             };
             return View("Index", view);
         }
@@ -755,7 +755,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             var hd = _hoaDonService.GetAll();
             var view = new ThieuxkViewAdmin()
             {
-                hoaDons = hd.OrderByDescending(c => c.TongTien).ToList(),
+                hoaDons = hd.Where(c => c.Is_detele == true).OrderByDescending(c => c.TongTien).ToList(),
             };
             return View("Index", view);
         }
@@ -764,7 +764,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             var hd = _hoaDonService.GetAll();
             var view = new ThieuxkViewAdmin()
             {
-                hoaDons = hd.OrderBy(c => c.TongTien).ToList(),
+                hoaDons = hd.Where(c => c.Is_detele == true).OrderBy(c => c.TongTien).ToList(),
             };
             return View("Index", view);
         }
@@ -814,7 +814,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             ws.Cell("F16").Value = "Giá";
             ws.Cell("G16").Value = "Số lượng";
             ws.Cell("H16").Value = "Thành tiền";
-            ws.Cell("I17").Value = "Trạng thái";
+            ws.Cell("I16").Value = "Trạng thái";
 
             var hdct = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == IdHD).ToList();
 
