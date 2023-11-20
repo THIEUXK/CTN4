@@ -22,15 +22,19 @@ namespace CTN4_Serv.Service
         }
         public List<SanPhamDanhMucVIewModel> GetAllProduct()
         {
+            // lay ra toan bo danh sasch idsp da dc km
+            var lstkm = _db.KhuyenMaiSanPhams.Select(p => p.IdSanPham);
             var listProduct = _db.SanPhams.ToList();
             var lstDanhMuc = _db.DanhMucs.ToList();
             var lst = _db.DanhMucChiTiets.ToList();
+
             var lstAll = from a in listProduct
                          join b in lst on a.Id equals b.IdSanPham
                          join c in lstDanhMuc on b.IdDanhMuc equals c.Id
+                         where !lstkm.Contains(a.Id) // Thêm điều kiện kiểm tra a.Id không tồn tại trong lstkm
                          select new SanPhamDanhMucVIewModel
                          {
-                             Id= a.Id,
+                             Id = a.Id,
                              MaSp = a.MaSp,
                              AnhDaiDien = a.AnhDaiDien,
                              TenSanPham = a.TenSanPham,
@@ -39,6 +43,7 @@ namespace CTN4_Serv.Service
                              GiaNiemYet = a.GiaNiemYet,
                              TenDanhMuc = c.TenDanhMuc,
                          };
+
             return lstAll.ToList();
         }
         public List<SanPhamDanhMucVIewModel> GetAllProductWithKhuyenMai()
@@ -151,6 +156,7 @@ namespace CTN4_Serv.Service
             
             
         }
+
         public SanPham GetById(Guid id)
         {
             return GetAll().FirstOrDefault(c => c.Id == id);
@@ -188,6 +194,7 @@ namespace CTN4_Serv.Service
         {
             try
             {
+               
                 var b = GetById(id);
                 _db.SanPhams.Remove(b);
                 _db.SaveChanges();
