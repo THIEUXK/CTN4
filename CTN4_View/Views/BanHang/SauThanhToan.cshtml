@@ -3,7 +3,8 @@
     ViewData["Title"] = "SauThanhToan";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<br></br>
+<br></br>
 
 <!--================Order Details Area =================-->
 <section class="order_details section_gap">
@@ -128,7 +129,20 @@
                             </td>
                         </tr>
                     }
-
+                        <tr>
+                            <td>
+                                <h4>Tiền ship</h4>
+                            </td>
+                            <td>
+                                <h5></h5>
+                            </td>
+                            <td>
+                                <h5></h5>
+                            </td>
+                            <td>
+                                <p>@FormatCurrency(Model.HoaDon.TienShip)</p>
+                            </td>
+                        </tr>
                     <tr>
                         <td>
                             <h4>Tổng tiền</h4>
@@ -140,7 +154,7 @@
                             <h5></h5>
                         </td>
                         <td>
-                            <p>@Model.HoaDon.TongTien</p>
+                            <p>@FormatCurrency(Model.HoaDon.TongTien)</p>
                         </td>
                     </tr>
                     </tbody>
