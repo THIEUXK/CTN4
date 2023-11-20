@@ -127,17 +127,26 @@
                     </div>
 
                 </div>
-                @if (TempData["TB1"] != null)
-                {
-                    <div class="alert alert-danger">@TempData["TB1"]</div>
-                }
-
 
             </div>
         </div>
         <div class="card w-100">
             <div class="card-body p-4">
-
+                @if (TempData["ErrorMessage3"] != null)
+                {
+                    <div class="alert alert-danger">@TempData["ErrorMessage3"]</div>
+                }
+                else
+                {
+                    @if (TempData["ErrorMessage"] != null)
+                    {
+                        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-primary">@TempData["ErrorMessage1"]</div>
+                    }
+                }
                 <div class="table-responsive">
 
                     <table class="table text-nowrap mb-0 align-middle">
@@ -155,18 +164,14 @@
                                 <th class="border-bottom-0">
                                     <h6 class="fw-semibold mb-0">Số lượt mua</h6>
                                 </th>
-                               
+
                             </tr>
                         </thead>
                         <tbody>
-                           @foreach (var a in Model.SanPhamHungs)
+                            @foreach (var a in Model.SanPhamHungs)
                             {
                                 <tr>
-                                    <td class="border-bottom-0">
-                                        <div class="d-flex align-items-center gap-2">
-                                            <b><span>#@Html.ActionLink("", "XemChiTiet", new { /*id = a.Id */})</span></b>
-                                        </div>
-                                    </td>
+
                                     <td class="border-bottom-0">
                                         @if (System.IO.Path.GetExtension(a.AnhDaiDien) == ".jpg" ||
                                        System.IO.Path.GetExtension(a.AnhDaiDien) == ".png" ||
@@ -176,7 +181,7 @@
                                        System.IO.Path.GetExtension(a.AnhDaiDien) == ".gif")
                                         {
                                             @*<a href="@Url.Action("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = sp.Id })">*@
-                                                <img src="~/image/@a.AnhDaiDien" height="300"  />
+                                            <img src="~/image/@a.AnhDaiDien" height="100" />
                                             @*</a>*@
 
                                         }
@@ -184,7 +189,7 @@
                                         {
                                             <span>Ảnh lỗi rồi =)))</span>
                                         }
-                                        
+
                                     </td>
                                     <td class="border-bottom-0">
                                         <p class="mb-0 fw-normal">@a.TenSp</p>
@@ -193,7 +198,17 @@
                                         <p class="mb-0 fw-normal">@FormatCurrency(@a.GiaSanPham)</p>
                                     </td>
                                     <td class="border-bottom-0">
-                                        <p class="mb-0 fw-normal">(@a.soluotmua)</p>
+                                        <p class="mb-0 fw-normal">@a.soluotmua</p>
+                                    </td>
+                                    <td class="border-bottom-0">
+                                        <div>
+                                            <b><span class="btn btn-primary">@Html.ActionLink("Thêm sản phẩm bán chạy", "themsanpham", new { tensp = a.TenSp }, new { style = "color: white;" })</span></b>
+                                        </div>
+                                    </td>
+                                    <td class="border-bottom-0">
+                                        <div>
+                                            <b><span class="btn btn-primary">@Html.ActionLink("Bỏ", "Delete", new { tensp = a.TenSp }, new { style = "color: white;" })</span></b>
+                                        </div>
                                     </td>
                                 </tr>
                             }
