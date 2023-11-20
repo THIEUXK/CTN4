@@ -147,14 +147,14 @@
                             </div>
                             <div class="form-container">
                             <div class="form-group">
-                                <label asp-for="NgayBatDau" class="control-label">Ngày bắt đầu</label>
-                                <input asp-for="NgayBatDau" class="form-control" pattern="\d*" oninput="validateNumber(this);" readonly />
+                                <label asp-for="NgayBatDau"  class="control-label">Ngày bắt đầu</label>
+                        <input asp-for="NgayBatDau" id="NgayBatDau" class="form-control" pattern="\d*" oninput="validateNumber(this);" readonly />
                                 <span asp-validation-for="NgayBatDau" class="text-danger"></span>
                             </div>
 
                             <div class="form-group">
                                 <label asp-for="NgayKetThuc" class="control-label">Ngày kết thúc</label>
-                                <input asp-for="NgayKetThuc" class="form-control" readonly />
+                        <input asp-for="NgayKetThuc" id="NgayKetThuc" class="form-control" readonly />
                                 <span asp-validation-for="NgayKetThuc" class="text-danger"></span>
                             </div>
                             </div>
@@ -530,6 +530,16 @@
         var giamTheoTien = parseFloat($("#SoTienGiam").val());
         var giamTheoPh = parseFloat($("#PhanTramGiamGia").val());
         var DongGia = parseFloat($("#DongGia").val());
+            // Lấy giá trị từ input datetime
+            var NgayBatDau = $("#NgayBatDau").val();
+
+            // Ngày được biểu diễn dưới dạng chuỗi, bạn có thể chuyển đổi nó thành kiểu Date nếu cần
+            var ngayBatDauDate = new Date(NgayBatDau);
+            // Lấy giá trị từ input datetime
+            var NgayKetThuc = $("#NgayKetThuc").val();
+
+            // Ngày được biểu diễn dưới dạng chuỗi, bạn có thể chuyển đổi nó thành kiểu Date nếu cần
+            var ngayKetThucDate = new Date(NgayKetThuc);
         // Lấy giá trị của các trường dữ liệu từ form hoặc từ các phần tử HTML khác
         var ids = selectedMaSps // Mảng chứa các giá trị của Ids      
 
@@ -542,7 +552,9 @@
             ids: ids,
             giamTheoTien: giamTheoTien,
             giamTheoPh: giamTheoPh,
-            DongGia: DongGia
+            DongGia: DongGia,
+            ngayBatDauDate: ngayBatDauDate,
+           ngayKetThucDate: ngayKetThucDate
         };
 
         console.log(data);

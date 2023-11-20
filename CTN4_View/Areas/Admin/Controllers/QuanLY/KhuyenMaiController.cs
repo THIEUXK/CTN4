@@ -260,7 +260,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
 
         [HttpPost]
         public ActionResult UpdateGiaSanPham( string id,string[] ids, float giamTheoTien, float giamTheoPh, string tenSanPham, string maSp, string tenChatLieu,
-            string tenNSX, string moTa, float giaNhap, float giaBan, float giaNiemYet, string ghiChu, float DongGia)
+            string tenNSX, string moTa, float giaNhap, float giaBan, float giaNiemYet, string ghiChu, float DongGia, DateTime ngayBatDauDate,DateTime ngayKetThucDate)
         {
             TempData["ErrorMessage"] = "Thông báo lỗi của bạn ở đây.";
             foreach (var item in ids)
