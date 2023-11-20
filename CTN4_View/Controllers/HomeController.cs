@@ -1,3 +1,19 @@
+using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
+using CTN4_Serv.Service.IService;
+using CTN4_View.Models;
+using CTN4_Data.Models.DB_CTN4;
+using CTN4_Serv.Service;
+using CTN4_Serv.ServiceJoin;
+using CTN4_Ser.ViewModel;
+using Microsoft.AspNetCore.Authorization;
+using CTN4_Serv.ViewModel;
+using NuGet.Common;
+using CTN4_Serv.Service.Service;
+using Newtonsoft.Json;
+using System.Net.Http;
+using System.Text.RegularExpressions;
+using CTN4_Data.DB_Context;
 
     public class HomeController : Controller
     {
@@ -492,4 +508,3 @@
 
     }
 
-}
