@@ -58,15 +58,18 @@
 
 <input id="Idkm" type="hidden" value="@Model.Id"/>
 
+
         <div class="row" style="margin-top: 100px">
-            <div class="col-md-9">
+        
                 <br />
                 <h1>Thên sản phẩm vào Khuyễn Mãi</h1>
                 <hr />
 
                 <div class="row">
-                    <div class="col-md-9">
+                    <div class="col-md-6">
+
                         <form asp-action="Edit">
+                          
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="form-container">
                             <div class="form-group">
@@ -142,8 +145,11 @@
                             </div>
                         </form>
                     </div>
+                    <div class="col-md-6">
+                        <div id="kmsp" >
+                    </div>
                 </div>
-            </div>
+          
         </div>
         <div id="images"></div>
 <button id="updateGiaButton" class="btn btn-primary">Cập nhật Giá Sản Phẩm</button>
@@ -155,7 +161,7 @@
                 <!-- Nội dung của productSelect -->
             </div>
         </div>
-
+  
       <div class="col-md-3">
             
             <input id="searchproduct" placeholder="Tìm kiếm" class="form-control" />
@@ -198,7 +204,7 @@
             $(document).ready(function () {
                 Data(); // Populate initial data for select
                 fetchDataFromIndexAction(); // Initial fetch
-               
+                kmsp();
                 $('#productSelect').on('change', function () {
                     var selectedName = $('#searchSelect').val();
                   
@@ -211,7 +217,47 @@
             searchFull(search); // Trigger search with the selected value
         });
             });
-         
+
+
+        function kmsp() {
+            $.ajax({
+                url: '/admin/KhuyenMai/SpKM',
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    displayProducts(data);
+                    console.log(data);
+                },
+                error: function (error) {
+                    console.log("Đã xảy ra lỗi: ", error);
+                }
+            });
+        }
+
+        function displayProducts(data) {
+            var kmspHTML = "<div class='form-container'>";
+            kmspHTML += "<table class='table'>";
+            kmspHTML += "<tr><th>Tên Sản Phẩm</th><th>Ảnh Đại diện</th></tr>";
+
+            if (data && data.length > 0) {
+                kmspHTML += data.map(item =>
+                    `<tr>
+                        <td>${item.tenSanPham}</td>
+                        <td><img src='/image/${item.anhDaiDien}' height='100' alt='Product Image'></td>
+                        <td><input type="hidden" class="id-sp-button" data-id-sp='${item.id ? item.id : ""}'/></td>
+                    </tr>`
+                ).join('');
+            } else {
+                kmspHTML += "<tr><td colspan='2'>No matching products found</td></tr>";
+            }
+
+            kmspHTML += "</table>";
+            kmspHTML += "</div>";
+
+            // Assuming 'kmsp' is a div or other container where you want to display the table
+            $('#kmsp').html(kmspHTML);
+        }
+
 
             function validateNumber(input) {
                 // Xóa bất kỳ ký tự không phải số
@@ -260,30 +306,33 @@
                     mspSelect += "</select>";
             productSelect.innerHTML = mspSelect;
         }
-            function updateProductList(data) {
-                var productListHTML = "<table class='table'>";
+    
+
+    function updateProductList(data) {
+        var productListHTML = "<table class='table'>";
         productListHTML += "<tr><th>Mã Sp</th><th>Danh Mục</th><th>Tên Sản Phẩm</th><th>Giá Nhập</th><th>Giá bán</th><th>Giá Niêm yết</th><th>Ảnh Đại diện</th><th>CheckBox</th></tr>";
 
-                if (data.length > 0) {
-                    productListHTML += data.map(item =>
-                        `<tr>
-                             <td>${item.maSp}</td>
-                                          <td>${item.tenDanhMuc}</td>
-                             <td>${item.tenSanPham}</td>
-                            <td>${formatCurrency(item.giaNhap)}đ</td>
-                            <td>${formatCurrency(item.giaBan)}đ</td>
-                            <td>${formatCurrency(item.giaNiemYet)}đ</td>
-                            <td><img src='/image/${item.anhDaiDien}' height='100' alt='Product Image'></td>
-                            <td><input type="checkbox" class="id-sp-button" data-id-sp='${item.id ? item.id : ""}'/></td>
-                        </tr>`
-                    ).join('');
-                } else {
-                    productListHTML += "<tr><td colspan='6'>No matching products found</td></tr>";
-                }
+        if (data.length > 0) {
+            productListHTML += data.map(item =>
+                `<tr>
+                     <td>${item.maSp}</td>
+                     <td>${item.tenDanhMuc}</td>
+                     <td>${item.tenSanPham}</td>
+                     <td>${formatCurrency(item.giaNhap)}đ</td>
+                     <td>${formatCurrency(item.giaBan)}đ</td>
+                     <td>${formatCurrency(item.giaNiemYet)}đ</td>
+                     <td><img src='/image/${item.anhDaiDien}' height='100' alt='Product Image'></td>
+                     <td><input type="checkbox" class="id-sp-button" data-id-sp='${item.id ? item.id : ""}'/></td>
+                   
+                 </tr>`
+            ).join('');
+        } else {
+            productListHTML += "<tr><td colspan='7'>Không tìm thấy sản phẩm phù hợp</td></tr>";
+        }
 
-                productListHTML += "</table>";
-                productList.innerHTML = productListHTML;
-            }
+        productListHTML += "</table>";
+        productList.innerHTML = productListHTML;
+    }
 
             // Hàm định dạng số với dấu chấm ngăn cách hàng nghìn
             function formatCurrency(number) {
@@ -328,6 +377,7 @@
                                         <td>${formatCurrency(item.giaNiemYet)}đ</td>
                                         <td><img src='/image/${item.anhDaiDien}' height='100' alt='Product Image'></td>
                                         <td><input type="checkbox" class="id-sp-button" data-id-sp='${item.id ? item.id : ""}'/></td>
+                                             
                                     </tr>`
                             ).join('');
                         } else {
@@ -363,6 +413,7 @@
                                             <td>${formatCurrency(item.giaNiemYet)}đ</td>
                                             <td><img src='/image/${item.anhDaiDien}' height='100' alt='Product Image'></td>
                                             <td><input type="checkbox" class="id-sp-button" data-id-sp='${item.id ? item.id : ""}'/></td>
+                                                 
                                         </tr>`
                     ).join('');
                 } else {
@@ -445,15 +496,18 @@
 
         // Tạo đối tượng dữ liệu để gửi lên server
         var data = {
+            id: "@Model.Id",
             ids: ids,
             giamTheoTien: giamTheoTien,
             giamTheoPh: giamTheoPh,
-            DongGia :DongGia
+            DongGia: DongGia
         };
+
         console.log(data);
+
         // Gọi AJAX
         $.ajax({
-            url: '/admin/KhuyenMai/UpdateGiaSanPham', // Thay thế ControllerName bằng tên thật của controller
+            url: '/admin/KhuyenMai/UpdateGiaSanPham',
             type: 'POST',
             data: data,
             success: function (response) {
@@ -467,6 +521,7 @@
                 // TODO: Xử lý lỗi
             }
         });
+
     }
 
     function huyApDungKhuyenMai() {
