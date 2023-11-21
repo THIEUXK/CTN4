@@ -1,6 +1,60 @@
 ﻿$(document).ready(function () {
 
-    $(document).on('click','.btnXuatEx',function () {
+    $(document).on('click', '.btnXuatEx2', function () {
+        var arrcheck = [];
+        //loadTotal()
+        // Get all checkboxes with class form-check-input that are checked
+        var checkedCheckboxes = $(".form-check-input:checked");
+        checkedCheckboxes.each(function () {
+            arrcheck.push(parseInt($(this).val()));
+        })
+        var obj = {
+            IdHD: arrcheck
+        }
+        //if (checkedCheckboxes.length != 0) {
+        console.log(JSON.stringify({ listId: arrcheck }));
+        $.ajax({
+            url: '/QuanLyHd/XuatEx2',
+            type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json;charset=utf-8',
+            data: JSON.stringify(obj),
+            success: function (result) {
+
+
+                if (result.length !== 0) {
+                    var files = [];
+                    $.each(result, function (key, val) {
+                        //debugger
+                        //console.log(val);
+                        files.push("/ex/" + val);
+                    });
+                    for (var ii = 0; ii < files.length; ii++) {
+                        debugger
+                        downloadURL(files[ii]);
+                    }
+                    /*location.href = files[];*/
+                }
+            }
+        })
+        //}
+        //    else {
+
+        //    location.reload();
+        //    }
+    });
+ 
+    var count = 0;
+    var downloadURL = function downloadURL(url) {
+        var hiddenIFrameID = 'hiddenDownloader' + count++;
+        var iframe = document.createElement('iframe');
+        iframe.id = hiddenIFrameID;
+        iframe.style.display = 'none';
+        document.body.appendChild(iframe);
+        iframe.src = url;
+    }
+
+    $(document).on('click', '.btnXuatEx', function () {
         //loadTotal()
         var IdHD = this.value;
         if (IdHD != null) {
