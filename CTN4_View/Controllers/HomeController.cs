@@ -14,7 +14,10 @@ using Newtonsoft.Json;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using CTN4_Data.DB_Context;
+using DocumentFormat.OpenXml.Spreadsheet;
 
+namespace CTN4_View.Controllers
+{
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -32,8 +35,9 @@ using CTN4_Data.DB_Context;
         private readonly IGiamGiaService _giamgiact;
         private readonly DB_CTN4_ok _CTN4_Ok;
         private readonly IDanhMucChiTietService _danhMucChiTietService;
-
+        private readonly IEmailService _EmailService;
         public IKhachHangService _KHangService;
+
         //public HomeController()
         //{
         //    _phamChiTietService = new SanPhamChiTietService();
@@ -41,7 +45,7 @@ using CTN4_Data.DB_Context;
         //}
 
 
-        public HomeController(ILogger<HomeController> logger, IConfiguration config, ITokenService tokenService, ILoginService userRepository, ICurrentUser curent, IKhachHangService khachhang, ISanPhamService sanpham, IHttpClientFactory httpClientFactory, IDiaChiNhanHangService diachi, IGiamGiaService giamgia)
+        public HomeController(ILogger<HomeController> logger, IConfiguration config, ITokenService tokenService, ILoginService userRepository, ICurrentUser curent, IKhachHangService khachhang, ISanPhamService sanpham, IHttpClientFactory httpClientFactory, IDiaChiNhanHangService diachi, IGiamGiaService giamgia, IEmailService emailService)
 
         {
             _spService = sanpham;
@@ -59,6 +63,7 @@ using CTN4_Data.DB_Context;
             _giamgiact = giamgia;
             _CTN4_Ok = new DB_CTN4_ok();
             _danhMucChiTietService = new DanhMucChiTietMucChiTietService();
+            _EmailService = emailService;
         }
 
         public IActionResult Index()
@@ -505,6 +510,32 @@ using CTN4_Data.DB_Context;
 
         //    return View();
         //}
+       
+       
+
+          public ActionResult QuenMk() 
+        {
+            return View();
+                }
+        [HttpPost]
+        public async Task<IActionResult> QuenMks(MailRequest mailRequest) {
+            var a = _khachHangService.GetAll().FirstOrDefault(c => c.TenDangNhap == mailRequest.Tendangnhap);
+            var checkmail = _khachHangService.GetAll().FirstOrDefault(c => c.Email == mailRequest.ToEmail);
+            if (a == null)
+            {
+                return View();
+            }
+            if (checkmail == null)
+            {
+                return View();
+            }
+            mailRequest.Subject = "Lấy Lại Mật Khẩu, \"https://localhost:7174/\"";
+            mailRequest.Body = a.MatKhau;
+            var email = _EmailService.SendEmailAsync(mailRequest);
+            return RedirectToAction(nameof(Index));
+        }
+        }
 
     }
+
 
