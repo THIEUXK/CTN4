@@ -11,6 +11,7 @@ using X.PagedList.Mvc.Core;
 using CTN4_Data.DB_Context;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Drawing.Printing;
+using CTN4_View.Controllers.Shop.ViewModelThieuxk;
 using DocumentFormat.OpenXml.Office2010.Excel;
 using CTN4_View_Admin.Controllers.Shop;
 
@@ -60,6 +61,8 @@ namespace CTN4_View.Controllers.Shop
         }
         public IActionResult HienThiSanPham(int page, int Soluonghienthi)
         {
+            var LuuTam2 = SessionBan.ChatLieuSS(HttpContext.Session, "ChatLieuTam");
+            LuuTam2.Clear();
             var LuuTam = SessionBan.DanhMucSS(HttpContext.Session, "DanhMucTam");
             LuuTam.Clear();
             if (Soluonghienthi == 0) { Soluonghienthi = 6; }
@@ -90,6 +93,56 @@ namespace CTN4_View.Controllers.Shop
 
             };
             return View(view);
+        }
+        public IActionResult HienThiSanPham2(int page, int Soluonghienthi)
+        {
+            var LuuTam = SessionBan.ChatLieuSS(HttpContext.Session, "ChatLieuTam");
+            var a = new List<Guid>();
+            foreach (var i in LuuTam)
+            {
+                a.Add(i.Id);
+            }
+            var searchTenSp = _sanphamService.GetAll().Where(c=> a.Contains((Guid)c.IdChatLieu)).ToList();
+
+            if (searchTenSp.Count != 0)
+            {
+                if (Soluonghienthi == 0) { Soluonghienthi = 6; }
+                if (page == 0) { page = 1; }
+                var danhMuc = _danhMucService.GetAll();
+                var danhMucChiTiets = _danhMucChiTiet.GetAll();
+                var SpYt = _chiTietSanPhamYeuThichService.GetAll();
+                var listSp = _sanPhamCuaHangService.GetAll().Where(c => c.Is_detele == true && a.Contains((Guid)c.IdChatLieu)).ToList();
+                var khachhang = _khachHangService.GetAll();
+                var chatLieus = _chatLieuService.GetAll();
+                var view = new HienThiSanPhamView()
+                {
+                    danhMucs = danhMuc,
+                    danhMucChiTiets = danhMucChiTiets,
+                    sanPhams = listSp,
+                    // maus = mauSacs,
+                    chatLieus = chatLieus,
+                    //sanPhamChiTiets = listSpct,
+                    sanphampaging = listSp.Skip((page - 1) * Soluonghienthi).Take(Soluonghienthi).ToList(),
+                    pagingInfo = new PagingInfo()
+                    {
+                        TotalItems = listSp.Count(),
+                        CurrentPage = page,
+                        ItemsPerPage = Soluonghienthi,
+
+                    },
+                    soluonghienthi = Soluonghienthi,
+                    sanPhamYeuThiches = SpYt,
+                    khachHangs = khachhang,
+                };
+                return View("HienThiSanPham", view);
+            }
+            else
+            {
+
+                var thongbaoSearch = "Không tìm thất sản phẩm nào ";
+                TempData["Notification"] = thongbaoSearch;
+                return RedirectToAction("viewSpRong", new { thongbaoSearch });
+            }
         }
         public IActionResult HienThiSanPhamChiTiet(Guid id)
         {
@@ -306,6 +359,39 @@ namespace CTN4_View.Controllers.Shop
 
 
         }
+
+        [HttpPost("/XxemSanPham/layIDchatlieu")]
+        public JsonResult LayChatLieu(Guid chatLieuId)
+        {
+            var danhMucLuu = _chatLieuService.GetById(chatLieuId);
+            var LuuTam = SessionBan.ChatLieuSS(HttpContext.Session, "ChatLieuTam");
+
+            if (LuuTam.FirstOrDefault(c=>c.Id==chatLieuId)==null)
+            {
+                LuuTam.Add(danhMucLuu);
+                SessionBan.SetObjToJson(HttpContext.Session, "ChatLieuTam", LuuTam);
+            }
+            return Json(new System.Text.Json.JsonSerializerOptions());
+        }
+        [HttpPost("/XxemSanPham/boIDchatlieu")]
+        public JsonResult BoChatLieu(Guid chatLieuId)
+        {
+            var danhMucLuu = _chatLieuService.GetById(chatLieuId);
+            var LuuTam = SessionBan.ChatLieuSS(HttpContext.Session, "ChatLieuTam");
+            if (LuuTam.FirstOrDefault(c => c.Id == chatLieuId) != null)
+            {
+                for (int i = 0; i < LuuTam.Count; i++)
+                {
+                    if (LuuTam.FirstOrDefault(c => c.Id == chatLieuId) != null)
+                    {
+                        LuuTam.RemoveAt(i);
+                    }
+                }
+                SessionBan.SetObjToJson(HttpContext.Session, "ChatLieuTam", LuuTam);
+            }
+            return Json(new System.Text.Json.JsonSerializerOptions());
+        }
+
 
 
     }
