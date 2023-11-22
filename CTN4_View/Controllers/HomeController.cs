@@ -14,7 +14,10 @@ using Newtonsoft.Json;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using CTN4_Data.DB_Context;
+using DocumentFormat.OpenXml.Spreadsheet;
 
+namespace CTN4_View.Controllers
+{
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -32,8 +35,9 @@ using CTN4_Data.DB_Context;
         private readonly IGiamGiaService _giamgiact;
         private readonly DB_CTN4_ok _CTN4_Ok;
         private readonly IDanhMucChiTietService _danhMucChiTietService;
-
+        private readonly IEmailService _EmailService;
         public IKhachHangService _KHangService;
+
         //public HomeController()
         //{
         //    _phamChiTietService = new SanPhamChiTietService();
@@ -41,7 +45,7 @@ using CTN4_Data.DB_Context;
         //}
 
 
-        public HomeController(ILogger<HomeController> logger, IConfiguration config, ITokenService tokenService, ILoginService userRepository, ICurrentUser curent, IKhachHangService khachhang, ISanPhamService sanpham, IHttpClientFactory httpClientFactory, IDiaChiNhanHangService diachi, IGiamGiaService giamgia)
+        public HomeController(ILogger<HomeController> logger, IConfiguration config, ITokenService tokenService, ILoginService userRepository, ICurrentUser curent, IKhachHangService khachhang, ISanPhamService sanpham, IHttpClientFactory httpClientFactory, IDiaChiNhanHangService diachi, IGiamGiaService giamgia, IEmailService emailService)
 
         {
             _spService = sanpham;
@@ -59,6 +63,7 @@ using CTN4_Data.DB_Context;
             _giamgiact = giamgia;
             _CTN4_Ok = new DB_CTN4_ok();
             _danhMucChiTietService = new DanhMucChiTietMucChiTietService();
+            _EmailService = emailService;
         }
 
         public IActionResult Index()
@@ -505,6 +510,45 @@ using CTN4_Data.DB_Context;
 
         //    return View();
         //}
+       
+       public ActionResult SuccessPass()
+        {
+            return View();
+        }
+
+          public ActionResult QuenMk() 
+        {
+            return View();
+                }
+        [HttpPost]
+        public async Task<IActionResult> QuenMks(MailRequest mailRequest)
+        {
+            var khachHang = _khachHangService.GetAll().FirstOrDefault(c => c.TenDangNhap == mailRequest.Tendangnhap);
+            var checkmail = _khachHangService.GetAll().FirstOrDefault(c => c.Email == mailRequest.ToEmail);
+
+           
+                if (string.IsNullOrEmpty(mailRequest.ToEmail))
+                {
+                    ViewBag.Message = "Không được để trống";
+
+                    return View("QuenMk",mailRequest);
+                }
+            if (khachHang == null || checkmail == null)
+            {
+                ViewBag.Message = "Tên đăng nhập hoặc email không đúng";
+                return View("QuenMk", mailRequest);
+            }
+
+
+            mailRequest.Subject = "Mật khẩu đăng nhập của wed bán túi poro của bạn là:";
+            mailRequest.Body = $"Mật khẩu là: {khachHang.MatKhau}";
+
+            await _EmailService.SendEmailAsync(mailRequest);
+
+            return RedirectToAction(nameof(SuccessPass)); 
+        }
+    }
 
     }
+
 

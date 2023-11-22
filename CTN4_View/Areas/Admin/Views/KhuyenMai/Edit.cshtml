@@ -535,11 +535,13 @@
 
             // Ngày được biểu diễn dưới dạng chuỗi, bạn có thể chuyển đổi nó thành kiểu Date nếu cần
             var ngayBatDauDate = new Date(NgayBatDau);
+            ngayBatDauDate = ngayBatDauDate.toISOString();
             // Lấy giá trị từ input datetime
             var NgayKetThuc = $("#NgayKetThuc").val();
 
             // Ngày được biểu diễn dưới dạng chuỗi, bạn có thể chuyển đổi nó thành kiểu Date nếu cần
             var ngayKetThucDate = new Date(NgayKetThuc);
+            ngayKetThucDate = ngayKetThucDate.toISOString();
         // Lấy giá trị của các trường dữ liệu từ form hoặc từ các phần tử HTML khác
         var ids = selectedMaSps // Mảng chứa các giá trị của Ids      
 
@@ -556,7 +558,7 @@
             ngayBatDauDate: ngayBatDauDate,
            ngayKetThucDate: ngayKetThucDate
         };
-
+        console.log(ngayKetThucDate);
         console.log(data);
 
         // Gọi AJAX
