@@ -5,7 +5,7 @@
 }
 <body>
     <div class="container-fluid">
-        <div class="card w-100">
+       @* <div class="card w-100">
 
             <div class="card-body p-4">
 
@@ -129,7 +129,7 @@
                 </div>
 
             </div>
-        </div>
+        </div>*@
         <div class="card w-100">
             <div class="card-body p-4">
                 @if (TempData["ErrorMessage3"] != null)
@@ -142,10 +142,9 @@
                     {
                         <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
                     }
-                    else
-                    {
-                        <div class="alert alert-primary">@TempData["ErrorMessage1"]</div>
-                    }
+                    
+                        <div class="alert alert-success">@TempData["ErrorMessage1"]</div>
+                    
                 }
                 <div class="table-responsive">
 
@@ -203,11 +202,6 @@
                                     <td class="border-bottom-0">
                                         <div>
                                             <b><span class="btn btn-primary">@Html.ActionLink("Thêm sản phẩm bán chạy", "themsanpham", new { tensp = a.TenSp }, new { style = "color: white;" })</span></b>
-                                        </div>
-                                    </td>
-                                    <td class="border-bottom-0">
-                                        <div>
-                                            <b><span class="btn btn-primary">@Html.ActionLink("Bỏ", "Delete", new { tensp = a.TenSp }, new { style = "color: white;" })</span></b>
                                         </div>
                                     </td>
                                 </tr>

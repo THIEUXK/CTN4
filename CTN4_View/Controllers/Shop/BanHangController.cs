@@ -559,7 +559,7 @@ namespace CTN4_View.Controllers.Shop
                         LuuTam.Add(alTam);
                         SessionBan.SetObjToJson(HttpContext.Session, "ACD", LuuTam);
                     }
-                    else if (accnew.Count != 0)
+                    else if (LuuTam.Count != 0)
                     {
                         LuuTam.Clear();
                         LuuTam.Add(alTam);

@@ -1,22 +1,19 @@
 ﻿@model CTN4_Serv.ViewModel.HienThiSanPhamView;
+@using Microsoft.AspNetCore.Mvc.Rendering
 <!-- End Header Area -->
 <!-- Start Banner Area -->
-<section class="banner-area organic-breadcrumb">
-    <div class="container">
-        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
-            <div class="col-first">
-                <h1>Shop Category page</h1>
-                <nav class="d-flex align-items-center">
-                    <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
-                    <a href="#">Shop<span class="lnr lnr-arrow-right"></span></a>
-                    <a href="category.html">Fashon Category</a>
-                </nav>
-            </div>
-        </div>
-    </div>
-</section>
+
+<br></br>
+<br></br>
+<br></br>
 <!-- End Banner Area -->
 <div class="container">
+    <form asp-action="Search" method="get" class="search-bar">
+        <input type="text" name="TenSp" class="search-input" placeholder="Nhập tên sản phẩm" />
+        <button class="search-button">
+            <a class="lnr lnr-magnifier" style="width: 25px; height: 25px;"></a>
+        </button>
+    </form>
     <div class="row">
         <div class="col-xl-3 col-lg-4 col-md-5">
             <div class="sidebar-categories">
@@ -96,11 +93,18 @@
             <!-- Start Filter Bar -->
             <div class="filter-bar d-flex flex-wrap align-items-center">
                 <div class="sorting">
-                    <select>
-                        <option value="1">Default sorting</option>
-                        <option value="1">Default sorting</option>
-                        <option value="1">Default sorting</option>
-                    </select>
+                    <form asp-action="ChonShowSp" class="page-form">
+                        <select onchange="this.form.submit()" name="Soluonghienthi">
+                            @if (Model.soluonghienthi != null)
+                            {
+                                <option>Đang xem @Model.soluonghienthi</option>
+                            }
+                            <option value="10"> 10</option>
+                            <option value="15"> 15</option>
+                            <option value="15"> 20</option>
+                            <option value="50"> 50</option>
+                        </select>
+                    </form>
                 </div>
                 <div class="sorting mr-auto">
                     <select>
@@ -124,7 +128,7 @@
             <section class="lattest-product-area pb-40 category-list">
                 <div class="row">
 
-                    @foreach (var sp in Model.danhMucChiTiet2)
+                    @foreach (var sp in Model.sanphampaging1)
                     {
                         <!-- single product -->
                         {
@@ -137,7 +141,7 @@
                                    System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".webp" ||
                                    System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".gif")
                                     {
-                                        <a href="@Url.Action("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = sp.Id })">
+                                        <a href="@Url.Action("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = sp.IdSanPham })">
                                             <img src="~/image/@sp.SanPham.AnhDaiDien" height="300" alt="@sp.SanPham.TenSanPham" />
                                         </a>
 
@@ -148,7 +152,7 @@
                                     }
                                     <div class="product-details">
                                         <h6>
-                                            <a href="@Url.Action("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = sp.Id })" style="color: (internal value);">
+                                            <a href="@Url.Action("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = sp.IdSanPham })" style="color: (internal value);">
                                                 @sp.SanPham.TenSanPham
                                             </a>
                                         </h6>
@@ -186,7 +190,7 @@
                                                 <form asp-controller="SanPhamYeuThich" asp-action="ThemYeuThich">
                                                     <input type="hidden" name="IdSanPham" value="@sp.SanPham.Id">
                                                     <a onclick="onsubmit" class="social-info">
-                                                        <span class="lnr lnr-heart"><button onclick="onsubmit" >  </button></span>
+                                                        <span class="lnr lnr-heart"><button onclick="onsubmit">  </button></span>
 
                                                         <p type="button" onclick="onsubmit" class="hover-text">Yêu thích</p>
                                                     </a>
@@ -208,13 +212,19 @@
                             </div>
                         }
                     }
+                   
+                    @{
+                        <!-- Hiển thị PartialView khi không có sản phẩm -->
+                      
+                        Html.RenderPartial("_ThongBaoPartial");
+                    }
                 </div>
             </section>
             <!-- End Best Seller -->
             <!-- Start Filter Bar -->
             <div class="filter-bar d-flex flex-wrap align-items-center">
                 <div class="sorting mr-auto">
-                    <form asp-controller="HienThiSanPham" asp-action="ChonShowSp" class="page-form">
+                    <form asp-action="ChonShowSp" class="page-form">
                         <select onchange="this.form.submit()" name="Soluonghienthi">
                             @if (Model.soluonghienthi != null)
                             {
@@ -228,14 +238,17 @@
                     </form>
                 </div>
                 <div class="pagination">
+                    
                     @for (int i = 1; i <= Model.pagingInfo.TotalPages; i++)
                     {
-
-                        <form asp-controller="HienThiSanPham" asp-action="HienThiSanPham" a class="page-form">
+                        <form asp-action="SanPhamDanhMuc" asp-route-page="@i" asp-route-Soluonghienthi="@Model.soluonghienthi" method="get" class="page-form">
                             <input name="soluonghienthi" value="@Model.soluonghienthi" type="hidden" />
-                            <button type="submit" class="page-button" data-page="@i"><input style="border: none;" type="submit" name="page" value="@i" /></button>
+                            <button type="submit" class="page-button @(i == Model.pagingInfo.CurrentPage ? "active" : "")" data-page="@i">
+                                <input style="border: none; outline: none; text-decoration: none; @(i == Model.pagingInfo.CurrentPage ? "background: linear-gradient(90deg, #ffba00 0%, #ff6c00 100%); color: #ffffff;" : "")" type="submit" name="page" value="@i" />
+                            </button>
                         </form>
                     }
+
                 </div>
             </div>
             <!-- End Filter Bar -->
@@ -382,6 +395,12 @@
 </section>
 <!-- End related-product Area -->
 <style>
+    .page-button.active {
+        background: linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);
+        color: #ffffff; /* Màu chữ nổi bật */
+        /* Các kiểu CSS khác cho nút nổi bật */
+    }
+
     .lnr-heart {
         display: inline-block;
         position: relative;
@@ -446,8 +465,7 @@
             width: 16px;
             height: 16px;
         }
-</style>
-<style>
+
     .lnr-heart {
         display: inline-block;
         position: relative;
@@ -524,7 +542,7 @@
 </script>
 @section scrrip{
     <script>
-                                    var priceSlider = $("#slider-range").slider({
+                                            var priceSlider = $("#slider-range").slider({
             Range: true,
             min: 0,
             max: 100000000000,

@@ -11,6 +11,8 @@ using X.PagedList.Mvc.Core;
 using CTN4_Data.DB_Context;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Drawing.Printing;
+using DocumentFormat.OpenXml.Office2010.Excel;
+using CTN4_View_Admin.Controllers.Shop;
 
 namespace CTN4_View.Controllers.Shop
 {
@@ -58,6 +60,8 @@ namespace CTN4_View.Controllers.Shop
         }
         public IActionResult HienThiSanPham(int page, int Soluonghienthi)
         {
+            var LuuTam = SessionBan.DanhMucSS(HttpContext.Session, "DanhMucTam");
+            LuuTam.Clear();
             if (Soluonghienthi == 0) { Soluonghienthi = 6; }
             if (page == 0) { page = 1; }
             var danhMuc = _danhMucService.GetAll();
@@ -230,10 +234,6 @@ namespace CTN4_View.Controllers.Shop
                 var listSp = _sanPhamCuaHangService.GetAll().Where(c => c.Is_detele == true && c.TenSanPham.ToLower().Contains(TenSp.ToLower())).ToList();
                 var khachhang = _khachHangService.GetAll();
                 var chatLieus = _chatLieuService.GetAll();
-                //var listSpct = _sanPhamChiTietService.GetAll();
-
-                //var Paging = _CTN4_Ok.SanPhamChiTiets.Include(c => c.ChatLieu).Include(c => c.NSX).Include(c => c.Mau).Include(c => c.Size).Include(c => c.SanPham).Skip((page - 1) * pageSize).Take(pageSize).ToList();
-
                 var view = new HienThiSanPhamView()
                 {
                     danhMucs = danhMuc,
@@ -286,9 +286,9 @@ namespace CTN4_View.Controllers.Shop
                 danhMucs = danhMuc,
                 danhMucChiTiets = danhMucChiTiets,
                 sanPhams = listSp,
-                // maus = mauSacs,
+
                 chatLieus = chatLieus,
-                //sanPhamChiTiets = listSpct,
+
                 sanphampaging = listSp.Skip((page - 1) * Soluonghienthi).Take(Soluonghienthi).ToList(),
                 pagingInfo = new PagingInfo()
                 {
@@ -306,7 +306,7 @@ namespace CTN4_View.Controllers.Shop
 
 
         }
-       
-       
+
+
     }
 }
