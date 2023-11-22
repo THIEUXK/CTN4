@@ -1,5 +1,6 @@
-﻿@model IEnumerable<CTN4_Data.Models.DB_CTN4.SanPham>
-
+﻿@*@model IEnumerable<CTN4_Data.Models.DB_CTN4.SanPham>*@
+@model X.PagedList.IPagedList<CTN4_Data.Models.DB_CTN4.SanPham>
+@using X.PagedList.Mvc.Core
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
@@ -48,7 +49,7 @@
       });
 </script>
 </br>
-<table class="table" >
+<table class="table">
     <thead>
         <tr>
             <th>
@@ -161,7 +162,50 @@
         }
     </tbody>
 </table>
+<div class="row no-gutters justify-content-between paginate">
+    <div class="col-auto ">
+       @* @using (Html.BeginForm("Index", "SanPham", FormMethod.Get))
+        {
+            <p>
+                Kích thước trang: @Html.DropDownList("size", (List<SelectListItem>)ViewBag.size, new { @onchange = "this.form.submit();" })
+            </p>
+        }*@
+    </div>
+    <div class="col-auto">
+        <div class="row no-gutters align-items-center">
+            <div class="col-auto mr-3">
+                <span style="color: rgb(128, 128, 128);">Tổng:<span id="id">@Model.Count()</span></span>
+            </div>
+            <div class="col">
+                <div class="pagination-container">
+                    <ul class="pagination">
+                        @if (Model.HasPreviousPage)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber - 1, size = ViewBag.currentSize })">Previous</a>
+                            </li>
+                        }
 
+                        @for (var i = 1; i <= Model.PageCount; i++)
+                        {
+                            <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                                <a class="page-link" href="@Url.Action("Index", new { page = i, size = ViewBag.currentSize })">@i</a>
+                            </li>
+                        }
+
+                        @if (Model.HasNextPage)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber + 1, size = ViewBag.currentSize })">Next</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                </div>
 <script>
     @functions {
         public string FormatCurrency(float price)
@@ -170,8 +214,8 @@
             return formattedPrice + "₫"; // Thêm ký hiệu đồng (₫) vào cuối
         }
     };
-   
-    });
+
+        });
 
 
 </script>

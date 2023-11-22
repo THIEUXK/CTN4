@@ -1,6 +1,7 @@
 ﻿using CTN4_Data.Models.DB_CTN4;
 using CTN4_Serv.Service;
 using CTN4_Serv.Service.IService;
+using CTN4_Serv.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CTN4_View_Admin.Controllers.QuanLY
@@ -9,10 +10,14 @@ namespace CTN4_View_Admin.Controllers.QuanLY
     public class DanhMucController : Controller
     {
         public IDanhMucService _sv;
+        public IDanhMucChiTietService _chiTietdmService;
+        public IAnhService _anhService;
 
         public DanhMucController()
         {
             _sv = new DanhMucMucService();  
+            _chiTietdmService= new DanhMucChiTietMucChiTietService(); 
+             _anhService = new AnhService();
         }
         // GET: PhanLoaiController
         [HttpGet]
@@ -25,8 +30,18 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         // GET: PhanLoaiController/Details/5
         public ActionResult Details(Guid id)
         {
+            var lisanh = _anhService.GetAll();
             var a = _sv.GetById(id);
-            return View(a);
+            var ListDmCt = _chiTietdmService.GetAll().Where(c => c.IdDanhMuc == id);
+
+            var view = new ThieuxkView()
+            {
+                DanhMuc = a,
+                danhMucChiTiets = ListDmCt.ToList(),
+                AhList = lisanh.ToList(),
+
+            };
+            return View(view);
         }
 
         // GET: PhanLoaiController/Create
