@@ -40,7 +40,7 @@
                                 if ((Model.danhMucChiTiets.Where(c => c.IdDanhMuc == sp.Id).Count()) >= 1)
                                 {
                                     <div style="display: flex; align-items: center;">
-                                        <a>@Html.ActionLink(sp.TenDanhMuc, "SanPhamDanhMuc","DanhMucSanPham", new { id = sp.Id })</a>
+                                        <a>@Html.ActionLink(sp.TenDanhMuc, "SanPhamDanhMuc", "DanhMucSanPham", new { id = sp.Id })</a>
                                         <span>(@(Model.danhMucChiTiets.Where(c => c.IdDanhMuc == sp.Id).Count()))</span>
                                     </div>
                                 }
@@ -61,7 +61,7 @@
                                 if ((Model.sanPhams.Where(c => c.IdChatLieu == chatLieu.Id).Count()) >= 1)
                                 {
                                     <li>
-                                        <input class="pixel-radio" type="checkbox" name="ChatLieu" id="ChatLieu-@chatLieu.Id" value="@chatLieu.TenChatLieu">
+                                        <input class="pixel-radio" type="checkbox" name="ChatLieu" value="@chatLieu.Id.ToString()">
                                         <label for="ChatLieu-@chatLieu.Id">
                                             @chatLieu.TenChatLieu <span>(@(Model.sanPhams.Where(c => c.IdChatLieu == chatLieu.Id).Count()))</span>
                                         </label>
@@ -93,9 +93,12 @@
                         </form>*@
                     </div>
                     <div>
-                        <button id="btnFillter" type="submit" class="btn btn-primary btn-block enter-btn fa fa-search">
-                            Filter
-                        </button>
+                        <form asp-controller="HienThiSanPham" asp-action="HienThiSanPham2">
+                            <button class="btn btn-primary btn-block enter-btn fa fa-search">
+                                Lọc
+                            </button>
+                        </form>
+                       
                     </div>
                 </div>
 
@@ -115,16 +118,16 @@
                     </div>
                 </div>
 
-              @*  <div class="form-group ml-3">
-                    <label for="tu" class="mr-2">Giá niêm yết từ</label>
-                    <input type="text" class="form-control" id="tu" name="tu" />
-                    <span class="mr-2">đến</span>
-                    <input type="text" class="form-control" id="den" name="den" />
+                @*  <div class="form-group ml-3">
+                <label for="tu" class="mr-2">Giá niêm yết từ</label>
+                <input type="text" class="form-control" id="tu" name="tu" />
+                <span class="mr-2">đến</span>
+                <input type="text" class="form-control" id="den" name="den" />
                 </div>
 
                 <div class="form-group ml-3">
-                    <div id="price-slider"></div>
-                    <button type="submit" class="btn btn-outline-secondary">Tìm kiếm</button>
+                <div id="price-slider"></div>
+                <button type="submit" class="btn btn-outline-secondary">Tìm kiếm</button>
                 </div>*@
             </div>
         </div>
@@ -183,7 +186,7 @@
                                     }
                                     <div class="product-details">
                                         <h6>
-                                            <a style="color: (internal value);"> @Html.ActionLink(sp.TenSanPham, "HienThiSanPhamChiTiet", new { id = sp.Id}) </a>
+                                            <a style="color: (internal value);"> @Html.ActionLink(sp.TenSanPham, "HienThiSanPhamChiTiet", new { id = sp.Id }) </a>
                                         </h6>
                                         <div class="price">
                                             @if (sp.GiaNiemYet == sp.GiaBan)
@@ -200,7 +203,7 @@
                                             <a href="@Url.Action("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = sp.Id })" class="social-info">
                                                 <span class="ti-bag"></span>
                                                 <p class="hover-text">Thêm sản phẩm</p>
-                                                @Html.ActionLink( "","HienThiSanPhamChiTiet", new { id = sp.Id})
+                                                @Html.ActionLink("", "HienThiSanPhamChiTiet", new { id = sp.Id })
                                             </a>
                                             @if (Model.sanPhamYeuThiches.FirstOrDefault(c => c.IdSanPham == sp.Id) != null)
                                             {
@@ -267,10 +270,10 @@
                     @*@for (int i = 1; i <= Model.pagingInfo.TotalPages; i++)
                     {
 
-                        <form asp-action="HienThiSanPham" class="page-form">
-                            <input name="soluonghienthi" value="@Model.soluonghienthi" type="hidden" />
-                            <button type="submit" class="page-button" data-page="@i"><input style="border: none;" type="submit" name="page" value="@i" /></button>
-                        </form>
+                    <form asp-action="HienThiSanPham" class="page-form">
+                    <input name="soluonghienthi" value="@Model.soluonghienthi" type="hidden" />
+                    <button type="submit" class="page-button" data-page="@i"><input style="border: none;" type="submit" name="page" value="@i" /></button>
+                    </form>
                     }*@
                     @for (int i = 1; i <= Model.pagingInfo.TotalPages; i++)
                     {
@@ -439,42 +442,11 @@
 
 </script>
 
-   @* @section scrrip{*@
-<script src="~/~/js/jquery-3.6.0.js"></script>
+                                 
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="~/js/b.js"></script>
 
-    @*<script>
-
-    $(document).ready(function () {
-        $('#btnFillter').click(function ()
-        {
-            var productId = "@product.ProductId";
-            var fileInput = $('#fThumb')[0];
-            var file = fileInput.files[0];
-            console.log(productId);
-            console.log(file);
-            var formData = new FormData();
-            formData.append('productId', productId);
-            formData.append('fThumb', file);
-
-            $.ajax({
-                url: '/HienThiSanPham/CheckBoxChatLieu',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function (result) {
-                    location.reload();
-                    console.log(result);
-                },
-                error: function (xhr, status, error) {
-                    console.log(error);
-                }
-            });
-        });
-    });
-    </script>*@
-
-    }
+                                }
 <script>
 
 
@@ -528,7 +500,7 @@
             $(this).submit();
         });
     });
-    /////////// loc giá 
+    /////////// loc giá
     $(function () {
         var tuInput = $("#tu");
         var denInput = $("#den");
@@ -622,8 +594,8 @@
             height: 16px;
         }
 </style>
-/////
-@*<script src="~/js/jquery-3.6.4.min.js"></script>
+                /////
+                                @*<script src="~/js/jquery-3.6.4.min.js"></script>
 <script src="~/js/ui-1.12.1.js"></script>
 <link rel="stylesheet" href="~/css/ui-1.12.1.css">
 *@
