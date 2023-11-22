@@ -7,6 +7,7 @@ using CTN4_Serv.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
+using X.PagedList;
 
 namespace CTN4_View_Admin.Controllers.QuanLY
 {
@@ -40,7 +41,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         }
         // GET: SanPhamController
         [HttpGet]
-        public ActionResult Index(string TenSp, float? tu, float? den)
+        public ActionResult Index(string TenSp, float? tu, float? den, int? page, int? size)
         {
             var sanPhamList = _sanPhamCuaHangService.GetAll();
 
@@ -58,7 +59,46 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                     .ToList();
             }
 
-            return View(sanPhamList);
+            // Thêm phần phân trang vào đây
+            int pageSize = size ?? 5;
+            var pageNumber = page ?? 1;
+            var pagedList = sanPhamList.ToPagedList(pageNumber, pageSize);
+
+            // Tạo danh sách dropdown kích thước trang
+            var pageSizeOptions = new List<SelectListItem>
+    {
+        new SelectListItem { Text = "5", Value = "5" },
+        new SelectListItem { Text = "10", Value = "10" },
+        new SelectListItem { Text = "20", Value = "20" },
+        new SelectListItem { Text = "25", Value = "25" },
+        new SelectListItem { Text = "50", Value = "50" }
+    };
+
+            ViewBag.SizeOptions = new SelectList(pageSizeOptions, "Value", "Text", size);
+
+            ViewBag.CurrentSize = size ?? 5; // Kích thước trang mặc định
+
+            return View(pagedList);
+
+
+
+
+            //var sanPhamList = _sanPhamCuaHangService.GetAll();
+            //if (!string.IsNullOrEmpty(TenSp))
+            //{
+            //    sanPhamList = sanPhamList
+            //        .Where(c => c.TenSanPham.ToLower().Contains(TenSp.ToLower()))
+            //        .ToList();
+            //}
+
+            //if (tu != null && den != null)
+            //{
+            //    sanPhamList = sanPhamList
+            //        .Where(c => (tu == null || c.GiaNiemYet >= tu) && (den == null || c.GiaNiemYet <= den))
+            //        .ToList();
+            //}
+
+            ////return View(sanPhamList);
 
         }
 

@@ -1,5 +1,5 @@
-﻿@model CTN4_Data.Models.DB_CTN4.KhachHang
-
+﻿@using Microsoft.AspNetCore.Mvc.Rendering
+@model CTN4_Data.Models.DB_CTN4.KhachHang;
 @{
     ViewData["Title"] = "Thông Tin Khách Hàng";
 }
@@ -26,7 +26,7 @@
 
         <dt class="col-sm-2">Tên:</dt>
         <dd class="col-sm-10">@Html.DisplayFor(model => model.Ten)</dd>
-        
+
         <dt class="col-sm-2">Ảnh Đại Diện:</dt>
         <dd class="col-sm-10">
             @if (System.IO.Path.GetExtension(Model.AnhDaiDien) == ".jpg" ||
@@ -43,7 +43,7 @@
                 <a>ảnh lỗi</a>
             }
         </dd>
-        
+
 
         <dt class="col-sm-2">Giới Tính:</dt>
         <dd class="col-sm-10">@Html.DisplayFor(model => model.GioiTinh)</dd>
@@ -56,6 +56,8 @@
 
         <dt class="col-sm-2">Địa Chỉ:</dt>
         <dd class="col-sm-10">@Html.DisplayFor(model => model.DiaChi)</dd>
+        <dd class="col-sm-10">
+        </dd>
         <form asp-action="AddAnhDaiDien" method="post" enctype="multipart/form-data">
             <div class="m-b-15">
                 <input type="hidden" name="IdKh" value="@Model.Id" />
@@ -67,7 +69,7 @@
             </div>
         </form>
     </dl>
-    
+
 
     <div class="row">
         <div class="col-sm-12">
