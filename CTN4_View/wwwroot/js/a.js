@@ -68,6 +68,7 @@
                 contentType: 'application/json',
                 success: function (result) {
                     if (result != null) {
+                        debugger
                         location.href = "/ex/" + result;
                     }
                 }
