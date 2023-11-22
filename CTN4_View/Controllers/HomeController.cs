@@ -511,30 +511,43 @@ namespace CTN4_View.Controllers
         //    return View();
         //}
        
-       
+       public ActionResult SuccessPass()
+        {
+            return View();
+        }
 
           public ActionResult QuenMk() 
         {
             return View();
                 }
         [HttpPost]
-        public async Task<IActionResult> QuenMks(MailRequest mailRequest) {
-            var a = _khachHangService.GetAll().FirstOrDefault(c => c.TenDangNhap == mailRequest.Tendangnhap);
+        public async Task<IActionResult> QuenMks(MailRequest mailRequest)
+        {
+            var khachHang = _khachHangService.GetAll().FirstOrDefault(c => c.TenDangNhap == mailRequest.Tendangnhap);
             var checkmail = _khachHangService.GetAll().FirstOrDefault(c => c.Email == mailRequest.ToEmail);
-            if (a == null)
+
+           
+                if (string.IsNullOrEmpty(mailRequest.ToEmail))
+                {
+                    ViewBag.Message = "Không được để trống";
+
+                    return View("QuenMk",mailRequest);
+                }
+            if (khachHang == null || checkmail == null)
             {
-                return View();
+                ViewBag.Message = "Tên đăng nhập hoặc email không đúng";
+                return View("QuenMk", mailRequest);
             }
-            if (checkmail == null)
-            {
-                return View();
-            }
-            mailRequest.Subject = "Lấy Lại Mật Khẩu, \"https://localhost:7174/\"";
-            mailRequest.Body = a.MatKhau;
-            var email = _EmailService.SendEmailAsync(mailRequest);
-            return RedirectToAction(nameof(Index));
+
+
+            mailRequest.Subject = "Mật khẩu đăng nhập của wed bán túi poro của bạn là:";
+            mailRequest.Body = $"Mật khẩu là: {khachHang.MatKhau}";
+
+            await _EmailService.SendEmailAsync(mailRequest);
+
+            return RedirectToAction(nameof(SuccessPass)); 
         }
-        }
+    }
 
     }
 
