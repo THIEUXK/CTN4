@@ -33,10 +33,22 @@
     <div class="form-group ml-3">
         <button type="submit" class="btn btn-outline-secondary">Tìm kiếm</button>
     </div>
-}
-
+} <script>
+      $(function () {
+          var slider = $("#slider");
+          slider.slider({
+              range: true,
+              min: 0,
+              max: 1000, // Thay đổi giới hạn theo nhu cầu của bạn
+              values: [0, 1000], // Giá trị mặc định ban đầu
+              slide: function (event, ui) {
+                  $("#price-range").text("$" + ui.values[0] + " - $" + ui.values[1]);
+              }
+          });
+      });
+</script>
 </br>
-<table class="table">
+<table class="table" >
     <thead>
         <tr>
             <th>
@@ -158,6 +170,8 @@
             return formattedPrice + "₫"; // Thêm ký hiệu đồng (₫) vào cuối
         }
     };
+   
+    });
 
 
 </script>
