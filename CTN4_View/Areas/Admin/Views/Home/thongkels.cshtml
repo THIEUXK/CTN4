@@ -4,7 +4,42 @@
 
 }
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Range</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+</head>
+
 <div class="row">
+    <div class="container" style=" margin-top:100px">
+        <div class="row">
+            <div class="col-md-6">
+                <label for="startDate">Start Date:</label>
+                <input type="date" id="startDate" name="startDate" class="form-control datepicker">
+            </div>
+            <div class="col-md-6">
+                <label for="endDate">End Date:</label>
+                <input type="date" id="endDate" name="endDate" class="form-control datepicker">
+            </div>
+            <button type="submit" id="dataDate"> Thống kê</button>
+        </div>
+    </div>
+
+
+
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <h3>Đơn hàng</h3>
+                <canvas id="myChartj"></canvas>
+            </div>
+        </div>
+    </div>
     <div class="col-md-5" style="margin-top:200px">
         <h3>Tổng doanh thu trong năm</h3>
         <canvas id="myCharts"></canvas>
@@ -21,145 +56,135 @@
     <div id="bestSellingProductsContainer"></div> 
 
 </div>
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 <script>
-    $(document).ready(function () {
-        $.ajax({
-            url: "/Admin/Home/thongke",
-            type: 'GET',
-            dataType: 'json',
-            success: function (data) {
-                // Xử lý dữ liệu trả về ở đây
-                console.log(data);
-                const ctx = document.getElementById('myChart');
-                const myChart = new Chart(ctx, {
-                    type: 'bar',
-                    data: {
 
-                        labels: ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12'],
-                        datasets: [{
-                            label: 'Hóa Đơn',
-                            data: data, // Truyền mảng được gọi từ action vào đây
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-                });
-            },
-            error: function (error) {
-                console.error('Đã xảy ra lỗi:', error);
-            }
-        });
-    });
     $(document).ready(function () {
-        $.ajax({
-            url: "/Admin/Home/thongkeHd",
-            type: 'GET',
-            dataType: 'json',
-            success: function (data) {
-                // Xử lý dữ liệu trả về ở đây
-                console.log(data);
-                const ctx = document.getElementById('myCharts');
-                const myChart = new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12'],
-                        datasets: [{
-                            label: 'Tổng tiền',
-                            data: data, // Truyền mảng được gọi từ action vào đây
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-                });
-            },
-            error: function (error) {
-                console.error('Đã xảy ra lỗi:', error);
-            }
-        });
-    });
-    $(document).ready(function () {
-        $.ajax({
-            url: "/Admin/Home/thongke",
-            type: 'GET',
-            dataType: 'json',
-            success: function (data) {
-                // Xử lý dữ liệu trả về ở đây
-                console.log(data);
-                const ctx = document.getElementById('myChartss');
-                const myChart = new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12'],
-                        datasets: [{
-                            label: 'Hóa Đơn',
+        // Thống kê Hóa Đơn
 
-                            data: data, // Truyền mảng được gọi từ action vào đây
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true
+        $('#dataDate').click(function () {
+            dataDate();
+        });
+        function drawChart(chartId, label, dataUrl) {
+            $.ajax({
+                url: dataUrl,   
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data);
+                    const ctx = document.getElementById(chartId);
+                    const myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12'],
+                            datasets: [{
+                                label: label,
+                                data: data,
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
                             }
                         }
-                    }
-                });
-            },
-            error: function (error) {
-                console.error('Đã xảy ra lỗi:', error);
-            }
-        });
+                    });
+                },
+                error: function (error) {
+                    console.error('Đã xảy ra lỗi:', error);
+                }
+            });
+        }
+
+        // Thống kê Hóa Đơn
+        drawChart('myChart', 'Hóa Đơn', '/Admin/Home/thongke');
+
+        // Thống kê Tổng tiền
+        drawChart('myCharts', 'Tổng tiền', '/Admin/Home/thongkeHd');
+
+        // Thống kê Hóa Đơn (phương thức khác)
+        drawChart('myChartss', 'Hóa Đơn', '/Admin/Home/thongke');
+
+      //  drawChart('myChartss', 'Hóa Đơn', '/Admin/Home/thongke');
+
+        // Thống kê sản phẩm bán chạy nhất
         $.ajax({
             url: "/Admin/Home/GetBestSellingProducts",
             type: 'GET',
             dataType: 'json',
             success: function (data) {
-                // Xử lý dữ liệu trả về ở đây
-              
                 var container = $('#bestSellingProductsContainer');
-
-                // Xóa bất kỳ nội dung cũ nào trong container
                 container.empty();
 
-                // Duyệt qua danh sách sản phẩm và hiển thị thông tin
                 for (var i = 0; i < data.length; i++) {
                     var product = data[i];
-                    console.log("data", product);
-                    // Tạo một đối tượng HTML để hiển thị thông tin sản phẩm
                     var productHtml = '<div>';
                     productHtml += '<p>Product ID: ' + product.productId + '</p>';
                     productHtml += '<p>Product Name: ' + product.productName + '</p>';
                     productHtml += '<p>Total Quantity Sold: ' + product.totalQuantitySold + '</p>';
                     productHtml += '</div>';
-
-                    // Thêm đối tượng HTML vào container
                     container.append(productHtml);
                 }
             },
             error: function (error) {
-                // Xử lý lỗi ở đây
                 console.error('Error:', error);
             }
         });
+        function dataDate() {
+            // Biểu đồ thống kê theo khoảng thời gian
 
+            const startDateInput = document.getElementById('startDate');
+            const endDateInput = document.getElementById('endDate');
+
+            $.ajax({
+                type: "POST",
+                url: "/Admin/Home/thongkeTrongKhoang",
+                data: { ngaybatdau: startDateInput.value, ngayketthuc: endDateInput.value },
+                success: function (result) {
+                    // Xử lý kết quả trả về từ controller ở đây
+                    updateChart(result); // Call the function to update the chart with the received data
+                    console.log(result);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+        let myChart = null;
+        function updateChart(data) {
+            const ctx = document.getElementById('myChartj');
+            if (myChart) {
+                myChart.destroy();
+            }
+             myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12'],
+                    datasets: [{
+                        label: '#Hóa đơn',
+                        data: data, // Assuming 'data' is an array of corresponding data points in the result
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+     
+
+       
     });
-  
+
 </script>
+
 
 
