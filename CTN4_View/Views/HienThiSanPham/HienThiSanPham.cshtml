@@ -1,4 +1,6 @@
-﻿@model CTN4_Serv.ViewModel.HienThiSanPhamView;
+﻿@using CTN4_View_Admin.Controllers.Shop;
+@using Microsoft.AspNetCore.Http;
+@model CTN4_Serv.ViewModel.HienThiSanPhamView;
 <!-- End Header Area -->
 <!-- Start Banner Area -->
 @*<section class="banner-area organic-breadcrumb">
@@ -55,42 +57,86 @@
                     <div class="head">Chất Liệu</div>
                     <form id="FillterChatLieu">
                         <ul>
-
+                            @{
+                                var session = Context.Request.HttpContext.Session;
+                                var LuuTamCl = SessionBan.ChatLieuSS(session, "ChatLieuTam");
+                                var a = new List<Guid>();
+                                foreach (var i in LuuTamCl)
+                                {
+                                    a.Add(i.Id);
+                                }
+                            }
                             @foreach (var chatLieu in Model.chatLieus)
                             {
                                 if ((Model.sanPhams.Where(c => c.IdChatLieu == chatLieu.Id).Count()) >= 1)
                                 {
-                                    <li>
-                                        <input class="pixel-radio" type="checkbox" name="ChatLieu" value="@chatLieu.Id.ToString()">
-                                        <label for="ChatLieu-@chatLieu.Id">
-                                            @chatLieu.TenChatLieu <span>(@(Model.sanPhams.Where(c => c.IdChatLieu == chatLieu.Id).Count()))</span>
-                                        </label>
-                                    </li>
+                                    if (a.Contains(chatLieu.Id))
+                                    {
+                                        <li>
+                                            <input class="pixel-radio" type="checkbox" name="ChatLieu" value="@chatLieu.Id.ToString()" checked>
+                                            <label for="ChatLieu-@chatLieu.Id">
+                                                @chatLieu.TenChatLieu <span>
+                                                    (@(
+                                                       Model.sanPhams.Where(c => c.IdChatLieu == chatLieu.Id).Count()
+                                                       ))
+                                                </span>
+                                            </label>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li>
+                                            <input class="pixel-radio" type="checkbox" name="ChatLieu" value="@chatLieu.Id.ToString()">
+                                            <label for="ChatLieu-@chatLieu.Id">
+                                                @chatLieu.TenChatLieu <span>(@(Model.sanPhams.Where(c => c.IdChatLieu == chatLieu.Id).Count()))</span>
+                                            </label>
+                                        </li>
+                                    }
                                 }
                             }
 
                         </ul>
                     </form>
                     <div class="common-filter">
-                        <div class="head">MauSac</div>
-                        @*<form id="FillterMauSac">
-                        <ul>
-                        @{
-                        foreach (var mau in Model.maus)
-                        {
-                        if ((Model.sanPhamChiTiets.Where(c => c.IdMau == mau.Id).Count()) >= 1)
-                        {
-                        <li>
-                        <input class="pixel-radio" type="checkbox" name="ChatLieu" id="ChatLieu-@mau.Id" value="@mau.TenMau">
-                        <label for="ChatLieu-@mau.Id">
-                        @mau.TenMau <span>(@(Model.sanPhamChiTiets.Where(c => c.IdMau == mau.Id).Count()))</span>
-                        </label>
-                        </li>
-                        }
-                        }
-                        }
-                        </ul>
-                        </form>*@
+                        <div class="head">Màu Sắc</div>
+                        <form id="FillterMauSac">
+                            <ul>
+                                @{
+                                    var session1 = Context.Request.HttpContext.Session;
+                                    var LuuTamMau = SessionBan.MauSacSS(session1, "MauSacTam");
+                                    var b = new List<Guid>();
+                                    foreach (var i in LuuTamMau)
+                                    {
+                                        b.Add(i.Id);
+                                    }
+                                }
+                                @foreach (var mau in Model.maus)
+                                {
+                                    if ((Model.sanPhamChiTiets.Where(c => c.IdMau == mau.Id).Count()) >= 1)
+                                    {
+                                        if (b.Contains(mau.Id))
+                                        {
+                                            <li>
+                                                <input class="pixel-radio" type="checkbox" name="MauSac" value="@mau.Id.ToString()" checked>
+                                                <label for="Mau-@mau.Id">
+                                                    @mau.TenMau
+                                                </label>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li>
+                                                <input class="pixel-radio" type="checkbox" name="MauSac" value="@mau.Id.ToString()">
+                                                <label for="Mau-@mau.Id">
+                                                    @mau.TenMau
+                                                </label>
+                                            </li>
+                                        }
+                                    }
+                                }
+
+                            </ul>
+                        </form>
                     </div>
                     <div>
                         <form asp-controller="HienThiSanPham" asp-action="HienThiSanPham2">
@@ -98,24 +144,24 @@
                                 Lọc
                             </button>
                         </form>
-                       
+
                     </div>
                 </div>
 
 
-               @* <div class="common-filter">
-                    <div class="head">Price</div>
-                    <div class="price-range-area">
-                        <div id="price-range"></div>
-                        <div class="value-wrapper d-flex">
-                            <div class="price">Price:</div>
-                            <span>$</span>
-                            <div id="lower-value"></div>
-                            <div class="to">to</div>
-                            <span>$</span>
-                            <div id="upper-value"></div>
-                        </div>
-                    </div>
+                @* <div class="common-filter">
+                <div class="head">Price</div>
+                <div class="price-range-area">
+                <div id="price-range"></div>
+                <div class="value-wrapper d-flex">
+                <div class="price">Price:</div>
+                <span>$</span>
+                <div id="lower-value"></div>
+                <div class="to">to</div>
+                <span>$</span>
+                <div id="upper-value"></div>
+                </div>
+                </div>
                 </div>*@
 
 
@@ -444,41 +490,23 @@
 
 </script>
 
-                                 
+
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="~/js/b.js"></script>
 
                                 }
 <script>
 
-
-    document.getElementById('btnFillter').addEventListener("click", function () {
-        var chatLieus = getSetSelectCheckboxes("FillterChatLieu");
-        var maus = getSetSelectCheckboxes("FillterMauSac");
-        console.log(chatLieus);
-        console.log(maus);
-        var data = {
-            Idchatlieu: chatLieus,
-            IdMauSac: maus
-        }
-        fetch('/HienThiSanPham/CheckBoxChatLieu', {
-            method: 'POST',
-            headers: { "Content-type": "application/json" },
-            body: JSON.stringify(data)
-        }).then(function (response) {
-            if (response.ok) {
-                return response.text();
-            }
-            else {
-                throw new Error("Error sedding data controller")
-            }
-        }).then(function (results) {
-            $("#Fillter-sanPhams").html(results);
+                    else {
+        throw new Error("Error sedding data controller")
+    }
+                    }).then(function (results) {
+        $("#Fillter-sanPhams").html(results);
+    })
+        .catch(function (error) {
+            console.log("An error occured:", error)
         })
-            .catch(function (error) {
-                console.log("An error occured:", error)
-            })
-    });
+                    });
     function getSetSelectCheckboxes(fromId) {
         var CheckBoxes = $('#' + fromId + ' input[type=checkbox]:checked'); // Thêm dấu cách sau fromId
         var value = [];

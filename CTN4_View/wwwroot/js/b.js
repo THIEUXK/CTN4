@@ -41,3 +41,46 @@
   
 
 });
+$(document).ready(function () {
+
+    $('input[name="MauSac"]').change(function () {
+        // Kiểm tra trạng thái của checkbox
+        if ($(this).is(':checked')) {
+            // Lấy giá trị từ checkbox
+            var mauSacId = $(this).val();
+            debugger
+            // Thực hiện AJAX request khi checkbox được chọn
+            $.ajax({
+                url: '/XxemSanPham/layIDmausac', // Điền đường dẫn tương ứng khi checkbox được chọn
+                type: 'POST', // Hoặc 'GET' tùy thuộc vào yêu cầu của bạn
+                data: { MauSacId: mauSacId },
+                success: function (response) {
+                    // Xử lý kết quả từ server nếu cần
+                    console.log(response);
+                },
+                error: function (error) {
+                    console.error('Lỗi AJAX:', error);
+                }
+            });
+        } else {
+            // Lấy giá trị từ checkbox khi nó được bỏ chọn
+            var mauSacIdUnchecked = $(this).val();
+            debugger
+            // Thực hiện AJAX request khi checkbox được bỏ chọn
+            $.ajax({
+                url: '/XxemSanPham/boIDmausac', // Điền đường dẫn tương ứng khi checkbox bị bỏ chọn
+                type: 'POST', // Hoặc 'GET' tùy thuộc vào yêu cầu của bạn
+                data: { MauSacId: mauSacIdUnchecked },
+                success: function (response) {
+                    // Xử lý kết quả từ server nếu cần
+                    console.log(response);
+                },
+                error: function (error) {
+                    console.error('Lỗi AJAX:', error);
+                }
+            });
+        }
+    });
+  
+
+});

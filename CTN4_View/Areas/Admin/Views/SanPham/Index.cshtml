@@ -34,20 +34,7 @@
     <div class="form-group ml-3">
         <button type="submit" class="btn btn-outline-secondary">Tìm kiếm</button>
     </div>
-} <script>
-      $(function () {
-          var slider = $("#slider");
-          slider.slider({
-              range: true,
-              min: 0,
-              max: 1000, // Thay đổi giới hạn theo nhu cầu của bạn
-              values: [0, 1000], // Giá trị mặc định ban đầu
-              slide: function (event, ui) {
-                  $("#price-range").text("$" + ui.values[0] + " - $" + ui.values[1]);
-              }
-          });
-      });
-</script>
+}
 </br>
 <table class="table">
     <thead>
@@ -164,12 +151,13 @@
 </table>
 <div class="row no-gutters justify-content-between paginate">
     <div class="col-auto ">
-       @* @using (Html.BeginForm("Index", "SanPham", FormMethod.Get))
+        @using (Html.BeginForm("Index", "SanPham", FormMethod.Get))
         {
-            <p>
-                Kích thước trang: @Html.DropDownList("size", (List<SelectListItem>)ViewBag.size, new { @onchange = "this.form.submit();" })
-            </p>
-        }*@
+            <div class="custom-dropdown">
+                Kích thước trang: @Html.DropDownList("size", (SelectList)ViewBag.SizeOptions, new { @onchange = "this.form.submit();" })
+            </div>
+        }
+
     </div>
     <div class="col-auto">
         <div class="row no-gutters align-items-center">
@@ -211,11 +199,11 @@
         public string FormatCurrency(float price)
         {
             string formattedPrice = string.Format("{0:N0}", price); // Định dạng số và thêm dấu phân cách ngàn
-            return formattedPrice + "₫"; // Thêm ký hiệu đồng (₫) vào cuối
+            return formattedPrice + "VND"; // Thêm ký hiệu đồng (₫) vào cuối
         }
     };
 
-        });
+            });
 
 
 </script>
@@ -239,4 +227,98 @@
     button {
         margin-left: 5px;
     }
+    /* Thiết lập kiểu cho dropdown */
+    /* Kiểu chung cho toàn bộ phân trang và dropdown */
+    .row.no-gutters {
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    .custom-dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+        .custom-dropdown select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            padding: 8px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #fff;
+            cursor: pointer;
+            outline: none;
+        }
+
+            .custom-dropdown select:hover {
+                border-color: #aaa;
+            }
+
+            .custom-dropdown select:focus {
+                border-color: #555;
+                box-shadow: 0 0 5px rgba(85, 85, 85, 0.2);
+            }
+
+            .custom-dropdown select::after {
+                content: '\25BC';
+                font-size: 10px;
+                color: #555;
+                position: absolute;
+                top: 50%;
+                right: 8px;
+                transform: translateY(-50%);
+            }
+
+            .custom-dropdown select:active,
+            .custom-dropdown select:focus {
+                background-color: #f9f9f9;
+            }
+
+    /* Kiểu phân trang */
+    .pagination-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .pagination {
+        display: flex;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+        .pagination li {
+            margin: 0;
+        }
+
+        .pagination a {
+            display: block;
+            padding: 8px 12px;
+            text-decoration: none;
+            color: #333;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            margin-right: 2px;
+        }
+
+            .pagination a:hover {
+                background-color: #f5f5f5;
+            }
+
+        .pagination .active a {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
+        }
+
+    /* Kiểu thông tin tổng số lượng */
+    #id {
+        font-weight: bold;
+        color: #333;
+    }
+
+    /* Thêm các kiểu tùy chỉnh khác tùy theo ý muốn của bạn */
+
 </style>
