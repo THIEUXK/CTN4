@@ -44,7 +44,7 @@
                         </ul>
                     </div>
                     <div class="dropdown me-1">  <button class="btn btn-custom-primary"><a class="dropdown-item" href="@Url.Action("XemChuaXacNhan")">Đơn chưa xác nhận </a></button></div>
-                    <div class ="dropdown me-1">
+                    <div class="dropdown me-1">
                         <button class="btn btn-custom-primary"> <a class="dropdown-item" href="@Url.Action("XemDaXacNhan")">Đơn đã xác nhận</a></button>
                     </div>
                     <div class="dropdown me-1">
@@ -79,7 +79,7 @@
                 </div>
                 <div>
                     <div class="row">
-                        <div class="col-7">
+                        <div class="col-5">
                             <form asp-action="TimKiem">
                                 <div>
                                     Tìm kiếm:
@@ -88,16 +88,16 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="col-5">
+                        <div class="col-7">
                             <form asp-action="TimKiemNgay">
                                 <div>
                                     Tìm kiếm theo ngày tạo hóa đơn:
                                     <div>
                                         Từ
-                                        <input name="NgayDau" value="" type="date">
+                                        <input name="NgayDau" value="" type="datetime-local">
                                         </input>
                                         Đến
-                                        <input name="NgayCuoi" value="" type="date">
+                                        <input name="NgayCuoi" value="" type="datetime-local">
                                         </input>
                                         <button type="submit" class="btn btn-primary">Tìm</button>
                                     </div>
@@ -122,34 +122,36 @@
 
                     <table class="table text-nowrap mb-0 align-middle">
                         <thead class="text-dark fs-4">
-                        <tr>
-                            <th class="border-bottom-0">
+                            <tr>
+                                <th class="border-bottom-0">
 
-                            </th>
-                            <th class="border-bottom-0">
-                                <h6 class="fw-semibold mb-0">Mã hóa đơn</h6>
-                            </th>
-                            <th class="border-bottom-0">
-                                <h6 class="fw-semibold mb-0">Thời gian đặt đơn</h6>
-                            </th>
-                            <th class="border-bottom-0">
-                                <h6 class="fw-semibold mb-0">Tên người nhận hàng</h6>
-                            </th>
-                            <th class="border-bottom-0">
-                                <h6 class="fw-semibold mb-0">Thanh toán</h6>
-                            </th>
-                            <th class="border-bottom-0">
-                                <h6 class="fw-semibold mb-0">Giao hàng</h6>
-                            </th>
-                            <th class="border-bottom-0">
-                                <h6 class="fw-semibold mb-0">Tiền ship</h6>
-                            </th>
-                            <th class="border-bottom-0">
-                                <h6 class="fw-semibold mb-0">Tổng tiền</h6>
-                            </th>
+                                    <input class="Allcheck" type="checkbox" id="defaultCheck1">
+
+                                </th>
+                                <th class="border-bottom-0">
+                                    <h6 class="fw-semibold mb-0">Mã hóa đơn</h6>
+                                </th>
+                                <th class="border-bottom-0">
+                                    <h6 class="fw-semibold mb-0">Thời gian đặt đơn</h6>
+                                </th>
+                                <th class="border-bottom-0">
+                                    <h6 class="fw-semibold mb-0">Tên người nhận hàng</h6>
+                                </th>
+                                <th class="border-bottom-0">
+                                    <h6 class="fw-semibold mb-0">Thanh toán</h6>
+                                </th>
+                                <th class="border-bottom-0">
+                                    <h6 class="fw-semibold mb-0">Giao hàng</h6>
+                                </th>
+                                <th class="border-bottom-0">
+                                    <h6 class="fw-semibold mb-0">Tiền ship</h6>
+                                </th>
+                                <th class="border-bottom-0">
+                                    <h6 class="fw-semibold mb-0">Tổng tiền</h6>
+                                </th>
 
 
-                        </tr>
+                            </tr>
                         </thead>
                         <tbody>
                             @foreach (var a in Model.hoaDons)
@@ -200,15 +202,15 @@
                                         <p class="mb-0 fw-normal">@FormatCurrency(@a.TongTien)</p>
                                     </td>
                                     @*  <td>
-                                        <button type="button" class="btn btn-custom-primary" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
-                                            <i class="fa fa-bars"></i>
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <li>
-                                                <button class="btnXuatEx" value="@a.Id" href="#">Xuất File Excel</button>
-                                            </li>
-                                        </ul>
-                                    </td> *@
+                                <button type="button" class="btn btn-custom-primary" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
+                                <i class="fa fa-bars"></i>
+                                </button>
+                                <ul class="dropdown-menu">
+                                <li>
+                                <button class="btnXuatEx" value="@a.Id" href="#">Xuất File Excel</button>
+                                </li>
+                                </ul>
+                                </td> *@
                                 </tr>
                             }
                         </tbody>
@@ -220,11 +222,36 @@
 </body>
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="~/js/a.js"></script>
+<script>
+        $(document).ready(function () {
+            $(".Allcheck").click(function () {
+                if ($(this).prop("checked")) {
+                    // Nếu ô checkbox được chọn, thì set tất cả các ô checkbox có cùng class là "Allcheck" thành chọn.
+                $(".form-check-input").prop("checked", true);
+                } else {
+                    // Nếu ô checkbox không được chọn, thì set tất cả các ô checkbox có cùng class là "Allcheck" thành không chọn.
+                $(".form-check-input").prop("checked", false);
+                }
+            });
+        });
+    </script>
 
 
 
 
 <style>
+    .Allcheck {
+        font-weight: bold; /* Độ đậm của văn bản */
+        color: blue; /* Màu sắc của văn bản */
+        width: 20px; /* Chiều rộng của nút */
+        height: 20px; /* Chiều cao của nút */
+        border: 2px solid black; /* Viền đậm của nút */
+    }
+
+        .Allcheck:checked {
+            color: green; /* Màu sắc khi nút được chọn */
+        }
+
     .custom-edit-link {
         color: whitesmoke; /* Màu đỏ */
         /* Các thuộc tính CSS khác nếu cần */
@@ -237,7 +264,7 @@
         /* và nhiều thuộc tính CSS khác... */
     }
 
-    input[type="date"] {
+    input[type="datetime-local"] {
         border-radius: 7px;
         color: #5a6a85;
         font-family: 'Plus Jakarta Sans', sans-serif;
@@ -250,17 +277,17 @@
     }
 
         /* Ẩn mũi tên tăng/giảm và nút xóa mặc định */
-        input[type="date"]::-webkit-inner-spin-button,
-        input[type="date"]::-webkit-outer-spin-button,
-        input[type="date"]::-webkit-clear-button {
+        input[type="datetime-local"]::-webkit-inner-spin-button,
+        input[type="datetime-local"]::-webkit-outer-spin-button,
+        input[type="datetime-local"]::-webkit-clear-button {
             -webkit-appearance: none;
             margin: 0;
         }
 
-        /* Tùy chỉnh màu nền và màu chữ của mũi tên mở lịch */
-        input[type="date"]::-webkit-calendar-picker-indicator {
-            color: #ffffff;
-        }
+    /* Tùy chỉnh màu nền và màu chữ của mũi tên mở lịch */
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        color: #ffffff;
+    }
 
     button {
         border: none;
@@ -318,7 +345,7 @@
         padding: 8px 16px;
         border: none;
         text-decoration: none;
-        font-size: 14px;
+        font-size: 12px;
         font-family: 'Plus Jakarta Sans', sans-serif;
         color: red;
         background-color: transparent;
@@ -331,7 +358,7 @@
         padding: 8px 16px;
         border: none;
         text-decoration: none;
-        font-size: 14px;
+        font-size: 12px;
         font-family: 'Plus Jakarta Sans', sans-serif;
         color: yellowgreen;
         background-color: transparent;

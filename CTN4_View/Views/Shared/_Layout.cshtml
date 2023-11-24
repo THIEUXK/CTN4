@@ -36,6 +36,11 @@
     <link rel="stylesheet" href="~/css/iconboostrap.css">
 
 
+   @* <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- jQuery UI -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>*@
 
 
 
@@ -112,6 +117,7 @@
                                        aria-expanded="false"><a class="nav-link" asp-controller="Home" asp-action="Index">Welcome, @User.Identity.Name!</a></a>
                                     <ul class="dropdown-menu">
                                         <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="UserDetail">Quản Lí Thông Tin</a></li>
+                                        <li class="nav-item"><a class="nav-link" asp-controller="BanHang" asp-action="ListDiaChi">Quản Lí Dịa chỉ nhận hàng</a></li>
                                         <li class="nav-item"><a class="nav-link" asp-controller="SanPhamYeuThich" asp-action="Index">Danh sách yêu thích</a></li>
                                         <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Logout">Đăng Xuất</a></li>
                                     </ul>

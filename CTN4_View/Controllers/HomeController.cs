@@ -15,6 +15,7 @@ using System.Net.Http;
 using System.Text.RegularExpressions;
 using CTN4_Data.DB_Context;
 using DocumentFormat.OpenXml.Spreadsheet;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CTN4_View.Controllers
 {
@@ -37,6 +38,7 @@ namespace CTN4_View.Controllers
         private readonly IDanhMucChiTietService _danhMucChiTietService;
         private readonly IEmailService _EmailService;
         public IKhachHangService _KHangService;
+         public IDiaChiNhanHangService _diaChiNhanHangService;
 
         //public HomeController()
         //{
@@ -64,6 +66,7 @@ namespace CTN4_View.Controllers
             _CTN4_Ok = new DB_CTN4_ok();
             _danhMucChiTietService = new DanhMucChiTietMucChiTietService();
             _EmailService = emailService;
+             _diaChiNhanHangService = new DiaChiNhanHangService();
         }
 
         public IActionResult Index()
@@ -390,7 +393,6 @@ namespace CTN4_View.Controllers
             var user = _khachHangService.GetById(_curent.Id);
             return View(user);
         }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

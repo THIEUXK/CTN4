@@ -21,5 +21,26 @@ namespace CTN4_View_Admin.Controllers.Shop
             }
             else return new List<ThongTinTam>();
         }
+          public static List<DanhMuc> DanhMucSS(ISession session, string key)
+        {
+            var data = session.GetString(key); // Đọc dữ liệu từ Session ở dạng chuỗi
+            if (data != null)
+            {
+                var listObj = JsonConvert.DeserializeObject<List<DanhMuc>>(data);
+                return listObj;
+            }
+            else return new List<DanhMuc>();
+        }
+          public static List<ChatLieu> ChatLieuSS(ISession session, string key)
+          {
+              var data = session.GetString(key); // Đọc dữ liệu từ Session ở dạng chuỗi
+              if (data != null)
+              {
+                  var listObj = JsonConvert.DeserializeObject<List<ChatLieu>>(data);
+                  return listObj;
+              }
+              else return new List<ChatLieu>();
+          }
     }
+    
 }

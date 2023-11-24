@@ -559,7 +559,7 @@ namespace CTN4_View.Controllers.Shop
                         LuuTam.Add(alTam);
                         SessionBan.SetObjToJson(HttpContext.Session, "ACD", LuuTam);
                     }
-                    else if (accnew.Count != 0)
+                    else if (LuuTam.Count != 0)
                     {
                         LuuTam.Clear();
                         LuuTam.Add(alTam);
@@ -654,7 +654,7 @@ namespace CTN4_View.Controllers.Shop
 
             }
 
-            return RedirectToAction("SauThanhToan",new {id=idHoaDon});
+            return RedirectToAction("SauThanhToan", new { id = idHoaDon });
         }
         //public int TraVeIdHoaDon()
         //{
@@ -866,6 +866,36 @@ namespace CTN4_View.Controllers.Shop
             };
             return View("HoaDonChiTiet", view);
         }
+        public IActionResult ListDiaChi()
+        {
+            var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
+
+            if (accnew.Count != 0)
+            {
+                var listDiaChi = _diaChiNhanHangService
+                    .GetAll()
+                    .Where(c => c.IdKhachHang == accnew[0].Id)
+                    .Select(s => new SelectListItem
+                    {
+                        Value = s.Id.ToString(),
+                        Text = s.DiaChi
+                    })
+                    .ToList();
+
+                ViewBag.ListDiaChi = listDiaChi;
+
+                return View();
+            }
+
+            return RedirectToAction("Index");
+        }
+
+
+
+
+
+
+
         //[HttpPost("/CheckOut/ThemDiaChi")]
         //public IActionResult ThemDiaChiMoi([FromBody] DiaChiHung diaChiHung)
         //{
