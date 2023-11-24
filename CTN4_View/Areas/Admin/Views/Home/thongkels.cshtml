@@ -34,7 +34,7 @@
 
 
         <div class="row mt-4">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <h3>Đơn hàng</h3>
                 <canvas id="myChartj"></canvas>
             </div>
@@ -135,18 +135,30 @@
             }
         });
         function dataDate() {
-            // Biểu đồ thống kê theo khoảng thời gian
-
             const startDateInput = document.getElementById('startDate');
             const endDateInput = document.getElementById('endDate');
+
+            // Check if both start date and end date are selected
+            if (!startDateInput.value || !endDateInput.value) {
+                alert("Please select both start and end dates.");
+                return;
+            }
+
+            // Calculate the number of days in the selected date range
+            const numberOfDays = calculateNumberOfDays(startDateInput.value, endDateInput.value);
+
+            // Check if the number of days is more than 31
+            if (numberOfDays > 31) {
+                alert("Please select a date range within one month.");
+                return;
+            }
 
             $.ajax({
                 type: "POST",
                 url: "/Admin/Home/thongkeTrongKhoang",
                 data: { ngaybatdau: startDateInput.value, ngayketthuc: endDateInput.value },
                 success: function (result) {
-                    // Xử lý kết quả trả về từ controller ở đây
-                    updateChart(result); // Call the function to update the chart with the received data
+                    updateChartData(result, numberOfDays, startDateInput);
                     console.log(result);
                 },
                 error: function (error) {
@@ -154,19 +166,50 @@
                 }
             });
         }
+
+        function calculateNumberOfDays(startDate, endDate) {
+            // Tính số ngày giữa hai ngày
+            const start = new Date(startDate);
+            const end = new Date(endDate);
+            const timeDiff = Math.abs(end - start);
+            const numberOfDays = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+
+            return numberOfDays;
+        }
+
         let myChart = null;
-        function updateChart(data) {
+
+        function updateChartData(data, numberOfDays, startDateInput) {
             const ctx = document.getElementById('myChartj');
             if (myChart) {
                 myChart.destroy();
             }
-             myChart = new Chart(ctx, {
+
+            let labels = [];
+
+            if (numberOfDays <= 31) {
+                // Nếu số ngày ít hơn hoặc bằng 31, hiển thị theo ngày
+                const startDate = new Date(startDateInput.value);
+                labels = Array.from({ length: numberOfDays }, (_, i) => {
+                    const date = new Date(startDate);
+                    date.setDate(startDate.getDate() + i);
+                    return formatDateNoYear(date); // Use a function without year
+                });
+            } else {
+                // Nếu số ngày lớn hơn 31, hiển thị theo tháng
+                const startMonth = new Date(startDateInput.value).getMonth();
+                for (let i = 0; i < numberOfDays / 30; i++) {
+                    labels.push(`Tháng ${startMonth + i + 1}`);
+                }
+            }
+
+            myChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12'],
+                    labels: labels,
                     datasets: [{
                         label: '#Hóa đơn',
-                        data: data, // Assuming 'data' is an array of corresponding data points in the result
+                        data: data, // Giả sử 'data' là một mảng điểm dữ liệu tương ứng trong kết quả
                         borderWidth: 1
                     }]
                 },
@@ -179,9 +222,13 @@
                 }
             });
         }
-     
 
-       
+        // Add a new function to format the date without the year
+        function formatDateNoYear(date) {
+            const options = { month: 'numeric', day: 'numeric' };
+            return date.toLocaleDateString('en-US', options);
+        }
+
     });
 
 </script>
