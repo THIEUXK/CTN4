@@ -6,6 +6,7 @@
         public string name { get; set; }
         public string DiaChi { get; set; }
         public bool? TrangThai { get; set; }
+        public bool? Is_detele { get; set; }
         public float? TienShip { get; set; }
         public Guid? IdKhachHang { get; set; }
         public string? code { get; set; }
