@@ -222,6 +222,7 @@ namespace CTN4_Data.Migrations
                     name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DiaChi = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TrangThai = table.Column<bool>(type: "bit", nullable: true),
+                    Is_detele = table.Column<bool>(type: "bit", nullable: true),
                     TienShip = table.Column<float>(type: "real", nullable: true),
                     IdKhachHang = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     code = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -637,6 +638,7 @@ namespace CTN4_Data.Migrations
                     { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081170"), true, "Túi Bucket" },
                     { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081171"), true, "Túi Bowling" },
                     { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081172"), true, "Túi Ring Bag" },
+                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081173"), true, "Sản phẩm bán chạy" },
                     { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7089111"), true, "Túi Hobo" }
                 });
 
@@ -678,8 +680,7 @@ namespace CTN4_Data.Migrations
                     { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081131"), true, "xanh nhạt", true },
                     { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081141"), true, "tràm", true },
                     { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081151"), true, "tím", true },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081161"), true, "xanh lá đậm", true },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081171"), true, "xanh tím", true }
+                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081161"), true, "xanh lá đậm", true }
                 });
 
             migrationBuilder.InsertData(
@@ -687,6 +688,7 @@ namespace CTN4_Data.Migrations
                 columns: new[] { "Id", "Is_detele", "TenMau", "TrangThai" },
                 values: new object[,]
                 {
+                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081171"), true, "xanh tím", true },
                     { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081181"), true, "hồng", true },
                     { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081191"), true, "kem", true }
                 });

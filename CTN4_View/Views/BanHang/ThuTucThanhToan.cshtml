@@ -60,10 +60,20 @@
                                 <button type="button" class="btn btn-primary" style="background: linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);">Applly</button>
                             </div>
                         </div>
-                        <div class="col-md-12 form-group">
-                            <label>Địa chỉ nhận hàng cụ thể</label>
-                            <input type="text" class="form-control" value="" id="company" name="DiachiNhanChiTiet">
-                        </div>
+                        @if (Model.DiaChiNhanHang != null)
+                        {
+                            <div class="col-md-12 form-group">
+                                <label>Địa chỉ nhận hàng cụ thể</label>
+                                <input type="text" class="form-control" value="@Model.DiaChiNhanHang.name" id="company" name="DiachiNhanChiTiet">
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-md-12 form-group">
+                                <label>Địa chỉ nhận hàng cụ thể</label>
+                                <input type="text" class="form-control" value="" id="company" name="DiachiNhanChiTiet">
+                            </div>
+                        }
                         <div class="col-md-6 form-group p_star">
                             <label>Số điện thoại</label>
                             <input type="text" class="form-control" value="@Model.KhachHang.SDT" id="number" name="Sodienthoai">
@@ -81,8 +91,8 @@
                             <input type="hidden" name="tienship" value="" id="tienship1"></input>
                             <div class="col-md-6 form-group p_star">
                                 <label>Địa chỉ :</label>
-                                <input type="text" class="form-control" id="adressnew" name="" disabled></input>
-                                <input type="hidden" class="form-control" id="diachinay" value="" name="addDiaChi"></input>
+                                <input type="text" class="form-control" id="adressnew" name="" value="@Model.DiaChiNhanHang.DiaChi" disabled></input>
+                                <input type="hidden" class="form-control" id="diachinay" value="@Model.DiaChiNhanHang.DiaChi" name="addDiaChi"></input>
                             </div>
                         }
                         else

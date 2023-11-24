@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CTN4_Data.Migrations
 {
     [DbContext(typeof(DB_CTN4_ok))]
-    [Migration("20231116071119_a")]
+    [Migration("20231124163718_a")]
     partial class a
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -255,6 +255,12 @@ namespace CTN4_Data.Migrations
                             Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081172"),
                             Is_detele = true,
                             TenDanhMuc = "Túi Ring Bag"
+                        },
+                        new
+                        {
+                            Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081173"),
+                            Is_detele = true,
+                            TenDanhMuc = "Sản phẩm bán chạy"
                         });
                 });
 
@@ -341,6 +347,9 @@ namespace CTN4_Data.Migrations
 
                     b.Property<Guid?>("IdKhachHang")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool?>("Is_detele")
+                        .HasColumnType("bit");
 
                     b.Property<float?>("TienShip")
                         .HasColumnType("real");
