@@ -329,7 +329,7 @@ namespace CTN4_View_Admin.Controllers
         }
         public IActionResult thongke()
         {
-            int[] thongKeArray = _ls.Thongkels();
+            int[] thongKeArray = _hd.ThongKeSoLuongDonHangTheoThangTrongNam();
 
             return Json(thongKeArray);
         }
@@ -340,7 +340,22 @@ namespace CTN4_View_Admin.Controllers
 
             return Json(thongKeArray);
         }
+        [HttpPost]
+        public IActionResult thongkeTrongKhoang(string ngaybatdau, string ngayketthuc)
+        {
+            if (ngaybatdau == null ||ngayketthuc == null)
+            {
+                int[] thongKeArray = _hd.ThongKeTongTienHoaDonTheoThangTrongNam();
 
+                return Json(thongKeArray);
+            }
+            DateTime startDate = DateTime.Parse(ngaybatdau);
+            DateTime endDate = DateTime.Parse(ngayketthuc);
+
+            int[] thongKetheo = _hd.ThongKeSoLuongDonHangTrongKhoangThoiGian(startDate, endDate);
+
+            return Json(thongKetheo);
+        }
         private bool IsValidEmail(string email)
         {
             try
