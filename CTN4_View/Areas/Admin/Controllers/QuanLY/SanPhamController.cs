@@ -79,27 +79,6 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             ViewBag.CurrentSize = size ?? 5; // Kích thước trang mặc định
 
             return View(pagedList);
-
-
-
-
-            //var sanPhamList = _sanPhamCuaHangService.GetAll();
-            //if (!string.IsNullOrEmpty(TenSp))
-            //{
-            //    sanPhamList = sanPhamList
-            //        .Where(c => c.TenSanPham.ToLower().Contains(TenSp.ToLower()))
-            //        .ToList();
-            //}
-
-            //if (tu != null && den != null)
-            //{
-            //    sanPhamList = sanPhamList
-            //        .Where(c => (tu == null || c.GiaNiemYet >= tu) && (den == null || c.GiaNiemYet <= den))
-            //        .ToList();
-            //}
-
-            ////return View(sanPhamList);
-
         }
 
         // GET: SanPhamController/Details/5
