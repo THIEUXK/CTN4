@@ -235,7 +235,7 @@
                                     <button type="button" class="btn btn-primary"
                                             style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
 
-                                        @Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.Id }, new { @class = "custom-edit-link"})
+                                        @Html.ActionLink("Đổi trạng thái", "Edit", new { id = item.Id }, new { @class = "custom-edit-link"})
                                     </button>
 
                                     <div style="display: flex; flex-direction: row; gap: 5px;">
@@ -314,7 +314,7 @@
                                 @*<td>
                             <h6 style="text-align:center">@serialNumber</h6>
                             </td>*@
-                                @if (item.Is_detele != false)
+                                @if (item.Is_detele != true)
                                 {
 
                                 }
@@ -387,7 +387,7 @@
                                         <button type="button" class="btn btn-primary"
                                                 style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
 
-                                            @Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.Id }, new { @class = "custom-edit-link"})
+                                            @Html.ActionLink("Đổi trạng thái", "Edit", new { id = item.Id }, new { @class = "custom-edit-link"})
                                         </button>
 
                                         <div style="display: flex; flex-direction: row; gap: 5px;">
@@ -463,7 +463,7 @@
                                 @*  <td>
                             <h6 style="text-align:center">@serialNumber</h6>
                             </td>*@
-                                @if (item.Is_detele != true)
+                                @if (item.Is_detele != false)
                                 {
 
                                 }
@@ -534,7 +534,7 @@
                                         <button type="button" class="btn btn-primary"
                                                 style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
 
-                                            @Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.Id }, new { @class = "custom-edit-link"})
+                                            @Html.ActionLink("Đổi trạng thái", "Edit", new { id = item.Id }, new { @class = "custom-edit-link"})
                                         </button>
 
                                         <div style="display: flex; flex-direction: row; gap: 5px;">
