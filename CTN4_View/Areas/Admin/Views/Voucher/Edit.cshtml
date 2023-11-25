@@ -60,7 +60,7 @@
     <div class="col-md-9">
         <br></br>
         <br></br>
-        <h1>Chỉnh sửa mã giảm giá</h1>
+        <h1>Thay đổi trạng thái</h1>
 
 
         @* <hr />
@@ -72,11 +72,11 @@
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-container">
 
-                        <div class="form-group">
+                       @* <div class="form-group">
                             <label asp-for="MaGiam" class="control-label">Mã giảm giá</label>
                             <input asp-for="MaGiam" class="form-control" />
                             <span asp-validation-for="MaGiam" class="text-danger"></span>
-                        </div>
+                        </div>*@
                         @*<div class="form-group">
                         <label asp-for="SoTienGiam" class="control-label"></label>
                         <input asp-for="SoTienGiam" class="form-control" />
@@ -87,7 +87,7 @@
                         <input asp-for="PhanTramGiam" class="form-control" />
                         <span asp-validation-for="PhanTramGiam" class="text-danger"></span>
                         </div>*@
-                        <div class="form-group">
+                        @*<div class="form-group">
                             <label asp-for="LoaiGiamGia" class="control-label">Hình thức giảm giá </label>
                             <select asp-for="LoaiGiamGia" class="form-control" id="LoaiGiamGiaSelect">
                                 <option value="">-- Chọn hình thức giảm giá --</option>
@@ -125,10 +125,10 @@
                                     $('#SoTienGiamGroup, #PhanTramGiamGroup').hide();
 
                                     // Hiển thị trường nhập liệu tương ứng
-                                    if (selectedValue === 'true') {
+                                    if (selectedValue === 'false') {
                                         $('#SoTienGiamGroup').show();
                                     }
-                                    else if (selectedValue === 'false') {
+                                    else if (selectedValue === 'true') {
                                         $('#PhanTramGiamGroup').show();
                                     }
                                 }
@@ -180,7 +180,7 @@
                             <label asp-for="DieuKienGiam" class="control-label"></label>
                             <input asp-for="DieuKienGiam" class="form-control" />
                             <span asp-validation-for="DieuKienGiam" class="text-danger"></span>
-                        </div>
+                        </div>*@
 
                         <div class="form-group form-check">
                             <label class="form-check-label">
