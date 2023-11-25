@@ -179,6 +179,31 @@ namespace CTN4_Serv.Service
 
             return soLuongTheoNgayTrongKhoang;
         }
+        public decimal[] ThongKeTongTienDonHangTrongKhoangThoiGian(DateTime tuNgay, DateTime denNgay)
+        {
+            // Sử dụng LINQ để lấy danh sách các hóa đơn có TrangThaiThanhToan là true và ngày tạo hóa đơn trong khoảng thời gian
+            var hoaDonsTrangThaiTrueTrongKhoangThoiGian = _db.HoaDons
+                .Where(h => h.TrangThaiThanhToan && h.NgayTaoHoaDon >= tuNgay && h.NgayTaoHoaDon <= denNgay)
+                .ToList();
+
+            // Tạo mảng để lưu tổng tiền đơn hàng theo số ngày trong khoảng thời gian
+            decimal[] tongTienTheoNgayTrongKhoang = new decimal[(denNgay - tuNgay).Days + 1];
+
+            // Tính tổng tiền của từng ngày trong khoảng thời gian
+            foreach (var hoaDon in hoaDonsTrangThaiTrueTrongKhoangThoiGian)
+            {
+                int ngayTrongKhoang = (hoaDon.NgayTaoHoaDon - tuNgay).Days;
+
+                // Kiểm tra ngày để tránh tràn mảng
+                if (ngayTrongKhoang >= 0 && ngayTrongKhoang < tongTienTheoNgayTrongKhoang.Length)
+                {
+                    // Chuyển đổi giá trị float thành decimal trước khi thực hiện phép cộng
+                    tongTienTheoNgayTrongKhoang[ngayTrongKhoang] += (decimal)hoaDon.TongTien;
+                }
+            }
+
+            return tongTienTheoNgayTrongKhoang;
+        }
 
         public bool Them(HoaDon a)
         {
