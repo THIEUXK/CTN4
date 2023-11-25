@@ -167,6 +167,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                     ModelState.AddModelError("MaKhuyenMai", "Mã khuyến mại không được trùng.");
                     return View(a);
                 }
+                a.TrangThai = true;
                 _sv.Them(a);
                 return RedirectToAction("Index");
             }

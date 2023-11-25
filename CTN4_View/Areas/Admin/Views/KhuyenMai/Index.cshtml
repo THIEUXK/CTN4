@@ -108,7 +108,9 @@
                                 <th>
                                     <h6 style="color:white; text-align:center">Trạng thái</h6>
                                 </th>
-                                <th></th>
+                                <th>
+                                    <h6 style="color:white; text-align:center">Nút</h6>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -163,26 +165,39 @@
                                     </td><td>
                                         <h6 style="text-align:center">@item.Ghichu</h6>
                                     </td>
-                                    @if (item.TrangThai != false)
+                                    @if(item.NgayKetThuc >= DateTime.Now)
                                     {
-                                        <td class="border-bottom-0">
-                                            <p class="mb-0 fw-normal" style="white-space: nowrap; color:white;text-align :center; background-color: forestgreen; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Đang khuyến mãi</p>
-                                        </td>
+                                        @if (item.TrangThai != false)
+                                        {
+                                            <td class="border-bottom-0">
+                                                <p class="mb-0 fw-normal" style="white-space: nowrap; color:white;text-align :center; background-color: forestgreen; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Đang khuyến mãi</p>
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td class="border-bottom-0">
+                                                <p class="mb-0 fw-normal"  style="white-space: nowrap; color:white;text-align :center; background-color: orange; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Tạm ngưng</p>
+                                            </td>
+                                        }
                                     }
                                     else
                                     {
                                         <td class="border-bottom-0">
-                                            <p class="mb-0 fw-normal"  style="white-space: nowrap; color:white;text-align :center; background-color: orange; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Tạm ngưng</p>
-                                        </td>
+                                                <p class="mb-0 fw-normal"  style="white-space: nowrap; color:white;text-align :center; background-color: red; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Đã hết hạn</p>
+                                            </td>
                                     }
+
                                     <td>
-                                        <button type="button" style="white-space: nowrap; background-color: wheat; border-color:deepskyblue; border-radius: 10px; font-weight: 400; padding: 0 8px">
-                                            @Html.ActionLink( "Chọn sp","Edit", new { id=item.Id })
-                                        </button>
+                                        @if(item.NgayKetThuc > DateTime.Now){
+                                            <button type="button" class="custom-button" style="white-space: nowrap; border-radius: 10px; font-weight: 400; padding: 0 8px">
+                                                @Html.ActionLink( "Chọn sp","Edit", new { id=item.Id })
+                                            </button>
+                                        }
+                                        
                                         @*<button type="button" style="white-space: nowrap; background-color: wheat; border-color:deepskyblue; border-radius: 10px; font-weight: 400; padding: 0 8px">
                                             @Html.ActionLink( "Thông tin","Details", new { id=item.Id })
                                         </button>*@
-                                        <button type="button" style="white-space: nowrap; background-color: wheat; border-color:deepskyblue; border-radius: 10px; font-weight: 400; padding: 0 8px">
+                                        <button type="button" class="custom-button" style="white-space: nowrap; border-radius: 10px; font-weight: 400; padding: 0 8px">
                                             @Html.ActionLink( "Xóa","Delete", new { id=item.Id })
                                         </button>
                                     </td>
@@ -260,13 +275,15 @@
                                 <th>
                                     <h6 style="color:white; text-align:center">Trạng thái</h6>
                                 </th>
-                                <th></th>
+                                <th>
+                                    <h6 style="color:white; text-align:center">Hành động</h6>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var item in Model)
                             {
-                                @if(item.TrangThai == true)
+                                @if(item.TrangThai == true && item.NgayKetThuc >= DateTime.Now)
                                 {
                                     <tr>
                                         <td>
@@ -317,22 +334,34 @@
                                         </td><td>
                                             <h6 style="text-align:center">@item.Ghichu</h6>
                                         </td>
-                                        @if (item.TrangThai != false)
+                                        @if(item.NgayKetThuc >= DateTime.Now)
                                         {
-                                            <td class="border-bottom-0">
-                                                <p class="mb-0 fw-normal" style="white-space: nowrap; color:white;text-align :center; background-color: forestgreen; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Đang khuyến mãi</p>
-                                            </td>
+                                            @if (item.TrangThai != false)
+                                            {
+                                                <td class="border-bottom-0">
+                                                    <p class="mb-0 fw-normal" style="white-space: nowrap; color:white;text-align :center; background-color: forestgreen; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Đang khuyến mãi</p>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td class="border-bottom-0">
+                                                    <p class="mb-0 fw-normal"  style="white-space: nowrap; color:white;text-align :center; background-color: orange; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Tạm ngưng</p>
+                                                </td>
+                                            }
                                         }
                                         else
                                         {
                                             <td class="border-bottom-0">
-                                                <p class="mb-0 fw-normal"  style="white-space: nowrap; color:white;text-align :center; background-color: orange; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Tạm ngưng</p>
-                                            </td>
+                                                    <p class="mb-0 fw-normal"  style="white-space: nowrap; color:white;text-align :center; background-color: red; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Đã hết hạn</p>
+                                                </td>
                                         }
                                         <td>
-                                            <button type="button" style="white-space: nowrap; background-color: wheat; border-color:deepskyblue; border-radius: 10px; font-weight: 400; padding: 0 8px">
-                                                @Html.ActionLink( "Chọn sp","Edit", new { id=item.Id })
-                                            </button>
+                                            @if(item.NgayKetThuc > DateTime.Now){
+                                                <button type="button" style="white-space: nowrap; background-color: wheat; border-color:deepskyblue; border-radius: 10px; font-weight: 400; padding: 0 8px">
+                                                    @Html.ActionLink( "Chọn sp","Edit", new { id=item.Id })
+                                                </button>
+                                            }
+                                        
                                             @*<button type="button" style="white-space: nowrap; background-color: wheat; border-color:deepskyblue; border-radius: 10px; font-weight: 400; padding: 0 8px">
                                                 @Html.ActionLink( "Thông tin","Details", new { id=item.Id })
                                             </button>*@
@@ -417,13 +446,15 @@
                                 <th>
                                     <h6 style="color:white; text-align:center">Trạng thái</h6>
                                 </th>
-                                <th></th>
+                                <th>
+                                    <h6 style="color:white; text-align:center">Trạng thái</h6>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var item in Model)
                             {
-                                if(item.TrangThai != true)
+                                if(item.TrangThai != true && item.NgayKetThuc>= DateTime.Now)
                                 {
                                     <tr>
                                         <td>
@@ -474,22 +505,34 @@
                                         </td><td>
                                             <h6 style="text-align:center">@item.Ghichu</h6>
                                         </td>
-                                        @if (item.TrangThai != false)
+                                        @if(item.NgayKetThuc >= DateTime.Now)
                                         {
-                                            <td class="border-bottom-0">
-                                                <p class="mb-0 fw-normal" style="white-space: nowrap; color:white;text-align :center; background-color: forestgreen; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Đang khuyến mãi</p>
-                                            </td>
+                                            @if (item.TrangThai != false)
+                                            {
+                                                <td class="border-bottom-0">
+                                                    <p class="mb-0 fw-normal" style="white-space: nowrap; color:white;text-align :center; background-color: forestgreen; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Đang khuyến mãi</p>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td class="border-bottom-0">
+                                                    <p class="mb-0 fw-normal"  style="white-space: nowrap; color:white;text-align :center; background-color: orange; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Tạm ngưng</p>
+                                                </td>
+                                            }
                                         }
                                         else
                                         {
                                             <td class="border-bottom-0">
-                                                <p class="mb-0 fw-normal"  style="white-space: nowrap; color:white;text-align :center; background-color: orange; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Tạm ngưng</p>
-                                            </td>
+                                                    <p class="mb-0 fw-normal"  style="white-space: nowrap; color:white;text-align :center; background-color: red; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Đã hết hạn</p>
+                                                </td>
                                         }
                                         <td>
-                                            <button type="button" style="white-space: nowrap; background-color: wheat; border-color:deepskyblue; border-radius: 10px; font-weight: 400; padding: 0 8px">
-                                                @Html.ActionLink( "Chọn sp","Edit", new { id=item.Id })
-                                            </button>
+                                            @if(item.NgayKetThuc > DateTime.Now){
+                                                <button type="button" style="white-space: nowrap; background-color: wheat; border-color:deepskyblue; border-radius: 10px; font-weight: 400; padding: 0 8px">
+                                                    @Html.ActionLink( "Chọn sp","Edit", new { id=item.Id })
+                                                </button>
+                                            }
+                                        
                                             @*<button type="button" style="white-space: nowrap; background-color: wheat; border-color:deepskyblue; border-radius: 10px; font-weight: 400; padding: 0 8px">
                                                 @Html.ActionLink( "Thông tin","Details", new { id=item.Id })
                                             </button>*@
@@ -611,6 +654,34 @@
     .page-link:hover {
         background-color: #eee;
     }
+
+    /* Reset some default styles for consistency across browsers */
+body, button {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Style for the custom button */
+.custom-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: 2px solid #3498db;
+    border-radius: 5px;
+    color: #3498db;
+    background-color: #fff;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Hover effect */
+.custom-button:hover {
+    background-color: #3498db;
+    color: #fff;
+}
 </style>
 
 
