@@ -356,6 +356,23 @@ namespace CTN4_View_Admin.Controllers
 
             return Json(thongKetheo);
         }
+        [HttpPost]
+        public IActionResult thongkeTrongKhoangTien(string ngaybatdau, string ngayketthuc)
+        {
+            if (ngaybatdau == null || ngayketthuc == null)
+            {
+                int[] thongKeArray = _hd.ThongKeTongTienHoaDonTheoThangTrongNam();
+
+                return Json(thongKeArray);
+            }
+            DateTime startDate = DateTime.Parse(ngaybatdau);
+            DateTime endDate = DateTime.Parse(ngayketthuc);
+
+            decimal[] thongKetheo = _hd.ThongKeTongTienHoaDonTheoThangTrongNam(startDate, endDate);
+
+            return Json(thongKetheo);
+          
+        }
         private bool IsValidEmail(string email)
         {
             try
