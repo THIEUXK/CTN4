@@ -60,10 +60,20 @@
                                 <button type="button" class="btn btn-primary" style="background: linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);">Applly</button>
                             </div>
                         </div>
-                        <div class="col-md-12 form-group">
-                            <label>Địa chỉ nhận hàng cụ thể</label>
-                            <input type="text" class="form-control" value="" id="company" name="DiachiNhanChiTiet">
-                        </div>
+                        @if (Model.DiaChiNhanHang != null)
+                        {
+                            <div class="col-md-12 form-group">
+                                <label>Địa chỉ nhận hàng cụ thể</label>
+                                <input type="text" class="form-control" value="@Model.DiaChiNhanHang.name" id="company" name="DiachiNhanChiTiet">
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-md-12 form-group">
+                                <label>Địa chỉ nhận hàng cụ thể</label>
+                                <input type="text" class="form-control" value="" id="company" name="DiachiNhanChiTiet">
+                            </div>
+                        }
                         <div class="col-md-6 form-group p_star">
                             <label>Số điện thoại</label>
                             <input type="text" class="form-control" value="@Model.KhachHang.SDT" id="number" name="Sodienthoai">
@@ -81,8 +91,8 @@
                             <input type="hidden" name="tienship" value="" id="tienship1"></input>
                             <div class="col-md-6 form-group p_star">
                                 <label>Địa chỉ :</label>
-                                <input type="text" class="form-control" id="adressnew" name="" disabled></input>
-                                <input type="hidden" class="form-control" id="diachinay" value="" name="addDiaChi"></input>
+                                <input type="text" class="form-control" id="adressnew" name="" value="@Model.DiaChiNhanHang.DiaChi" disabled></input>
+                                <input type="hidden" class="form-control" id="diachinay" value="@Model.DiaChiNhanHang.DiaChi" name="addDiaChi"></input>
                             </div>
                         }
                         else
@@ -177,9 +187,12 @@
 
                                     <input type="hidden" name="idGHCT" value="@a.Id" />
                                     <input type="hidden" name="idSPCT" value="@a.IdSanPhamChiTiet" />
+                                    <input type="hidden" name="OrderDescription" value="Mua Tại Shop Boro" />
+                                    <input type="hidden" name="OrderType" value="Túi Sách" >
                                     <input type="hidden" name="SoLuong" value="@a.SoLuong" />
                                     <input type="hidden" name="idGH" value="@a.IdGioHang" />
                                 }
+                              
                             </ul>
                             <br></br>
                             @if (Model.DiaChiNhanHang != null)
@@ -193,7 +206,9 @@
                             </ul>
                             <br></br>
                             <ul class="list">
-                                <li><a href="#">Tổng tiền :<span><b id="tongtien" style="color:orange">@FormatCurrency(Model.TongTien)</b></span></a></li>
+                                <li><a href="#">Tổng tiền :<span><b name="Amount" id="tongtien" style="color:orange">@FormatCurrency(Model.TongTien)</b></span></a></li>
+                               <input hidden name="Amount"  value="@Model.TongTien"/>
+                                
                             </ul>
                             <br></br>
                             <input type="hidden" name="tienship" value="" id="tienship1"></input>
@@ -203,6 +218,9 @@
 
                                 <button class="primary-btn" type="submit" href="#">Mua Hàng</button>
                             </div>
+                            @* <div class="card border-secondary mb-5">
+                                <button class="primary-btn" asp-controller="BanHang" asp-action="CreatePaymentUrl" href="#">Thanh Toán Vnpay</button>
+                            </div> *@
                         </div>
                     </div>
                 </div>

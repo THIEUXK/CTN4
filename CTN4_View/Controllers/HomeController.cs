@@ -1,4 +1,3 @@
-﻿
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using CTN4_Serv.Service.IService;
@@ -14,6 +13,9 @@ using CTN4_Serv.Service.Service;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Text.RegularExpressions;
+using CTN4_Data.DB_Context;
+using DocumentFormat.OpenXml.Spreadsheet;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CTN4_View.Controllers
 {
@@ -32,8 +34,12 @@ namespace CTN4_View.Controllers
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IDiaChiNhanHangService _diachi;
         private readonly IGiamGiaService _giamgiact;
-
+        private readonly DB_CTN4_ok _CTN4_Ok;
+        private readonly IDanhMucChiTietService _danhMucChiTietService;
+        private readonly IEmailService _EmailService;
         public IKhachHangService _KHangService;
+         public IDiaChiNhanHangService _diaChiNhanHangService;
+
         //public HomeController()
         //{
         //    _phamChiTietService = new SanPhamChiTietService();
@@ -41,7 +47,7 @@ namespace CTN4_View.Controllers
         //}
 
 
-        public HomeController(ILogger<HomeController> logger, IConfiguration config, ITokenService tokenService, ILoginService userRepository, ICurrentUser curent, IKhachHangService khachhang, ISanPhamService sanpham, IHttpClientFactory httpClientFactory, IDiaChiNhanHangService diachi, IGiamGiaService giamgia)
+        public HomeController(ILogger<HomeController> logger, IConfiguration config, ITokenService tokenService, ILoginService userRepository, ICurrentUser curent, IKhachHangService khachhang, ISanPhamService sanpham, IHttpClientFactory httpClientFactory, IDiaChiNhanHangService diachi, IGiamGiaService giamgia, IEmailService emailService)
 
         {
             _spService = sanpham;
@@ -57,6 +63,10 @@ namespace CTN4_View.Controllers
             _userRepository = userRepository;
             _httpClientFactory = httpClientFactory;
             _giamgiact = giamgia;
+            _CTN4_Ok = new DB_CTN4_ok();
+            _danhMucChiTietService = new DanhMucChiTietMucChiTietService();
+            _EmailService = emailService;
+             _diaChiNhanHangService = new DiaChiNhanHangService();
         }
 
         public IActionResult Index()
@@ -65,7 +75,17 @@ namespace CTN4_View.Controllers
 
             var a = User.Identity.Name;
             var obj = _spService.GetAll();
-            return View(obj);
+
+            var b = _danhMucChiTietService.GetAll().Where(c => c.IdDanhMuc == Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081173")).ToList();
+            var c = _danhMucChiTietService.GetAll().Take(8).ToList();
+            var view = new SanPhamBanChayView()
+            {
+                sanPhams = obj,
+                danhMucChiTiets = b,
+                danhMucChiTiets1 = c,
+            };
+
+            return View(view);
         }
         public IActionResult AddAnhDaiDien(Guid IdKh, [Bind] IFormFile imageFile)
         {
@@ -373,7 +393,6 @@ namespace CTN4_View.Controllers
             var user = _khachHangService.GetById(_curent.Id);
             return View(user);
         }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
@@ -477,6 +496,61 @@ namespace CTN4_View.Controllers
 
             return result;
         }
+        //public IActionResult SanPhamBanChay()
+        //{
+        //    var spbc = _.GetAllSpct()
+        //   .GroupBy(pd => pd.IdSp)
+        //   .Select(g => new SanPhamChiTietView()
+        //   {
+        //       Id = g.Key,
+        //       Is_detele = g.FirstOrDefault()?.SanPham?.TenSanPham,
+        //       SoLuong = g.Sum(pd => pd.SoLuong)
+        //   })
+        //   .OrderByDescending(g => g.TotalQuantitySold)
+        //   .Take(10)
+        //   .ToList();
+
+        //    return View();
+        //}
+       
+       public ActionResult SuccessPass()
+        {
+            return View();
+        }
+
+          public ActionResult QuenMk() 
+        {
+            return View();
+                }
+        [HttpPost]
+        public async Task<IActionResult> QuenMks(MailRequest mailRequest)
+        {
+            var khachHang = _khachHangService.GetAll().FirstOrDefault(c => c.TenDangNhap == mailRequest.Tendangnhap);
+            var checkmail = _khachHangService.GetAll().FirstOrDefault(c => c.Email == mailRequest.ToEmail);
+
+           
+                if (string.IsNullOrEmpty(mailRequest.ToEmail))
+                {
+                    ViewBag.Message = "Không được để trống";
+
+                    return View("QuenMk",mailRequest);
+                }
+            if (khachHang == null || checkmail == null)
+            {
+                ViewBag.Message = "Tên đăng nhập hoặc email không đúng";
+                return View("QuenMk", mailRequest);
+            }
+
+
+            mailRequest.Subject = "Mật khẩu đăng nhập của wed bán túi poro của bạn là:";
+            mailRequest.Body = $"Mật khẩu là: {khachHang.MatKhau}";
+
+            await _EmailService.SendEmailAsync(mailRequest);
+
+            return RedirectToAction(nameof(SuccessPass)); 
+        }
+    }
 
     }
-}
+
+

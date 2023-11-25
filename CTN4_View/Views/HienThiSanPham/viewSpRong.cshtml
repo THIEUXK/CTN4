@@ -1,5 +1,6 @@
-﻿
-
+﻿@using CTN4_View_Admin.Controllers.Shop;
+@using Microsoft.AspNetCore.Http;
+@model CTN4_Serv.ViewModel.HienThiSanPhamView;
 <!-- End Header Area -->
 <!-- Start Banner Area -->
 @*<section class="banner-area organic-breadcrumb">
@@ -36,7 +37,18 @@
                 <div class="head">Danh mục sản phẩm</div>
                 <ul class="main-categories">
                     <li class="main-nav-list">
-                       
+                        <from>
+                            @foreach (var sp in Model.danhMucs)
+                            {
+                                if ((Model.danhMucChiTiets.Where(c => c.IdDanhMuc == sp.Id).Count()) >= 1)
+                                {
+                                    <div style="display: flex; align-items: center;">
+                                        <a>@Html.ActionLink(sp.TenDanhMuc, "SanPhamDanhMuc", "DanhMucSanPham", new { id = sp.Id })</a>
+                                        <span>(@(Model.danhMucChiTiets.Where(c => c.IdDanhMuc == sp.Id).Count()))</span>
+                                    </div>
+                                }
+                            }
+                        </from>
                     </li>
                 </ul>
             </div>
@@ -46,39 +58,96 @@
                     <div class="head">Chất Liệu</div>
                     <form id="FillterChatLieu">
                         <ul>
-
-                           
+                            @{
+                                var session = Context.Request.HttpContext.Session;
+                                var LuuTamCl = SessionBan.ChatLieuSS(session, "ChatLieuTam");
+                                var a = new List<Guid>();
+                                foreach (var i in LuuTamCl)
+                                {
+                                    a.Add(i.Id);
+                                }
+                            }
+                            @foreach (var chatLieu in Model.chatLieus)
+                            {
+                                if ((Model.sanPhams.Where(c => c.IdChatLieu == chatLieu.Id).Count()) >= 1)
+                                {
+                                    if (a.Contains(chatLieu.Id))
+                                    {
+                                        <li>
+                                            <input class="pixel-radio" type="checkbox" name="ChatLieu" value="@chatLieu.Id.ToString()" checked>
+                                            <label for="ChatLieu-@chatLieu.Id">
+                                                @chatLieu.TenChatLieu <span>
+                                                    (@(
+                                                       Model.sanPhams.Where(c => c.IdChatLieu == chatLieu.Id).Count()
+                                                       ))
+                                                </span>
+                                            </label>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li>
+                                            <input class="pixel-radio" type="checkbox" name="ChatLieu" value="@chatLieu.Id.ToString()">
+                                            <label for="ChatLieu-@chatLieu.Id">
+                                                @chatLieu.TenChatLieu <span>(@(Model.sanPhams.Where(c => c.IdChatLieu == chatLieu.Id).Count()))</span>
+                                            </label>
+                                        </li>
+                                    }
+                                }
+                            }
 
                         </ul>
                     </form>
                     <div class="common-filter">
-                        <div class="head">MauSac</div>
-                        @*<form id="FillterMauSac">
-                        <ul>
-                        @{
-                        foreach (var mau in Model.maus)
-                        {
-                        if ((Model.sanPhamChiTiets.Where(c => c.IdMau == mau.Id).Count()) >= 1)
-                        {
-                        <li>
-                        <input class="pixel-radio" type="checkbox" name="ChatLieu" id="ChatLieu-@mau.Id" value="@mau.TenMau">
-                        <label for="ChatLieu-@mau.Id">
-                        @mau.TenMau <span>(@(Model.sanPhamChiTiets.Where(c => c.IdMau == mau.Id).Count()))</span>
-                        </label>
-                        </li>
-                        }
-                        }
-                        }
-                        </ul>
-                        </form>*@
+                        <div class="head">Màu Sắc</div>
+                        <form id="FillterMauSac">
+                            <ul>
+                                @{
+                                    var session1 = Context.Request.HttpContext.Session;
+                                    var LuuTamMau = SessionBan.MauSacSS(session1, "MauSacTam");
+                                    var b = new List<Guid>();
+                                    foreach (var i in LuuTamMau)
+                                    {
+                                        b.Add(i.Id);
+                                    }
+                                }
+                                @foreach (var mau in Model.maus)
+                                {
+                                    if ((Model.sanPhamChiTiets.Where(c => c.IdMau == mau.Id).Count()) >= 1)
+                                    {
+                                        if (b.Contains(mau.Id))
+                                        {
+                                            <li>
+                                                <input class="pixel-radio" type="checkbox" name="MauSac" value="@mau.Id.ToString()" checked>
+                                                <label for="Mau-@mau.Id">
+                                                    @mau.TenMau
+                                                </label>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li>
+                                                <input class="pixel-radio" type="checkbox" name="MauSac" value="@mau.Id.ToString()">
+                                                <label for="Mau-@mau.Id">
+                                                    @mau.TenMau
+                                                </label>
+                                            </li>
+                                        }
+                                    }
+                                }
+
+                            </ul>
+                        </form>
                     </div>
                     <div>
-                        <button id="btnFillter" type="submit" class="btn btn-primary btn-block enter-btn fa fa-search">
-                            Filter
-                        </button>
+                        <form asp-controller="HienThiSanPham" asp-action="HienThiSanPham2">
+                            <button class="btn btn-primary btn-block enter-btn fa fa-search">
+                                Lọc
+                            </button>
+                        </form>
+
                     </div>
                 </div>
-
 
                 <div class="common-filter">
                     <div class="head">Price</div>

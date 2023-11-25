@@ -1,5 +1,6 @@
-﻿@model IEnumerable<CTN4_Data.Models.DB_CTN4.DanhMuc>
-
+﻿@*@model IEnumerable<CTN4_Data.Models.DB_CTN4.DanhMuc>*@
+@model X.PagedList.IPagedList<CTN4_Data.Models.DB_CTN4.DanhMuc>
+@using X.PagedList.Mvc.Core
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
@@ -14,45 +15,189 @@
             <h1>Index</h1>
 
             <p>
-                <button type="button" class="btn btn-warning btn-fw editable-click=" asp-action="Create"><a asp-action ="Create" style="color:white">Thêm</a></button>
+                <button type="button" class="btn btn-warning btn-fw editable-click=" asp-action="Create"><a asp-action="Create" style="color:white">Thêm</a></button>
 
             </p>
+            <div class="input-group" style="margin-bottom: 20px">
+                <form method="get" style="display:flex">
+                    <div class="form-outline">
+                        <input type="text" id="form1" class="form-control" name="searchString" style="width: 980px" placeholder="Tìm kiếm..." />
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+
+            </div>
             <table class="table">
                 <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Id)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.TenDanhMuc)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Is_detele)
-                    </th>
-                    <th></th>
-                </tr>
+                    <tr>
+
+                        <th>
+                            Tên danh mục
+                        </th>
+                        <th></th>
+                    </tr>
                 </thead>
                 <tbody>
-                @foreach (var item in Model) {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Id)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TenDanhMuc)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Is_detele)
-                        </td>
-                        <td>
-                            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-                            @Html.ActionLink("Delete", "Delete", new { id=item.Id})
-                        </td>
-                    </tr>
-                }
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TenDanhMuc)
+                            </td>
+                            <td>
+                                <button class="btn btn-success m-1">
+                                    @Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.Id }, new { style = "color: white;" })
+                                </button>
+                                <button class="btn btn-info m-1">
+                                    @Html.ActionLink("Xem chi tiết", "Details", new { id = item.Id }, new { style = "color: white;" })
+                                </button>
+                                <button class="btn btn-danger m-1">
+                                    @Html.ActionLink("Xóa", "Delete", new { id = item.Id }, new { style = "color: white;" })
+                                </button>
+                            </td>
+                        </tr>
+                    }
+
                 </tbody>
             </table>
+            <div class="row no-gutters justify-content-between paginate">
+                <div class="col-auto ">
+                    @using (Html.BeginForm("Index", "DanhMuc", FormMethod.Get))
+                    {
+                         <div class="custom-dropdown">
+                            Kích thước trang: @Html.DropDownList("size", (List<SelectListItem>)ViewBag.size, new { @onchange = "this.form.submit();" })
+                        </div>
+                    }
+                </div>
+                <div class="col-auto">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col-auto mr-3"><span style="color: rgb(128, 128, 128);">Tổng:<span id="id">@Model.Count()</span></span></div>
+                        <div class="col">
+                            <div class="pagination-container">
+                                <ul class="pagination">
+                                    @if (Model.HasPreviousPage)
+                                    {
+                                        <li class="page-item">
+                                            <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber - 1, size = ViewBag.currentSize })">Previous</a>
+                                        </li>
+                                    }
+
+                                    @for (var i = 1; i <= Model.PageCount; i++)
+                                    {
+                                        <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                                            <a class="page-link" href="@Url.Action("Index", new { page = i, size = ViewBag.currentSize })">@i</a>
+                                        </li>
+                                    }
+
+                                    @if (Model.HasNextPage)
+                                    {
+                                        <li class="page-item">
+                                            <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber + 1, size = ViewBag.currentSize })">Next</a>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+<style>
+    .row.no-gutters {
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    .custom-dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+        .custom-dropdown select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            padding: 8px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #fff;
+            cursor: pointer;
+            outline: none;
+        }
+
+            .custom-dropdown select:hover {
+                border-color: #aaa;
+            }
+
+            .custom-dropdown select:focus {
+                border-color: #555;
+                box-shadow: 0 0 5px rgba(85, 85, 85, 0.2);
+            }
+
+            .custom-dropdown select::after {
+                content: '\25BC';
+                font-size: 10px;
+                color: #555;
+                position: absolute;
+                top: 50%;
+                right: 8px;
+                transform: translateY(-50%);
+            }
+
+            .custom-dropdown select:active,
+            .custom-dropdown select:focus {
+                background-color: #f9f9f9;
+            }
+
+    /* Kiểu phân trang */
+    .pagination-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .pagination {
+        display: flex;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+        .pagination li {
+            margin: 0;
+        }
+
+        .pagination a {
+            display: block;
+            padding: 8px 12px;
+            text-decoration: none;
+            color: #333;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            margin-right: 2px;
+        }
+
+            .pagination a:hover {
+                background-color: #f5f5f5;
+            }
+
+        .pagination .active a {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
+        }
+
+    /* Kiểu thông tin tổng số lượng */
+    #id {
+        font-weight: bold;
+        color: #333;
+    }
+
+    /* Thêm các kiểu tùy chỉnh khác tùy theo ý muốn của bạn */
+
+</style>

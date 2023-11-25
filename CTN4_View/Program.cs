@@ -2,15 +2,17 @@
 using CTN4_Serv.Service.IService;
 using CTN4_Serv.Service.Service;
 using CTN4_Serv.ViewModel;
+using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
+
 using Microsoft.IdentityModel.Tokens;
 using System.Configuration;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpClient();
-
+builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddControllersWithViews();
@@ -25,11 +27,14 @@ builder.Services.AddTransient<ISanPhamService, SanPhamService>();
 builder.Services.AddTransient<IDiaChiNhanHangService, DiaChiNhanHangService>();
 builder.Services.AddTransient<IGiamGiaService, GiamGiaService>();
 builder.Services.AddTransient<IHoaDonService, HoaDonService>();
+builder.Services.AddTransient<IVnPayService, VnPayService>();
+builder.Services.AddTransient<IEmailService, EmailService>();
 builder.Services.AddSession(option =>
 {
 	//option.IdleTimeout = TimeSpan.FromSeconds(60);
 	// Định hình Session này tồn tại trong 30 giây
 }); // Thêm cái này để dùng Session
+
 
 
 builder.Services.AddAuthentication(auth =>
@@ -50,7 +55,7 @@ builder.Services.AddAuthentication(auth =>
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
         };
     });
-
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("Nhân viên", policy => { policy.RequireAuthenticatedUser(); policy.RequireRole("Nhân viên"); });

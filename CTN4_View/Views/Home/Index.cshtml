@@ -1,7 +1,8 @@
 ﻿@{
 	ViewData["Title"] = "Index ";
 }
-@model List<CTN4_Data.Models.DB_CTN4.SanPham>
+@model CTN4_Serv.ViewModel.SanPhamBanChayView
+@*@model List<CTN4_Data.Models.DB_CTN4.SanPham>*@
 <html lang="zxx" class="no-js">
 
 <body>
@@ -118,31 +119,35 @@
 					<div class="row">
 						<div class="col-lg-8 col-md-8">
 							<div class="single-deal">
+								<a href="@Url.Action("SanPhamDanhMuc", "DanhMucSanPham", new { id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081163")})">
 								<div class="overlay"></div>
 								<img class="img-fluid w-100" src="~/img/banner/banner4.png" alt="">
-								<a href="~/img/banner/banner1.png" class="img-pop-up" target="_blank">
 									<div class="deal-details">
 										<h6 class="deal-title">Xu Thế Thời Trang</h6>
 									</div>
 								</a>
 							</div>
+							
 						</div>
 						<div class="col-lg-4 col-md-4">
 							<div class="single-deal">
+								<a href="@Url.Action("SanPhamDanhMuc", "DanhMucSanPham", new { id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081164")})">
 								<div class="overlay"></div>
 								<img class="img-fluid w-100" src="~/img/banner/banner2.png" alt="">
-								<a href="~/img/category/c2.jpg" class="img-pop-up" target="_blank">
+								
 									<div class="deal-details">
 										<h6 class="deal-title">BST Công Sở</h6>
 									</div>
+								
 								</a>
 							</div>
 						</div>
 						<div class="col-lg-4 col-md-4">
 							<div class="single-deal">
+								<a href="@Url.Action("SanPhamDanhMuc", "DanhMucSanPham", new { id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081165")})">
 								<div class="overlay"></div>
 								<img class="img-fluid w-100" src="~/img/banner/pexels-irina-iriser-1800457.jpg" alt="" >
-								<a href="~/img/category/c3.jpg" class="img-pop-up" target="_blank" style="height:300px">
+								
 									<div class="deal-details">
 										<h6 class="deal-title">BST Mùa Hè</h6>
 									</div>
@@ -151,9 +156,10 @@
 						</div>
 						<div class="col-lg-8 col-md-8">
 							<div class="single-deal">
+								<a href="@Url.Action("SanPhamDanhMuc", "DanhMucSanPham", new { id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081166")})">
 								<div class="overlay"></div>
 								<img class="img-fluid w-100" src="~/img/banner/pngs.png" alt="">
-								<a href="~/img/category/c4.jpg" class="img-pop-up" target="_blank">
+								 
 									<div class="deal-details">
 										<h6 class="deal-title">BST Túi Ngôn Tình</h6>
 									</div>
@@ -192,28 +198,27 @@
 						</div>
 					</div>
 				</div>
-			
-				
 					<div class="row">
-					@foreach (var item in Model)
+					@foreach (var item in Model.danhMucChiTiets1)
 					{
-						<!-- single product -->
-	
-					
-					
-		
-
-						<!-- single product -->
+						
 						<div class="col-lg-3 col-md-6">
 							<div class="single-product">
-								<img class="img-fluid" src="~/image/@item.AnhDaiDien" alt="">
+								<img class="img-fluid" src="~/image/@item.SanPham.AnhDaiDien" alt="">
 								<div class="product-details">
 									<h6>
-										@item.TenSanPham
+										@item.SanPham.TenSanPham
 									</h6>
 									<div class="price">
-										<h6>@item.GiaNiemYet</h6>
-										<h6 class="l-through">@item.GiaBan</h6>
+										@if (item.SanPham.GiaNiemYet == item.SanPham.GiaBan)
+										{
+											<h6>@FormatCurrency(item.SanPham.GiaNiemYet)</h6>
+										}
+										else
+										{
+											<h6>@FormatCurrency(item.SanPham.GiaNiemYet)</h6>
+											<h6 class="l-through">@FormatCurrency(item.SanPham.GiaBan)</h6>
+										}
 									</div>
 									<div class="prd-bottom">
 
@@ -257,20 +262,26 @@
 					</div>
 				</div>
 				<div class="row">
-					@foreach (var item in Model)
+					@foreach (var item in Model.danhMucChiTiets)
 					{
-						<!-- single product -->
-						<!-- single product -->
+
 						<div class="col-lg-3 col-md-6">
 							<div class="single-product">
-								<img class="img-fluid" src="~/image/@item.AnhDaiDien" alt="">
+								<img class="img-fluid" src="~/image/@item.SanPham.AnhDaiDien" alt="">
 								<div class="product-details">
 									<h6>
-										@item.TenSanPham
+										@item.SanPham.TenSanPham
 									</h6>
 									<div class="price">
-										<h6>@item.GiaNiemYet</h6>
-										<h6 class="l-through">@item.GiaBan</h6>
+										@if (item.SanPham.GiaNiemYet == item.SanPham.GiaBan)
+										{
+											<h6>@FormatCurrency(item.SanPham.GiaNiemYet)</h6>
+										}
+										else
+										{
+											<h6>@FormatCurrency(item.SanPham.GiaNiemYet)</h6>
+											<h6 class="l-through">@FormatCurrency(item.SanPham.GiaBan)</h6>
+										}
 									</div>
 									<div class="prd-bottom">
 
@@ -536,7 +547,17 @@
 			</div>
 		</div>
 	</section>
+	<script>
+		@functions {
+			public string FormatCurrency(float price)
+			{
+				string formattedPrice = string.Format("{0:N0}", price); // Định dạng số và thêm dấu phân cách ngàn
+				return formattedPrice + "VND"; // Thêm ký hiệu đồng (₫) vào cuối
+			}
+  };
 
+
+	</script>
 	<script src="~/js/vendor/jquery-2.2.4.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.~/js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
 			crossorigin="anonymous"></script>

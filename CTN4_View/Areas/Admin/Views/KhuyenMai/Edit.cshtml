@@ -5,6 +5,24 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 <style>
+    .pagination button {
+        background-color: #3498db;
+        color: #ffffff;
+        border: 1px solid #3498db;
+        padding: 8px 12px;
+        margin: 4px;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+    }
+
+        .pagination button.active {
+            background-color: #2980b9;
+        }
+
+        .pagination button:hover {
+            background-color: #2076a9;
+        }
     .default-option {
         font-size: 12px; /* Điều chỉnh kích thước chữ theo ý muốn của bạn */
     }
@@ -58,15 +76,18 @@
 
 <input id="Idkm" type="hidden" value="@Model.Id"/>
 
+
         <div class="row" style="margin-top: 100px">
-            <div class="col-md-9">
+        
                 <br />
-                <h1>Thên sản phẩm vào Khuyễn Mãi</h1>
-                <hr />
+               
+          
 
                 <div class="row">
-                    <div class="col-md-9">
+                    <div class="col-md-6">
+            <h3>Thên sản phẩm vào Khuyễn Mãi</h3>
                         <form asp-action="Edit">
+                          
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="form-container">
                             <div class="form-group">
@@ -126,14 +147,14 @@
                             </div>
                             <div class="form-container">
                             <div class="form-group">
-                                <label asp-for="NgayBatDau" class="control-label">Ngày bắt đầu</label>
-                                <input asp-for="NgayBatDau" class="form-control" pattern="\d*" oninput="validateNumber(this);" readonly />
+                                <label asp-for="NgayBatDau"  class="control-label">Ngày bắt đầu</label>
+                        <input asp-for="NgayBatDau" id="NgayBatDau" class="form-control" pattern="\d*" oninput="validateNumber(this);" readonly />
                                 <span asp-validation-for="NgayBatDau" class="text-danger"></span>
                             </div>
 
                             <div class="form-group">
                                 <label asp-for="NgayKetThuc" class="control-label">Ngày kết thúc</label>
-                                <input asp-for="NgayKetThuc" class="form-control" readonly />
+                        <input asp-for="NgayKetThuc" id="NgayKetThuc" class="form-control" readonly />
                                 <span asp-validation-for="NgayKetThuc" class="text-danger"></span>
                             </div>
                             </div>
@@ -141,13 +162,28 @@
                                 <a asp-action="Index">Back to List</a>
                             </div>
                         </form>
+            <button id="updateGiaButton" class="btn btn-primary">Cập nhật Giá Sản Phẩm</button>
+            <button id="huyApDungButton" class="btn btn-primary">Hủy áp dụng khuyến mại</button>
                     </div>
-                </div>
+                    <div class="col-md-6">
+            <h3>Danh sách khuyến mãi</h3>
+            <div id="kmsp" class="form-container">
+                <table class="table" id="productTable">
+                    <thead>
+                        <tr>
+                            <th>Tên Sản Phẩm</th>
+                            <th>Ảnh Đại diện</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productBody"></tbody>
+                </table>
+                <div class="pagination" id="pagination"></div>
             </div>
+                </div>
+          
         </div>
         <div id="images"></div>
-<button id="updateGiaButton" class="btn btn-primary">Cập nhật Giá Sản Phẩm</button>
-<button id="huyApDungButton" class="btn btn-primary">Hủy áp dụng khuyến mại</button>
+
 <div class="row" style="margin: 20px;" >
    
         <div class="col-md-3">
@@ -155,7 +191,7 @@
                 <!-- Nội dung của productSelect -->
             </div>
         </div>
-
+  
       <div class="col-md-3">
             
             <input id="searchproduct" placeholder="Tìm kiếm" class="form-control" />
@@ -194,11 +230,18 @@
             //         $(this).val(value);
             //     });
             // });
-
+        var itemsPerPage = 5; // Number of items to display per page
+        var currentPage = 1;  // Current page
             $(document).ready(function () {
                 Data(); // Populate initial data for select
                 fetchDataFromIndexAction(); // Initial fetch
-               
+            kmsp(); // Initial load
+
+            // Use jQuery for event handling
+            $(document).on('click', '.pagination button', function () {
+                var page = $(this).text();
+                changePage(page);
+            });
                 $('#productSelect').on('change', function () {
                     var selectedName = $('#searchSelect').val();
                   
@@ -211,7 +254,52 @@
             searchFull(search); // Trigger search with the selected value
         });
             });
-         
+
+
+        function kmsp() {
+            $.ajax({
+                url: '/admin/KhuyenMai/SpKM',
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    displayProducts(data, currentPage, itemsPerPage);
+                    console.log(data);
+                },
+                error: function (error) {
+                    console.log("Đã xảy ra lỗi: ", error);
+                }
+            });
+        }
+
+        function displayProducts(data, page, itemsPerPage) {
+            var start = (page - 1) * itemsPerPage;
+            var end = start + itemsPerPage;
+
+            // Update product table body
+            $('#productBody').html(data.length > 0 ?
+                data.slice(start, end).map(item =>
+                    `<tr>
+                        <td>${item.tenSanPham}</td>
+                        <td><img src='/image/${item.anhDaiDien}' style='max-width: 50px; max-height: 50px;' alt='Product Image'></td>
+                        <td><input type="hidden" class="id-sp-button" data-id-sp='${item.id ? item.id : ""}'/></td>
+                     </tr>`
+                ).join('') :
+                "<tr><td colspan='2'>No matching products found</td></tr>"
+            );
+
+            // Update pagination controls
+            var paginationHTML = '';
+            for (var i = 1; i <= Math.ceil(data.length / itemsPerPage); i++) {
+                paginationHTML += `<button ${i == currentPage ? "class='active'" : ""}>${i}</button>`;
+            }
+            $('#pagination').html(paginationHTML);
+        }
+
+        // Function to change the current page
+        function changePage(page) {
+            currentPage = page;
+            kmsp(); // Reload the data for the new page
+        }
 
             function validateNumber(input) {
                 // Xóa bất kỳ ký tự không phải số
@@ -260,30 +348,33 @@
                     mspSelect += "</select>";
             productSelect.innerHTML = mspSelect;
         }
-            function updateProductList(data) {
-                var productListHTML = "<table class='table'>";
+    
+
+    function updateProductList(data) {
+        var productListHTML = "<table class='table'>";
         productListHTML += "<tr><th>Mã Sp</th><th>Danh Mục</th><th>Tên Sản Phẩm</th><th>Giá Nhập</th><th>Giá bán</th><th>Giá Niêm yết</th><th>Ảnh Đại diện</th><th>CheckBox</th></tr>";
 
-                if (data.length > 0) {
-                    productListHTML += data.map(item =>
-                        `<tr>
-                             <td>${item.maSp}</td>
-                                          <td>${item.tenDanhMuc}</td>
-                             <td>${item.tenSanPham}</td>
-                            <td>${formatCurrency(item.giaNhap)}đ</td>
-                            <td>${formatCurrency(item.giaBan)}đ</td>
-                            <td>${formatCurrency(item.giaNiemYet)}đ</td>
-                            <td><img src='/image/${item.anhDaiDien}' height='100' alt='Product Image'></td>
-                            <td><input type="checkbox" class="id-sp-button" data-id-sp='${item.id ? item.id : ""}'/></td>
-                        </tr>`
-                    ).join('');
-                } else {
-                    productListHTML += "<tr><td colspan='6'>No matching products found</td></tr>";
-                }
+        if (data.length > 0) {
+            productListHTML += data.map(item =>
+                `<tr>
+                     <td>${item.maSp}</td>
+                     <td>${item.tenDanhMuc}</td>
+                     <td>${item.tenSanPham}</td>
+                     <td>${formatCurrency(item.giaNhap)}đ</td>
+                     <td>${formatCurrency(item.giaBan)}đ</td>
+                     <td>${formatCurrency(item.giaNiemYet)}đ</td>
+                     <td><img src='/image/${item.anhDaiDien}' height='100' alt='Product Image'></td>
+                     <td><input type="checkbox" class="id-sp-button" data-id-sp='${item.id ? item.id : ""}'/></td>
+                   
+                 </tr>`
+            ).join('');
+        } else {
+            productListHTML += "<tr><td colspan='7'>Không tìm thấy sản phẩm phù hợp</td></tr>";
+        }
 
-                productListHTML += "</table>";
-                productList.innerHTML = productListHTML;
-            }
+        productListHTML += "</table>";
+        productList.innerHTML = productListHTML;
+    }
 
             // Hàm định dạng số với dấu chấm ngăn cách hàng nghìn
             function formatCurrency(number) {
@@ -328,6 +419,7 @@
                                         <td>${formatCurrency(item.giaNiemYet)}đ</td>
                                         <td><img src='/image/${item.anhDaiDien}' height='100' alt='Product Image'></td>
                                         <td><input type="checkbox" class="id-sp-button" data-id-sp='${item.id ? item.id : ""}'/></td>
+                                             
                                     </tr>`
                             ).join('');
                         } else {
@@ -363,6 +455,7 @@
                                             <td>${formatCurrency(item.giaNiemYet)}đ</td>
                                             <td><img src='/image/${item.anhDaiDien}' height='100' alt='Product Image'></td>
                                             <td><input type="checkbox" class="id-sp-button" data-id-sp='${item.id ? item.id : ""}'/></td>
+                                                 
                                         </tr>`
                     ).join('');
                 } else {
@@ -437,6 +530,18 @@
         var giamTheoTien = parseFloat($("#SoTienGiam").val());
         var giamTheoPh = parseFloat($("#PhanTramGiamGia").val());
         var DongGia = parseFloat($("#DongGia").val());
+            // Lấy giá trị từ input datetime
+            var NgayBatDau = $("#NgayBatDau").val();
+
+            // Ngày được biểu diễn dưới dạng chuỗi, bạn có thể chuyển đổi nó thành kiểu Date nếu cần
+            var ngayBatDauDate = new Date(NgayBatDau);
+            ngayBatDauDate = ngayBatDauDate.toISOString();
+            // Lấy giá trị từ input datetime
+            var NgayKetThuc = $("#NgayKetThuc").val();
+
+            // Ngày được biểu diễn dưới dạng chuỗi, bạn có thể chuyển đổi nó thành kiểu Date nếu cần
+            var ngayKetThucDate = new Date(NgayKetThuc);
+            ngayKetThucDate = ngayKetThucDate.toISOString();
         // Lấy giá trị của các trường dữ liệu từ form hoặc từ các phần tử HTML khác
         var ids = selectedMaSps // Mảng chứa các giá trị của Ids      
 
@@ -445,15 +550,20 @@
 
         // Tạo đối tượng dữ liệu để gửi lên server
         var data = {
+            id: "@Model.Id",
             ids: ids,
             giamTheoTien: giamTheoTien,
             giamTheoPh: giamTheoPh,
-            DongGia :DongGia
+            DongGia: DongGia,
+            ngayBatDauDate: ngayBatDauDate,
+           ngayKetThucDate: ngayKetThucDate
         };
+        console.log(ngayKetThucDate);
         console.log(data);
+
         // Gọi AJAX
         $.ajax({
-            url: '/admin/KhuyenMai/UpdateGiaSanPham', // Thay thế ControllerName bằng tên thật của controller
+            url: '/admin/KhuyenMai/UpdateGiaSanPham',
             type: 'POST',
             data: data,
             success: function (response) {
@@ -467,6 +577,7 @@
                 // TODO: Xử lý lỗi
             }
         });
+
     }
 
     function huyApDungKhuyenMai() {

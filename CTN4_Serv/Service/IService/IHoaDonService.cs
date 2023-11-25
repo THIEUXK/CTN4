@@ -13,6 +13,8 @@ namespace CTN4_Serv.Service.IService
         public List<HoaDon> GetAll();
         public HoaDon GetById(int id);
         public int[] ThongKeTongTienHoaDonTheoThangTrongNam();
+        public int[] ThongKeSoLuongDonHangTrongKhoangThoiGian(DateTime tuNgay, DateTime denNgay);
+        public decimal[] ThongKeTongTienDonHangTrongKhoangThoiGian(DateTime tuNgay, DateTime denNgay);
         public int[] ThongKeSoLuongDonHangTheoThangTrongNam();
         public List<BestSellingProductModel> ThongKeSanPhamBanChay();
         public bool Them(HoaDon a);

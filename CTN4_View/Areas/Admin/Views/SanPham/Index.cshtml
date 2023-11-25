@@ -1,5 +1,6 @@
-﻿@model IEnumerable<CTN4_Data.Models.DB_CTN4.SanPham>
-
+﻿@*@model IEnumerable<CTN4_Data.Models.DB_CTN4.SanPham>*@
+@model X.PagedList.IPagedList<CTN4_Data.Models.DB_CTN4.SanPham>
+@using X.PagedList.Mvc.Core
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
@@ -10,27 +11,31 @@
 <br></br>
 
 
-<h1>Index</h1>
+<h1>Quản lý sản phẩm</h1>
 
 <p>
     <button type="button" class="btn btn-warning btn-fw editable-click=" asp-action="Create"><a asp-action="Create" style="color:white">Thêm</a></button>
 
 </p>
-<form asp-action="Index" method="get" class="form-inline">
-    <div>
-        Danh sách sản phẩm
-        <input type="text"  placeholder="Tên sản phẩm" name="TenSp">
+@using (Html.BeginForm("Index", "SanPham", FormMethod.Get, new { @class = "form-inline" }))
+{
+    <div class="form-group">
+        <label for="TenSp" class="mr-2">Danh sách sản phẩm</label>
+        <input type="text" class="form-control" placeholder="Tên sản phẩm" name="TenSp">
     </div>
-    <div>
-        Giá niêm yết từ
-        <input type="number" name="tu" />
-        đến
-        <input type="number" name="den" />
+
+    <div class="form-group ml-3">
+        <label for="tu" class="mr-2">Giá niêm yết từ</label>
+        <input type="number" class="form-control" name="tu" />
+        <span class="mr-2">đến</span>
+        <input type="number" class="form-control" name="den" />
     </div>
-    <div class="input-group-append">
-        <button class="btn btn-outline-secondary" type="submit">Tìm kiếm</button>
+
+    <div class="form-group ml-3">
+        <button type="submit" class="btn btn-outline-secondary">Tìm kiếm</button>
     </div>
-</form></br>
+}
+</br>
 <table class="table">
     <thead>
         <tr>
@@ -56,7 +61,7 @@
                 Giá bán
             </th>
             <th>
-               Giá niên yết
+                Giá niên yết
             </th>
             <th>
                 Ghi chú
@@ -65,10 +70,10 @@
                 Trạng thái
             </th>
             <th>
-                Tình trạng sản phẩm 
+                Tình trạng sản phẩm
             </th>
             <th>
-               Ảnh đại diện
+                Ảnh đại diện
             </th>
             <th></th>
         </tr>
@@ -100,8 +105,8 @@
                     @Html.Raw(FormatCurrency(item.GiaBan))
                 </td>
                 <td>
-                  @Html.Raw(FormatCurrency(item.GiaNiemYet))
-                   
+                    @Html.Raw(FormatCurrency(item.GiaNiemYet))
+
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.GhiChu)
@@ -130,23 +135,75 @@
                     </tb>
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id } )|
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    <button class="btn btn-success m-1">
+                        @Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.Id }, new { style = "color: white;" })
+                    </button>
+                    <button class="btn btn-info m-1">
+                        @Html.ActionLink("Xem chi tiết", "Details", new { id = item.Id }, new { style = "color: white;" })
+                    </button>
+                    <button class="btn btn-danger m-1">
+                        @Html.ActionLink("Xóa", "Delete", new { id = item.Id }, new { style = "color: white;" })
+                    </button>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+<div class="row no-gutters justify-content-between paginate">
+    <div class="col-auto ">
+        @using (Html.BeginForm("Index", "SanPham", FormMethod.Get))
+        {
+            <div class="custom-dropdown">
+                Kích thước trang: @Html.DropDownList("size", (SelectList)ViewBag.SizeOptions, new { @onchange = "this.form.submit();" })
+            </div>
+        }
 
+    </div>
+    <div class="col-auto">
+        <div class="row no-gutters align-items-center">
+            <div class="col-auto mr-3">
+                <span style="color: rgb(128, 128, 128);">Tổng:<span id="id">@Model.Count()</span></span>
+            </div>
+            <div class="col">
+                <div class="pagination-container">
+                    <ul class="pagination">
+                        @if (Model.HasPreviousPage)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber - 1, size = ViewBag.currentSize })">Previous</a>
+                            </li>
+                        }
+
+                        @for (var i = 1; i <= Model.PageCount; i++)
+                        {
+                            <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                                <a class="page-link" href="@Url.Action("Index", new { page = i, size = ViewBag.currentSize })">@i</a>
+                            </li>
+                        }
+
+                        @if (Model.HasNextPage)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber + 1, size = ViewBag.currentSize })">Next</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                </div>
 <script>
     @functions {
         public string FormatCurrency(float price)
         {
             string formattedPrice = string.Format("{0:N0}", price); // Định dạng số và thêm dấu phân cách ngàn
-            return formattedPrice + "₫"; // Thêm ký hiệu đồng (₫) vào cuối
+            return formattedPrice + "VND"; // Thêm ký hiệu đồng (₫) vào cuối
         }
     };
+
+            });
 
 
 </script>
@@ -170,4 +227,98 @@
     button {
         margin-left: 5px;
     }
+    /* Thiết lập kiểu cho dropdown */
+    /* Kiểu chung cho toàn bộ phân trang và dropdown */
+    .row.no-gutters {
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    .custom-dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+        .custom-dropdown select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            padding: 8px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #fff;
+            cursor: pointer;
+            outline: none;
+        }
+
+            .custom-dropdown select:hover {
+                border-color: #aaa;
+            }
+
+            .custom-dropdown select:focus {
+                border-color: #555;
+                box-shadow: 0 0 5px rgba(85, 85, 85, 0.2);
+            }
+
+            .custom-dropdown select::after {
+                content: '\25BC';
+                font-size: 10px;
+                color: #555;
+                position: absolute;
+                top: 50%;
+                right: 8px;
+                transform: translateY(-50%);
+            }
+
+            .custom-dropdown select:active,
+            .custom-dropdown select:focus {
+                background-color: #f9f9f9;
+            }
+
+    /* Kiểu phân trang */
+    .pagination-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .pagination {
+        display: flex;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+        .pagination li {
+            margin: 0;
+        }
+
+        .pagination a {
+            display: block;
+            padding: 8px 12px;
+            text-decoration: none;
+            color: #333;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            margin-right: 2px;
+        }
+
+            .pagination a:hover {
+                background-color: #f5f5f5;
+            }
+
+        .pagination .active a {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
+        }
+
+    /* Kiểu thông tin tổng số lượng */
+    #id {
+        font-weight: bold;
+        color: #333;
+    }
+
+    /* Thêm các kiểu tùy chỉnh khác tùy theo ý muốn của bạn */
+
 </style>

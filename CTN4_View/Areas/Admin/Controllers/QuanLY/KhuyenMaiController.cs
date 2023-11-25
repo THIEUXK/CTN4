@@ -19,6 +19,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         public INSXService _sx;
         public IDanhMucService _dm;
         public IDanhMucChiTietService _dmct;
+        public IKhuyenMaiSanPhamService _kmsp;
 
         public KhuyenMaiController()
         {
@@ -28,6 +29,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             _sx = new NSXService();
             _dm = new DanhMucMucService();
             _dmct = new DanhMucChiTietMucChiTietService();
+            _kmsp = new KhuyenMaiSanPhamService();
         }
         // GET: KhuyenMaiController
         [HttpGet]
@@ -215,6 +217,19 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                return View();
             }
         }
+        public ActionResult SpKM()
+        {
+            try
+            {
+
+                var a = _sp.GetAllProductWithKhuyenMai();
+                return Json(a);
+            }
+            catch (Exception)
+            {
+                return View();
+            }
+        }
         public ActionResult SearchFull(string dieukien)
         {
          
@@ -224,7 +239,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         }
         public ActionResult Getallcl()
         {
-
+         
             var a = _cl.GetAll();
             return Json(a);
         }
@@ -244,8 +259,8 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         }
 
         [HttpPost]
-        public ActionResult UpdateGiaSanPham(string[] ids, float giamTheoTien, float giamTheoPh, string tenSanPham, string maSp, string tenChatLieu,
-            string tenNSX, string moTa, float giaNhap, float giaBan, float giaNiemYet, string ghiChu, float DongGia)
+        public ActionResult UpdateGiaSanPham( string id,string[] ids, float giamTheoTien, float giamTheoPh, string tenSanPham, string maSp, string tenChatLieu,
+            string tenNSX, string moTa, float giaNhap, float giaBan, float giaNiemYet, string ghiChu, float DongGia, DateTime ngayBatDauDate,DateTime ngayKetThucDate)
         {
             TempData["ErrorMessage"] = "Thông báo lỗi của bạn ở đây.";
             foreach (var item in ids)
@@ -263,6 +278,14 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                 {
                     sp.GiaNiemYet = DongGia;
                 }
+                KhuyenMaiSanPham km = new KhuyenMaiSanPham()
+                {
+                    Id = Guid.NewGuid(),
+                    IdkhuyenMai = Guid.Parse(id),
+                    IdSanPham = Guid.Parse(item)
+
+                };
+                _kmsp.Them(km);
                 _sp.Sua(sp);
             }
             //if (TempData.ContainsKey("ErrorMessage"))
@@ -298,6 +321,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
 
         public ActionResult Delete(Guid id)
         {
+            
             if (_sv.Xoa(id))
             {
                 return RedirectToAction("Index");

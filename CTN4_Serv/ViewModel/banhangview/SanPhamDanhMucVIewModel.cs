@@ -9,6 +9,7 @@ namespace CTN4_Serv.ViewModel.banhangview
     public class SanPhamDanhMucVIewModel
     {
         public  Guid Id { get; set; }
+        public Guid Idkm { get; set; }
         public string MaSp { get; set; }
         public string TenSanPham { get; set; }
         public string AnhDaiDien { get; set; }

@@ -1,7 +1,10 @@
 ﻿using CTN4_Data.Models.DB_CTN4;
 using CTN4_Serv.Service;
 using CTN4_Serv.Service.IService;
+using CTN4_Serv.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using X.PagedList;
 
 namespace CTN4_View_Admin.Controllers.QuanLY
 {
@@ -9,24 +12,66 @@ namespace CTN4_View_Admin.Controllers.QuanLY
     public class DanhMucController : Controller
     {
         public IDanhMucService _sv;
+        public IDanhMucChiTietService _chiTietdmService;
+        public IAnhService _anhService;
 
         public DanhMucController()
         {
-            _sv = new DanhMucMucService();  
+            _sv = new DanhMucMucService();
+            _chiTietdmService = new DanhMucChiTietMucChiTietService();
+            _anhService = new AnhService();
         }
         // GET: PhanLoaiController
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(int? size, string searchString, int? page)
         {
-            var a = _sv.GetAll();
-            return View(a);
+            var a = _sv.GetAll().AsQueryable();
+
+            List<SelectListItem> items = new List<SelectListItem>();
+            items.Add(new SelectListItem { Text = "5", Value = "5" });
+            items.Add(new SelectListItem { Text = "10", Value = "10" });
+            items.Add(new SelectListItem { Text = "20", Value = "20" });
+            items.Add(new SelectListItem { Text = "25", Value = "25" });
+            items.Add(new SelectListItem { Text = "50", Value = "50" });
+
+            foreach (var item in items)
+            {
+                if (item.Value == size.ToString()) item.Selected = true;
+            }
+
+            ViewBag.size = items; // ViewBag DropDownList
+            ViewBag.currentSize = size; // tạo biến kích thước trang hiện tại
+            page = page ?? 1;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                // Lọc sản phẩm theo tên nếu có chuỗi tìm kiếm
+                a = a.Where(p => p.TenDanhMuc.Contains(searchString, StringComparison.OrdinalIgnoreCase));
+            }
+
+            int pageSize = size ?? 5;
+            var pageNumber = page ?? 1;
+            var pagedList = a.ToPagedList(pageNumber, pageSize);
+
+            return View(pagedList);
         }
+
 
         // GET: PhanLoaiController/Details/5
         public ActionResult Details(Guid id)
         {
+            var lisanh = _anhService.GetAll();
             var a = _sv.GetById(id);
-            return View(a);
+            var ListDmCt = _chiTietdmService.GetAll().Where(c => c.IdDanhMuc == id);
+
+            var view = new ThieuxkView()
+            {
+                DanhMuc = a,
+                danhMucChiTiets = ListDmCt.ToList(),
+                AhList = lisanh.ToList(),
+
+            };
+            return View(view);
         }
 
         // GET: PhanLoaiController/Create

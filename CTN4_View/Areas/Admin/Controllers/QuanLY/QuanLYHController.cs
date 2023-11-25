@@ -4,6 +4,7 @@ using CTN4_Serv.Service;
 using CTN4_Serv.Service.IService;
 using CTN4_Serv.ServiceJoin;
 using CTN4_Serv.ViewModel;
+using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -42,28 +43,24 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         }
         // GET: PhanLoaiController
         [HttpGet]
-        public ActionResult Index(string TenSp, float? tu, float? den)
+        public ActionResult Index(string TenSp, float? tu, float? den, string colorFilter, string sizeFilter)
         {
             var sanPhamList = _sanPhamCuaHangService.GetAll();
 
-            if (!string.IsNullOrEmpty(TenSp))
-            {
-                sanPhamList = sanPhamList
-                    .Where(c => c.TenSanPham.ToLower().Contains(TenSp.ToLower()))
-                    .ToList();
-            }
+            //if (!string.IsNullOrEmpty(colorFilter))
+            //{
+            //    sanPhamList = sanPhamList.Where(p => p.MauSac.ToLower() == colorFilter.ToLower()).ToList();
+            //}
 
-            if (tu != null && den != null)
-            {
-                sanPhamList = sanPhamList
-                    .Where(c => (tu == null || c.GiaNiemYet >= tu) && (den == null || c.GiaNiemYet <= den))
-                    .ToList();
-            }
+            //// Lọc theo kích thước nếu được chọn
+            //if (!string.IsNullOrEmpty(sizeFilter))
+            //{
+            //    sanPhamList = sanPhamList.Where(p => p.Size.ToLower() == sizeFilter.ToLower()).ToList();
+            //}
 
             return View(sanPhamList);
 
         }
-
         // GET: PhanLoaiController/Details/5
         public ActionResult Details(Guid id)
         {

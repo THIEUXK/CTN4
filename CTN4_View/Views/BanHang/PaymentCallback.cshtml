@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewData["Title"] = "PaymentCallback";
+}
+@model CTN4_Serv.ViewModel.banhangview.PaymentResponseModel
+
+<body>
+    <div class="container" style="margin-top:200px">
+        <h1>Thanh toán thành công</h1>
+        <p><strong>Tên người dùng:</strong> <span id="name">@Model.Name</span></p>
+        <button asp-controller="Home" asp-action="Index" > Quay Trở Về</button>
+
+        <!-- Các thông tin khác có thể thêm vào -->
+        <!-- Add any additional content or styling here -->
+
+    
+    </div>
+
+    <!-- Add any additional scripts here -->
+</body>
