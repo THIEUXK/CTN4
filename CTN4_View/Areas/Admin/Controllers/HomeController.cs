@@ -368,10 +368,11 @@ namespace CTN4_View_Admin.Controllers
             DateTime startDate = DateTime.Parse(ngaybatdau);
             DateTime endDate = DateTime.Parse(ngayketthuc);
 
-            decimal[] thongKetheo = _hd.ThongKeTongTienHoaDonTheoThangTrongNam(startDate, endDate);
+              decimal[] thongKetheo = _hd.ThongKeTongTienDonHangTrongKhoangThoiGian(startDate, endDate);
 
-            return Json(thongKetheo);
-          
+              return Json(thongKetheo);
+
+         
         }
         private bool IsValidEmail(string email)
         {
