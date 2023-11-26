@@ -4,8 +4,6 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 <body>
-    <!--  Body Wrapper -->
-    <!--  Header End -->
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-9">
@@ -15,7 +13,6 @@
                             <div class="row">
                                 <div class="col-md-10">
                                     <table class="table table-borderless">
-
                                         <thead>
                                             <tr>
                                                 <th scope="col"><b>Mã</b></th>
@@ -29,7 +26,6 @@
                                                 @if (@Model.HoaDon.NgayGiao == null)
                                                 {
                                                     <td><button class="custom-button">Chưa Giao Hàng</button> </td>
-
                                                 }
                                                 else
                                                 {
@@ -38,7 +34,6 @@
                                                 @if (@Model.HoaDon.TrangThaiThanhToan == true)
                                                 {
                                                     <td><button class="custom-button-1">Đã thanh toán</button> </td>
-
                                                 }
                                                 else
                                                 {
@@ -46,7 +41,6 @@
                                                 }
                                             </tr>
                                         </tbody>
-
                                     </table>
                                     <hr></hr>
                                     <div>Ngày tạo : @Model.HoaDon.NgayDat</div>
@@ -81,15 +75,12 @@
                             @if (Model.HoaDon.NgayGiao != null)
                             {
                                 <div style="color:yellowgreen">Đơn hàng đã bắt đầu được giao</div>
-
                             }
                             else
                             {
                                 <p style="color:red">Đơn hàng chưa được giao !</p>
                             }
-
                             <hr></hr>
-
                             <table class="table text-nowrap mb-0 align-middle">
                                 <thead class="text-dark fs-4">
                                     <tr>
@@ -115,8 +106,6 @@
                                     {
                                         <tr>
                                             <td class="border-bottom-0">
-
-
                                                 @if (System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".jpg" ||
                                                System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".png" ||
                                                System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".jpeg" ||
@@ -130,15 +119,12 @@
                                                 {
                                                     <a>ảnh lỗi</a>
                                                 }
-
-
                                             </td>
                                             <td class="border-bottom-0">
                                                 <div><b>Tên:</b>@a.SanPhamChiTiet.SanPham.TenSanPham</div>
                                                 <div><b>Màu:</b>@a.SanPhamChiTiet.Mau.TenMau</div>
                                                 <div><b>Size:</b>@a.SanPhamChiTiet.Size.CoSize</div>
                                                 <div><b>Đơn giá:</b>@FormatCurrency(a.SanPhamChiTiet.SanPham.GiaNiemYet)</div>
-
                                             </td>
                                             <td class="border-bottom-0">
                                                 <p class="mb-0 fw-normal">@a.SoLuong</p>
@@ -174,7 +160,7 @@
                                                                         <input type="hidden" name="idHDCT" value="@a.Id">
                                                                         <div class="form-group">
                                                                             <label for="GhiChu" class="col-form-label">Lý do trả sản phẩm</label>
-                                                                            <input type="text" name="LyDo" class="form-control">
+                                                                            <textarea name="LyDo" class="form-control"></textarea>
                                                                         </div>
                                                                         <br />
                                                                         <div class="form-row">
@@ -187,7 +173,6 @@
                                                                     </form>
                                                                 </div>
                                                             </div>
-
                                                         }
                                                         else
                                                         {
@@ -214,14 +199,10 @@
                                     Giao Hàng
                                 </button>
                                 <div class="dropdown-menu p-4">
-
                                     <span class="btn btn-custom-primary">@Html.ActionLink("Xác nhận", "XacNhanGiaoHang", new { id = Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span>
-
                                 </div>
                             </div>
-
                         }
-
                     </div>
                     <div class="card w-100">
                         <div class="card-body p-4">
@@ -272,8 +253,7 @@
                                     <div class="row">
                                         <div class="col">Tiền ship</div>
                                         <div class="col-auto text-right">
-                                            @FormatCurrency(Model.HoaDon.TienShip
-                                                     )
+                                            @FormatCurrency(Model.HoaDon.TienShip)
                                         </div>
                                     </div>
                                     <br />
@@ -312,23 +292,22 @@
                                 {
                                     <div class="alert alert-danger">@TempData["TBLS"]</div>
                                 }
-                                <table class="table">
+                                <table class="table table-borderless">
                                     <thead>
                                         <tr>
                                             <th scope="col"></th>
-                                            <th scope="col">Ghi chú</th>
-                                            <th scope="col">Người Ghi</th>
-                                            <th scope="col">Thời gian</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach (var a in Model.LichSuHoaDon.Where(c => c.TrangThai == false))
                                         {
                                             <tr>
-                                                <th scope="row">@a.ThaoTac</th>
-                                                <td>@a.GhiChu</td>
-                                                <td>@a.NguoiThucHien</td>
-                                                <td>@a.ThoiGianlam</td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col"><b>@a.NguoiThucHien</b>:  @a.GhiChu</div>
+                                                        <div class="col-auto text-right"> @a.ThoiGianlam</div>
+                                                    </div>
+                                                </td>
                                             </tr>
                                         }
                                     </tbody>
@@ -339,27 +318,57 @@
                                         Xem lịch sử
                                     </button>
                                     <div class="dropdown-menu p-4">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">Hành động</th>
-                                                    <th scope="col">Ghi chú</th>
-                                                    <th scope="col">Người thục hiện</th>
-                                                    <th scope="col">Thời gian</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach (var a in Model.LichSuHoaDon)
+                                        @{
+                                            var dem = @Model.LichSuHoaDon.Count();
+                                        }
+                                        <ul class="timeline-widget mb-0 position-relative mb-n5">
+                                            @if (Model.LichSuHoaDon != null)
+                                            {
+                                                @foreach (var a in Model.LichSuHoaDon.Where(c => c.TrangThai == true))
                                                 {
-                                                    <tr>
-                                                        <th scope="row">@a.ThaoTac</th>
-                                                        <td>@a.GhiChu</td>
-                                                        <td>@a.NguoiThucHien</td>
-                                                        <td>@a.ThoiGianlam</td>
-                                                    </tr>
+                                                    if (a.Id == @Model.LichSuHoaDon[0].Id)
+                                                    {
+                                                        <li class="timeline-item d-flex position-relative overflow-hidden">
+                                                            <div class="timeline-time text-dark flex-shrink-0 text-end">@a.ThoiGianlam</div>
+                                                            <div class="timeline-badge-wrap d-flex flex-column align-items-center">
+                                                                <span class="timeline-badge border-2 border border-primary flex-shrink-0 my-8"></span>
+                                                                <span class="timeline-badge-border d-block flex-shrink-0"></span>
+                                                            </div>
+                                                            <div class="timeline-desc fs-3 text-dark mt-n1 fw-semibold">
+                                                                @a.ThaoTac<a href="javascript:void(0)" class="text-primary d-block fw-normal">@a.NguoiThucHien</a>
+                                                            </div>
+                                                        </li>
+                                                    }
+                                                    else if (a.Id == @Model.LichSuHoaDon[dem - 1].Id)
+                                                    {
+                                                        <li class="timeline-item d-flex position-relative overflow-hidden">
+                                                            <div class="timeline-time text-dark flex-shrink-0 text-end">@a.ThoiGianlam</div>
+                                                            <div class="timeline-badge-wrap d-flex flex-column align-items-center">
+                                                                <span class="timeline-badge border-2 border border-success flex-shrink-0 my-8"></span>
+                                                            </div>
+                                                            <div class="timeline-desc fs-3 text-dark mt-n1 fw-semibold">
+                                                                @a.ThaoTac <a href="javascript:void(0)" class="text-primary d-block fw-normal">@a.NguoiThucHien</a>
+                                                            </div>
+                                                        </li>
+                                                    }
+                                                    else
+                                                    {
+                                                        <li class="timeline-item d-flex position-relative overflow-hidden">
+                                                            <div class="timeline-time text-dark flex-shrink-0 text-end">@a.ThoiGianlam</div>
+                                                            <div class="timeline-badge-wrap d-flex flex-column align-items-center">
+                                                                <span class="timeline-badge border-2 border border-info flex-shrink-0 my-8"></span>
+                                                                <span class="timeline-badge-border d-block flex-shrink-0"></span>
+                                                            </div>
+                                                            <div class="timeline-desc fs-3 text-dark mt-n1 fw-semibold">
+                                                                @a.ThaoTac <a href="javascript:void(0)" class="text-primary d-block fw-normal">@a.NguoiThucHien</a>
+                                                            </div>
+                                                        </li>
+                                                    }
+
                                                 }
-                                            </tbody>
-                                        </table>
+
+                                            }
+                                        </ul>
                                     </div>
                                 </div>
 
@@ -375,9 +384,7 @@
                                             Giao hàng thành công
                                         </button>
                                         <div class="dropdown-menu p-4">
-
                                             <span class="btn btn-custom-rangen">@Html.ActionLink("Giao hàng thành công", "XacNhanNhanHang", new { id = Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span>
-
                                         </div>
                                     </div>
                                 }
@@ -388,9 +395,7 @@
                                             Giao thất bại
                                         </button>
                                         <div class="dropdown-menu p-4">
-
                                             <span class="btn btn-custom-rangen">@Html.ActionLink("Xác nhận", "GiaoHangThatBai", new { id = Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span>
-
                                         </div>
                                     </div>
                                 }
@@ -398,19 +403,18 @@
                         </div>
                         <div class="card w-100">
                             <div class="card-body p-4">
-                                @if (Model.HoaDon.Is_detele == true)
+                                @if (Model.HoaDon.TrangThai == "Đơn hàng bị hủy")
                                 {
                                     <div class="dropdown">
                                         <button type="button" class="btn btn-custom-rangen " data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
                                             Hủy đơn hàng
                                         </button>
                                         <div class="dropdown-menu p-4">
-
                                             <form asp-action="HuyDon">
                                                 <input type="hidden" name="id" value="@Model.HoaDon.Id">
                                                 <div class="form-group">
                                                     <label for="GhiChu" class="col-form-label">Lý do hủy đơn</label>
-                                                    <input type="text" name="LyDo" class="form-control">
+                                                    <textarea name="LyDo" class="form-control"></textarea>
                                                 </div>
                                                 <br />
                                                 <div class="form-row">
@@ -421,10 +425,8 @@
                                                 </div>
                                                 <br />
                                             </form>
-
                                         </div>
                                     </div>
-
                                 }
                                 else
                                 {
@@ -446,7 +448,6 @@
                         }
                         else
                         {
-
                             <div style="color:red">
                                 Đơn hàng chưa được xác nhận !
                             </div>
@@ -475,7 +476,7 @@
                         <br />
                         @if (Model.HoaDon.IdKhachHang != null)
                         {
-                            <span class="btn btn-custom-primary">@Html.ActionLink("Xem thông tin chi tiết", "Details","KhachHang", new { id = Model.HoaDon.IdKhachHang }, new { @class = "custom-edit-link" })</span>
+                            <span class="btn btn-custom-primary">@Html.ActionLink("Xem thông tin chi tiết", "Details", "KhachHang", new { id = Model.HoaDon.IdKhachHang }, new { @class = "custom-edit-link" })</span>
                         }
                     </div>
                 </div>
@@ -500,13 +501,10 @@
                                 Không có
                                 ghi chú
                             </div>
-
                         }
-
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </body>
@@ -517,13 +515,6 @@
     }
 </style>
 
-<body>
-    <!--  Body Wrapper -->
-    <!--  Header End -->
-
-
-
-</body>
 <style>
     .custom-edit-link {
         color: #ffffff; /* Màu đỏ tùy chọn */
@@ -535,8 +526,6 @@
         }
 
     /* Thiết lập màu nền và màu chữ mặc định */
-
-
     .btn-custom-rangen {
         --bs-btn-color: #fff;
         --bs-btn-bg: #ff6347; /* Màu đỏ tùy chọn */

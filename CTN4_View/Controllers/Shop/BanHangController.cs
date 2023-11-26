@@ -43,6 +43,7 @@ namespace CTN4_View.Controllers.Shop
         public readonly string _Secretkey;
         public readonly IVnPayService _ivnPayService;
         public readonly ICurrentUser _CurrentUser;
+        public ILichSuHoaDonService _LichSuHoaDonService;
 
 
         public BanHangController(IConfiguration config, IVnPayService vnpay, ICurrentUser currentUser)
@@ -68,10 +69,11 @@ namespace CTN4_View.Controllers.Shop
             _clientId = config["PaypalSettings:ClientId"];
             _Secretkey = config["PaypalSettings:SecretKey"];
             _CurrentUser = currentUser;
+            _LichSuHoaDonService = new LichSuHoaDonService();
 
         }
 
-        
+
         [HttpGet]
         public IActionResult GioHang()
         {
@@ -299,7 +301,7 @@ namespace CTN4_View.Controllers.Shop
                 }
                 var a = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh.Id);
                 var nguoidung = _khachHangService.GetAll().FirstOrDefault(c => c.Id == accnew[0].Id);
-                var diachinhanhang = _diaChiNhanHangService.GetAll().Where(c => c.IdKhachHang == accnew[0].Id).FirstOrDefault(c => c.TrangThai == true&&c.Is_detele==true);
+                var diachinhanhang = _diaChiNhanHangService.GetAll().Where(c => c.IdKhachHang == accnew[0].Id).FirstOrDefault(c => c.TrangThai == true && c.Is_detele == true);
 
                 var view2 = new GioHangView()
                 {
@@ -307,7 +309,7 @@ namespace CTN4_View.Controllers.Shop
                     KhachHang = nguoidung,
                     GioHangChiTiets = a,
                     TongTien = tong,
-                    listDiaChi = _diaChiNhanHangService.GetAll().Where(c => c.IdKhachHang == accnew[0].Id&&c.Is_detele==true).Select(s => new SelectListItem
+                    listDiaChi = _diaChiNhanHangService.GetAll().Where(c => c.IdKhachHang == accnew[0].Id && c.Is_detele == true).Select(s => new SelectListItem
                     {
                         Value = s.Id.ToString(),
                         Text = s.DiaChi
@@ -429,7 +431,7 @@ namespace CTN4_View.Controllers.Shop
             return Json(0, new System.Text.Json.JsonSerializerOptions());
         }
 
-        public IActionResult HoanThanhThanhToan(string name, string DiachiNhanChiTiet, string Sodienthoai, string Email, string addDiaChi, Guid IdDiaChi, Guid idphuongthuc, string ghiChu, float tienship, float tongtien)
+        public IActionResult HoanThanhThanhToan(string name, string DiachiNhanChiTiet, string Sodienthoai, string Email, string addDiaChi, Guid IdDiaChi, Guid idphuongthuc, string ghiChu, float tienshipa, float tongtien)
         {
             if (name == null)
             {
@@ -506,7 +508,7 @@ namespace CTN4_View.Controllers.Shop
                         IdDiaChi = IdDiaChi,
                         idphuongthuc = idphuongthuc,
                         ghiChu = ghiChu,
-                        tienship = tienship,
+                        tienship = tienshipa,
                         tongtien = tongtien
                     };
                     var LuuTam = SessionBan.ThongTinTamSS(HttpContext.Session, "ACD");
@@ -540,7 +542,7 @@ namespace CTN4_View.Controllers.Shop
                         DiaChi = DiachiNhanChiTiet + " " + addDiaChi,
                         TrangThai = "Đang chờ xử lí",
                         TongTien = tongtien,
-                        TienShip = tienship,
+                        TienShip = tienshipa,
                         NgayDat = DateTime.Now,
                         TrangThaiThanhToan = false,
                         Email = Email,
@@ -588,7 +590,7 @@ namespace CTN4_View.Controllers.Shop
                             return RedirectToAction("ThuTucThanhToan", "BanHang", new { message });
                         }
                         var lisdiachi1 = _diaChiNhanHangService.GetAll().Where(c => c.IdKhachHang == accnew[0].Id).ToList();
-                        var lisdiachi = _diaChiNhanHangService.GetAll().Where(c => c.DiaChi == addDiaChi && c.IdKhachHang == accnew[0].Id && c.TienShip == tienship&&c.Is_detele==true).ToList();
+                        var lisdiachi = _diaChiNhanHangService.GetAll().Where(c => c.DiaChi == addDiaChi && c.IdKhachHang == accnew[0].Id && c.TienShip == tienshipa && c.Is_detele == true).ToList();
                         if (lisdiachi1.Count() < 4 && lisdiachi.Count == 0)
                         {
                             var diachi = new DiaChiNhanHang()
@@ -596,7 +598,7 @@ namespace CTN4_View.Controllers.Shop
                                 IdKhachHang = accnew[0].Id,
                                 name = DiachiNhanChiTiet,
                                 DiaChi = addDiaChi,
-                                TienShip = tienship,
+                                TienShip = tienshipa,
                                 Is_detele = true,
                                 TrangThai = false
                             };
@@ -614,7 +616,7 @@ namespace CTN4_View.Controllers.Shop
 
             return RedirectToAction("SauThanhToan", new { id = idHoaDon });
         }
-      
+
         public IActionResult HoaDon()
         {
             var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
@@ -634,13 +636,14 @@ namespace CTN4_View.Controllers.Shop
             var b = _HoaDonService.GetById(id);
             var a = _HoaDonChiTiet.GetAll().Where(c => c.IdHoaDon == id).ToList();
             var c = _giamGiaChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
-
+            var d = _LichSuHoaDonService.GetAll().Where(c => c.IdHoaDonn == id && c.TrangThai == true).OrderByDescending(c => c.ThoiGianlam).ToList();
 
             var view = new ThieuxkView()
             {
                 HoaDon = b,
                 hoaDonChiTiets = a,
-                GiamGiaChiTiets = c
+                GiamGiaChiTiets = c,
+                LichSuDonHangs = d,
             };
             return View(view);
         }
@@ -658,7 +661,6 @@ namespace CTN4_View.Controllers.Shop
             };
             return View(view);
         }
-
         [HttpPost]
         public IActionResult ThemVaoGio(int soluong, Guid IdSanPham, Guid IdSize, Guid IdMau)
         {
@@ -743,30 +745,58 @@ namespace CTN4_View.Controllers.Shop
             TempData["TB1"] = message4;
             return RedirectToAction("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = IdSanPham, message4 });
         }
-        public IActionResult huydonKH(int id)
+        public IActionResult huydonKH(int id, string LyDo)
         {
-            var hd = _HoaDonService.GetById(id);
-            if (hd.NgayGiao == null)
+            var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
+            if (accnew.Count != 0)
             {
-                hd.TrangThai = "Quý khách đã hủy đơn hàng thành công";
-                hd.Is_detele = false;
-                _HoaDonService.Sua(hd);
+                if (LyDo == null)
+                {
+                    var message = "hãy điền lý do của bạn";
+                    TempData["TB4"] = message;
+                    return RedirectToAction("HoaDonChiTiet", new { id = id, message });
+                }
+                var hd = _HoaDonService.GetById(id);
+                if (hd.NgayGiao == null)
+                {
+                    hd.TrangThai = "Đơn hàng bị hủy";
+                    ;
+                    if (_HoaDonService.Sua(hd) == true)
+                    {
+                        var ls = new LichSuDonHang()
+                        {
+                            TrangThai = true,
+                            NguoiThucHien = $"Khách hàng{accnew[0].TenDangNhap}",
+                            ThoiGianlam = DateTime.Now,
+                            ThaoTac = $"Hủy Đơn hàng {hd.MaHoaDon}",
+                            IdHoaDonn = id
+                        };
+                        _LichSuHoaDonService.Them(ls);
+                    }
+                }
+                else
+                {
+                    var message = "Đơn hàng không thể hủy vì đã và đang được giao";
+                    TempData["TB4"] = message;
+                    return RedirectToAction("HoaDonChiTiet", new { id = id, message });
+                }
+                var b = _HoaDonService.GetById(id);
+                var a = _HoaDonChiTiet.GetAll().Where(c => c.IdHoaDon == id).ToList();
+                var c = _giamGiaChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
+                var d = _LichSuHoaDonService.GetAll().Where(c => c.IdHoaDonn == id).OrderByDescending(c => c.ThoiGianlam).ToList();
+                var view = new ThieuxkView()
+                {
+                    HoaDon = b,
+                    hoaDonChiTiets = a,
+                    GiamGiaChiTiets = c,
+                    LichSuDonHangs = d,
+                };
+                return View("HoaDonChiTiet", view);
             }
             else
             {
-                var message = "Đơn hàng không thể hủy vì đã và đang được giao";
-                TempData["TB4"] = message;
-                return RedirectToAction("HoaDonChiTiet", new { id = id, message });
+                return RedirectToAction("login", "Home");
             }
-
-            var b = _HoaDonService.GetById(id);
-            var a = _HoaDonChiTiet.GetAll().Where(c => c.IdHoaDon == id).ToList();
-            var view = new ThieuxkView()
-            {
-                HoaDon = b,
-                hoaDonChiTiets = a,
-            };
-            return View("HoaDonChiTiet", view);
         }
     }
 
