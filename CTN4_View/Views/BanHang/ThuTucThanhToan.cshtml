@@ -85,7 +85,7 @@
                             <input type="text" class="form-control" id="email" value="@Model.KhachHang.Email" name="Email">
 
                         </div>
-                        
+
                         @if (Model.DiaChiNhanHang != null)
                         {
                             <input type="hidden" name="tienship" value="" id="tienship1"></input>
@@ -148,7 +148,7 @@
 
                             </select>
                         </div>
-                        
+
                         <div class="col-md-6 form-group">
                             <label>Phương thức thanh toán<span class="text-danger"></span></label>
                             <span class="text-danger"></span>
@@ -183,44 +183,49 @@
                                 <li><a href="#">Tên sản Phẩm <span>Giá tiền</span></a></li>
                                 @foreach (var a in Model.GioHangChiTiets)
                                 {
-                                    <li><a href="#">@a.SanPhamChiTiet.SanPham.TenSanPham x @a.SoLuong<span class="last">@FormatCurrency(a.SanPhamChiTiet.SanPham.GiaNiemYet *a.SoLuong)</span></a></li>
-
+                                    <li><a href="#">@a.SanPhamChiTiet.SanPham.TenSanPham x @a.SoLuong<span class="last">@FormatCurrency(a.SanPhamChiTiet.SanPham.GiaNiemYet * a.SoLuong)</span></a></li>
                                     <input type="hidden" name="idGHCT" value="@a.Id" />
                                     <input type="hidden" name="idSPCT" value="@a.IdSanPhamChiTiet" />
                                     <input type="hidden" name="OrderDescription" value="Mua Tại Shop Boro" />
-                                    <input type="hidden" name="OrderType" value="Túi Sách" >
+                                    <input type="hidden" name="OrderType" value="Túi Sách">
                                     <input type="hidden" name="SoLuong" value="@a.SoLuong" />
                                     <input type="hidden" name="idGH" value="@a.IdGioHang" />
                                 }
-                              
                             </ul>
                             <br></br>
                             @if (Model.DiaChiNhanHang != null)
                             {
                                 <ul class="list">
-                                    <li><a href="#">Tiền ship :<span><b id="tienship" style="color:black">52.000đ </b></span></a></li>
+                                    <li><a href="#">Tiền ship :<span><b id="tienship" style="color:black">@FormatCurrency(Model.DiaChiNhanHang.TienShip) </b></span></a></li>
                                 </ul>
+                                <br></br>
+                                <ul class="list">
+                                    <li><a href="#">Tổng tiền :<span><b name="Amount" id="tongtien" style="color:orange">@FormatCurrency(Model.TongTien + Model.DiaChiNhanHang.TienShip)</b></span></a></li>
+                                    <input hidden name="Amount" value="@(Model.TongTien+Model.DiaChiNhanHang.TienShip)" />
+                                </ul>
+                                <br></br>
+                                <input type="hidden" name="tienshipa" value="@Model.DiaChiNhanHang.TienShip" id="tienship1"></input>
+                                <input type="hidden" name="tongtien" value="@(Model.TongTien+Model.DiaChiNhanHang.TienShip)" id="tongtien1"></input>
                             }
-                            <ul class="list">
-                                <li><a href="#">Tiền ship :<span><b id="tienship" style="color:black">Chưa Tính</b></span></a></li>
-                            </ul>
-                            <br></br>
-                            <ul class="list">
-                                <li><a href="#">Tổng tiền :<span><b name="Amount" id="tongtien" style="color:orange">@FormatCurrency(Model.TongTien)</b></span></a></li>
-                               <input hidden name="Amount"  value="@Model.TongTien"/>
-                                
-                            </ul>
-                            <br></br>
-                            <input type="hidden" name="tienship" value="" id="tienship1"></input>
-                            <input type="hidden" name="tongtien" value="" id="tongtien1"></input>
+                            else
+                            {
+                                <ul class="list">
+                                    <li><a href="#">Tiền ship :<span><b id="tienship" style="color:black">Chưa Tính</b></span></a></li>
+                                </ul>
+                                <br></br>
+                                <ul class="list">
+                                    <li><a href="#">Tổng tiền :<span><b name="Amount" id="tongtien" style="color:orange">@FormatCurrency(Model.TongTien)</b></span></a></li>
+                                    <input hidden name="Amount" value="@Model.TongTien" />
+                                </ul>
+                                <br></br>
+                                <input type="hidden" name="tienshipa" value="" id="tienship1"></input>
+                                <input type="hidden" name="tongtien" value="" id="tongtien1"></input>
+                            }
                             <div class="card border-secondary mb-5">
 
 
                                 <button class="primary-btn" type="submit" href="#">Mua Hàng</button>
                             </div>
-                            @* <div class="card border-secondary mb-5">
-                                <button class="primary-btn" asp-controller="BanHang" asp-action="CreatePaymentUrl" href="#">Thanh Toán Vnpay</button>
-                            </div> *@
                         </div>
                     </div>
                 </div>
@@ -230,7 +235,7 @@
 </div>
 <script>
     @functions {
-        public string FormatCurrency(float price)
+        public string FormatCurrency(float? price)
         {
             string formattedPrice = string.Format("{0:N0}", price); // Định dạng số và thêm dấu phân cách ngàn
             return formattedPrice + "VND"; // Thêm ký hiệu đồng (₫) vào cuối
