@@ -7,9 +7,7 @@
 <body>
 <div class="container-fluid">
     <div class="card w-100">
-
         <div class="card-body p-4">
-
             <h5 class="card-title fw-semibold mb-4">Các Đơn Hàng</h5>
             <div class="d-flex">
                 <div class="dropdown me-1">
@@ -316,8 +314,38 @@
         }
 
     /* Thiết lập màu nền và màu chữ mặc định */
+    .btn-custom-rangen {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        /* Các thuộc tính CSS khác nếu cần */
+    }
 
 
+    .card-body {
+        padding: 1.25rem; /* You can adjust the padding as needed */
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15); /* Adjust the shadow as needed */
+        background-color: white;
+    }
+
+    .card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Đổ bóng với độ mờ và màu sắc cụ thể */
+        padding: 20px; /* Thêm padding nếu cần thiết */
+        /* Các thuộc tính CSS khác cho phần tử card */
+        background-color: whitesmoke;
+    }
+
+    .container-fluid {
+        background-color: lightgray; /* Màu nền đen */
+    }
+
+    .btn-secondary.dropdown-toggle {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        /* Các thuộc tính CSS khác nếu cần */
+    }
+
+    .btn-primary {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        /* Các thuộc tính CSS khác nếu cần */
+    }
     .btn-custom-rangen {
         --bs-btn-color: #fff;
         --bs-btn-bg: #ff6347; /* Màu đỏ tùy chọn */
@@ -329,7 +357,7 @@
         --bs-btn-active-color: #fff;
         --bs-btn-active-bg: #c84131; /* Màu đỏ tương ứng với active */
         --bs-btn-active-border-color: #b5362d; /* Màu đỏ tương ứng với active */
-        --bs-btn-active-shadow: inset 0 3px 5px rgba(0,0,0,0.125);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Thiết lập bóng */
         --bs-btn-disabled-color: #fff;
         --bs-btn-disabled-bg: #ff6347; /* Màu đỏ tương ứng với disabled */
         --bs-btn-disabled-border-color: #ff6347; /* Màu đỏ tương ứng với disabled */
@@ -346,7 +374,7 @@
         --bs-btn-active-color: #fff;
         --bs-btn-active-bg: #4a6ccc; /* Màu xanh lam tương tự như .btn-primary */
         --bs-btn-active-border-color: #4665bf; /* Màu xanh lam tương tự như .btn-primary */
-        --bs-btn-active-shadow: inset 0 3px 5px rgba(0,0,0,0.125);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Thiết lập bóng */
         --bs-btn-disabled-color: #fff;
         --bs-btn-disabled-bg: #49BEFF; /* Màu xanh lam tương tự như .btn-primary */
         --bs-btn-disabled-border-color: #49BEFF; /* Màu xanh lam tương tự như .btn-primary */
