@@ -87,7 +87,9 @@ namespace CTN4_Serv.Service
 
             // Sử dụng LINQ để lấy danh sách các hóa đơn có TrangThaiThanhToan là true và ngày tạo hóa đơn trong năm hiện tại
             var hoaDonsThanhToanTrongNam = _db.HoaDons
-                .Where(h => h.TrangThaiThanhToan && h.NgayTaoHoaDon.Year == namHienTai)
+                .Where(h => h.TrangThaiThanhToan &&
+                            h.NgayTaoHoaDon.Year == namHienTai &&
+                            h.TrangThai == "Giao hàng thành công")
                 .ToList();
 
             // Tạo Dictionary để lưu tổng tiền theo tháng
@@ -159,10 +161,14 @@ namespace CTN4_Serv.Service
         }
         public int[] ThongKeSoLuongDonHangTrongKhoangThoiGian(DateTime tuNgay, DateTime denNgay)
         {
-            // Sử dụng LINQ để lấy danh sách các hóa đơn có TrangThaiThanhToan là true và ngày tạo hóa đơn trong khoảng thời gian
+            // Sử dụng LINQ để lấy danh sách các hóa đơn có TrangThaiThanhToan là true, 
+            // ngày tạo hóa đơn trong khoảng thời gian và TrangThai là "Giao hàng thành công"
             var hoaDonsTrangThaiTrueTrongKhoangThoiGian = _db.HoaDons
-            .Where(h => h.TrangThaiThanhToan && h.NgayTaoHoaDon >= tuNgay && h.NgayTaoHoaDon <= denNgay)
-            .ToList();
+                .Where(h => h.TrangThaiThanhToan &&
+                            h.NgayTaoHoaDon >= tuNgay &&
+                            h.NgayTaoHoaDon <= denNgay &&
+                            h.TrangThai == "Giao hàng thành công")
+                .ToList();
 
             // Tạo mảng để lưu số lượng đơn hàng theo số ngày trong khoảng thời gian
             int[] soLuongTheoNgayTrongKhoang = new int[(denNgay - tuNgay).Days + 1];
