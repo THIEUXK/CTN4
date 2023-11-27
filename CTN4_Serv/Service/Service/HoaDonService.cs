@@ -29,7 +29,7 @@ namespace CTN4_Serv.Service
             // Lấy danh sách chi tiết hóa đơn từ cơ sở dữ liệu
 
             var chiTietHoaDons = _db.HoaDonChiTiets
-                .Where(ct => ct.TrangThai&& !ct.Is_detele )
+                .Where(ct => ct.TrangThai&& ct.Is_detele )
                 .ToList();
 
             // Tạo một Dictionary để lưu tổng số lượng bán của từng sản phẩm
@@ -165,8 +165,8 @@ namespace CTN4_Serv.Service
             // ngày tạo hóa đơn trong khoảng thời gian và TrangThai là "Giao hàng thành công"
             var hoaDonsTrangThaiTrueTrongKhoangThoiGian = _db.HoaDons
                 .Where(h => h.TrangThaiThanhToan &&
-                            h.NgayTaoHoaDon >= tuNgay &&
-                            h.NgayTaoHoaDon <= denNgay &&
+                            h.NgayNhan >= tuNgay &&
+                            h.NgayNhan <= denNgay &&
                             h.TrangThai == "Giao hàng thành công")
                 .ToList();
 
@@ -176,12 +176,17 @@ namespace CTN4_Serv.Service
             // Đếm số lượng đơn hàng của từng ngày trong khoảng thời gian
             foreach (var hoaDon in hoaDonsTrangThaiTrueTrongKhoangThoiGian)
             {
-                int ngayTrongKhoang = (hoaDon.NgayTaoHoaDon - tuNgay).Days;
-
-                // Kiểm tra ngày để tránh tràn mảng
-                if (ngayTrongKhoang >= 0 && ngayTrongKhoang < soLuongTheoNgayTrongKhoang.Length)
+                // Kiểm tra nếu NgayNhan và tuNgay không null
+                if (hoaDon.NgayNhan.HasValue && tuNgay != null)
                 {
-                    soLuongTheoNgayTrongKhoang[ngayTrongKhoang]++;
+                    TimeSpan timeSpan = hoaDon.NgayNhan.Value - tuNgay;
+                    int ngayTrongKhoang = timeSpan.Days;
+
+                    // Kiểm tra ngày để tránh tràn mảng
+                    if (ngayTrongKhoang >= 0 && ngayTrongKhoang < soLuongTheoNgayTrongKhoang.Length)
+                    {
+                        soLuongTheoNgayTrongKhoang[ngayTrongKhoang]++;
+                    }
                 }
             }
 
@@ -189,11 +194,12 @@ namespace CTN4_Serv.Service
         }
         public decimal[] ThongKeTongTienDonHangTrongKhoangThoiGian(DateTime tuNgay, DateTime denNgay)
         {
+
             // Sử dụng LINQ để lấy danh sách các hóa đơn có TrangThaiThanhToan là true và ngày tạo hóa đơn trong khoảng thời gian
             var hoaDonsTrongKhoangThoiGian = _db.HoaDons
                 .Where(h => h.TrangThaiThanhToan &&
-                            h.NgayTaoHoaDon >= tuNgay &&
-                            h.NgayTaoHoaDon <= denNgay &&
+                            h.NgayNhan >= tuNgay &&
+                            h.NgayNhan <= denNgay &&
                             h.TrangThai == "Giao hàng thành công")
                 .ToList();
 
@@ -203,13 +209,18 @@ namespace CTN4_Serv.Service
             // Tính tổng tiền của từng ngày trong khoảng thời gian
             foreach (var hoaDon in hoaDonsTrongKhoangThoiGian)
             {
-                int ngayTrongKhoang = (hoaDon.NgayTaoHoaDon - tuNgay).Days;
-
-                // Kiểm tra ngày để tránh tràn mảng
-                if (ngayTrongKhoang >= 0 && ngayTrongKhoang < tongTienTheoNgayTrongKhoang.Length)
+                // Kiểm tra nếu NgayNhan và tuNgay không null
+                if (hoaDon.NgayNhan.HasValue && tuNgay != null)
                 {
-                    // Chuyển đổi giá trị float thành decimal trước khi thực hiện phép cộng
-                    tongTienTheoNgayTrongKhoang[ngayTrongKhoang] += (decimal)hoaDon.TongTien;
+                    TimeSpan timeSpan = hoaDon.NgayNhan.Value - tuNgay;
+                    int ngayTrongKhoang = timeSpan.Days;
+
+                    // Kiểm tra ngày để tránh tràn mảng
+                    if (ngayTrongKhoang >= 0 && ngayTrongKhoang < tongTienTheoNgayTrongKhoang.Length)
+                    {
+                        // Chuyển đổi giá trị float thành decimal trước khi thực hiện phép cộng
+                        tongTienTheoNgayTrongKhoang[ngayTrongKhoang] += (decimal)hoaDon.TongTien;
+                    }
                 }
             }
 
