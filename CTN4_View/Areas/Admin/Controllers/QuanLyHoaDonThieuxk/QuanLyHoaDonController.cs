@@ -28,12 +28,20 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
         }
         public IActionResult Index()
         {
-            var hd = _hoaDonService.GetAll().Where(c => c.Is_detele == true).ToList();
-            var view = new ThieuxkViewAdmin()
+            var nvnew = SessionServices.NhanVienSS(HttpContext.Session, "ACA");
+            if (nvnew.Count() != 0)
             {
-                hoaDons = hd,
-            };
-            return View(view);
+                var hd = _hoaDonService.GetAll().Where(c => c.Is_detele == true).ToList();
+                var view = new ThieuxkViewAdmin()
+                {
+                    hoaDons = hd,
+                };
+                return View(view);
+            }
+            else
+            {
+                return RedirectToAction("DangNhap", "Home");
+            }
         }
         public IActionResult aa()
         {
@@ -619,7 +627,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             var hd = _hoaDonService.GetAll();
             var view = new ThieuxkViewAdmin()
             {
-                hoaDons = hd.Where(c => c.Is_detele == false).ToList(),
+                hoaDons = hd.Where(c => c.TrangThai == "Đơn hàng bị hủy").ToList(),
             };
             return View("Index", view);
         }
@@ -681,8 +689,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                 var hd = _hoaDonService.GetById(id);
                 if (LyDo != null)
                 {
-                    hd.Is_detele = false;
-                    hd.TrangThai = "đơn hàng đã bị hủy";
+                    hd.TrangThai = "Đơn hàng bị hủy";
                     if (_hoaDonService.Sua(hd) == true)
                     {
                         var li = new LichSuDonHang()
@@ -864,7 +871,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
         }
 
         [HttpPost("/QuanLyHd/XuatEx2")]
-        public JsonResult XuatEx2([FromBody]Thi1View Viewaa)
+        public JsonResult XuatEx2([FromBody] Thi1View Viewaa)
         {
             var Filenameok = new List<string>();
 
@@ -961,6 +968,66 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                 Filenameok.Add(fileName);
             }
             return Json(Filenameok, new System.Text.Json.JsonSerializerOptions());
+        }
+        [HttpPost("/QuanLyHd/XuatEx3")]
+        public JsonResult XacNhanDonHangNhanh([FromBody] Thi1View Viewaa)
+        {
+            var Filenameok = new List<string>();
+
+            foreach (var IdHD in Viewaa.IdHD)
+            {
+                var kt = _hoaDonService.GetById(IdHD);
+                if (kt.TrangThai != "Đang chờ xử lí")
+                {
+                    return Json("that bai 1", new System.Text.Json.JsonSerializerOptions());
+                }
+                var nvnew = SessionServices.NhanVienSS(HttpContext.Session, "ACA");
+                if (nvnew.Count() != 0)
+                {
+
+                    var hd = _hoaDonService.GetById(IdHD);
+                    hd.TrangThai = "Đang chuẩn bị hàng";
+                    if (_hoaDonService.Sua(hd) == true)
+                    {
+                        var li = new LichSuDonHang()
+                        {
+                            GhiChu = null,
+                            ThaoTac = $"Xác nhận đơn hàng {hd.MaHoaDon} ",
+                            IdHoaDonn = IdHD,
+                            ThoiGianlam = DateTime.Now,
+                            NguoiThucHien = nvnew[0].TenDangNhap,
+                            TrangThai = true,
+                            Is_detele = true
+                        };
+                        _LichSuHoaDonService.Them(li);
+                    }
+                    var hdct1 = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == IdHD).ToList();
+                    var lshd = _LichSuHoaDonService.GetAll().Where(c => c.IdHoaDonn == IdHD).ToList();
+                    int tongSoLuongSP = 0;
+                    float tongTienSP = 0;
+                    foreach (var a in hdct1)
+                    {
+                        tongSoLuongSP += a.SoLuong;
+                    }
+                    foreach (var a in hdct1)
+                    {
+                        tongTienSP += a.GiaTien;
+                    }
+                    var view = new ThieuxkViewAdmin()
+                    {
+                        HoaDon = hd,
+                        hoaDonChiTiets = hdct1,
+                        LichSuHoaDon = lshd.OrderByDescending(c => c.ThoiGianlam).ToList(),
+                        TongTienHang = tongTienSP,
+                        soLuongTong = tongSoLuongSP
+                    };
+                }
+                else
+                {
+                    return Json("that bai", new System.Text.Json.JsonSerializerOptions());
+                }
+            }
+            return Json("ok", new System.Text.Json.JsonSerializerOptions());
         }
 
     }
