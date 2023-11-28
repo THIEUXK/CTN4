@@ -12,7 +12,7 @@ namespace CTN4_Serv.Service.IService
     {
         public List<SanPhamDanhMucVIewModel> GetAllProduct();
         public List<SanPham> GetAll();
-        public List<SanPham> GetAllBySearch(string MaSp);
+        public List<SanPhamDanhMucVIewModel> GetAllBySearch(string MaSp);
         public List<SanPhamDanhMucVIewModel> TimSanPhamTheoDieuKien(string dieuKien);
         public List<SanPhamDanhMucVIewModel> GetAllProductWithKhuyenMai();
         public SanPham GetById(Guid id);

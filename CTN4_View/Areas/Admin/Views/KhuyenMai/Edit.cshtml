@@ -348,33 +348,67 @@
                     mspSelect += "</select>";
             productSelect.innerHTML = mspSelect;
         }
-    
 
-    function updateProductList(data) {
-        var productListHTML = "<table class='table'>";
-        productListHTML += "<tr><th>Mã Sp</th><th>Danh Mục</th><th>Tên Sản Phẩm</th><th>Giá Nhập</th><th>Giá bán</th><th>Giá Niêm yết</th><th>Ảnh Đại diện</th><th>CheckBox</th></tr>";
 
-        if (data.length > 0) {
-            productListHTML += data.map(item =>
-                `<tr>
-                     <td>${item.maSp}</td>
-                     <td>${item.tenDanhMuc}</td>
-                     <td>${item.tenSanPham}</td>
-                     <td>${formatCurrency(item.giaNhap)}đ</td>
-                     <td>${formatCurrency(item.giaBan)}đ</td>
-                     <td>${formatCurrency(item.giaNiemYet)}đ</td>
-                     <td><img src='/image/${item.anhDaiDien}' height='100' alt='Product Image'></td>
-                     <td><input type="checkbox" class="id-sp-button" data-id-sp='${item.id ? item.id : ""}'/></td>
-                   
-                 </tr>`
-            ).join('');
-        } else {
-            productListHTML += "<tr><td colspan='7'>Không tìm thấy sản phẩm phù hợp</td></tr>";
+        // CSS styles for border and checkbox class
+
+        var tableStyle = "border: 1px solid #ddd; border-collapse: collapse; width: 100%;";
+        var checkboxStyle = "cursor: pointer;";
+
+        function updateProductList(data) {
+            var productListHTML = "<table class='table' style='" + tableStyle + "'>";
+            productListHTML += "<thead><tr><th>Mã Sp</th><th>Danh Mục</th><th>Tên Sản Phẩm</th><th>Giá Nhập</th><th>Giá bán</th><th>Giá Niêm yết</th><th>Ảnh Đại diện</th><th style='" + checkboxStyle + "'><input type='checkbox' id='selectAllCheckbox'/> Chọn</th></tr></thead>";
+
+            if (data.length > 0) {
+                productListHTML += "<tbody>" + data.map(item =>
+                    `<tr>
+                        <td>${item.maSp}</td>
+                        <td>${item.tenDanhMuc}</td>
+                        <td>${item.tenSanPham}</td>
+                        <td>${formatCurrency(item.giaNhap)}đ</td>
+                        <td>${formatCurrency(item.giaBan)}đ</td>
+                        <td>${formatCurrency(item.giaNiemYet)}đ</td>
+                        <td><img src='/image/${item.anhDaiDien}' height='100' alt='Product Image'></td>
+                        <td><input type="checkbox" class="id-sp-button" data-id-sp='${item.id ? item.id : ""}'/></td>
+                    </tr>`
+                ).join('') + "</tbody>";
+            } else {
+                productListHTML += "<tr><td colspan='8'>Không tìm thấy sản phẩm phù hợp</td></tr>";
+            }
+
+            productListHTML += "</table>";
+
+            // Set a fixed height and make the table scrollable
+            productListHTML = "<div style='height: 300px; overflow-y: auto;'>" + productListHTML + "</div>";
+
+            productList.innerHTML = productListHTML;
+
+            // Add some additional styling to make the table look better
+            var table = document.querySelector('.table');
+            if (table) {
+                table.classList.add('table-bordered', 'table-striped', 'table-hover');
+            }
+
+            // Add event listener for the "Select All" checkbox
+            var selectAllCheckbox = document.getElementById('selectAllCheckbox');
+            if (selectAllCheckbox) {
+                selectAllCheckbox.addEventListener('change', function () {
+                    var checkboxes = document.querySelectorAll('.id-sp-button');
+                    checkboxes.forEach(checkbox => {
+                        checkbox.checked = selectAllCheckbox.checked;
+
+                        // If the checkbox is checked, retrieve the data-id-sp attribute value
+                        if (checkbox.checked) {
+                            var productId = checkbox.getAttribute('data-id-sp');
+                            selectedMaSps.push(productId);
+                            console.log("Selected Product ID: " + selectedMaSps);
+                            // You can do something with the selected ID here
+                        }
+                    });
+                });
+            }
         }
 
-        productListHTML += "</table>";
-        productList.innerHTML = productListHTML;
-    }
 
             // Hàm định dạng số với dấu chấm ngăn cách hàng nghìn
             function formatCurrency(number) {
@@ -404,34 +438,62 @@
                     type: 'GET',
                     dataType: 'json',
                     data: { name: name },
-                    success: function (data) {
-                        var productListHTML = "<table class='table'>";
-                productListHTML += "<tr><th>Mã Sp</th><th>Danh Mục</th><th>Tên Sản Phẩm</th><th>Giá Nhập</th><th>Giá bán</th><th>Giá Niêm yết</th><th>Ảnh Đại diện</th><th>CheckBox</th></tr>";
+                success: function (data) {
+                    var productListHTML = "<table class='table' style='" + tableStyle + "'>";
+                    productListHTML += "<thead><tr><th>Mã Sp</th><th>Danh Mục</th><th>Tên Sản Phẩm</th><th>Giá Nhập</th><th>Giá bán</th><th>Giá Niêm yết</th><th>Ảnh Đại diện</th><th style='" + checkboxStyle + "'><input type='checkbox' id='selectAllCheckbox'/> Chọn</th></tr></thead>";
 
-                        if (data.length > 0) {
-                            productListHTML += data.map(item =>
-                                `<tr>
-                                                    <td>${item.maSp}</td>
-                                                             <td>${item.tenDanhMuc}</td>
-                                                    <td>${item.tenSanPham}</td>
+                    if (data.length > 0) {
+                        productListHTML += "<tbody>" + data.map(item =>
+                            `<tr>
+                                        <td>${item.maSp}</td>
+                                        <td>${item.tenDanhMuc}</td>
+                                        <td>${item.tenSanPham}</td>
                                         <td>${formatCurrency(item.giaNhap)}đ</td>
                                         <td>${formatCurrency(item.giaBan)}đ</td>
                                         <td>${formatCurrency(item.giaNiemYet)}đ</td>
                                         <td><img src='/image/${item.anhDaiDien}' height='100' alt='Product Image'></td>
                                         <td><input type="checkbox" class="id-sp-button" data-id-sp='${item.id ? item.id : ""}'/></td>
-                                             
                                     </tr>`
-                            ).join('');
-                        } else {
-                            productListHTML += "<tr><td colspan='6'>No matching products found</td></tr>";
-                        }
-
-                        productListHTML += "</table>";
-                        productList.innerHTML = productListHTML;
-                    },
-                    error: function (error) {
-                        console.log("Đã xảy ra lỗi: ", error);
+                        ).join('') + "</tbody>";
+                    } else {
+                        productListHTML += "<tr><td colspan='8'>Không tìm thấy sản phẩm phù hợp</td></tr>";
                     }
+
+                    productListHTML += "</table>";
+
+                    // Set a fixed height and make the table scrollable
+                    productListHTML = "<div style='height: 300px; overflow-y: auto;'>" + productListHTML + "</div>";
+
+                    productList.innerHTML = productListHTML;
+
+                    // Add some additional styling to make the table look better
+                    var table = document.querySelector('.table');
+                    if (table) {
+                        table.classList.add('table-bordered', 'table-striped', 'table-hover');
+                    }
+
+                    // Add event listener for the "Select All" checkbox
+                    var selectAllCheckbox = document.getElementById('selectAllCheckbox');
+                    if (selectAllCheckbox) {
+                        selectAllCheckbox.addEventListener('change', function () {
+                            var checkboxes = document.querySelectorAll('.id-sp-button');
+                            checkboxes.forEach(checkbox => {
+                                checkbox.checked = selectAllCheckbox.checked;
+
+                                // If the checkbox is checked, retrieve the data-id-sp attribute value
+                                if (checkbox.checked) {
+                                    var productId = checkbox.getAttribute('data-id-sp');
+                                    selectedMaSps.push(productId);
+                                    console.log("Selected Product ID: " + selectedMaSps);
+                                    // You can do something with the selected ID here
+                                }
+                            });
+                        });
+                    }
+                },
+                error: function (error) {
+                    console.log("Đã xảy ra lỗi: ", error);
+                }
                 });
             }
     function searchFull(product) {
@@ -441,29 +503,57 @@
             dataType: 'json',
             data: { dieukien: product },
             success: function (data) {
-                var productListHTML = "<table class='table'>";
-                productListHTML += "<tr><th>Mã Sp</th><th>Danh Mục</th><th>Tên Sản Phẩm</th><th>Giá Nhập</th><th>Giá bán</th><th>Giá Niêm yết</th><th>Ảnh Đại diện</th><th>CheckBox</th></tr>";
+                    var productListHTML = "<table class='table' style='" + tableStyle + "'>";
+                    productListHTML += "<thead><tr><th>Mã Sp</th><th>Danh Mục</th><th>Tên Sản Phẩm</th><th>Giá Nhập</th><th>Giá bán</th><th>Giá Niêm yết</th><th>Ảnh Đại diện</th><th style='" + checkboxStyle + "'><input type='checkbox' id='selectAllCheckbox'/> Chọn</th></tr></thead>";
 
-                if (data.length > 0) {
-                    productListHTML += data.map(item =>
-                        `<tr>
-                                                        <td>${item.maSp}</td>
-                                                         <td>${item.tenDanhMuc}</td>
-                                                         <td>${item.tenSanPham}</td>
-                                            <td>${formatCurrency(item.giaNhap)}đ</td>
-                                            <td>${formatCurrency(item.giaBan)}đ</td>
-                                            <td>${formatCurrency(item.giaNiemYet)}đ</td>
-                                            <td><img src='/image/${item.anhDaiDien}' height='100' alt='Product Image'></td>
-                                            <td><input type="checkbox" class="id-sp-button" data-id-sp='${item.id ? item.id : ""}'/></td>
-                                                 
-                                        </tr>`
-                    ).join('');
-                } else {
-                    productListHTML += "<tr><td colspan='6'>No matching products found</td></tr>";
-                }
+                    if (data.length > 0) {
+                        productListHTML += "<tbody>" + data.map(item =>
+                            `<tr>
+                                <td>${item.maSp}</td>
+                                <td>${item.tenDanhMuc}</td>
+                                <td>${item.tenSanPham}</td>
+                                <td>${formatCurrency(item.giaNhap)}đ</td>
+                                <td>${formatCurrency(item.giaBan)}đ</td>
+                                <td>${formatCurrency(item.giaNiemYet)}đ</td>
+                                <td><img src='/image/${item.anhDaiDien}' height='100' alt='Product Image'></td>
+                                <td><input type="checkbox" class="id-sp-button" data-id-sp='${item.id ? item.id : ""}'/></td>
+                            </tr>`
+                        ).join('') + "</tbody>";
+                    } else {
+                        productListHTML += "<tr><td colspan='8'>Không tìm thấy sản phẩm phù hợp</td></tr>";
+                    }
 
-                productListHTML += "</table>";
-                productList.innerHTML = productListHTML;
+                    productListHTML += "</table>";
+
+                    // Set a fixed height and make the table scrollable
+                    productListHTML = "<div style='height: 300px; overflow-y: auto;'>" + productListHTML + "</div>";
+
+                    productList.innerHTML = productListHTML;
+
+                    // Add some additional styling to make the table look better
+                    var table = document.querySelector('.table');
+                    if (table) {
+                        table.classList.add('table-bordered', 'table-striped', 'table-hover');
+                    }
+
+                    // Add event listener for the "Select All" checkbox
+                    var selectAllCheckbox = document.getElementById('selectAllCheckbox');
+                    if (selectAllCheckbox) {
+                        selectAllCheckbox.addEventListener('change', function () {
+                            var checkboxes = document.querySelectorAll('.id-sp-button');
+                            checkboxes.forEach(checkbox => {
+                                checkbox.checked = selectAllCheckbox.checked;
+
+                                // If the checkbox is checked, retrieve the data-id-sp attribute value
+                                if (checkbox.checked) {
+                                    var productId = checkbox.getAttribute('data-id-sp');
+                                    selectedMaSps.push(productId);
+                                    console.log("Selected Product ID: " + selectedMaSps);
+                                    // You can do something with the selected ID here
+                                }
+                            });
+                        });
+                    }
             },
             error: function (error) {
                 console.log("Đã xảy ra lỗi: ", error);
