@@ -48,6 +48,7 @@ namespace CTN4_Serv.Service
         }
         public List<SanPhamDanhMucVIewModel> GetAllProductWithKhuyenMai()
         {
+
             var listProduct = _db.SanPhams.ToList();
             var lstDanhMuc = _db.DanhMucs.ToList();
             var lst = _db.DanhMucChiTiets.ToList();
@@ -141,20 +142,36 @@ namespace CTN4_Serv.Service
       
         }
 
-        public List<SanPham> GetAllBySearch(string MaSp)
+        public List<SanPhamDanhMucVIewModel> GetAllBySearch(string MaSp)
         {
-            if(string.IsNullOrEmpty(MaSp))
-            {
-                return _db.SanPhams.ToList();
-            }
-            else
-            {
-               
-                var product = _db.SanPhams.Where(p => p.MaSp.Equals(MaSp)).ToList();
-                return product;
-            }
-            
-            
+            var lstkm = _db.KhuyenMaiSanPhams.Select(p => p.IdSanPham);
+            var listProduct = _db.SanPhams.ToList();
+            var lstDanhMuc = _db.DanhMucs.ToList();
+            var lst = _db.DanhMucChiTiets.ToList();
+
+            var lstAll = from a in listProduct
+                         join b in lst on a.Id equals b.IdSanPham
+                         join c in lstDanhMuc on b.IdDanhMuc equals c.Id
+                         where !lstkm.Contains(a.Id) // Thêm điều kiện kiểm tra a.Id không tồn tại trong lstkm
+                         where a.MaSp.Equals(MaSp)
+                         select new SanPhamDanhMucVIewModel
+                         {
+                             Id = a.Id,
+                             MaSp = a.MaSp,
+                             AnhDaiDien = a.AnhDaiDien,
+                             TenSanPham = a.TenSanPham,
+                             GiaNhap = a.GiaNhap,
+                             GiaBan = a.GiaBan,
+                             GiaNiemYet = a.GiaNiemYet,
+                             TenDanhMuc = c.TenDanhMuc,
+                         };
+
+            return lstAll.ToList();
+
+
+
+
+
         }
 
         public SanPham GetById(Guid id)
