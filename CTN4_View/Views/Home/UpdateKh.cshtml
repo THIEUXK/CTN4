@@ -23,15 +23,16 @@
         <div class="col-md-6">
             <form asp-action="UpdateKhang" method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                @if (!string.IsNullOrEmpty(ViewBag.Message))
+                {
+                    <span class="text-danger">@ViewBag.Message</span>
+                }
 
                 <div class="form-group">
                     <label asp-for="Ho" class="control-label">Họ:</label>
                     <input asp-for="Ho" class="form-control" />
                     <span asp-validation-for="Ho" class="text-danger"></span>
-                    @if (!string.IsNullOrEmpty(ViewBag.Message))
-                    {
-                        <span class="text-danger">@ViewBag.Message</span>
-                    }
+               
 
                 </div>
 

@@ -214,6 +214,7 @@ namespace CTN4_View.Controllers
 
             a.Id = Guid.NewGuid();
             a.Trangthai = true;
+            a.Is_detele = true;
             a.AnhDaiDien = "Fall";
             _khachHangService.Them(a);
             return RedirectToAction(nameof(login));
@@ -384,6 +385,16 @@ namespace CTN4_View.Controllers
         private bool IsValidPhoneNumber(string phoneNumber)
         {
             // Kiểm tra định dạng và độ dài số điện thoại theo quy tắc của bạn
+            if (string.IsNullOrEmpty(phoneNumber))
+            {
+                return false;
+            }
+
+            // Check if the phone number has a length between 10 and 13 characters
+            if (phoneNumber.Length < 10 || phoneNumber.Length > 13)
+            {
+                return false;
+            }
             // (Ví dụ: định dạng có thể là số và không có ký tự đặc biệt)
             return Regex.IsMatch(phoneNumber, @"^[0-9]+$") && phoneNumber.Length <= 20;
         }

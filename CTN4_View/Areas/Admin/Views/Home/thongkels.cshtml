@@ -121,6 +121,7 @@
     </div>
     <div class="col-md-5" style="margin-top:50px">
         <h3>Sản phẩm bán chạy</h3>
+      <a class="sidebar-link" asp-area="Admin" asp-controller="QuanLySpBc" asp-action="AllSpindex">Xem chi tiết</a>
         <div id="bestSellingProductsContainer"></div>
     </div>
 </div>
@@ -261,14 +262,31 @@
             // Call the Ajax function again or update the displayed items based on the current page
         }
 
- 
+
         function dataDate() {
             const startDateInput = document.getElementById('startDate');
             const endDateInput = document.getElementById('endDate');
 
             // Check if both start date and end date are selected
             if (!startDateInput.value || !endDateInput.value) {
-                alert("Vui Lòng chọn đúng đầu vào.Không vượt quá 31 ngày");
+                alert("Vui lòng chọn đúng đầu vào. Không vượt quá 31 ngày");
+                return;
+            }
+
+            // Parse the date values to compare them
+            const currentDate = new Date();
+            const startDate = new Date(startDateInput.value);
+            const endDate = new Date(endDateInput.value);
+
+            // Check if the start date is greater than the current date
+            if (startDate > currentDate) {
+                alert("Ngày bắt đầu không được lớn hơn ngày hiện tại");
+                return;
+            }
+
+            // Check if the start date is greater than the end date
+            if (startDate > endDate) {
+                alert("Ngày bắt đầu phải nhỏ hơn ngày kết thúc");
                 return;
             }
 
@@ -277,7 +295,7 @@
 
             // Check if the number of days is more than 31
             if (numberOfDays > 31) {
-                alert("Vui Lòng chọn đúng đầu vào.Không vượt quá 31 ngày");
+                alert("Vui lòng chọn đúng đầu vào. Không vượt quá 31 ngày");
                 return;
             }
 
@@ -294,6 +312,7 @@
                 }
             });
         }
+
 
         function calculateNumberOfDays(startDate, endDate) {
             // Tính số ngày giữa hai ngày
@@ -363,7 +382,24 @@
 
             // Check if both start date and end date are selected
             if (!startDateInput.value || !endDateInput.value) {
-                alert("Vui Lòng chọn đúng đầu vào.Không vượt quá 31 ngày");
+                alert("Vui lòng chọn đúng đầu vào. Không vượt quá 31 ngày");
+                return;
+            }
+
+            // Parse the date values to compare them
+            const currentDate = new Date();
+            const startDate = new Date(startDateInput.value);
+            const endDate = new Date(endDateInput.value);
+
+            // Check if the start date is greater than the current date
+            if (startDate > currentDate) {
+                alert("Ngày bắt đầu không được lớn hơn ngày hiện tại");
+                return;
+            }
+
+            // Check if the start date is greater than the end date
+            if (startDate > endDate) {
+                alert("Ngày bắt đầu phải nhỏ hơn ngày kết thúc");
                 return;
             }
 
@@ -372,7 +408,7 @@
 
             // Check if the number of days is more than 31
             if (numberOfDays > 31) {
-                alert("Vui Lòng chọn đúng đầu vào.Không vượt quá 31 ngày");
+                alert("Vui lòng chọn đúng đầu vào. Không vượt quá 31 ngày");
                 return;
             }
 
@@ -389,6 +425,7 @@
                 }
             });
         }
+
 
         function calculateNumberOfDays(startDate, endDate) {
             // Tính số ngày giữa hai ngày
