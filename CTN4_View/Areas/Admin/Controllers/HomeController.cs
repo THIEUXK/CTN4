@@ -252,14 +252,15 @@ namespace CTN4_View_Admin.Controllers
             return View(s);
 
         }
-        public IActionResult GetBestSellingProducts()
-        {
-            // Gọi hàm ThongKeSanPhamBanChay để lấy danh sách sản phẩm bán chạy
-            var bestSellingProducts = _hd.ThongKeSanPhamBanChay();
 
-            // Trả về dữ liệu dưới dạng JSON cmm
-            return Json(bestSellingProducts);
-        }
+            public IActionResult GetBestSellingProducts()
+            {
+                // Gọi hàm ThongKeSanPhamBanChay để lấy danh sách sản phẩm bán chạy
+                var bestSellingProducts = _hd.ThongKeSanPhamBanChay();
+
+                // Trả về dữ liệu dưới dạng JSON cmm
+                return Json(bestSellingProducts);
+            }
         [HttpPost]
         public IActionResult UpdateNv(NhanVien khachHangForm)
         {

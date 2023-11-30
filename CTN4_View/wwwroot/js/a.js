@@ -1,5 +1,36 @@
 ﻿$(document).ready(function () {
 
+    $(document).on('click', '.btnXuatEx3', function () {
+        var arrcheck = [];
+        //loadTotal()
+        // Get all checkboxes with class form-check-input that are checked
+        var checkedCheckboxes = $(".form-check-input:checked");
+        checkedCheckboxes.each(function () {
+            arrcheck.push(parseInt($(this).val()));
+        })
+        var obj = {
+            IdHD: arrcheck
+        }
+        //if (checkedCheckboxes.length != 0) {
+        console.log(JSON.stringify({ listId: arrcheck }));
+        $.ajax({
+            url: '/QuanLyHd/XuatEx3',
+            type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json;charset=utf-8',
+            data: JSON.stringify(obj),
+            success: function (result) {
+                debugger
+                if (result == "ok") {
+                    $("#aaa1").html(`<div class="alert alert-danger" style="background-color:lightgreen;color:black">Xác nhận đơn hàng thành công</div>`);
+                }
+                else if (result == "that bai 1") {
+                    $("#aaa").html(`<div class="alert alert-danger">Có đơn hàng không dủ điều kiện</div>`);
+                  
+                }
+            }
+        })
+    });
     $(document).on('click', '.btnXuatEx2', function () {
         var arrcheck = [];
         //loadTotal()
@@ -21,7 +52,6 @@
             data: JSON.stringify(obj),
             success: function (result) {
 
-
                 if (result.length !== 0) {
                     var files = [];
                     $.each(result, function (key, val) {
@@ -33,17 +63,11 @@
                         debugger
                         downloadURL(files[ii]);
                     }
-                    /*location.href = files[];*/
                 }
             }
         })
-        //}
-        //    else {
-
-        //    location.reload();
-        //    }
     });
- 
+
     var count = 0;
     var downloadURL = function downloadURL(url) {
         var hiddenIFrameID = 'hiddenDownloader' + count++;
@@ -54,30 +78,30 @@
         iframe.src = url;
     }
 
-    $(document).on('click', '.btnXuatEx', function () {
-        //loadTotal()
-        var IdHD = this.value;
-        if (IdHD != null) {
-            $.ajax({
-                url: '/QuanLyHd/XuatEx',
-                type: 'GET',
-                dataType: 'json',
-                data: {
-                    IdHD: IdHD
-                },
-                contentType: 'application/json',
-                success: function (result) {
-                    if (result != null) {
-                        debugger
-                        location.href = "/ex/" + result;
-                    }
-                }
-            });
-        }
-        else {
-            location.reload();
-        }
-    });
+    //$(document).on('click', '.btnXuatEx', function () {
+    //    //loadTotal()
+    //    var IdHD = this.value;
+    //    if (IdHD != null) {
+    //        $.ajax({
+    //            url: '/QuanLyHd/XuatEx',
+    //            type: 'GET',
+    //            dataType: 'json',
+    //            data: {
+    //                IdHD: IdHD
+    //            },
+    //            contentType: 'application/json',
+    //            success: function (result) {
+    //                if (result != null) {
+    //                    debugger
+    //                    location.href = "/ex/" + result;
+    //                }
+    //            }
+    //        });
+    //    }
+    //    else {
+    //        location.reload();
+    //    }
+    //});
     $('#provin').change(function () {
         //loadTotal();
         var id_provin = this.value;

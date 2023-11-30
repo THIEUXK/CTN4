@@ -29,7 +29,7 @@ namespace CTN4_Serv.Service
             // Lấy danh sách chi tiết hóa đơn từ cơ sở dữ liệu
 
             var chiTietHoaDons = _db.HoaDonChiTiets
-                .Where(ct => ct.TrangThai&& !ct.Is_detele )
+                .Where(ct => ct.TrangThai&& ct.Is_detele )
                 .ToList();
 
             // Tạo một Dictionary để lưu tổng số lượng bán của từng sản phẩm
@@ -87,7 +87,9 @@ namespace CTN4_Serv.Service
 
             // Sử dụng LINQ để lấy danh sách các hóa đơn có TrangThaiThanhToan là true và ngày tạo hóa đơn trong năm hiện tại
             var hoaDonsThanhToanTrongNam = _db.HoaDons
-                .Where(h => h.TrangThaiThanhToan && h.NgayTaoHoaDon.Year == namHienTai)
+                .Where(h => h.TrangThaiThanhToan &&
+                            h.NgayTaoHoaDon.Year == namHienTai &&
+                            h.TrangThai == "Giao hàng thành công")
                 .ToList();
 
             // Tạo Dictionary để lưu tổng tiền theo tháng
@@ -120,12 +122,14 @@ namespace CTN4_Serv.Service
         }
         public int[] ThongKeSoLuongDonHangTheoThangTrongNam()
         {
-            // Lấy năm hiện tại
             int namHienTai = DateTime.Now.Year;
 
-            // Sử dụng LINQ để lấy danh sách các hóa đơn có TrangThaiThanhToan là true và ngày tạo hóa đơn trong năm hiện tại
+            // Sử dụng LINQ để lấy danh sách các hóa đơn có TrangThaiThanhToan là true, 
+            // ngày tạo hóa đơn trong năm hiện tại và TrangThai là "Giao hàng thành công"
             var hoaDonsTrangThaiTrue = _db.HoaDons
-                .Where(h => h.TrangThaiThanhToan && h.NgayTaoHoaDon.Year == namHienTai)
+                .Where(h => h.TrangThaiThanhToan &&
+                            h.NgayTaoHoaDon.Year == namHienTai &&
+                            h.TrangThai == "Giao hàng thành công")
                 .ToList();
 
             // Tạo Dictionary để lưu số lượng đơn hàng theo tháng
@@ -157,10 +161,14 @@ namespace CTN4_Serv.Service
         }
         public int[] ThongKeSoLuongDonHangTrongKhoangThoiGian(DateTime tuNgay, DateTime denNgay)
         {
-            // Sử dụng LINQ để lấy danh sách các hóa đơn có TrangThaiThanhToan là true và ngày tạo hóa đơn trong khoảng thời gian
+            // Sử dụng LINQ để lấy danh sách các hóa đơn có TrangThaiThanhToan là true, 
+            // ngày tạo hóa đơn trong khoảng thời gian và TrangThai là "Giao hàng thành công"
             var hoaDonsTrangThaiTrueTrongKhoangThoiGian = _db.HoaDons
-            .Where(h => h.TrangThaiThanhToan && h.NgayTaoHoaDon >= tuNgay && h.NgayTaoHoaDon <= denNgay)
-            .ToList();
+                .Where(h => h.TrangThaiThanhToan &&
+                            h.NgayNhan >= tuNgay &&
+                            h.NgayNhan <= denNgay &&
+                            h.TrangThai == "Giao hàng thành công")
+                .ToList();
 
             // Tạo mảng để lưu số lượng đơn hàng theo số ngày trong khoảng thời gian
             int[] soLuongTheoNgayTrongKhoang = new int[(denNgay - tuNgay).Days + 1];
@@ -168,12 +176,17 @@ namespace CTN4_Serv.Service
             // Đếm số lượng đơn hàng của từng ngày trong khoảng thời gian
             foreach (var hoaDon in hoaDonsTrangThaiTrueTrongKhoangThoiGian)
             {
-                int ngayTrongKhoang = (hoaDon.NgayTaoHoaDon - tuNgay).Days;
-
-                // Kiểm tra ngày để tránh tràn mảng
-                if (ngayTrongKhoang >= 0 && ngayTrongKhoang < soLuongTheoNgayTrongKhoang.Length)
+                // Kiểm tra nếu NgayNhan và tuNgay không null
+                if (hoaDon.NgayNhan.HasValue && tuNgay != null)
                 {
-                    soLuongTheoNgayTrongKhoang[ngayTrongKhoang]++;
+                    TimeSpan timeSpan = hoaDon.NgayNhan.Value - tuNgay;
+                    int ngayTrongKhoang = timeSpan.Days;
+
+                    // Kiểm tra ngày để tránh tràn mảng
+                    if (ngayTrongKhoang >= 0 && ngayTrongKhoang < soLuongTheoNgayTrongKhoang.Length)
+                    {
+                        soLuongTheoNgayTrongKhoang[ngayTrongKhoang]++;
+                    }
                 }
             }
 
@@ -181,29 +194,39 @@ namespace CTN4_Serv.Service
         }
         public decimal[] ThongKeTongTienDonHangTrongKhoangThoiGian(DateTime tuNgay, DateTime denNgay)
         {
+
             // Sử dụng LINQ để lấy danh sách các hóa đơn có TrangThaiThanhToan là true và ngày tạo hóa đơn trong khoảng thời gian
-            var hoaDonsTrangThaiTrueTrongKhoangThoiGian = _db.HoaDons
-                .Where(h => h.TrangThaiThanhToan && h.NgayTaoHoaDon >= tuNgay && h.NgayTaoHoaDon <= denNgay)
+            var hoaDonsTrongKhoangThoiGian = _db.HoaDons
+                .Where(h => h.TrangThaiThanhToan &&
+                            h.NgayNhan >= tuNgay &&
+                            h.NgayNhan <= denNgay &&
+                            h.TrangThai == "Giao hàng thành công")
                 .ToList();
 
             // Tạo mảng để lưu tổng tiền đơn hàng theo số ngày trong khoảng thời gian
             decimal[] tongTienTheoNgayTrongKhoang = new decimal[(denNgay - tuNgay).Days + 1];
 
             // Tính tổng tiền của từng ngày trong khoảng thời gian
-            foreach (var hoaDon in hoaDonsTrangThaiTrueTrongKhoangThoiGian)
+            foreach (var hoaDon in hoaDonsTrongKhoangThoiGian)
             {
-                int ngayTrongKhoang = (hoaDon.NgayTaoHoaDon - tuNgay).Days;
-
-                // Kiểm tra ngày để tránh tràn mảng
-                if (ngayTrongKhoang >= 0 && ngayTrongKhoang < tongTienTheoNgayTrongKhoang.Length)
+                // Kiểm tra nếu NgayNhan và tuNgay không null
+                if (hoaDon.NgayNhan.HasValue && tuNgay != null)
                 {
-                    // Chuyển đổi giá trị float thành decimal trước khi thực hiện phép cộng
-                    tongTienTheoNgayTrongKhoang[ngayTrongKhoang] += (decimal)hoaDon.TongTien;
+                    TimeSpan timeSpan = hoaDon.NgayNhan.Value - tuNgay;
+                    int ngayTrongKhoang = timeSpan.Days;
+
+                    // Kiểm tra ngày để tránh tràn mảng
+                    if (ngayTrongKhoang >= 0 && ngayTrongKhoang < tongTienTheoNgayTrongKhoang.Length)
+                    {
+                        // Chuyển đổi giá trị float thành decimal trước khi thực hiện phép cộng
+                        tongTienTheoNgayTrongKhoang[ngayTrongKhoang] += (decimal)hoaDon.TongTien;
+                    }
                 }
             }
 
             return tongTienTheoNgayTrongKhoang;
         }
+
 
         public bool Them(HoaDon a)
         {
