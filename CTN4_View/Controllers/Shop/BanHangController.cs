@@ -46,11 +46,11 @@ namespace CTN4_View.Controllers.Shop
         public ILichSuHoaDonService _LichSuHoaDonService;
 
 
-        public BanHangController(IConfiguration config, IVnPayService vnpay, ICurrentUser currentUser)
+        public BanHangController(IConfiguration config, IVnPayService vnpay, ICurrentUser currentUser,IGioHangService giohang)
         {
             _diaChiNhanHangService = new DiaChiNhanHangService();
             _sanPhamCuaHangService = new SanPhamCuaHangService();
-            _GioHang = new GioHangService();
+            _GioHang = giohang;
             _GioHangChiTiet = new GioHangChiTietService();
             _GioHangjoiin = new GioHangjoiin();
             _HoaDonService = new HoaDonService();

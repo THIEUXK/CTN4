@@ -10,6 +10,7 @@ namespace CTN4_Serv.Service.IService
     public interface IGioHangService
     {
         public List<GioHang> GetAll();
+        public int slsanpham();
         public GioHang GetById(Guid id);
         public bool Them(GioHang a);
         public bool Sua(GioHang a);

@@ -651,12 +651,13 @@
         productListHTML += "<thead><tr><th>Mã Sp</th><th>Danh Mục</th><th>Tên Sản Phẩm</th><th>Mã Khuyến Mãi</th><th>Giá Nhập</th><th>Giá bán</th><th>Giá Niêm yết</th><th>Ảnh Đại diện</th></tr></thead>";
 
         if (data.length > 0) {
+            console.log(data);
             productListHTML += "<tbody>" + data.map(item =>
                 `<tr>
                             <td>${item.maSp}</td>
                             <td>${item.tenDanhMuc}</td>
                             <td>${item.tenSanPham}</td>
-                                <td>${item.maKhuyenMai}</td>
+                                    <td>${item.tenKm}</td>
                             <td>${formatCurrency(item.giaNhap)}đ</td>
                             <td>${formatCurrency(item.giaBan)}đ</td>
                             <td>${formatCurrency(item.giaNiemYet)}đ</td>
