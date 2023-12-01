@@ -140,12 +140,15 @@ namespace CTN4_View_Admin.Controllers
             var TK = _nhanvienService.GetAll().FirstOrDefault(c => c.TenDangNhap == userModel.User && c.MatKhau == userModel.Password);
             if (TK == null)
             {
-                return RedirectToAction("DangNhap");
+
+                ViewBag.Message = "Vui lòng nhập đúng đầu vào.";
+                return View("DangNhap", userModel);
             }
             // Đọc dữ liệu từ Session xem trong Cart nó có cái gì chưa?
             var nvnew = SessionServices.NhanVienSS(HttpContext.Session, "ACA");
             if (nvnew.Count == 0)
             {
+
                 nvnew.Add(TK);
                 SessionServices.SetObjToJson(HttpContext.Session, "ACA", nvnew);
             }
@@ -157,10 +160,13 @@ namespace CTN4_View_Admin.Controllers
             }
             if (!ModelState.IsValid)
             {
+                ViewBag.Message = "Vui lòng nhập đúng đầu vào.";
                 return View("DangNhap", userModel); // Trả về view với model và thông báo lỗi
             }
             if (string.IsNullOrEmpty(userModel.User) || string.IsNullOrEmpty(userModel.Password))
             {
+
+                ViewBag.Message = "Vui lòng nhập đúng đầu vào.";
                 return (RedirectToAction(nameof(DangNhap)));
             }
 
@@ -176,18 +182,22 @@ namespace CTN4_View_Admin.Controllers
 
                 if (generatedToken != null)
                 {
-                    ModelState.AddModelError("LoginError", "Tên người dùng hoặc mật khẩu không chính xác");
+                 
                     HttpContext.Session.SetString("Token", generatedToken);
                     return RedirectToAction(nameof(Index));
                 }
                 else
                 {
-                    return (RedirectToAction(nameof(DangNhap)));
+
+                    ViewBag.Message = "Vui lòng nhập đúng đầu vào.";
+                    return View("DangNhap", userModel);
                 }
             }
             else
             {
-                return (RedirectToAction(nameof(DangNhap)));
+
+                ViewBag.Message = "Vui lòng nhập đúng đầu vào.";
+                return View("DangNhap", userModel);
             }
         }
         private NhanVien GetUser(LoginAdmin userModel)

@@ -204,6 +204,20 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             var a = _sx.GetAll();
             return Json(a);
         }
+       
+        public ActionResult GetallKm()
+        {
+            try
+            {
+
+                var a = _sp.GetallKM();
+                return Json(a);
+            }
+            catch (Exception)
+            {
+                return View();
+            }
+        }
 
         public ActionResult Getallsp()
         {

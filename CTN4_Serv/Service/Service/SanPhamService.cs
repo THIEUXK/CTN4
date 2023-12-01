@@ -1,4 +1,5 @@
 ﻿using CTN4_Data.DB_Context;
+using CTN4_Data.Migrations;
 using CTN4_Data.Models.DB_CTN4;
 using CTN4_Serv.Service.IService;
 using CTN4_Serv.ViewModel.banhangview;
@@ -71,6 +72,37 @@ namespace CTN4_Serv.Service
                              
                              
                          };
+            return lstAll.ToList();
+        }
+        public List<SanPhamDanhMucVIewModel> GetallKM()
+        {
+            var lstkm = _db.KhuyenMaiSanPhams.Select(p => p.IdSanPham).ToList();
+            var listkm = _db.KhuyenMais.ToList();
+            var listProduct = _db.SanPhams.ToList();
+            var lstDanhMucChiTiet = _db.DanhMucChiTiets.ToList();
+            var lstDanhMuc = _db.DanhMucs.ToList();
+
+            // Truy vấn lấy tất cả sản phẩm có trong danh sách khuyến mãi
+            var lstAll = from a in listProduct
+                         join b in lstDanhMucChiTiet on a.Id equals b.IdSanPham
+                         join c in lstDanhMuc on b.IdDanhMuc equals c.Id
+                         join d in _db.KhuyenMaiSanPhams.ToList() on a.Id equals d.IdSanPham
+                         join e in listkm on d.IdkhuyenMai equals e.Id
+                         where lstkm.Contains(a.Id) // Điều kiện chỉ lấy những sản phẩm có trong danh sách khuyến mãi
+                         select new SanPhamDanhMucVIewModel
+                         {
+                             Id = a.Id,
+                             MaSp = a.MaSp,
+                             AnhDaiDien = a.AnhDaiDien,
+                             TenSanPham = a.TenSanPham,
+                             GiaNhap = a.GiaNhap,
+                             GiaBan = a.GiaBan,
+                             GiaNiemYet = a.GiaNiemYet,
+                             TenDanhMuc = c.TenDanhMuc,
+                             Idkm = e.Id,
+                             TenKm = e.MaKhuyenMai,
+                         };
+
             return lstAll.ToList();
         }
         public List<SanPham> GetAll()

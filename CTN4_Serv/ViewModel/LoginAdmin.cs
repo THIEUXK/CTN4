@@ -11,8 +11,8 @@ namespace CTN4_Serv.ViewModel
     {
         [Required(ErrorMessage = "Username is required")]
         public string User { get; set; }
-        [Required(ErrorMessage = "Username is required")]
-        [RegularExpression("^[a-zA-Z0-9]{8,16}$", ErrorMessage = "Username must be 8 to 16 alphanumeric characters.")]
+        [Required(ErrorMessage = "Tên đăng nhập không được bỏ trống")]
+        [RegularExpression("^[a-zA-Z0-9]{8,16}$", ErrorMessage = "Vui Lòng nhập từ 8 ký tự trở lên.")]
         public string Password { get; set; }
     }
 }

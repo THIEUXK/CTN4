@@ -15,6 +15,7 @@ namespace CTN4_Serv.Service.IService
         public List<SanPhamDanhMucVIewModel> GetAllBySearch(string MaSp);
         public List<SanPhamDanhMucVIewModel> TimSanPhamTheoDieuKien(string dieuKien);
         public List<SanPhamDanhMucVIewModel> GetAllProductWithKhuyenMai();
+        public List<SanPhamDanhMucVIewModel> GetallKM();
         public SanPham GetById(Guid id);
         public bool Them(SanPham a);
         public bool Sua(SanPham a);
