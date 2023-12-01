@@ -205,7 +205,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyVouvher
             if (ModelState.IsValid)
             {
                 a.TrangThai = true;
-                a.Is_detele = false;
+                a.Is_detele = true;
                 var tontai = _gg.GetAll().FirstOrDefault(c => c.MaGiam == a.MaGiam && c.Id != a.Id);
                 if (tontai != null)
                 {
