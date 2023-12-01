@@ -16,6 +16,7 @@ namespace CTN4_Serv.Service.IService
         public int[] ThongKeSoLuongDonHangTrongKhoangThoiGian(DateTime tuNgay, DateTime denNgay);
         public decimal[] ThongKeTongTienDonHangTrongKhoangThoiGian(DateTime tuNgay, DateTime denNgay);
         public int[] ThongKeSoLuongDonHangTheoThangTrongNam();
+        public int[] ThongKeSoLuongDonHangTheoThangTrongNam(int nam);
         public List<BestSellingProductModel> ThongKeSanPhamBanChay();
         public bool Them(HoaDon a);
         public bool Sua(HoaDon a);

@@ -125,6 +125,17 @@
         <div id="bestSellingProductsContainer"></div>
     </div>
 </div>
+<div>
+    <label for="selectYear">Chọn Năm:</label>
+    <select id="selectYear" onchange="thongKeNam()">
+        @for (int i = DateTime.Now.Year; i >= DateTime.Now.Year - 20; i--)
+        {
+            <option value="@i">@i</option>
+        }
+    </select>
+
+    <canvas id="myChartnam"></canvas>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -160,6 +171,8 @@
         // Call the dataDate function to perform statistical analysis for the current month
         dataDate();
         dataDates();
+        // thongKeNam();
+       
         $('#dataDate').click(function () {
             dataDate();
         });
@@ -323,7 +336,48 @@
 
             return numberOfDays;
         }
+        function thongKeNam() {
+            const selectedYear = document.getElementById('selectYear').value;
 
+            // Gửi yêu cầu đến server để lấy dữ liệu thống kê cho năm được chọn
+            fetch(`/Admin/Home/ThongKenam?nam=${selectedYear}`)
+                .then(response => response.json())
+                .then(data => {
+                    veBieuDo(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                    // Handle the error, e.g., display an error message to the user
+                });
+        }
+
+        function veBieuDo(thongKeData) {
+            const ctx = document.getElementById('myChartnam');
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: thongKeData.labels,
+                    datasets: [{
+                        label: '#Tổng Tiền',
+                        data: thongKeData.data,
+                        borderWidth: 1,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        // Gọi thống kê lần đầu khi trang được load
+        thongKeNam();
         let myChart = null;
 
         function updateChartDatas(data, numberOfDays, startDateInput) {

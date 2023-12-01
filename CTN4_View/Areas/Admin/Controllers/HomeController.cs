@@ -3,6 +3,7 @@ using CTN4_Data.Models.DB_CTN4;
 using CTN4_Serv.Service;
 using CTN4_Serv.Service.IService;
 using CTN4_Serv.ViewModel;
+using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -262,7 +263,7 @@ namespace CTN4_View_Admin.Controllers
             return View(s);
 
         }
-
+        
             public IActionResult GetBestSellingProducts()
             {
                 // Gọi hàm ThongKeSanPhamBanChay để lấy danh sách sản phẩm bán chạy
@@ -271,6 +272,16 @@ namespace CTN4_View_Admin.Controllers
                 // Trả về dữ liệu dưới dạng JSON cmm
                 return Json(bestSellingProducts);
             }
+        [HttpGet]
+        public IActionResult ThongKenam(int nam)
+        {
+
+            // Gọi hàm ThongKeSanPhamBanChay để lấy danh sách sản phẩm bán chạy
+            var soLuongDonHangTheoThang = _hd.ThongKeSoLuongDonHangTheoThangTrongNam(nam);
+
+            // Trả về dữ liệu dưới dạng JSON
+            return Json(soLuongDonHangTheoThang);
+        }
         [HttpPost]
         public IActionResult UpdateNv(NhanVien khachHangForm)
         {
