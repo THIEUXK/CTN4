@@ -7,68 +7,92 @@
 @{
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
+    
 
 
 
 
-<div class="container">
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            <strong>@Html.DisplayNameFor(model => model.Ho)</strong>
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Ho)
-        </dd>
+<style>
+    .container {
+        padding-top: 50px; /* Adjust this value based on your navbar's height */
+    }
 
-        <dt class="col-sm-2">
-            <strong>@Html.DisplayNameFor(model => model.Ten)</strong>
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Ten)
-        </dd>
+    .mt-4 {
+        margin-top: 20px;
+    }
 
-        <dt class="col-sm-2">
-            <strong>@Html.DisplayNameFor(model => model.GioiTinh)</strong>
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.GioiTinh)
-        </dd>
+    .blury-border {
+        border: 1px solid #ddd; /* Add a subtle border */
+        border-radius: 8px; /* Optional: Add border radius for a softer look */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow for depth */
+        padding: 20px; /* Add padding for better spacing */
+    }
 
-        <dt class="col-sm-2">
-            <strong>@Html.DisplayNameFor(model => model.Email)</strong>
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
+    .row-label {
+        font-weight: bold;
+        color: #007bff; /* Adjust label color */
+    }
+</style>
 
-        <dt class="col-sm-2">
-            <strong>@Html.DisplayNameFor(model => model.SDT)</strong>
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.SDT)
-        </dd>
+<div class="container mt-5 text-center blury-border">
+    <div>
+        <dl class="row" style="margin-top: 30px;">
+            <dt class="col-sm-2 row-label">
+                Họ
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Ho)
+            </dd>
 
-        <dt class="col-sm-2">
-            <strong>@Html.DisplayNameFor(model => model.DiaChi)</strong>
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DiaChi)
-        </dd>
+            <dt class="col-sm-2 row-label">
+                Tên
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Ten)
+            </dd>
 
-        <dt class="col-sm-2">
-            <strong>@Html.DisplayNameFor(model => model.AnhDaiDien)</strong>
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.AnhDaiDien)
-        </dd>
-    </dl>
+            <dt class="col-sm-2 row-label">
+                Giới Tính
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.GioiTinh)
+            </dd>
+
+            <dt class="col-sm-2 row-label">
+                Email
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+
+            <dt class="col-sm-2 row-label">
+                Số Điện Thoại
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.SDT)
+            </dd>
+
+            <dt class="col-sm-2 row-label">
+                Địa Chỉ
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DiaChi)
+            </dd>
+
+            <dt class="col-sm-2 row-label">
+                Ảnh Đại Diện
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.AnhDaiDien)
+            </dd>
+        </dl>
+    </div>
+
+    <div class="mt-4">
+        <a class="btn btn-primary" asp-action="UpdateNV">Chỉnh Sửa</a>
+        <a class="btn btn-success" asp-action="Doimk">Đổi Mật Khẩu</a>
+        <a class="btn btn-secondary" asp-action="Index">Quay Lại Danh Sách</a>
+    </div>
 </div>
 
-<div class="text-center mt-4">
-    <a class="btn btn-primary" asp-action="UpdateNV">Chỉnh Sửa</a>
-    <a class="btn btn-success" asp-action="Doimk">Đổi Mật Khẩu</a>
-   
-    <a class="btn btn-secondary" asp-action="Index">Quay Lại Danh Sách</a>
-</div>
 

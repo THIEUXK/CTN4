@@ -18,6 +18,7 @@ namespace CTN4_Serv.ViewModel
         public List<DanhMucChiTiet> danhMucChiTiet;
         public List<DanhMucChiTiet> danhMucChiTiet2;
         public List<SanPhamChiTiet> sanPhamChiTiets;
+        public List<KhuyenMaiSanPham> khuyenMaiSanPhams { get; set; }
         public List<ChiTietSanPhamYeuThich> sanPhamYeuThiches { get; set; } 
         public List<KhachHang> khachHangs { get; set; } 
         public PagingInfo pagingInfo { get; set; } = new PagingInfo();
@@ -28,5 +29,6 @@ namespace CTN4_Serv.ViewModel
         public int CurrentPage { get; set; }
         public int dem;
         public int soluonghienthi { get; set; }
+        public string SortOrder { get; set; }
     }
 }

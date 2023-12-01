@@ -112,7 +112,7 @@
 <hr />
 <div>
     <button type="button" class="btn btn-warning m-1"><a asp-controller="QuanLYH" asp-action="Create" style="color:white">Thêm</a></button>
-
+    
 </div>
 
 
@@ -134,7 +134,7 @@
                 Trạng thái
             </th>
 
-           
+
             <th>
                 Màu
             </th>
@@ -182,7 +182,7 @@
                     @Html.DisplayFor(modelItem => item.TrangThai)
                 </td>
 
-               
+
 
                 <td>
                     @Html.DisplayFor(modelItem => item.Mau.TenMau)
@@ -204,7 +204,7 @@
                     <button class="btn btn-danger m-1">
                         @Html.ActionLink("Xóa", "Delete","QuanLYH", new { id = item.Id }, new { style = "color: white;" })
                     </button>
-                    
+
                 </td>
             </tr>
         }

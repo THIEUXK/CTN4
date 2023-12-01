@@ -159,6 +159,43 @@ namespace CTN4_Serv.Service
 
             return result;
         }
+        public int[] ThongKeSoLuongDonHangTheoThangTrongNam(int nam)
+        {
+            // Sử dụng LINQ để lấy danh sách các hóa đơn có TrangThaiThanhToan là true, 
+            // ngày tạo hóa đơn trong năm được truyền vào và TrangThai là "Giao hàng thành công"
+            var hoaDonsTrangThaiTrue = _db.HoaDons
+                .Where(h => h.TrangThaiThanhToan &&
+                            h.NgayTaoHoaDon.Year == nam &&
+                            h.TrangThai == "Giao hàng thành công")
+                .ToList();
+
+            // Tạo Dictionary để lưu số lượng đơn hàng theo tháng
+            Dictionary<int, int> soLuongTheoThang = new Dictionary<int, int>();
+
+            // Đếm số lượng đơn hàng của từng tháng
+            foreach (var hoaDon in hoaDonsTrangThaiTrue)
+            {
+                int thang = hoaDon.NgayTaoHoaDon.Month;
+
+                if (soLuongTheoThang.ContainsKey(thang))
+                {
+                    soLuongTheoThang[thang]++;
+                }
+                else
+                {
+                    soLuongTheoThang[thang] = 1;
+                }
+            }
+
+            // Chuyển đổi Dictionary thành mảng int[]
+            int[] result = new int[12];
+            for (int i = 1; i <= 12; i++)
+            {
+                result[i - 1] = soLuongTheoThang.ContainsKey(i) ? soLuongTheoThang[i] : 0;
+            }
+
+            return result;
+        }
         public int[] ThongKeSoLuongDonHangTrongKhoangThoiGian(DateTime tuNgay, DateTime denNgay)
         {
             // Sử dụng LINQ để lấy danh sách các hóa đơn có TrangThaiThanhToan là true, 

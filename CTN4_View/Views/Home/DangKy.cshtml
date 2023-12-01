@@ -3,6 +3,51 @@
 @{
     ViewData["Title"] = "DangKy";
 }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .blurry-border {
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.8);
+            width: 100%; /* Set to 100% by default */
+        }
+
+        .center-form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Add a media query for responsiveness */
+        
+            .center-form {
+                height: auto;
+            }
+
+            .blurry-border {
+                width: 90%;
+                margin: 0 auto;
+            }
+        }
+    </style>
+    <title>Đăng Ký</title>
+</head>
+<body>
+
 <section class="banner-area organic-breadcrumb">
     <div class="container">
         <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
@@ -17,73 +62,89 @@
     </div>
 </section>
 
-<hr />
-<div class="row">
-    <div class="col-md-6">
+<div class="center-form">
+    <div class="col-md-6 blurry-border">
         <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <div class="form-group row">
-                <div class="col-md-6">
-                    <label asp-for="Ho" class="control-label">Họ:</label>
-                    <input asp-for="Ho" class="form-control" />
-                    <span asp-validation-for="Ho" class="text-danger"></span>
+    <div class="form-group row">
+        <div class="col-md-6">
+            <label asp-for="Ho" class="control-label">Họ:</label>
+            <input asp-for="Ho" class="form-control" />
+            <span asp-validation-for="Ho" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="Ten" class="control-label">Tên:</label>
+            <input asp-for="Ten" class="form-control" />
+            <span asp-validation-for="Ten" class="text-danger"></span>
+        </div>
+    </div>
+                <div class="form-group">
+                    <label asp-for="TenDangNhap" class="control-label"> Tên Đăng Nhập</label>
+                    <input asp-for="TenDangNhap" class="form-control" minlength="8" maxlength="30" />
+                    <span asp-validation-for="TenDangNhap" class="text-danger"></span>
+                    <small id="usernameHelpBlock" class="form-text text-muted">
+                        Tên đăng nhập phải có ít nhất 8 ký tự và tối đa 30 ký tự.
+                    </small>
                 </div>
 
-                <div class="col-md-6">
-                    <label asp-for="Ten" class="control-label">Tên:</label>
-                    <input asp-for="Ten" class="form-control" />
-                    <span asp-validation-for="Ten" class="text-danger"></span>
+                <div class="form-group">
+                    <label asp-for="MatKhau" class="control-label"> Mật Khẩu</label>
+                    <input asp-for="MatKhau" class="form-control" minlength="8" maxlength="30" />
+                    <span asp-validation-for="MatKhau" class="text-danger"></span>
+                    <small id="passwordHelpBlock" class="form-text text-muted">
+                        Mật khẩu phải có ít nhất 8 ký tự và tối đa 30 ký tự.
+                    </small>
                 </div>
-            </div>
-            <div class="form-group">
-                <label asp-for="TenDangNhap" class="control-label"></label>
-                <input asp-for="TenDangNhap" class="form-control" />
-                <span asp-validation-for="TenDangNhap" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MatKhau" class="control-label"></label>
-                <input asp-for="MatKhau" class="form-control" />
-                <span asp-validation-for="MatKhau" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="GioiTinh" class="control-label">Giới Tính:</label>
-                <input asp-for="GioiTinh" class="form-control" />
-                <span asp-validation-for="GioiTinh" class="text-danger"></span>
-            </div>
 
-            <div class="form-group">
-                <label asp-for="Email" class="control-label">Email:</label>
-                <input asp-for="Email" type="email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
+                <div class="form-group">
+                    <label asp-for="GioiTinh" class="control-label">Giới Tính:</label>
+                    <select asp-for="GioiTinh" class="form-control">
+                        <option value="Nam">Nam</option>
+                        <option value="Nữ">Nữ</option>
+                        <option value="Thứ 3">Khác</option>
+                    </select>
+                    <span asp-validation-for="GioiTinh" class="text-danger"></span>
+                </div>
 
-            <div class="form-group">
-                <label asp-for="SDT" class="control-label">Số Điện Thoại:</label>
-                <input asp-for="SDT" class="form-control" />
-                <span asp-validation-for="SDT" class="text-danger"></span>
-            </div>
+    <div class="form-group">
+        <label asp-for="Email" class="control-label">Email:</label>
+        <input asp-for="Email" type="email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
 
-            <div class="form-group">
-                <label asp-for="DiaChi" class="control-label">Địa Chỉ:</label>
-                <input asp-for="DiaChi" class="form-control" />
-                <span asp-validation-for="DiaChi" class="text-danger"></span>
-            </div>
-            @if (!string.IsNullOrEmpty(ViewBag.Message))
-            {
-                <span class="text-danger">@ViewBag.Message</span>
-            }
+    <div class="form-group">
+        <label asp-for="SDT" class="control-label">Số Điện Thoại:</label>
+        <input asp-for="SDT" class="form-control" />
+        <span asp-validation-for="SDT" class="text-danger"></span>
+    </div>
 
-            <div class="form-group">
-                <input asp-action="DangKys" type="submit" value="Đăng Ký" class="btn btn-primary" />
-            </div>
-        </form>
+    <div class="form-group">
+        <label asp-for="DiaChi" class="control-label">Địa Chỉ:</label>
+        <input asp-for="DiaChi" class="form-control" />
+        <span asp-validation-for="DiaChi" class="text-danger"></span>
+    </div>
+
+    @if (!string.IsNullOrEmpty(ViewBag.Message))
+    {
+        <span class="text-danger">@ViewBag.Message</span>
+    }
+
+    <div class="form-group">
+        <input asp-action="DangKys" type="submit" value="Đăng Ký" class="btn btn-primary" />
+    </div>
+</form>
+
     </div>
 </div>
 
 <div>
     <a asp-action="Index" class="btn btn-secondary">Quay lại danh sách</a>
 </div>
+
+</body>
+</html>
 
 
 <script src="~/js/vendor/jquery-2.2.4.min.js"></script>

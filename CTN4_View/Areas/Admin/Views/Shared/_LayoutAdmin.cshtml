@@ -35,7 +35,7 @@
                         <li class="sidebar-item">
                             <a class="sidebar-link" asp-area="Admin" asp-controller="QuanLyHoaDon" asp-action="Index">
                                 <span>
-                                    <i class="ti ti-layout-dashboard"></i>
+                                    <i class="ti ti-receipt"></i>
                                 </span>
                                 <span class="hide-menu">Quản lý hóa đơn</span>
                             </a>
@@ -43,7 +43,7 @@
                         <li class="sidebar-item">
                             <a class="sidebar-link" asp-area="Admin" asp-controller="Voucher" asp-action="Index">
                                 <span>
-                                    <i class="ti ti-layout-dashboard"></i>
+                                    <i class="ti ti-ticket"></i>
                                 </span>
                                 <span class="hide-menu">Quản lý voucher</span>
                             </a>
@@ -52,7 +52,7 @@
                         <li class="sidebar-item">
                             <a class="sidebar-link" asp-area="Admin" asp-controller="Home" asp-action="Thongkels">
                                 <span>
-                                    <i class="ti ti-layout-dashboard"></i>
+                                    <i class="ti ti-chart-bar"></i>
                                 </span>
                                 <span class="hide-menu">Thống kê</span>
                             </a>
@@ -68,24 +68,24 @@
                         <li class="sidebar-item">
                             <a class="sidebar-link" asp-area="Admin" asp-controller="KhuyenMai" asp-action="Index">
                                 <span>
-                                    <i class="ti ti-layout-dashboard"></i>
+                                    <i class="ti ti-discount-2"></i>
                                 </span>
-                                <span class="hide-menu">Quản lý Chi Tiết sale</span>
+                                <span class="hide-menu">Khuyến mãi</span>
                             </a>
-                        </li>
-
-                        <li class="nav-small-cap">
-                            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                            <span class="hide-menu">UI COMPONENTS</span>
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link" asp-controller="Home" asp-action="BangQuanLy">
                                 <span>
-                                    <i class="ti ti-article"></i>
+                                    <i class="ti ti-brand-producthunt"></i>
                                 </span>
-                                <span class="hide-menu">Buttons</span>
+                                <span class="hide-menu">Quản lý</span>
                             </a>
                         </li>
+                        @*<li class="nav-small-cap">
+                            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                            <span class="hide-menu">Quản lý</span>
+                        </li>
+                       
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="./ui-alerts.html" aria-expanded="false">
                                 <span>
@@ -119,7 +119,7 @@
                             </a>
                         </li>
 
-
+*@
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -141,7 +141,7 @@
                     </ul>
                     <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
                         <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-                            <a asp-controller="Home" asp-action="UserDetails" class="btn btn-primary">Welcome, @User.Identity.Name!</a>
+                            <a asp-controller="Home" asp-action="UserDetails" class="btn btn-primary">Xin chào, @User.Identity.Name!</a>
                             <li class="nav-item dropdown">
                                 <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
                                    aria-expanded="false">
@@ -151,7 +151,7 @@
                                     <div class="message-body">
                                         <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
 
-                                            <div class="container">  <a asp-controller="Home" asp-action="UserDetails">My Profile</a></div>
+                                            <div class="container">  <a asp-controller="Home" asp-action="UserDetails">Thông tin cá nhân</a></div>
                                         </a>
 
                                         <a class="btn btn-outline-primary mx-3 mt-2 d-block" asp-controller="Home" asp-action="Logouts">Logout</a>

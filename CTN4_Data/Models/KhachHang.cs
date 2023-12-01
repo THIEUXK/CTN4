@@ -24,6 +24,7 @@ namespace CTN4_Data.Models.DB_CTN4
         [StringLength(100, ErrorMessage = " không được quá 30 ký tự")]
         public string Email { get; set; }
         [Required(ErrorMessage = " không được để trống")]
+        [StringLength(13, MinimumLength = 10, ErrorMessage = "Số điện thoại phải có từ 10 đến 13 số")]
         [RegularExpression("^[0-9]{1,13}$", ErrorMessage = "Số điện thoại không hợp lệ")]
         public string SDT { get; set; }
         [Required(ErrorMessage = "không được để trống")]

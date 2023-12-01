@@ -3,6 +3,7 @@ using CTN4_Data.Models.DB_CTN4;
 using CTN4_Serv.Service;
 using CTN4_Serv.Service.IService;
 using CTN4_Serv.ViewModel;
+using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -140,12 +141,15 @@ namespace CTN4_View_Admin.Controllers
             var TK = _nhanvienService.GetAll().FirstOrDefault(c => c.TenDangNhap == userModel.User && c.MatKhau == userModel.Password);
             if (TK == null)
             {
-                return RedirectToAction("DangNhap");
+
+                ViewBag.Message = "Vui lòng nhập đúng đầu vào.";
+                return View("DangNhap", userModel);
             }
             // Đọc dữ liệu từ Session xem trong Cart nó có cái gì chưa?
             var nvnew = SessionServices.NhanVienSS(HttpContext.Session, "ACA");
             if (nvnew.Count == 0)
             {
+
                 nvnew.Add(TK);
                 SessionServices.SetObjToJson(HttpContext.Session, "ACA", nvnew);
             }
@@ -157,10 +161,13 @@ namespace CTN4_View_Admin.Controllers
             }
             if (!ModelState.IsValid)
             {
+                ViewBag.Message = "Vui lòng nhập đúng đầu vào.";
                 return View("DangNhap", userModel); // Trả về view với model và thông báo lỗi
             }
             if (string.IsNullOrEmpty(userModel.User) || string.IsNullOrEmpty(userModel.Password))
             {
+
+                ViewBag.Message = "Vui lòng nhập đúng đầu vào.";
                 return (RedirectToAction(nameof(DangNhap)));
             }
 
@@ -176,18 +183,22 @@ namespace CTN4_View_Admin.Controllers
 
                 if (generatedToken != null)
                 {
-                    ModelState.AddModelError("LoginError", "Tên người dùng hoặc mật khẩu không chính xác");
+                 
                     HttpContext.Session.SetString("Token", generatedToken);
                     return RedirectToAction(nameof(Index));
                 }
                 else
                 {
-                    return (RedirectToAction(nameof(DangNhap)));
+
+                    ViewBag.Message = "Vui lòng nhập đúng đầu vào.";
+                    return View("DangNhap", userModel);
                 }
             }
             else
             {
-                return (RedirectToAction(nameof(DangNhap)));
+
+                ViewBag.Message = "Vui lòng nhập đúng đầu vào.";
+                return View("DangNhap", userModel);
             }
         }
         private NhanVien GetUser(LoginAdmin userModel)
@@ -252,7 +263,7 @@ namespace CTN4_View_Admin.Controllers
             return View(s);
 
         }
-
+        
             public IActionResult GetBestSellingProducts()
             {
                 // Gọi hàm ThongKeSanPhamBanChay để lấy danh sách sản phẩm bán chạy
@@ -261,6 +272,16 @@ namespace CTN4_View_Admin.Controllers
                 // Trả về dữ liệu dưới dạng JSON cmm
                 return Json(bestSellingProducts);
             }
+        [HttpGet]
+        public IActionResult ThongKenam(int nam)
+        {
+
+            // Gọi hàm ThongKeSanPhamBanChay để lấy danh sách sản phẩm bán chạy
+            var soLuongDonHangTheoThang = _hd.ThongKeSoLuongDonHangTheoThangTrongNam(nam);
+
+            // Trả về dữ liệu dưới dạng JSON
+            return Json(soLuongDonHangTheoThang);
+        }
         [HttpPost]
         public IActionResult UpdateNv(NhanVien khachHangForm)
         {
@@ -392,6 +413,17 @@ namespace CTN4_View_Admin.Controllers
         private bool IsValidPhoneNumber(string phoneNumber)
         {
             // Kiểm tra định dạng và độ dài số điện thoại theo quy tắc của bạn
+            // (Ví dụ: định dạng có thể là số và không có ký tự đặc biệt)
+            if (string.IsNullOrEmpty(phoneNumber))
+            {
+                return false;
+            }
+
+            // Check if the phone number has a length between 10 and 13 characters
+            if (phoneNumber.Length < 10 || phoneNumber.Length > 13)
+            {
+                return false;
+            }
             // (Ví dụ: định dạng có thể là số và không có ký tự đặc biệt)
             return Regex.IsMatch(phoneNumber, @"^[0-9]+$") && phoneNumber.Length <= 20;
         }
