@@ -393,6 +393,17 @@ namespace CTN4_View_Admin.Controllers
         {
             // Kiểm tra định dạng và độ dài số điện thoại theo quy tắc của bạn
             // (Ví dụ: định dạng có thể là số và không có ký tự đặc biệt)
+            if (string.IsNullOrEmpty(phoneNumber))
+            {
+                return false;
+            }
+
+            // Check if the phone number has a length between 10 and 13 characters
+            if (phoneNumber.Length < 10 || phoneNumber.Length > 13)
+            {
+                return false;
+            }
+            // (Ví dụ: định dạng có thể là số và không có ký tự đặc biệt)
             return Regex.IsMatch(phoneNumber, @"^[0-9]+$") && phoneNumber.Length <= 20;
         }
         public IActionResult Discount()
