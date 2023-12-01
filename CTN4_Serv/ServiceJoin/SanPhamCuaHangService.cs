@@ -21,7 +21,7 @@ namespace CTN4_Serv.ServiceJoin
 
         public List<SanPham> GetAll()
         {
-            return _db.SanPhams.Include(c=>c.ChatLieu).Include(c=>c.NSX).ToList();
+            return _db.SanPhams.Include(c=>c.ChatLieu).Include(c=>c.NSX).Include(c=>c.KhuyenMaiSanPhams).ToList();
         }
 
         public SanPham GetById(Guid id)

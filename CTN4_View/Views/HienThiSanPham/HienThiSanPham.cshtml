@@ -138,53 +138,67 @@
                             </ul>
                         </form>
                     </div>
-                    <div>
-                        <form asp-controller="HienThiSanPham" asp-action="HienThiSanPham2">
-                            <button class="btn btn-primary btn-block enter-btn fa fa-search">
-                                Lọc
-                            </button>
-                        </form>
+                   
+                </div>
+               
+
+                 <div>
+                       
+                    <form>
+                        @{
+                             
+                            var session3 = Context.Request.HttpContext.Session;
+                             var luuGiaBatDau = SessionBan.Sobatdau(session3, "minPrice");
+                              var luuGiaKetThuc = SessionBan.Sobatdau(session3, "maxPrice");
+                        }
+                     <div class="common-filter">
+                         <div class="head">Giá</div>
+                         <div class="form-group ml-3">
+                         <label for="tu" class="mr-2">Giá niêm yết từ</label>
+                         @if(luuGiaBatDau != null){
+                                    <input type="text" class="price-input" id="minPrice" name="minPrice" value="@luuGiaBatDau"/>
+                                }
+                                else
+                                {
+                                    <input type="text" class="price-input" id="minPrice" name="minPrice"/>
+                                }
+                                <span class="mr-2">đến</span>
+                         @if(luuGiaKetThuc != null)
+                                {
+                                    <input type="text" class="price-input" id="maxPrice" name="maxPrice" value="@luuGiaKetThuc"/>
+                                }
+                          else{
+                                    <input type="text" class="price-input" id="maxPrice" name="maxPrice"/>}
+                        </div>
+                    </div>
+    @* Thông báo AJAX *@
+    <div id="aaa1"></div>
+    <button  asp-controller="HienThiSanPham" asp-action="HienThiSanPham" class="btn btn-primary btn-block enter-btn fa fa-search">
+        Lọc
+    </button>
+    </form>
 
                     </div>
-                </div>
-
-
-                @* <div class="common-filter">
+            </div>
+        </div>
+          @* <div class="common-filter">
                 <div class="head">Price</div>
                 <div class="price-range-area">
                 <div id="price-range"></div>
                 <div class="value-wrapper d-flex">
                 <div class="price">Price:</div>
                 <span>$</span>
-                <div id="lower-value"></div>
+                <div id="lower-value" name="minPrice"></div>
                 <div class="to">to</div>
                 <span>$</span>
-                <div id="upper-value"></div>
+                <div id="upper-value" name="maxPrice"></div>
                 </div>
                 </div>
                 </div>*@
-
-
-                <div class="form-group ml-3">
-                    <label for="tu" class="mr-2">Giá niêm yết từ</label>
-                    <input type="text" class="form-control" id="tu" name="tu" />
-                    <span class="mr-2">đến</span>
-                    <input type="text" class="form-control" id="den" name="den" />
-                </div>
-
-                <div class="form-group ml-3">
-                    <div id="price-slider"></div>
-                    <button type="submit" class="btn btn-outline-secondary">Tìm kiếm</button>
-                </div>
-
-            </div>
-        </div>
         <div class="col-xl-9 col-lg-8 col-md-7">
             <!-- Start Filter Bar -->
             <div class="filter-bar d-flex flex-wrap align-items-center">
                 <div class="sorting">
-                </div>
-                <div class="sorting mr-auto">
                     <form asp-action="ChonShowSp" class="page-form">
                         <select onchange="this.form.submit()" name="Soluonghienthi">
                             @if (Model.soluonghienthi != null)
@@ -198,7 +212,20 @@
                         </select>
                     </form>
                 </div>
+                <div class="sorting mr-auto">
+                  <form asp-action="HienThiSanPham" method="get" class="page-form">
+                     <select name="sortOrder" onchange="this.form.submit()">
+                          @if (Model.SortOrder != null)
+                            {
+                                <option>Giá: @Model.SortOrder</option>
+                            }
+                     <option value="Cao xuống Thấp" >Cao xuống Thấp</option>
+                     <option value="Thấp xuống Cao" >Thấp xuống Cao</option>
+                     </select>
+                   </form>
+                </div>
             </div>
+            
             <!-- End Filter Bar -->
             <!-- Start Best Seller -->
 
@@ -223,9 +250,39 @@
                                    System.IO.Path.GetExtension(sp.AnhDaiDien) == ".webp" ||
                                    System.IO.Path.GetExtension(sp.AnhDaiDien) == ".gif")
                                     {
+                                         <div class="product-container">
                                         <a href="@Url.Action("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = sp.Id })">
-                                            <img src="~/image/@sp.AnhDaiDien" height="300" alt="@sp.TenSanPham" />
-                                        </a>
+                                           
+                                                <img src="~/image/@sp.AnhDaiDien" height="300" alt="@sp.TenSanPham" /></a>
+                                            @foreach(var km in Model.khuyenMaiSanPhams)
+                                            {
+                                                if(km.IdSanPham == sp.Id)
+                                                {
+                                                    
+                                                    if(km.KhuyenMai.PhanTramGiamGia != 0)
+                                                    {
+                                                        <div class="discount-tag">-@km.KhuyenMai.PhanTramGiamGia%</div>
+                                                    }
+                                                    else if (km.KhuyenMai.SoTienGiam != 0)
+                                                    {
+                                                        <div class="discount-tag">-@FormatCurrency(@km.KhuyenMai.SoTienGiam)</div>
+                                                    }
+                                                    else if (km.KhuyenMai.DongGia != 0)
+                                                    {
+                                                        
+                                                        <div class="discount-tag">Đồng giá chỉ còn @FormatCurrency(@km.KhuyenMai.DongGia)</div>
+                                                    }
+                                                    else
+                                                    {
+                                                        
+                                                    }
+                                                }
+                                            }
+                                           
+                                            </div>
+
+
+                                        
 
                                     }
                                     else
@@ -493,20 +550,19 @@
 
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="~/js/b.js"></script>
-
-                                }
+                                
 <script>
 
-                    else {
+                        else {
         throw new Error("Error sedding data controller")
     }
-                    }).then(function (results) {
+                        }).then(function (results) {
         $("#Fillter-sanPhams").html(results);
     })
         .catch(function (error) {
             console.log("An error occured:", error)
         })
-                    });
+                        });
     function getSetSelectCheckboxes(fromId) {
         var CheckBoxes = $('#' + fromId + ' input[type=checkbox]:checked'); // Thêm dấu cách sau fromId
         var value = [];
@@ -530,28 +586,10 @@
             $(this).submit();
         });
     });
-    /////////// loc giá
-    $(function () {
-        var tuInput = $("#tu");
-        var denInput = $("#den");
-
-        $("#price-slider").slider({
-            range: true,
-            min: 0,
-            max: 500,
-            values: [0, 300],
-            slide: function (event, ui) {
-                tuInput.val(ui.values[0]);
-                denInput.val(ui.values[1]);
-            }
-        });
-
-        // Lấy giá trị mặc định và hiển thị trong slider và ô nhập giá
-        var defaultValues = $("#price-slider").slider("option", "values");
-        tuInput.val(defaultValues[0]);
-        denInput.val(defaultValues[1]);
-    });
+  
+    
 </script>
+
 <style>
     .page-button.active {
         background: linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);
@@ -623,6 +661,25 @@
             width: 16px;
             height: 16px;
         }
+       @* ///////////////// discount tag*@
+       
+       .product-container {
+    position: relative;
+    display: inline-block;
+}
+
+.discount-tag {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #FFD700; /* Màu vàng, bạn có thể thay đổi theo ý muốn */
+    color: #FF0000; /* Màu đỏ, bạn có thể thay đổi theo ý muốn */
+    padding: 4px 8px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 0 0 0 8px; /* Điều này tạo các góc cong cho phần tag */
+}
+
 </style>
                 /////
                                 @*<script src="~/js/jquery-3.6.4.min.js"></script>
@@ -630,7 +687,6 @@
 <link rel="stylesheet" href="~/css/ui-1.12.1.css">
 *@
 <!-- jQuery UI -->
-
 
 
 <script src="~/js/vendor/jquery-2.2.4.min.js"></script>

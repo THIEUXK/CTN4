@@ -50,6 +50,24 @@ namespace CTN4_View_Admin.Controllers.Shop
                 return listObj;
             }
             else return new List<Mau>();
+        } public static float? Sobatdau(ISession session, string key)
+        {
+            var data = session.GetString(key); // Đọc dữ liệu từ Session ở dạng chuỗi
+            if (data != null)
+            {
+                var listObj = JsonConvert.DeserializeObject<float>(data);
+                return listObj;
+            }
+            else return new float();
+        } public static float? Soketthuc(ISession session, string key)
+        {
+            var data = session.GetString(key); // Đọc dữ liệu từ Session ở dạng chuỗi
+            if (data != null)
+            {
+                var listObj = JsonConvert.DeserializeObject<float>(data);
+                return listObj;
+            }
+            else return new float();
         }
     }
 

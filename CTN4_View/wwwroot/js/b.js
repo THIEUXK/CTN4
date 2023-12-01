@@ -38,7 +38,7 @@
             });
         }
     });
-  
+
 
 });
 $(document).ready(function () {
@@ -81,6 +81,65 @@ $(document).ready(function () {
             });
         }
     });
-  
+
 
 });
+//////////////// loc gia tien
+
+$(document).ready(function () {
+    // Khôi phục giá trị từ Session khi trang được load lại
+    //$("#minPrice").val(localStorage.getItem("minPrice") || "");
+    //$("#maxPrice").val(localStorage.getItem("maxPrice") || "");
+    debugger
+    $('.price-input').change(function () {
+        var minPrice = $("#minPrice").val();
+        var maxPrice = $("#maxPrice").val();
+        debugger
+        if (minPrice !== null && maxPrice !== null && parseFloat(minPrice) <= parseFloat(maxPrice)) {
+            // Lưu giá trị nhập liệu vào localStorage
+            localStorage.setItem("minPrice", minPrice);
+            localStorage.setItem("maxPrice", maxPrice);
+            debugger
+            $.ajax({
+                url: "/XxemSanPham/layGiaLoc",
+                type: "POST",
+                data: { minPrice: minPrice, maxPrice: maxPrice },
+                success: function (result) {
+                    if (result === "ok") {
+                       $("#aaa1").remove();
+                    } else if (result === "that bai 1") {
+                        $("#aaa1").html(`<div class="alert alert-danger">Mời bạn điền đúng giá trị</div>`);
+                    }
+                    // Gọi hàm cập nhật UI nếu cần
+                    // updateUI(data);
+                },
+                error: function () {
+                    alert("Đã xảy ra lỗi khi thực hiện tìm kiếm.");
+                }
+            });
+        } else {
+             $.ajax({
+                url: "/XxemSanPham/XoaSsGiaTien",
+                type: "POST",
+                data: { minPrice: minPrice, maxPrice: maxPrice },
+                success: function (result) {
+                    if (result === "ok") {
+                       $("#aaa1").html(`<div class="alert alert-danger">Chưa đủ điều kiện tìm</div>`);
+                    } else if (result === "that bai 1") {
+                        $("#aaa1").html(`<div class="alert alert-danger">Chưa đủ điều kiện tìm</div>`);
+                    }
+                    // Gọi hàm cập nhật UI nếu cần
+                    // updateUI(data);
+                },
+                error: function () {
+                    alert("Đã xảy ra lỗi khi thực hiện tìm kiếm.");
+                }
+            });
+           
+        }
+    });
+});
+
+
+
+ 
