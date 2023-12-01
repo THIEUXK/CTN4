@@ -41,6 +41,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [ValidateAntiForgeryToken]
         public ActionResult Create(KhachHang a, [Bind] IFormFile imageFile)
         {
+
             var x = imageFile.FileName;
             if (imageFile != null && imageFile.Length > 0) // Không null và không trống
             {
@@ -55,6 +56,8 @@ namespace CTN4_View_Admin.Controllers.QuanLY
 
                 // Gán lại giá trị cho Description của đối tượng bằng tên file ảnh đã được sao chép
                 a.AnhDaiDien = imageFile.FileName;
+                a.Trangthai = true;
+                a.Is_detele = false;
             }
             if (_kh.Them(a)) // Nếu thêm thành công
             {
