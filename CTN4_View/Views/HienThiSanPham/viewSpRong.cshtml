@@ -139,29 +139,49 @@
                             </ul>
                         </form>
                     </div>
-                    <div>
-                        <form asp-controller="HienThiSanPham" asp-action="HienThiSanPham2">
-                            <button class="btn btn-primary btn-block enter-btn fa fa-search">
-                                Lọc
-                            </button>
-                        </form>
 
-                    </div>
                 </div>
 
-                <div class="common-filter">
-                    <div class="head">Price</div>
-                    <div class="price-range-area">
-                        <div id="price-range"></div>
-                        <div class="value-wrapper d-flex">
-                            <div class="price">Price:</div>
-                            <div id="lower-value"></div>
-                            <span>d</span>
-                            <div class="to">to</div>
-                            <div id="upper-value"></div>
-                            <span>d</span>
+
+                <div>
+
+                    <form>
+                        @{
+
+                            var session3 = Context.Request.HttpContext.Session;
+                            var luuGiaBatDau = SessionBan.Sobatdau(session3, "minPrice");
+                            var luuGiaKetThuc = SessionBan.Sobatdau(session3, "maxPrice");
+                        }
+                        <div class="common-filter">
+                            <div class="head">Giá</div>
+                            <div class="form-group ml-3">
+                                <label for="tu" class="mr-2">Giá niêm yết từ</label>
+                                @if (luuGiaBatDau != null)
+                                {
+                                    <input type="text" class="price-input" id="minPrice" name="minPrice" value="@luuGiaBatDau" />
+                                }
+                                else
+                                {
+                                    <input type="text" class="price-input" id="minPrice" name="minPrice" />
+                                }
+                                <span class="mr-2">đến</span>
+                                @if (luuGiaKetThuc != null)
+                                {
+                                    <input type="text" class="price-input" id="maxPrice" name="maxPrice" value="@luuGiaKetThuc" />
+                                }
+                                else
+                                {
+                                    <input type="text" class="price-input" id="maxPrice" name="maxPrice" />
+                                }
+                            </div>
                         </div>
-                    </div>
+                        @* Thông báo AJAX *@
+                        <div id="aaa1"></div>
+                        <button asp-controller="HienThiSanPham" asp-action="HienThiSanPham" class="btn btn-primary btn-block enter-btn fa fa-search">
+                            Lọc
+                        </button>
+                    </form>
+
                 </div>
             </div>
         </div>
@@ -542,4 +562,5 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 <script src="~/js/gmaps.min.js"></script>
 <script src="~/js/main.js"></script>
+<script src="~/js/b.js"></script>
 
