@@ -20,6 +20,8 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddTransient<ILoginService, LoginServices>();
 builder.Services.AddTransient<ITokenService, TokenServices>();
 builder.Services.AddScoped<ICurrentUser, CurrentUser>();
+builder.Services.AddScoped<GioHangService>();
+builder.Services.AddScoped<IGioHangService,GioHangService>();
 builder.Services.AddScoped<ILichSuHoaDonService, LichSuHoaDonService>();
 builder.Services.AddTransient<IKhachHangService, KhachHangService>();
 builder.Services.AddTransient<INhanVienService, NhanVienService>();

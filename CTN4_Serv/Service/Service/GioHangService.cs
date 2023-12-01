@@ -1,6 +1,7 @@
 ﻿using CTN4_Data.DB_Context;
 using CTN4_Data.Models.DB_CTN4;
 using CTN4_Serv.Service.IService;
+using CTN4_Serv.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,16 +13,38 @@ namespace CTN4_Serv.Service
     public class GioHangService : IGioHangService
     {
         public DB_CTN4_ok _db;
-
-        public GioHangService()
+        public ICurrentUser _currentUser;
+        public GioHangService(ICurrentUser user)
         {
             _db = new DB_CTN4_ok();
+            _currentUser = user;
         }
         public List<GioHang> GetAll()
         {
             return _db.GioHangs.ToList();
         }
 
+        public int slsanpham()
+        {
+            var giohang = _db.GioHangs.ToList();
+            var ghct = _db.GioHangChiTiets.ToList();
+
+            var query = from gh in giohang 
+                        join a in ghct on gh.Id equals a.IdGioHang
+                        where gh.IdKhachHang == _currentUser.Id
+                        select new
+                        {
+                            sl = a.SoLuong,
+                        };
+
+            var result = query.Count();
+
+            if (_currentUser == null)
+            {
+                return 0;
+            }
+            return result;
+        }
         public GioHang GetById(Guid id)
         {
             return GetAll().FirstOrDefault(c => c.Id == id);

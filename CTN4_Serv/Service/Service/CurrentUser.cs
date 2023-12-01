@@ -17,12 +17,13 @@ namespace CTN4_Serv.Service.Service
 		{
 			_httpContextAccessor = httpContextAccessor;
 		}
-		public List<string> RoleCodes => GetRoleClaim(ClaimTypes.Role);
-		string ICurrentUser.Name => GetClaimValue<string>(ClaimTypes.Name);
-		string ICurrentUser.Email => GetClaimValue<string>(ClaimTypes.Email);
-		Guid ICurrentUser.Id => Guid.Parse(GetClaimValue<string>(ClaimTypes.NameIdentifier));
-		string ICurrentUser.UserName => GetClaimValue<string>("UserName");
-		private List<string> GetRoleClaim(string claimType)
+        public List<string> RoleCodes => GetRoleClaim(ClaimTypes.Role) ?? new List<string>();
+        string ICurrentUser.Name => GetClaimValue<string>(ClaimTypes.Name) ?? string.Empty;
+        string ICurrentUser.Email => GetClaimValue<string>(ClaimTypes.Email) ?? string.Empty;
+        Guid ICurrentUser.Id => Guid.Parse(GetClaimValue<string>(ClaimTypes.NameIdentifier) ?? Guid.Empty.ToString());
+        string ICurrentUser.UserName => GetClaimValue<string>("UserName") ?? string.Empty;
+
+        private List<string> GetRoleClaim(string claimType)
 		{
 			var claim = _httpContextAccessor.HttpContext.User.FindAll(claimType);
 			if (claim == null)

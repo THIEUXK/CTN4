@@ -41,11 +41,15 @@ namespace CTN4_View.Controllers.Shop
         public PagingInfo _pagingInfo;
         public ISanPhamService _sanphamService;
         public IKhachHangService _khachHangService;
+         public IKhuyenMaiSanPhamService _kmspService;
+        public HienThiSanPhamController(IGioHangService giohang)
+
         public IKhuyenMaiSanPhamService _kmspService;
         public HienThiSanPhamController()
+
         {
             _sanPhamCuaHangService = new SanPhamCuaHangService();
-            _GioHang = new GioHangService();
+            _GioHang = giohang;
             _GioHangChiTiet = new GioHangChiTietService();
             _GioHangjoiin = new GioHangjoiin();
             _danhMucService = new DanhMucMucService();
