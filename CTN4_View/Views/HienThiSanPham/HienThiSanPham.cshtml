@@ -151,26 +151,29 @@
                              var luuGiaBatDau = SessionBan.Sobatdau(session3, "minPrice");
                               var luuGiaKetThuc = SessionBan.Sobatdau(session3, "maxPrice");
                         }
-                     <div class="common-filter">
-                         <div class="head">Giá</div>
-                         <div class="form-group ml-3">
-                         <label for="tu" class="mr-2">Giá niêm yết từ</label>
-                         @if(luuGiaBatDau != null){
-                                    <input type="text" class="price-input" id="minPrice" name="minPrice" value="@luuGiaBatDau"/>
-                                }
-                                else
-                                {
-                                    <input type="text" class="price-input" id="minPrice" name="minPrice"/>
-                                }
-                                <span class="mr-2">đến</span>
-                         @if(luuGiaKetThuc != null)
-                                {
-                                    <input type="text" class="price-input" id="maxPrice" name="maxPrice" value="@luuGiaKetThuc"/>
-                                }
-                          else{
-                                    <input type="text" class="price-input" id="maxPrice" name="maxPrice"/>}
-                        </div>
-                    </div>
+                  <div class="common-filter my-custom-filter">
+    <div class="head">Giá</div>
+    <div class="form-group">
+        <label for="tu">Từ</label>
+        @if(luuGiaBatDau != null){
+            <input type="text" class="price-input" id="minPrice" name="minPrice" value="@luuGiaBatDau"/>
+        }
+        else {
+            <input type="text" class="price-input" id="minPrice" name="minPrice" placeholder="Nhập giá từ"/>
+        }
+    </div>
+    <div class="form-group">
+        <label for="den">đến</label>
+        @if(luuGiaKetThuc != null) {
+            <input type="text" class="price-input" id="maxPrice" name="maxPrice" value="@luuGiaKetThuc"/>
+        }
+        else {
+            <input type="text" class="price-input" id="maxPrice" name="maxPrice" placeholder="Nhập giá đến"/>
+        }
+    </div>
+</div>
+
+
     @* Thông báo AJAX *@
     <div id="aaa1"></div>
     <button  asp-controller="HienThiSanPham" asp-action="HienThiSanPham" class="btn btn-primary btn-block enter-btn fa fa-search">
@@ -543,6 +546,36 @@
     font-size: 14px;
     font-weight: bold;
     border-radius: 0 0 0 8px; /* Điều này tạo các góc cong cho phần tag */
+}
+
+.my-custom-filter {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.my-custom-filter .head {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.my-custom-filter .form-group {
+    margin-bottom: 10px;
+}
+
+.my-custom-filter label {
+    font-size: 14px;
+}
+
+.my-custom-filter .price-input {
+    width: 100px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 5px; /* Khoảng cách giữa label và input */
 }
 
 </style>

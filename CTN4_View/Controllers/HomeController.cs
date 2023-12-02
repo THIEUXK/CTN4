@@ -77,7 +77,7 @@ namespace CTN4_View.Controllers
             var obj = _spService.GetAll();
 
             var b = _danhMucChiTietService.GetAll().Where(c => c.IdDanhMuc == Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081173")).ToList();
-            var c = _danhMucChiTietService.GetAll().Take(8).ToList();
+            var c = _danhMucChiTietService.GetAll().Where(c => c.IdDanhMuc == Guid.Parse("f0e98e38-112b-4630-89f1-08dbf336241b")).ToList();
             var view = new SanPhamBanChayView()
             {
                 sanPhams = obj,

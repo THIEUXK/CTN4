@@ -439,6 +439,7 @@ namespace CTN4_Data.DB_Context
                 new DanhMuc() { TenDanhMuc = "Túi Bowling", Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081171"), Is_detele = true },
                 new DanhMuc() { TenDanhMuc = "Túi Ring Bag", Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081172"), Is_detele = true },
                 new DanhMuc() { TenDanhMuc = "Sản phẩm bán chạy", Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081173"), Is_detele = true }
+                new DanhMuc() { TenDanhMuc = "Sản phẩm mới", Id = Guid.Parse("f0e98e38-112b-4630-89f1-08dbf336241b"), Is_detele = true }
             );
             modelBuilder.Entity<DanhMucChiTiet>().HasData(
                new DanhMucChiTiet
