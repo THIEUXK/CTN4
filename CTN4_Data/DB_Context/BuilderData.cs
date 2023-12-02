@@ -438,7 +438,7 @@ namespace CTN4_Data.DB_Context
                 new DanhMuc() { TenDanhMuc = "Túi Bucket", Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081170"), Is_detele = true },
                 new DanhMuc() { TenDanhMuc = "Túi Bowling", Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081171"), Is_detele = true },
                 new DanhMuc() { TenDanhMuc = "Túi Ring Bag", Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081172"), Is_detele = true },
-                new DanhMuc() { TenDanhMuc = "Sản phẩm bán chạy", Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081173"), Is_detele = true }
+                new DanhMuc() { TenDanhMuc = "Sản phẩm bán chạy", Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081173"), Is_detele = true },
                 new DanhMuc() { TenDanhMuc = "Sản phẩm mới", Id = Guid.Parse("f0e98e38-112b-4630-89f1-08dbf336241b"), Is_detele = true }
             );
             modelBuilder.Entity<DanhMucChiTiet>().HasData(
@@ -447,6 +447,16 @@ namespace CTN4_Data.DB_Context
                    Id = Guid.Parse("d16ac327-3ced-4c2c-bcdc-d3897121441a"),
                    IdDanhMuc = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081163"),
                    IdSanPham = Guid.Parse("56dd3de2-c4df-4376-b982-e2c0f7081829")
+               },new DanhMucChiTiet
+               {
+                   Id = Guid.Parse("d16ac327-3ceb-4c2c-bcdc-d3897121441a"),
+                   IdDanhMuc = Guid.Parse("f0e98e38-112b-4630-89f1-08dbf336241b"),
+                   IdSanPham = Guid.Parse("56dd3de2-c4df-4376-b982-e2c0f7081825")
+               },new DanhMucChiTiet
+               {
+                   Id = Guid.Parse("d16ac327-3c0b-4c2c-bcdc-d3897121441a"),
+                   IdDanhMuc = Guid.Parse("f0e98e38-112b-4630-89f1-08dbf336241b"),
+                   IdSanPham = Guid.Parse("56dd3de2-c4df-4376-b982-e2c0f7081826")
                }, new DanhMucChiTiet
                {
                    Id = Guid.Parse("d16ac327-3ced-4c2c-bcdc-d3897121442a"),
