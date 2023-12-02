@@ -312,7 +312,7 @@ namespace CTN4_View.Controllers.Shop
                         var danhMuc = _danhMucService.GetAll();
                         var danhMucChiTiets = _danhMucChiTiet.GetAll();
                         var SpYt = _chiTietSanPhamYeuThichService.GetAll();
-                        var listSp = _sanPhamCuaHangService.GetAll().Where(c => c.Is_detele == true && a.Contains((Guid)c.IdChatLieu) && ).ToList();
+                        var listSp = _sanPhamCuaHangService.GetAll().Where(c => c.Is_detele == true && a.Contains((Guid)c.IdChatLieu) ).ToList();
                         var listSp1 = _sanphamService.GetAll().Where(c => c.Is_detele == true).ToList();
                         var listSp2 = _sanPhamChiTietService.GetAll().Where(c => c.Is_detele == true).ToList();
                         var khachhang = _khachHangService.GetAll();

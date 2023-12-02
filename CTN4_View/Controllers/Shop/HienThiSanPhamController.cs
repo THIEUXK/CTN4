@@ -44,8 +44,8 @@ namespace CTN4_View.Controllers.Shop
          public IKhuyenMaiSanPhamService _kmspService;
         public HienThiSanPhamController(IGioHangService giohang)
 
-        public IKhuyenMaiSanPhamService _kmspService;
-        public HienThiSanPhamController()
+        //public IKhuyenMaiSanPhamService _kmspService;
+        //public HienThiSanPhamController()
 
         {
             _sanPhamCuaHangService = new SanPhamCuaHangService();

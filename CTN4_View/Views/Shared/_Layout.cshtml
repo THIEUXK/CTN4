@@ -90,17 +90,17 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                         <ul class="nav navbar-nav menu_nav ml-auto">
-                            <li class="nav-item active"><a class="nav-link" asp-controller="Home" asp-action="Index">Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="@Url.Action("HienThiSanPham","HienThiSanPham",new {load = "a"})" >Shop</a></li>
-                            <li class="nav-item submenu dropdown">
+                            <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index">Trang Chủ</a></li>
+                            <li class="nav-item"><a class="nav-link" href="@Url.Action("HienThiSanPham","HienThiSanPham",new {load = "a"})" >Sản Phẩm</a></li>
+                            @*<li class="nav-item submenu dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                                    aria-expanded="false">Blog</a>
                                 <ul class="dropdown-menu">
                                     <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="blog">blog </a></li>
                                     <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="singleblog">Blog Details</a></li>
                                 </ul>
-                            </li>
-                            <li class="nav-item submenu dropdown">
+                            </li>*@
+                            @*<li class="nav-item submenu dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                                    aria-expanded="false">Pages</a>
                                 <ul class="dropdown-menu">
@@ -108,10 +108,10 @@
 
                                     <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="elements">Elements</a></li>
                                 </ul>
-                            </li>
+                            </li>*@
 
                             <li class="nav-item"><a class="nav-link" asp-controller="BanHang" asp-action="HoaDon">Hóa Đơn</a></li>
-                            <li class="nav-item"><a class="nav-link" href="http://bantuisachnu.atwebpages.com/">Contact</a></li>
+                            <li class="nav-item"><a class="nav-link" href="http://bantuisachnu.atwebpages.com/">Liên hệ</a></li>
                             @if (User.Identity.IsAuthenticated)
                             {
                                 <li class="nav-item submenu dropdown">
@@ -127,14 +127,10 @@
                             }
                             else
                             {
-                                <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="login">Đăng Nhập</a></li>
+                                <li class="nav-item" ><a class="nav-link" asp-controller="Home" asp-action="login">Đăng Nhập</a></li>
 
                             }
-
-                        </ul>
-                        <ul class="nav navbar-nav navbar-right">
-                            <partial name="_CartPartial"></partial>
-                           
+                            <li class="nav-item"><partial name="_CartPartial"></partial> </li>
                         </ul>
                     </div>
                 </div>
@@ -151,17 +147,16 @@
             <div class="row">
                 <div class="col-lg-3  col-md-6 col-sm-6">
                     <div class="single-footer-widget">
-                        <h6>About Us</h6>
+                        <h6>Về chúng tôi</h6>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore
-                            magna aliqua.
+                            Trải qua thời gian hình thành và phát triển BoRo đã trở thành một thương hiệu thời trang giày dép, túi xách và phụ kiện, được phụ nữ Việt Nam yêu thích và chọn lựa. Hiện nay, thương hiệu BoRo đã phát triển mạnh mẽ với hàng chục cửa hàng trải dài trên toàn quốc và website bán hàng trực tuyến thân thiện, chuyên nghiệp hàng đầu Việt Nam. Không dừng lại ở đó, dịch vụ của BoRo luôn mang đến sự hài lòng và quyền lợi của khách hàng luôn được đáp ứng, thoả mãn…
                         </p>
                     </div>
                 </div>
                 <div class="col-lg-4  col-md-6 col-sm-6">
                     <div class="single-footer-widget">
-                        <h6>Newsletter</h6>
-                        <p>Stay update with our latest</p>
+                        <h6>Bản tin</h6>
+                        <p>Luôn cập nhật những thông tin mới nhất của chúng tôi</p>
                         <div class="" id="mc_embed_signup">
 
                             <form target="_blank" novalidate="true" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
@@ -189,7 +184,7 @@
                 </div>
                 <div class="col-lg-3  col-md-6 col-sm-6">
                     <div class="single-footer-widget mail-chimp">
-                        <h6 class="mb-20">Instragram Feed</h6>
+                        <h6 class="mb-20">Phản hồi trên Instagram</h6>
                         <a href="http://bantuisachnu.atwebpages.com/">Liên Hệ Hỗ Trợ tại đây</a>
 
                         <ul class="instafeed d-flex flex-wrap">
@@ -206,8 +201,8 @@
                 </div>
                 <div class="col-lg-2 col-md-6 col-sm-6">
                     <div class="single-footer-widget">
-                        <h6>Follow Us</h6>
-                        <p>Let us be social</p>
+                        <h6>Theo dõi chúng tôi</h6>
+                        <p>qua các kênh sau</p>
                         <div class="footer-social d-flex align-items-center">
                             <a href="#"><i class="fa fa-facebook"></i></a>
                             <a href="#"><i class="fa fa-twitter"></i></a>
@@ -216,13 +211,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="footer-bottom d-flex justify-content-center align-items-center flex-wrap">
-                <p class="footer-text m-0">
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                </p>
             </div>
         </div>
     </footer>
