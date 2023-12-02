@@ -63,6 +63,7 @@
                         @*<form id="create-form" asp-controller="GiamGia" asp-action="Create" method="post" onsubmit="return submitForm()">*@
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-container">
+
                             @*<form id="create-form" asp-controller="GiamGia" asp-action="Create" method="post">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
 
@@ -75,8 +76,8 @@
                                 <input asp-for="MaGiam" id="MaGiamGia" class="form-control" />
                                 <span asp-validation-for="MaGiam" class="text-danger"></span>
                             </div>
-                            <div class="form-container">
 
+                            <div class="form-container">
                                 <div class="form-group">
                                     <label asp-for="NgayBatDau" class="control-label"> Ngày bắt đầu</label>
                                     <input asp-for="NgayBatDau" class="form-control" />
@@ -89,15 +90,14 @@
                                 </div>
                             </div>
 
-
-                            <div class="form-group">
+                           <div class="form-group">
                                 <label asp-for="LoaiGiamGia" class="control-label">Hình thức giảm giá </label>
                                 <select asp-for="LoaiGiamGia" class="form-control" id="LoaiGiamGiaSelect">
                                     <option value="">-- Chọn hình thức giảm giá --</option>
                                     <option value="false">Giảm theo số tiền</option>
                                     <option value="true">Giảm theo phần trăm</option>
                                 </select>
-                                <span asp-validation-for="LoaiGiamGia" class="text-danger"></span>
+                                <span asp-validation-foázr="LoaiGiamGia" class="text-danger"></span>
                             </div>
 
                             <div class="form-group" id="SoTienGiamGroup" style="display: none;">
@@ -150,12 +150,6 @@
 
 
 
-                            @*<div class="form-group form-check">
-                            <label class="form-check-label">
-                            <input class="form-check-input" asp-for="TrangThai" /> @Html.DisplayNameFor(model => model.TrangThai)
-                            </label>
-                            </div>*@
-
 
 
                             <div class="form-group">
@@ -194,3 +188,4 @@
 </div>
 <a asp-action="Index">Danh sách mã giảm giá hiện có</a>
 </div>
+
