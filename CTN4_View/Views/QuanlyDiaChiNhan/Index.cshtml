@@ -14,7 +14,10 @@
             <thead>
                 <tr>
                     <th>Địa chỉ Cụ thể</th>
-                    <th>Địa chỉ nhận hàng</th>
+        @*             <th>Địa chỉ nhận hàng</th> *@
+                    <th>Xã,Phường</th>
+                    <th>Quận,huyện</th>
+                    <th>Tỉnh,thành phố
                     <th></th>
                     <th></th>
                     <th></th>
@@ -26,9 +29,23 @@
                 {
                     <tr>
                         <td>@item.name</td>
-                        <td>@item.DiaChi</td>
-                        <form>
-                            <input type="hidden" name="id" value="@item.Id" />
+                        @{
+                            string inputString = @item.DiaChi;
+
+                            // Tách chuỗi bằng ký tự phân cách ","
+                            string[] splittedStrings = inputString.Split(',');
+                        }
+           @*              <td>@item.DiaChi</td> *@
+                        <td>
+                            @splittedStrings[0].Trim()
+                        </td>
+                        <td>
+                            @splittedStrings[1].Trim()
+                        </td>
+                        <td>@splittedStrings[2].Trim()</td>
+                        <td>
+                            <form>
+                                <input type="hidden" name="id" value="@item.Id" />
                         <td>
                             <div class="dropdown me-1">
                                 <button type="button" class="custom-button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
@@ -72,12 +89,12 @@
                             </div>
                         </td>
                         </form>
-                        @if (item.TrangThai == true)
-                        {
+                            @if (item.TrangThai == true)
+                            {
                             <td>
                                 <p><span style="color: green;">&#x2713;</span></p>
                             </td>
-                        }
+                            }
                         <td>
                         </td>
                     </tr>

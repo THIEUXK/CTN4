@@ -1,5 +1,32 @@
 ﻿$(document).ready(function () {
 
+
+    $(document).ready(function () {
+        $("#nhangiamgia").click(function () {
+            var couponCode = $("#nhapgiamgia").val();
+
+            // Thực hiện yêu cầu Ajax
+            $.ajax({
+                type: "POST", // Hoặc "GET" tùy thuộc vào yêu cầu của bạn
+                url: "path/to/your/api", // Đường dẫn tới API xử lý coupon code
+                data: { couponCode: couponCode },
+                success: function (response) {
+                    // Xử lý phản hồi từ server nếu cần
+                    console.log(response);
+
+                    // Ví dụ: Hiển thị thông báo cho người dùng
+                    alert("Coupon applied successfully!");
+                },
+                error: function (error) {
+                    // Xử lý lỗi nếu có
+                    console.log(error);
+
+                    // Ví dụ: Hiển thị thông báo lỗi cho người dùng
+                    alert("Error applying coupon. Please try again.");
+                }
+            });
+        });
+    });
     $(document).on('click', '.btnXuatEx3', function () {
         var arrcheck = [];
         //loadTotal()
@@ -26,7 +53,7 @@
                 }
                 else if (result == "that bai 1") {
                     $("#aaa").html(`<div class="alert alert-danger">Có đơn hàng không dủ điều kiện</div>`);
-                  
+
                 }
             }
         })
@@ -67,7 +94,6 @@
             }
         })
     });
-
     var count = 0;
     var downloadURL = function downloadURL(url) {
         var hiddenIFrameID = 'hiddenDownloader' + count++;
@@ -77,7 +103,6 @@
         document.body.appendChild(iframe);
         iframe.src = url;
     }
-
     //$(document).on('click', '.btnXuatEx', function () {
     //    //loadTotal()
     //    var IdHD = this.value;
@@ -165,6 +190,7 @@
     //Chọn xã
     $('#ward').change(function () {
         var id_ward = this.value;
+        var tienhangaValue = $('#tienhanga').val();
         sessionStorage.removeItem('shiptotal');
         $("#total_ship").text('');
         if (this.value != 0) {
@@ -194,7 +220,6 @@
                         x1 = x1.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
                         var x2 = result.data.totaloder;
                         x2 = x2.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
-
                         $("#tienship").html(`${(x1)}`);
                         $("#tongtien").html(` ${(x2)}`);
                         $("#tienship1").val(result.data.total);
@@ -204,15 +229,14 @@
                         $("#diachinay").val(adress).html(`${(adress)}`);
                         $("#adressnew").val(adress).html(`${(adress)}`);
                     }
-
                 }
             });
         }
     });
     $('#diachicosan').change(function () {
         //loadTotal();
-
         var idDiaChi = this.value;
+        var tienhangaValue = $('#tienhanga').val();
         if (idDiaChi != 0) {
             $.ajax({
                 url: '/CheckOut/chonDiaChi',
@@ -220,7 +244,6 @@
                 dataType: 'json',
                 data: {
                     idDiaChiKD: idDiaChi
-
                 },
                 contentType: 'application/json',
                 success: function (result) {
@@ -228,7 +251,6 @@
                     x1 = x1.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
                     var x2 = result.totaloder;
                     x2 = x2.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
-
                     let adress = $("#diachicosan option:selected").text();
                     $("#tienship").html(`${(x1)}`);
                     $("#tongtien").html(` ${(x2)}`);
@@ -242,8 +264,6 @@
         else {
             location.reload();
         }
-
-
     });
     //$('#themdiachi').click(function () {
     //    //loadTotal();

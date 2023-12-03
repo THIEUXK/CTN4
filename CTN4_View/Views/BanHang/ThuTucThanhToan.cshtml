@@ -3,23 +3,6 @@
     ViewData["Title"] = "ThuTucThanhToan";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-
-<!-- End Header Area -->
-<!-- Start Banner Area -->
-@*<section class="banner-area organic-breadcrumb">
-    <div class="container">
-        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
-            <div class="col-first">
-                <h1>Checkout</h1>
-                <nav class="d-flex align-items-center">
-                    <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
-                    <a href="single-product.html">Checkout</a>
-                </nav>
-            </div>
-        </div>
-    </div>
-</section>*@
 <br></br>
 <br></br>
 <div class="container">
@@ -28,8 +11,6 @@
         <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
     }
     <form method="post" asp-controller="BanHang" asp-action="HoanThanhThanhToan">
-        <!-- End Banner Area -->
-        <!--================Checkout Area =================-->
         <div class="billing_details">
             <div class="row">
                 <div class="col-lg-7">
@@ -47,20 +28,54 @@
                         <div class="alert alert-danger">@TempData["TBDC"]</div>
                     }
                     <div class="row contact_form" action="#" method="post" novalidate="novalidate">
-                        <div class="col-md-6 form-group p_star">
-                            <label>Họ và tên</label>
-                            <input type="text" class="form-control" id="first" value="@Model.KhachHang.Ho @Model.KhachHang.Ten" name="name">
-
-                        </div>
-
-                        <div class="col-md-6 form-group p_star">
-                            <label>Mã giảm giá</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Coupon Code">
-                                <button type="button" class="btn btn-primary" style="background: linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);">Applly</button>
+                        @if (Model.name!= null)
+                        {
+                            <div class="col-md-6 form-group p_star">
+                                <label>Họ và tên</label>
+                                <input type="text" class="form-control" id="first" value="@Model.name" name="name">
                             </div>
+                        }
+                        else
+                        {
+                            <div class="col-md-6 form-group p_star">
+                                <label>Họ và tên</label>
+                                @{
+                                    var hoTen = $"{Model.KhachHang.Ho} {Model.KhachHang.Ten}";
+                                    var hoTenTitleCase = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(hoTen);
+                                }
+                                <input type="text" class="form-control" id="first" value="@hoTenTitleCase" name="name">
+                            </div>
+                        }
+                        <div class="col-md-6 form-group p_star">
+                            <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                                Mã giảm giá
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                @foreach (var i in Model.GiamGias)
+                                {
+                                    <li>
+                                        <label>@i.MaGiam</label>
+                                        @if (i.LoaiGiamGia == false)
+                                        {
+                                            <label>@FormatCurrency(i.SoTienGiam)</label>
+                                        }
+                                        else
+                                        {
+                                            <label>@FormatCurrency(i.PhanTramGiam)</label>
+                                        }
+                                        <button asp-controller="BanHang" asp-action="SuDunggiamGia" name="IdGiamGia" value="@i.Id">Sử dụng</button>
+                                    </li>
+                                }
+                            </ul>
                         </div>
-                        @if (Model.DiaChiNhanHang != null)
+                        @if (Model.DiachiNhanChiTiet != null)
+                        {
+                            <div class="col-md-12 form-group">
+                                <label>Địa chỉ nhận hàng cụ thể</label>
+                                <input type="text" class="form-control" value="@Model.DiachiNhanChiTiet" id="company" name="DiachiNhanChiTiet">
+                            </div>
+                        }
+                        else if (Model.DiaChiNhanHang != null)
                         {
                             <div class="col-md-12 form-group">
                                 <label>Địa chỉ nhận hàng cụ thể</label>
@@ -74,19 +89,46 @@
                                 <input type="text" class="form-control" value="" id="company" name="DiachiNhanChiTiet">
                             </div>
                         }
-                        <div class="col-md-6 form-group p_star">
-                            <label>Số điện thoại</label>
-                            <input type="text" class="form-control" value="@Model.KhachHang.SDT" id="number" name="Sodienthoai">
+                        @if (@Model.Sodienthoai != null)
+                        {
+                            <div class="col-md-6 form-group p_star">
+                                <label>Số điện thoại</label>
+                                <input type="text" class="form-control" value="@Model.Sodienthoai" id="number" name="Sodienthoai" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-md-6 form-group p_star">
+                                <label>Số điện thoại</label>
+                                <input type="text" class="form-control" value="@Model.KhachHang.SDT" id="number" name="Sodienthoai" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                            </div>
+                        }
+                        @if (@Model.Email != null)
+                        {
+                            <div class="col-md-6 form-group p_star">
+                                <label>Email</label>
+                                <input type="text" class="form-control" id="email" value="@Model.Email" name="Email">
 
-                        </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-md-6 form-group p_star">
+                                <label>Email</label>
+                                <input type="text" class="form-control" id="email" value="@Model.KhachHang.Email" name="Email">
 
-                        <div class="col-md-6 form-group p_star">
-                            <label>Email</label>
-                            <input type="text" class="form-control" id="email" value="@Model.KhachHang.Email" name="Email">
-
-                        </div>
-
-                        @if (Model.DiaChiNhanHang != null)
+                            </div>
+                        }
+                        @if (Model.addDiaChi != null)
+                        {
+                            <input type="hidden" name="tienship" value="" id="tienship1"></input>
+                            <div class="col-md-6 form-group p_star">
+                                <label>Địa chỉ :</label>
+                                <input type="text" class="form-control" id="adressnew" name="" value="@Model.addDiaChi" disabled></input>
+                                <input type="hidden" class="form-control" id="diachinay" value="@Model.addDiaChi" name="addDiaChi"></input>
+                            </div>
+                        }
+                        else if (Model.DiaChiNhanHang != null)
                         {
                             <input type="hidden" name="tienship" value="" id="tienship1"></input>
                             <div class="col-md-6 form-group p_star">
@@ -105,13 +147,9 @@
                                 <span><in id="themdiachi">Thêm</in></span>
                             </div>
                         }
-
-
-
                         <div class="col-md-6 form-group">
                             <label>Chọn chọn địa chỉ có sẵn của bạn<span class="text-danger"></span></label>
                             <span class="text-danger"></span>
-
 
                             <select asp-for="IdDiaChi" class="custom-select" id="diachicosan">
                                 <option value="0"> Chọn chọn địa chỉ có sẵn của bạn</option>
@@ -120,15 +158,12 @@
                                     <option value="@a.Value">@a.Text</option>
                                 }
                             </select>
-
-
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Chọn Tỉnh/thành<span class="text-danger"></span></label>
                             <span class="text-danger" id="mess_provin"></span>
                             <select class="custom-select" asp-items="@ViewBag.Provin" id="provin">
                                 <option selected value="0">Chọn tỉnh thành</option>
-
                             </select>
                         </div>
                         <div class="col-md-6 form-group">
@@ -136,24 +171,18 @@
                             <span class="text-danger" id="mess_district"></span>
                             <select class="custom-select" id="district">
                                 <option selected value="0">Chọn quận huyện </option>
-
                             </select>
                         </div>
-
                         <div class="col-md-6 form-group">
                             <label>Chọn Phường/Xã<span class="text-danger"></span></label>
                             <span class="text-danger" id="mess_ward"></span>
                             <select class="custom-select" id="ward" name="ward">
                                 <option selected value="0">Chọn Phường Xã</option>
-
                             </select>
                         </div>
-
                         <div class="col-md-6 form-group">
                             <label>Phương thức thanh toán<span class="text-danger"></span></label>
                             <span class="text-danger"></span>
-
-
                             <select asp-for="idphuongthuc" class="custom-select">
                                 <option value=""> Chọn phương thức thanh toán</option>
                                 @foreach (var a in Model.listPhuongThucs)
@@ -161,18 +190,22 @@
                                     <option value="@a.Value">@a.Text</option>
                                 }
                             </select>
-
                         </div>
-
-
-
-                        <div class="col-md-6 form-group">
-
-                            <label for="exampleFormControlTextarea1" class="form-label">Ghi chú</label>
-                            <input class="form-control" name="ghiChu" id="note_ck" rows="3"></input>
-
-                        </div>
-
+                        @if (@Model.ghiChu!=null)
+                        {
+                            <div class="col-md-6 form-group">
+                                <label for="exampleFormControlTextarea1" class="form-label">Ghi chú</label>
+                                <input class="form-control" name="ghiChu" value="@Model.ghiChu" id="note_ck" rows="3"></input>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-md-6 form-group">
+                                <label for="exampleFormControlTextarea1" class="form-label">Ghi chú</label>
+                                <input class="form-control" name="ghiChu" id="note_ck" rows="3"></input>
+                            </div>
+                        }
+                       
                     </div>
                 </div>
                 <div class="col-lg-5">
@@ -196,21 +229,35 @@
                             @if (Model.DiaChiNhanHang != null)
                             {
                                 <ul class="list">
+                                    <li><a href="#">Tiền Hàng :<span><b id="tonghang" style="color:black">@FormatCurrency(Model.TongTien) </b></span></a></li>
+                                </ul>
+                                <ul class="list">
                                     <li><a href="#">Tiền ship :<span><b id="tienship" style="color:black">@FormatCurrency(Model.DiaChiNhanHang.TienShip) </b></span></a></li>
                                 </ul>
-                                <br></br>
+                                <ul class="list">
+                                    <li><a href="#">Tiền giảm :<span><b id="tiengiam" style="color:black">Chưa Tính</b></span></a></li>
+                                </ul>
+                                <br>
                                 <ul class="list">
                                     <li><a href="#">Tổng tiền :<span><b name="Amount" id="tongtien" style="color:orange">@FormatCurrency(Model.TongTien + Model.DiaChiNhanHang.TienShip)</b></span></a></li>
                                     <input hidden name="Amount" value="@(Model.TongTien+Model.DiaChiNhanHang.TienShip)" />
                                 </ul>
                                 <br></br>
+                                <input type="hidden" name="tienhanga" value="@Model.TongTien" id="tienhanga"></input>
+                                <input type="hidden" name="tiengiama" value="" id="tiengiam1"></input>
                                 <input type="hidden" name="tienshipa" value="@Model.DiaChiNhanHang.TienShip" id="tienship1"></input>
                                 <input type="hidden" name="tongtien" value="@(Model.TongTien+Model.DiaChiNhanHang.TienShip)" id="tongtien1"></input>
                             }
                             else
                             {
                                 <ul class="list">
+                                    <li><a href="#">Tiền Hàng :<span><b id="tonghang" style="color:black">@FormatCurrency(Model.TongTien) </b></span></a></li>
+                                </ul>
+                                <ul class="list">
                                     <li><a href="#">Tiền ship :<span><b id="tienship" style="color:black">Chưa Tính</b></span></a></li>
+                                </ul>
+                                <ul class="list">
+                                    <li><a href="#">Tiền giảm :<span><b id="tiengiam" style="color:black">Chưa Tính</b></span></a></li>
                                 </ul>
                                 <br></br>
                                 <ul class="list">
@@ -218,12 +265,12 @@
                                     <input hidden name="Amount" value="@Model.TongTien" />
                                 </ul>
                                 <br></br>
+                                <input type="hidden" name="tienhanga" value="@Model.TongTien" id="tienhanga"></input>
+                                <input type="hidden" name="tiengiama" value="" id="tiengiam1"></input>
                                 <input type="hidden" name="tienshipa" value="" id="tienship1"></input>
                                 <input type="hidden" name="tongtien" value="" id="tongtien1"></input>
                             }
                             <div class="card border-secondary mb-5">
-
-
                                 <button class="primary-btn" type="submit" href="#">Mua Hàng</button>
                             </div>
                         </div>
@@ -242,12 +289,8 @@
         }
     }
 </script>
-
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="~/js/a.js"></script>
-
-@*
-<script src="~/js/vendor/jquery-2.2.4.min.js"></script>*@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.~/js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
         crossorigin="anonymous"></script>
 <script src="~/js/vendor/bootstrap.min.js"></script>
@@ -257,7 +300,6 @@
 <script src="~/js/countdown.js"></script>
 <script src="~/js/jquery.magnific-popup.min.js"></script>
 <script src="~/js/owl.carousel.min.js"></script>
-<!--gmaps Js-->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 <script src="~/js/gmaps.min.js"></script>
 <script src="~/js/main.js"></script>
