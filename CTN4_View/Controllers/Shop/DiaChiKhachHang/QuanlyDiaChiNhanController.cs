@@ -22,7 +22,6 @@ namespace CTN4_View.Controllers.Shop.NewFolder
             if (accnew.Count != 0)
             {
                 var listDiaChi = _DiaChiNhanHangService.GetAll().Where(c => c.IdKhachHang == accnew[0].Id && c.Is_detele == true).ToList();
-
                 var view = new DiaChiKhachHangView()
                 {
                     DiaChiNhanHangs = listDiaChi
