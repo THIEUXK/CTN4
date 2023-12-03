@@ -127,14 +127,14 @@
 </div>
 <div>
     <label for="selectYear">Chọn Năm:</label>
-    <select id="selectYear" onchange="thongKeNam()">
+    <select id="selectYear" onchange="capNhatBieuDo()">
         @for (int i = DateTime.Now.Year; i >= DateTime.Now.Year - 20; i--)
         {
             <option value="@i">@i</option>
         }
     </select>
 
-    <canvas id="myChartnam"></canvas>
+    <canvas id="myChartNam"></canvas>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -167,11 +167,11 @@
         document.getElementById('endDate').valueAsDate = lastDayOfMonth;
         document.getElementById('startDates').valueAsDate = firstDayOfMonth;
         document.getElementById('endDates').valueAsDate = lastDayOfMonth;
-
+        document.getElementById('selectYear').addEventListener('change', capNhatBieuDo);
         // Call the dataDate function to perform statistical analysis for the current month
         dataDate();
         dataDates();
-        // thongKeNam();
+       // thongKeNam();
        
         $('#dataDate').click(function () {
             dataDate();
@@ -179,6 +179,7 @@
         $('#dataDates').click(function () {
             dataDates();
         });
+     
 
         function drawChart(chartId, label, dataUrl) {
             $.ajax({
@@ -224,7 +225,7 @@
 
       //  drawChart('myChartss', 'Hóa Đơn', '/Admin/Home/thongke');
 
-        // Thống kê sản phẩm bán chạy nhất
+        // Thống kê sản phẩm bán chạy nhất  
         $.ajax({
             url: "/Admin/Home/GetBestSellingProducts",
             type: 'GET',
@@ -336,31 +337,45 @@
 
             return numberOfDays;
         }
-        function thongKeNam() {
+        function capNhatBieuDo() {
             const selectedYear = document.getElementById('selectYear').value;
 
             // Gửi yêu cầu đến server để lấy dữ liệu thống kê cho năm được chọn
-            fetch(`/Admin/Home/ThongKenam?nam=${selectedYear}`)
-                .then(response => response.json())
-                .then(data => {
-                    veBieuDo(data);
-                })
-                .catch(error => {
+            $.ajax({
+                type: 'POST',
+                url: '/Admin/Home/ThongKenam',
+                data: { nam: selectedYear },
+                dataType: 'json',
+                success: function (data) {
+                   
+                    renderChart(data);
+                },
+                error: function (error) {
                     console.error('Error fetching data:', error);
-                    // Handle the error, e.g., display an error message to the user
-                });
+                }
+            });
         }
 
-        function veBieuDo(thongKeData) {
-            const ctx = document.getElementById('myChartnam');
+        let myChartInstance = null; // Biến toàn cục để theo dõi biểu đồ
 
-            new Chart(ctx, {    
+        function renderChart(thongKeData) {
+            const ctx = document.getElementById('myChartNam').getContext('2d');
+            console.log('datas', thongKeData);
+            // Hủy biểu đồ hiện tại trước khi tạo mới
+            if (myChartInstance) {
+                myChartInstance.destroy();
+            }
+
+            // Tạo một mảng với tên của 12 tháng
+            const monthLabels = ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12'];
+
+            myChartInstance = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: thongKeData.labels,
+                    labels: monthLabels, // Sử dụng mảng monthLabels làm labels
                     datasets: [{
                         label: '#Tổng Tiền',
-                        data: thongKeData.data,
+                        data: thongKeData, // Giữ nguyên dữ liệu
                         borderWidth: 1,
                         backgroundColor: 'rgba(75, 192, 192, 0.2)',
                         borderColor: 'rgba(75, 192, 192, 1)',
@@ -376,8 +391,12 @@
             });
         }
 
+        // Gọi hàm khi trang được tải
+        capNhatBieuDo();
+
+
         // Gọi thống kê lần đầu khi trang được load
-        thongKeNam();
+
         let myChart = null;
 
         function updateChartDatas(data, numberOfDays, startDateInput) {

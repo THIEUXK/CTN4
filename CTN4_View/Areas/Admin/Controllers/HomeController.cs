@@ -272,7 +272,7 @@ namespace CTN4_View_Admin.Controllers
                 // Trả về dữ liệu dưới dạng JSON cmm
                 return Json(bestSellingProducts);
             }
-        [HttpGet]
+        [HttpPost]
         public IActionResult ThongKenam(int nam)
         {
 

@@ -161,41 +161,26 @@ namespace CTN4_Serv.Service
         }
         public int[] ThongKeSoLuongDonHangTheoThangTrongNam(int nam)
         {
-            // Sử dụng LINQ để lấy danh sách các hóa đơn có TrangThaiThanhToan là true, 
-            // ngày tạo hóa đơn trong năm được truyền vào và TrangThai là "Giao hàng thành công"
-            var hoaDonsTrangThaiTrue = _db.HoaDons
+            // Khởi tạo mảng để lưu số lượng đơn hàng theo tháng
+            int[] soLuongTheoThang = new int[12];
+
+            // Sử dụng LINQ để lấy số lượng đơn hàng theo tháng
+            var thongKe = _db.HoaDons
                 .Where(h => h.TrangThaiThanhToan &&
                             h.NgayTaoHoaDon.Year == nam &&
                             h.TrangThai == "Giao hàng thành công")
-                .ToList();
+                .GroupBy(h => h.NgayTaoHoaDon.Month)
+                .Select(g => new { Thang = g.Key, SoLuong = g.Count() });
 
-            // Tạo Dictionary để lưu số lượng đơn hàng theo tháng
-            Dictionary<int, int> soLuongTheoThang = new Dictionary<int, int>();
-
-            // Đếm số lượng đơn hàng của từng tháng
-            foreach (var hoaDon in hoaDonsTrangThaiTrue)
+            // Cập nhật số lượng đơn hàng vào mảng
+            foreach (var item in thongKe)
             {
-                int thang = hoaDon.NgayTaoHoaDon.Month;
-
-                if (soLuongTheoThang.ContainsKey(thang))
-                {
-                    soLuongTheoThang[thang]++;
-                }
-                else
-                {
-                    soLuongTheoThang[thang] = 1;
-                }
+                soLuongTheoThang[item.Thang - 1] = item.SoLuong;
             }
 
-            // Chuyển đổi Dictionary thành mảng int[]
-            int[] result = new int[12];
-            for (int i = 1; i <= 12; i++)
-            {
-                result[i - 1] = soLuongTheoThang.ContainsKey(i) ? soLuongTheoThang[i] : 0;
-            }
-
-            return result;
+            return soLuongTheoThang;
         }
+
         public int[] ThongKeSoLuongDonHangTrongKhoangThoiGian(DateTime tuNgay, DateTime denNgay)
         {
             // Sử dụng LINQ để lấy danh sách các hóa đơn có TrangThaiThanhToan là true, 
