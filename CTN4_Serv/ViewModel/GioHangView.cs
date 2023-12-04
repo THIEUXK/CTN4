@@ -29,11 +29,14 @@ namespace CTN4_Serv.ViewModel
         public string Email { get; set; }
         public Guid idphuongthuc { get; set; }
         public Guid IdDiaChi { get; set; }
+        public Guid IdMaGiam { get; set; }
         public string addDiaChi { get; set; }
         public string ghiChu { get; set; }
-        public float tienshipa { get; set; }
-        public float tongtien { get; set; }
-        public float TienCuoiCung { get; set; }
+        public float tienshipb { get; set; }
+        public float tongtienb { get; set; }
+        public float TienCuoiCungb { get; set; }
+        public float tiengiamb { get; set; }
         public string name { get; set; }
+        public string tenmagiam { get; set; }
     }
 }

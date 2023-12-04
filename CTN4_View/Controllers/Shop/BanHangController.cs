@@ -23,6 +23,7 @@ namespace CTN4_View.Controllers.Shop
 {
     public class BanHangController : Controller
     {
+        #region
         private readonly HttpClient _httpClient;
 
         private readonly SanPhamCuaHangService _sanPhamCuaHangService;
@@ -46,7 +47,7 @@ namespace CTN4_View.Controllers.Shop
         public ILichSuHoaDonService _LichSuHoaDonService;
 
 
-        public BanHangController(IConfiguration config, IVnPayService vnpay, ICurrentUser currentUser,IGioHangService giohang)
+        public BanHangController(IConfiguration config, IVnPayService vnpay, ICurrentUser currentUser, IGioHangService giohang)
         {
             _diaChiNhanHangService = new DiaChiNhanHangService();
             _sanPhamCuaHangService = new SanPhamCuaHangService();
@@ -549,7 +550,8 @@ namespace CTN4_View.Controllers.Shop
                 return RedirectToAction("login", "Home");
             }
         }
-        public IActionResult HoanThanhThanhToan(Guid IdGiamGia, float tienhanga,string name, string DiachiNhanChiTiet, string Sodienthoai, string Email, string addDiaChi, Guid IdDiaChi, Guid idphuongthuc, string ghiChu, float tienshipa, float tongtien)
+        #endregion
+        public IActionResult HoanThanhThanhToan(Guid IdGiamGia, float tienhanga, string name, string DiachiNhanChiTiet, string Sodienthoai, string Email, string addDiaChi, Guid IdDiaChi, Guid idphuongthuc, string ghiChu, float tienshipa, float tongtien)
         {
             if (name == null)
             {
@@ -797,8 +799,8 @@ namespace CTN4_View.Controllers.Shop
 
             }
         }
-
-        public IActionResult SuDunggiamGia(Guid IdGiamGia, float tienhanga, string DiachiNhanChiTiet , string name, string Sodienthoai, string Email, string addDiaChi, Guid IdDiaChi, Guid idphuongthuc, string ghiChu, float tienshipa, float tongtien)
+       
+        public IActionResult SuDunggiamGia(Guid IdGiamGia, float tienhanga, string DiachiNhanChiTiet, string name, string Sodienthoai, string Email, string addDiaChi, Guid IdDiaChi, Guid idphuongthuc, string ghiChu, float tienshipa, float tongtien)
         {
             HttpResponseMessage responseProvin = _httpClient.GetAsync("https://online-gateway.ghn.vn/shiip/public-api/master-data/province").Result;
             Provin lstprovin = new Provin();
@@ -810,8 +812,52 @@ namespace CTN4_View.Controllers.Shop
             }
             float tong = 0;
             var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
-            if (accnew.Count != 0)
+            if (accnew.Count != 0&&addDiaChi!=null)
             {
+                float tiensaugiam;
+                var giamgia1 = _giamGiaService.GetById(IdGiamGia);
+                if (giamgia1==null||giamgia1.NgayBatDau>DateTime.Now||giamgia1.NgayKetThuc<DateTime.Now)
+                {
+                    var message = $"Giảm giá {giamgia1.MaGiam} hiện không thể sửa dụng";
+                    TempData["TB2"] = message;
+                    return RedirectToAction("ThuTucThanhToan", "BanHang", new { message });
+                }
+                if (giamgia1.LoaiGiamGia==false)
+                {
+                    if (giamgia1.DieuKienGiam<tienhanga)
+                    {
+                        tiensaugiam = tienhanga - giamgia1.SoTienGiam;
+                    }
+                    else
+                    {
+                        {
+                            var message = "Tiền đơn hàng chưa đủ điều kiện để sử dụng mã giảm giá này";
+                            TempData["TB2"] = message;
+                            return RedirectToAction("ThuTucThanhToan", "BanHang", new { message });
+                        }
+                    }
+                }
+                else
+                {
+                    if (giamgia1.DieuKienGiam<tienhanga)
+                    {
+                        var tientru = (tienhanga * giamgia1.PhanTramGiam/100);
+                        if (tientru>=giamgia1.SoTienGiamToiDa)
+                        {
+                            tientru = giamgia1.SoTienGiam;
+                        }
+                        tiensaugiam =tienhanga- tientru;
+                    }
+                    else
+                    {
+                        {
+                            var message = "Tiền đơn hàng chưa đủ điều kiện để sử dụng mã giảm giá này";
+                            TempData["TB2"] = message;
+                            return RedirectToAction("ThuTucThanhToan", "BanHang", new { message });
+                        }
+                    }
+                }
+                float tiengiam = (tienhanga + tienshipa) - (tiensaugiam+ tienshipa);
                 var gh = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == accnew[0].Id);
                 IEnumerable<GioHangChiTiet> ghct = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh.Id);
                 if (ghct.Count() == 0)
@@ -830,6 +876,107 @@ namespace CTN4_View.Controllers.Shop
                 var giamgia = _giamGiaService.GetAll().Where(c => c.TrangThai == true && c.Is_detele == true && c.NgayBatDau <= DateTime.Now && c.NgayKetThuc >= DateTime.Now).ToList();
                 var view2 = new GioHangView()
                 {
+                    tienshipb = tienshipa,
+                    tiengiamb = tiengiam,
+                    tenmagiam = giamgia1.MaGiam,
+                    tienhanga = tienhanga,
+                    TienCuoiCungb = tiensaugiam+tienshipa,
+                    name = name,
+                    ghiChu = ghiChu,
+                    Email = Email,
+                    Sodienthoai = Sodienthoai,
+                    addDiaChi = addDiaChi,
+                    DiachiNhanChiTiet = DiachiNhanChiTiet,
+                    IdDiaChi = IdDiaChi,
+                    idphuongthuc = idphuongthuc,
+                    GiamGias = giamgia,
+                    DiaChiNhanHang = diachinhanhang,
+                    KhachHang = nguoidung,
+                    GioHangChiTiets = a,
+                    TongTien = tong,
+                    listDiaChi = _diaChiNhanHangService.GetAll().Where(c => c.IdKhachHang == accnew[0].Id && c.Is_detele == true).Select(s => new SelectListItem
+                    {
+                        Value = s.Id.ToString(),
+                        Text = s.DiaChi
+                    }).ToList(),
+                    listPhuongThucs = _phuongThucThanhToanService.GetAll().Select(s => new SelectListItem
+                    {
+                        Value = s.Id.ToString(),
+                        Text = s.TenPhuongThuc
+                    }).ToList(),
+                };
+
+                return View("ThuTucThanhToan", view2);
+            }
+            else if (accnew.Count != 0&& addDiaChi == null)
+            {
+                float tiensaugiam;
+                var giamgia1 = _giamGiaService.GetById(IdGiamGia);
+                if (giamgia1 == null || giamgia1.NgayBatDau > DateTime.Now || giamgia1.NgayKetThuc < DateTime.Now)
+                {
+                    var message = $"Giảm giá {giamgia1.MaGiam} hiện không thể sửa dụng";
+                    TempData["TB2"] = message;
+                    return RedirectToAction("ThuTucThanhToan", "BanHang", new { message });
+                }
+                if (giamgia1.LoaiGiamGia == false)
+                {
+                    if (giamgia1.DieuKienGiam < tienhanga)
+                    {
+                        tiensaugiam = tienhanga - giamgia1.SoTienGiam;
+                    }
+                    else
+                    {
+                        {
+                            var message = "Tiền đơn hàng chưa đủ điều kiện để sử dụng mã giảm giá này";
+                            TempData["TB2"] = message;
+                            return RedirectToAction("ThuTucThanhToan", "BanHang", new { message });
+                        }
+                    }
+                }
+                else
+                {
+                    if (giamgia1.DieuKienGiam < tienhanga)
+                    {
+                        var tientru = (tienhanga * giamgia1.PhanTramGiam / 100);
+                        if (tientru >= giamgia1.SoTienGiamToiDa)
+                        {
+                            tientru = giamgia1.SoTienGiam;
+                        }
+                        tiensaugiam = tienhanga - tientru;
+                    }
+                    else
+                    {
+                        {
+                            var message = "Tiền đơn hàng chưa đủ điều kiện để sử dụng mã giảm giá này";
+                            TempData["TB2"] = message;
+                            return RedirectToAction("ThuTucThanhToan", "BanHang", new { message });
+                        }
+                    }
+                }
+                float tiengiam = (tienhanga + tienshipa) - (tiensaugiam+ tienshipa);
+                var gh = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == accnew[0].Id);
+                IEnumerable<GioHangChiTiet> ghct = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh.Id);
+                if (ghct.Count() == 0)
+                {
+                    var message = "Giỏ hàng đang trống hãy thêm sản phẩm của bạn để tiến hàng đặt hàng";
+                    TempData["TB4"] = message;
+                    return RedirectToAction("GioHang", new { message });
+                }
+                foreach (var x in ghct)
+                {
+                    tong += float.Parse(x.SanPhamChiTiet.SanPham.GiaNiemYet.ToString()) * (x.SoLuong);
+                }
+                var a = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh.Id);
+                var nguoidung = _khachHangService.GetAll().FirstOrDefault(c => c.Id == accnew[0].Id);
+                var diachinhanhang = _diaChiNhanHangService.GetAll().Where(c => c.IdKhachHang == accnew[0].Id).FirstOrDefault(c => c.TrangThai == true && c.Is_detele == true);
+                var giamgia = _giamGiaService.GetAll().Where(c => c.TrangThai == true && c.Is_detele == true && c.NgayBatDau <= DateTime.Now && c.NgayKetThuc >= DateTime.Now).ToList();
+                var view2 = new GioHangView()
+                {
+                    tienshipb = tienshipa,
+                    tiengiamb = tiengiam,
+                    tenmagiam = giamgia1.MaGiam,
+                    tienhanga = tienhanga,
+                    TienCuoiCungb = tiensaugiam,
                     name = name,
                     ghiChu = ghiChu,
                     Email = Email,
