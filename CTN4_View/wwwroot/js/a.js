@@ -191,6 +191,9 @@
     $('#ward').change(function () {
         var id_ward = this.value;
         var tienhangaValue = $('#tienhanga').val();
+        var tiengiamaValue = $("#tiengiam1").val();
+        var tongtienValue = $("#tongtien1").val();
+        debugger
         sessionStorage.removeItem('shiptotal');
         $("#total_ship").text('');
         if (this.value != 0) {
@@ -204,10 +207,14 @@
                 length: 31,
                 height: 21,
                 width: 11,
+                tienhang: tienhangaValue,
+                tiengiam: tiengiamaValue,
+                tongtien: tongtienValue,
             }
+            debugger
             $.ajax({
                 url: '/CheckOut/GetTotalShipping',
-                type: 'Post',
+                type: 'POST',
                 dataType: 'json',
                 data: JSON.stringify(obj),
                 contentType: 'application/json',
@@ -220,10 +227,15 @@
                         x1 = x1.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
                         var x2 = result.data.totaloder;
                         x2 = x2.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
+                        var x3 = result.tienGiam;
+                        x3 = x3.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
                         $("#tienship").html(`${(x1)}`);
                         $("#tongtien").html(` ${(x2)}`);
+                        $("#tiengiam").html(` ${(x3)}`);
+                        debugger
                         $("#tienship1").val(result.data.total);
                         $("#tongtien1").val(result.data.totaloder);
+                        $("#tiengiam1").val(result.tienGiam);
                         let adress = $("#ward option:selected").text() + "," + $("#district option:selected").text() + "," + $("#provin option:selected").text();
                         //add địa chỉ
                         $("#diachinay").val(adress).html(`${(adress)}`);
@@ -237,13 +249,18 @@
         //loadTotal();
         var idDiaChi = this.value;
         var tienhangaValue = $('#tienhanga').val();
+        var tiengiamaValue = $("#tiengiam1").val();
+        var tongtienValue = $("#tongtien1").val();
         if (idDiaChi != 0) {
             $.ajax({
                 url: '/CheckOut/chonDiaChi',
                 type: 'GET',
                 dataType: 'json',
                 data: {
-                    idDiaChiKD: idDiaChi
+                    idDiaChiKD: idDiaChi,
+                    tienhang: tienhangaValue,
+                    tiengiam: tiengiamaValue,
+                    tongtien: tongtienValue,
                 },
                 contentType: 'application/json',
                 success: function (result) {
@@ -251,11 +268,16 @@
                     x1 = x1.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
                     var x2 = result.totaloder;
                     x2 = x2.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
-                    let adress = $("#diachicosan option:selected").text();
+                    var x3 = result.tienGiam;
+                    x3 = x3.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
+                    $("#tiengiam").html(` ${(x3)}`);
+                    debugger
+                    $("#tiengiam1").val(result.tienGiam);
                     $("#tienship").html(`${(x1)}`);
                     $("#tongtien").html(` ${(x2)}`);
                     $("#tienship1").val(result.TienShip);
                     $("#tongtien1").val(result.totaloder);
+                    let adress = $("#diachicosan option:selected").text();
                     $("#diachinay").val(adress).html(`${(adress)}`);
                     $("#adressnew").val(adress).html(`${(adress)}`);
                 }

@@ -32,11 +32,11 @@ namespace CTN4_Serv.Service
             try
             {
                 var lstByIdUser = _db.DaiChiNhanHangs.AsQueryable().Where(p=>p.IdKhachHang == a.IdKhachHang).ToList();
-                if (lstByIdUser !=null && lstByIdUser.Count() <= 3)
-                {
+                //if (lstByIdUser !=null && lstByIdUser.Count() <= 3)
+                //{
                     _db.DaiChiNhanHangs.Add(a);
                     _db.SaveChanges();
-                }               
+                //}               
                 return true;
             }
             catch (Exception e)
