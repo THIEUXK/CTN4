@@ -17,5 +17,9 @@ namespace CTN4_Serv.ViewModel.banhangview
         public int length { get; set; }
         public int width { get; set; }
         public int weight { get; set; }
+        public float tienhang { get; set; }
+        public float tiengiam { get; set; }
+        public float tongtien { get; set; }
+
     }
 }

@@ -121,16 +121,22 @@
                         }
                         @if (Model.addDiaChi != null)
                         {
-                            <input type="hidden" name="tienship" value="" id="tienship1"></input>
                             <div class="col-md-6 form-group p_star">
                                 <label>Địa chỉ :</label>
                                 <input type="text" class="form-control" id="adressnew" name="" value="@Model.addDiaChi" disabled></input>
                                 <input type="hidden" class="form-control" id="diachinay" value="@Model.addDiaChi" name="addDiaChi"></input>
                             </div>
                         }
+                        else if (Model.addDiaChi == null&&Model.tenmagiam!=null)
+                        {
+                            <div class="col-md-6 form-group p_star">
+                                <label>Địa chỉ :</label>
+                                <input type="text" class="form-control" id="adressnew" name="" value="" disabled></input>
+                                <input type="hidden" class="form-control" id="diachinay" value="" name="addDiaChi"></input>
+                            </div>
+                        }
                         else if (Model.DiaChiNhanHang != null)
                         {
-                            <input type="hidden" name="tienship" value="" id="tienship1"></input>
                             <div class="col-md-6 form-group p_star">
                                 <label>Địa chỉ :</label>
                                 <input type="text" class="form-control" id="adressnew" name="" value="@Model.DiaChiNhanHang.DiaChi" disabled></input>
@@ -139,7 +145,6 @@
                         }
                         else
                         {
-                            <input type="hidden" name="tienship" value="" id="tienship1"></input>
                             <div class="col-md-6 form-group p_star">
                                 <label>Địa chỉ :</label>
                                 <input type="text" class="form-control" id="adressnew" name="" value="" disabled></input>
@@ -235,23 +240,66 @@
                                         <input type="hidden" name="tienhanga" value="@Model.TongTien" id="tienhanga"></input>
                                     </ul>
                                 }
+                                else
+                                {
+                                    <ul class="list">
+                                        <li><a href="#">Mã Giảm giá :<span><b id="tonghang" style="color:black">Chưa có </b></span></a></li>
+                                        <input type="hidden" name="tienhanga" value="@Model.TongTien" id="tienhanga"></input>
+                                    </ul>
+                                }
                                 <ul class="list">
                                     <li><a href="#">Tiền Hàng :<span><b id="tonghang" style="color:black">@FormatCurrency(@Model.tienhanga) </b></span></a></li>
                                     <input type="hidden" name="tienhanga" value="@Model.TongTien" id="tienhanga"></input>
                                 </ul>
+
                                 <ul class="list">
                                     <li><a href="#">Tiền ship :<span><b id="tienship" style="color:black">@FormatCurrency(Model.tienshipb) </b></span></a></li>
-                                    <input type="hidden" name="tienshipa" value="@Model.DiaChiNhanHang.TienShip" id="tienship1"></input>
-                                    
+                                    <input type="hidden" name="tienshipa" value="@Model.tienshipb" id="tienship1"></input>
                                 </ul>
                                 <ul class="list">
                                     <li><a href="#">Tiền giảm :<span><b id="tiengiam" style="color:black">@FormatCurrency(@Model.tiengiamb)</b></span></a></li>
-                                    <input type="hidden" name="tiengiama" value="" id="tiengiam1"></input>
+                                    <input type="hidden" name="tiengiama" value="@Model.tiengiamb" id="tiengiam1"></input>
                                 </ul>
                                 <br>
                                 <ul class="list">
                                     <li><a href="#">Tổng tiền :<span><b name="Amount" id="tongtien" style="color:orange">@FormatCurrency(Model.TienCuoiCungb)</b></span></a></li>
-                                    <input hidden name="Amount" value="@(Model.TongTien+Model.DiaChiNhanHang.TienShip)" />
+                                    <input hidden name="Amount" value="@(Model.TienCuoiCungb)" />
+                                    <input type="hidden" name="tongtien" value="@Model.TienCuoiCungb" id="tongtien1"></input>
+                                </ul>
+                                <br></br>
+                            }
+                            else if (Model.addDiaChi == null&&@Model.tenmagiam!=null)
+                            {
+                                if (Model.tenmagiam != null)
+                                {
+                                    <ul class="list">
+                                        <li><a href="#">Mã Giảm giá :<span><b id="tonghang" style="color:black">@Model.tenmagiam </b></span></a></li>
+                                        <input type="hidden" name="tienhanga" value="@Model.TongTien" id="tienhanga"></input>
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <ul class="list">
+                                        <li><a href="#">Mã Giảm giá :<span><b id="tonghang" style="color:black">Chưa có </b></span></a></li>
+                                        <input type="hidden" name="tienhanga" value="@Model.TongTien" id="tienhanga"></input>
+                                    </ul>
+                                }
+                                <ul class="list">
+                                    <li><a href="#">Tiền Hàng :<span><b id="tonghang" style="color:black">@FormatCurrency(@Model.tienhanga) </b></span></a></li>
+                                    <input type="hidden" name="tienhanga" value="@Model.tienhanga" id="tienhanga"></input>
+                                </ul>
+                                <ul class="list">
+                                    <li><a href="#">Tiền ship :<span><b id="tienship" style="color:black">Chưa Tính </b></span></a></li>
+                                    <input type="hidden" name="tienshipa" value="0" id="tienship1"></input>
+
+                                </ul>
+                                <ul class="list">
+                                    <li><a href="#">Tiền giảm :<span><b id="tiengiam" style="color:black">@FormatCurrency(@Model.tiengiamb)</b></span></a></li>
+                                    <input type="hidden" name="tiengiama" value="@Model.tiengiamb" id="tiengiam1"></input>
+                                </ul>
+                                <br>
+                                <ul class="list">
+                                    <li><a href="#">Tổng tiền :<span><b name="Amount" id="tongtien" style="color:orange">@FormatCurrency(Model.TienCuoiCungb)</b></span></a></li>
                                     <input type="hidden" name="tongtien" value="@Model.TienCuoiCungb" id="tongtien1"></input>
                                 </ul>
                                 <br></br>
@@ -283,12 +331,11 @@
                                 </ul>
                                 <ul class="list">
                                     <li><a href="#">Tiền giảm :<span><b id="tiengiam" style="color:black">Chưa Tính</b></span></a></li>
-                                    <input type="hidden" name="tiengiama" value="" id="tiengiam1"></input>
+                                    <input type="hidden" name="tiengiama" value="0" id="tiengiam1"></input>
                                 </ul>
                                 <br>
                                 <ul class="list">
                                     <li><a href="#">Tổng tiền :<span><b name="Amount" id="tongtien" style="color:orange">@FormatCurrency(Model.TongTien + Model.DiaChiNhanHang.TienShip)</b></span></a></li>
-                                    <input hidden name="Amount" value="@(Model.TongTien+Model.DiaChiNhanHang.TienShip)" />
                                     <input type="hidden" name="tongtien" value="@(Model.TongTien+Model.DiaChiNhanHang.TienShip)" id="tongtien1"></input>
                                 </ul>
                                 <br></br>
@@ -305,18 +352,17 @@
                                 </ul>
                                 <ul class="list">
                                     <li><a href="#">Tiền ship :<span><b id="tienship" style="color:black">Chưa Tính</b></span></a></li>
-                                    <input type="hidden" name="tienshipa" value="" id="tienship1"></input>
+                                    <input type="hidden" name="tienshipa" value="0" id="tienship1"></input>
                                 </ul>
                                
                                 <ul class="list">
                                     <li><a href="#">Tiền giảm :<span><b id="tiengiam" style="color:black">Chưa Tính</b></span></a></li>
-                                    <input type="hidden" name="tiengiama" value="" id="tiengiam1"></input>
+                                    <input type="hidden" name="tiengiama" value="0" id="tiengiam1"></input>
                                 </ul>
                                 <br></br>
                                 <ul class="list">
                                     <li><a href="#">Tổng tiền :<span><b name="Amount" id="tongtien" style="color:orange">@FormatCurrency(Model.TongTien)</b></span></a></li>
-                                    <input hidden name="Amount" value="@Model.TongTien" />
-                                    <input type="hidden" name="tongtien" value="" id="tongtien1"></input>
+                                    <input type="hidden" name="tongtien" value="@Model.TongTien" id="tongtien1"></input>
                                 </ul>
                                 <br></br>
                             }

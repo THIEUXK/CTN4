@@ -270,105 +270,7 @@ namespace CTN4_View.Controllers.Shop
             return Json(lstWard, new System.Text.Json.JsonSerializerOptions());
         }
 
-        [HttpPost("/CheckOut/GetTotalShipping")]
-        public async Task<JsonResult> GetTotalShipping([FromBody] ShippingOrder shippingOrder)
-        {
-
-            var hang = new TinhTienShip()
-            {
-                service_id = shippingOrder.service_id,
-                insurance_value = shippingOrder.insurance_value,
-                from_district_id = shippingOrder.from_district_id,
-                to_district_id = shippingOrder.to_district_id,
-                to_ward_code = shippingOrder.to_ward_code.ToString(),
-                height = shippingOrder.height,
-                length = shippingOrder.length,
-                weight = shippingOrder.weight,
-                width = shippingOrder.width,
-            };
-            var url = $"https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee";
-            float tong = 0;
-            var content = new StringContent(JsonConvert.SerializeObject(hang), Encoding.UTF8, "application/json");
-            var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
-            var respose = await _httpClient.PostAsync(url, content);
-
-            if (accnew.Count != 0)
-            {
-                var gh = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == accnew[0].Id);
-                var ghct = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh.Id);
-
-                foreach (var x in ghct)
-                {
-                    tong += float.Parse(x.SanPhamChiTiet.SanPham.GiaNiemYet.ToString()) * (x.SoLuong);
-
-                }
-                Shipping shipping = new Shipping();
-                if (respose.IsSuccessStatusCode)
-                {
-                    string jsonData2 = respose.Content.ReadAsStringAsync().Result;
-
-                    shipping = JsonConvert.DeserializeObject<Shipping>(jsonData2);
-                    HttpContext.Session.SetInt32("shiptotal", shipping.data.total);
-                    shipping.data.totaloder = tong + shipping.data.total;
-
-                    //shipping.data.totaloder = shipping.data.total + int.Parse(tong.ToString());
-                    return Json(shipping, new System.Text.Json.JsonSerializerOptions());
-                }
-                else
-                {
-                    shipping.message = "False";
-
-                    //shipping.data.totaloder = shipping.data.total + int.Parse(tong.ToString());
-                    return Json(shipping, new System.Text.Json.JsonSerializerOptions());
-                }
-            }
-            else
-            {
-                var gh2 = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == null);
-                var a = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh2.Id);
-                foreach (var x in a)
-                {
-                    tong += float.Parse(x.SanPhamChiTiet.SanPham.GiaNiemYet.ToString()) * (x.SoLuong);
-
-                }
-                Shipping shipping = new Shipping()
-                {
-                    totaloder = tong + 50000
-                };
-                return Json(shipping, new System.Text.Json.JsonSerializerOptions());
-            }
-        }
-
-        [HttpGet("/CheckOut/chonDiaChi")]
-        public async Task<JsonResult> chonDiaChi(Guid idDiaChiKD)
-        {
-
-            float tong = 0;
-            var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
-            if (accnew.Count != 0)
-            {
-                var gh = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == accnew[0].Id);
-                IEnumerable<GioHangChiTiet> ghct = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh.Id);
-
-                var diaChi = _diaChiNhanHangService.GetAll().FirstOrDefault(c => c.Id == idDiaChiKD);
-
-                foreach (var x in ghct)
-                {
-                    tong += float.Parse(x.SanPhamChiTiet.SanPham.GiaNiemYet.ToString()) * (x.SoLuong);
-
-                }
-                Shipping shipping = new Shipping()
-                {
-                    totaloder = tong + diaChi.TienShip.Value,
-                    TienShip = diaChi.TienShip.Value
-                };
-
-                //shipping.data.totaloder = shipping.data.total + int.Parse(tong.ToString());
-                return Json(shipping, new System.Text.Json.JsonSerializerOptions());
-
-            }
-            return Json(0, new System.Text.Json.JsonSerializerOptions());
-        }
+      
         public IActionResult HoaDon()
         {
             var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
@@ -550,7 +452,7 @@ namespace CTN4_View.Controllers.Shop
                 return RedirectToAction("login", "Home");
             }
         }
-        #endregion
+   
         public IActionResult HoanThanhThanhToan(Guid IdGiamGia, float tienhanga, string name, string DiachiNhanChiTiet, string Sodienthoai, string Email, string addDiaChi, Guid IdDiaChi, Guid idphuongthuc, string ghiChu, float tienshipa, float tongtien)
         {
             if (name == null)
@@ -709,7 +611,7 @@ namespace CTN4_View.Controllers.Shop
                             TempData["ErrorMessage"] = message;
                             return RedirectToAction("ThuTucThanhToan", "BanHang", new { message });
                         }
-                        var lisdiachi1 = _diaChiNhanHangService.GetAll().Where(c => c.IdKhachHang == accnew[0].Id).ToList();
+                        var lisdiachi1 = _diaChiNhanHangService.GetAll().Where(c => c.IdKhachHang == accnew[0].Id&&c.Is_detele==true).ToList();
                         var lisdiachi = _diaChiNhanHangService.GetAll().Where(c => c.DiaChi == addDiaChi && c.IdKhachHang == accnew[0].Id && c.TienShip == tienshipa && c.Is_detele == true).ToList();
                         if (lisdiachi1.Count() < 4 && lisdiachi.Count == 0)
                         {
@@ -799,7 +701,6 @@ namespace CTN4_View.Controllers.Shop
 
             }
         }
-       
         public IActionResult SuDunggiamGia(Guid IdGiamGia, float tienhanga, string DiachiNhanChiTiet, string name, string Sodienthoai, string Email, string addDiaChi, Guid IdDiaChi, Guid idphuongthuc, string ghiChu, float tienshipa, float tongtien)
         {
             HttpResponseMessage responseProvin = _httpClient.GetAsync("https://online-gateway.ghn.vn/shiip/public-api/master-data/province").Result;
@@ -844,7 +745,7 @@ namespace CTN4_View.Controllers.Shop
                         var tientru = (tienhanga * giamgia1.PhanTramGiam/100);
                         if (tientru>=giamgia1.SoTienGiamToiDa)
                         {
-                            tientru = giamgia1.SoTienGiam;
+                            tientru = giamgia1.SoTienGiamToiDa;
                         }
                         tiensaugiam =tienhanga- tientru;
                     }
@@ -940,7 +841,7 @@ namespace CTN4_View.Controllers.Shop
                         var tientru = (tienhanga * giamgia1.PhanTramGiam / 100);
                         if (tientru >= giamgia1.SoTienGiamToiDa)
                         {
-                            tientru = giamgia1.SoTienGiam;
+                            tientru = giamgia1.SoTienGiamToiDa;
                         }
                         tiensaugiam = tienhanga - tientru;
                     }
@@ -976,7 +877,7 @@ namespace CTN4_View.Controllers.Shop
                     tiengiamb = tiengiam,
                     tenmagiam = giamgia1.MaGiam,
                     tienhanga = tienhanga,
-                    TienCuoiCungb = tiensaugiam,
+                    TienCuoiCungb = tiensaugiam + tienshipa,
                     name = name,
                     ghiChu = ghiChu,
                     Email = Email,
@@ -1009,6 +910,108 @@ namespace CTN4_View.Controllers.Shop
                 return RedirectToAction("login", "Home");
 
             }
+        }
+        #endregion
+        [HttpPost("/CheckOut/GetTotalShipping")]
+        public async Task<JsonResult> GetTotalShipping([FromBody] ShippingOrder shippingOrder)
+        {
+
+            var hang = new TinhTienShip()
+            {
+                service_id = shippingOrder.service_id,
+                insurance_value = shippingOrder.insurance_value,
+                from_district_id = shippingOrder.from_district_id,
+                to_district_id = shippingOrder.to_district_id,
+                to_ward_code = shippingOrder.to_ward_code.ToString(),
+                height = shippingOrder.height,
+                length = shippingOrder.length,
+                weight = shippingOrder.weight,
+                width = shippingOrder.width,
+            };
+            var url = $"https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee";
+            float tong = 0;
+            var content = new StringContent(JsonConvert.SerializeObject(hang), Encoding.UTF8, "application/json");
+            var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
+            var respose = await _httpClient.PostAsync(url, content);
+
+            if (accnew.Count != 0)
+            {
+                var gh = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == accnew[0].Id);
+                var ghct = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh.Id);
+
+                foreach (var x in ghct)
+                {
+                    tong += float.Parse(x.SanPhamChiTiet.SanPham.GiaNiemYet.ToString()) * (x.SoLuong);
+
+                }
+                Shipping shipping = new Shipping();
+                if (respose.IsSuccessStatusCode)
+                {
+                    string jsonData2 = respose.Content.ReadAsStringAsync().Result;
+
+                    shipping = JsonConvert.DeserializeObject<Shipping>(jsonData2);
+                    HttpContext.Session.SetInt32("shiptotal", shipping.data.total);
+                    shipping.data.totaloder = shippingOrder.tienhang + shipping.data.total-shippingOrder.tiengiam;
+                    shipping.tienGiam= shippingOrder.tiengiam;
+
+                    //shipping.data.totaloder = shipping.data.total + int.Parse(tong.ToString());
+                    return Json(shipping, new System.Text.Json.JsonSerializerOptions());
+                }
+                else
+                {
+                    shipping.message = "False";
+
+                    //shipping.data.totaloder = shipping.data.total + int.Parse(tong.ToString());
+                    return Json(shipping, new System.Text.Json.JsonSerializerOptions());
+                }
+            }
+            else
+            {
+                var gh2 = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == null);
+                var a = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh2.Id);
+                foreach (var x in a)
+                {
+                    tong += float.Parse(x.SanPhamChiTiet.SanPham.GiaNiemYet.ToString()) * (x.SoLuong);
+
+                }
+                Shipping shipping = new Shipping()
+                {
+                    totaloder = tong + 50000
+                };
+                return Json(shipping, new System.Text.Json.JsonSerializerOptions());
+            }
+        }
+
+        [HttpGet("/CheckOut/chonDiaChi")]
+        public async Task<JsonResult> chonDiaChi(Guid idDiaChiKD,float tienhang,float tiengiam,float tongtien)
+        {
+
+            float tong = 0;
+            var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
+            if (accnew.Count != 0)
+            {
+                var gh = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == accnew[0].Id);
+                IEnumerable<GioHangChiTiet> ghct = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh.Id);
+
+                var diaChi = _diaChiNhanHangService.GetAll().FirstOrDefault(c => c.Id == idDiaChiKD);
+
+                foreach (var x in ghct)
+                {
+                    tong += float.Parse(x.SanPhamChiTiet.SanPham.GiaNiemYet.ToString()) * (x.SoLuong);
+
+                }
+                Shipping shipping = new Shipping()
+                {
+                    totaloder = tienhang + diaChi.TienShip.Value-tiengiam,
+                    TienShip = diaChi.TienShip.Value,
+                    tienGiam = tiengiam
+                };
+
+                //shipping.data.totaloder = shipping.data.total + int.Parse(tong.ToString());
+                return Json(shipping, new System.Text.Json.JsonSerializerOptions());
+
+            }
+            return Json(0, new System.Text.Json.JsonSerializerOptions());
         }
     }
 
