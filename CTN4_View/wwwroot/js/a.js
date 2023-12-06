@@ -264,6 +264,7 @@
                 },
                 contentType: 'application/json',
                 success: function (result) {
+                  
                     var x1 = result.TienShip;
                     x1 = x1.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
                     var x2 = result.totaloder;
@@ -278,8 +279,10 @@
                     $("#tienship1").val(result.TienShip);
                     $("#tongtien1").val(result.totaloder);
                     let adress = $("#diachicosan option:selected").text();
+                    $("#addct").val(result.DiaChichiTiet).html(`${(result.DiaChichiTiet)}`);
                     $("#diachinay").val(adress).html(`${(adress)}`);
                     $("#adressnew").val(adress).html(`${(adress)}`);
+
                 }
             });
         }

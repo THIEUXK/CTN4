@@ -542,6 +542,12 @@ namespace CTN4_Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<float?>("TienGiam")
+                        .HasColumnType("real");
+
+                    b.Property<float>("TienHang")
+                        .HasColumnType("real");
+
                     b.Property<float>("TienShip")
                         .HasColumnType("real");
 
@@ -638,7 +644,8 @@ namespace CTN4_Data.Migrations
 
                     b.Property<string>("SDT")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
 
                     b.Property<string>("Ten")
                         .IsRequired()
