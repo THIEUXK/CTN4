@@ -318,20 +318,7 @@ namespace CTN4_View.Controllers.Shop
             };
             return View(view);
         }
-        public IActionResult SauThanhToan(int id)
-        {
-            var b = _HoaDonService.GetById(id);
-            var a = _HoaDonChiTiet.GetAll().Where(c => c.IdHoaDon == id).ToList();
-            var c = _giamGiaChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
-
-            var view = new ThieuxkView()
-            {
-                HoaDon = b,
-                hoaDonChiTiets = a,
-                GiamGiaChiTiets = c
-            };
-            return View(view);
-        }
+        
         [HttpPost]
         public IActionResult ThemVaoGio(int soluong, Guid IdSanPham, Guid IdSize, Guid IdMau)
         {
@@ -1051,7 +1038,6 @@ namespace CTN4_View.Controllers.Shop
 
             }
         }
-        #endregion
         [HttpGet("/CheckOut/chonDiaChi")]
         public async Task<JsonResult> chonDiaChi(Guid idDiaChiKD, float tienhang, float tiengiam, float tongtien)
         {
@@ -1077,6 +1063,20 @@ namespace CTN4_View.Controllers.Shop
                 return Json(shipping, new System.Text.Json.JsonSerializerOptions());
             }
             return Json(0, new System.Text.Json.JsonSerializerOptions());
+        }
+        #endregion
+        public IActionResult SauThanhToan(int id)
+        {
+            var b = _HoaDonService.GetById(id);
+            var a = _HoaDonChiTiet.GetAll().Where(c => c.IdHoaDon == id).ToList();
+            var c = _giamGiaChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
+            var view = new ThieuxkView()
+            {
+                HoaDon = b,
+                hoaDonChiTiets = a,
+                GiamGiaChiTiets = c
+            };
+            return View(view);
         }
 
     }
