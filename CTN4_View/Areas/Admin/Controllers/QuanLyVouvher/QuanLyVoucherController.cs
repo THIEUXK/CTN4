@@ -3,7 +3,6 @@ using CTN4_Serv.Service.IService;
 using CTN4_Serv.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using CTN4_Data.Migrations;
 using X.PagedList;
 using CTN4_View.Areas.Admin.Viewmodel;
 using CTN4_Serv.ViewModel;

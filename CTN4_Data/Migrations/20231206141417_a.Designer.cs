@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CTN4_Data.Migrations
 {
     [DbContext(typeof(DB_CTN4_ok))]
-    [Migration("20231124163718_a")]
+    [Migration("20231206141417_a")]
     partial class a
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -544,6 +544,12 @@ namespace CTN4_Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<float?>("TienGiam")
+                        .HasColumnType("real");
+
+                    b.Property<float>("TienHang")
+                        .HasColumnType("real");
+
                     b.Property<float>("TienShip")
                         .HasColumnType("real");
 
@@ -640,7 +646,8 @@ namespace CTN4_Data.Migrations
 
                     b.Property<string>("SDT")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
 
                     b.Property<string>("Ten")
                         .IsRequired()

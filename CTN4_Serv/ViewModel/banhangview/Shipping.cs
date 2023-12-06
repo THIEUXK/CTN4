@@ -13,6 +13,7 @@ namespace CTN4_Serv.ViewModel.banhangview
         public float totaloder { get; set; }
         public float tienGiam { get; set; }
         public float TienShip { get; set; }
+        public string DiaChichiTiet { get; set; }
         public Data data { get; set; }
         public class Data
         {

@@ -12,5 +12,8 @@
         public string ghiChu { get; set; }
         public float tienship { get; set; }
         public float tongtien { get; set; }
+        public float TienGiam { get; set; }
+        public float TienHang { get; set; }
+
     }
 }
