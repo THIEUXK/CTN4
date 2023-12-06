@@ -129,6 +129,24 @@
                             </td>
                         </tr>
                     }
+                        <tr>
+                            <td>
+                                <h4>Mã giảm</h4>
+                            </td>
+                            <td>
+                                <h5></h5>
+                            </td>
+                            <td>
+                                <h5></h5>
+                            </td>
+                            <td>
+                                @foreach (var a in Model.GiamGiaChiTiets)
+                                {
+                                    <p>@a.GiamGia.MaGiam</p>
+                                }
+                               
+                            </td>
+                        </tr>
                     <tr>
                         <td>
                             <h4>Tiền hàng</h4>
