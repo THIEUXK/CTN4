@@ -5,7 +5,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h1>Details</h1>
+<h1>Chi tiết</h1>
 
 
 
@@ -16,71 +16,66 @@
                 <h4 class="card-title">Normal buttons</h4>
                 <br></br>
                 <div>
-                    <h4>NhanVien</h4>
+                    <h4>Nhân viên</h4>
                     <hr />
                     <dl class="row">
+                        
                         <dt class = "col-sm-2">
-                            @Html.DisplayNameFor(model => model.Id)
-                        </dt>
-                        <dd class = "col-sm-10">
-                            @Html.DisplayFor(model => model.Id)
-                        </dd>
-                        <dt class = "col-sm-2">
-                            @Html.DisplayNameFor(model => model.Ho)
+                            Họ
                         </dt>
                         <dd class = "col-sm-10">
                             @Html.DisplayFor(model => model.Ho)
                         </dd>
                         <dt class = "col-sm-2">
-                            @Html.DisplayNameFor(model => model.Ten)
+                           Tên
                         </dt>
                         <dd class = "col-sm-10">
                             @Html.DisplayFor(model => model.Ten)
                         </dd>
                         <dt class = "col-sm-2">
-                            @Html.DisplayNameFor(model => model.TenDangNhap)
+                           Tên đăng nhập
                         </dt>
                         <dd class = "col-sm-10">
                             @Html.DisplayFor(model => model.TenDangNhap)
                         </dd>
                         <dt class = "col-sm-2">
-                            @Html.DisplayNameFor(model => model.MatKhau)
+                            Mật khẩu
                         </dt>
                         <dd class = "col-sm-10">
                             @Html.DisplayFor(model => model.MatKhau)
                         </dd>
                         <dt class = "col-sm-2">
-                            @Html.DisplayNameFor(model => model.GioiTinh)
+                           Giới tính
                         </dt>
                         <dd class = "col-sm-10">
                             @Html.DisplayFor(model => model.GioiTinh)
                         </dd>
                         <dt class = "col-sm-2">
-                            @Html.DisplayNameFor(model => model.Email)
+                           Email
                         </dt>
                         <dd class = "col-sm-10">
                             @Html.DisplayFor(model => model.Email)
                         </dd>
                         <dt class = "col-sm-2">
-                            @Html.DisplayNameFor(model => model.SDT)
+                           SDT
                         </dt>
                         <dd class = "col-sm-10">
                             @Html.DisplayFor(model => model.SDT)
                         </dd>
                         <dt class = "col-sm-2">
-                            @Html.DisplayNameFor(model => model.DiaChi)
+                            Địa chỉ
                         </dt>
                         <dd class = "col-sm-10">
                             @Html.DisplayFor(model => model.DiaChi)
                         </dd>
                         <dt class = "col-sm-2">
-                            @Html.DisplayNameFor(model => model.Trangthai)
+                           Trạng thái
                         </dt>
                         <dd class = "col-sm-10">
                             @Html.DisplayFor(model => model.Trangthai)
                         </dd>
                         <dt class = "col-sm-2">
-                            @Html.DisplayNameFor(model => model.AnhDaiDien)
+                           Ảnh đại diện
                         </dt>
                         <dd class = "col-sm-10">
                             @if (System.IO.Path.GetExtension(Model.AnhDaiDien) == ".jpg" ||
@@ -98,7 +93,7 @@
                             }
                         </dd>
                         <dt class = "col-sm-2">
-                            @Html.DisplayNameFor(model => model.IdChucVu)
+                           Chức vụ
                         </dt>
                         <dd class = "col-sm-10">
                             @Html.DisplayFor(model => model.IdChucVu)
@@ -107,7 +102,7 @@
                     <div>
                         <h4>_________________________________________________</h4>
                         @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-                        <a asp-action="Index">Back to List</a>
+                        <a asp-action="Index" style="color: black;">Quay về</a>
                     </div>
                 </div>
            

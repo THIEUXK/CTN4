@@ -5,108 +5,104 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Create</title>
-</head>
-<body>
-
-
-
-    <div>
-        <a asp-action="Index">Back to List</a>
-    </div>
-
-</body>
-</html>
-
-<br />
-<br />
+<div>
+    <a asp-action="Index" style="color: black;">Quay về</a>
+</div>
 <div class="row">
-    <div class="col-md-4">
-        <form method="post" asp-action="Create" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="MaSp" class="control-label"></label>
-                <input asp-for="MaSp" class="form-control" />
-                <span asp-validation-for="MaSp" class="text-danger"></span>
+    <div class="col-md-9">
+        <br></br>
+        <br></br>
+
+
+        <h1>Thêm mới</h1>
+
+        <h4>Sản phẩm</h4>
+        <hr />
+        <div class="row">
+            <div class="col-md-4">
+                <form method="post" asp-action="Create" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="MaSp" class="control-label">Mã sản phẩm</label>
+                        <input asp-for="MaSp" class="form-control" />
+                        <span asp-validation-for="MaSp" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TenSanPham" class="control-label">Tên sản phẩm</label>
+                        <input asp-for="TenSanPham" class="form-control" />
+                        <span asp-validation-for="TenSanPham" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="IdChatLieu">Chat lieu</label>
+                        <select asp-for="IdChatLieu" class="form-control">
+                            <option value="">-- Select Chat Lieu --</option>
+                            @foreach (var a in Model.ChalieuItems)
+                            {
+                                <option value="@a.Value">@a.Text</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="IdNSX">Nsx</label>
+                        <select asp-for="IdNSX" class="form-control">
+                            <option value="">-- Select NSX --</option>
+                            @foreach (var a in Model.NsxItems)
+                            {
+                                <option value="@a.Value">@a.Text</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="MoTa" class="control-label">Mô tả</label>
+                        <input asp-for="MoTa" class="form-control" />
+                        <span asp-validation-for="MoTa" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="GiaNhap" class="control-label">Giá nhập</label>
+                        <input asp-for="GiaNhap" class="form-control" />
+                        <span asp-validation-for="GiaNhap" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="GiaBan" class="control-label">Giá bán</label>
+                        <input asp-for="GiaBan" class="form-control" />
+                        <span asp-validation-for="GiaBan" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="GiaNiemYet" class="control-label">Giá niêm yết</label>
+                        <input asp-for="GiaNiemYet" class="form-control" />
+                        <span asp-validation-for="GiaNiemYet" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="GhiChu" class="control-label">Ghi chú</label>
+                        <input asp-for="GhiChu" class="form-control" />
+                        <span asp-validation-for="GhiChu" class="text-danger"></span>
+                    </div>
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="TrangThai" /> Trạng thái
+                        </label>
+                    </div>
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Is_detele" />Tình trạng
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>Chọn ảnh từ Máy tính:</label>
+                        <input type="file" name="imageFile" />
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Thêm mới" class="btn btn-primary" />
+                    </div>
+                    <div>
+                        <h4>_________________________________________________</h4>
+                        <a asp-action="Index" style="color: black;">Quay về</a>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="TenSanPham" class="control-label"></label>
-                <input asp-for="TenSanPham" class="form-control" />
-                <span asp-validation-for="TenSanPham" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdChatLieu">Chat lieu</label>
-                <select asp-for="IdChatLieu" class="form-control">
-                    <option value="">-- Select Chat Lieu --</option>
-                    @foreach (var a in Model.ChalieuItems)
-                    {
-                        <option value="@a.Value">@a.Text</option>
-                    }
-                </select>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdNSX">Nsx</label>
-                <select asp-for="IdNSX" class="form-control">
-                    <option value="">-- Select NSX --</option>
-                    @foreach (var a in Model.NsxItems)
-                    {
-                        <option value="@a.Value">@a.Text</option>
-                    }
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label asp-for="MoTa" class="control-label"></label>
-                <input asp-for="MoTa" class="form-control" />
-                <span asp-validation-for="MoTa" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="GiaNhap" class="control-label"></label>
-                <input asp-for="GiaNhap" class="form-control" />
-                <span asp-validation-for="GiaNhap" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="GiaBan" class="control-label"></label>
-                <input asp-for="GiaBan" class="form-control" />
-                <span asp-validation-for="GiaBan" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="GiaNiemYet" class="control-label"></label>
-                <input asp-for="GiaNiemYet" class="form-control" />
-                <span asp-validation-for="GiaNiemYet" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="GhiChu" class="control-label"></label>
-                <input asp-for="GhiChu" class="form-control" />
-                <span asp-validation-for="GhiChu" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="TrangThai" /> @Html.DisplayNameFor(model => model.TrangThai)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Is_detele" /> @Html.DisplayNameFor(model => model.Is_detele)
-                </label>
-            </div>
-            <div class="form-group">
-                <label>Chọn ảnh từ Máy tính:</label>
-                <input type="file" name="imageFile" />
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-            <div>
-                <h4>_________________________________________________</h4>
-                <a asp-action="Index">Back to List</a>
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 

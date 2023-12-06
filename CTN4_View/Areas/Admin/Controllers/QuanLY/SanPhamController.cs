@@ -147,7 +147,6 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                 TenSanPham = p.TenSanPham,
                 IdChatLieu = Guid.Parse(p.IdChatLieu.Value.ToString()),
                 IdNSX = Guid.Parse(p.IdNSX.Value.ToString()),
-
                 MoTa = p.MoTa,
                 TrangThai = p.TrangThai,
                 GiaNhap = p.GiaNhap,
