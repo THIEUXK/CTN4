@@ -20,6 +20,9 @@ namespace CTN4_Data.Models.DB_CTN4
         [Range(0, float.MaxValue, ErrorMessage = "Đồng giá phải lớn hơn hoặc bằng 0.")]
         public float DongGia { get; set; }
         public bool TrangThai { get; set; }
+
+        public bool? Mua1tang1 { get; set; }
+
         public string? Ghichu { get; set; }
         public bool Is_Detele { get; set; }
 
