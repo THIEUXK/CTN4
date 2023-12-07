@@ -155,12 +155,11 @@
                             <tr>
                                 <td>
                                     <!-- Thông tin thanh toán -->
-                                    <div><b style="color:#5a6a85">Tổng tiền hàng: </b>@FormatCurrency(TongTienHang)</div>
+                                    <div><b style="color:#5a6a85">Tổng tiền hàng: </b>@FormatCurrency(Model.HoaDon.TienHang)</div>
                                     <div><b style="color:#5a6a85">Chi phí vận chuyển: </b>@Html.Raw(FormatCurrency(Model.HoaDon.TienShip))</div>
-                                    <div><b style="color:#5a6a85">Tổng tiền tiền: </b>@Html.Raw(FormatCurrency(Model.HoaDon.TongTien))</div>
-                                    <div><b style="color:#5a6a85">Tiền giảm giá: </b></div>
-                                    <div><b style="color:#5a6a85">Giảm tiền ship: </b>@FormatCurrency((TongTienHang + Model.HoaDon.TienShip) - Model.HoaDon.TongTien) </div>
-                                    <div><b style="color:#5a6a85">Thành tiền: </b>@((TongTienHang + Model.HoaDon.TienShip) - Model.HoaDon.TongTien) VND</div>
+                                    <div><b style="color:#5a6a85">Tổng tiền : </b>@Html.Raw(FormatCurrency(Model.HoaDon.TienHang+Model.HoaDon.TienShip))</div>
+                                    <div><b style="color:#5a6a85">Tiền giảm giá: </b>@Html.Raw(FormatCurrency(Model.HoaDon.TienGiam))</div>
+                                    <div><b style="color:#5a6a85">Thành tiền: </b>@Html.Raw(FormatCurrency(Model.HoaDon.TongTien))</div>
                                 </td>
                             </tr>
                         </tbody>

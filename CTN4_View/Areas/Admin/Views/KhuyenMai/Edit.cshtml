@@ -163,7 +163,16 @@
                             </div>
                         </form>
             <button id="updateGiaButton" class="btn btn-primary">Cập nhật Giá Sản Phẩm</button>
-            <button id="huyApDungButton" class="btn btn-primary">Hủy áp dụng khuyến mại</button>
+            @{
+                if (TempData["ErrorMessage"] != null)
+                {
+                    <div class="error-message">
+                        @TempData["ErrorMessage"]
+                    </div>
+                }
+            }
+
+@*             <button id="huyApDungButton" type="hidden" class="btn btn-primary">Hủy áp dụng khuyến mại</button> *@
                     </div>
                     <div class="col-md-6">
             <h3>Danh sách khuyến mãi</h3>
@@ -603,15 +612,15 @@
 
     // Lấy tham chiếu đến nút theo ID
     var updateGiaButton = document.getElementById("updateGiaButton");
-    var huyApDungButton = document.getElementById("huyApDungButton");
+    // var huyApDungButton = document.getElementById("huyApDungButton");
     var search = document.getElementById("searchButton");
     // Gắn sự kiện click vào nút
     updateGiaButton.addEventListener("click", function () {
         updateGiaSanPham();
     });
-     huyApDungButton.addEventListener("click", function () {
-         huyApDungKhuyenMai();
-     });
+     // huyApDungButton.addEventListener("click", function () {
+     //     huyApDungKhuyenMai();
+     // });
    //  search.addEventListener("click", function () {
    // //     updateView();
    //  });
@@ -670,38 +679,38 @@
 
     }
 
-    function huyApDungKhuyenMai() {
-        // Lấy giá trị của các trường dữ liệu từ form hoặc từ các phần tử HTML khác
-        var ids = selectedMaSps // Mảng chứa các giá trị của Ids      
+    // function huyApDungKhuyenMai() {
+    //     // Lấy giá trị của các trường dữ liệu từ form hoặc từ các phần tử HTML khác
+    //     var ids = selectedMaSps // Mảng chứa các giá trị của Ids      
 
-        // TODO: Lấy giá trị của các trường dữ liệu từ form hoặc từ các phần tử HTML khác
-        // Gán giá trị cho biến ids, giamTheoTien, giamTheoPh
+    //     // TODO: Lấy giá trị của các trường dữ liệu từ form hoặc từ các phần tử HTML khác
+    //     // Gán giá trị cho biến ids, giamTheoTien, giamTheoPh
 
-        // Tạo đối tượng dữ liệu để gửi lên server
-        var data = {
-            Ids: ids,
-        };
-        console.log(data);
+    //     // Tạo đối tượng dữ liệu để gửi lên server
+    //     var data = {
+    //         Ids: ids,
+    //     };
+    //     console.log(data);
 
-        // Gọi AJAX
-        $.ajax({
-            url: '/admin/KhuyenMai/HuyApDungKm', // Thay thế ControllerName bằng tên thật của controller
-            type: 'POST',
-            data: data,
-            success: function (response) {
-                // Xử lý kết quả trả về từ server (nếu cần)
-                console.log(response);
-                // TODO: Xử lý kết quả trả về từ server
+    //     // Gọi AJAX
+    //     $.ajax({
+    //         url: '/admin/KhuyenMai/HuyApDungKm', // Thay thế ControllerName bằng tên thật của controller
+    //         type: 'POST',
+    //         data: data,
+    //         success: function (response) {
+    //             // Xử lý kết quả trả về từ server (nếu cần)
+    //             console.log(response);
+    //             // TODO: Xử lý kết quả trả về từ server
                 
-            },
-            error: function (xhr, status, error) {
-                // Xử lý lỗi (nếu có)
-                console.error('Update failed.');
-                console.log(error);
-                // TODO: Xử lý lỗi
-            }
-        });
-    }
+    //         },
+    //         error: function (xhr, status, error) {
+    //             // Xử lý lỗi (nếu có)
+    //             console.error('Update failed.');
+    //             console.log(error);
+    //             // TODO: Xử lý lỗi
+    //         }
+    //     });
+    // }
    
 
 </script>
@@ -718,8 +727,8 @@
 
     });
 
-    document.getElementById('huyApDungButton').addEventListener('click', function () {
-        location.reload();  
-    });
+    // document.getElementById('huyApDungButton').addEventListener('click', function () {
+    //     location.reload();  
+    // });
          
 </script>

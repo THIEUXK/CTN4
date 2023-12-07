@@ -281,32 +281,44 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             foreach (var item in ids)
             {
                 var sp = _sp.GetById(Guid.Parse(item.ToString()));
+                if (giamTheoTien > sp.GiaBan || DongGia > sp.GiaBan)
+                {
+                    TempData["ErrorMessage"] = "Giảm giá không hợp lệ vì vượt quá giá gốc của sản phẩm.";
+                    // Xử lý thêm hoặc return nếu cần
+                }
                 if (giamTheoTien > 0)
                 {
-                    sp.GiaNiemYet = sp.GiaBan - giamTheoTien;
+                    if (giamTheoTien < sp.GiaBan) // Ensure discount does not exceed original price
+                    {
+                        sp.GiaNiemYet = sp.GiaBan - giamTheoTien;
+                    }
                 }
-                // chỉ đc giảm theo tiền hoặc % không có giảm cả 2
                 else if (giamTheoPh > 0)
                 {
-                    sp.GiaNiemYet = sp.GiaBan - (sp.GiaBan * giamTheoPh / 100);
-                }else if(DongGia > 0)
-                {
-                    sp.GiaNiemYet = DongGia;
+                    if (giamTheoPh <= 100) // Ensure percentage discount is valid
+                    {
+                        sp.GiaNiemYet = sp.GiaBan - (sp.GiaBan * giamTheoPh / 100);
+                    }
                 }
+                else if (DongGia > 0)
+                {
+                    if (DongGia < sp.GiaBan) // Ensure fixed price does not exceed original price
+                    {
+                        sp.GiaNiemYet = DongGia;
+                    }
+                }
+
                 KhuyenMaiSanPham km = new KhuyenMaiSanPham()
                 {
                     Id = Guid.NewGuid(),
                     IdkhuyenMai = Guid.Parse(id),
                     IdSanPham = Guid.Parse(item)
-
                 };
                 _kmsp.Them(km);
                 _sp.Sua(sp);
             }
-            //if (TempData.ContainsKey("ErrorMessage"))
-            //{
-            //    ViewBag.ErrorMessage = TempData["ErrorMessage"];
-            //}
+
+            // Filtering products based on criteria
             var filteredProducts = _sp.GetAll();
             if (!string.IsNullOrEmpty(maSp))
             {
@@ -316,11 +328,8 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             {
                 filteredProducts = (List<SanPham>)filteredProducts.Where(p => p.TenSanPham == tenSanPham);
             }
-            if (!string.IsNullOrEmpty(maSp))
-            {
-                filteredProducts = (List<SanPham>)filteredProducts.Where(p => p.MaSp == maSp);
-            }
             return View(filteredProducts);
+
         }
         [HttpPost]
         public ActionResult HuyApDungKm(string[] Ids)
