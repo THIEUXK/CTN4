@@ -6,7 +6,7 @@
 }
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Quay về</a>
 </div>
 <div class="row">
     <div class="col-md-9">
@@ -14,32 +14,27 @@
         <br></br>
 
         
-        <h1>Details</h1>
+        <h1>Chi tiết</h1>
 
         <div>
-            <h4>ChatLieu</h4>
+            <h4>Chất liệu</h4>
             <hr />
             <dl class="row">
+                
                 <dt class = "col-sm-2">
-                    @Html.DisplayNameFor(model => model.Id)
-                </dt>
-                <dd class = "col-sm-10">
-                    @Html.DisplayFor(model => model.Id)
-                </dd>
-                <dt class = "col-sm-2">
-                    @Html.DisplayNameFor(model => model.TenChatLieu)
+                   Tên chất liệu
                 </dt>
                 <dd class = "col-sm-10">
                     @Html.DisplayFor(model => model.TenChatLieu)
                 </dd>
                 <dt class = "col-sm-2">
-                    @Html.DisplayNameFor(model => model.TrangThai)
+                   Trạng thái
                 </dt>
                 <dd class = "col-sm-10">
                     @Html.DisplayFor(model => model.TrangThai)
                 </dd>
                 <dt class = "col-sm-2">
-                    @Html.DisplayNameFor(model => model.GhiChu)
+                  Ghi chú
                 </dt>
                 <dd class = "col-sm-10">
                     @Html.DisplayFor(model => model.GhiChu)
@@ -53,8 +48,8 @@
             </dl>
         </div>
         <div>
-            @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-            <a asp-action="Index">Back to List</a>
+            @Html.ActionLink("Edit", "Edit", new { id= Model.Id },new { style = "text-decoration: none; color: black;" }) |
+            <a asp-action="Index">Quay về</a>
         </div>
 
 

@@ -9,6 +9,8 @@ namespace CTN4_Data.Models.DB_CTN4
         public string TrangThai { get; set; }
         public float TongTien { get; set; }
         public float TienShip { get; set; }
+        public float TienGiam { get; set; }
+        public float TienHang { get; set; }
         public DateTime NgayDat { get; set; }
         public DateTime? NgayGiao { get; set; }
         public DateTime? NgayNhan { get; set; }
