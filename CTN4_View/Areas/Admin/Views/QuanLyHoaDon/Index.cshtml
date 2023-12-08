@@ -41,9 +41,9 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="dropdown me-1">  <button class="btn btn-custom-primary"><a class="dropdown-item" href="@Url.Action("XemChuaXacNhan")">Đơn chưa xác nhận </a></button></div>
+                    <div class="dropdown me-1">  <button class="btn btn-secondary "><a class="dropdown-item" href="@Url.Action("XemChuaXacNhan")">Đơn chưa xác nhận </a></button></div>
                     <div class="dropdown me-1">
-                        <button class="btn btn-custom-primary"> <a class="dropdown-item" href="@Url.Action("XemDaXacNhan")">Đơn đã xác nhận</a></button>
+                        <button class="btn btn-secondary "> <a class="dropdown-item" href="@Url.Action("XemDaXacNhan")">Đơn đã xác nhận</a></button>
                     </div>
                     <div class="dropdown me-1">
                         <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
@@ -72,7 +72,7 @@
                         </button>
                         <ul class="dropdown-menu">
                             <button class="btnXuatEx2">Xuất File Excel</button>
-                            <button class="btnXuatEx3">Xác nhận đơn hàng</button>
+                            <button class="btnXuatEx2">Xác nhận đơn hàng</button>
                         </ul>
                     </div>
                 </div>
@@ -116,17 +116,17 @@
             </div>
         </div>
         <div class="card w-100">
-        <div class="card-body p-4">
+            <div class="card-body p-4">
 
-        <div class="table-responsive">
+                <div class="table-responsive">
 
-        <table class="table text-nowrap mb-0 align-middle">
-        <thead class="thead-dark">
-        @*<div class="row ">
-            <div class="card">
-                <div class="card-body">
-                    <table class="table">
-                        <thead class="thead-dark">*@
+                    <table class="table text-nowrap mb-0 align-middle">
+                        <thead class="thead-dark">
+                            @*<div class="row ">
+                            <div class="card">
+                            <div class="card-body">
+                            <table class="table">
+                            <thead class="thead-dark">*@
                             <tr>
                                 <th class="border-bottom-0">
 
@@ -417,6 +417,81 @@
 
 </style>*@
 <style>
+    .btnXuatEx2 {
+        background-color: #4CAF50; /* Green background color */
+        border: none; /* Remove borders */
+        color: white; /* White text color */
+        padding: 3px 24px; /* Add padding */
+        text-align: center; /* Center text */
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 8px; /* Rounded corners */
+    }
+
+    .btn-custom-rangen {
+        --bs-btn-color: #fff;
+        --bs-btn-bg: #ff6347; /* Màu đỏ tùy chọn */
+        --bs-btn-border-color: #ff6347; /* Màu đỏ tùy chọn */
+        --bs-btn-hover-color: #fff;
+        --bs-btn-hover-bg: #dc4735; /* Màu đỏ tương ứng với hover */
+        --bs-btn-hover-border-color: #c84131; /* Màu đỏ tương ứng với hover */
+        --bs-btn-focus-shadow-rgb: #ff6347; /* Màu đỏ tương ứng với focus */
+        --bs-btn-active-color: #fff;
+        --bs-btn-active-bg: #c84131; /* Màu đỏ tương ứng với active */
+        --bs-btn-active-border-color: #b5362d; /* Màu đỏ tương ứng với active */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Thiết lập bóng */
+        --bs-btn-disabled-color: #fff;
+        --bs-btn-disabled-bg: #ff6347; /* Màu đỏ tương ứng với disabled */
+        --bs-btn-disabled-border-color: #ff6347; /* Màu đỏ tương ứng với disabled */
+    }
+
+    .btn-custom-primary {
+        --bs-btn-color: #fff;
+        --bs-btn-bg: #49BEFF; /* Màu xanh lam tương tự như .btn-primary */
+        --bs-btn-border-color: #49BEFF; /* Màu xanh lam tương tự như .btn-primary */
+        --bs-btn-hover-color: #fff;
+        --bs-btn-hover-bg: #4f73d9; /* Màu xanh lam tương tự như .btn-primary */
+        --bs-btn-hover-border-color: #4a6ccc; /* Màu xanh lam tương tự như .btn-primary */
+        --bs-btn-focus-shadow-rgb: 117,153,255; /* Màu xanh lam tương tự như .btn-primary */
+        --bs-btn-active-color: #fff;
+        --bs-btn-active-bg: #4a6ccc; /* Màu xanh lam tương tự như .btn-primary */
+        --bs-btn-active-border-color: #4665bf; /* Màu xanh lam tương tự như .btn-primary */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Thiết lập bóng */
+        --bs-btn-disabled-color: #fff;
+        --bs-btn-disabled-bg: #49BEFF; /* Màu xanh lam tương tự như .btn-primary */
+        --bs-btn-disabled-border-color: #49BEFF; /* Màu xanh lam tương tự như .btn-primary */
+    }
+
+
+    .custom-button {
+        display: inline-block;
+        padding: 8px 16px;
+        border: none;
+        text-decoration: none;
+        font-size: 12px;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        color: red;
+        background-color: transparent;
+        cursor: pointer;
+        border-radius: 7px;
+    }
+
+    .custom-button-1 {
+        display: inline-block;
+        padding: 8px 16px;
+        border: none;
+        text-decoration: none;
+        font-size: 12px;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        color: yellowgreen;
+        background-color: transparent;
+        cursor: pointer;
+        border-radius: 7px;
+    }
+
     body {
         font-family: Arial, sans-serif;
         margin: 20px;
