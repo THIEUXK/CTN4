@@ -85,7 +85,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         public ActionResult Details(Guid id)
         {
             var lisanh = _anhService.GetAll();
-            var a = _sanPhamService.GetById(id);
+            var a = _sanPhamService.GetAll().FirstOrDefault(c=>c.Id == id);
             var listSPCT = _sanPhamChiTietService.GetAll().Where(c => c.IdSp == id);
 
             var view = new ThieuxkView()

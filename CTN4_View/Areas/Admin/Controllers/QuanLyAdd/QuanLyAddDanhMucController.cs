@@ -1,4 +1,4 @@
-﻿using CTN4_Data.Migrations;
+﻿//using CTN4_Data.Migrations;
 using CTN4_Data.Models.DB_CTN4;
 using CTN4_Serv.Service;
 using CTN4_Serv.Service.IService;

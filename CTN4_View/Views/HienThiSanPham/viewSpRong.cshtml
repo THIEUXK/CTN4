@@ -38,14 +38,36 @@
                 <ul class="main-categories">
                     <li class="main-nav-list">
                         <from>
+                            @{
+                                var session5 = Context.Request.HttpContext.Session;
+                                var LuuTamDM = SessionBan.DanhMucSS(session5, "DanhMucTam");
+                                var danhmucATV = LuuTamDM[0].Id;
+
+                            }
                             @foreach (var sp in Model.danhMucs)
                             {
                                 if ((Model.danhMucChiTiets.Where(c => c.IdDanhMuc == sp.Id).Count()) >= 1)
                                 {
-                                    <div style="display: flex; align-items: center;">
-                                        <a>@Html.ActionLink(sp.TenDanhMuc, "SanPhamDanhMuc", "DanhMucSanPham", new { id = sp.Id })</a>
-                                        <span>(@(Model.danhMucChiTiets.Where(c => c.IdDanhMuc == sp.Id).Count()))</span>
-                                    </div>
+                                    if (sp.Id == danhmucATV)
+                                    {
+                                        <div style="display: flex; align-items: center;">
+
+                                            <a>@Html.ActionLink(sp.TenDanhMuc, "SanPhamDanhMuc","DanhMucSanPham", new { id = sp.Id }, new { style = "color : #ffc107" }) </a>
+                                            <span style="color : #ffc107">
+                                                (@(
+                                                   Model.danhMucChiTiets.Where(c => c.IdDanhMuc == sp.Id).Count()
+                                                   ))
+                                            </span>
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        <div style="display: flex; align-items: center;">
+                                            <a>@Html.ActionLink(sp.TenDanhMuc, "SanPhamDanhMuc","DanhMucSanPham", new { id = sp.Id })</a>
+                                            <span>(@(Model.danhMucChiTiets.Where(c => c.IdDanhMuc == sp.Id).Count()))</span>
+                                        </div>
+                                    }
                                 }
                             }
                         </from>
@@ -53,7 +75,7 @@
                 </ul>
             </div>
             <div class="sidebar-filter mt-50">
-                <div class="top-filter-head">Product Filters</div>
+                <div class="top-filter-head">Lọc sản phẩm</div>
                 <div class="common-filter">
                     <div class="head">Chất Liệu</div>
                     <form id="FillterChatLieu">
@@ -482,6 +504,12 @@
     });
 </script>
 <style>
+    .page-button.active {
+        background: linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);
+        color: #ffffff; /* Màu chữ nổi bật */
+        /* Các kiểu CSS khác cho nút nổi bật */
+    }
+
     .lnr-heart {
         display: inline-block;
         position: relative;
@@ -546,6 +574,55 @@
             width: 16px;
             height: 16px;
         }
+
+
+    .product-container {
+        position: relative;
+        display: inline-block;
+    }
+
+    .discount-tag {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: #FFD700; /* Màu vàng, bạn có thể thay đổi theo ý muốn */
+        color: #FF0000; /* Màu đỏ, bạn có thể thay đổi theo ý muốn */
+        padding: 4px 8px;
+        font-size: 14px;
+        font-weight: bold;
+        border-radius: 0 0 0 8px; /* Điều này tạo các góc cong cho phần tag */
+    }
+
+    .my-custom-filter {
+        background-color: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 5px;
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+
+        .my-custom-filter .head {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .my-custom-filter .form-group {
+            margin-bottom: 10px;
+        }
+
+        .my-custom-filter label {
+            font-size: 14px;
+        }
+
+        .my-custom-filter .price-input {
+            width: 100px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-top: 5px; /* Khoảng cách giữa label và input */
+        }
+
 </style>
 <script src="~/js/vendor/jquery-2.2.4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.~/js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
