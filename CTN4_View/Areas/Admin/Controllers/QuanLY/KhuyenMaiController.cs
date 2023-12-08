@@ -159,8 +159,6 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         public ActionResult Create(KhuyenMai a)
         {
 
-            if (ModelState.IsValid)
-            {
                 var tontai = _sv.GetAll().FirstOrDefault(c => c.MaKhuyenMai == a.MaKhuyenMai && c.Id != a.Id);
                 if (tontai != null)
                 {
@@ -171,10 +169,6 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                 _sv.Them(a);
                 return RedirectToAction("Index");
             }
-            return View(a);
-
-        }
-
         // GET: KhuyenMaiController/Edit/5
         public ActionResult Edit(Guid id)
         {
