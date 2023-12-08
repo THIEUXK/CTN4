@@ -180,7 +180,6 @@ namespace CTN4_Serv.Service
 
             return soLuongTheoThang;
         }
-
         public int[] ThongKeSoLuongDonHangTrongKhoangThoiGian(DateTime tuNgay, DateTime denNgay)
         {
             // Sử dụng LINQ để lấy danh sách các hóa đơn có TrangThaiThanhToan là true, 
@@ -248,8 +247,6 @@ namespace CTN4_Serv.Service
 
             return tongTienTheoNgayTrongKhoang;
         }
-
-
         public bool Them(HoaDon a)
         {
             try
@@ -263,7 +260,6 @@ namespace CTN4_Serv.Service
                 return false;
             }
         }
-
         public bool Sua(HoaDon a)
         {
             try
@@ -277,7 +273,6 @@ namespace CTN4_Serv.Service
                 return false;
             }
         }
-
         public bool Xoa(int id)
         {
             try

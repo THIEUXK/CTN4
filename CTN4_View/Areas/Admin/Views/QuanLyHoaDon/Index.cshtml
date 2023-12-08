@@ -75,6 +75,14 @@
                             <button class="btnXuatEx2">Xác nhận đơn hàng</button>
                         </ul>
                     </div>
+                    <div class="dropdown me-1">
+                            <button type="button" class="btn btn-custom-primary" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                Tạo hóa đơn
+                            </button>
+                            <div class="dropdown-menu p-4">
+                                <span class="btn btn-custom-primary">@Html.ActionLink("Tạo hóa đơn mới", "TaoHoaDon", new { }, new { @class = "custom-edit-link" })</span>
+                            </div>
+                    </div>
                 </div>
                 <div>
                     <div class="row">
