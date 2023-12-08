@@ -272,7 +272,6 @@
                                         <div class="dropdown-menu p-4">
 
                                             <span class="btn btn-custom-primary">@Html.ActionLink("Xác nhận", "XacNhanThanhToan", new { id = Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span>
-
                                         </div>
                                     </div>
                                 }
@@ -372,7 +371,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card w-100">
+                   @*  <div class="card w-100">
                         <div class="card-body p-4">
                             <div>Trạng thái hiện tại của đơn hàng này là: <span style="color:saddlebrown">@Model.HoaDon.TrangThai</span></div>
                             @if (Model.HoaDon.TrangThai == "Hàng của bạn đang được giao")
@@ -398,9 +397,7 @@
                                 </div>
                             }
                         </div>
-                    </div>
-
-
+                    </div> *@
                 </div>
             </div>
             <div class="col-md-3">
@@ -473,10 +470,21 @@
                 <div class="card w-100">
                     <div class="card-body p-4">
                         <div>Trạng thái: <span style="color:saddlebrown">@Model.HoaDon.TrangThai</span></div>
+                        @{
+                            int b = 0;
+                            @foreach (var a in Model.LichSuHoaDon.Where(c => c.TrangThai == true && c.ThaoTac == $"Giao hàng thất bại đơn hàng {c.HoaDon.MaHoaDon}"))
+                            {
+                                b += 1;
+                            }
+                        }
+                        @if (b!=0)
+                        {
+                            <div>Số lần giao thất bại: <span style="color:red">@b</span></div>
+                        }
                         @if (Model.HoaDon.TrangThai == "Hàng của bạn đang được giao")
                         {
                             <div class="dropdown">
-                                <button type="button" class="btn btn-custom-rangen" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                <button type="button" class="btn btn-custom-primary" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
                                     Giao hàng thành công
                                 </button>
                                 <div class="dropdown-menu p-4">
@@ -487,11 +495,13 @@
                         @if (Model.HoaDon.TrangThai == "Hàng của bạn đang được giao")
                         {
                             <div class="dropdown">
-                                <button type="button" class="btn btn-custom-primary" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                <button type="button" class="btn btn-custom-rangen" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
                                     Giao thất bại
                                 </button>
                                 <div class="dropdown-menu p-4">
-                                    <span class="btn btn-custom-rangen">@Html.ActionLink("Xác nhận", "GiaoHangThatBai", new { id = Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span>
+                                    @Html.ActionLink("Giao thất bại và tiếp tục sẽ giao", "GiaoHangThatBaiThem1", new { id = Model.HoaDon.Id }, new { @class = "btn btn-custom-primary" })
+                                    <br />
+                                    @Html.ActionLink("Giao thất bại và ngừng giao", "GiaoHangThatBai", new { id = Model.HoaDon.Id }, new { @class = "btn btn-custom-rangen" })
                                 </div>
                             </div>
                         }
@@ -551,7 +561,7 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         /* Các thuộc tính CSS khác nếu cần */
     }
-   
+
 
     .card-body {
         padding: 1.25rem; /* You can adjust the padding as needed */

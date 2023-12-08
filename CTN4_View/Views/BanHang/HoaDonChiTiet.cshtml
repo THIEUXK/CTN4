@@ -157,7 +157,7 @@
                                     <!-- Thông tin thanh toán -->
                                     <div><b style="color:#5a6a85">Tổng tiền hàng: </b>@FormatCurrency(Model.HoaDon.TienHang)</div>
                                     <div><b style="color:#5a6a85">Chi phí vận chuyển: </b>@Html.Raw(FormatCurrency(Model.HoaDon.TienShip))</div>
-                                    <div><b style="color:#5a6a85">Tổng tiền : </b>@Html.Raw(FormatCurrency(Model.HoaDon.TienHang+Model.HoaDon.TienShip))</div>
+                                    <div><b style="color:#5a6a85">Tổng tiền : </b>@Html.Raw(FormatCurrency(Model.HoaDon.TienHang + Model.HoaDon.TienShip))</div>
                                     <div><b style="color:#5a6a85">Tiền giảm giá: </b>@Html.Raw(FormatCurrency(Model.HoaDon.TienGiam))</div>
                                     <div><b style="color:#5a6a85">Thành tiền: </b>@Html.Raw(FormatCurrency(Model.HoaDon.TongTien))</div>
                                 </td>
@@ -167,6 +167,63 @@
                 </div>
             </div>
             <div class="col-md-4">
+                <div class="table-container">
+                    @{
+                        var dem = @Model.LichSuDonHangs.Count();
+                    }
+                    <div class="page-content page-container" id="page-content">
+                        <p>Chi tiết tình trạng</p>
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-custom-rangen " data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                Xem
+                            </button>
+                            <div class="dropdown-menu p-4">
+                                <div class="timeline p-4 block mb-4">
+                                    @if (Model.LichSuDonHangs != null)
+                                    {
+                                        @foreach (var a in Model.LichSuDonHangs.Where(c => c.TrangThai == true))
+                                        {
+                                            if (a.Id == @Model.LichSuDonHangs[0].Id)
+                                            {
+                                                <div class="tl-item active">
+                                                    <div class="tl-dot b-warning"></div>
+                                                    <div class="tl-content">
+                                                        <div class=""> @a.ThaoTac</div>
+                                                        <div class="tl-date text-muted mt-1">@a.ThoiGianlam</div>
+                                                    </div>
+                                                </div>
+                                            }
+                                            else if (a.Id == @Model.LichSuDonHangs[dem - 1].Id)
+                                            {
+
+                                                <div class="tl-item">
+                                                    <div class="tl-dot b-primary"></div>
+                                                    <div class="tl-content">
+                                                        <div class=""> @a.ThaoTac</div>
+                                                        <div class="tl-date text-muted mt-1">@a.ThoiGianlam</div>
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="tl-item">
+                                                    <div class="tl-dot b-warning"></div>
+                                                    <div class="tl-content">
+                                                        <div class=""> @a.ThaoTac</div>
+                                                        <div class="tl-date text-muted mt-1">@a.ThoiGianlam</div>
+                                                    </div>
+                                                </div>
+                                            }
+
+                                        }
+
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
                 <div class="table-container">
                     <div>
                         <dl class="row invoice-details">
@@ -184,7 +241,7 @@
                         Thông tin khách hàng
                     </div>
                     <div>
-                        <hr />
+                        <hr/>
                         <dl class="row invoice-details">
                             <dt class="col-sm-5">
                                 Tên khách hàng
@@ -214,55 +271,7 @@
                         </dl>
                     </div>
                 </div>
-                <div class="table-container">
-                    @{
-                        var dem = @Model.LichSuDonHangs.Count();
-                    }
-                    <div class="page-content page-container" id="page-content">
-                        <p>Chi tiết tình trạng</p>
-                        <div class="timeline p-4 block mb-4">
-                            @if (Model.LichSuDonHangs != null)
-                            {
-                                @foreach (var a in Model.LichSuDonHangs.Where(c => c.TrangThai == true))
-                                {
-                                    if (a.Id == @Model.LichSuDonHangs[0].Id)
-                                    {
-                                        <div class="tl-item active">
-                                            <div class="tl-dot b-warning"></div>
-                                            <div class="tl-content">
-                                                <div class=""> @a.ThaoTac</div>
-                                                <div class="tl-date text-muted mt-1">@a.ThoiGianlam</div>
-                                            </div>
-                                        </div>
-                                    }
-                                    else if (a.Id == @Model.LichSuDonHangs[dem - 1].Id)
-                                    {
 
-                                        <div class="tl-item">
-                                            <div class="tl-dot b-primary"></div>
-                                            <div class="tl-content">
-                                                <div class=""> @a.ThaoTac</div>
-                                                <div class="tl-date text-muted mt-1">@a.ThoiGianlam</div>
-                                            </div>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="tl-item">
-                                            <div class="tl-dot b-warning"></div>
-                                            <div class="tl-content">
-                                                <div class=""> @a.ThaoTac</div>
-                                                <div class="tl-date text-muted mt-1">@a.ThoiGianlam</div>
-                                            </div>
-                                        </div>
-                                    }
-
-                                }
-
-                            }
-                        </div>
-                    </div>
-                </div>
             </div>
             <div>
                 <br />
