@@ -97,17 +97,19 @@
                             <span asp-validation-for="NgayKetThuc" class="text-danger"></span>
                         </div>
                     </div>
-
-                    <div class="form-container">
-                        <th>
-                            <select class="form-select form-select-lg mb-3" id="selectOption">
-                                <option disabled selected class="default-option">Chọn...</option>
-                                <option value="1">Đồng giá</option>
-                                <option value="2">Giảm Giá Sản Phẩm</option>
-                            </select>
-                        </th>
-                    </div>
-
+                        <div class="form-container">
+                            <th>
+                                <select class="form-select form-select-lg mb-3" id="selectOption">
+                                    <option disabled selected class="default-option">Chọn...</option>
+                                    <option value="1">Đồng giá</option>
+                                    <option value="2">Giảm Giá Sản Phẩm</option>
+                                    <option value="3">Mua 1 tặng 1</option>
+                                </select>
+                            </th>
+                        </div>
+                        <div class="form-container" id="Mua1Tang1" style="display: none;">
+                        <input asp-for="Mua1tang1"  name="Mua1tang1" value="false" />
+                        </div>
                         <div class="form-container" id="soTienGiamGroup" style="display: none;">
                             <select id="luaChonGiamGia" class="form-select" aria-label="Default select example">
                                 <option selected disabled>Chọn giảm giá theo... </option>
@@ -179,19 +181,30 @@
         </div>
             <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
             <script>
-     
+    document.getElementById('selectOption').addEventListener('change', function () {
+        var mua1Tang1Field = document.getElementById('Mua1tang1');
+        mua1Tang1Field.value = this.value === '3' ? 'true' : 'false';
+    });
 
     document.getElementById("luaChonGiamGia").addEventListener("change", function () {
         var luaChon = this.value;
         if (luaChon === "1") {
             document.getElementById("phanTramGroup").style.display = "block";
             document.getElementById("soTienGroup").style.display = "none";
+            document.getElementById("Mua1Tang1").style.display = "none";
         } else if (luaChon === "2") {
             document.getElementById("phanTramGroup").style.display = "none";
             document.getElementById("soTienGroup").style.display = "block";
-        } else {
+            document.getElementById("Mua1Tang1").style.display = "none";
+
+        } else if (luaChon === "3") {
             document.getElementById("phanTramGroup").style.display = "none";
             document.getElementById("soTienGroup").style.display = "none";
+            document.getElementById("Mua1Tang1").style.display = "block";
+        } else {
+            document.getElementById("phanTramGroup").style.display = "block";
+            document.getElementById("soTienGroup").style.display = "block";
+            document.getElementById("Mua1Tang1").style.display = "block";
         }
     });
 
@@ -212,6 +225,9 @@
                 $("#dongGiaGroup").show();
             } else if (selectedOption === "2") {
                 $("#soTienGiamGroup").show();
+            }
+            else if (selectedOption === "3") {
+                $("#Mua1Tang1").show();
             }
         });
     });
