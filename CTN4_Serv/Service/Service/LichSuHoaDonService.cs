@@ -7,6 +7,7 @@ using CTN4_Data.DB_Context;
 using CTN4_Data.Models;
 using CTN4_Data.Models.DB_CTN4;
 using CTN4_Serv.Service.IService;
+using Microsoft.EntityFrameworkCore;
 
 namespace CTN4_Serv.Service.Service
 {
@@ -20,7 +21,7 @@ namespace CTN4_Serv.Service.Service
         }
         public List<LichSuDonHang> GetAll()
         {
-            return _db.LichSuDonHangs.ToList();
+            return _db.LichSuDonHangs.Include(c=>c.HoaDon).ToList();
         }
 
         public LichSuDonHang GetById(Guid id)
