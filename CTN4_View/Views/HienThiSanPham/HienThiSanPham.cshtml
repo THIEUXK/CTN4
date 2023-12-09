@@ -1,22 +1,6 @@
 ﻿@using CTN4_View_Admin.Controllers.Shop;
 @using Microsoft.AspNetCore.Http;
 @model CTN4_Serv.ViewModel.HienThiSanPhamView;
-<!-- End Header Area -->
-<!-- Start Banner Area -->
-@*<section class="banner-area organic-breadcrumb">
-    <div class="container">
-        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
-            <div class="col-first">
-                <h1>Shop Category page</h1>
-                <nav class="d-flex align-items-center">
-                    <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
-                    <a href="#">Shop<span class="lnr lnr-arrow-right"></span></a>
-                    <a href="category.html">Fashon Category</a>
-                </nav>
-            </div>
-        </div>
-    </div>
-</section>*@
 <br></br>
 <br></br>
 <br></br>
@@ -37,6 +21,9 @@
                 <ul class="main-categories">
                     <li class="main-nav-list">
                         <from>
+
+
+
                             @foreach (var sp in Model.danhMucs)
                             {
                                 if ((Model.danhMucChiTiets.Where(c => c.IdDanhMuc == sp.Id).Count()) >= 1)
@@ -52,7 +39,7 @@
                 </ul>
             </div>
             <div class="sidebar-filter mt-50">
-                <div class="top-filter-head">Product Filters</div>
+                <div class="top-filter-head">Lọc sản phẩm</div>
                 <div class="common-filter">
                     <div class="head">Chất Liệu</div>
                     <form id="FillterChatLieu">
@@ -145,59 +132,50 @@
                  <div>
                        
                     <form>
-                        @{
-                             
-                            var session3 = Context.Request.HttpContext.Session;
-                             var luuGiaBatDau = SessionBan.Sobatdau(session3, "minPrice");
-                              var luuGiaKetThuc = SessionBan.Sobatdau(session3, "maxPrice");
-                        }
-                  <div class="common-filter my-custom-filter">
-    <div class="head">Giá</div>
-    <div class="form-group">
-        <label for="tu">Từ</label>
-        @if(luuGiaBatDau != null){
-            <input type="text" class="price-input" id="minPrice" name="minPrice" value="@luuGiaBatDau"/>
-        }
-        else {
-            <input type="text" class="price-input" id="minPrice" name="minPrice" placeholder="Nhập giá từ"/>
-        }
-    </div>
-    <div class="form-group">
-        <label for="den">đến</label>
-        @if(luuGiaKetThuc != null) {
-            <input type="text" class="price-input" id="maxPrice" name="maxPrice" value="@luuGiaKetThuc"/>
-        }
-        else {
-            <input type="text" class="price-input" id="maxPrice" name="maxPrice" placeholder="Nhập giá đến"/>
-        }
-    </div>
-</div>
+                            @{
+
+                                var session3 = Context.Request.HttpContext.Session;
+                                var luuGiaBatDau = SessionBan.Sobatdau(session3, "minPrice");
+                                var luuGiaKetThuc = SessionBan.Sobatdau(session3, "maxPrice");
+                            }
+                            <div class="common-filter my-custom-filter">
+                                <div class="head">Giá</div>
+                                <div class="form-group">
+                                    <label for="tu">Từ</label>
+                                    @if (luuGiaBatDau != null)
+                                    {
+                                        <input type="text" class="price-input" id="minPrice" name="minPrice" value="@luuGiaBatDau" />
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="price-input" id="minPrice" name="minPrice" placeholder="Nhập giá từ" />
+                                    }
+                                </div>
+                                <div class="form-group">
+                                    <label for="den">đến</label>
+                                    @if (luuGiaKetThuc != null)
+                                    {
+                                        <input type="text" class="price-input" id="maxPrice" name="maxPrice" value="@luuGiaKetThuc" />
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="price-input" id="maxPrice" name="maxPrice" placeholder="Nhập giá đến" />
+                                    }
+                                </div>
+                            </div>
 
 
-    @* Thông báo AJAX *@
-    <div id="aaa1"></div>
-    <button  asp-controller="HienThiSanPham" asp-action="HienThiSanPham" class="btn btn-primary btn-block enter-btn fa fa-search">
-        Lọc
-    </button>
-    </form>
+                            @* Thông báo AJAX *@
+                            <div id="aaa1"></div>
+                            <button asp-controller="DanhMucSanPham" asp-action="SanPhamDanhMuc" class="btn btn-primary btn-block enter-btn fa fa-search">
+                                Lọc
+                            </button>
+                        </form>
 
                     </div>
             </div>
         </div>
-          @* <div class="common-filter">
-                <div class="head">Price</div>
-                <div class="price-range-area">
-                <div id="price-range"></div>
-                <div class="value-wrapper d-flex">
-                <div class="price">Price:</div>
-                <span>$</span>
-                <div id="lower-value" name="minPrice"></div>
-                <div class="to">to</div>
-                <span>$</span>
-                <div id="upper-value" name="maxPrice"></div>
-                </div>
-                </div>
-                </div>*@
+          
         <div class="col-xl-9 col-lg-8 col-md-7">
             <!-- Start Filter Bar -->
             <div class="filter-bar d-flex flex-wrap align-items-center">
@@ -275,6 +253,11 @@
                                                         
                                                         <div class="discount-tag">Đồng giá chỉ còn @FormatCurrency(@km.KhuyenMai.DongGia)</div>
                                                     }
+                                                    else if (km.KhuyenMai.Mua1tang1 == true)
+                                                    {
+                                                        <div class="discount-tag">Mua 1 tặng 1</div>
+                                                    }
+
                                                     else
                                                     {
                                                         
@@ -529,7 +512,7 @@
             width: 16px;
             height: 16px;
         }
-       @* ///////////////// discount tag*@
+       
        
        .product-container {
     position: relative;
@@ -579,11 +562,7 @@
 }
 
 </style>
-                /////
-                                @*<script src="~/js/jquery-3.6.4.min.js"></script>
-<script src="~/js/ui-1.12.1.js"></script>
-<link rel="stylesheet" href="~/css/ui-1.12.1.css">
-*@
+              
 <!-- jQuery UI -->
 
 
