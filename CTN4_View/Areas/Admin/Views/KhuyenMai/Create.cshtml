@@ -108,7 +108,8 @@
                             </th>
                         </div>
                         <div class="form-container" id="Mua1Tang1" style="display: none;">
-                        <input asp-for="Mua1tang1"  name="Mua1tang1" value="false" />
+                        <input type="hidden" asp-for="Mua1tang1"  name="Mua1tang1" value="false" />
+                            <div id="displayElement"></div>
                         </div>
                         <div class="form-container" id="soTienGiamGroup" style="display: none;">
                             <select id="luaChonGiamGia" class="form-select" aria-label="Default select example">
@@ -182,9 +183,16 @@
             <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
             <script>
     document.getElementById('selectOption').addEventListener('change', function () {
-        var mua1Tang1Field = document.getElementById('Mua1tang1');
+        var mua1Tang1Field = document.getElementById('Mua1Tang1').querySelector('input');
         mua1Tang1Field.value = this.value === '3' ? 'true' : 'false';
+        updateDisplay(mua1Tang1Field.value);
     });
+
+    function updateDisplay(value) {
+        var displayValue = value === 'true' ? 'Áp dụng' : 'Không áp dụng';
+        // Hiển thị giá trị trên view, có thể sử dụng innerHTML hoặc innerText của một phần tử
+        document.getElementById('displayElement').innerText = displayValue;
+    }
 
     document.getElementById("luaChonGiamGia").addEventListener("change", function () {
         var luaChon = this.value;
