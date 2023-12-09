@@ -22,14 +22,36 @@
                 <ul class="main-categories">
                     <li class="main-nav-list">
                         <from>
+                            @{
+                                var session5 = Context.Request.HttpContext.Session;
+                                var LuuTamDM = SessionBan.DanhMucSS(session5, "DanhMucTam");
+                                var danhmucATV = LuuTamDM[0].Id;
+
+                            }
                             @foreach (var sp in Model.danhMucs)
                             {
                                 if ((Model.danhMucChiTiets.Where(c => c.IdDanhMuc == sp.Id).Count()) >= 1)
                                 {
-                                    <div style="display: flex; align-items: center;">
-                                        <a>@Html.ActionLink(sp.TenDanhMuc, "SanPhamDanhMuc","DanhMucSanPham", new { id = sp.Id })</a>
-                                        <span>(@(Model.danhMucChiTiets.Where(c => c.IdDanhMuc == sp.Id).Count()))</span>
-                                    </div>
+                                    if (sp.Id == danhmucATV)
+                                    {
+                                        <div style="display: flex; align-items: center;">
+
+                                            <a>@Html.ActionLink(sp.TenDanhMuc, "SanPhamDanhMuc","DanhMucSanPham", new { id = sp.Id }, new { style = "color : #ffc107" }) </a>
+                                            <span style="color : #ffc107">
+                                                (@(
+                                                   Model.danhMucChiTiets.Where(c => c.IdDanhMuc == sp.Id).Count()
+                                                   ))
+                                            </span>
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        <div style="display: flex; align-items: center;">
+                                            <a>@Html.ActionLink(sp.TenDanhMuc, "SanPhamDanhMuc","DanhMucSanPham", new { id = sp.Id })</a>
+                                            <span>(@(Model.danhMucChiTiets.Where(c => c.IdDanhMuc == sp.Id).Count()))</span>
+                                        </div>
+                                    }
                                 }
                             }
                         </from>
@@ -37,7 +59,7 @@
                 </ul>
             </div>
             <div class="sidebar-filter mt-50">
-                <div class="top-filter-head">Product Filters</div>
+                <div class="top-filter-head">Lọc sản phẩm</div>
                 <div class="common-filter">
                     <div class="head">Chất Liệu</div>
                     <form id="FillterChatLieu">
@@ -124,44 +146,48 @@
                         </form>
                     </div>
                     <div>
-                        <form asp-controller="DanhMucSanPham" asp-action="HienThiSanPham2">
-                            <button class="btn btn-primary btn-block enter-btn fa fa-search">
+                        <form>
+                            @{
+
+                                var session3 = Context.Request.HttpContext.Session;
+                                var luuGiaBatDau = SessionBan.Sobatdau(session3, "minPrice");
+                                var luuGiaKetThuc = SessionBan.Sobatdau(session3, "maxPrice");
+                            }
+                            <div class="common-filter my-custom-filter">
+                                <div class="head">Giá</div>
+                                <div class="form-group">
+                                    <label for="tu">Từ</label>
+                                    @if (luuGiaBatDau != null)
+                                    {
+                                        <input type="text" class="price-input" id="minPrice" name="minPrice" value="@luuGiaBatDau" />
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="price-input" id="minPrice" name="minPrice" placeholder="Nhập giá từ" />
+                                    }
+                                </div>
+                                <div class="form-group">
+                                    <label for="den">đến</label>
+                                    @if (luuGiaKetThuc != null)
+                                    {
+                                        <input type="text" class="price-input" id="maxPrice" name="maxPrice" value="@luuGiaKetThuc" />
+                                    }
+                                    else
+                                    {
+                                        <input type="text" class="price-input" id="maxPrice" name="maxPrice" placeholder="Nhập giá đến" />
+                                    }
+                                </div>
+                            </div>
+
+
+                            @* Thông báo AJAX *@
+                            <div id="aaa1"></div>
+                            <button asp-controller="DanhMucSanPham" asp-action="SanPhamDanhMuc" class="btn btn-primary btn-block enter-btn fa fa-search">
                                 Lọc
                             </button>
                         </form>
-
                     </div>
                 </div>
-
-
-                 <div class="common-filter">
-                <div class="head">Price</div>
-                <div class="price-range-area">
-                <div id="price-range"></div>
-                <div class="value-wrapper d-flex">
-                <div class="price">Price:</div>
-                <span>$</span>
-                            <div id="minPrice"></div>
-                <div class="to">to</div>
-                <span>$</span>
-                <div id="upper-value"></div>
-                </div>
-                </div>
-                </div>
-
-
-                @*<div class="form-group ml-3">
-                    <label for="tu" class="mr-2">Giá niêm yết từ</label>
-                    <input type="text" class="form-control" id="tu" name="tu" />
-                    <span class="mr-2">đến</span>
-                    <input type="text" class="form-control" id="den" name="den" />
-                </div>
-
-                <div class="form-group ml-3">
-                    <div id="price-slider"></div>
-                    <button type="submit" class="btn btn-outline-secondary">Tìm kiếm</button>
-                </div>*@
-
             </div>
         </div>
         <div class="col-xl-9 col-lg-8 col-md-7">
@@ -211,7 +237,30 @@
                                         <a href="@Url.Action("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = sp.IdSanPham })">
                                             <img src="~/image/@sp.SanPham.AnhDaiDien" height="300" alt="@sp.SanPham.TenSanPham" />
                                         </a>
+                                        @foreach (var km in Model.khuyenMaiSanPhams)
+                                        {
+                                            if (km.IdSanPham == sp.Id)
+                                            {
 
+                                                if (km.KhuyenMai.PhanTramGiamGia != 0)
+                                                {
+                                                    <div class="discount-tag">-@km.KhuyenMai.PhanTramGiamGia%</div>
+                                                }
+                                                else if (km.KhuyenMai.SoTienGiam != 0)
+                                                {
+                                                    <div class="discount-tag">-@FormatCurrency(@km.KhuyenMai.SoTienGiam)</div>
+                                                }
+                                                else if (km.KhuyenMai.DongGia != 0)
+                                                {
+
+                                                    <div class="discount-tag">Đồng giá chỉ còn @FormatCurrency(@km.KhuyenMai.DongGia)</div>
+                                                }
+                                                else
+                                                {
+
+                                                }
+                                            }
+                                        }
                                     }
                                     else
                                     {
@@ -279,8 +328,8 @@
                             </div>
                         }
                     }
-                   
-                    
+
+
                 </div>
             </section>
             <!-- End Best Seller -->
@@ -301,7 +350,7 @@
                     </form>
                 </div>
                 <div class="pagination">
-                    
+
                     @for (int i = 1; i <= Model.pagingInfo.TotalPages; i++)
                     {
                         <form asp-action="SanPhamDanhMuc" asp-route-page="@i" asp-route-Soluonghienthi="@Model.soluonghienthi" method="get" class="page-form">
@@ -529,83 +578,67 @@
             height: 16px;
         }
 
-    .lnr-heart {
-        display: inline-block;
+
+    .product-container {
         position: relative;
-        width: 40px;
-        height: 40px;
-        background-color: transparent;
-        border: none;
-        cursor: pointer;
-        transition: transform 0.3s ease-in-out;
+        display: inline-block;
     }
 
-        .lnr-heart button {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: transparent;
-            border: none;
-            border-radius: 50%;
-            opacity: 0;
-            transform: scale(0);
-            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-        }
-
-        .lnr-heart:hover button {
-            transform: scale(1);
-            opacity: 1;
-        }
-
-    .highlighted-button {
-        background: linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);
+    .discount-tag {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: #FFD700; /* Màu vàng, bạn có thể thay đổi theo ý muốn */
+        color: #FF0000; /* Màu đỏ, bạn có thể thay đổi theo ý muốn */
+        padding: 4px 8px;
+        font-size: 14px;
+        font-weight: bold;
+        border-radius: 0 0 0 8px; /* Điều này tạo các góc cong cho phần tag */
     }
 
-    .search-bar {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 20px;
-        border: 1px solid #ccc;
+    .my-custom-filter {
+        background-color: #fff;
+        border: 1px solid #e0e0e0;
         border-radius: 5px;
-        overflow: hidden;
+        padding: 15px;
+        margin-bottom: 15px;
     }
 
-    .search-input {
-        padding: 10px;
-        border: none;
-        border-radius: 0;
-        flex-grow: 2;
-    }
-
-    .search-button {
-        padding: 10px;
-        background-color: #828bb3;
-        color: white;
-        border: none;
-        border-radius: 0;
-        cursor: pointer;
-    }
-
-        .search-button a {
-            width: 16px;
-            height: 16px;
+        .my-custom-filter .head {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
         }
+
+        .my-custom-filter .form-group {
+            margin-bottom: 10px;
+        }
+
+        .my-custom-filter label {
+            font-size: 14px;
+        }
+
+        .my-custom-filter .price-input {
+            width: 100px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-top: 5px; /* Khoảng cách giữa label và input */
+        }
+
 </style>
 <script>
     @functions {
         public string FormatCurrency(float price)
         {
             string formattedPrice = string.Format("{0:N0}", price); // Định dạng số và thêm dấu phân cách ngàn
-            return formattedPrice + "₫"; // Thêm ký hiệu đồng (₫) vào cuối
+            return formattedPrice + "VND"; // Thêm ký hiệu đồng (₫) vào cuối
         }
     }
 </script>
 @section scrrip{
     <script>
-                                            var priceSlider = $("#slider-range").slider({
+                                                            var priceSlider = $("#slider-range").slider({
             Range: true,
             min: 0,
             max: 100000000000,
@@ -616,7 +649,7 @@
             }
         })
     </script>
-   
+
 }
 <script src="~/js/vendor/jquery-2.2.4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.~/js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"

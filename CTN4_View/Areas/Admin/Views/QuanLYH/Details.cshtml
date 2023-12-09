@@ -79,29 +79,32 @@
 
     </div>
 </div>
-
-@foreach (var a in Model.AhList)
+@if (Model.AhList.Count != 0 )
 {
-    <td>
-        @if (System.IO.Path.GetExtension(a.DuongDanAnh) == ".jpg" ||
-             System.IO.Path.GetExtension(a.DuongDanAnh) == ".png" ||
-             System.IO.Path.GetExtension(a.DuongDanAnh) == ".jpeg" ||
-             System.IO.Path.GetExtension(a.DuongDanAnh) == ".tiff" ||
-             System.IO.Path.GetExtension(a.DuongDanAnh) == ".webp" ||
-             System.IO.Path.GetExtension(a.DuongDanAnh) == ".gif")
-        {
-            <img src="~/image/@a.DuongDanAnh" height="100">
-        }
-        else
-        {
-            <span>Ảnh lỗi rồi =)))</span>
-        }
-    </td>
-    <td>
-        @Html.ActionLink("Xóa", "XoaAnh", new { NameAnh=a.DuongDanAnh,IdSP=Model.SanPham.Id,IdMau=Model.IdMau,idSPCT=a.IdSanPhamChiTiet}) |
-    </td>
+    @foreach (var a in Model.AhList)
+    {
+        <td>
+            @if (System.IO.Path.GetExtension(a.DuongDanAnh) == ".jpg" ||
+           System.IO.Path.GetExtension(a.DuongDanAnh) == ".png" ||
+           System.IO.Path.GetExtension(a.DuongDanAnh) == ".jpeg" ||
+           System.IO.Path.GetExtension(a.DuongDanAnh) == ".tiff" ||
+           System.IO.Path.GetExtension(a.DuongDanAnh) == ".webp" ||
+           System.IO.Path.GetExtension(a.DuongDanAnh) == ".gif")
+            {
+                <img src="~/image/@a.DuongDanAnh" height="100">
+            }
+            else
+            {
+                <span>Ảnh lỗi rồi =)))</span>
+            }
+        </td>
+        <td>
+            @Html.ActionLink("Xóa", "XoaAnh", new { NameAnh=a.DuongDanAnh,IdSP=Model.SanPham.Id,IdMau=Model.IdMau,idSPCT=a.IdSanPhamChiTiet}) |
+        </td>
 
+    }
 }
+
 
 @if (TempData["ErrorMessage"] != null)
 {

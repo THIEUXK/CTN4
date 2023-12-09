@@ -49,7 +49,7 @@
                         <div class="col-md-6 form-group p_star">
                             <br />
                            
-                            <button type="button" class="btn btn-secondary dropdown-toggle form-control" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                            <button type="button" class="btn btn-outline-info dropdown-toggle form-control" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
                                 Mã giảm giá
                             </button>
 
@@ -62,17 +62,28 @@
                                                 <div class="card1">
                                                     <div class="main1">
                                                         <div class="content1">
-                                                            <br />
+                                                           
                                                             @if (i.LoaiGiamGia == false)
                                                             {
-                                                                <span>Giảm giá</span>
+                                                                <span>Giảm giá:</span>
                                                                 <h8>@FormatCurrency(i.SoTienGiam)</h8>
+                                                                <br />
+                                                                <span>Đơn tối thiểu:</span>
+                                                                <h8>@FormatCurrency(i.DieuKienGiam)</h8>
                                                                 <p>Kết thúc: @i.NgayKetThuc</p>
+                                                                 <br />
+                                                               
                                                             }
                                                             else
                                                             {
-                                                                <span>Giảm giá</span>
+                                                                <span>Giảm giá:</span>
                                                                 <h8>@i.PhanTramGiam%</h8>
+                                                                <br />
+                                                                <span>Giảm tối đa:</span>
+                                                                <h8>@FormatCurrency(i.SoTienGiamToiDa)</h8>
+                                                                <br />
+                                                                <span>Đơn tối thiểu:</span>
+                                                                <h8>@FormatCurrency(i.DieuKienGiam)</h8>
                                                                 <p>Kết thúc: @i.NgayKetThuc</p>
                                                             }
                                                         </div>
@@ -504,8 +515,8 @@
     }
 
     .copy-button1 {
-        margin: 12px 0 -5px 0;
-        height: 45px;
+        //margin: 12px 0 -5px 0;
+        height: 32px;
         border-radius: 4px;
         padding: 0 1px;
         background-color: #fff;

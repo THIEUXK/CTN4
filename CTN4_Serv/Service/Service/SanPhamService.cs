@@ -68,8 +68,6 @@ namespace CTN4_Serv.Service
                              GiaBan = a.GiaBan,
                              GiaNiemYet = a.GiaNiemYet,
                              TenDanhMuc = c.TenDanhMuc,
-                             
-                             
                          };
             return lstAll.ToList();
         }

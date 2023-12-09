@@ -55,7 +55,7 @@
                         @foreach (var x in Model.giamgias)
                         {
                             <form asp-action="ThongTinVocher">
-                                @if (x.LoaiGiamGia == true)
+                                @if (x.LoaiGiamGia == false)
                                 {
                                 <li>
                                     <input type="hidden" name="idVoucher" value="@x.Id">
