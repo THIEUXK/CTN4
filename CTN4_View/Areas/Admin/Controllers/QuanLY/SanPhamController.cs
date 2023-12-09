@@ -51,19 +51,16 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                     .Where(c => c.TenSanPham.ToLower().Contains(TenSp.ToLower()))
                     .ToList();
             }
-
             if (tu != null && den != null)
             {
                 sanPhamList = sanPhamList
                     .Where(c => (tu == null || c.GiaNiemYet >= tu) && (den == null || c.GiaNiemYet <= den))
                     .ToList();
             }
-
             // Thêm phần phân trang vào đây
             int pageSize = size ?? 5;
             var pageNumber = page ?? 1;
             var pagedList = sanPhamList.ToPagedList(pageNumber, pageSize);
-
             // Tạo danh sách dropdown kích thước trang
             var pageSizeOptions = new List<SelectListItem>
     {
@@ -73,7 +70,6 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         new SelectListItem { Text = "25", Value = "25" },
         new SelectListItem { Text = "50", Value = "50" }
     };
-
             ViewBag.SizeOptions = new SelectList(pageSizeOptions, "Value", "Text", size);
 
             ViewBag.CurrentSize = size ?? 5; // Kích thước trang mặc định

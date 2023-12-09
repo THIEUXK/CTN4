@@ -1,9 +1,11 @@
 ﻿using ClosedXML.Excel;
+using CTN4_Data.DB_Context;
 using CTN4_Data.Models;
 using CTN4_Data.Models.DB_CTN4;
 using CTN4_Serv.Service;
 using CTN4_Serv.Service.IService;
 using CTN4_Serv.Service.Service;
+using CTN4_Serv.ServiceJoin;
 using CTN4_Serv.ViewModel.banhangview;
 using CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk.viewMode;
 using CTN4_View.Areas.Admin.Viewmodel;
@@ -11,7 +13,9 @@ using DocumentFormat.OpenXml.Office2010.Excel;
 using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
+using X.PagedList;
 
 namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
 {
@@ -22,11 +26,33 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
         public IHoaDonChiTietService _hoaDonChiTietService;
         public ILichSuHoaDonService _LichSuHoaDonService;
         private readonly HttpClient _httpClient;
+        public ISanPhamChiTietService _sv;
+        public IChatLieuService _chatLieuService;
+        public INSXService _nsxService;
+        public ISanPhamService _spService;
+        public ISanPhamService _sanPhamService;
+        public IMauService _mauService;
+        public ISizeService _sizeService;
+        public SanPhamCuaHangService _sanPhamCuaHangService;
+        public DB_CTN4_ok _db;
+        public IAnhService _anhService;
+        public ISanPhamChiTietService _sanPhamChiTietService;
         public QuanLyHoaDonController()
         {
             _hoaDonChiTietService = new HoaDonChiTietService();
             _hoaDonService = new HoaDonService();
             _LichSuHoaDonService = new LichSuHoaDonService();
+            _sanPhamChiTietService = new SanPhamChiTietService();
+            _sv = new SanPhamChiTietService();
+            _chatLieuService = new ChatLieuService();
+            _mauService = new MauService();
+            _nsxService = new NSXService();
+            _spService = new SanPhamService();
+            _sizeService = new SizeService();
+            _sanPhamCuaHangService = new SanPhamCuaHangService();
+            _db = new DB_CTN4_ok();
+            _anhService = new AnhService();
+            _sanPhamService = new SanPhamService();
         }
         public IActionResult Index()
         {
@@ -366,17 +392,17 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                 var hd = _hoaDonService.GetById(id);
                 if (hd.NgayGiao != null)
                 {
-                        var li = new LichSuDonHang()
-                        {
-                            GhiChu = null,
-                            ThaoTac = $"Giao hàng thất bại đơn hàng {hd.MaHoaDon}",
-                            IdHoaDonn = id,
-                            ThoiGianlam = DateTime.Now,
-                            NguoiThucHien = nvnew[0].TenDangNhap,
-                            TrangThai = true,
-                            Is_detele = true
-                        };
-                        _LichSuHoaDonService.Them(li);
+                    var li = new LichSuDonHang()
+                    {
+                        GhiChu = null,
+                        ThaoTac = $"Giao hàng thất bại đơn hàng {hd.MaHoaDon}",
+                        IdHoaDonn = id,
+                        ThoiGianlam = DateTime.Now,
+                        NguoiThucHien = nvnew[0].TenDangNhap,
+                        TrangThai = true,
+                        Is_detele = true
+                    };
+                    _LichSuHoaDonService.Them(li);
                 }
                 else
                 {
@@ -589,7 +615,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
         }
         public IActionResult ThemBinhLuan(int IdHoaDon, string BinhLuan)
         {
-            if (BinhLuan==null)
+            if (BinhLuan == null)
             {
                 return RedirectToAction("XemChiTiet", new { id = IdHoaDon });
             }
@@ -826,7 +852,6 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             };
             return View("Index", view);
         }
-
         [HttpGet("/QuanLyHd/XuatEx")]
         public JsonResult XuatEx(int IdHD)
         {
@@ -1079,10 +1104,18 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             }
             return Json("ok", new System.Text.Json.JsonSerializerOptions());
         }
-        public IActionResult TaoHoaDon()
+        public IActionResult TaoHoaDon(string TenSp, float? tu, float? den, int? page, int? size)
         {
-            return View();
-        }
+            var sanPhamList = _sanPhamService.GetAll();
 
+            var view = new Thi1View()
+            {
+                sanPhams = sanPhamList
+            };
+
+            return View(view);
+        }
     }
+
 }
+

@@ -1,8 +1,434 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "TaoHoaDon";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
+@model CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk.viewMode.Thi1View
 
-<h1>TaoHoaDon</h1>
+<br></br>
+<br></br>
+<head>
+    <!-- Các tệp CSS và JS của Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Example</title>
+    <style>
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
 
+            .table th, .table td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+            }
+
+            .table th {
+                background-color: #f2f2f2;
+            }
+
+        .closeModalBtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+            .closeModalBtn:hover {
+                background-color: #45a049;
+            }
+
+        .table img {
+            max-height: 100px;
+        }
+
+    </style>
+</head>
+<div class="container">
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+    }
+    <form method="post" asp-controller="BanHang" asp-action="HoanThanhThanhToan">
+        <div class="billing_details">
+            <div class="row">
+                <div class="col-lg-7">
+                    <h3>Thông tin người mua</h3>
+                    @if (TempData["TB1"] != null)
+                    {
+                        <div class="alert alert-danger">@TempData["TB1"]</div>
+                    }
+                    @if (TempData["TB2"] != null)
+                    {
+                        <div class="alert alert-danger">@TempData["TB2"]</div>
+                    }
+                    @if (TempData["TBDC"] != null)
+                    {
+                        <div class="alert alert-danger">@TempData["TBDC"]</div>
+                    }
+                    <div class="row contact_form" action="#" method="post" novalidate="novalidate">
+
+
+                        <div class="col-md-6 form-group p_star">
+                            <label>Họ và tên</label>
+                            <input type="text" class="form-control" id="first" value="" name="name">
+                        </div>
+
+                        <div class="col-md-6 form-group p_star">
+                            <label>Số điện thoại</label>
+                            <input type="text" class="form-control" value="" id="number" name="Sodienthoai" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <label>Email</label>
+                            <input type="text" class="form-control" id="email" value="" name="Email">
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <label>Địa chỉ nhận hàng cụ thể</label>
+                            <input type="text" class="form-control" value="" id="addct" name="DiachiNhanChiTiet">
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <label>Địa chỉ :</label>
+                            <input type="text" class="form-control" id="adressnew" name="" value="" disabled></input>
+                            <input type="hidden" class="form-control" id="diachinay" value="" name="addDiaChi"></input>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Chọn Tỉnh/thành<span class="text-danger"></span></label>
+                            <span class="text-danger" id="mess_provin"></span>
+                            <select class="custom-select" asp-items="@ViewBag.Provin" id="provin">
+                                <option selected value="0">Chọn tỉnh thành</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Chọn Quận/Huyện<span class="text-danger"></span></label>
+                            <span class="text-danger" id="mess_district"></span>
+                            <select class="custom-select" id="district">
+                                <option selected value="0">Chọn quận huyện </option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Chọn Phường/Xã<span class="text-danger"></span></label>
+                            <span class="text-danger" id="mess_ward"></span>
+                            <select class="custom-select" id="ward" name="ward">
+                                <option selected value="0">Chọn Phường Xã</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-md-12 form-group">
+                            <label for="exampleFormControlTextarea1" class="form-label">Ghi chú</label>
+                            <textarea class="form-control" name="ghiChu" id="note_ck" rows="3"></textarea>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="order_box">
+                        <div class="order_box">
+                            <h2>Sản phẩm đơn hàng</h2>
+                            <a href="#" class="btn btn-primary addProductBtn">Thêm sản phẩm</a>
+
+                            <!-- Modal -->
+                         
+                            <br/>
+                            <br />
+                            <div class="card border-secondary mb-5">
+                                <button class="primary-btn" type="submit" href="#">Mua Hàng</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="myModal modal">
+        <div class="modal-content">
+            <!-- Nội dung modal -->
+            <form>
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th>
+                        Mã sản phẩm
+                    </th>
+                    <th>
+                        Tên sản phẩm
+                    </th>
+                    <th>
+                        Chất liệu
+                    </th>
+                    <th>
+                        Nsx
+                    </th>
+                    <th>
+                        Mô tả
+                    </th>
+                    <th>
+                        Giá nhập
+                    </th>
+                    <th>
+                        Giá bán
+                    </th>
+                    <th>
+                        Giá niên yết
+                    </th>
+                    <th>
+                        Ghi chú
+                    </th>
+                    <th>
+                        Trạng thái
+                    </th>
+                    <th>
+                        Tình trạng sản phẩm
+                    </th>
+                    <th>
+                        Ảnh đại diện
+                    </th>
+                    <th></th>
+                </tr>
+                </thead>
+
+                <tbody>
+                @foreach (var item in Model.sanPhams)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MaSp)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TenSanPham)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ChatLieu.TenChatLieu)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NSX.TenNSX)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MoTa)
+                        </td>
+                        <td>
+                            @Html.Raw(FormatCurrency(item.GiaNhap))
+                        </td>
+                        <td>
+                            @Html.Raw(FormatCurrency(item.GiaBan))
+                        </td>
+                        <td>
+                            @Html.Raw(FormatCurrency(item.GiaNiemYet))
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GhiChu)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TrangThai)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Is_detele)
+                        </td>
+                        <td>
+                            <tb>
+                                @if (System.IO.Path.GetExtension(item.AnhDaiDien) == ".jpg" ||
+                                     System.IO.Path.GetExtension(item.AnhDaiDien) == ".png" ||
+                                     System.IO.Path.GetExtension(item.AnhDaiDien) == ".jpeg" ||
+                                     System.IO.Path.GetExtension(item.AnhDaiDien) == ".tiff" ||
+                                     System.IO.Path.GetExtension(item.AnhDaiDien) == ".webp" ||
+                                     System.IO.Path.GetExtension(item.AnhDaiDien) == ".gif")
+                                {
+                                    <img src="~/image/@item.AnhDaiDien" height="100">
+                                }
+                                else
+                                {
+                                    <a>ảnh lỗi</a>
+                                }
+                            </tb>
+                        </td>
+                        <td>
+                            @Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.Id }, new { style = "text-decoration: none; color: black;" }) |
+                            @Html.ActionLink("Chi tiết", "Details", new { id = item.Id }, new { style = "text-decoration: none; color: black;" }) |
+                            @Html.ActionLink("Xóa", "Delete", new { id = item.Id }, new { style = "text-decoration: none; color: black;" }) |
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+            </form>
+            <!-- Nút đóng modal -->
+            <button class="closeModalBtn">Đóng</button>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    // Sử dụng JavaScript để xử lý sự kiện click
+    document.addEventListener('click', function (event) {
+        // Kiểm tra xem phần tử được nhấp có phải là nút "Thêm sản phẩm" hay không
+        if (event.target.classList.contains('addProductBtn')) {
+            // Hiển thị modal
+            document.querySelector('.myModal').style.display = 'flex';
+        }
+
+        // Kiểm tra xem phần tử được nhấp có phải là nút "Đóng modal" hay không
+        if (event.target.classList.contains('closeModalBtn')) {
+            // Đóng modal
+            document.querySelector('.myModal').style.display = 'none';
+        }
+    });
+</script>
+
+<script>
+    @functions {
+        public string FormatCurrency(float? price)
+        {
+            string formattedPrice = string.Format("{0:N0}", price); // Định dạng số và thêm dấu phân cách ngàn
+            return formattedPrice + "VND"; // Thêm ký hiệu đồng (₫) vào cuối
+        }
+    }
+</script>
+<style>
+    // #tab0 {
+    //     display: none;
+    // }
+/* Kiểu chữ toàn cầu */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    color: #495057;
+}
+
+.container {
+    margin-top: 50px;
+}
+
+/* Kiểu chữ thông báo */
+.alert {
+    margin-top: 10px;
+}
+
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    padding: 12px;
+    border-radius: 4px;
+}
+
+/* Kiểu chữ form */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.billing_details {
+    margin-top: 30px;
+}
+
+/* Kiểu chữ ô nhập liệu */
+.form-control {
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 12px;
+    width: 100%;
+    margin-bottom: 15px;
+    transition: border-color 0.3s;
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Kiểu chữ nút */
+.primary-btn {
+    background-color: #007bff;
+    color: #fff;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s;
+    display: inline-block;
+}
+
+.primary-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Kiểu chữ đơn hàng */
+.order_box {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.order_box h2 {
+    color: #007bff;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.order_box ul {
+    list-style: none;
+    padding: 0;
+}
+
+.order_box li {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.order_box span {
+    float: right;
+    font-weight: bold;
+    color: #007bff;
+}
+
+/* Kiểu chữ bổ sung */
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Kiểu chữ đáp ứng */
+
+    .container {
+        margin-top: 30px;
+    }
+
+    .form-control {
+        padding: 10px;
+    }
+
+    .primary-btn {
+        padding: 12px 24px;
+    }
+
+    .order_box {
+        margin-top: 20px;
+    }
+
+
+</style>
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="~/js/a.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.~/js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+        crossorigin="anonymous"></script>
+<script src="~/js/vendor/bootstrap.min.js"></script>
+<script src="~/js/jquery.ajaxchimp.min.js"></script>
+<script src="~/js/jquery.sticky.js"></script>
+<script src="~/js/nouislider.min.js"></script>
+<script src="~/js/countdown.js"></script>
+<script src="~/js/jquery.magnific-popup.min.js"></script>
+<script src="~/js/owl.carousel.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+<script src="~/js/gmaps.min.js"></script>
+<script src="~/js/main.js"></script>
