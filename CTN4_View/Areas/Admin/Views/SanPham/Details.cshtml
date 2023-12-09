@@ -16,18 +16,21 @@
             Ảnh đại diện
         </dt>
         <dd class="col-sm-10">
-            @if (System.IO.Path.GetExtension(Model.SanPham.AnhDaiDien) == ".jpg" ||
-            System.IO.Path.GetExtension(Model.SanPham.AnhDaiDien) == ".png" ||
-            System.IO.Path.GetExtension(Model.SanPham.AnhDaiDien) == ".jpeg" ||
-            System.IO.Path.GetExtension(Model.SanPham.AnhDaiDien) == ".tiff" ||
-            System.IO.Path.GetExtension(Model.SanPham.AnhDaiDien) == ".webp" ||
-            System.IO.Path.GetExtension(Model.SanPham.AnhDaiDien) == ".gif")
+            @if (Model.SanPham.AnhDaiDien != null)
             {
-                <img src="~/image/@Model.SanPham.AnhDaiDien" height="100">
-            }
-            else
-            {
-                <span>Ảnh lỗi rồi =)))</span>
+                @if (System.IO.Path.GetExtension(Model.SanPham.AnhDaiDien) == ".jpg" ||
+               System.IO.Path.GetExtension(Model.SanPham.AnhDaiDien) == ".png" ||
+               System.IO.Path.GetExtension(Model.SanPham.AnhDaiDien) == ".jpeg" ||
+               System.IO.Path.GetExtension(Model.SanPham.AnhDaiDien) == ".tiff" ||
+               System.IO.Path.GetExtension(Model.SanPham.AnhDaiDien) == ".webp" ||
+               System.IO.Path.GetExtension(Model.SanPham.AnhDaiDien) == ".gif")
+                {
+                    <img src="~/image/@Model.SanPham.AnhDaiDien" height="100">
+                }
+                else
+                {
+                    <span>Ảnh lỗi rồi =)))</span>
+                }
             }
         </dd>
         <dt class="col-sm-2">
@@ -112,7 +115,7 @@
 <hr />
 <div>
     <button type="button" class="btn btn-warning m-1"><a asp-controller="QuanLYH" asp-action="Create" style="color:white">Thêm</a></button>
-    
+
 </div>
 
 
@@ -193,7 +196,7 @@
                 </td>
                 <td>
                     @Html.ActionLink("Chỉnh sửa", "Edit",new { id=item.Id },new { style = "text-decoration: none; color: black;" }) |
-                    @Html.ActionLink("Chi tiết", "Details",new { id=item.Id }, new { style = "text-decoration: none; color: black;" }) |
+                    @Html.ActionLink("Chi tiết", "Details","QuanLYH" ,new { id=item.Id }, new { style = "text-decoration: none; color: black;" }) |
                     @Html.ActionLink("Xóa", "Delete",new { id=item.Id },new { style = "text-decoration: none; color: black;" }) |
                 </td>
             </tr>
