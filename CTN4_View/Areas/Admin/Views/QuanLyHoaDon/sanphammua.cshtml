@@ -39,7 +39,7 @@
                              System.IO.Path.GetExtension(sp.AnhDaiDien) == ".gif")
                         {
                             <div class="product-container">
-                                <a href="@Url.Action("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = sp.Id })">
+                                <a href="@Url.Action("HienThiSanPhamChiTietMua", new { id = sp.Id })">
 
                                     <img src="~/image/@sp.AnhDaiDien" height="300" alt="@sp.TenSanPham"/>
                                 </a>

@@ -16,6 +16,7 @@ using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using X.PagedList;
 
@@ -42,7 +43,11 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
         public IAnhService _anhService;
         public ISanPhamChiTietService _sanPhamChiTietService;
         public IKhuyenMaiSanPhamService _KhuyenMaiSanPhams;
-        public QuanLyHoaDonController(HttpClient httpClient)
+        public IGiamGiaService _giamGiaService;
+        public IMauService _mauSacService;
+        public DB_CTN4_ok _CTN4_Ok;
+
+		public QuanLyHoaDonController(HttpClient httpClient)
         {
             _httpClient = httpClient;
             _httpClient?.DefaultRequestHeaders.Add("token", "fa31ddca-73b0-11ee-b394-8ac29577e80e");
@@ -62,7 +67,9 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             _anhService = new AnhService();
             _sanPhamService = new SanPhamService();
             _KhuyenMaiSanPhams = new KhuyenMaiSanPhamService();
-           
+            _giamGiaService = new GiamGiaService();
+            _mauSacService = new MauService();
+            _CTN4_Ok = new DB_CTN4_ok();
         }
         public IActionResult Index()
         {
@@ -1142,7 +1149,28 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             };
             return View(view);
         }
-    }
+        public IActionResult HienThiSanPhamChiTietMua(Guid id)
+        {
+			var listsp1 = _sanPhamCuaHangService.GetAllSpcts(id).Where(c => c.Is_detele == true).ToList();
+			var anh = _anhService.GetAll().Where(c => c.SanPhamChiTiet.SanPham.Id == id).ToList();
+			var giamgia = _giamGiaService.GetAll().Where(c => c.TrangThai == true && c.Is_detele == true && c.NgayBatDau <= DateTime.Now && c.NgayKetThuc >= DateTime.Now).ToList();
+			var listsp = _sanPhamCuaHangService.GetAll();
+			var mau = _mauSacService.GetAll().ToList();
+			var spctcuthe = _CTN4_Ok.SanPhamChiTiets.Include(c => c.Size).ToList().Where(c => c.IdSp == id && c.Is_detele == true);
+			var view = new SanPhamBan()
+			{
+				sanPham = _sanPhamCuaHangService.GetById(id),
+				Anh = _sanPhamCuaHangService.GeAnhs(id),
+				sanPhamChiTiets = listsp1,
+				maus = mau,
+				sizect = spctcuthe.ToList(),
+				anhs = anh,
+				sanPhams = listsp,
+				giamgias = giamgia
+			};
+			return View(view);
+		}
+	}
 
 }
 
