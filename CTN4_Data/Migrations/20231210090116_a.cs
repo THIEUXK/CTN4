@@ -106,6 +106,7 @@ namespace CTN4_Data.Migrations
                     SoTienGiam = table.Column<float>(type: "real", nullable: false),
                     DongGia = table.Column<float>(type: "real", nullable: false),
                     TrangThai = table.Column<bool>(type: "bit", nullable: false),
+                    Mua1tang1 = table.Column<bool>(type: "bit", nullable: true),
                     Ghichu = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Is_Detele = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -321,13 +322,13 @@ namespace CTN4_Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     MaHoaDon = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    NgayTaoHoaDon = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    NgayTaoHoaDon = table.Column<DateTime>(type: "datetime2", nullable: true),
                     TrangThai = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TongTien = table.Column<float>(type: "real", nullable: false),
                     TienShip = table.Column<float>(type: "real", nullable: false),
-                    TienGiam = table.Column<float>(type: "real", nullable: true),
+                    TienGiam = table.Column<float>(type: "real", nullable: false),
                     TienHang = table.Column<float>(type: "real", nullable: false),
-                    NgayDat = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    NgayDat = table.Column<DateTime>(type: "datetime2", nullable: true),
                     NgayGiao = table.Column<DateTime>(type: "datetime2", nullable: true),
                     NgayNhan = table.Column<DateTime>(type: "datetime2", nullable: true),
                     TenKhachHang = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -641,7 +642,8 @@ namespace CTN4_Data.Migrations
                     { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081171"), true, "Túi Bowling" },
                     { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081172"), true, "Túi Ring Bag" },
                     { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081173"), true, "Sản phẩm bán chạy" },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7089111"), true, "Túi Hobo" }
+                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7089111"), true, "Túi Hobo" },
+                    { new Guid("f0e98e38-112b-4630-89f1-08dbf336241b"), true, "Sản phẩm mới" }
                 });
 
             migrationBuilder.InsertData(
@@ -651,15 +653,15 @@ namespace CTN4_Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "KhuyenMais",
-                columns: new[] { "Id", "DongGia", "Ghichu", "Is_Detele", "MaKhuyenMai", "NgayBatDau", "NgayKetThuc", "PhanTramGiamGia", "SoTienGiam", "TrangThai" },
+                columns: new[] { "Id", "DongGia", "Ghichu", "Is_Detele", "MaKhuyenMai", "Mua1tang1", "NgayBatDau", "NgayKetThuc", "PhanTramGiamGia", "SoTienGiam", "TrangThai" },
                 values: new object[,]
                 {
-                    { new Guid("13effe44-e728-48a8-9baa-967da4ee38cd"), 0f, null, true, "km04", new DateTime(2023, 7, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 8, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, 22000f, true },
-                    { new Guid("23bdd26c-d7a3-4307-8e22-d230b653d611"), 0f, null, true, "km03", new DateTime(2023, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 20, 0f, true },
-                    { new Guid("da810cca-4fca-4291-a52b-875841d49e34"), 0f, null, true, "km02", new DateTime(2023, 7, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, 50000f, true },
-                    { new Guid("e3e37e9e-7ea3-4f87-94af-1329363a4322"), 0f, null, true, "km06", new DateTime(2023, 10, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 25, 0f, true },
-                    { new Guid("f877e80d-2b32-43b0-be70-cf3b15113056"), 0f, null, true, "km01", new DateTime(2023, 7, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 50, 0f, true },
-                    { new Guid("fa1ae994-6ab0-4ee6-b8b1-ff336cf994a8"), 0f, null, true, "km05", new DateTime(2023, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 10, 0f, true }
+                    { new Guid("13effe44-e728-48a8-9baa-967da4ee38cd"), 0f, null, true, "km04", null, new DateTime(2023, 7, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 8, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, 22000f, true },
+                    { new Guid("23bdd26c-d7a3-4307-8e22-d230b653d611"), 0f, null, true, "km03", null, new DateTime(2023, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 20, 0f, true },
+                    { new Guid("da810cca-4fca-4291-a52b-875841d49e34"), 0f, null, true, "km02", null, new DateTime(2023, 7, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, 50000f, true },
+                    { new Guid("e3e37e9e-7ea3-4f87-94af-1329363a4322"), 0f, null, true, "km06", null, new DateTime(2023, 10, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 25, 0f, true },
+                    { new Guid("f877e80d-2b32-43b0-be70-cf3b15113056"), 0f, null, true, "km01", null, new DateTime(2023, 7, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 50, 0f, true },
+                    { new Guid("fa1ae994-6ab0-4ee6-b8b1-ff336cf994a8"), 0f, null, true, "km05", null, new DateTime(2023, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 11, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 10, 0f, true }
                 });
 
             migrationBuilder.InsertData(
@@ -681,8 +683,7 @@ namespace CTN4_Data.Migrations
                     { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081121"), true, "xanh lá", true },
                     { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081131"), true, "xanh nhạt", true },
                     { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081141"), true, "tràm", true },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081151"), true, "tím", true },
-                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081161"), true, "xanh lá đậm", true }
+                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081151"), true, "tím", true }
                 });
 
             migrationBuilder.InsertData(
@@ -690,6 +691,7 @@ namespace CTN4_Data.Migrations
                 columns: new[] { "Id", "Is_detele", "TenMau", "TrangThai" },
                 values: new object[,]
                 {
+                    { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081161"), true, "xanh lá đậm", true },
                     { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081171"), true, "xanh tím", true },
                     { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081181"), true, "hồng", true },
                     { new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081191"), true, "kem", true }
@@ -773,6 +775,8 @@ namespace CTN4_Data.Migrations
                 columns: new[] { "Id", "IdDanhMuc", "IdSanPham" },
                 values: new object[,]
                 {
+                    { new Guid("d16ac327-3c0b-4c2c-bcdc-d3897121441a"), new Guid("f0e98e38-112b-4630-89f1-08dbf336241b"), new Guid("56dd3de2-c4df-4376-b982-e2c0f7081826") },
+                    { new Guid("d16ac327-3ceb-4c2c-bcdc-d3897121441a"), new Guid("f0e98e38-112b-4630-89f1-08dbf336241b"), new Guid("56dd3de2-c4df-4376-b982-e2c0f7081825") },
                     { new Guid("d16ac327-3ced-4c2c-bcdc-d3897121441a"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081163"), new Guid("56dd3de2-c4df-4376-b982-e2c0f7081829") },
                     { new Guid("d16ac327-3ced-4c2c-bcdc-d3897121442a"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081164"), new Guid("56dd3de2-c4df-4376-b982-e2c0f7081829") },
                     { new Guid("d16ac327-3ced-4c2c-bcdc-d3897121443a"), new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081165"), new Guid("56dd3de2-c4df-4376-b982-e2c0f7081824") },

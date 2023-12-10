@@ -1,32 +1,68 @@
 ﻿using ClosedXML.Excel;
+using CTN4_Data.DB_Context;
 using CTN4_Data.Models;
 using CTN4_Data.Models.DB_CTN4;
 using CTN4_Serv.Service;
 using CTN4_Serv.Service.IService;
 using CTN4_Serv.Service.Service;
+using CTN4_Serv.ServiceJoin;
+using CTN4_Serv.ViewModel;
 using CTN4_Serv.ViewModel.banhangview;
 using CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk.viewMode;
 using CTN4_View.Areas.Admin.Viewmodel;
+using CTN4_View_Admin.Controllers.Shop;
 using DocumentFormat.OpenXml.Office2010.Excel;
 using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
+using X.PagedList;
 
 namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
 {
     [Area("admin")]
     public class QuanLyHoaDonController : Controller
     {
+        private readonly HttpClient _httpClient;
+
+
         public IHoaDonService _hoaDonService;
         public IHoaDonChiTietService _hoaDonChiTietService;
         public ILichSuHoaDonService _LichSuHoaDonService;
-        private readonly HttpClient _httpClient;
-        public QuanLyHoaDonController()
+        public ISanPhamChiTietService _sv;
+        public IChatLieuService _chatLieuService;
+        public INSXService _nsxService;
+        public ISanPhamService _spService;
+        public ISanPhamService _sanPhamService;
+        public IMauService _mauService;
+        public ISizeService _sizeService;
+        public SanPhamCuaHangService _sanPhamCuaHangService;
+        public DB_CTN4_ok _db;
+        public IAnhService _anhService;
+        public ISanPhamChiTietService _sanPhamChiTietService;
+        public IKhuyenMaiSanPhamService _KhuyenMaiSanPhams;
+        public QuanLyHoaDonController(HttpClient httpClient)
         {
+            _httpClient = httpClient;
+            _httpClient?.DefaultRequestHeaders.Add("token", "fa31ddca-73b0-11ee-b394-8ac29577e80e");
+            _httpClient?.DefaultRequestHeaders.Add("shop_id", "4189141");
             _hoaDonChiTietService = new HoaDonChiTietService();
             _hoaDonService = new HoaDonService();
             _LichSuHoaDonService = new LichSuHoaDonService();
+            _sanPhamChiTietService = new SanPhamChiTietService();
+            _sv = new SanPhamChiTietService();
+            _chatLieuService = new ChatLieuService();
+            _mauService = new MauService();
+            _nsxService = new NSXService();
+            _spService = new SanPhamService();
+            _sizeService = new SizeService();
+            _sanPhamCuaHangService = new SanPhamCuaHangService();
+            _db = new DB_CTN4_ok();
+            _anhService = new AnhService();
+            _sanPhamService = new SanPhamService();
+            _KhuyenMaiSanPhams = new KhuyenMaiSanPhamService();
+           
         }
         public IActionResult Index()
         {
@@ -366,17 +402,17 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                 var hd = _hoaDonService.GetById(id);
                 if (hd.NgayGiao != null)
                 {
-                        var li = new LichSuDonHang()
-                        {
-                            GhiChu = null,
-                            ThaoTac = $"Giao hàng thất bại đơn hàng {hd.MaHoaDon}",
-                            IdHoaDonn = id,
-                            ThoiGianlam = DateTime.Now,
-                            NguoiThucHien = nvnew[0].TenDangNhap,
-                            TrangThai = true,
-                            Is_detele = true
-                        };
-                        _LichSuHoaDonService.Them(li);
+                    var li = new LichSuDonHang()
+                    {
+                        GhiChu = null,
+                        ThaoTac = $"Giao hàng thất bại đơn hàng {hd.MaHoaDon}",
+                        IdHoaDonn = id,
+                        ThoiGianlam = DateTime.Now,
+                        NguoiThucHien = nvnew[0].TenDangNhap,
+                        TrangThai = true,
+                        Is_detele = true
+                    };
+                    _LichSuHoaDonService.Them(li);
                 }
                 else
                 {
@@ -589,7 +625,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
         }
         public IActionResult ThemBinhLuan(int IdHoaDon, string BinhLuan)
         {
-            if (BinhLuan==null)
+            if (BinhLuan == null)
             {
                 return RedirectToAction("XemChiTiet", new { id = IdHoaDon });
             }
@@ -826,7 +862,6 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             };
             return View("Index", view);
         }
-
         [HttpGet("/QuanLyHd/XuatEx")]
         public JsonResult XuatEx(int IdHD)
         {
@@ -919,7 +954,6 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             wb.SaveAs(path);
             return Json(fileName, new System.Text.Json.JsonSerializerOptions());
         }
-
         [HttpPost("/QuanLyHd/XuatEx2")]
         public JsonResult XuatEx2([FromBody] Thi1View Viewaa)
         {
@@ -1081,8 +1115,34 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
         }
         public IActionResult TaoHoaDon()
         {
-            return View();
-        }
+            var sanPhamList = _sanPhamService.GetAll();
+            HttpResponseMessage responseProvin = _httpClient.GetAsync("https://online-gateway.ghn.vn/shiip/public-api/master-data/province").Result;
+            Provin lstprovin = new Provin();
+            if (responseProvin.IsSuccessStatusCode)
+            {
+                string jsonData2 = responseProvin.Content.ReadAsStringAsync().Result;
+                lstprovin = JsonConvert.DeserializeObject<Provin>(jsonData2);
+                ViewBag.Provin = new SelectList(lstprovin.data, "ProvinceID", "ProvinceName");
+            }
+                var view = new Thi1View()
+            {
+                sanPhams = sanPhamList
+            };
 
+            return View(view);
+        }
+        public IActionResult sanphammua()
+        {
+            var sanPhamList = _sanPhamService.GetAll();
+            var khuyenMaiSp = _KhuyenMaiSanPhams.GetAll().Where(c => c.KhuyenMai.TrangThai == true && c.KhuyenMai.Is_Detele == false && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now).ToList();
+            var view = new Thi1View()
+            {
+                sanPhams = sanPhamList,
+                KhuyenMaiSanPhams = khuyenMaiSp,
+            };
+            return View(view);
+        }
     }
+
 }
+

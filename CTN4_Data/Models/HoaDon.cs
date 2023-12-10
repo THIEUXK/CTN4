@@ -5,7 +5,7 @@ namespace CTN4_Data.Models.DB_CTN4
     {
         public int Id { get; set; }
         public string MaHoaDon { get; set; }
-        public DateTime?NgayTaoHoaDon { get; set; }
+        public DateTime? NgayTaoHoaDon { get; set; }
         public string TrangThai { get; set; }
         public float TongTien { get; set; }
         public float TienShip { get; set; }

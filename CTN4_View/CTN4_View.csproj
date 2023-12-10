@@ -22,6 +22,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\Admina\a1\assets\js\ace - Copy.js" />
+    <Content Remove="wwwroot\Admina\a1\assets\js\c.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="ClosedXML" Version="0.102.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.22" />
@@ -120,6 +125,8 @@
     <None Include="wwwroot\Admina\a1\assets\images\logo-mini.svg" />
     <None Include="wwwroot\Admina\a1\assets\images\logo.svg" />
     <None Include="wwwroot\Admina\a1\assets\images\sprites\logo-mini.svg" />
+    <None Include="wwwroot\Admina\a1\assets\js\c.js" />
+    <None Include="wwwroot\Admina\a1\assets\js\ace - Copy.js" />
     <None Include="wwwroot\Admina\a1\assets\js\ace.js" />
     <None Include="wwwroot\Admina\a1\assets\js\alerts.js" />
     <None Include="wwwroot\Admina\a1\assets\js\avgrund.js" />

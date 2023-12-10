@@ -62,7 +62,7 @@
                 }
             })
         }
-       
+
     });
     $(document).on('click', '.btnXuatEx2', function () {
         var isConfirmed = confirm("Bạn có chắc chắn muốn xuất File Excel?");
@@ -105,7 +105,7 @@
                 }
             })
         }
-       
+
     });
     var count = 0;
     var downloadURL = function downloadURL(url) {
@@ -277,7 +277,7 @@
                 },
                 contentType: 'application/json',
                 success: function (result) {
-                  
+
                     var x1 = result.TienShip;
                     x1 = x1.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
                     var x2 = result.totaloder;

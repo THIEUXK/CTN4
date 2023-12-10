@@ -1,8 +1,300 @@
-﻿
+﻿@model CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk.viewMode.Thi1View
 @{
     ViewData["Title"] = "TaoHoaDon";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h1>TaoHoaDon</h1>
+<br></br>
+<br></br>
+<div class="container">
+    <div class="billing_details">
+        <div class="row">
+            <div class="col-lg-7">
+                <h3>Thông tin người mua</h3>
 
+                <div class="row contact_form" action="#" method="post" novalidate="novalidate">
+
+
+                    <div class="col-md-6 form-group p_star">
+                        <label>Họ và tên</label>
+                        <input type="text" class="form-control" id="first" value="" name="name">
+                    </div>
+
+                    <div class="col-md-6 form-group p_star">
+                        <label>Số điện thoại</label>
+                        <input type="text" class="form-control" value="" id="number" name="Sodienthoai" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                    </div>
+                    <div class="col-md-6 form-group p_star">
+                        <label>Email</label>
+                        <input type="text" class="form-control" id="email" value="" name="Email">
+                    </div>
+                    <div class="col-md-6 form-group p_star">
+                        <label>Địa chỉ nhận hàng cụ thể</label>
+                        <input type="text" class="form-control" value="" id="addct" name="DiachiNhanChiTiet">
+                    </div>
+                    <div class="col-md-6 form-group p_star">
+                        <label>Địa chỉ :</label>
+                        <input type="text" class="form-control" id="adressnew" name="" value="" disabled></input>
+                        <input type="hidden" class="form-control" id="diachinay" value="" name="addDiaChi"></input>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Chọn Tỉnh/thành<span class="text-danger"></span></label>
+                        <span class="text-danger" id="mess_provin"></span>
+                        <select class="custom-select" asp-items="@ViewBag.Provin" id="provin">
+                            <option selected value="0">Chọn tỉnh thành</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Chọn Quận/Huyện<span class="text-danger"></span></label>
+                        <span class="text-danger" id="mess_district"></span>
+                        <select class="custom-select" id="district">
+                            <option selected value="0">Chọn quận huyện </option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Chọn Phường/Xã<span class="text-danger"></span></label>
+                        <span class="text-danger" id="mess_ward"></span>
+                        <select class="custom-select" id="ward" name="ward">
+                            <option selected value="0">Chọn Phường Xã</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-12 form-group">
+                        <label for="exampleFormControlTextarea1" class="form-label">Ghi chú</label>
+                        <textarea class="form-control" name="ghiChu" id="note_ck" rows="3"></textarea>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <a class="dropdown-item" href="@Url.Action("sanphammua")">Chọn sản phẩm</a>
+                <div class="order_box">
+                    <div class="order_box">
+                        <h2>Sản phẩm đơn hàng</h2>
+
+
+                        <!-- Modal -->
+
+                        <br/>
+                        <!-- Các phần tử ul được căn lề sang phải -->
+                        <ul class="list">
+                            <li><a href="#">Mã Giảm giá :<span><b id="tonghang" style="color:black">Chưa có </b></span></a></li>
+                            <input type="hidden" name="tenmagiam" value="" id="tenmagiam"></input>
+                        </ul>
+                        <ul class="list">
+                            <li><a href="#">Tiền Hàng :<span><b id="tonghang" style="color:black">@FormatCurrency(0) </b></span></a></li>
+                            <input type="hidden" name="tienhanga" value="0" id="tienhanga"></input>
+                        </ul>
+                        <ul class="list">
+                            <li><a href="#">Tiền ship :<span><b id="tienship" style="color:black">Chưa Tính</b></span></a></li>
+                            <input type="hidden" name="tienshipa" value="0" id="tienship1"></input>
+                        </ul>
+                        <ul class="list">
+                            <li><a href="#">Tiền giảm :<span><b id="tiengiam" style="color:black">Chưa Tính</b></span></a></li>
+                            <input type="hidden" name="tiengiama" value="0" id="tiengiam1"></input>
+                        </ul>
+                        <br></br>
+                        <ul class="list">
+                            <li><a href="#">Tổng tiền :<span><b name="Amount" id="tongtien" style="color:orange">@FormatCurrency(0)</b></span></a></li>
+                            <input type="hidden" name="tongtien" value="0" id="tongtien1"></input>
+                        </ul>
+
+                        <br></br>
+                        <br/>
+                        <div class="card border-secondary mb-5">
+                            <button class="primary-btn" type="submit" href="#">Mua Hàng</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    @functions {
+        public string FormatCurrency(float? price)
+        {
+            string formattedPrice = string.Format("{0:N0}", price); // Định dạng số và thêm dấu phân cách ngàn
+            return formattedPrice + "VND"; // Thêm ký hiệu đồng (₫) vào cuối
+        }
+    }
+</script>
+<style>
+    /* Style the label for "Chọn Phường/Xã" */
+    label[for="ward"] {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #333;
+    }
+
+    /* Style the error message for the ward selection */
+    #mess_ward {
+        display: block;
+        color: red;
+        margin-top: 5px;
+    }
+
+    /* Style the select element for ward selection */
+    #ward {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+        /* Style the default option in the select element */
+        #ward option[value="0"] {
+            color: #999;
+        }
+
+    /* Style the label for "Chọn Quận/Huyện" */
+    label[for="district"] {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #333;
+    }
+
+    /* Style the error message for the district selection */
+    #mess_district {
+        display: block;
+        color: red;
+        margin-top: 5px;
+    }
+
+    /* Style the select element for district selection */
+    #district {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+        /* Style the default option in the select element */
+        #district option[value="0"] {
+            color: #999;
+        }
+
+    /* Style the label for "Chọn Tỉnh/thành" */
+    label[for="provin"] {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #333;
+    }
+
+    /* Style the error message for the province selection */
+    #mess_provin {
+        display: block;
+        color: red;
+        margin-top: 5px;
+    }
+
+    /* Style the select element for province selection */
+    #provin {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+        /* Style the default option in the select element */
+        #provin option[value="0"] {
+            color: #999;
+        }
+
+    /* Add this CSS in your stylesheet or in a style block */
+    a.dropdown-item {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #3498db; /* Change the background color to your preference */
+        color: #fff; /* Set text color to white */
+        text-decoration: none; /* Remove underline */
+        border-radius: 5px; /* Add rounded corners */
+        transition: background-color 0.3s ease; /* Add a smooth transition effect on hover */
+        width: 150px; /* Set the width to your preferred value */
+        /* Optional: Add box shadow for a raised effect */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+        a.dropdown-item:hover {
+            background-color: #2980b9; /* Change the background color on hover */
+        }
+
+
+    /* Apply some basic styling to the form */
+    .container {
+        max-width: 1200px; /* Adjust the maximum width as needed */
+        margin: 0 auto;
+    }
+
+    .billing_details {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .col-lg-7,
+    .col-lg-5 {
+        width: 100%;
+    }
+
+    /* Style form labels */
+    label {
+        font-weight: bold;
+    }
+
+    /* Style input fields */
+    .form-control {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 15px;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+    }
+
+    /* Style the submit button */
+    .primary-btn {
+        background-color: #28a745;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    /* Style the order details box */
+    .order_box {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+        /* Style the heading */
+        .order_box h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Style the product order link */
+        .order_box a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+            .order_box a:hover {
+                text-decoration: underline;
+            }
+
+</style>
+
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="~/js/a.js"></script>

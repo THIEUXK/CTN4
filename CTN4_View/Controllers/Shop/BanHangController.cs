@@ -473,19 +473,7 @@ namespace CTN4_View.Controllers.Shop
             var url = $"https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee";
             float tong = 0;
             var content = new StringContent(JsonConvert.SerializeObject(hang), Encoding.UTF8, "application/json");
-            var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
             var respose = await _httpClient.PostAsync(url, content);
-
-            if (accnew.Count != 0)
-            {
-                var gh = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == accnew[0].Id);
-                var ghct = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh.Id);
-
-                foreach (var x in ghct)
-                {
-                    tong += float.Parse(x.SanPhamChiTiet.SanPham.GiaNiemYet.ToString()) * (x.SoLuong);
-
-                }
                 Shipping shipping = new Shipping();
                 if (respose.IsSuccessStatusCode)
                 {
@@ -506,22 +494,7 @@ namespace CTN4_View.Controllers.Shop
                     //shipping.data.totaloder = shipping.data.total + int.Parse(tong.ToString());
                     return Json(shipping, new System.Text.Json.JsonSerializerOptions());
                 }
-            }
-            else
-            {
-                var gh2 = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == null);
-                var a = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh2.Id);
-                foreach (var x in a)
-                {
-                    tong += float.Parse(x.SanPhamChiTiet.SanPham.GiaNiemYet.ToString()) * (x.SoLuong);
-
-                }
-                Shipping shipping = new Shipping()
-                {
-                    totaloder = tong + 50000
-                };
-                return Json(shipping, new System.Text.Json.JsonSerializerOptions());
-            }
+            
         }
         public IActionResult HoanThanhThanhToan(string tenmagiam, float tiengiama, float tienhanga, string name, string DiachiNhanChiTiet, string Sodienthoai, string Email, string addDiaChi, Guid IdDiaChi, Guid idphuongthuc, string ghiChu, float tienshipa, float tongtien)
         {
