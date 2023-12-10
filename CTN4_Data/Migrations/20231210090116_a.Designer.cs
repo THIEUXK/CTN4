@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CTN4_Data.Migrations
 {
     [DbContext(typeof(DB_CTN4_ok))]
-    [Migration("20231206141417_a")]
+    [Migration("20231210090116_a")]
     partial class a
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -261,6 +261,12 @@ namespace CTN4_Data.Migrations
                             Id = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081173"),
                             Is_detele = true,
                             TenDanhMuc = "Sản phẩm bán chạy"
+                        },
+                        new
+                        {
+                            Id = new Guid("f0e98e38-112b-4630-89f1-08dbf336241b"),
+                            Is_detele = true,
+                            TenDanhMuc = "Sản phẩm mới"
                         });
                 });
 
@@ -290,6 +296,18 @@ namespace CTN4_Data.Migrations
                             Id = new Guid("d16ac327-3ced-4c2c-bcdc-d3897121441a"),
                             IdDanhMuc = new Guid("56dd3ee2-c4df-4376-b982-e2c0f7081163"),
                             IdSanPham = new Guid("56dd3de2-c4df-4376-b982-e2c0f7081829")
+                        },
+                        new
+                        {
+                            Id = new Guid("d16ac327-3ceb-4c2c-bcdc-d3897121441a"),
+                            IdDanhMuc = new Guid("f0e98e38-112b-4630-89f1-08dbf336241b"),
+                            IdSanPham = new Guid("56dd3de2-c4df-4376-b982-e2c0f7081825")
+                        },
+                        new
+                        {
+                            Id = new Guid("d16ac327-3c0b-4c2c-bcdc-d3897121441a"),
+                            IdDanhMuc = new Guid("f0e98e38-112b-4630-89f1-08dbf336241b"),
+                            IdSanPham = new Guid("56dd3de2-c4df-4376-b982-e2c0f7081826")
                         },
                         new
                         {
@@ -524,7 +542,7 @@ namespace CTN4_Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("NgayDat")
+                    b.Property<DateTime?>("NgayDat")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("NgayGiao")
@@ -533,7 +551,7 @@ namespace CTN4_Data.Migrations
                     b.Property<DateTime?>("NgayNhan")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("NgayTaoHoaDon")
+                    b.Property<DateTime?>("NgayTaoHoaDon")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("SDTNguoiNhan")
@@ -544,7 +562,7 @@ namespace CTN4_Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float?>("TienGiam")
+                    b.Property<float>("TienGiam")
                         .HasColumnType("real");
 
                     b.Property<float>("TienHang")
@@ -702,6 +720,9 @@ namespace CTN4_Data.Migrations
                     b.Property<string>("MaKhuyenMai")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("Mua1tang1")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("NgayBatDau")
                         .HasColumnType("datetime2");

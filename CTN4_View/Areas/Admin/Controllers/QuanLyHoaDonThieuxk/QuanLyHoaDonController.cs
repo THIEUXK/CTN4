@@ -6,9 +6,11 @@ using CTN4_Serv.Service;
 using CTN4_Serv.Service.IService;
 using CTN4_Serv.Service.Service;
 using CTN4_Serv.ServiceJoin;
+using CTN4_Serv.ViewModel;
 using CTN4_Serv.ViewModel.banhangview;
 using CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk.viewMode;
 using CTN4_View.Areas.Admin.Viewmodel;
+using CTN4_View_Admin.Controllers.Shop;
 using DocumentFormat.OpenXml.Office2010.Excel;
 using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml.Wordprocessing;
@@ -22,10 +24,12 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
     [Area("admin")]
     public class QuanLyHoaDonController : Controller
     {
+        private readonly HttpClient _httpClient;
+
+
         public IHoaDonService _hoaDonService;
         public IHoaDonChiTietService _hoaDonChiTietService;
         public ILichSuHoaDonService _LichSuHoaDonService;
-        private readonly HttpClient _httpClient;
         public ISanPhamChiTietService _sv;
         public IChatLieuService _chatLieuService;
         public INSXService _nsxService;
@@ -37,8 +41,12 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
         public DB_CTN4_ok _db;
         public IAnhService _anhService;
         public ISanPhamChiTietService _sanPhamChiTietService;
-        public QuanLyHoaDonController()
+        public IKhuyenMaiSanPhamService _KhuyenMaiSanPhams;
+        public QuanLyHoaDonController(HttpClient httpClient)
         {
+            _httpClient = httpClient;
+            _httpClient?.DefaultRequestHeaders.Add("token", "fa31ddca-73b0-11ee-b394-8ac29577e80e");
+            _httpClient?.DefaultRequestHeaders.Add("shop_id", "4189141");
             _hoaDonChiTietService = new HoaDonChiTietService();
             _hoaDonService = new HoaDonService();
             _LichSuHoaDonService = new LichSuHoaDonService();
@@ -53,6 +61,8 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             _db = new DB_CTN4_ok();
             _anhService = new AnhService();
             _sanPhamService = new SanPhamService();
+            _KhuyenMaiSanPhams = new KhuyenMaiSanPhamService();
+           
         }
         public IActionResult Index()
         {
@@ -944,7 +954,6 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             wb.SaveAs(path);
             return Json(fileName, new System.Text.Json.JsonSerializerOptions());
         }
-
         [HttpPost("/QuanLyHd/XuatEx2")]
         public JsonResult XuatEx2([FromBody] Thi1View Viewaa)
         {
@@ -1104,15 +1113,33 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             }
             return Json("ok", new System.Text.Json.JsonSerializerOptions());
         }
-        public IActionResult TaoHoaDon(string TenSp, float? tu, float? den, int? page, int? size)
+        public IActionResult TaoHoaDon()
         {
             var sanPhamList = _sanPhamService.GetAll();
-
-            var view = new Thi1View()
+            HttpResponseMessage responseProvin = _httpClient.GetAsync("https://online-gateway.ghn.vn/shiip/public-api/master-data/province").Result;
+            Provin lstprovin = new Provin();
+            if (responseProvin.IsSuccessStatusCode)
+            {
+                string jsonData2 = responseProvin.Content.ReadAsStringAsync().Result;
+                lstprovin = JsonConvert.DeserializeObject<Provin>(jsonData2);
+                ViewBag.Provin = new SelectList(lstprovin.data, "ProvinceID", "ProvinceName");
+            }
+                var view = new Thi1View()
             {
                 sanPhams = sanPhamList
             };
 
+            return View(view);
+        }
+        public IActionResult sanphammua()
+        {
+            var sanPhamList = _sanPhamService.GetAll();
+            var khuyenMaiSp = _KhuyenMaiSanPhams.GetAll().Where(c => c.KhuyenMai.TrangThai == true && c.KhuyenMai.Is_Detele == false && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now).ToList();
+            var view = new Thi1View()
+            {
+                sanPhams = sanPhamList,
+                KhuyenMaiSanPhams = khuyenMaiSp,
+            };
             return View(view);
         }
     }
