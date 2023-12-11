@@ -144,12 +144,14 @@ namespace CTN4_Serv.Service
             }
             else
             {
+                var lstkm = _db.KhuyenMaiSanPhams.Select(p => p.IdSanPham);
                 var listProduct = _db.SanPhams.ToList();
                 var lstDanhMuc = _db.DanhMucs.ToList();
                 var lst = _db.DanhMucChiTiets.ToList();
                 var lstAll = from a in listProduct
                              join b in lst on a.Id equals b.IdSanPham
                              join c in lstDanhMuc on b.IdDanhMuc equals c.Id
+                             where !lstkm.Contains(a.Id) // Thêm điều kiện kiểm tra a.Id không tồn tại trong lstkm
                              where c.TenDanhMuc.ToLower().Contains(dieuKien.ToLower())||
                              a.GiaNhap.ToString().Contains(dieuKien) ||
                              a.GiaBan.ToString().Contains(dieuKien) ||
