@@ -400,9 +400,18 @@ namespace CTN4_View.Controllers
         }
         public IActionResult UserDetail()
         {
-            var a = _curent;
-            var user = _khachHangService.GetById(_curent.Id);
-            return View(user);
+            var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
+            if (accnew.Count != 0)
+            {
+                var a = _curent;
+                var user = _khachHangService.GetById(_curent.Id);
+                return View(user);
+            }
+            else
+            {
+                return RedirectToAction("login", "Home");
+            }
+          
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
