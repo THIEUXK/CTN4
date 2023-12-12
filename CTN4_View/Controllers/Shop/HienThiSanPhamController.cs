@@ -556,6 +556,7 @@ namespace CTN4_View.Controllers.Shop
             var listsp = _sanPhamCuaHangService.GetAll();
             var mau = _mauSacService.GetAll().ToList();
             var spctcuthe = _CTN4_Ok.SanPhamChiTiets.Include(c => c.Size).ToList().Where(c => c.IdSp == id && c.Is_detele == true);
+            var SpYt = _chiTietSanPhamYeuThichService.GetAll();
             var view = new SanPhamBan()
             {
                 sanPham = _sanPhamCuaHangService.GetById(id),
@@ -565,7 +566,9 @@ namespace CTN4_View.Controllers.Shop
                 sizect = spctcuthe.ToList(),
                 anhs = anh,
                 sanPhams = listsp,
-                giamgias = giamgia
+                giamgias = giamgia,
+                sanPhamYeuThiches =SpYt,
+                
             };
             return View(view);
 
