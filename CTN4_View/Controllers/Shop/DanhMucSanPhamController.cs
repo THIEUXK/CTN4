@@ -33,6 +33,7 @@ namespace CTN4_View.Controllers.Shop
         public PagingInfo _pagingInfo;
         public ISanPhamService _sanphamService;
         public IKhachHangService _khachHangService;
+        public IKhuyenMaiSanPhamService _kmspService;
         public DanhMucSanPhamController(IGioHangService giohang)
         {
             _sanPhamCuaHangService = new SanPhamCuaHangService();
@@ -53,6 +54,7 @@ namespace CTN4_View.Controllers.Shop
             _chiTietSanPhamYeuThichService = new ChiTietSanPhamYeuThichService();
             _khachHangService = new KhachHangService();
             _sanPhamChiTietService = new SanPhamChiTietService();
+            _kmspService = new KhuyenMaiSanPhamService();
         }
         //public IActionResult SanPhamDanhMuc(Guid id, int page, int Soluonghienthi)
         //{
@@ -82,7 +84,7 @@ namespace CTN4_View.Controllers.Shop
         //    var chatLieus = _chatLieuService.GetAll();
         //    var mauSacs = _mauSacService.GetAll();
         //    var khachhang = _khachHangService.GetAll();
-        //    var c = _DanhMucjoiin.GetById(id).Where(c => c.SanPham.Is_detele == true).ToList();
+        //    var c = _DanhMucjoiin.GetById(id).Where(c => c.SanPham.Is_detele == true && c.SanPham.TrangThai == true).ToList();
         //    var view = new HienThiSanPhamView()
         //    {
         //        danhMucs = danhMuc,
@@ -162,15 +164,16 @@ namespace CTN4_View.Controllers.Shop
                 var chatLieus = _chatLieuService.GetAll();
                 var mauSacs = _mauSacService.GetAll();
                 var khachhang = _khachHangService.GetAll();
-                //var c = _DanhMucjoiin.GetById(id).Where(c => c.SanPham.Is_detele == true).ToList();
+                var khuyenMaiSp = _kmspService.GetAll().Where(c => c.KhuyenMai.TrangThai == true && c.KhuyenMai.Is_Detele == false && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now).ToList();
+                //var c = _DanhMucjoiin.GetById(id).Where(c => c.SanPham.Is_detele == true && c.SanPham.TrangThai == true).ToList();
                 List<DanhMucChiTiet> c;
                 if (luuGiaKetThuc != 0 && luuGiaBatDau < luuGiaKetThuc)
                 {
-                    c = _DanhMucjoiin.getAllDanhMucChitiet().Where(c => c.SanPham.Is_detele == true && c.SanPham.GiaNiemYet >= luuGiaBatDau && c.SanPham.GiaNiemYet <= luuGiaKetThuc && a.Contains((Guid)c.SanPham.IdChatLieu) && c.DanhMuc.Id == LuuTam[0].Id).ToList();
+                    c = _DanhMucjoiin.getAllDanhMucChitiet().Where(c => c.SanPham.Is_detele == true && c.SanPham.TrangThai == true && c.SanPham.GiaNiemYet >= luuGiaBatDau && c.SanPham.GiaNiemYet <= luuGiaKetThuc && a.Contains((Guid)c.SanPham.IdChatLieu) && c.DanhMuc.Id == LuuTam[0].Id).ToList();
                 }
                 else
                 {
-                    c = _DanhMucjoiin.getAllDanhMucChitiet().Where(c => c.SanPham.Is_detele == true && a.Contains((Guid)c.SanPham.IdChatLieu) && c.DanhMuc.Id == LuuTam[0].Id).ToList();
+                    c = _DanhMucjoiin.getAllDanhMucChitiet().Where(c => c.SanPham.Is_detele == true && c.SanPham.TrangThai == true && a.Contains((Guid)c.SanPham.IdChatLieu) && c.DanhMuc.Id == LuuTam[0].Id).ToList();
                 }
                 if (c.Count == 0)
                 {
@@ -198,6 +201,7 @@ namespace CTN4_View.Controllers.Shop
                     sanPhamYeuThiches = SpYt,
                     khachHangs = khachhang,
                     danhMucChiTiet2 = c,
+                    khuyenMaiSanPhams = khuyenMaiSp
                 };
                 return View(view);
             }
@@ -215,15 +219,16 @@ namespace CTN4_View.Controllers.Shop
                 var chatLieus = _chatLieuService.GetAll();
                 var mauSacs = _mauSacService.GetAll();
                 var khachhang = _khachHangService.GetAll();
-                //var c = _DanhMucjoiin.GetById(id).Where(c => c.SanPham.Is_detele == true).ToList();
+                var khuyenMaiSp = _kmspService.GetAll().Where(c => c.KhuyenMai.TrangThai == true && c.KhuyenMai.Is_Detele == false && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now).ToList();
+                //var c = _DanhMucjoiin.GetById(id).Where(c => c.SanPham.Is_detele == true && c.SanPham.TrangThai == true).ToList();
                 List<DanhMucChiTiet> c;
                 if (luuGiaKetThuc != 0 && luuGiaBatDau < luuGiaKetThuc)
                 {
-                    c = _DanhMucjoiin.getAllDanhMucChitiet().Where(c => c.SanPham.Is_detele == true && c.SanPham.GiaNiemYet >= luuGiaBatDau && c.SanPham.GiaNiemYet <= luuGiaKetThuc && idspA.Contains((Guid)c.SanPham.Id) && c.DanhMuc.Id == LuuTam[0].Id).ToList();
+                    c = _DanhMucjoiin.getAllDanhMucChitiet().Where(c => c.SanPham.Is_detele == true && c.SanPham.TrangThai == true && c.SanPham.GiaNiemYet >= luuGiaBatDau && c.SanPham.GiaNiemYet <= luuGiaKetThuc && idspA.Contains((Guid)c.SanPham.Id) && c.DanhMuc.Id == LuuTam[0].Id).ToList();
                 }
                 else
                 {
-                    c = _DanhMucjoiin.getAllDanhMucChitiet().Where(c => c.SanPham.Is_detele == true && idspA.Contains((Guid)c.SanPham.Id) && c.DanhMuc.Id == LuuTam[0].Id).ToList();
+                    c = _DanhMucjoiin.getAllDanhMucChitiet().Where(c => c.SanPham.Is_detele == true && c.SanPham.TrangThai == true && idspA.Contains((Guid)c.SanPham.Id) && c.DanhMuc.Id == LuuTam[0].Id).ToList();
                 }
                 if (c.Count == 0)
                 {
@@ -251,6 +256,7 @@ namespace CTN4_View.Controllers.Shop
                     sanPhamYeuThiches = SpYt,
                     khachHangs = khachhang,
                     danhMucChiTiet2 = c,
+                    khuyenMaiSanPhams = khuyenMaiSp
                 };
                 return View(view);
             }// Chỉ tìm giá tiền
@@ -267,15 +273,16 @@ namespace CTN4_View.Controllers.Shop
                 var chatLieus = _chatLieuService.GetAll();
                 var mauSacs = _mauSacService.GetAll();
                 var khachhang = _khachHangService.GetAll();
-                //var c = _DanhMucjoiin.GetById(id).Where(c => c.SanPham.Is_detele == true).ToList();
+                var khuyenMaiSp = _kmspService.GetAll().Where(c => c.KhuyenMai.TrangThai == true && c.KhuyenMai.Is_Detele == false && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now).ToList();
+                //var c = _DanhMucjoiin.GetById(id).Where(c => c.SanPham.Is_detele == true && c.SanPham.TrangThai == true).ToList();
                 List<DanhMucChiTiet> c;
                 if (luuGiaKetThuc != 0 && luuGiaBatDau < luuGiaKetThuc)
                 {
-                    c = _DanhMucjoiin.getAllDanhMucChitiet().Where(c => c.SanPham.Is_detele == true && c.SanPham.GiaNiemYet >= luuGiaBatDau && c.SanPham.GiaNiemYet <= luuGiaKetThuc && c.DanhMuc.Id == LuuTam[0].Id).ToList();
+                    c = _DanhMucjoiin.getAllDanhMucChitiet().Where(c => c.SanPham.Is_detele == true && c.SanPham.TrangThai == true && c.SanPham.GiaNiemYet >= luuGiaBatDau && c.SanPham.GiaNiemYet <= luuGiaKetThuc && c.DanhMuc.Id == LuuTam[0].Id).ToList();
                 }
                 else
                 {
-                    c = _DanhMucjoiin.getAllDanhMucChitiet().Where(c => c.SanPham.Is_detele == true && c.DanhMuc.Id == LuuTam[0].Id).ToList();
+                    c = _DanhMucjoiin.getAllDanhMucChitiet().Where(c => c.SanPham.Is_detele == true && c.SanPham.TrangThai == true && c.DanhMuc.Id == LuuTam[0].Id).ToList();
                 }
                 if (c.Count == 0)
                 {
@@ -303,6 +310,7 @@ namespace CTN4_View.Controllers.Shop
                     sanPhamYeuThiches = SpYt,
                     khachHangs = khachhang,
                     danhMucChiTiet2 = c,
+                    khuyenMaiSanPhams = khuyenMaiSp
                 };
                 return View(view);
             }
@@ -319,15 +327,16 @@ namespace CTN4_View.Controllers.Shop
                 var chatLieus = _chatLieuService.GetAll();
                 var mauSacs = _mauSacService.GetAll();
                 var khachhang = _khachHangService.GetAll();
-                //var c = _DanhMucjoiin.GetById(id).Where(c => c.SanPham.Is_detele == true).ToList();
+                var khuyenMaiSp = _kmspService.GetAll().Where(c => c.KhuyenMai.TrangThai == true && c.KhuyenMai.Is_Detele == false && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now).ToList();
+                //var c = _DanhMucjoiin.GetById(id).Where(c => c.SanPham.Is_detele == true && c.SanPham.TrangThai == true).ToList();
                 List<DanhMucChiTiet> c;
                 if (luuGiaKetThuc != 0 && luuGiaBatDau < luuGiaKetThuc)
                 {
-                    c = _DanhMucjoiin.getAllDanhMucChitiet().Where(c => c.SanPham.Is_detele == true && c.SanPham.GiaNiemYet >= luuGiaBatDau && c.SanPham.GiaNiemYet <= luuGiaKetThuc && idspA.Contains((Guid)c.SanPham.Id) && a.Contains((Guid)c.SanPham.IdChatLieu) && c.DanhMuc.Id == LuuTam[0].Id).ToList();
+                    c = _DanhMucjoiin.getAllDanhMucChitiet().Where(c => c.SanPham.Is_detele == true && c.SanPham.TrangThai == true && c.SanPham.GiaNiemYet >= luuGiaBatDau && c.SanPham.GiaNiemYet <= luuGiaKetThuc && idspA.Contains((Guid)c.SanPham.Id) && a.Contains((Guid)c.SanPham.IdChatLieu) && c.DanhMuc.Id == LuuTam[0].Id).ToList();
                 }
                 else
                 {
-                    c = _DanhMucjoiin.getAllDanhMucChitiet().Where(c => c.SanPham.Is_detele == true && idspA.Contains((Guid)c.SanPham.Id) && a.Contains((Guid)c.SanPham.IdChatLieu) && c.DanhMuc.Id == LuuTam[0].Id).ToList();
+                    c = _DanhMucjoiin.getAllDanhMucChitiet().Where(c => c.SanPham.Is_detele == true && c.SanPham.TrangThai == true && idspA.Contains((Guid)c.SanPham.Id) && a.Contains((Guid)c.SanPham.IdChatLieu) && c.DanhMuc.Id == LuuTam[0].Id).ToList();
                 }
                 if (c.Count == 0)
                 {
@@ -355,6 +364,7 @@ namespace CTN4_View.Controllers.Shop
                     sanPhamYeuThiches = SpYt,
                     khachHangs = khachhang,
                     danhMucChiTiet2 = c,
+                    khuyenMaiSanPhams = khuyenMaiSp
                 };
                 return View(view);
             }
@@ -371,15 +381,16 @@ namespace CTN4_View.Controllers.Shop
                 var chatLieus = _chatLieuService.GetAll();
                 var mauSacs = _mauSacService.GetAll();
                 var khachhang = _khachHangService.GetAll();
-                //var c = _DanhMucjoiin.GetById(id).Where(c => c.SanPham.Is_detele == true).ToList();
+                var khuyenMaiSp = _kmspService.GetAll().Where(c => c.KhuyenMai.TrangThai == true && c.KhuyenMai.Is_Detele == false && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now).ToList();
+                //var c = _DanhMucjoiin.GetById(id).Where(c => c.SanPham.Is_detele == true && c.SanPham.TrangThai == true).ToList();
                 List<DanhMucChiTiet> c;
                 if (luuGiaKetThuc != 0 && luuGiaBatDau < luuGiaKetThuc)
                 {
-                    c = _DanhMucjoiin.getAllDanhMucChitiet().Where(c => c.SanPham.Is_detele == true && c.SanPham.GiaNiemYet >= luuGiaBatDau && c.SanPham.GiaNiemYet <= luuGiaKetThuc && c.DanhMuc.Id == LuuTam[0].Id).ToList();
+                    c = _DanhMucjoiin.getAllDanhMucChitiet().Where(c => c.SanPham.Is_detele == true && c.SanPham.TrangThai == true && c.SanPham.GiaNiemYet >= luuGiaBatDau && c.SanPham.GiaNiemYet <= luuGiaKetThuc && c.DanhMuc.Id == LuuTam[0].Id).ToList();
                 }
                 else
                 {
-                    c = _DanhMucjoiin.getAllDanhMucChitiet().Where(c => c.SanPham.Is_detele == true && c.DanhMuc.Id == LuuTam[0].Id).ToList();
+                    c = _DanhMucjoiin.getAllDanhMucChitiet().Where(c => c.SanPham.Is_detele == true && c.SanPham.TrangThai == true && c.DanhMuc.Id == LuuTam[0].Id).ToList();
                 }
                 if (c.Count == 0)
                 {
@@ -407,6 +418,7 @@ namespace CTN4_View.Controllers.Shop
                     sanPhamYeuThiches = SpYt,
                     khachHangs = khachhang,
                     danhMucChiTiet2 = c,
+                    khuyenMaiSanPhams = khuyenMaiSp
                 }; return View(view);
             }
             else
@@ -422,7 +434,8 @@ namespace CTN4_View.Controllers.Shop
                 var chatLieus = _chatLieuService.GetAll();
                 var mauSacs = _mauSacService.GetAll();
                 var khachhang = _khachHangService.GetAll();
-                var c = _DanhMucjoiin.GetById(id).Where(c => c.SanPham.Is_detele == true).ToList();
+                var c = _DanhMucjoiin.GetById(id).Where(c => c.SanPham.Is_detele == true && c.SanPham.TrangThai == true).ToList();
+                var khuyenMaiSp = _kmspService.GetAll().Where(c => c.KhuyenMai.TrangThai == true && c.KhuyenMai.Is_Detele == false && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now).ToList();
                 var view = new HienThiSanPhamView()
                 {
                     danhMucs = danhMuc,
@@ -443,6 +456,7 @@ namespace CTN4_View.Controllers.Shop
                     sanPhamYeuThiches = SpYt,
                     khachHangs = khachhang,
                     danhMucChiTiet2 = c,
+                    khuyenMaiSanPhams = khuyenMaiSp
                 }; return View(view);
             }
         }
@@ -459,8 +473,8 @@ namespace CTN4_View.Controllers.Shop
             var chatLieus = _chatLieuService.GetAll();
             var mauSacs = _mauSacService.GetAll();
             var khachhang = _khachHangService.GetAll();
-            var slspDanhMuc = _DanhMucjoiin.GetById(id).Where(c => c.SanPham.Is_detele == true).ToList();
-            var c = _DanhMucjoiin.getAllDanhMucChitiet().Where(c => c.SanPham.Is_detele == true).ToList();
+            var slspDanhMuc = _DanhMucjoiin.GetById(id).Where(c => c.SanPham.Is_detele == true && c.SanPham.TrangThai == true).ToList();
+            var c = _DanhMucjoiin.getAllDanhMucChitiet().Where(c => c.SanPham.Is_detele == true && c.SanPham.TrangThai == true).ToList();
             var view = new HienThiSanPhamView()
             {
                 danhMucs = danhMuc,
@@ -498,7 +512,7 @@ namespace CTN4_View.Controllers.Shop
                 {
                     return RedirectToAction("SanPhamDanhMuc");
                 }
-                var searchTenSp1 = _DanhMucjoiin.getAllDanhMucChitiet().Where(c => c.SanPham.Is_detele == true && c.SanPham.TenSanPham.ToLower().Contains(TenSp.ToLower()) && c.DanhMuc.Id == LuuTam[0].Id).ToList();
+                var searchTenSp1 = _DanhMucjoiin.getAllDanhMucChitiet().Where(c => c.SanPham.Is_detele == true && c.SanPham.TrangThai == true && c.SanPham.TenSanPham.ToLower().Contains(TenSp.ToLower()) && c.DanhMuc.Id == LuuTam[0].Id).ToList();
 
                 if (searchTenSp1.Count != 0)
                 {
@@ -513,8 +527,8 @@ namespace CTN4_View.Controllers.Shop
                     var khachhang = _khachHangService.GetAll();
                     var chatLieus = _chatLieuService.GetAll();
                     var mauSacs = _mauSacService.GetAll();
-                    var slspDanhMuc = _DanhMucjoiin.getAllDanhMucChitiet().Where(c => c.SanPham.Is_detele == true && c.SanPham.TenSanPham.ToLower().Contains(TenSp.ToLower()) && c.DanhMuc.Id == LuuTam[0].Id).ToList();
-                    var c = _DanhMucjoiin.getAllDanhMucChitiet().Where(c => c.SanPham.Is_detele == true).ToList();
+                    var slspDanhMuc = _DanhMucjoiin.getAllDanhMucChitiet().Where(c => c.SanPham.Is_detele == true && c.SanPham.TrangThai == true && c.SanPham.TenSanPham.ToLower().Contains(TenSp.ToLower()) && c.DanhMuc.Id == LuuTam[0].Id).ToList();
+                    var c = _DanhMucjoiin.getAllDanhMucChitiet().Where(c => c.SanPham.Is_detele == true && c.SanPham.TrangThai == true).ToList();
                     var view = new HienThiSanPhamView()
                     {
                         danhMucs = danhMuc,
@@ -554,7 +568,7 @@ namespace CTN4_View.Controllers.Shop
             {
                 return RedirectToAction("SanPhamDanhMuc");
             }
-            var searchTenSp = _DanhMucjoiin.getAllDanhMucChitiet().Where(c => c.SanPham.Is_detele == true && c.SanPham.TenSanPham.ToLower().Contains(TenSp.ToLower())).ToList();
+            var searchTenSp = _DanhMucjoiin.getAllDanhMucChitiet().Where(c => c.SanPham.Is_detele == true && c.SanPham.TrangThai == true && c.SanPham.TenSanPham.ToLower().Contains(TenSp.ToLower())).ToList();
 
             if (searchTenSp.Count != 0)
             {
@@ -569,8 +583,8 @@ namespace CTN4_View.Controllers.Shop
                 var khachhang = _khachHangService.GetAll();
                 var chatLieus = _chatLieuService.GetAll();
                 var mauSacs = _mauSacService.GetAll();
-                var slspDanhMuc = _DanhMucjoiin.getAllDanhMucChitiet().Where(c => c.SanPham.Is_detele == true && c.SanPham.TenSanPham.ToLower().Contains(TenSp.ToLower())).ToList();
-                var c = _DanhMucjoiin.getAllDanhMucChitiet().Where(c => c.SanPham.Is_detele == true).ToList();
+                var slspDanhMuc = _DanhMucjoiin.getAllDanhMucChitiet().Where(c => c.SanPham.Is_detele == true && c.SanPham.TrangThai == true && c.SanPham.TenSanPham.ToLower().Contains(TenSp.ToLower())).ToList();
+                var c = _DanhMucjoiin.getAllDanhMucChitiet().Where(c => c.SanPham.Is_detele == true && c.SanPham.TrangThai == true).ToList();
                 var view = new HienThiSanPhamView()
                 {
                     danhMucs = danhMuc,
@@ -612,7 +626,7 @@ namespace CTN4_View.Controllers.Shop
             var LuuTam = SessionBan.DanhMucSS(HttpContext.Session, "DanhMucTam");
             if (LuuTam.Count != 0)
             {
-                var searchTenSp1 = _DanhMucjoiin.getAllDanhMucChitiet().Where(c => c.SanPham.Is_detele == true && c.DanhMuc.Id == LuuTam[0].Id).ToList();
+                var searchTenSp1 = _DanhMucjoiin.getAllDanhMucChitiet().Where(c => c.SanPham.Is_detele == true && c.SanPham.TrangThai == true && c.DanhMuc.Id == LuuTam[0].Id).ToList();
 
                 if (searchTenSp1.Count != 0)
                 {

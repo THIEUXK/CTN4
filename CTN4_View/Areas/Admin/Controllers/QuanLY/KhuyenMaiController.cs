@@ -271,37 +271,40 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         public ActionResult UpdateGiaSanPham( string id,string[] ids, float giamTheoTien, float giamTheoPh, string tenSanPham, string maSp, string tenChatLieu,
             string tenNSX, string moTa, float giaNhap, float giaBan, float giaNiemYet, string ghiChu, float DongGia, DateTime ngayBatDauDate,DateTime ngayKetThucDate)
         {
+
             TempData["ErrorMessage"] = "Thông báo lỗi của bạn ở đây.";
+            DateTime currentDate = DateTime.Now; // Get the current date
+
             foreach (var item in ids)
             {
                 var sp = _sp.GetById(Guid.Parse(item.ToString()));
                 if (giamTheoTien > sp.GiaBan || DongGia > sp.GiaBan)
                 {
                     TempData["ErrorMessage"] = "Giảm giá không hợp lệ vì vượt quá giá gốc của sản phẩm.";
-                    // Xử lý thêm hoặc return nếu cần
+                    // Additional error handling or return if needed
+                    
                 }
-                if (giamTheoTien > 0)
+
+                // Check if the start date has been reached
+                if (currentDate >= ngayBatDauDate)
                 {
-                    if (giamTheoTien < sp.GiaBan) // Ensure discount does not exceed original price
+                    // Apply discounts only if the start date has been reached
+                    if (giamTheoTien > 0 && giamTheoTien < sp.GiaBan)
                     {
                         sp.GiaNiemYet = sp.GiaBan - giamTheoTien;
                     }
-                }
-                else if (giamTheoPh > 0)
-                {
-                    if (giamTheoPh <= 100) // Ensure percentage discount is valid
+                    else if (giamTheoPh > 0 && giamTheoPh <= 100)
                     {
                         sp.GiaNiemYet = sp.GiaBan - (sp.GiaBan * giamTheoPh / 100);
                     }
-                }
-                else if (DongGia > 0)
-                {
-                    if (DongGia < sp.GiaBan) // Ensure fixed price does not exceed original price
+                    else if (DongGia > 0 && DongGia < sp.GiaBan)
                     {
                         sp.GiaNiemYet = DongGia;
                     }
+                    _sp.Sua(sp); // Update product information
                 }
 
+                // Regardless of the start date, add the product to the promotion
                 KhuyenMaiSanPham km = new KhuyenMaiSanPham()
                 {
                     Id = Guid.NewGuid(),
@@ -309,8 +312,10 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                     IdSanPham = Guid.Parse(item)
                 };
                 _kmsp.Them(km);
-                _sp.Sua(sp);
             }
+
+            // Handle errors or invalid discount scenarios
+          
 
             // Filtering products based on criteria
             var filteredProducts = _sp.GetAll();

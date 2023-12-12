@@ -138,7 +138,7 @@ namespace CTN4_View.Controllers.Shop
             var gh = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == accnew[0].Id);
             if (accnew.Count != 0 && gh != null)
             {
-              
+
                 var hd = new HoaDon()
                 {
                     MaHoaDon = $"HD0{idHoaDon}",
@@ -176,7 +176,7 @@ namespace CTN4_View.Controllers.Shop
                     };
                     var a = _giamGiaService.GetById(giamgianew[0].Id);
                     a.SoLuong -= 1;
-                    if (_giamGiaChiTietService.Them(giamct) == false||_giamGiaService.Sua(a))
+                    if (_giamGiaChiTietService.Them(giamct) == false || _giamGiaService.Sua(a))
                     {
                         var message = "lỗi mã giảm giá";
                         TempData["ErrorMessage"] = message;
@@ -323,6 +323,13 @@ namespace CTN4_View.Controllers.Shop
             var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
             if (accnew.Count != 0)
             {
+                var checksp = _SanPhamChiTiet.GetAll().FirstOrDefault(c => c.IdSp == IdSanPham && c.IdSize == IdSize && c.IdMau == IdMau);
+                if (soluong > checksp.SoLuong)
+                {
+                    var message2 = "Số lượng không đủ !";
+                    TempData["TB2"] = message2;
+                    return RedirectToAction("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = IdSanPham, message2 });
+                }
                 if (IdMau == Guid.Parse("00000000-0000-0000-0000-000000000000") || IdSize == Guid.Parse("00000000-0000-0000-0000-000000000000"))
                 {
                     var message1 = "hãy chọn màu và size của bạn !";
@@ -474,27 +481,27 @@ namespace CTN4_View.Controllers.Shop
             float tong = 0;
             var content = new StringContent(JsonConvert.SerializeObject(hang), Encoding.UTF8, "application/json");
             var respose = await _httpClient.PostAsync(url, content);
-                Shipping shipping = new Shipping();
-                if (respose.IsSuccessStatusCode)
-                {
-                    string jsonData2 = respose.Content.ReadAsStringAsync().Result;
+            Shipping shipping = new Shipping();
+            if (respose.IsSuccessStatusCode)
+            {
+                string jsonData2 = respose.Content.ReadAsStringAsync().Result;
 
-                    shipping = JsonConvert.DeserializeObject<Shipping>(jsonData2);
-                    HttpContext.Session.SetInt32("shiptotal", shipping.data.total);
-                    shipping.data.totaloder = shippingOrder.tienhang + shipping.data.total - shippingOrder.tiengiam;
-                    shipping.tienGiam = shippingOrder.tiengiam;
+                shipping = JsonConvert.DeserializeObject<Shipping>(jsonData2);
+                HttpContext.Session.SetInt32("shiptotal", shipping.data.total);
+                shipping.data.totaloder = shippingOrder.tienhang + shipping.data.total - shippingOrder.tiengiam;
+                shipping.tienGiam = shippingOrder.tiengiam;
 
-                    //shipping.data.totaloder = shipping.data.total + int.Parse(tong.ToString());
-                    return Json(shipping, new System.Text.Json.JsonSerializerOptions());
-                }
-                else
-                {
-                    shipping.message = "False";
+                //shipping.data.totaloder = shipping.data.total + int.Parse(tong.ToString());
+                return Json(shipping, new System.Text.Json.JsonSerializerOptions());
+            }
+            else
+            {
+                shipping.message = "False";
 
-                    //shipping.data.totaloder = shipping.data.total + int.Parse(tong.ToString());
-                    return Json(shipping, new System.Text.Json.JsonSerializerOptions());
-                }
-            
+                //shipping.data.totaloder = shipping.data.total + int.Parse(tong.ToString());
+                return Json(shipping, new System.Text.Json.JsonSerializerOptions());
+            }
+
         }
         public IActionResult HoanThanhThanhToan(string tenmagiam, float tiengiama, float tienhanga, string name, string DiachiNhanChiTiet, string Sodienthoai, string Email, string addDiaChi, Guid IdDiaChi, Guid idphuongthuc, string ghiChu, float tienshipa, float tongtien)
         {
@@ -641,7 +648,7 @@ namespace CTN4_View.Controllers.Shop
                         };
                         var a = _giamGiaService.GetById(giamgianew[0].Id);
                         a.SoLuong -= 1;
-                        if (_giamGiaChiTietService.Them(giamct) == false||_giamGiaService.Sua(a))
+                        if (_giamGiaChiTietService.Them(giamct) == false || _giamGiaService.Sua(a))
                         {
                             var message = "lỗi mã giảm giá";
                             TempData["ErrorMessage"] = message;
@@ -827,7 +834,7 @@ namespace CTN4_View.Controllers.Shop
                     TempData["TB2"] = message;
                     return RedirectToAction("ThuTucThanhToan", "BanHang", new { message });
                 }
-                if (giamgia1.SoLuong<1)
+                if (giamgia1.SoLuong < 1)
                 {
                     var message = $"Giảm giá {giamgia1.MaGiam} hiện đã hết";
                     TempData["TB2"] = message;
