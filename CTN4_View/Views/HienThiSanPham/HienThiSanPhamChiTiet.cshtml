@@ -223,8 +223,31 @@
                             }
                             <div class="card_area d-flex align-items-center">
                                 <button class="primary-btn" type="submit" href="#">Add to Cart</button>
-                                <a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
-                                <a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
+                                <a class="icon_btn" href="#"><i class="lnr lnr1 lnr-diamond"></i></a>
+
+                                @if (Model.sanPhamYeuThiches.FirstOrDefault(c => c.IdSanPham == Model.sanPham.Id) != null)
+                                {
+                                    <form asp-controller="SanPhamYeuThich" asp-action="XoaKhoiYeuTich1">
+
+                                        <input type="hidden" name="idSP" value="@Model.sanPham.Id">
+                                        <a onclick="onsubmit" class="social-info">
+                                            <span class="lnr lnr1 lnr-heart" style="background: linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);"><button onclick="onsubmit">  </button></span>
+                                           
+                                        </a>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <form asp-controller="SanPhamYeuThich" asp-action="ThemYeuThich">
+
+                                        <input type="hidden" name="IdSanPham" value="@Model.sanPham.Id">
+                                        <a onclick="onsubmit" class="icon_btn">
+                                            <span class="lnr lnr1 lnr-heart"><button onclick="onsubmit">  </button></span>
+                                           
+                                        </a>
+                                    </form>
+                                }
+                                @* <a class="icon_btn" type="button" onclick="onsubmit"><i class="lnr lnr lnr-heart"></i></a>*@
                             </div>
                             <input type="hidden" name="idSP" value="">
                         </div>
@@ -884,6 +907,49 @@
         text-decoration: line-through;
         color: #cccccc;
     }
+
+    .lnr1 {
+        font-family: 'Linearicons-Free';
+        speak: none;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 3;
+        /* Better Font Rendering =========== */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    .lnr-heart {
+        display: inline-block;
+        position: relative;
+        width: 40px;
+        height: 40px;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.3s ease-in-out;
+    }
+
+        .lnr-heart button {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            border: none;
+            border-radius: 50%;
+            opacity: 0;
+            transform: scale(0);
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+
+        .lnr-heart:hover button {
+            transform: scale(1);
+            opacity: 1;
+        }
 </style>
 <script src="~/js/vendor/jquery-2.2.4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.~/js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"

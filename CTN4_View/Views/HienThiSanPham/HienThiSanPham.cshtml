@@ -21,9 +21,6 @@
                 <ul class="main-categories">
                     <li class="main-nav-list">
                         <from>
-
-
-
                             @foreach (var sp in Model.danhMucs)
                             {
                                 if ((Model.danhMucChiTiets.Where(c => c.IdDanhMuc == sp.Id).Count()) >= 1)
@@ -125,57 +122,57 @@
                             </ul>
                         </form>
                     </div>
-                   
+
                 </div>
-               
 
-                 <div>
-                       
+
+                <div>
+
                     <form>
-                            @{
+                        @{
 
-                                var session3 = Context.Request.HttpContext.Session;
-                                var luuGiaBatDau = SessionBan.Sobatdau(session3, "minPrice");
-                                var luuGiaKetThuc = SessionBan.Sobatdau(session3, "maxPrice");
-                            }
-                            <div class="common-filter my-custom-filter">
-                                <div class="head">Giá</div>
-                                <div class="form-group">
-                                    <label for="tu">Từ</label>
-                                    @if (luuGiaBatDau != null)
-                                    {
-                                        <input type="text" class="price-input" id="minPrice" name="minPrice" value="@luuGiaBatDau" />
-                                    }
-                                    else
-                                    {
-                                        <input type="text" class="price-input" id="minPrice" name="minPrice" placeholder="Nhập giá từ" />
-                                    }
-                                </div>
-                                <div class="form-group">
-                                    <label for="den">đến</label>
-                                    @if (luuGiaKetThuc != null)
-                                    {
-                                        <input type="text" class="price-input" id="maxPrice" name="maxPrice" value="@luuGiaKetThuc" />
-                                    }
-                                    else
-                                    {
-                                        <input type="text" class="price-input" id="maxPrice" name="maxPrice" placeholder="Nhập giá đến" />
-                                    }
-                                </div>
+                            var session3 = Context.Request.HttpContext.Session;
+                            var luuGiaBatDau = SessionBan.Sobatdau(session3, "minPrice");
+                            var luuGiaKetThuc = SessionBan.Sobatdau(session3, "maxPrice");
+                        }
+                        <div class="common-filter my-custom-filter">
+                            <div class="head">Giá</div>
+                            <div class="form-group">
+                                <label for="tu">Từ</label>
+                                @if (luuGiaBatDau != null)
+                                {
+                                    <input type="text" class="price-input" id="minPrice" name="minPrice" value="@luuGiaBatDau" />
+                                }
+                                else
+                                {
+                                    <input type="text" class="price-input" id="minPrice" name="minPrice" placeholder="Nhập giá từ" />
+                                }
                             </div>
+                            <div class="form-group">
+                                <label for="den">đến</label>
+                                @if (luuGiaKetThuc != null)
+                                {
+                                    <input type="text" class="price-input" id="maxPrice" name="maxPrice" value="@luuGiaKetThuc" />
+                                }
+                                else
+                                {
+                                    <input type="text" class="price-input" id="maxPrice" name="maxPrice" placeholder="Nhập giá đến" />
+                                }
+                            </div>
+                        </div>
 
 
-                            @* Thông báo AJAX *@
-                            <div id="aaa1"></div>
-                            <button asp-controller="DanhMucSanPham" asp-action="SanPhamDanhMuc" class="btn btn-primary btn-block enter-btn fa fa-search">
-                                Lọc
-                            </button>
-                        </form>
+                        @* Thông báo AJAX *@
+                        <div id="aaa1"></div>
+                        <button asp-controller="DanhMucSanPham" asp-action="SanPhamDanhMuc" class="btn btn-primary btn-block enter-btn fa fa-search">
+                            Lọc
+                        </button>
+                    </form>
 
-                    </div>
+                </div>
             </div>
         </div>
-          
+
         <div class="col-xl-9 col-lg-8 col-md-7">
             <!-- Start Filter Bar -->
             <div class="filter-bar d-flex flex-wrap align-items-center">
@@ -194,19 +191,19 @@
                     </form>
                 </div>
                 <div class="sorting mr-auto">
-                  <form asp-action="HienThiSanPham" method="get" class="page-form">
-                     <select name="sortOrder" onchange="this.form.submit()">
-                          @if (Model.SortOrder != null)
+                    <form asp-action="HienThiSanPham" method="get" class="page-form">
+                        <select name="sortOrder" onchange="this.form.submit()">
+                            @if (Model.SortOrder != null)
                             {
                                 <option>Giá: @Model.SortOrder</option>
                             }
-                     <option value="Cao xuống Thấp" >Cao xuống Thấp</option>
-                     <option value="Thấp xuống Cao" >Thấp xuống Cao</option>
-                     </select>
-                   </form>
+                            <option value="Cao xuống Thấp">Cao xuống Thấp</option>
+                            <option value="Thấp xuống Cao">Thấp xuống Cao</option>
+                        </select>
+                    </form>
                 </div>
             </div>
-            
+
             <!-- End Filter Bar -->
             <!-- Start Best Seller -->
 
@@ -231,16 +228,17 @@
                                    System.IO.Path.GetExtension(sp.AnhDaiDien) == ".webp" ||
                                    System.IO.Path.GetExtension(sp.AnhDaiDien) == ".gif")
                                     {
-                                         <div class="product-container">
-                                        <a href="@Url.Action("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = sp.Id })">
-                                           
-                                                <img src="~/image/@sp.AnhDaiDien" height="300" alt="@sp.TenSanPham" /></a>
-                                            @foreach(var km in Model.khuyenMaiSanPhams)
+                                        <div class="product-container">
+                                            <a href="@Url.Action("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = sp.Id })">
+
+                                                <img src="~/image/@sp.AnhDaiDien" height="300" alt="@sp.TenSanPham" />
+                                            </a>
+                                            @foreach (var km in Model.khuyenMaiSanPhams)
                                             {
-                                                if(km.IdSanPham == sp.Id)
+                                                if (km.IdSanPham == sp.Id)
                                                 {
-                                                    
-                                                    if(km.KhuyenMai.PhanTramGiamGia != 0)
+
+                                                    if (km.KhuyenMai.PhanTramGiamGia != 0)
                                                     {
                                                         <div class="discount-tag">-@km.KhuyenMai.PhanTramGiamGia%</div>
                                                     }
@@ -250,7 +248,7 @@
                                                     }
                                                     else if (km.KhuyenMai.DongGia != 0)
                                                     {
-                                                        
+
                                                         <div class="discount-tag">Đồng giá chỉ còn @FormatCurrency(@km.KhuyenMai.DongGia)</div>
                                                     }
                                                     else if (km.KhuyenMai.Mua1tang1 == true)
@@ -260,15 +258,15 @@
 
                                                     else
                                                     {
-                                                        
+
                                                     }
                                                 }
                                             }
-                                           
-                                            </div>
+
+                                        </div>
 
 
-                                        
+
 
                                     }
                                     else
@@ -358,14 +356,6 @@
                 </div>
 
                 <div class="pagination">
-                    @*@for (int i = 1; i <= Model.pagingInfo.TotalPages; i++)
-                    {
-
-                    <form asp-action="HienThiSanPham" class="page-form">
-                    <input name="soluonghienthi" value="@Model.soluonghienthi" type="hidden" />
-                    <button type="submit" class="page-button" data-page="@i"><input style="border: none;" type="submit" name="page" value="@i" /></button>
-                    </form>
-                    }*@
                     @for (int i = 1; i <= Model.pagingInfo.TotalPages; i++)
                     {
                         <form asp-action="HienThiSanPham" asp-route-page="@i" asp-route-Soluonghienthi="@Model.soluonghienthi" method="get" class="page-form">
@@ -384,7 +374,6 @@
 </div>
 
 <!-- Start related-product Area -->
-
 <!-- End related-product Area -->
 <script>
     @functions {
@@ -401,19 +390,19 @@
 
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="~/js/b.js"></script>
-                                
+
 <script>
 
-                        else {
+                            else {
         throw new Error("Error sedding data controller")
     }
-                        }).then(function (results) {
+                            }).then(function (results) {
         $("#Fillter-sanPhams").html(results);
     })
         .catch(function (error) {
             console.log("An error occured:", error)
         })
-                        });
+                            });
     function getSetSelectCheckboxes(fromId) {
         var CheckBoxes = $('#' + fromId + ' input[type=checkbox]:checked'); // Thêm dấu cách sau fromId
         var value = [];
@@ -437,8 +426,8 @@
             $(this).submit();
         });
     });
-  
-    
+
+
 </script>
 
 <style>
@@ -512,57 +501,100 @@
             width: 16px;
             height: 16px;
         }
-       
-       
-       .product-container {
-    position: relative;
-    display: inline-block;
-}
 
-.discount-tag {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background-color: #FFD700; /* Màu vàng, bạn có thể thay đổi theo ý muốn */
-    color: #FF0000; /* Màu đỏ, bạn có thể thay đổi theo ý muốn */
-    padding: 4px 8px;
-    font-size: 14px;
-    font-weight: bold;
-    border-radius: 0 0 0 8px; /* Điều này tạo các góc cong cho phần tag */
-}
 
-.my-custom-filter {
-    background-color: #fff;
-    border: 1px solid #e0e0e0;
-    border-radius: 5px;
-    padding: 15px;
-    margin-bottom: 15px;
-}
+    .product-container {
+        position: relative;
+        display: inline-block;
+    }
 
-.my-custom-filter .head {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
+    .discount-tag {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: #FFD700; /* Màu vàng, bạn có thể thay đổi theo ý muốn */
+        color: #FF0000; /* Màu đỏ, bạn có thể thay đổi theo ý muốn */
+        padding: 4px 8px;
+        font-size: 14px;
+        font-weight: bold;
+        border-radius: 0 0 0 8px; /* Điều này tạo các góc cong cho phần tag */
+    }
 
-.my-custom-filter .form-group {
-    margin-bottom: 10px;
-}
+    .my-custom-filter {
+        background-color: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 5px;
+        padding: 15px;
+        margin-bottom: 15px;
+    }
 
-.my-custom-filter label {
-    font-size: 14px;
-}
+        .my-custom-filter .head {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
 
-.my-custom-filter .price-input {
-    width: 100px;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    margin-top: 5px; /* Khoảng cách giữa label và input */
-}
+        .my-custom-filter .form-group {
+            margin-bottom: 10px;
+        }
 
+        .my-custom-filter label {
+            font-size: 14px;
+        }
+
+        .my-custom-filter .price-input {
+            width: 100px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-top: 5px; /* Khoảng cách giữa label và input */
+ .pagination1
+    {
+        margin-top: 20px;
+        /*border-left: 1px solid #eee;*/
+        border-radius: 0px;
+        a
+
+    {
+        width: 40px;
+        line-height: 40px;
+        text-align: center;
+        display: inline-block;
+        background: $white;
+        &.active
+
+    {
+        extend .gradient-bg;
+        color: $white;
+    }
+
+    &:hover {
+        extend .gradient-bg;
+        color: $white;
+    }
+
+    }
+
+    .dot-dot {
+        width: auto;
+        background: transparent;
+        border-top: 0px;
+        border-bottom: 0px;
+        color: #cccccc;
+        padding: 0 5px;
+        &:hover
+
+    {
+        background: transparent;
+        border: 0px;
+        border-right: 1px solid #eee;
+        color: #cccccc;
+    }
+
+    }
+    }
 </style>
-              
+
 <!-- jQuery UI -->
 
 
@@ -581,3 +613,4 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 <script src="~/js/gmaps.min.js"></script>
 <script src="~/js/main.js"></script>
+<link rel="stylesheet" href="~/scss/theme/_common.scss">

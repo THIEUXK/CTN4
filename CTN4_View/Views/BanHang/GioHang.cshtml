@@ -49,9 +49,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @{
-
-                        }
+                       
                         @foreach (var a in Model.GioHangChiTiets)
                         {
                             <tr>
@@ -106,9 +104,10 @@
                             </tr>
                         }
 
-                        <tr class="bottom_button">
+                        @*<tr class="bottom_button">
                             <td>
-                                <a class="gray_btn" href="#">Update Cart</a>
+                                @foreach (var a in Model.GioHangChiTiets){
+                                <a class="gray_btn" href="@Url.Action("HienThiSanPhamChiTiet", "HienThiSanPham", new {  id=a.SanPhamChiTiet.SanPham.Id })">Quay lại sản phẩm</a>}
                             </td>
                             <td>
                             </td>
@@ -121,7 +120,7 @@
 
                             <td>
                             </td>
-                        </tr>
+                        </tr>*@
                         <tr>
                             <td>
                             </td>
@@ -157,7 +156,6 @@
                             <td>
                             </td>
                             <td>
-
                                 <div class="checkout_btn_inner d-flex align-items-center">
                                     <a class="gray_btn" asp-controller="HienThiSanPham" asp-action="HienThiSanPham">Tiếp tục mua sắm</a>
                                     <a class="primary-btn" asp-controller="BanHang" asp-action="ThuTucThanhToan">Tiến hành đặt hàng</a>

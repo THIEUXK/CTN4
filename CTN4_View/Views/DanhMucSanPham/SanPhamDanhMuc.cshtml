@@ -355,7 +355,7 @@
                     {
                         <form asp-action="SanPhamDanhMuc" asp-route-page="@i" asp-route-Soluonghienthi="@Model.soluonghienthi" method="get" class="page-form">
                             <input name="soluonghienthi" value="@Model.soluonghienthi" type="hidden" />
-                            <button type="submit" class="page-button @(i == Model.pagingInfo.CurrentPage ? "active" : "")" data-page="@i">
+                            <button type="submit" class="page-button @(i == Model.pagingInfo.CurrentPage? "active" : "")" data-page="@i">
                                 <input style="border: none; outline: none; text-decoration: none; @(i == Model.pagingInfo.CurrentPage ? "background: linear-gradient(90deg, #ffba00 0%, #ff6c00 100%); color: #ffffff;" : "")" type="submit" name="page" value="@i" />
                             </button>
                         </form>
@@ -625,6 +625,51 @@
             border-radius: 4px;
             margin-top: 5px; /* Khoảng cách giữa label và input */
         }
+        /////// 
+    .pagination {
+        margin-top: 10px;
+        /*border-left: 1px solid #eee;*/
+        border-radius: 0px;
+        a
+
+    {
+        width: 40px;
+        line-height: 40px;
+        text-align: center;
+        display: inline-block;
+        background: $white;
+        &.active
+
+    {
+    extend .gradient-bg;
+        color: $white;
+    }
+
+    &:hover {
+    extend .gradient-bg;
+        color: $white;
+    }
+
+    }
+
+    .dot-dot {
+        width: auto;
+        background: transparent;
+        border-top: 0px;
+        border-bottom: 0px;
+        color: #cccccc;
+        padding: 0 5px;
+        &:hover
+
+    {
+        background: transparent;
+        border: 0px;
+        border-right: 1px solid #eee;
+        color: #cccccc;
+    }
+
+    }
+    }
 
 </style>
 <script>
