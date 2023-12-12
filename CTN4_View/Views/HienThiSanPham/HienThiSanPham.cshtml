@@ -357,7 +357,7 @@
                     </form>
                 </div>
 
-                <div class="pagination">
+                <div class="pagination2">
                     @*@for (int i = 1; i <= Model.pagingInfo.TotalPages; i++)
                     {
 
@@ -382,9 +382,7 @@
         </div>
     </div>
 </div>
-
 <!-- Start related-product Area -->
-
 <!-- End related-product Area -->
 <script>
     @functions {
@@ -394,14 +392,9 @@
             return formattedPrice + "VND"; // Thêm ký hiệu đồng (₫) vào cuối
         }
     };
-
-
 </script>
-
-
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="~/js/b.js"></script>
-                                
 <script>
 
                         else {
@@ -581,3 +574,10 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 <script src="~/js/gmaps.min.js"></script>
 <script src="~/js/main.js"></script>
+<style>
+    .pagination2 {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+</style>
