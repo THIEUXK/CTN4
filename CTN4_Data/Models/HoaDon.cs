@@ -7,17 +7,17 @@ namespace CTN4_Data.Models.DB_CTN4
         public string MaHoaDon { get; set; }
         public DateTime? NgayTaoHoaDon { get; set; }
         public string TrangThai { get; set; }
-        public float TongTien { get; set; }
-        public float TienShip { get; set; }
-        public float TienGiam { get; set; }
-        public float TienHang { get; set; }
+        public float? TongTien { get; set; }
+        public float? TienShip { get; set; }
+        public float? TienGiam { get; set; }
+        public float? TienHang { get; set; }
         public DateTime? NgayDat { get; set; }
         public DateTime? NgayGiao { get; set; }
         public DateTime? NgayNhan { get; set; }
-        public string TenKhachHang { get; set; }
-        public string Email { get; set; }
-        public string SDTNguoiNhan { get; set; }
-        public string DiaChi { get; set; }
+        public string? TenKhachHang { get; set; }
+        public string? Email { get; set; }
+        public string? SDTNguoiNhan { get; set; }
+        public string? DiaChi { get; set; }
         public string? GhiChu { get; set; }
         public bool Is_detele { get; set; }
         public bool TrangThaiThanhToan { get; set; }

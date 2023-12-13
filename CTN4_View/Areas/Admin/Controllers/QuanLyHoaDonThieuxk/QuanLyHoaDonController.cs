@@ -16,6 +16,7 @@ using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Diagnostics.Tracing.Parsers.IIS_Trace;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using X.PagedList;
@@ -27,7 +28,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
     {
         private readonly HttpClient _httpClient;
 
-
+        public ISanPhamChiTietService _SanPhamChiTiet;
         public IHoaDonService _hoaDonService;
         public IHoaDonChiTietService _hoaDonChiTietService;
         public ILichSuHoaDonService _LichSuHoaDonService;
@@ -47,7 +48,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
         public IMauService _mauSacService;
         public DB_CTN4_ok _CTN4_Ok;
 
-		public QuanLyHoaDonController(HttpClient httpClient)
+        public QuanLyHoaDonController(HttpClient httpClient)
         {
             _httpClient = httpClient;
             _httpClient?.DefaultRequestHeaders.Add("token", "fa31ddca-73b0-11ee-b394-8ac29577e80e");
@@ -70,6 +71,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             _giamGiaService = new GiamGiaService();
             _mauSacService = new MauService();
             _CTN4_Ok = new DB_CTN4_ok();
+            _sanPhamChiTietService = new SanPhamChiTietService();
         }
         public IActionResult Index()
         {
@@ -1120,9 +1122,18 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             }
             return Json("ok", new System.Text.Json.JsonSerializerOptions());
         }
+        public IActionResult TaoHoaDonnew()
+        {
+
+            var hdnew = new HoaDon()
+            {
+            };
+            return View();
+        }
         public IActionResult TaoHoaDon()
         {
-            var sanPhamList = _sanPhamService.GetAll();
+
+            var sanPhamList = SessionBan.SanPhamTamSS(HttpContext.Session, "SanPhamTamSS");
             HttpResponseMessage responseProvin = _httpClient.GetAsync("https://online-gateway.ghn.vn/shiip/public-api/master-data/province").Result;
             Provin lstprovin = new Provin();
             if (responseProvin.IsSuccessStatusCode)
@@ -1131,9 +1142,9 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                 lstprovin = JsonConvert.DeserializeObject<Provin>(jsonData2);
                 ViewBag.Provin = new SelectList(lstprovin.data, "ProvinceID", "ProvinceName");
             }
-                var view = new Thi1View()
+            var view = new Thi1View()
             {
-                sanPhams = sanPhamList
+                SanPhamTams = sanPhamList
             };
 
             return View(view);
@@ -1151,26 +1162,137 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
         }
         public IActionResult HienThiSanPhamChiTietMua(Guid id)
         {
-			var listsp1 = _sanPhamCuaHangService.GetAllSpcts(id).Where(c => c.Is_detele == true).ToList();
-			var anh = _anhService.GetAll().Where(c => c.SanPhamChiTiet.SanPham.Id == id).ToList();
-			var giamgia = _giamGiaService.GetAll().Where(c => c.TrangThai == true && c.Is_detele == true && c.NgayBatDau <= DateTime.Now && c.NgayKetThuc >= DateTime.Now).ToList();
-			var listsp = _sanPhamCuaHangService.GetAll();
-			var mau = _mauSacService.GetAll().ToList();
-			var spctcuthe = _CTN4_Ok.SanPhamChiTiets.Include(c => c.Size).ToList().Where(c => c.IdSp == id && c.Is_detele == true);
-			var view = new SanPhamBan()
-			{
-				sanPham = _sanPhamCuaHangService.GetById(id),
-				Anh = _sanPhamCuaHangService.GeAnhs(id),
-				sanPhamChiTiets = listsp1,
-				maus = mau,
-				sizect = spctcuthe.ToList(),
-				anhs = anh,
-				sanPhams = listsp,
-				giamgias = giamgia
-			};
-			return View(view);
-		}
-	}
+            var listsp1 = _sanPhamCuaHangService.GetAllSpcts(id).Where(c => c.Is_detele == true).ToList();
+            var anh = _anhService.GetAll().Where(c => c.SanPhamChiTiet.SanPham.Id == id).ToList();
+            var giamgia = _giamGiaService.GetAll().Where(c => c.TrangThai == true && c.Is_detele == true && c.NgayBatDau <= DateTime.Now && c.NgayKetThuc >= DateTime.Now).ToList();
+            var listsp = _sanPhamCuaHangService.GetAll();
+            var mau = _mauSacService.GetAll().ToList();
+            var spctcuthe = _CTN4_Ok.SanPhamChiTiets.Include(c => c.Size).ToList().Where(c => c.IdSp == id && c.Is_detele == true);
+            var view = new SanPhamBan()
+            {
+                sanPham = _sanPhamCuaHangService.GetById(id),
+                Anh = _sanPhamCuaHangService.GeAnhs(id),
+                sanPhamChiTiets = listsp1,
+                maus = mau,
+                sizect = spctcuthe.ToList(),
+                anhs = anh,
+                sanPhams = listsp,
+                giamgias = giamgia
+            };
+            return View(view);
+        }
+        public IActionResult chonMau(Guid IdSanPham, Guid IdMau)
+        {
+            var listsp1 = _sanPhamCuaHangService.GetAllSpcts(IdSanPham).Where(c => c.Is_detele == true).ToList();
+            var anh = _anhService.GetAll().Where(c => c.SanPhamChiTiet.SanPham.Id == IdSanPham).ToList();
+
+            var listsp = _sanPhamCuaHangService.GetAll();
+            var mau = _mauSacService.GetAll().Distinct().ToList();
+            var size = _sizeService.GetAll().Distinct().ToList();
+            var spctcuthe = _CTN4_Ok.SanPhamChiTiets.Include(c => c.Size).Where(c => c.IdMau == IdMau && c.IdSp == IdSanPham && c.Is_detele == true).ToList();
+            var mauluu = _mauSacService.GetAll().FirstOrDefault(c => c.Id == IdMau);
+            var giamgia = _giamGiaService.GetAll().Where(c => c.TrangThai == true && c.Is_detele == true && c.NgayBatDau <= DateTime.Now && c.NgayKetThuc >= DateTime.Now).ToList();
+            // Đọc dữ liệu từ Session xem trong Cart nó có cái gì chưa?
+
+            var view = new SanPhamBan()
+            {
+                sanPham = _sanPhamCuaHangService.GetById(IdSanPham),
+                sanPhamChiTiets = listsp1,
+                maus = mau,
+                sizect = spctcuthe.ToList(),
+                anhs = anh.Where(c => c.SanPhamChiTiet.IdMau == IdMau && c.SanPhamChiTiet.IdSp == IdSanPham).ToList(),
+                sanPhams = listsp,
+                idmau = IdMau,
+                giamgias = giamgia
+            };
+            return View("HienThiSanPhamChiTietMua", view);
+        }
+        public IActionResult chonSize(Guid IdSanPham, Guid idSize, Guid IdMau)
+        {
+            if (IdMau == Guid.Parse("00000000-0000-0000-0000-000000000000"))
+            {
+                var message = "Chọn màu sắc trước !";
+                TempData["ErrorMessage"] = message;
+                return RedirectToAction("HienThiSanPhamChiTietMua", new { id = IdSanPham, message });
+            }
+
+            var kichCo = _sizeService.GetById(idSize);
+            var listsp1 = _sanPhamCuaHangService.GetAllSpcts(IdSanPham).Where(c => c.Is_detele == true).ToList();
+            var anh = _anhService.GetAll().Where(c => c.SanPhamChiTiet.SanPham.Id == IdSanPham).ToList();
+            var listsp = _sanPhamCuaHangService.GetAll();
+            var mau = _mauSacService.GetAll().Distinct().ToList();
+            var size = _CTN4_Ok.SanPhamChiTiets.Include(c => c.Size).Where(c => c.IdMau == IdMau && c.IdSp == IdSanPham).ToList();
+            var spcuthe = _CTN4_Ok.SanPhamChiTiets.FirstOrDefault(c => c.IdMau == IdMau && c.IdSp == IdSanPham && c.IdSize == idSize && c.Is_detele == true);
+            var giamgia = _giamGiaService.GetAll().Where(c => c.TrangThai == true && c.Is_detele == true && c.NgayBatDau <= DateTime.Now && c.NgayKetThuc >= DateTime.Now).ToList();
+            var view = new SanPhamBan()
+            {
+                sanPham = _sanPhamCuaHangService.GetById(IdSanPham),
+                sanPhamChiTiets = listsp1,
+                maus = mau,
+                sizect = size.ToList(),
+                anhs = anh.Where(c => c.SanPhamChiTiet.IdMau == IdMau && c.SanPhamChiTiet.IdSp == IdSanPham).ToList(),
+                sanPhams = listsp,
+                idmau = IdMau,
+                idsize = idSize,
+                soluong = spcuthe.SoLuong,
+                KichCo = kichCo.TenSize,
+                giamgias = giamgia
+
+            };
+            return View("HienThiSanPhamChiTietMua", view);
+        }
+        public IActionResult Themsanphamhoadon(int soluong, Guid IdSanPham, Guid IdSize, Guid IdMau)
+        {
+            var sanphamCT = _sanPhamChiTietService.GetAll().FirstOrDefault(c => c.IdMau == IdMau && c.IdSp == IdSanPham && c.IdSize == IdSize && c.Is_detele == true);
+            if (IdMau == Guid.Parse("00000000-0000-0000-0000-000000000000") || IdSize == Guid.Parse("00000000-0000-0000-0000-000000000000"))
+            {
+                var message1 = "hãy chọn màu và size của bạn !";
+                TempData["TB1"] = message1;
+                return RedirectToAction("HienThiSanPhamChiTietMua", new { id = IdSanPham, message1 });
+            }
+            if (soluong <= 0)
+            {
+                var message2 = "Số lượng phải lớn hơn 0 !";
+                TempData["TB2"] = message2;
+                return RedirectToAction("HienThiSanPhamChiTietMua", new { id = IdSanPham, message2 });
+            }
+            if (soluong > sanphamCT.SoLuong)
+            {
+                var message2 = "Số lượng không đủ!";
+                TempData["TB2"] = message2;
+                return RedirectToAction("HienThiSanPhamChiTietMua", new { id = IdSanPham, message2 });
+            }
+
+            var sanphamctnew = SessionBan.SanPhamTamSS(HttpContext.Session, "SanPhamTamSS");
+           
+            var check = sanphamctnew.FirstOrDefault(c => c.idSanPhamChiTiet == sanphamCT.Id);
+            if (check == null)
+            {
+                var spt = new SanPhamTam()
+                {
+                    idSanPhamChiTiet = sanphamCT.Id,
+                    AnhDaiDien = sanphamCT.SanPham.AnhDaiDien,
+                    GiaTien = sanphamCT.SanPham.GiaNiemYet,
+                    Mau = sanphamCT.Mau.TenMau,
+                    Size = sanphamCT.Size.CoSize,
+                    SoLuong = soluong,
+                    TenSanPham = sanphamCT.SanPham.TenSanPham,
+                };
+                sanphamctnew.Add(spt);
+                SessionBan.SetObjToJson(HttpContext.Session, "SanPhamTamSS", sanphamctnew);
+            }
+            else
+            {
+                check.SoLuong += soluong;
+                SessionBan.SetObjToJson(HttpContext.Session, "SanPhamTamSS", sanphamctnew);
+            }
+            var message3 = "Thêm Thành Công";
+            TempData["TB2"] = message3;
+            return RedirectToAction("HienThiSanPhamChiTietMua", new { id = IdSanPham, message3 });
+         
+
+        }
+    }
 
 }
 

@@ -40,7 +40,6 @@
                         {
                             <div class="product-container">
                                 <a href="@Url.Action("HienThiSanPhamChiTietMua", new { id = sp.Id })">
-
                                     <img src="~/image/@sp.AnhDaiDien" height="300" alt="@sp.TenSanPham"/>
                                 </a>
                                 @foreach (var km in Model.KhuyenMaiSanPhams)
@@ -74,10 +73,6 @@
                                 }
 
                             </div>
-
-
-
-
                         }
                         else
                         {
@@ -85,7 +80,7 @@
                         }
                         <div class="product-details">
                             <h6>
-                                <a style="color: (internal value);"> @Html.ActionLink(sp.TenSanPham, "HienThiSanPhamChiTiet", new { id = sp.Id }) </a>
+                                <a style="color: (internal value);"> @Html.ActionLink(sp.TenSanPham, "HienThiSanPhamChiTietMua", new { id = sp.Id }) </a>
                             </h6>
                             <div class="price">
                                 @if (sp.GiaNiemYet == sp.GiaBan)

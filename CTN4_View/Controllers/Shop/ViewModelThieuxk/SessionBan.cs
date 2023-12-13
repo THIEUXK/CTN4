@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using CTN4_Data.Models.DB_CTN4;
+using CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk.viewMode;
 using CTN4_View.Controllers.Shop.ViewModelThieuxk;
 
 namespace CTN4_View_Admin.Controllers.Shop
@@ -80,6 +81,26 @@ namespace CTN4_View_Admin.Controllers.Shop
                 return listObj;
             }
             else return new List<GiamGia>();
+        }
+        public static List<SanPhamChiTiet> SanPhamChiTietSS(ISession session, string key)
+        {
+            var data = session.GetString(key); // Đọc dữ liệu từ Session ở dạng chuỗi
+            if (data != null)
+            {
+                var listObj = JsonConvert.DeserializeObject<List<SanPhamChiTiet>>(data);
+                return listObj;
+            }
+            else return new List<SanPhamChiTiet>();
+        }
+        public static List<SanPhamTam> SanPhamTamSS(ISession session, string key)
+        {
+            var data = session.GetString(key); // Đọc dữ liệu từ Session ở dạng chuỗi
+            if (data != null)
+            {
+                var listObj = JsonConvert.DeserializeObject<List<SanPhamTam>>(data);
+                return listObj;
+            }
+            else return new List<SanPhamTam>();
         }
     }
 

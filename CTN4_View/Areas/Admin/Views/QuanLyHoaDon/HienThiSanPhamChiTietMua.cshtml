@@ -5,114 +5,77 @@
 
 
 @model CTN4_Serv.ViewModel.SanPhamBan
-
-<html lang="zxx" class="no-js">
-
-<head>
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v18.0" nonce="YGtE5g6S"></script>
-
-    <!-- Mobile Specific Meta -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Favicon-->
-    <link rel="shortcut icon" href="~/img/fav.png">
-    <!-- Author Meta -->
-    <meta name="author" content="CodePixar">
-    <!-- Meta Description -->
-    <meta name="description" content="">
-    <!-- Meta Keyword -->
-    <meta name="keywords" content="">
-    <!-- meta character set -->
-    <meta charset="UTF-8">
-    <!-- Site Title -->
-    <title>Karma Shop</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <!--
-    CSS
-    ============================================= -->
-    <link rel="stylesheet" href="~/css/linearicons.css">
-    <link rel="stylesheet" href="~/css/font-awesome.min.css">
-    <link rel="stylesheet" href="~/css/themify-icons.css">
-    <link rel="stylesheet" href="~/css/bootstrap.css">
-    <link rel="stylesheet" href="~/css/owl.carousel.css">
-    <link rel="stylesheet" href="~/css/nice-select.css">
-    <link rel="stylesheet" href="~/css/nouislider.min.css">
-    <link rel="stylesheet" href="~/css/ion.rangeSlider.css" />
-    <link rel="stylesheet" href="~/css/ion.rangeSlider.skinFlat.css" />
-    <link rel="stylesheet" href="~/css/magnific-popup.css">
-    <link rel="stylesheet" href="~/css/main.css">
-    <link rel="stylesheet" href="~/css/iconboostrap.css">
+<br />
+<br />
+<br />
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 
-    @* <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
-    <!-- jQuery UI -->
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>*@
-
-
-
-    <!-- Mobile Specific Meta -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Favicon-->
-    <link rel="shortcut icon" href="img/fav.png">
-    <!-- Author Meta -->
-    <meta name="author" content="CodePixar">
-    <!-- Meta Description -->
-    <meta name="description" content="">
-    <!-- Meta Keyword -->
-    <meta name="keywords" content="">
-    <!-- meta character set -->
-    <meta charset="UTF-8">
-    <!-- Site Title -->
-    <title>Karma Shop</title>
-
-    <!--
-    CSS
-    ============================================= -->
-    <link rel="stylesheet" href="~/css/linearicons.css">
-    <link rel="stylesheet" href="~/css/owl.carousel.css">
-    <link rel="stylesheet" href="~/css/font-awesome.min.css">
-    <link rel="stylesheet" href="~/css/themify-icons.css">
-    <link rel="stylesheet" href="~/css/nice-select.css">
-    <link rel="stylesheet" href="~/css/nouislider.min.css">
-    <link rel="stylesheet" href="~/css/bootstrap.css">
-    <link rel="stylesheet" href="~/css/main.css">
-</head>
-
+<br />
+<br />
 <div class="product_image_area">
     <div class="container">
         <div class="row s_product_inner">
-            <div class="col-lg-6">
-                <div class="s_Product_carousel">
-                    @{
-                        // Tạo danh sách để theo dõi các Mau.Id đã xuất hiện
-                        var anhxuathien = new List<string>();
-                    }
+            <div class="col-lg-4">
+                @{
+                    var anhxuathien = new List<string>();
+                }
+                <div id="slideshow" class="slideshow-container">
                     @foreach (var a in Model.anhs)
                     {
                         if (!anhxuathien.Contains(a.DuongDanAnh))
                         {
                             anhxuathien.Add(a.DuongDanAnh);
+                            <div class="mySlides">
+                                @if (System.IO.Path.GetExtension(a.DuongDanAnh) == ".jpg" ||
+                                     System.IO.Path.GetExtension(a.DuongDanAnh) == ".png" ||
+                                     System.IO.Path.GetExtension(a.DuongDanAnh) == ".jpeg" ||
+                                     System.IO.Path.GetExtension(a.DuongDanAnh) == ".tiff" ||
+                                     System.IO.Path.GetExtension(a.DuongDanAnh) == ".webp" ||
+                                     System.IO.Path.GetExtension(a.DuongDanAnh) == ".gif")
+                                {
+                                    <div class="img-container">
+                                        <img src="~/image/@a.DuongDanAnh" alt="Hình ảnh">
+                                    </div>
 
-                            @if (System.IO.Path.GetExtension(a.DuongDanAnh) == ".jpg" ||
-                           System.IO.Path.GetExtension(a.DuongDanAnh) == ".png" ||
-                           System.IO.Path.GetExtension(a.DuongDanAnh) == ".jpeg" ||
-                           System.IO.Path.GetExtension(a.DuongDanAnh) == ".tiff" ||
-                           System.IO.Path.GetExtension(a.DuongDanAnh) == ".webp" ||
-                           System.IO.Path.GetExtension(a.DuongDanAnh) == ".gif")
-                            {
-                                <img src="~/image/@a.DuongDanAnh">
-                            }
-                            else
-                            {
-                                <span>Ảnh lỗi rồi =)))</span>
-                            }
+                                }
+                                else
+                                {
+                                    <span>Ảnh lỗi rồi =)))</span>
+                                }
+                            </div>
                         }
                     }
+                    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                    <a class="next" onclick="plusSlides(1)">&#10095;</a>
                 </div>
+
+                <script>
+        var slideIndex = 0;
+
+        function showSlides() {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1 }
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(showSlides, 2000); // Chuyển đổi sau mỗi 2 giây
+        }
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        $(document).ready(function () {
+            showSlides();
+        });
+    </script>
             </div>
+
+
             <div class="col-lg-5 offset-lg-1">
                 <ul class="s_product_text">
                     <h3>@Model.sanPham.TenSanPham</h3>
@@ -265,21 +228,12 @@
                         <li><a href="#"><span>Chất liệu</span> : @Model.sanPham.ChatLieu.TenChatLieu</a></li>
                     </ul>
                     <br />
-                    <form asp-controller="BanHang" asp-action="ThemVaoGio">
+                    <form asp-action="Themsanphamhoadon">
                         <a>Số lượng:</a>
                         <div class="product_count">
 
                             <input type="text" name="soluong" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty">
-                            <button onclick="var result = document.getElementById('sst');var sst = result.value;if (!isNaN(sst)) result.value++;return false;"
-                                    class="increase items-count" type="button">
-                                <i class="lnr lnr-chevron-up"></i>
-                            </button>
-                            <button onclick="var result = document.getElementById('sst');var sst = result.value;if (!isNaN(sst) & sst > 0) result.value--;return false;"
-                                    class="reduced items-count" type="button">
-                                <i class="lnr lnr-chevron-down"></i>
-                            </button>
                         </div>
-
                         <div>
                             @if (Model.idsize != null && Model.idmau != null)
                             {
@@ -310,509 +264,12 @@
                             <input type="hidden" name="idSP" value="">
                         </div>
                     </form>
-                    <p>
-                        Mill Oil is an innovative oil filled radiator with the most modern technology. If you are looking for
-                        something that can make your interior look awesome, and at the same time give you the pleasant warm feeling
-                        during the winter.
-                    </p>
                 </ul>
             </div>
         </div>
     </div>
 </div>
-<!--================End Single Product Area =================-->
-<!--================Product Description Area =================-->
-<section class="product_description_area">
-    <div class="container">
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Description</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
-                   aria-selected="false">Specification</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
-                   aria-selected="false">Comments</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
-                   aria-selected="false">Reviews</a>
-            </li>
-        </ul>
-        <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
-                <p>
-                    Beryl Cook is one of Britain’s most talented and amusing artists .Beryl’s pictures feature women of all shapes
-                    and sizes enjoying themselves .Born between the two world wars, Beryl Cook eventually left Kendrick School in
-                    Reading at the age of 15, where she went to secretarial school and then into an insurance office. After moving to
-                    London and then Hampton, she eventually married her next door neighbour from Reading, John Cook. He was an
-                    officer in the Merchant Navy and after he left the sea in 1956, they bought a pub for a year before John took a
-                    job in Southern Rhodesia with a motor company. Beryl bought their young son a box of watercolours, and when
-                    showing him how to use it, she decided that she herself quite enjoyed painting. John subsequently bought her a
-                    child’s painting set for her birthday and it was with this that she produced her first significant work, a
-                    half-length portrait of a dark-skinned lady with a vacant expression and large drooping breasts. It was aptly
-                    named ‘Hangover’ by Beryl’s husband and
-                </p>
-                <p>
-                    It is often frustrating to attempt to plan meals that are designed for one. Despite this fact, we are seeing
-                    more and more recipe books and Internet websites that are dedicated to the act of cooking for one. Divorce and
-                    the death of spouses or grown children leaving for college are all reasons that someone accustomed to cooking for
-                    more than one would suddenly need to learn how to adjust all the cooking practices utilized before into a
-                    streamlined plan of cooking that is more efficient for one person creating less
-                </p>
-            </div>
-            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                <div class="table-responsive">
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <h5>Width</h5>
-                                </td>
-                                <td>
-                                    <h5>128mm</h5>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h5>Height</h5>
-                                </td>
-                                <td>
-                                    <h5>508mm</h5>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h5>Depth</h5>
-                                </td>
-                                <td>
-                                    <h5>85mm</h5>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h5>Weight</h5>
-                                </td>
-                                <td>
-                                    <h5>52gm</h5>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h5>Quality checking</h5>
-                                </td>
-                                <td>
-                                    <h5>yes</h5>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h5>Freshness Duration</h5>
-                                </td>
-                                <td>
-                                    <h5>03days</h5>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h5>When packeting</h5>
-                                </td>
-                                <td>
-                                    <h5>Without touch of hand</h5>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h5>Each Box contains</h5>
-                                </td>
-                                <td>
-                                    <h5>60pcs</h5>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="comment_list">
-                            <div class="review_item">
-                                <div class="media">
-                                    <div class="d-flex">
-                                        <img src="~/img/product/review-1.png" alt="">
-                                    </div>
-                                    <div class="media-body">
-                                        <h4>Blake Ruiz</h4>
-                                        <h5>12th Feb, 2018 at 05:56 pm</h5>
-                                        <a class="reply_btn" href="#">Reply</a>
-                                    </div>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                    commodo
-                                </p>
-                            </div>
-                            <div class="review_item reply">
-                                <div class="media">
-                                    <div class="d-flex">
-                                        <img src="~/img/product/review-2.png" alt="">
-                                    </div>
-                                    <div class="media-body">
-                                        <h4>Blake Ruiz</h4>
-                                        <h5>12th Feb, 2018 at 05:56 pm</h5>
-                                        <a class="reply_btn" href="#">Reply</a>
-                                    </div>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                    commodo
-                                </p>
-                            </div>
-                            <div class="review_item">
-                                <div class="media">
-                                    <div class="d-flex">
-                                        <img src="~/img/product/review-3.png" alt="">
-                                    </div>
-                                    <div class="media-body">
-                                        <h4>Blake Ruiz</h4>
-                                        <h5>12th Feb, 2018 at 05:56 pm</h5>
-                                        <a class="reply_btn" href="#">Reply</a>
-                                    </div>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                    commodo
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="review_box">
-                            <h4>Post a comment</h4>
-                            <form class="row contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="name" name="name" placeholder="Your Full name">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <input type="email" class="form-control" id="email" name="email" placeholder="Email Address">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="number" name="number" placeholder="Phone Number">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <textarea class="form-control" name="message" id="message" rows="1" placeholder="Message"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 text-right">
-                                    <button type="submit" value="submit" class="btn primary-btn">Submit Now</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="tab-pane fade show active" id="review" role="tabpanel" aria-labelledby="review-tab">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="row total_rate">
-                            <div class="col-6">
-                                <div class="box_total">
-                                    <h5>Overall</h5>
-                                    <h4>4.0</h4>
-                                    <h6>(03 Reviews)</h6>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="rating_list">
-                                    <h3>Based on 3 Reviews</h3>
-                                    <ul class="list">
-                                        <li>
-                                            <a href="#">
-                                                5 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 01
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                4 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 01
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                3 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 01
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                2 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 01
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                1 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 01
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="review_list">
-                            <div class="review_item">
-                                <div class="media">
-                                    <div class="d-flex">
-                                        <img src="~/img/product/review-1.png" alt="">
-                                    </div>
-                                    <div class="media-body">
-                                        <h4>Blake Ruiz</h4>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                    </div>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                    commodo
-                                </p>
-                            </div>
-                            <div class="review_item">
-                                <div class="media">
-                                    <div class="d-flex">
-                                        <img src="~/img/product/review-2.png" alt="">
-                                    </div>
-                                    <div class="media-body">
-                                        <h4>Blake Ruiz</h4>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                    </div>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                    commodo
-                                </p>
-                            </div>
-                            <div class="review_item">
-                                <div class="media">
-                                    <div class="d-flex">
-                                        <img src="~/img/product/review-3.png" alt="">
-                                    </div>
-                                    <div class="media-body">
-                                        <h4>Blake Ruiz</h4>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                    </div>
-                                </div>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                    commodo
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="review_box">
-                            <h4>Add a Review</h4>
-                            <p>Your Rating:</p>
-                            <ul class="list">
-                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                <li><a href="#"><i class="fa fa-star"></i></a></li>
-                            </ul>
-                            <p>Outstanding</p>
-                            <form class="row contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="name" name="name" placeholder="Your Full name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Full name'">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <input type="email" class="form-control" id="email" name="email" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address'">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="number" name="number" placeholder="Phone Number" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Phone Number'">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <textarea class="form-control" name="message" id="message" rows="1" placeholder="Review" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Review'"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 text-right">
-                                    <button type="submit" value="submit" class="primary-btn">Submit Now</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!--================End Product Description Area =================-->
-<!-- Start related-product Area -->
-<section class="related-product-area section_gap_bottom">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-6 text-center">
-                <div class="section-title">
-                    <h1>Deals of the Week</h1>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua.
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-9">
-                <div class="row">
-                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-                        <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/img/r1.jpg" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Black lace Heels</a>
-                                <div class="price">
-                                    <h6>$189.00</h6>
-                                    <h6 class="l-through">$210.00</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-                        <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/img/r2.jpg" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Black lace Heels</a>
-                                <div class="price">
-                                    <h6>$189.00</h6>
-                                    <h6 class="l-through">$210.00</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-                        <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/img/r3.jpg" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Black lace Heels</a>
-                                <div class="price">
-                                    <h6>$189.00</h6>
-                                    <h6 class="l-through">$210.00</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-                        <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/img/r5.jpg" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Black lace Heels</a>
-                                <div class="price">
-                                    <h6>$189.00</h6>
-                                    <h6 class="l-through">$210.00</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-                        <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/img/r6.jpg" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Black lace Heels</a>
-                                <div class="price">
-                                    <h6>$189.00</h6>
-                                    <h6 class="l-through">$210.00</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-                        <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/img/r7.jpg" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Black lace Heels</a>
-                                <div class="price">
-                                    <h6>$189.00</h6>
-                                    <h6 class="l-through">$210.00</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6">
-                        <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/img/r9.jpg" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Black lace Heels</a>
-                                <div class="price">
-                                    <h6>$189.00</h6>
-                                    <h6 class="l-through">$210.00</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6">
-                        <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/img/r10.jpg" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Black lace Heels</a>
-                                <div class="price">
-                                    <h6>$189.00</h6>
-                                    <h6 class="l-through">$210.00</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6">
-                        <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/img/r11.jpg" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Black lace Heels</a>
-                                <div class="price">
-                                    <h6>$189.00</h6>
-                                    <h6 class="l-through">$210.00</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="ctg-right">
-                    <a href="#" target="_blank">
-                        <img class="img-fluid d-block mx-auto" src="~/img/category/c5.jpg" alt="">
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+
 <script>
     @functions {
         public string FormatCurrency(float price)
@@ -842,6 +299,134 @@
 </script>
 <!-- End related-product Area -->
 <style>
+    /* Add your custom styles here */
+
+    .list {
+        list-style-type: none;
+        padding: 0;
+    }
+
+        .list li {
+            margin-bottom: 10px;
+        }
+
+            .list li a {
+                text-decoration: none;
+                color: #333;
+            }
+
+                .list li a.active {
+                    font-weight: bold;
+                    color: #007bff; /* Change this color to your desired active link color */
+                }
+
+            .list li span {
+                margin-left: 5px;
+                color: #888;
+            }
+
+    /* Style cho hình ảnh sản phẩm */
+    .product_image_area img {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 15px;
+    }
+
+    /* Style cho thông tin sản phẩm */
+    .s_product_text {
+        list-style: none;
+        padding: 0;
+    }
+
+        .s_product_text h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+    .price {
+        margin-bottom: 20px;
+    }
+
+        .price h6 {
+            font-size: 18px;
+            margin: 0;
+        }
+
+    .strikethrough {
+        text-decoration: line-through;
+        color: #999;
+        margin-left: 10px;
+    }
+
+    .horizontal-list {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+        .horizontal-list li {
+            flex: 0 0 48%; /* Điều chỉnh độ rộng của mỗi mục trong danh sách */
+            margin-right: 2%; /* Khoảng cách giữa các mục */
+            margin-bottom: 10px;
+        }
+
+    /* Style cho nút chọn màu sắc */
+    .custom-button {
+        padding: 10px;
+        cursor: pointer;
+        border: none;
+        color: #fff;
+        font-weight: bold;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+    }
+
+    .before-click {
+        background-color: #4CAF50; /* Màu nền trước khi được chọn */
+    }
+
+    .after-click {
+        background-color: #333; /* Màu nền sau khi được chọn */
+    }
+
+    /* Style cho phần chọn số lượng */
+    .product_count {
+        display: flex;
+        align-items: center;
+    }
+
+    .input-text.qty {
+        width: 50px;
+        text-align: center;
+        margin-right: 10px;
+    }
+
+    /* Style cho nút "Add to Cart" */
+    .primary-btn {
+        background-color: #4CAF50;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    /* Style cho thông báo lỗi và thành công */
+    .alert {
+        padding: 10px;
+        margin-top: 10px;
+    }
+
+    .alert-info {
+        background-color: #5bc0de; /* Màu thông báo thông tin */
+    }
+
+    .alert-danger {
+        background-color: #d9534f; /* Màu thông báo lỗi */
+    }
 
     .horizontal-list {
         list-style-type: none; /* Loại bỏ dấu chấm */
@@ -908,18 +493,34 @@
         color: #cccccc;
     }
 </style>
-<script src="~/js/vendor/jquery-2.2.4.min.js"></script>
+<style>
+        /* Tùy chỉnh kiểu dáng cho nút trước và nút sau */
+        .prev, .next {
+            font-size: 24px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
 
-<script src="~/js/vendor/bootstrap.min.js"></script>
-<script src="~/js/jquery.ajaxchimp.min.js"></script>
-<script src="~/js/jquery.nice-select.min.js"></script>
-<script src="~/js/jquery.sticky.js"></script>
-<script src="~/js/nouislider.min.js"></script>
-<script src="~/js/countdown.js"></script>
-<script src="~/js/jquery.magnific-popup.min.js"></script>
-<script src="~/js/owl.carousel.min.js"></script>
-<!--gmaps Js-->
-<script src="~/js/gmaps.min.js"></script>
-<script src="~/js/main.js"></script>
+        /* Màu nền khi rê chuột qua nút */
+        .prev:hover, .next:hover {
+            background-color: #0056b3;
+        }
 
-</html>
+    /* Thêm các kiểu CSS tùy chỉnh của bạn ở đây */
+
+    .img-container {
+        max-width: 100%; /* Đảm bảo hình ảnh không vượt quá chiều rộng của container */
+        height: auto; /* Bảo toàn tỷ lệ khung hình ảnh */
+    }
+
+        .img-container img {
+            display: block; /* Loại bỏ khoảng trắng thừa phía dưới hình ảnh */
+            max-width: 100%; /* Đảm bảo hình ảnh không vượt quá chiều rộng của container */
+            height: auto; /* Bảo toàn tỷ lệ khung hình ảnh */
+        }
+
+    </style>

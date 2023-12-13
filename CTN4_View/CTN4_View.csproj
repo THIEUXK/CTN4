@@ -1381,7 +1381,6 @@
     <None Include="wwwroot\scss\main.scss" />
     <None Include="wwwroot\scss\theme\_banner.scss" />
     <None Include="wwwroot\scss\theme\_blog.scss" />
-    <None Include="wwwroot\scss\theme\_common.scss" />
     <None Include="wwwroot\scss\theme\_contact.scss" />
     <None Include="wwwroot\scss\theme\_elements.scss" />
     <None Include="wwwroot\scss\theme\_footer.scss" />
