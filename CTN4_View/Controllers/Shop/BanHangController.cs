@@ -84,13 +84,10 @@ namespace CTN4_View.Controllers.Shop
             {
                 var gh = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == accnew[0].Id);
                 IEnumerable<GioHangChiTiet> ghct = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh.Id);
-
                 foreach (var x in ghct)
                 {
                     tong += float.Parse(x.SanPhamChiTiet.SanPham.GiaNiemYet.ToString()) * (x.SoLuong);
-
                 }
-
                 var anh = _anhService.GetAll().ToList();
                 var view2 = new GioHangView()
                 {

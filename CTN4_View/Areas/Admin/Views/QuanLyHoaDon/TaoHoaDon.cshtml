@@ -71,11 +71,69 @@
                 <div class="order_box">
                     <div class="order_box">
                         <h2>Sản phẩm đơn hàng</h2>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Sản phẩm</th>
+                                       
+                                        <th scope="col">Thông tìn sản phẩm</th>
+                                        <th scope="col">Giá tiền</th>
+                                        <th scope="col">Số lượng</th>
+                                        <th scope="col">Thành tiền</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
 
+                                @foreach (var a in Model.SanPhamTams)
+                                {
+                                        <tr>
 
+                                            <td>
+                                                @if (System.IO.Path.GetExtension(a.AnhDaiDien) == ".jpg" ||
+                                               System.IO.Path.GetExtension(a.AnhDaiDien) == ".png" ||
+                                               System.IO.Path.GetExtension(a.AnhDaiDien) == ".jpeg" ||
+                                               System.IO.Path.GetExtension(a.AnhDaiDien) == ".tiff" ||
+                                               System.IO.Path.GetExtension(a.AnhDaiDien) == ".webp" ||
+                                               System.IO.Path.GetExtension(a.AnhDaiDien) == ".gif")
+                                                {
+                                                    <a href="@Url.Action("HienThiSanPhamChiTiet", "HienThiSanPham", new {  id=a.idSanPhamChiTiet })">
+
+                                                        <img src="~/image/@a.AnhDaiDien" height="150">
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <span>Ảnh lỗi rồi =)))</span>
+                                                }
+                                            </td>
+                                            <td>
+                                                <div><b style="color:#5a6a85">Tên: </b>@a.TenSanPham</div>
+                                                <div><b style="color:#5a6a85">Màu: </b>@a.Mau</div>
+                                                <div><b style="color:#5a6a85">Size: </b>@a.Size</div>
+                                            </td>
+                                            <td>
+                                                <h5>@FormatCurrency(a.GiaTien)</h5>
+                                            </td>
+                                            <td>
+                                                <h5> @a.SoLuong</h5>
+                                            </td>
+                                            <td>
+                                                <h5>@FormatCurrency(a.GiaTien * a.SoLuong)</h5>
+                                            </td>
+
+                                            <td>
+                                                <button href="#" class="delete-link custom-button" data-id="@a.idSanPhamChiTiet">
+                                                    Xóa
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    }
+                            </table>
+                        
                         <!-- Modal -->
 
-                        <br/>
+                        <br />
                         <!-- Các phần tử ul được căn lề sang phải -->
                         <ul class="list">
                             <li><a href="#">Mã Giảm giá :<span><b id="tonghang" style="color:black">Chưa có </b></span></a></li>
@@ -100,7 +158,7 @@
                         </ul>
 
                         <br></br>
-                        <br/>
+                        <br />
                         <div class="card border-secondary mb-5">
                             <button class="primary-btn" type="submit" href="#">Mua Hàng</button>
                         </div>
