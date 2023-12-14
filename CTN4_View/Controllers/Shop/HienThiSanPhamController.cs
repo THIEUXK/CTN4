@@ -585,6 +585,7 @@ namespace CTN4_View.Controllers.Shop
             var spctcuthe = _CTN4_Ok.SanPhamChiTiets.Include(c => c.Size).Where(c => c.IdMau == IdMau && c.IdSp == IdSanPham && c.Is_detele == true).ToList();
             var mauluu = _mauSacService.GetAll().FirstOrDefault(c => c.Id == IdMau);
             var giamgia = _giamGiaService.GetAll().Where(c => c.TrangThai == true && c.Is_detele == true && c.NgayBatDau <= DateTime.Now && c.NgayKetThuc >= DateTime.Now).ToList();
+            var SpYt = _chiTietSanPhamYeuThichService.GetAll();
             // Đọc dữ liệu từ Session xem trong Cart nó có cái gì chưa?
 
             var view = new SanPhamBan()
@@ -596,7 +597,8 @@ namespace CTN4_View.Controllers.Shop
                 anhs = anh.Where(c => c.SanPhamChiTiet.IdMau == IdMau && c.SanPhamChiTiet.IdSp == IdSanPham).ToList(),
                 sanPhams = listsp,
                 idmau = IdMau,
-                giamgias = giamgia
+                giamgias = giamgia, 
+                sanPhamYeuThiches = SpYt,
             };
             return View("HienThiSanPhamChiTiet", view);
         }
@@ -618,6 +620,7 @@ namespace CTN4_View.Controllers.Shop
             var size = _CTN4_Ok.SanPhamChiTiets.Include(c => c.Size).Where(c => c.IdMau == IdMau && c.IdSp == IdSanPham).ToList();
             var spcuthe = _CTN4_Ok.SanPhamChiTiets.FirstOrDefault(c => c.IdMau == IdMau && c.IdSp == IdSanPham && c.IdSize == idSize && c.Is_detele == true);
             var giamgia = _giamGiaService.GetAll().Where(c => c.TrangThai == true && c.Is_detele == true && c.NgayBatDau <= DateTime.Now && c.NgayKetThuc >= DateTime.Now).ToList();
+             var SpYt = _chiTietSanPhamYeuThichService.GetAll();
             var view = new SanPhamBan()
             {
                 sanPham = _sanPhamCuaHangService.GetById(IdSanPham),
@@ -630,7 +633,8 @@ namespace CTN4_View.Controllers.Shop
                 idsize = idSize,
                 soluong = spcuthe.SoLuong,
                 KichCo = kichCo.TenSize,
-                giamgias = giamgia
+                giamgias = giamgia,
+                sanPhamYeuThiches = SpYt
 
             };
             return View("HienThiSanPhamChiTiet", view);
