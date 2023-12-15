@@ -23,7 +23,7 @@ namespace CTN4_Serv.Service
             return _db.SanPhamChiTiets.Include(c=>c.Mau).Include(c=>c.Size).Include(c=>c.SanPham).ToList();
         }
 
-        public SanPhamChiTiet GetById(Guid id)
+        public SanPhamChiTiet GetById(Guid? id)
         {
             return GetAll().FirstOrDefault(c => c.Id == id);
         }

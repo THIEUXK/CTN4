@@ -141,6 +141,7 @@
                                     <li>
                                             @if (Model.idmau == a.Mau.Id)
                                             {
+                                                <input type="hidden" name="idHD" value="@Model.idHD" id="idHD">
                                             <input type="hidden" name="IdSanPham" value="@Model.sanPham.Id" id="idsp">
                                             <input type="hidden" name="IdMau" value="@a.Mau.Id" id="idmau">
                                             <button class="custom-button after-click" onclick="onsubmit" ata-tenmau="@a.Mau.Id">
@@ -149,6 +150,7 @@
                                             }
                                             else
                                             {
+                                            <input type="hidden" name="idHD" value="@Model.idHD" id="idHD">
                                             <input type="hidden" name="IdSanPham" value="@Model.sanPham.Id" id="idsp">
                                             <input type="hidden" name="IdMau" value="@a.Mau.Id" id="idmau">
                                             <button class="custom-button before-click" onclick="onsubmit" class="color-button" data-tenmau="@a.Mau.TenMau">
@@ -186,6 +188,7 @@
                                     <li>
                                             @if (Model.idsize == a.Size.Id)
                                             {
+                                            <input type="hidden" name="idHD" value="@Model.idHD" id="idHD">
                                             <input type="hidden" name="IdSanPham" value="@Model.sanPham.Id">
                                             <input type="hidden" name="IdSize" value="@a.IdSize">
                                             <input type="hidden" name="IdMau" value="@Model.idmau">
@@ -195,6 +198,7 @@
                                             }
                                             else
                                             {
+                                            <input type="hidden" name="idHD" value="@Model.idHD" id="idHD">
                                             <input type="hidden" name="IdSanPham" value="@Model.sanPham.Id">
                                             <input type="hidden" name="IdSize" value="@a.IdSize">
                                             <input type="hidden" name="IdMau" value="@Model.idmau">
@@ -237,12 +241,14 @@
                         <div>
                             @if (Model.idsize != null && Model.idmau != null)
                             {
+                                <input type="hidden" name="idHD" value="@Model.idHD" id="idHD">
                                 <input type="hidden" name="IdSize" value="@Model.idsize">
                                 <input type="hidden" name="IdMau" value="@Model.idmau">
                                 <input type="hidden" name="SoLuongHT" value="@Model.soluong">
                             }
                             else
                             {
+                                <input type="hidden" name="idHD" value="@Model.idHD" id="idHD">
                                 <input type="hidden" name="IdSize" value="null">
                                 <input type="hidden" name="IdMau" value="null">
                             }
@@ -256,6 +262,7 @@
                             {
                                 <div class="alert alert-danger">@TempData["TB2"]</div>
                             }
+                            <input type="hidden" name="idHD" value="@Model.idHD" id="idHD">
                             <div class="card_area d-flex align-items-center">
                                 <button class="primary-btn" type="submit" href="#">Add to Cart</button>
                                 <a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>

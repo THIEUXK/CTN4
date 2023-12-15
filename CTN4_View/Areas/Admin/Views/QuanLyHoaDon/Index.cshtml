@@ -80,7 +80,7 @@
                             Tạo hóa đơn
                         </button>
                         <div class="dropdown-menu p-4">
-                            <a class="dropdown-item" href="@Url.Action("TaoHoaDon")">Tạo hóa đơn</a>
+                            <a class="dropdown-item" href="@Url.Action("TaoHoaDonnew")">Tạo hóa đơn</a>
                         </div>
                     </div>
                 </div>
@@ -137,7 +137,7 @@
                                     <h6 class="fw-semibold mb-0" style="color:white">Thời gian đặt đơn</h6>
                                 </th>
                                 <th class="border-bottom-0">
-                                    <h6 class="fw-semibold mb-0" style="color:white">Tên người nhận hàng</h6>
+                                    <h6 class="fw-semibold mb-0" style="color:white">Tên người nhận</h6>
                                 </th>
                                 <th class="border-bottom-0">
                                     <h6 class="fw-semibold mb-0" style="color:white">Thanh toán</h6>
@@ -146,10 +146,10 @@
                                     <h6 class="fw-semibold mb-0" style="color:white">Giao hàng</h6>
                                 </th>
                                 <th class="border-bottom-0">
-                                    <h6 class="fw-semibold mb-0" style="color:white">Tiền ship</h6>
+                                    <h6 class="fw-semibold mb-0" style="color:white">Tổng tiền</h6>
                                 </th>
                                 <th class="border-bottom-0">
-                                    <h6 class="fw-semibold mb-0" style="color:white">Tổng tiền</h6>
+                                    <h6 class="fw-semibold mb-0" style="color:white">Loại</h6>
                                 </th>
                             </tr>
                         </thead>
@@ -167,9 +167,18 @@
                                             <b><span>#@Html.ActionLink(a.MaHoaDon, "XemChiTiet", new { id = a.Id })</span></b>
                                         </div>
                                     </td>
-                                    <td class="border-bottom-0">
-                                        <span class="fw-normal">@a.NgayDat</span>
-                                    </td>
+                                    @if (a.NgayDat!=null)
+                                    {
+                                        <td class="border-bottom-0">
+                                            <span class="fw-normal">@a.NgayDat</span>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td class="border-bottom-0">
+                                            <span class="fw-normal">@a.NgayTaoHoaDon</span>
+                                        </td>
+                                    }
                                     <td class="border-bottom-0">
                                         <p class="mb-0 fw-normal">@a.TenKhachHang</p>
                                     </td>
@@ -196,11 +205,20 @@
                                         </th>
                                     }
                                     <td class="border-bottom-0">
-                                        <p class="mb-0 fw-normal">@FormatCurrency(@a.TienShip)</p>
-                                    </td>
-                                    <td class="border-bottom-0">
                                         <p class="mb-0 fw-normal">@FormatCurrency(@a.TongTien)</p>
                                     </td>
+                                    @if (a.NgayTaoHoaDon!=null)
+                                    {
+                                        <td class="border-bottom-0">
+                                            <p class="mb-0 fw-normal">Mua tại quầy</p>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td class="border-bottom-0">
+                                            <p class="mb-0 fw-normal">Mua tại wed</p>
+                                        </td>
+                                    }
                                 </tr>
                             }
                         </tbody>
