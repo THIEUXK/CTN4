@@ -5,26 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@*<section class="banner-area organic-breadcrumb">
-    <div class="container">
-        <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
-            <div class="col-first">
-                <h1>Lịch Sử Mua Hàng</h1>
-                <nav class="d-flex align-items-center">
-                    <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
-                    <a href="category.html">Hóa Đơn</a>
-                </nav>
-            </div>
-        </div>
-    </div>
-</section>*@
-<!-- End Banner Area -->
-<!--================Tracking Box Area =================-->
-@*<section class="tracking_box_area section_gap">
-    <div class="container">
-
-    </div>
-</section>*@
 <section class="tracking_box_area section_gap">
 
     <div class="container">
@@ -77,7 +57,7 @@
                             #@Html.ActionLink(@item.MaHoaDon, "HoaDonChiTiet", new {  id=item.Id  })
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.NgayTaoHoaDon)
+                            @Html.DisplayFor(modelItem => item.NgayDat)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.TrangThai)
@@ -122,8 +102,6 @@
             return formattedPrice + "VND"; // Thêm ký hiệu đồng (₫) vào cuối
         }
     };
-
-
 </script>
 <style>
     .chuaht{

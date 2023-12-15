@@ -239,6 +239,15 @@
                                     <br />
                                     <br />
                                     <div class="row">
+                                        <div class="col">Mã giảm</div>
+                                        <div class="col-auto text-right">
+                                            @foreach (var a in Model.GiamGiaChiTiets)
+                                            {
+                                                <p>@a.GiamGia.MaGiam</p>
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col">Số lượng sản phẩm</div>
                                         <div class="col-auto text-right">@Model.soLuongTong</div>
                                     </div>
@@ -247,15 +256,20 @@
                                         <div class="col-auto text-right">@FormatCurrency(Model.TongTienHang)</div>
                                     </div>
                                     <div class="row">
-                                        <div class="col">Tiền Giảm</div>
-                                        <div class="col-auto text-right">@FormatCurrency((Model.TongTienHang + Model.HoaDon.TienShip) - Model.HoaDon.TongTien)</div>
-                                    </div>
-                                    <div class="row">
                                         <div class="col">Tiền ship</div>
                                         <div class="col-auto text-right">
                                             @FormatCurrency(Model.HoaDon.TienShip)
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col"><b>Tổng tiền</b></div>
+                                        <div class="col-auto text-right"><b>@FormatCurrency(Model.TongTienHang * @Model.soLuongTong + Model.HoaDon.TienShip)</b></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">Tiền Giảm</div>
+                                        <div class="col-auto text-right">@FormatCurrency(Model.HoaDon.TienGiam)</div>
+                                    </div>
+
                                     <br />
                                     <div class="row">
                                         <div class="col"><b>Tổng giá trị đơn hàng</b></div>
@@ -371,32 +385,32 @@
                             </div>
                         </div>
                     </div>
-                   @*  <div class="card w-100">
-                        <div class="card-body p-4">
-                            <div>Trạng thái hiện tại của đơn hàng này là: <span style="color:saddlebrown">@Model.HoaDon.TrangThai</span></div>
-                            @if (Model.HoaDon.TrangThai == "Hàng của bạn đang được giao")
-                            {
-                                <div class="dropdown">
-                                    <button type="button" class="btn btn-custom-rangen" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
-                                        Giao hàng thành công
-                                    </button>
-                                    <div class="dropdown-menu p-4">
-                                        <span class="btn btn-custom-rangen">@Html.ActionLink("Giao hàng thành công", "XacNhanNhanHang", new { id = Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span>
-                                    </div>
-                                </div>
-                            }
-                            @if (Model.HoaDon.TrangThai == "Hàng của bạn đang được giao")
-                            {
-                                <div class="dropdown">
-                                    <button type="button" class="btn btn-custom-primary" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
-                                        Giao thất bại
-                                    </button>
-                                    <div class="dropdown-menu p-4">
-                                        <span class="btn btn-custom-rangen">@Html.ActionLink("Xác nhận", "GiaoHangThatBai", new { id = Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span>
-                                    </div>
-                                </div>
-                            }
-                        </div>
+                    @*  <div class="card w-100">
+                    <div class="card-body p-4">
+                    <div>Trạng thái hiện tại của đơn hàng này là: <span style="color:saddlebrown">@Model.HoaDon.TrangThai</span></div>
+                    @if (Model.HoaDon.TrangThai == "Hàng của bạn đang được giao")
+                    {
+                    <div class="dropdown">
+                    <button type="button" class="btn btn-custom-rangen" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                    Giao hàng thành công
+                    </button>
+                    <div class="dropdown-menu p-4">
+                    <span class="btn btn-custom-rangen">@Html.ActionLink("Giao hàng thành công", "XacNhanNhanHang", new { id = Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span>
+                    </div>
+                    </div>
+                    }
+                    @if (Model.HoaDon.TrangThai == "Hàng của bạn đang được giao")
+                    {
+                    <div class="dropdown">
+                    <button type="button" class="btn btn-custom-primary" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                    Giao thất bại
+                    </button>
+                    <div class="dropdown-menu p-4">
+                    <span class="btn btn-custom-rangen">@Html.ActionLink("Xác nhận", "GiaoHangThatBai", new { id = Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span>
+                    </div>
+                    </div>
+                    }
+                    </div>
                     </div> *@
                 </div>
             </div>
@@ -477,7 +491,7 @@
                                 b += 1;
                             }
                         }
-                        @if (b!=0)
+                        @if (b != 0)
                         {
                             <div>Số lần giao thất bại: <span style="color:red">@b</span></div>
                         }

@@ -9,5 +9,6 @@
         public string Size { get; set; }
         public int SoLuong { get; set; }
         public float GiaTien { get; set; }
+        public int idHD { get; set; }
     }
 }
