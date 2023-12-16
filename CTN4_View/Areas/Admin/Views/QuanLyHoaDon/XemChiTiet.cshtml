@@ -43,7 +43,15 @@
                                         </tbody>
                                     </table>
                                     <hr></hr>
-                                    <div>Ngày tạo : @Model.HoaDon.NgayDat</div>
+                                    @if (Model.HoaDon.NgayTaoHoaDon!=null)
+                                    {
+                                        <div>Ngày tạo : @Model.HoaDon.NgayTaoHoaDon</div>
+                                    }
+                                    else
+                                    {
+                                        <div>Ngày đặt : @Model.HoaDon.NgayDat</div>
+                                    }
+                                   
                                     @if (TempData["TB4"] != null)
                                     {
                                         <div class="alert alert-danger">@TempData["TB4"]</div>

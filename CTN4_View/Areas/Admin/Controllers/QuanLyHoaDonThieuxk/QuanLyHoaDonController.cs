@@ -1265,6 +1265,25 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
 
             return View(view);
         }
+        public IActionResult xoaKhoiHoaDon(Guid idHDCT,int id)
+        {
+            var hdct = _hoaDonChiTietService.GetById(idHDCT);
+            var spct = _sanPhamChiTietService.GetById(hdct.IdSanPhamChiTiet);
+            spct.SoLuong += hdct.SoLuong;
+            if (_sanPhamChiTietService.Sua(spct) == false)
+            {
+                var message = $"bỏ thất bại(1)";
+                TempData["TB2"] = message;
+                return RedirectToAction("TaoHoaDon", new { id = id, message });
+            }
+            if (_hoaDonChiTietService.Xoa(hdct.Id)==false)
+            {
+                var message = $"bỏ thất bại(1)";
+                TempData["TB2"] = message;
+                return RedirectToAction("TaoHoaDon", new { id = id, message });
+            }
+            return RedirectToAction("TaoHoaDon", new { id = id });
+        }
         public IActionResult sanphammua()
         {
 
