@@ -22,7 +22,8 @@
                     <div class="form-group">
                         <label asp-for="TenChucVu" class="control-label">Tên chức vụ</label>
                         <input asp-for="TenChucVu" class="form-control" />
-                        <span asp-validation-for="TenChucVu" class="text-danger"></span>
+                       @* <span asp-validation-for="TenChucVu" class="text-danger"></span>*@
+                        @Html.ValidationMessageFor(model => model.TenChucVu, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group form-check">
                         <label class="form-check-label">

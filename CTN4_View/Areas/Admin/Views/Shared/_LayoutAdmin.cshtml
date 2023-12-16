@@ -25,12 +25,19 @@
                         <i class="ti ti-x fs-8"></i>
                     </div>
                 </div>
-                <!-- Sidebar navigation-->
                 <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
                     <ul id="sidebarnav">
                         <li class="nav-small-cap">
                             <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                            <a asp-area="Admin" asp-controller="Home" asp-action="Index">Home</a>
+                            <span class="hide-menu">Home</span>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="./index.html" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-layout-dashboard"></i>
+                                </span>
+                                <span class="hide-menu">Dashboard</span>
+                            </a>
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link" asp-area="Admin" asp-controller="QuanLyHoaDon" asp-action="Index">
@@ -89,13 +96,43 @@
                                 <span class="hide-menu">Quản lý</span>
                             </a>
                         </li>
-                        @*<li class="nav-small-cap">
-                            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                            <span class="hide-menu">Quản lý</span>
+                        <li class="sidebar-item dropdown">
+                            <a class="sidebar-link dropdown-toggle">
+                                <span>
+                                    <i class="ti ti-brand-producthunt"></i>
+                                </span>
+                                <span class="hide-menu">Quản lý</span>
+                            </a>
+                            <div class="dropdown-menu">
+                                <a href="#" class="dropdown-item">All</a>
+                                <a href="#" class="dropdown-item">Recent</a>
+                                <a href="#" class="dropdown-item">Images</a>
+                                <a href="#" class="dropdown-item">Video</a>
+                                <a href="#" class="dropdown-item">Video</a>
+                                <a href="#" class="dropdown-item">Video</a>
+                                <a href="#" class="dropdown-item">Video</a>
+                                <a href="#" class="dropdown-item">Video</a>
+                                <a href="#" class="dropdown-item">Video</a>
+                                <a href="#" class="dropdown-item">Video</a>
+                                <a href="#" class="dropdown-item">Video</a>
+                                <a href="#" class="dropdown-item">Video</a>
+                            </div>
                         </li>
-                       
+
+                        <li class="nav-small-cap">
+                            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                            <span class="hide-menu">UI COMPONENTS</span>
+                        </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="./ui-alerts.html" aria-expanded="false">
+                            <a class="sidebar-link" href="./ui-buttons.html">
+                                <span>
+                                    <i class="ti ti-article"></i>
+                                </span>
+                                <span class="hide-menu">Buttons</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="./ui-alerts.html" >
                                 <span>
                                     <i class="ti ti-alert-circle"></i>
                                 </span>
@@ -103,34 +140,25 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="./ui-card.html" aria-expanded="false">
+                            <a class="sidebar-link" href="./ui-alerts.html" >
                                 <span>
-                                    <i class="ti ti-cards"></i>
+                                    <i class="ti ti-alert-circle"></i>
                                 </span>
-                                <span class="hide-menu">Card</span>
+                                <span class="hide-menu">Alerts</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="./ui-forms.html" aria-expanded="false">
+                            <a class="sidebar-link" href="./ui-alerts.html" >
                                 <span>
-                                    <i class="ti ti-file-description"></i>
+                                    <i class="ti ti-alert-circle"></i>
                                 </span>
-                                <span class="hide-menu">Forms</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="./ui-typography.html" aria-expanded="false">
-                                <span>
-                                    <i class="ti ti-typography"></i>
-                                </span>
-                                <span class="hide-menu">Typography</span>
+                                <span class="hide-menu">Alerts</span>
                             </a>
                         </li>
 
-*@
+
                     </ul>
                 </nav>
-                <!-- End Sidebar navigation -->
             </div>
             <!-- End Sidebar scroll-->
         </aside>
@@ -176,6 +204,25 @@
         </div>
     </div>
 
+
+
+
+
+
+
+
+
+
+
+    @*///////////////////////////////////////////////////////////////////////*@
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    @*<script src="~/lib/jquery/dist/jquery.js"></script>*@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+
+
+    @*///////////////////////////*@
     <script src="~/admina/assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="~/admina/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/admina/assets/js/sidebarmenu.js"></script>
@@ -183,6 +230,98 @@
     <script src="~/admina/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
     <script src="~/admina/assets/libs/simplebar/dist/simplebar.js"></script>
     <script src="~/admina/assets/js/dashboard.js"></script>
-</body>
 
+
+    <script>
+        $(document).ready(function () {
+            $('.dropdown-toggle').click(function () {
+                $(this).next('.dropdown-menu').slideToggle(200);
+            });
+        });
+        //$(document).ready(function () {
+        //    $('.dropdown-toggle').click(function () {
+        //        var dropdownMenu = $(this).next('.dropdown-menu');
+        //        dropdownMenu.slideToggle(200);
+
+        //        // Đẩy nội dung bên dưới xuống
+        //        var height = dropdownMenu.height();
+        //        $(this).closest('.dropdown').css('margin-bottom', height);
+        //    });
+        //});
+    </script>
+    <style>
+        .sidebar {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar-link {
+            text-decoration: none;
+            color: black;
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+            .sidebar-link:hover {
+                background-color: #f0f0f0;
+            }
+
+      
+        .dropdown-menu {
+            display: none;
+        }
+        
+        .dropdown-item {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: black;
+        }
+
+            .dropdown-item:hover {
+                background-color: #f0f0f0;
+            }
+
+    </style>
+
+    <style>
+        .sidebar {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar-item {
+            margin-bottom: 10px;
+        }
+
+        .sidebar-link {
+            text-decoration: none;
+            color: black;
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+            .sidebar-link:hover {
+                background-color: #f0f0f0;
+            }
+
+        .dropdown-menu {
+            display: none;
+            margin-top: 10px; /* Add some margin to separate the dropdown from the items below */
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: black;
+        }
+
+            .dropdown-item:hover {
+                background-color: #f0f0f0;
+            }
+
+    </style>
+</body>
 </html>

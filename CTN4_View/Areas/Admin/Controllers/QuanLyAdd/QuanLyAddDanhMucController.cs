@@ -66,7 +66,8 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyAdd
             };
             _danhMucChiTietService.Them(danhmucct);
             return RedirectToAction("ThemSanPhamDanhMuc",new{id=iddm});
-        }public ActionResult BoSpDanhMuc(Guid idsp, Guid iddm)
+        }
+        public ActionResult BoSpDanhMuc(Guid idsp, Guid iddm)
         {
            
             var a = _danhMucChiTietService.GetAll().FirstOrDefault(c=>c.IdSanPham == idsp && c.IdDanhMuc == iddm);

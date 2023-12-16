@@ -19,17 +19,19 @@
 <table class="table">
     <thead>
         <tr>
-            
+
+            <th>
+                Ảnh đại diện
+            </th>
+            <th>
+                Tên sản phẩm
+            </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.SoLuong)
             </th>
-            
             <th>
                 @Html.DisplayNameFor(model => model.TrangThai)
-            </th>
-           
-            <th>
-                @Html.DisplayNameFor(model => model.Is_detele)
             </th>
             <th>
                 Mau
@@ -37,9 +39,7 @@
             <th>
                 Size
             </th>
-            <th>
-                Sp
-            </th>
+          
             <th>
             </th>
         </tr>
@@ -50,19 +50,27 @@
             <tr>
                 <td>
                     <tb>
-                        @if (System.IO.Path.GetExtension(item.SanPham.AnhDaiDien) == ".jpg" ||
-                       System.IO.Path.GetExtension(item.SanPham.AnhDaiDien) == ".png" ||
-                       System.IO.Path.GetExtension(item.SanPham.AnhDaiDien) == ".jpeg" ||
-                       System.IO.Path.GetExtension(item.SanPham.AnhDaiDien) == ".tiff" ||
-                       System.IO.Path.GetExtension(item.SanPham.AnhDaiDien) == ".webp" ||
-                       System.IO.Path.GetExtension(item.SanPham.AnhDaiDien) == ".gif")
+                        @if (item != null && item.SanPham != null && item.SanPham.AnhDaiDien != null)
                         {
-                            <img src="~/image/@item.SanPham.AnhDaiDien" height="300">
+                            @if (System.IO.Path.GetExtension(item.SanPham.AnhDaiDien) == ".jpg" ||
+                           System.IO.Path.GetExtension(item.SanPham.AnhDaiDien) == ".png" ||
+                           System.IO.Path.GetExtension(item.SanPham.AnhDaiDien) == ".jpeg" ||
+                           System.IO.Path.GetExtension(item.SanPham.AnhDaiDien) == ".tiff" ||
+                           System.IO.Path.GetExtension(item.SanPham.AnhDaiDien) == ".webp" ||
+                           System.IO.Path.GetExtension(item.SanPham.AnhDaiDien) == ".gif")
+                            {
+                                <img src="~/image/@item.SanPham.AnhDaiDien" height="300">
+                            }
+                            else
+                            {
+                                <a>ảnh lỗi</a>
+                            }
                         }
                         else
                         {
-                            <a>ảnh lỗi</a>
+                            <a>ảnh lỗi2</a>
                         }
+
                     </tb>
                 </td>
                 <td>
@@ -71,24 +79,16 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.SoLuong)
                 </td>
-               
+
                 <td>
                     @Html.DisplayFor(modelItem => item.TrangThai)
                 </td>
-               
-                <td>
-                    @Html.DisplayFor(modelItem => item.Is_detele)
-                </td>
-               
                 <td>
                     @Html.DisplayFor(modelItem => item.Mau.TenMau)
                 </td>
-              
+
                 <td>
                     @Html.DisplayFor(modelItem => item.Size.TenSize)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SanPham.TenSanPham)
                 </td>
                 <td>
                 </td>

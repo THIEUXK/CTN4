@@ -48,7 +48,7 @@
                         }
                         <div class="col-md-6 form-group p_star">
                             <br />
-                           
+
                             <button type="button" class="btn btn-outline-info dropdown-toggle form-control" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
                                 Mã giảm giá
                             </button>
@@ -62,7 +62,7 @@
                                                 <div class="card1">
                                                     <div class="main1">
                                                         <div class="content1">
-                                                           
+
                                                             @if (i.LoaiGiamGia == false)
                                                             {
                                                                 <span>Giảm giá:</span>
@@ -71,8 +71,8 @@
                                                                 <span>Đơn tối thiểu:</span>
                                                                 <h8>@FormatCurrency(i.DieuKienGiam)</h8>
                                                                 <p>Kết thúc: @i.NgayKetThuc</p>
-                                                                 <br />
-                                                               
+                                                                <br />
+
                                                             }
                                                             else
                                                             {
@@ -88,10 +88,23 @@
                                                             }
                                                         </div>
                                                     </div>
-                                                    <div class="copy-button1">
-                                                        <input id="copyvalue" type="text" readonly value="@i.MaGiam" />
-                                                        <button asp-controller="BanHang" asp-action="SuDunggiamGia" name="IdGiamGia" value="@i.Id">Dùng</button>
+                                                   
+                                                        <div class="copy-button1">
+                                                        @if (i.SoLuong > 0)
+                                                        {
+                                                            <input id="copyvalue" type="text" readonly value="@i.MaGiam" />
+                                                            <button asp-controller="BanHang" asp-action="SuDunggiamGia" name="IdGiamGia" value="@i.Id">Dùng</button>
+                                                        }
+                                                        else if (i.SoLuong == 0)
+                                                        {
+                                                            <input id="copyvalue" type="text" style="text-decoration: line-through;" readonly value="@i.MaGiam" />
+                                                            <button type="button" style="background-color: black; color: white;">Hết</button>
+                                                           
+                                                        }
                                                     </div>
+                                                   
+                                                    
+
                                                 </div>
                                             </div>
                                         </div>
@@ -542,6 +555,33 @@
             align-items: center;
         }
 
+    .copy-button2 {
+        //margin: 12px 0 -5px 0;
+        height: 32px;
+        border-radius: 4px;
+        padding: 0 1px;
+        background-color: #fff;
+    }
+
+    .copy-button2 input {
+        width: calc(100% - 10px);
+        height: 100%;
+        border: none;
+        outline: none;
+        font-size: 14px;
+        padding-left: 5px;
+    }
+
+    .copy-button2 button {
+        padding: 5px 20px;
+            background-color: #708090;
+        color: #fff;
+        border: 1px solid transparent;
+        cursor: pointer;
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
 
 </style>
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>

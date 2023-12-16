@@ -1,4 +1,5 @@
-﻿using CTN4_Data.Models.DB_CTN4;
+﻿using CTN4_Data.Migrations;
+using CTN4_Data.Models.DB_CTN4;
 using CTN4_Serv.Service;
 using CTN4_Serv.Service.IService;
 using Microsoft.AspNetCore.Http;
@@ -42,32 +43,38 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         public ActionResult Create(KhachHang a, [Bind] IFormFile imageFile)
         {
 
-            var x = imageFile.FileName;
-           
-            if (imageFile != null && imageFile.Length > 0) // Không null và không trống
+            if (ModelState.IsValid)
             {
-                //Trỏ tới thư mục wwwroot để lát nữa thực hiện việc Copy sang
-                var path = Path.Combine(
-                    Directory.GetCurrentDirectory(), "wwwroot", "image", imageFile.FileName);
-                using (var stream = new FileStream(path, FileMode.Create))
+                var x = imageFile.FileName;
+
+                if (imageFile != null && imageFile.Length > 0) // Không null và không trống
                 {
-                    // Thực hiện copy ảnh vừa chọn sang thư mục mới (wwwroot)
-                    imageFile.CopyTo(stream);
+                    //Trỏ tới thư mục wwwroot để lát nữa thực hiện việc Copy sang
+                    var path = Path.Combine(
+                        Directory.GetCurrentDirectory(), "wwwroot", "image", imageFile.FileName);
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        // Thực hiện copy ảnh vừa chọn sang thư mục mới (wwwroot)
+                        imageFile.CopyTo(stream);
+                    }
+
+                    // Gán lại giá trị cho Description của đối tượng bằng tên file ảnh đã được sao chép
+                    a.AnhDaiDien = imageFile.FileName;
+                    a.Trangthai = true;
+                    a.Is_detele = false;
+                }
+                if (_kh.Them(a)) // Nếu thêm thành công
+                {
+
+                    return RedirectToAction("Index");
                 }
 
-                // Gán lại giá trị cho Description của đối tượng bằng tên file ảnh đã được sao chép
-                a.AnhDaiDien = imageFile.FileName;
-                a.Trangthai = true;
-                a.Is_detele = false;
+                return View();
             }
-            if (_kh.Them(a)) // Nếu thêm thành công
-            {
-
-                return RedirectToAction("Index");
-            }
-           
-            return View();
+            return View(a);
         }
+
+
 
 
         // GET: KhuyenMaiController/Edit/5
@@ -100,7 +107,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                 return RedirectToAction("Index");
 
             }
-           
+
 
             return View();
         }

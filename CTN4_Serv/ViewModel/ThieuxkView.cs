@@ -10,10 +10,11 @@ namespace CTN4_Serv.ViewModel
     public class ThieuxkView
     {
         public List<LichSuDonHang> LichSuDonHangs { get; set; }
-        public List<SanPham> sanPhams { get; set; }
+        
         public List<SanPhamChiTiet> sanPhamChiTiets { get; set; }
         public List<DanhMuc> danhMucs { get; set; }
         public List<DanhMucChiTiet> danhMucChiTiets { get; set; }
+        public List<SanPham> sanPhams { get; set; }
         public SanPhamChiTiet SanPhamChiTiet { get; set; }
         public List<Anh> AhList { get; set; }
         public Guid IdMau { get; set; }

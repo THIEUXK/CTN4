@@ -26,22 +26,22 @@
                     }
                 </h6>
                 <div class="track">
-                    <div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Đơn hàng đã được đặt</span><span class="timea">@Model.HoaDon.NgayDat</span> </div>
+                    <div class="step active"> <span class="icon"> <i class="fa1 fa-check"></i> </span> <span class="text">Đơn hàng đã được đặt</span><span class="timea">@Model.HoaDon.NgayDat</span> </div>
                     @if (Model.HoaDon.TrangThai != "Đang chờ xử lí")
                     {
-                        <div class="step active"> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text">Xác nhận thông tin</span> </div>
-                        <div class="step active"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text">Đang chuẩn bị hàng</span></div>
+                        <div class="step active"> <span class="icon"> <i class="fa1 fa-user"></i> </span> <span class="text">Xác nhận thông tin</span> </div>
+                        <div class="step active"> <span class="icon"> <i class="fa1 fa-truck"></i> </span> <span class="text">Đang chuẩn bị hàng</span></div>
                     }
                     else
                     {
-                        <div class="step"> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text">Xác nhận thông tin</span> </div>
-                        <div class="step "> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text">Đang chuẩn bị hàng</span></div>
+                        <div class="step"> <span class="icon"> <i class="fa1 fa-user"></i> </span> <span class="text">Xác nhận thông tin</span> </div>
+                        <div class="step "> <span class="icon"> <i class="fa1 fa-truck"></i> </span> <span class="text">Đang chuẩn bị hàng</span></div>
                     }
                     @if (Model.HoaDon.NgayGiao != null)
                     {
                         <div class="step active">
                             <span class="icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-seam-fill" viewBox="0 0 16 16">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="40" fill="currentColor" class="bi bi-box-seam-fill" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd" d="M15.528 2.973a.75.75 0 0 1 .472.696v8.662a.75.75 0 0 1-.472.696l-7.25 2.9a.75.75 0 0 1-.557 0l-7.25-2.9A.75.75 0 0 1 0 12.331V3.669a.75.75 0 0 1 .471-.696L7.443.184l.01-.003.268-.108a.75.75 0 0 1 .558 0l.269.108.01.003 6.97 2.789ZM10.404 2 4.25 4.461 1.846 3.5 1 3.839v.4l6.5 2.6v7.922l.5.2.5-.2V6.84l6.5-2.6v-.4l-.846-.339L8 5.961 5.596 5l6.154-2.461z" />
                                 </svg>
                             </span> <span class="text">Đang giao hàng </span><span class="timea">@Model.HoaDon.NgayGiao</span>
@@ -51,7 +51,7 @@
                     {
                         <div class="step ">
                             <span class="icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-seam-fill" viewBox="0 0 16 16">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="40" fill="currentColor" class="bi bi-box-seam-fill" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd" d="M15.528 2.973a.75.75 0 0 1 .472.696v8.662a.75.75 0 0 1-.472.696l-7.25 2.9a.75.75 0 0 1-.557 0l-7.25-2.9A.75.75 0 0 1 0 12.331V3.669a.75.75 0 0 1 .471-.696L7.443.184l.01-.003.268-.108a.75.75 0 0 1 .558 0l.269.108.01.003 6.97 2.789ZM10.404 2 4.25 4.461 1.846 3.5 1 3.839v.4l6.5 2.6v7.922l.5.2.5-.2V6.84l6.5-2.6v-.4l-.846-.339L8 5.961 5.596 5l6.154-2.461z" />
                                 </svg>
                             </span><span class="text">Đang giao hàng </span>
@@ -61,7 +61,7 @@
                     {
                         <div class="step active">
                             <span class="icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-check" viewBox="0 0 16 16">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="40" fill="currentColor" class="bi bi-bookmark-check" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd" d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
                                     <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z" />
                                 </svg>
@@ -72,7 +72,7 @@
                     {
                         <div class="step">
                             <span class="icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-check" viewBox="0 0 16 16">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="40" fill="currentColor" class="bi bi-bookmark-check" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd" d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
                                     <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z" />
                                 </svg>
@@ -337,7 +337,14 @@
 </script>
 
 <style>
-
+    .fa1 {
+        display: inline-block;
+        font: normal normal normal 14px/3 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale
+    }
     .page-container {
         max-width: 1140px;
         margin: 0 auto
