@@ -4,6 +4,8 @@ using CTN4_Serv.Service;
 using CTN4_Serv.Service.IService;
 using CTN4_Serv.ServiceJoin;
 using CTN4_Serv.ViewModel;
+using CTN4_View.Areas.Admin.Controllers.QuanLyAdd;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -46,65 +48,8 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [HttpGet]
         public ActionResult Index(string TenSp, float? tu, float? den, string colorFilter, string sizeFilter, int? page, int? size)
         {
-            var sanPhamList = _sanPhamChiTietService.GetAll();
-
-            if (!string.IsNullOrEmpty(TenSp))
-            {
-                sanPhamList = sanPhamList
-                    .Where(c => c.SanPham.TenSanPham.ToLower().Contains(TenSp.ToLower()))
-                    .ToList();
-            }
-
-            if (tu != null && den != null)
-            {
-                sanPhamList = sanPhamList
-                    .Where(c => (tu == null || c.SanPham.GiaNiemYet >= tu) && (den == null || c.SanPham.GiaNiemYet <= den))
-                    .ToList();
-            }
-
-            // Lọc theo màu sắc nếu được chọn
-            if (!string.IsNullOrEmpty(colorFilter))
-            {
-                sanPhamList = sanPhamList
-                    .Where(c => c.Mau.TenMau.ToLower() == colorFilter.ToLower())
-                    .ToList();
-            }
-
-            // Lọc theo kích thước nếu được chọn
-            if (!string.IsNullOrEmpty(sizeFilter))
-            {
-                sanPhamList = sanPhamList
-                    .Where(c => c.Size.TenSize.ToLower() == sizeFilter.ToLower())
-                    .ToList();
-            }
-
-            // Thêm phần phân trang vào đây
-            int pageSize = size ?? 5;
-            var pageNumber = page ?? 1;
-            var pagedList = sanPhamList.ToPagedList(pageNumber, pageSize);
-
-            // Tạo danh sách dropdown kích thước trang
-            var pageSizeOptions = new List<SelectListItem>
-    {
-        new SelectListItem { Text = "5", Value = "5" },
-        new SelectListItem { Text = "10", Value = "10" },
-        new SelectListItem { Text = "20", Value = "20" },
-        new SelectListItem { Text = "25", Value = "25" },
-        new SelectListItem { Text = "50", Value = "50" }
-    };
-
-            // Tạo danh sách dropdown màu sắc và kích thước
-            var colorOptions = sanPhamList.Select(c => c.Mau.TenMau).Distinct().ToList();
-            var sizeOptions = sanPhamList.Select(c => c.Size.TenSize).Distinct().ToList();
-
-            ViewBag.SizeOptions = new SelectList(pageSizeOptions, "Value", "Text", size);
-            ViewBag.ColorOptions = new SelectList(colorOptions);
-            ViewBag.SizeFilter = sizeFilter; // Giữ giá trị đã chọn cho kích thước
-            ViewBag.ColorFilter = colorFilter; // Giữ giá trị đã chọn cho màu sắc
-
-            ViewBag.CurrentSize = size ?? 5; // Kích thước trang mặc định
-
-            return View(pagedList);
+            var sanPhamList = _sv.GetAll();
+            return View(sanPhamList);
         }
 
         // GET: PhanLoaiController/Details/5
@@ -314,5 +259,71 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             return RedirectToAction("Details", new { id = idSPCT });
 
         }
+
+        public ActionResult ThemSanPhamChiTiet(Guid id)
+        {
+
+            
+            var viewModel = new SanPhamChiTietView()
+            {
+                MauItems = _mauService.GetAll().Select(s => new SelectListItem
+                {
+                    Value = s.Id.ToString(),
+                    Text = s.TenMau
+                }).ToList(),
+
+                SizeItems = _sizeService.GetAll().Select(s => new SelectListItem
+                {
+                    Value = s.Id.ToString(),
+                    Text = s.TenSize
+                }).ToList(),
+                IdSp = id,
+               
+
+
+            };
+            return View(viewModel);
+        }
+
+
+        public ActionResult ThemSanPham(SanPhamChiTietView a)
+        {
+
+           
+            var check = _sanPhamChiTietService.GetAll().FirstOrDefault(c => c.IdSp == a.IdSp && c.IdMau == a.IdMau && c.IdSize == a.IdSize);
+
+            if (check == null)
+            {
+                var message = "Sản phẩm đã tồn tại !";
+                TempData["ErrorMessage"] = message;
+                return RedirectToAction("ThemSanPhamChiTiet", new { id = a.IdSp, message });
+            }
+            var sanPhamChiTiet = new SanPhamChiTiet()
+            {
+                IdMau = a.IdMau,
+                IdSize = a.IdSize,
+                IdSp = a.IdSp,
+                Is_detele = a.Is_detele,
+                TrangThai = a.TrangThai,
+                SoLuong = a.SoLuong,
+
+            };
+            if (_sanPhamChiTietService.Them(sanPhamChiTiet) == false)
+            {
+                var message = "Thêm thất bại !";
+                TempData["ErrorMessage"] = message;
+                return RedirectToAction("ThemSanPhamChiTiet", new { id = a.IdSp, message });
+            }
+            var message1 = "Thêm thêm thành công !";
+            TempData["sussces"] = message1;
+            return RedirectToAction("ThemSanPhamChiTiet", new { id = a.IdSp, message1 });
+        }
+        //public ActionResult BoSpDanhMuc(Guid idsp, Guid iddm)
+        //{
+
+        //    var a = _danhMucChiTietService.GetAll().FirstOrDefault(c => c.IdSanPham == idsp && c.IdDanhMuc == iddm);
+        //    _danhMucChiTietService.Xoa(a.Id);
+        //    return RedirectToAction("Details", "DanhMuc", new { id = iddm });
+        //}
     }
 }

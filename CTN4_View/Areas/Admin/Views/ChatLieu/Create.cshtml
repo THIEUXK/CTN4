@@ -24,9 +24,10 @@
                 <form asp-action="Create">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
-                        <label asp-for="TenChatLieu" class="control-label"></label>
+                        <label asp-for="TenChatLieu" class="control-label">Tên chất liệu</label>
                         <input asp-for="TenChatLieu" class="form-control" />
                         <span asp-validation-for="TenChatLieu" class="text-danger"></span>
+                       @* @Html.ValidationMessageFor(model => model.TenChatLieu, "", new { @class = "text-danger" })*@
                     </div>
                     <div class="form-group form-check">
                         <label class="form-check-label">

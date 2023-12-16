@@ -6,11 +6,13 @@ namespace CTN4_Data.Models.DB_CTN4
     {
         public Guid Id { get; set; }
         [Required(ErrorMessage = " không được để trống")]
-        [StringLength(100, ErrorMessage = "Họ không được quá 30 ký tự")]
+        [StringLength(30, ErrorMessage = "Họ không được quá 30 ký tự")]
+        [RegularExpression(@"^[a-zA-Z\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵđĐ]+$", ErrorMessage = "Chỉ được nhập chữ")]
         public string Ho { get; set; }
 
         [Required(ErrorMessage = " không được để trống")]
-        [StringLength(100, ErrorMessage = "Tên không được quá 30 ký tự")]
+        [StringLength(30, ErrorMessage = "Tên không được quá 30 ký tự")]
+        [RegularExpression(@"^[a-zA-Z\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵđĐ]+$", ErrorMessage = "Chỉ được nhập chữ")]
         public string Ten { get; set; }
         [Required(ErrorMessage = " không được để trống")]
         [StringLength(100, ErrorMessage = " không được quá 30 ký tự")]

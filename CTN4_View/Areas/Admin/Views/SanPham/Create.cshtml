@@ -23,10 +23,12 @@
             <div class="col-md-4">
                 <form method="post" asp-action="Create" enctype="multipart/form-data">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    
                     <div class="form-group">
                         <label asp-for="MaSp" class="control-label">Mã sản phẩm</label>
                         <input asp-for="MaSp" class="form-control" />
                         <span asp-validation-for="MaSp" class="text-danger"></span>
+                       
                     </div>
                     <div class="form-group">
                         <label asp-for="TenSanPham" class="control-label">Tên sản phẩm</label>
@@ -92,7 +94,12 @@
                     <div class="form-group">
                         <label>Chọn ảnh từ Máy tính:</label>
                         <input type="file" name="imageFile" />
+                        @if (TempData["Notification"] != null)
+                        {
+                            <div class="alert alert-danger">@TempData["Notification"]</div>
+                        }
                     </div>
+                    <br />
                     <div class="form-group">
                         <input type="submit" value="Thêm mới" class="btn btn-primary" />
                     </div>
@@ -106,4 +113,7 @@
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
 

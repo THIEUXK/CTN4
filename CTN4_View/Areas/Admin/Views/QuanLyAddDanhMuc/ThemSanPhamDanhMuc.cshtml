@@ -13,10 +13,6 @@
 <div class="row">
     <div class="col-md-9">
         <br></br>
-        <br></br>
-
-
-
         <div>
             <h1>Sản Phẩm</h1>
             <hr />
@@ -34,8 +30,8 @@
     </div>
 </div>
 <div>
-    <button class="btn btn-success m-1">@Html.ActionLink("Quay lại", "details","DanhMuc", new {id = Model.danhMuc.Id }, new { style = "color: white;" }) </button>
-    
+    <a>@Html.ActionLink("Quay lại", "details","DanhMuc", new {id = Model.danhMuc.Id }, new { style="text-decoration: none;color: black;" }) </a>
+
 </div>
 <table class="table">
     <thead>
@@ -87,24 +83,12 @@
                         @Html.ActionLink("Thêm", "TaoMoiDanhMuc","QuanLyAddDanhMuc", new { idsp = item.Id,iddm = Model.danhMuc.Id }, new { style = "color: white;" })
                     </button>
                 </td>
-
-
-
-
-                @*  <td>
-            <button class="btn btn-success m-1">
-            @Html.ActionLink("Chỉnh sửa", "Edit","QuanLYH", new { id = item.Id }, new { style = "color: white;" })
-            </button>
-            <button class="btn btn-info m-1">
-            @Html.ActionLink("Xem chi tiết", "Details","QuanLYH", new { id = item.Id }, new { style = "color: white;" })
-            </button>
-            <button class="btn btn-danger m-1">
-            @Html.ActionLink("Xóa", "Delete","QuanLYH", new { id = item.Id }, new { style = "color: white;" })
-            </button>
-
-            </td>*@
             </tr>
         }
     </tbody>
 </table>
 
+<div>
+    <a>@Html.ActionLink("Quay lại", "details","DanhMuc", new {id = Model.danhMuc.Id }, new { style="text-decoration: none;color: black;" }) </a>
+
+</div>

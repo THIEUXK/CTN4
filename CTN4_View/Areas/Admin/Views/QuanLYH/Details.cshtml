@@ -14,28 +14,27 @@
         <br></br>
 
 
-        <h1>Details</h1>
+        <h1>Sản phẩm chi tiết</h1>
 
         <div>
-            <h4>SanPhamChiTiet</h4>
             <hr />
             <dl class="row">
+
                 <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.SanPhamChiTiet.Id)
+                    Tên sản phẩm
                 </dt>
                 <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.SanPhamChiTiet.Id)
+                    @Html.DisplayFor(model => model.SanPhamChiTiet.SanPham.TenSanPham)
                 </dd>
-         
                 <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.SanPhamChiTiet.SoLuong)
+                   Số lượng
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.SanPhamChiTiet.SoLuong)
                 </dd>
          
                 <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.SanPhamChiTiet.TrangThai)
+                    Trạng thái
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.SanPhamChiTiet.TrangThai)
@@ -43,37 +42,32 @@
            
              
                 <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.SanPhamChiTiet.Is_detele)
+                    Tình trạng
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.SanPhamChiTiet.Is_detele)
                 </dd>
               
                 <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.SanPhamChiTiet.IdMau)
+                    Màu sắc
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.SanPhamChiTiet.Mau.TenMau)
                 </dd>
                
                 <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.SanPhamChiTiet.IdSize)
+                   Kích cỡ
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.SanPhamChiTiet.Size.CoSize)
                 </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.SanPhamChiTiet.IdSp)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.SanPhamChiTiet.SanPham.TenSanPham)
-                </dd>
+                
             </dl>
         </div>
         <div>
-            <button>@Html.ActionLink("Edit", "Edit", new {id = Model.SanPham.Id }) </button>
+            <a>@Html.ActionLink("Chỉnh sửa", "Edit", new {id = Model.SanPham.Id },new { style="text-decoration: none;color: black;" }) </a> |
 
-            <button>@Html.ActionLink("Back to List", "Details","SanPham" ,new {id = Model.SanPham.Id })</button>
+            <a>@Html.ActionLink("Quay lại", "Details","SanPham" ,new {id = Model.SanPham.Id },new { style="text-decoration: none;color: black;" })</a>
         </div>
         
 
@@ -110,26 +104,18 @@
 {
     <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
 }
-@*<form asp-action="AddAnh" method="post" enctype="multipart/form-data">
-    <div class="m-b-15">
-        <input type="hidden" name="IdSP" value="@Model.SanPhamChiTiet.Id" />
-        <input name="imageFile" type="file" class="form-control-file" />
-        <button id="btnUpload" class="btn btn-primary">
-            <i class="anticon anticon-save"></i>
-        </button>
-        <button type="submit">Thêm ảnh</button>
-    </div>
-</form>*@
-
 <form asp-action="AddAnh" method="post" enctype="multipart/form-data">
     <div class="m-b-15">
         <input type="hidden" name="IdSP" value="@Model.SanPhamChiTiet.IdSp" />
         <input type="hidden" name="idSPCT" value="@Model.SanPhamChiTiet.Id" />
         <input type="hidden" name="IdMau" value="@Model.SanPhamChiTiet.IdMau" />
         <input name="imageFile" type="file" multiple class="form-control-file" />
-        <button id="btnUpload" class="btn btn-primary">
-            <i class="anticon anticon-save"></i>
+        <button id="btnUpload" class="btn btn-primary" >
         </button>
-        <button type="submit">Thêm ảnh</button>
+        <button type="submit" class="btn btn-primary">Thêm ảnh</button>
     </div>
 </form>
+<script>
+    // Sử dụng JavaScript để ẩn nút khi trang web được tải
+    document.getElementById("btnUpload").style.display = "none";
+</script>

@@ -1,4 +1,4 @@
-﻿@model CTN4_Data.Models.DB_CTN4.KhachHang
+﻿@model CTN4_Data.Models.DB_CTN4.KhachHang;
 
 @{
     ViewData["Title"] = "Create";
@@ -17,12 +17,13 @@
             <div class="col-md-4">
                 <form asp-action="Create" enctype="multipart/form-data">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
+                   @* @Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
                     <div class="form-group">
                         <label asp-for="Ho" class="control-label">Họ</label>
                         <input asp-for="Ho" class="form-control" />
-                        <span asp-validation-for="Ho" class="text-danger"></span>
+                        @Html.ValidationMessageFor(model => model.Ho, "", new { @class = "text-danger" })
                     </div>
+
                     <div class="form-group">
                         <label asp-for="Ten" class="control-label">Tên</label>
                         <input asp-for="Ten" class="form-control" />
@@ -77,4 +78,8 @@
     </div>
 </div>
 
+<!-- Trong file _Layout.cshtml hoặc tương tự -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
 

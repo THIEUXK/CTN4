@@ -1,4 +1,5 @@
 ﻿using CTN4_Data.DB_Context;
+using CTN4_Data.Migrations;
 using CTN4_Data.Models.DB_CTN4;
 using CTN4_Serv.Service;
 using CTN4_Serv.Service.IService;
@@ -81,7 +82,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         public ActionResult Details(Guid id)
         {
             var lisanh = _anhService.GetAll();
-            var a = _sanPhamService.GetAll().FirstOrDefault(c=>c.Id == id);
+            var a = _sanPhamService.GetAll().FirstOrDefault(c => c.Id == id);
             var listSPCT = _sanPhamChiTietService.GetAll().Where(c => c.IdSp == id);
 
             var view = new ThieuxkView()
@@ -118,61 +119,72 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [ValidateAntiForgeryToken]
         public ActionResult Create(SanPhamView p, [Bind] IFormFile imageFile)
         {
-            string x = null; // Đảm bảo khởi tạo x là null
-            x = imageFile.FileName;
-            //var x = imageFile.FileName;
-            if (imageFile != null && imageFile.Length > 0) // Không null và không trống
-            {
-                //Trỏ tới thư mục wwwroot để lát nữa thực hiện việc Copy sang
-                var path = Path.Combine(
-                    Directory.GetCurrentDirectory(), "wwwroot", "image", imageFile.FileName);
-                using (var stream = new FileStream(path, FileMode.Create))
+            //if (ModelState.IsValid)
+            //{
+                //string x = null; // Đảm bảo khởi tạo x là null
+                //x = imageFile.FileName;
+                //var x = imageFile.FileName;
+                if (imageFile != null && imageFile.Length > 0) // Không null và không trống
                 {
-                    // Thực hiện copy ảnh vừa chọn sang thư mục mới (wwwroot)
-                    imageFile.CopyTo(stream);
+                    //Trỏ tới thư mục wwwroot để lát nữa thực hiện việc Copy sang
+                    var path = Path.Combine(
+                        Directory.GetCurrentDirectory(), "wwwroot", "image", imageFile.FileName);
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        // Thực hiện copy ảnh vừa chọn sang thư mục mới (wwwroot)
+                        imageFile.CopyTo(stream);
+                    }
+
+                    // Gán lại giá trị cho Description của đối tượng bằng tên file ảnh đã được sao chép
+                    p.AnhDaiDien = imageFile.FileName;
+
                 }
-
-                // Gán lại giá trị cho Description của đối tượng bằng tên file ảnh đã được sao chép
-                p.AnhDaiDien = imageFile.FileName;
-
-            }
-            var a = new SanPham()
-            {
-                Id = Guid.NewGuid(),
-                MaSp = p.MaSp,
-                TenSanPham = p.TenSanPham,
-                IdChatLieu = Guid.Parse(p.IdChatLieu.Value.ToString()),
-                IdNSX = Guid.Parse(p.IdNSX.Value.ToString()),
-                MoTa = p.MoTa,
-                TrangThai = p.TrangThai,
-                GiaNhap = p.GiaNhap,
-                GiaBan = p.GiaBan,
-                GiaNiemYet = p.GiaNiemYet,
-                GhiChu = p.GhiChu,
-                Is_detele = p.Is_detele,
-                AnhDaiDien = p.AnhDaiDien,
-
-            };
-            if (_sanPhamService.Them(a)) // Nếu thêm thành công
-            {
-
-                return RedirectToAction("Index");
-            }
-            var viewModel = new SanPhamView()
-            {
-                NsxItems = _nsxService.GetAll().Select(s => new SelectListItem
+                else
                 {
-                    Value = s.Id.ToString(),
-                    Text = s.TenNSX
-                }).ToList(),
-                ChalieuItems = _chatLieuService.GetAll().Select(s => new SelectListItem
+                    var thongbaoAnh = "Hay them anh";
+                    TempData["Notification"] = thongbaoAnh;
+                    return RedirectToAction("Create", new { thongbaoAnh });
+                }
+                var b = new SanPham()
                 {
-                    Value = s.Id.ToString(),
-                    Text = s.TenChatLieu
-                }).ToList(),
-            };
-            return View(viewModel);
-        }
+                    Id = Guid.NewGuid(),
+                    MaSp = p.MaSp,
+                    TenSanPham = p.TenSanPham,
+                    IdChatLieu = Guid.Parse(p.IdChatLieu.Value.ToString()),
+                    IdNSX = Guid.Parse(p.IdNSX.Value.ToString()),
+                    MoTa = p.MoTa,
+                    TrangThai = p.TrangThai,
+                    GiaNhap = p.GiaNhap,
+                    GiaBan = p.GiaBan,
+                    GiaNiemYet = p.GiaNiemYet,
+                    GhiChu = p.GhiChu,
+                    Is_detele = p.Is_detele,
+                    AnhDaiDien = p.AnhDaiDien,
+
+                };
+                if (_sanPhamService.Them(b)) // Nếu thêm thành công
+                {
+
+                    return RedirectToAction("Index");
+                }
+                var viewModel = new SanPhamView()
+                {
+                    NsxItems = _nsxService.GetAll().Select(s => new SelectListItem
+                    {
+                        Value = s.Id.ToString(),
+                        Text = s.TenNSX
+                    }).ToList(),
+                    ChalieuItems = _chatLieuService.GetAll().Select(s => new SelectListItem
+                    {
+                        Value = s.Id.ToString(),
+                        Text = s.TenChatLieu
+                    }).ToList(),
+                };
+                return View(viewModel);
+            }
+        //    return View(p);
+        //}
+
 
         // GET: SanPhamController/Edit/5
 
@@ -237,6 +249,14 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             {
                 SP.Is_detele = true;
                 _sanPhamService.Sua(SP);
+            }
+            return RedirectToAction("Index");
+        }
+         public ActionResult XoaLuon(Guid id)
+        {
+            if (_sanPhamService.Xoa(id))
+            {
+                return RedirectToAction("Index");
             }
             return RedirectToAction("Index");
         }

@@ -43,26 +43,12 @@
                 Mã sản phẩm
             </th>
             <th>
-                Tên sản phẩm
+                Thông tin sản phẩm
             </th>
             <th>
-                Chất liệu
+                Giá cả
             </th>
-            <th>
-                Nsx
-            </th>
-            <th>
-                Mô tả
-            </th>
-            <th>
-                Giá nhập
-            </th>
-            <th>
-                Giá bán
-            </th>
-            <th>
-                Giá niên yết
-            </th>
+
             <th>
                 Ghi chú
             </th>
@@ -87,25 +73,30 @@
                     @Html.DisplayFor(modelItem => item.MaSp)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TenSanPham)
+                    <div>
+                        <b>Tên</b>: @Html.DisplayFor(modelItem => item.TenSanPham)
+                    </div>
+                    <div>
+                        <b>Chất liệu</b>: @Html.DisplayFor(modelItem => item.ChatLieu.TenChatLieu)
+                    </div>
+                    <div>
+                        <b>Nsx</b>: @Html.DisplayFor(modelItem => item.NSX.TenNSX)
+                    </div>
+                    <div>
+                        <b>Mô tả</b>: @Html.DisplayFor(modelItem => item.MoTa)
+                    </div>
+
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ChatLieu.TenChatLieu)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NSX.TenNSX)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MoTa)
-                </td>
-                <td>
-                    @Html.Raw(FormatCurrency(item.GiaNhap))
-                </td>
-                <td>
-                    @Html.Raw(FormatCurrency(item.GiaBan))
-                </td>
-                <td>
-                    @Html.Raw(FormatCurrency(item.GiaNiemYet))
+                    <div>
+                        <b>Giá nhập</b>: @Html.Raw(FormatCurrency(item.GiaNhap))
+                    </div>
+                    <div>
+                        <b>Giá bán</b>: @Html.Raw(FormatCurrency(item.GiaBan))
+                    </div>
+                    <div>
+                        <b>Giá niên yết</b>: @Html.Raw(FormatCurrency(item.GiaNiemYet))
+                    </div>
 
                 </td>
                 <td>
@@ -196,9 +187,6 @@
             return formattedPrice + "VND"; // Thêm ký hiệu đồng (₫) vào cuối
         }
     };
-
-            });
-
 
 </script>
 <style>
