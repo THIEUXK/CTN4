@@ -11,6 +11,11 @@
     <div class="billing_details">
         <div class="row">
             <div class="col-lg-7">
+                @if (TempData["TB2"] != null)
+                {
+                    <div class="alert alert-danger">@TempData["TB2"]</div>
+                }
+                <input type="hidden" name="id" value="@Model.HoaDon.Id"/>
                 <h3>Thông tin người mua</h3><h4>Mã hóa đơn:@Model.HoaDon.MaHoaDon</h4><h4>Ngày tạo:@Model.HoaDon.NgayTaoHoaDon</h4>
                 <div class="row contact_form" action="#" method="post" novalidate="novalidate">
                     <div class="col-md-6 form-group p_star">
@@ -120,7 +125,7 @@
                                     </td>
 
                                     <td>
-                                        <button href="#" class="delete-link custom-button" data-id="@a.SanPhamChiTiet.Id">
+                                        <button asp-action="xoaKhoiHoaDon" class="delete-link custom-button" name="idHDCT" value="@a.Id" >
                                             Xóa
                                         </button>
                                     </td>
