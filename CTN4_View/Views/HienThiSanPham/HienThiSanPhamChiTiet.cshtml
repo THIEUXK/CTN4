@@ -232,7 +232,7 @@
                                         <input type="hidden" name="idSP" value="@Model.sanPham.Id">
                                         <a onclick="onsubmit" class="social-info">
                                             <span class="lnr lnr1 lnr-heart" style="background: linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);"><button onclick="onsubmit">  </button></span>
-
+                                           
                                         </a>
                                     </form>
                                 }
@@ -243,7 +243,7 @@
                                         <input type="hidden" name="IdSanPham" value="@Model.sanPham.Id">
                                         <a onclick="onsubmit" class="icon_btn">
                                             <span class="lnr lnr1 lnr-heart"><button onclick="onsubmit">  </button></span>
-
+                                           
                                         </a>
                                     </form>
                                 }
@@ -624,60 +624,132 @@
         <div class="row justify-content-center">
             <div class="col-lg-6 text-center">
                 <div class="section-title">
-                    <h1>Các sản phẩm liên quan<h1>
-
+                    <h1>Deals of the Week</h1>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua.
+                    </p>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-9">
                 <div class="row">
-                    @{
-                        // Tạo danh sách để theo dõi các Mau.Id đã xuất hiện
-                        var SanPhamDaXuatHien = new List<Guid>();
-                        SanPhamDaXuatHien.Add(Model.sanPham.Id);
-                    }
-                    @foreach (var a in Model.sanPhams)
-                    {
-                        // Kiểm tra xem Mau.Id đã xuất hiện trong danh sách chưa
-                        if (!SanPhamDaXuatHien.Contains(a.Id))
-                        {
-                            // Nếu chưa xuất hiện, hiển thị nút và thêm Mau.Id vào danh sách
-                            SanPhamDaXuatHien.Add(a.Id);
-                            <div class="col-lg-4 col-md-4 col-sm-4 mb-20">
-                                <div class="single-related-product d-flex">
-                                    @if (System.IO.Path.GetExtension(a.AnhDaiDien) == ".jpg" ||
-                                   System.IO.Path.GetExtension(a.AnhDaiDien) == ".png" ||
-                                   System.IO.Path.GetExtension(a.AnhDaiDien) == ".jpeg" ||
-                                   System.IO.Path.GetExtension(a.AnhDaiDien) == ".tiff" ||
-                                   System.IO.Path.GetExtension(a.AnhDaiDien) == ".webp" ||
-                                   System.IO.Path.GetExtension(a.AnhDaiDien) == ".gif")
-                                    {
-                                        <a href="@Url.Action("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = a.Id })">
-
-                                            <img src="~/image/@a.AnhDaiDien" height="150" alt="@a.TenSanPham" />
-                                        </a>
-                                        <div class="desc">
-                                            <a href="#" class="title">@a.TenSanPham</a>
-                                            <div class="price">
-                                                @if (a.GiaNiemYet == a.GiaBan)
-                                                {
-                                                    <h6>@FormatCurrency(a.GiaNiemYet)</h6>
-                                                }
-                                                else
-                                                {
-                                                    <h6>@FormatCurrency(a.GiaNiemYet)</h6>
-                                                    <h6 class="l-through">@FormatCurrency(a.GiaBan)</h6>
-                                                }
-                                            </div>
-                                        </div>
-                                    }
+                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
+                        <div class="single-related-product d-flex">
+                            <a href="#"><img src="~/img/r1.jpg" alt=""></a>
+                            <div class="desc">
+                                <a href="#" class="title">Black lace Heels</a>
+                                <div class="price">
+                                    <h6>$189.00</h6>
+                                    <h6 class="l-through">$210.00</h6>
                                 </div>
                             </div>
-                            
-                        }
-                    }
-
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
+                        <div class="single-related-product d-flex">
+                            <a href="#"><img src="~/img/r2.jpg" alt=""></a>
+                            <div class="desc">
+                                <a href="#" class="title">Black lace Heels</a>
+                                <div class="price">
+                                    <h6>$189.00</h6>
+                                    <h6 class="l-through">$210.00</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
+                        <div class="single-related-product d-flex">
+                            <a href="#"><img src="~/img/r3.jpg" alt=""></a>
+                            <div class="desc">
+                                <a href="#" class="title">Black lace Heels</a>
+                                <div class="price">
+                                    <h6>$189.00</h6>
+                                    <h6 class="l-through">$210.00</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
+                        <div class="single-related-product d-flex">
+                            <a href="#"><img src="~/img/r5.jpg" alt=""></a>
+                            <div class="desc">
+                                <a href="#" class="title">Black lace Heels</a>
+                                <div class="price">
+                                    <h6>$189.00</h6>
+                                    <h6 class="l-through">$210.00</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
+                        <div class="single-related-product d-flex">
+                            <a href="#"><img src="~/img/r6.jpg" alt=""></a>
+                            <div class="desc">
+                                <a href="#" class="title">Black lace Heels</a>
+                                <div class="price">
+                                    <h6>$189.00</h6>
+                                    <h6 class="l-through">$210.00</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
+                        <div class="single-related-product d-flex">
+                            <a href="#"><img src="~/img/r7.jpg" alt=""></a>
+                            <div class="desc">
+                                <a href="#" class="title">Black lace Heels</a>
+                                <div class="price">
+                                    <h6>$189.00</h6>
+                                    <h6 class="l-through">$210.00</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6">
+                        <div class="single-related-product d-flex">
+                            <a href="#"><img src="~/img/r9.jpg" alt=""></a>
+                            <div class="desc">
+                                <a href="#" class="title">Black lace Heels</a>
+                                <div class="price">
+                                    <h6>$189.00</h6>
+                                    <h6 class="l-through">$210.00</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6">
+                        <div class="single-related-product d-flex">
+                            <a href="#"><img src="~/img/r10.jpg" alt=""></a>
+                            <div class="desc">
+                                <a href="#" class="title">Black lace Heels</a>
+                                <div class="price">
+                                    <h6>$189.00</h6>
+                                    <h6 class="l-through">$210.00</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6">
+                        <div class="single-related-product d-flex">
+                            <a href="#"><img src="~/img/r11.jpg" alt=""></a>
+                            <div class="desc">
+                                <a href="#" class="title">Black lace Heels</a>
+                                <div class="price">
+                                    <h6>$189.00</h6>
+                                    <h6 class="l-through">$210.00</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="ctg-right">
+                    <a href="#" target="_blank">
+                        <img class="img-fluid d-block mx-auto" src="~/img/category/c5.jpg" alt="">
+                    </a>
                 </div>
             </div>
         </div>

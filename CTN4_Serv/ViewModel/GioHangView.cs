@@ -10,7 +10,6 @@ namespace CTN4_Serv.ViewModel
 {
     public class GioHangView
     {
-        public List<Guid> check11 { get; set; }
         public DiaChiNhanHang? DiaChiNhanHang { get; set; }
         public KhachHang KhachHang { get; set; }
         public List<Anh> anhs { get; set; }
@@ -23,7 +22,6 @@ namespace CTN4_Serv.ViewModel
         public List<SelectListItem> listDiaChi { get; set; }
         
         public List<GiamGia> GiamGias { get; set; }
-        public List<SanPham> sanPham11 { get; set; }
 
         public float tienhanga { get; set; }
         public string DiachiNhanChiTiet { get; set; }

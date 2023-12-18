@@ -30,9 +30,6 @@
                     <div class="row contact_form" action="#" method="post" novalidate="novalidate">
                         @if (Model.name != null)
                         {
-
-
-
                             <div class="col-md-6 form-group p_star">
                                 <label>Họ và tên</label>
                                 <input type="text" class="form-control" id="first" value="@Model.name" name="name">
@@ -46,7 +43,7 @@
                                     var hoTen = $"{Model.KhachHang.Ho} {Model.KhachHang.Ten}";
                                     var hoTenTitleCase = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(hoTen);
                                 }
-                                <input type="text" class="form-control" id="first" value="@hoTenTitleCase" name="name" onblur="validateName()">
+                                <input type="text" class="form-control" id="first" value="@hoTenTitleCase" name="name">
                             </div>
                         }
                         <div class="col-md-6 form-group p_star">
@@ -68,39 +65,31 @@
 
                                                             @if (i.LoaiGiamGia == false)
                                                             {
-                                                                <span>Giảm giá: @FormatCurrency(i.SoTienGiam)</span>
-
+                                                                <span>Giảm giá:</span>
+                                                                <h8>@FormatCurrency(i.SoTienGiam)</h8>
                                                                 <br />
                                                                 <span>Đơn tối thiểu:</span>
-                                                                @FormatCurrency(i.DieuKienGiam)
-                                                                <p>
-                                                                    Kết thúc: @i.NgayKetThuc
-                                                                    <br />
-                                                                    Số lượng: @i.SoLuong
-                                                                </p>
-
-
-
+                                                                <h8>@FormatCurrency(i.DieuKienGiam)</h8>
+                                                                <p>Kết thúc: @i.NgayKetThuc</p>
+                                                                <br />
 
                                                             }
                                                             else
                                                             {
-                                                                <span>Giảm giá:  @i.PhanTramGiam%</span>
+                                                                <span>Giảm giá:</span>
+                                                                <h8>@i.PhanTramGiam%</h8>
                                                                 <br />
                                                                 <span>Giảm tối đa:</span>
-                                                                @FormatCurrency(i.SoTienGiamToiDa)
+                                                                <h8>@FormatCurrency(i.SoTienGiamToiDa)</h8>
                                                                 <br />
                                                                 <span>Đơn tối thiểu:</span>
-                                                                @FormatCurrency(i.DieuKienGiam)
-                                                                <p>
-                                                                    Kết thúc: @i.NgayKetThuc
-                                                                    <br />
-                                                                    Số lượng: @i.SoLuong
-                                                                </p>
+                                                                <h8>@FormatCurrency(i.DieuKienGiam)</h8>
+                                                                <p>Kết thúc: @i.NgayKetThuc</p>
                                                             }
                                                         </div>
                                                     </div>
-                                                    <div class="copy-button1">
+                                                   
+                                                        <div class="copy-button1">
                                                         @if (i.SoLuong > 0)
                                                         {
                                                             <input id="copyvalue" type="text" readonly value="@i.MaGiam" />
@@ -110,11 +99,11 @@
                                                         {
                                                             <input id="copyvalue" type="text" style="text-decoration: line-through;" readonly value="@i.MaGiam" />
                                                             <button type="button" style="background-color: black; color: white;">Hết</button>
-
+                                                           
                                                         }
                                                     </div>
-
-
+                                                   
+                                                    
 
                                                 </div>
                                             </div>
@@ -161,8 +150,6 @@
                         }
                         @if (@Model.Email != null)
                         {
-
-
                             <div class="col-md-6 form-group p_star">
                                 <label>Email</label>
                                 <input type="text" class="form-control" id="email" value="@Model.Email" name="Email">
@@ -171,7 +158,6 @@
                         }
                         else
                         {
-
                             <div class="col-md-6 form-group p_star">
                                 <label>Email</label>
                                 <input type="text" class="form-control" id="email" value="@Model.KhachHang.Email" name="Email">
@@ -280,20 +266,7 @@
                                 <li><a href="#">Tên sản Phẩm <span>Giá tiền</span></a></li>
                                 @foreach (var a in Model.GioHangChiTiets)
                                 {
-
-                                    <li>
-                                        <a href="#">
-                                            @if (@Model.check11.Contains(a.SanPhamChiTiet.SanPham.Id))
-                                            {
-                                                <div> @a.SanPhamChiTiet.SanPham.TenSanPham x @a.SoLuong*2</div>
-                                            }
-                                            else
-                                            {
-                                                <div> @a.SanPhamChiTiet.SanPham.TenSanPham x @a.SoLuong</div>
-                                            }
-                                            <span class="last">@FormatCurrency(a.SanPhamChiTiet.SanPham.GiaNiemYet * a.SoLuong)</span>
-                                        </a>
-                                    </li>
+                                    <li><a href="#">@a.SanPhamChiTiet.SanPham.TenSanPham x @a.SoLuong<span class="last">@FormatCurrency(a.SanPhamChiTiet.SanPham.GiaNiemYet * a.SoLuong)</span></a></li>
                                     <input type="hidden" name="idGHCT" value="@a.Id" />
                                     <input type="hidden" name="idSPCT" value="@a.IdSanPhamChiTiet" />
                                     <input type="hidden" name="OrderDescription" value="Mua Tại Shop Boro" />
@@ -456,7 +429,6 @@
         </div>
     </form>
 </div>
-
 <script>
     @functions {
         public string FormatCurrency(float? price)
@@ -465,7 +437,6 @@
             return formattedPrice + "VND"; // Thêm ký hiệu đồng (₫) vào cuối
         }
     }
-
 </script>
 <style>
     .app1 {
@@ -534,24 +505,24 @@
         left: 40%;
     }
 
-    .content1 h8 {
+    .content h8 {
         font-size: 24px;
         margin-left: -15px;
         color: #000;
     }
 
-    .content1 h1 span {
+    .content h1 span {
         font-size: 14px;
     }
 
-    .content1 h9 {
+    .content h9 {
         font-size: 14px;
         margin-left: -15px;
         color: #000;
         text-transform: uppercase;
     }
 
-    .content1 p {
+    .content p {
         font-size: 12px;
         color: #333;
     }
@@ -592,25 +563,25 @@
         background-color: #fff;
     }
 
-        .copy-button2 input {
-            width: calc(100% - 10px);
-            height: 100%;
-            border: none;
-            outline: none;
-            font-size: 14px;
-            padding-left: 5px;
-        }
+    .copy-button2 input {
+        width: calc(100% - 10px);
+        height: 100%;
+        border: none;
+        outline: none;
+        font-size: 14px;
+        padding-left: 5px;
+    }
 
-        .copy-button2 button {
-            padding: 5px 20px;
+    .copy-button2 button {
+        padding: 5px 20px;
             background-color: #708090;
-            color: #fff;
-            border: 1px solid transparent;
-            cursor: pointer;
-            height: 100%;
-            display: flex;
-            align-items: center;
-        }
+        color: #fff;
+        border: 1px solid transparent;
+        cursor: pointer;
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
 
 </style>
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
@@ -627,4 +598,3 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 <script src="~/js/gmaps.min.js"></script>
 <script src="~/js/main.js"></script>
-<script src="~/js/a.js"></script>
