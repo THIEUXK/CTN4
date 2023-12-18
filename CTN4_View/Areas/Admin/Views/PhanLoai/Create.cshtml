@@ -1,0 +1,50 @@
+﻿@model CTN4_Data.Models.DB_CTN4.PhanLoai
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row" style="margin-top:200px;">
+    <div class="col-md-9">
+
+        <h1>Tạo chương trình khuyến mãi</h1>
+        <div class="row">
+            <div class="col-md-9">
+                <form asp-action="Create" style="border: 1px solid rgba(0, 0, 0, 0.1); padding: 15px; border-radius: 5px;">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group" style="border-bottom: 1px solid rgba(0, 0, 0, 0.1); padding-bottom: 10px;">
+                        <label asp-for="TenPhanLoai" class="control-label"></label>
+                        <input asp-for="TenPhanLoai" class="form-control" />
+                        <span asp-validation-for="TenPhanLoai" class="text-danger"></span>
+                    </div>
+                    <div class="form-group" style="border-bottom: 1px solid rgba(0, 0, 0, 0.1); padding-bottom: 10px;">
+                        <label asp-for="GhiChu" class="control-label"></label>
+                        <input asp-for="GhiChu" class="form-control" />
+                        <span asp-validation-for="GhiChu" class="text-danger"></span>
+                    </div>
+                    <div class="form-group form-check" style="padding-bottom: 10px;">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="TrạngThai" /> @Html.DisplayNameFor(model => model.TrạngThai)
+                        </label>
+                    </div>
+                    <div class="form-group form-check" style="padding-bottom: 10px;">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Is_Delete" /> @Html.DisplayNameFor(model => model.Is_Delete)
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                    <div>
+                        <h4 style="border-top: 1px solid rgba(0, 0, 0, 0.1); padding-top: 10px;">_________________________________________________</h4>
+                        <a asp-action="Index">Back to List</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+

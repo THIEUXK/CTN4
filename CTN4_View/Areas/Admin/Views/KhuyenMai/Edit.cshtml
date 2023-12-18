@@ -1,0 +1,739 @@
+﻿@model CTN4_Data.Models.DB_CTN4.KhuyenMai
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<style>
+    .pagination button {
+        background-color: #3498db;
+        color: #ffffff;
+        border: 1px solid #3498db;
+        padding: 8px 12px;
+        margin: 4px;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+    }
+
+        .pagination button.active {
+            background-color: #2980b9;
+        }
+
+        .pagination button:hover {
+            background-color: #2076a9;
+        }
+    .default-option {
+        font-size: 12px; /* Điều chỉnh kích thước chữ theo ý muốn của bạn */
+    }
+
+   
+    #hideTrangThai {
+        display: none;
+    }
+    .form-container {
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        margin: 20px;
+        position: relative; /* Đặt vị trí của form là relative để có thể đặt vị trí tuyệt đối cho nội dung trong form */
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        .form-group .text-danger {
+            display: block;
+            margin-top: 5px;
+        }
+
+    .corner-text {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 10px;
+        font-size: 14px;
+    }
+</style>
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<input id="Idkm" type="hidden" value="@Model.Id"/>
+
+
+        <div class="row" style="margin-top: 100px">
+        
+                <br />
+               
+          
+
+                <div class="row">
+                    <div class="col-md-6">
+            <h3>Thên sản phẩm vào Khuyễn Mãi</h3>
+                        <form asp-action="Edit">
+                          
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-container">
+                            <div class="form-group">
+                                <label asp-for="MaKhuyenMai" class="control-label"> Mã khuyến mại</label>
+                                <input asp-for="MaKhuyenMai" class="form-control" readonly />
+                                <span asp-validation-for="MaKhuyenMai" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Ghichu" class="control-label"> Mã khuyến mại</label>
+                                <input asp-for="Ghichu" class="form-control" readonly />
+                                <span asp-validation-for="Ghichu" class="text-danger"></span>
+                            </div>
+                    <div class="form-group">
+                        <label asp-for="Mua1tang1" class="control-label"> Thể loại khuyến mãi</label>
+                        <input asp-for="Mua1tang1" class="form-control" readonly />
+                        <span asp-validation-for="Mua1tang1" class="text-danger"></span>
+                    </div>
+                            </div>
+                            <div class="form-container">
+                            <div class="form-group">
+                                <label asp-for="DongGia" class="control-label">Đồng giá</label>
+                                <div class="input-group">
+                                    <input id="DongGia" asp-for="DongGia" class="form-control formatted-number" readonly />
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">đ</span>
+                                    </div>
+                                </div>
+                                <span asp-validation-for="SoTienGiam" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="SoTienGiam" class="control-label">Số tiền giảm</label>
+                                <div class="input-group">
+                                    <input id="SoTienGiam" asp-for="SoTienGiam" class="form-control formatted-number" readonly />
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">đ</span>
+                                    </div>
+                                </div>
+                                <span asp-validation-for="SoTienGiam" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="PhanTramGiamGia" class="control-label">Phần trăm giảm</label>
+                                <div class="input-group">
+                                    <input id="PhanTramGiamGia" asp-for="PhanTramGiamGia" class="form-control" readonly />
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">%</span>
+                                    </div>
+                                </div>
+                                <span asp-validation-for="PhanTramGiamGia" class="text-danger"></span>
+                            </div>
+                            
+                           </div>
+                            <div id="hideTrangThai" class="form-group">
+                                <label asp-for="TrangThai" class="control-label"></label>
+                                <input asp-for="TrangThai" class="form-control" readonly />
+                                <span asp-validation-for="TrangThai" class="text-danger"></span>
+                            </div>
+                            <div id="hideTrangThai" class="form-group">
+                                <label asp-for="Is_Detele" class="control-label"></label>
+                                <input asp-for="Is_Detele" class="form-control" readonly />
+                                <span asp-validation-for="Is_Detele" class="text-danger"></span>
+                            </div>
+                            <div class="form-container">
+                            <div class="form-group">
+                                <label asp-for="NgayBatDau"  class="control-label">Ngày bắt đầu</label>
+                        <input asp-for="NgayBatDau" id="NgayBatDau" class="form-control" pattern="\d*" oninput="validateNumber(this);" readonly />
+                                <span asp-validation-for="NgayBatDau" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="NgayKetThuc" class="control-label">Ngày kết thúc</label>
+                        <input asp-for="NgayKetThuc" id="NgayKetThuc" class="form-control" readonly />
+                                <span asp-validation-for="NgayKetThuc" class="text-danger"></span>
+                            </div>
+                            </div>
+                            <div>
+                                <a asp-action="Index">Back to List</a>
+                            </div>
+                        </form>
+            <button id="updateGiaButton" class="btn btn-primary">Cập nhật Giá Sản Phẩm</button>
+            @{
+                if (TempData["ErrorMessage"] != null)
+                {
+                    <div class="error-message">
+                        @TempData["ErrorMessage"]
+                    </div>
+                }
+            }
+
+@*             <button id="huyApDungButton" type="hidden" class="btn btn-primary">Hủy áp dụng khuyến mại</button> *@
+                    </div>
+                    <div class="col-md-6">
+            <h3>Danh sách khuyến mãi</h3>
+            <div id="kmsp" class="form-container">
+                <table class="table" id="productTable">
+                    <thead>
+                        <tr>
+                            <th>Tên Sản Phẩm</th>
+                            <th>Ảnh Đại diện</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productBody"></tbody>
+                </table>
+                <div class="pagination" id="pagination"></div>
+            </div>
+                </div>
+          
+        </div>
+        <div id="images"></div>
+
+<div class="row" style="margin: 20px;" >
+   
+        <div class="col-md-3">
+        <div class="control-label" id="productSelect">
+                <!-- Nội dung của productSelect -->
+            </div>
+        </div>
+  
+      <div class="col-md-3">
+            
+            <input id="searchproduct" placeholder="Tìm kiếm" class="form-control" />
+        </div>
+    </div>
+   
+
+        <div id="productList">
+            <!-- Danh sách sản phẩm sẽ được hiển thị ở đây -->
+
+        </div>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+            // $(document).ready(function () {
+            //     $('.formatted-number').on('input', function () {
+            //         let value = $(this).val();
+            //         value = value.replace(/[^0-9]/g, '');
+            //         value = value.replace(/\B(?=(\d{3})+(?!\d))/g, '');
+
+            //         // Hiển thị giá trị và chữ "đ"
+            //         $(this).val(value);
+            //         $(this).next('.input-group-addon').text('đ');
+            //     });
+            // });
+            // $(document).ready(function () {
+            //     // Đối với trường PhanTramGiamGia
+            //     $('#PhanTramGiamGia').on('input', function () {
+            //         let value = $(this).val();
+            //         value = value.replace(/[^0-9]/g, '');
+
+            //         // Hiển thị giá trị và chữ "%"
+            //         $(this).val(value);
+            //     });
+            // });
+        var itemsPerPage = 5; // Number of items to display per page
+        var currentPage = 1;  // Current page
+            $(document).ready(function () {
+                Data(); // Populate initial data for select
+                fetchDataFromIndexAction(); // Initial fetch
+            kmsp(); // Initial load
+
+            // Use jQuery for event handling
+            $(document).on('click', '.pagination button', function () {
+                var page = $(this).text();
+                changePage(page);
+            });
+                $('#productSelect').on('change', function () {
+                    var selectedName = $('#searchSelect').val();
+                  
+                    searchProduct(selectedName); // Trigger search with the selected value
+
+                });
+        $('#searchproduct').on('change', function () {
+            var search = $('#searchproduct').val();
+
+            searchFull(search); // Trigger search with the selected value
+        });
+            });
+
+
+        function kmsp() {
+            $.ajax({
+                url: '/admin/KhuyenMai/SpKM',
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    displayProducts(data, currentPage, itemsPerPage);
+                    console.log(data);
+                },
+                error: function (error) {
+                    console.log("Đã xảy ra lỗi: ", error);
+                }
+            });
+        }
+
+        function displayProducts(data, page, itemsPerPage) {
+            var start = (page - 1) * itemsPerPage;
+            var end = start + itemsPerPage;
+
+            // Update product table body
+            $('#productBody').html(data.length > 0 ?
+                data.slice(start, end).map(item =>
+                    `<tr>
+                        <td>${item.tenSanPham}</td>
+                        <td><img src='/image/${item.anhDaiDien}' style='max-width: 50px; max-height: 50px;' alt='Product Image'></td>
+                        <td><input type="hidden" class="id-sp-button" data-id-sp='${item.id ? item.id : ""}'/></td>
+                     </tr>`
+                ).join('') :
+                "<tr><td colspan='2'>No matching products found</td></tr>"
+            );
+
+            // Update pagination controls
+            var paginationHTML = '';
+            for (var i = 1; i <= Math.ceil(data.length / itemsPerPage); i++) {
+                paginationHTML += `<button ${i == currentPage ? "class='active'" : ""}>${i}</button>`;
+            }
+            $('#pagination').html(paginationHTML);
+        }
+
+        // Function to change the current page
+        function changePage(page) {
+            currentPage = page;
+            kmsp(); // Reload the data for the new page
+        }
+
+            function validateNumber(input) {
+                // Xóa bất kỳ ký tự không phải số
+                input.value = input.value.replace(/\D/g, '');
+            }
+
+           
+
+            // Lấy tất cả các nút cột MaSp
+            var productList = document.getElementById('productList');
+            var productSelect = document.getElementById('productSelect');
+            productList.addEventListener('click', function (event) {
+                if (event.target.classList.contains('id-sp-button')) {
+                    var maSp = event.target.getAttribute('data-id-sp');
+                    console.log('Mã sản phẩm:', maSp);
+
+                    if (selectedMaSps.includes(maSp)) {
+                        // Nếu mã đã được chọn, bỏ nó ra khỏi mảng
+                        selectedMaSps = selectedMaSps.filter(function (item) {
+                            return item !== maSp;
+                        });
+                    } else {
+                        // Nếu mã chưa được chọn, thêm nó vào mảng
+                        selectedMaSps.push(maSp);
+                    }
+
+                    // Hiển thị mã sản phẩm đã chọn trong console.log
+                    console.log('Mã sản phẩm đã chọn:', selectedMaSps);
+                }
+            });
+            //
+        function MspProductList(data) {
+                    var mspSelect = "<select class='form-select' aria-label='Default select example'>";
+
+                    mspSelect += "<option selected>Mã Sp</option>";
+
+                    if (data.length > 0) {
+                        // Iterate through the data array and add options
+                        data.forEach(function (item) {
+                            mspSelect += `<option value='${item.id}'>${item.maSp}</option>`;
+                        });
+                    } else {
+                        mspSelect += "<option disabled>No data available</option>";
+                    }
+
+                    mspSelect += "</select>";
+            productSelect.innerHTML = mspSelect;
+        }
+
+
+        // CSS styles for border and checkbox class
+
+        var tableStyle = "border: 1px solid #ddd; border-collapse: collapse; width: 100%;";
+        var checkboxStyle = "cursor: pointer;";
+
+        function updateProductList(data) {
+            var productListHTML = "<table class='table' style='" + tableStyle + "'>";
+            productListHTML += "<thead><tr><th>Mã Sp</th><th>Danh Mục</th><th>Tên Sản Phẩm</th><th>Giá Nhập</th><th>Giá bán</th><th>Giá Niêm yết</th><th>Ảnh Đại diện</th><th style='" + checkboxStyle + "'><input type='checkbox' id='selectAllCheckbox'/> Chọn</th></tr></thead>";
+
+            if (data.length > 0) {
+                productListHTML += "<tbody>" + data.map(item =>
+                    `<tr>
+                        <td>${item.maSp}</td>
+                        <td>${item.tenDanhMuc}</td>
+                        <td>${item.tenSanPham}</td>
+                        <td>${formatCurrency(item.giaNhap)}đ</td>
+                        <td>${formatCurrency(item.giaBan)}đ</td>
+                        <td>${formatCurrency(item.giaNiemYet)}đ</td>
+                        <td><img src='/image/${item.anhDaiDien}' height='100' alt='Product Image'></td>
+                        <td><input type="checkbox" class="id-sp-button" data-id-sp='${item.id ? item.id : ""}'/></td>
+                    </tr>`
+                ).join('') + "</tbody>";
+            } else {
+                productListHTML += "<tr><td colspan='8'>Không tìm thấy sản phẩm phù hợp</td></tr>";
+            }
+
+            productListHTML += "</table>";
+
+            // Set a fixed height and make the table scrollable
+            productListHTML = "<div style='height: 300px; overflow-y: auto;'>" + productListHTML + "</div>";
+
+            productList.innerHTML = productListHTML;
+
+            // Add some additional styling to make the table look better
+            var table = document.querySelector('.table');
+            if (table) {
+                table.classList.add('table-bordered', 'table-striped', 'table-hover');
+            }
+
+            // Add event listener for the "Select All" checkbox
+            var selectAllCheckbox = document.getElementById('selectAllCheckbox');
+            if (selectAllCheckbox) {
+                selectAllCheckbox.addEventListener('change', function () {
+                    var checkboxes = document.querySelectorAll('.id-sp-button');
+                    checkboxes.forEach(checkbox => {
+                        checkbox.checked = selectAllCheckbox.checked;
+
+                        // If the checkbox is checked, retrieve the data-id-sp attribute value
+                        if (checkbox.checked) {
+                            var productId = checkbox.getAttribute('data-id-sp');
+                            selectedMaSps.push(productId);
+                            console.log("Selected Product ID: " + selectedMaSps);
+                            // You can do something with the selected ID here
+                        }
+                    });
+                });
+            }
+        }
+
+
+            // Hàm định dạng số với dấu chấm ngăn cách hàng nghìn
+            function formatCurrency(number) {
+                return number.toLocaleString('en-US');
+            }
+
+
+            function fetchDataFromIndexAction() {
+                $.ajax({
+                    url: '/admin/KhuyenMai/Getallsp',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        console.log(data);
+                     
+                        updateProductList(data); // Update product list
+                    },
+                    error: function (error) {
+                        console.log("Đã xảy ra lỗi: ", error);
+                    }
+                });
+            }
+
+            function searchProduct(name) {
+                $.ajax({
+                    url: '/admin/KhuyenMai/SearchProduct',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: { name: name },
+                success: function (data) {
+                    var productListHTML = "<table class='table' style='" + tableStyle + "'>";
+                    productListHTML += "<thead><tr><th>Mã Sp</th><th>Danh Mục</th><th>Tên Sản Phẩm</th><th>Giá Nhập</th><th>Giá bán</th><th>Giá Niêm yết</th><th>Ảnh Đại diện</th><th style='" + checkboxStyle + "'><input type='checkbox' id='selectAllCheckbox'/> Chọn</th></tr></thead>";
+
+                    if (data.length > 0) {
+                        productListHTML += "<tbody>" + data.map(item =>
+                            `<tr>
+                                        <td>${item.maSp}</td>
+                                        <td>${item.tenDanhMuc}</td>
+                                        <td>${item.tenSanPham}</td>
+                                        <td>${formatCurrency(item.giaNhap)}đ</td>
+                                        <td>${formatCurrency(item.giaBan)}đ</td>
+                                        <td>${formatCurrency(item.giaNiemYet)}đ</td>
+                                        <td><img src='/image/${item.anhDaiDien}' height='100' alt='Product Image'></td>
+                                        <td><input type="checkbox" class="id-sp-button" data-id-sp='${item.id ? item.id : ""}'/></td>
+                                    </tr>`
+                        ).join('') + "</tbody>";
+                    } else {
+                        productListHTML += "<tr><td colspan='8'>Không tìm thấy sản phẩm phù hợp</td></tr>";
+                    }
+
+                    productListHTML += "</table>";
+
+                    // Set a fixed height and make the table scrollable
+                    productListHTML = "<div style='height: 300px; overflow-y: auto;'>" + productListHTML + "</div>";
+
+                    productList.innerHTML = productListHTML;
+
+                    // Add some additional styling to make the table look better
+                    var table = document.querySelector('.table');
+                    if (table) {
+                        table.classList.add('table-bordered', 'table-striped', 'table-hover');
+                    }
+
+                    // Add event listener for the "Select All" checkbox
+                    var selectAllCheckbox = document.getElementById('selectAllCheckbox');
+                    if (selectAllCheckbox) {
+                        selectAllCheckbox.addEventListener('change', function () {
+                            var checkboxes = document.querySelectorAll('.id-sp-button');
+                            checkboxes.forEach(checkbox => {
+                                checkbox.checked = selectAllCheckbox.checked;
+
+                                // If the checkbox is checked, retrieve the data-id-sp attribute value
+                                if (checkbox.checked) {
+                                    var productId = checkbox.getAttribute('data-id-sp');
+                                    selectedMaSps.push(productId);
+                                    console.log("Selected Product ID: " + selectedMaSps);
+                                    // You can do something with the selected ID here
+                                }
+                            });
+                        });
+                    }
+                },
+                error: function (error) {
+                    console.log("Đã xảy ra lỗi: ", error);
+                }
+                });
+            }
+    function searchFull(product) {
+        $.ajax({
+            url: '/admin/KhuyenMai/SearchFull',
+            type: 'GET',
+            dataType: 'json',
+            data: { dieukien: product },
+            success: function (data) {
+                    var productListHTML = "<table class='table' style='" + tableStyle + "'>";
+                    productListHTML += "<thead><tr><th>Mã Sp</th><th>Danh Mục</th><th>Tên Sản Phẩm</th><th>Giá Nhập</th><th>Giá bán</th><th>Giá Niêm yết</th><th>Ảnh Đại diện</th><th style='" + checkboxStyle + "'><input type='checkbox' id='selectAllCheckbox'/> Chọn</th></tr></thead>";
+
+                    if (data.length > 0) {
+                        productListHTML += "<tbody>" + data.map(item =>
+                            `<tr>
+                                <td>${item.maSp}</td>
+                                <td>${item.tenDanhMuc}</td>
+                                <td>${item.tenSanPham}</td>
+                                <td>${formatCurrency(item.giaNhap)}đ</td>
+                                <td>${formatCurrency(item.giaBan)}đ</td>
+                                <td>${formatCurrency(item.giaNiemYet)}đ</td>
+                                <td><img src='/image/${item.anhDaiDien}' height='100' alt='Product Image'></td>
+                                <td><input type="checkbox" class="id-sp-button" data-id-sp='${item.id ? item.id : ""}'/></td>
+                            </tr>`
+                        ).join('') + "</tbody>";
+                    } else {
+                        productListHTML += "<tr><td colspan='8'>Không tìm thấy sản phẩm phù hợp</td></tr>";
+                    }
+
+                    productListHTML += "</table>";
+
+                    // Set a fixed height and make the table scrollable
+                    productListHTML = "<div style='height: 300px; overflow-y: auto;'>" + productListHTML + "</div>";
+
+                    productList.innerHTML = productListHTML;
+
+                    // Add some additional styling to make the table look better
+                    var table = document.querySelector('.table');
+                    if (table) {
+                        table.classList.add('table-bordered', 'table-striped', 'table-hover');
+                    }
+
+                    // Add event listener for the "Select All" checkbox
+                    var selectAllCheckbox = document.getElementById('selectAllCheckbox');
+                    if (selectAllCheckbox) {
+                        selectAllCheckbox.addEventListener('change', function () {
+                            var checkboxes = document.querySelectorAll('.id-sp-button');
+                            checkboxes.forEach(checkbox => {
+                                checkbox.checked = selectAllCheckbox.checked;
+
+                                // If the checkbox is checked, retrieve the data-id-sp attribute value
+                                if (checkbox.checked) {
+                                    var productId = checkbox.getAttribute('data-id-sp');
+                                    selectedMaSps.push(productId);
+                                    console.log("Selected Product ID: " + selectedMaSps);
+                                    // You can do something with the selected ID here
+                                }
+                            });
+                        });
+                    }
+            },
+            error: function (error) {
+                console.log("Đã xảy ra lỗi: ", error);
+            }
+        });
+    }
+           function Data() {
+           $.ajax({
+          url: '/admin/KhuyenMai/Getallsp',
+          type: 'GET',
+          dataType: 'json',
+          success: function (data) {
+              var selectList = document.getElementById('productSelect'); // Thay 'productList' bằng 'productSelect'
+                var selectListHTML = "<select id='searchSelect'  class='form-select'>";
+
+              selectListHTML += "<option value=''>Chọn Mã Sp</option>";
+
+              data.forEach(function (item) {
+                            selectListHTML += "<option value='" + item.maSp + "'>" + item.maSp + "</option>";
+              });
+
+              selectListHTML += "</select>";
+              selectList.innerHTML = selectListHTML; // Cập nhật nội dung của productSelect
+          },
+          error: function (error) {
+              console.log("Đã xảy ra lỗi: ", error);
+          }
+      });
+
+  }
+  
+            // function populateSearchSelect(data) {
+            //     var selectList = document.getElementById('searchSelect');
+            //     var selectListHTML = "<select>";
+
+            //     selectListHTML += "<option value=''>Chọn sản phẩm</option>";
+
+            //     // data.forEach(function (item) {
+            //     //     selectListHTML += "<option value='" + item.name + "'>" + item.name + "</option>";
+            //     // });
+
+            //     selectListHTML += "</select>";
+            //     selectList.innerHTML = selectListHTML;
+            // }
+
+    var selectedMaSps = [];
+
+    // Lấy tham chiếu đến nút theo ID
+    var updateGiaButton = document.getElementById("updateGiaButton");
+    // var huyApDungButton = document.getElementById("huyApDungButton");
+    var search = document.getElementById("searchButton");
+    // Gắn sự kiện click vào nút
+    updateGiaButton.addEventListener("click", function () {
+        updateGiaSanPham();
+    });
+     // huyApDungButton.addEventListener("click", function () {
+     //     huyApDungKhuyenMai();
+     // });
+   //  search.addEventListener("click", function () {
+   // //     updateView();
+   //  });
+
+    function updateGiaSanPham() {
+        var giamTheoTien = parseFloat($("#SoTienGiam").val());
+        var giamTheoPh = parseFloat($("#PhanTramGiamGia").val());
+        var DongGia = parseFloat($("#DongGia").val());
+            // Lấy giá trị từ input datetime
+            var NgayBatDau = $("#NgayBatDau").val();
+
+            // Ngày được biểu diễn dưới dạng chuỗi, bạn có thể chuyển đổi nó thành kiểu Date nếu cần
+            var ngayBatDauDate = new Date(NgayBatDau);
+            ngayBatDauDate = ngayBatDauDate.toISOString();
+            // Lấy giá trị từ input datetime
+            var NgayKetThuc = $("#NgayKetThuc").val();
+
+            // Ngày được biểu diễn dưới dạng chuỗi, bạn có thể chuyển đổi nó thành kiểu Date nếu cần
+            var ngayKetThucDate = new Date(NgayKetThuc);
+            ngayKetThucDate = ngayKetThucDate.toISOString();
+        // Lấy giá trị của các trường dữ liệu từ form hoặc từ các phần tử HTML khác
+        var ids = selectedMaSps // Mảng chứa các giá trị của Ids      
+
+        // TODO: Lấy giá trị của các trường dữ liệu từ form hoặc từ các phần tử HTML khác
+        // Gán giá trị cho biến ids, giamTheoTien, giamTheoPh
+
+        // Tạo đối tượng dữ liệu để gửi lên server
+        var data = {
+            id: "@Model.Id",
+            ids: ids,
+            giamTheoTien: giamTheoTien,
+            giamTheoPh: giamTheoPh,
+            DongGia: DongGia,
+            ngayBatDauDate: ngayBatDauDate,
+           ngayKetThucDate: ngayKetThucDate
+        };
+        console.log(ngayKetThucDate);
+        console.log(data);
+
+        // Gọi AJAX
+        $.ajax({
+            url: '/admin/KhuyenMai/UpdateGiaSanPham',
+            type: 'POST',
+            data: data,
+            success: function (response) {
+                // Xử lý kết quả trả về từ server (nếu cần)
+                console.log(response);
+                // TODO: Xử lý kết quả trả về từ server
+            },
+            error: function (xhr, status, error) {
+                // Xử lý lỗi (nếu có)
+                console.log(error);
+                // TODO: Xử lý lỗi
+            }
+        });
+
+    }
+
+    // function huyApDungKhuyenMai() {
+    //     // Lấy giá trị của các trường dữ liệu từ form hoặc từ các phần tử HTML khác
+    //     var ids = selectedMaSps // Mảng chứa các giá trị của Ids      
+
+    //     // TODO: Lấy giá trị của các trường dữ liệu từ form hoặc từ các phần tử HTML khác
+    //     // Gán giá trị cho biến ids, giamTheoTien, giamTheoPh
+
+    //     // Tạo đối tượng dữ liệu để gửi lên server
+    //     var data = {
+    //         Ids: ids,
+    //     };
+    //     console.log(data);
+
+    //     // Gọi AJAX
+    //     $.ajax({
+    //         url: '/admin/KhuyenMai/HuyApDungKm', // Thay thế ControllerName bằng tên thật của controller
+    //         type: 'POST',
+    //         data: data,
+    //         success: function (response) {
+    //             // Xử lý kết quả trả về từ server (nếu cần)
+    //             console.log(response);
+    //             // TODO: Xử lý kết quả trả về từ server
+                
+    //         },
+    //         error: function (xhr, status, error) {
+    //             // Xử lý lỗi (nếu có)
+    //             console.error('Update failed.');
+    //             console.log(error);
+    //             // TODO: Xử lý lỗi
+    //         }
+    //     });
+    // }
+   
+
+</script>
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.ErrorMessage
+    </div>
+}
+<script>
+    document.getElementById('updateGiaButton').addEventListener('click', function () {
+        // Reload lại trang
+        location.reload();  
+
+    });
+
+    // document.getElementById('huyApDungButton').addEventListener('click', function () {
+    //     location.reload();  
+    // });
+         
+</script>

@@ -1,0 +1,111 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="row">
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Normal buttons</h4>
+                <br></br>
+                <p class="card-description"><code></code> Quản Lí Các Bảng</p>
+                <div class="template-demo">
+                    <div>
+                        <button type="button" class="btn btn-primary btn-fw"><a style="color:white" asp-controller="SanPham" asp-action="Index">Quản lí sản phẩm</a></button>
+                        <button type="button" class="btn btn-primary btn-fw"><a style="color:white" asp-controller="DanhMuc" asp-action="Index">Quản lí danh mục</a></button>
+                        <button type="button" class="btn btn-primary btn-fw"><a style="color:white" asp-controller="DanhMucChiTiet" asp-action="Index">Danh mục chi tiết</a></button>
+                        <button type="button" class="btn btn-primary btn-fw"><a style="color:white" asp-controller="QuanLyHoaDon" asp-action="aa">aa</a></button>
+
+                    </div>
+                 
+
+                        @if (User.IsInRole("Quản lý"))
+
+                        {
+                            <br></br>
+                            <div class="template-demo">
+                                <div>
+                                    <button type="button" class="btn btn-primary btn-fw"><a style="color:white" asp-controller="ChatLieu" asp-action="Index">Chất liệu</a></button>
+                                    <button type="button" class="btn btn-success btn-fw"><a style="color:white" asp-controller="ChucVu" asp-action="Index">Chức vụ</a> </button>
+                                    <button type="button" class="btn btn-danger btn-fw"><a style="color:white" asp-controller="DanhMuc" asp-action="Index">Danh mục</a></button>
+                                    <button type="button" class="btn btn-warning btn-fw"><a style="color:white" asp-controller="GiamGIa" asp-action="Index">Giảm giá</a></button>
+                                    <button type="button" class="btn btn-info btn-fw"><a style="color:white" asp-controller="KhachHang" asp-action="Index">Khách hàng</a></button>
+                                </div>
+                                <br></br>
+                                <div>
+                                    <button type="button" class="btn btn-primary btn-fw"><a style="color:white" asp-controller="KhuyenMai" asp-action="Index">Khuyến mại</a></button>
+                                    <button type="button" class="btn btn-secondary btn-fw"><a style="color:black" asp-controller="NhanVien" asp-action="Index">Nhân viên</a></button>
+                                    <button type="button" class="btn btn-success btn-fw"><a style="color:white" asp-controller="PhanLoai" asp-action="Index">Phân loại</a></button>
+                                    <button type="button" class="btn btn-danger btn-fw"><a style="color:white" asp-controller="PhuongThucThanhToan" asp-action="Index">Phương Thức Thanh Toán</a> </button>
+
+                                    <button type="button" class="btn btn-info btn-fw"><a style="color:white" asp-controller="Size" asp-action="Index">Size</a></button>
+                                </div>
+                                <br></br>
+                                <div>
+
+                                    <button type="button" class="btn btn-primary btn-fw"><a style="color:white" asp-controller="DanhMucChiTiet" asp-action="Index">Danh Mục Chi Tiết</a></button>
+                                    <button type="button" class="btn btn-secondary btn-fw"><a style="color:black" asp-controller="Mau" asp-action="Index">Màu</a></button>
+                                    <button type="button" class="btn btn-success btn-fw"><a style="color:white" asp-controller="NSX" asp-action="Index">NSX</a></button>
+                                    <button type="button" class="btn btn-danger btn-fw"><a style="color:white" asp-controller="PhuongThucThanhToan" asp-action="Index">Phương Thức Thanh Toán</a> </button>
+
+
+                                    <br></br>
+                                    <div>
+
+
+
+                                        <button type="button" class="btn btn-info btn-fw"><a style="color:white" asp-controller="Size" asp-action="Index">Size</a></button>
+                                        <button type="button" class="btn btn-secondary btn-fw"><a style="color:black" asp-controller="NhanVien" asp-action="Index">Nhân viên</a></button>
+                                        <button type="button" class="btn btn-primary btn-fw"><a style="color:white" asp-controller="ChatLieu" asp-action="Index">Chất liệu</a></button>
+
+                                        <button type="button" class="btn btn-success btn-fw"><a style="color:white" asp-controller="ChucVu" asp-action="Index">Chức vụ</a> </button>
+
+
+
+
+                                    </div>
+                                    <br></br>
+                                    <div>
+
+
+
+                                        <button type="button" class="btn btn-primary btn-fw"><a style="color:white" asp-controller="KhuyenMai" asp-action="Index">Khuyến mại</a></button>
+                                        <button type="button" class="btn btn-primary btn-fw"><a style="color:white" asp-controller="KhuyenMaiSanPham" asp-action="Index">Khuyến mại sản phẩm</a></button>
+                                        <button type="button" class="btn btn-primary btn-fw"><a style="color:white" asp-controller="KhuyenMaiPhanLoai" asp-action="Index">Khuyến mại phân loại</a></button>
+                                        <button type="button" class="btn btn-warning btn-fw"><a style="color:white" asp-controller="GiamGIa" asp-action="Index">Giảm giá</a></button>
+                                        <button type="button" class="btn btn-info btn-fw"><a style="color:white" asp-controller="KhachHang" asp-action="Index">Khách hàng</a></button>
+
+
+
+
+
+
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+
+
+
+                        }
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+

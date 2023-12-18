@@ -1,0 +1,59 @@
+﻿@model CTN4_Data.Models.DB_CTN4.ChatLieu
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div>
+    <a asp-action="Index">Quay về</a>
+</div>
+<div class="row">
+    <div class="col-md-9">
+        <br></br>
+        <br></br>
+
+        
+        <h1>Chi tiết</h1>
+
+        <div>
+            <h4>Chất liệu</h4>
+            <hr />
+            <dl class="row">
+                
+                <dt class = "col-sm-2">
+                   Tên chất liệu
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.TenChatLieu)
+                </dd>
+                <dt class = "col-sm-2">
+                   Trạng thái
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.TrangThai)
+                </dd>
+                <dt class = "col-sm-2">
+                  Ghi chú
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.GhiChu)
+                </dd>
+                <dt class = "col-sm-2">
+                    @Html.DisplayNameFor(model => model.Is_detele)
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.Is_detele)
+                </dd>
+            </dl>
+        </div>
+        <div>
+            @Html.ActionLink("Edit", "Edit", new { id= Model.Id },new { style = "text-decoration: none; color: black;" }) |
+            <a asp-action="Index">Quay về</a>
+        </div>
+
+
+    </div>
+</div>
+
+

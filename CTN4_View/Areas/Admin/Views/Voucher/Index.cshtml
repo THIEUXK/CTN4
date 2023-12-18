@@ -1,0 +1,636 @@
+﻿@*@model <CTN4_Data.Models.DB_CTN4.KhuyenMai>*@
+@*@model CTN4_Serv.ViewModel.GiamGiaViewModel*@
+@model X.PagedList.IPagedList<CTN4_Data.Models.DB_CTN4.GiamGia>
+
+
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    int serialNumber = 1; // Initialize the counter outside the loop
+}
+
+<br />
+<br />
+<br />
+<br />
+@*<h3>Quản lý Voucher</h3>
+
+
+<p>
+    <button type="button" class="btn btn-warning btn-fw editable-click=" asp-action="Create"><a asp-action="Create" style="color:black">Thêm</a></button>
+
+</p>*@
+<div class="row no-gutters pb-4">
+    <div class="col align-items-center d-flex">
+        </ul>
+        <strong><h3 class="title-page">Danh sách voucher</h3></strong>
+    </div>
+    <div class="col-auto pl-3">
+        <div class="d-flex">
+            @* <div>
+            <button class="btn btn-default fix-height--button cursor-pointer mr-3" fdprocessedid="c7i21a" style="background-color:#e6dfdf; margin-right: 10px">
+            <span class="ml-3 d-none d-sm-inline-block">
+            <i class="fas fa-magic" style="color:black">Gợi ý khuyến mãi</i>
+            </span>
+            </button>
+            </div>*@
+            <div>
+                <button type="button" class="btn btn-primary fix-height--button cursor-pointer editable-click=" asp-action="Create" fdprocessedid="c7i21y">
+                    <a asp-action="Create" style="color:white"><i class="fas fa-plus-circle" style="color:white"></i>Tạo voucher</a>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form method="get" style="display:flex">
+    <div class="form-outline">
+        <input type="text" name="MaGiam" style="width: 980px" placeholder="Tìm kiếm..." />
+    </div>
+    <button type="submit" class="btn btn-primary">
+        <i class="fas fa-search"></i>
+    </button>
+</form>
+<div class="dropdown me-1">
+    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
+        Lọc 
+    </button>
+    <ul class="dropdown-menu">
+   
+        
+        <li>
+            <a class="dropdown-item" href="@Url.Action("GiamTien")">Giảm giá tiền </a>
+        </li> 
+        <li>
+            <a class="dropdown-item" href="@Url.Action("GiamPhanTram")">Giảm phần trăm </a>
+        </li>
+
+    </ul>
+</div>
+
+@*<table class="table table-striped">
+    <thead>
+        <tr>*@
+<div class="tab-content">
+
+    <div id="home" class="container-fluid tab-pane active">
+        <br>
+        <style>
+            .table-bordered tbody tr:nth-child(odd) {
+                background-color: #f2f2f2; /* Màu nền cho hàng lẻ */
+            }
+
+            .table-bordered tbody tr:nth-child(even) {
+                background-color: #ffffff; /* Màu nền cho hàng chẵn */
+            }
+
+            .thead-dark th {
+                color: white;
+                border-radius: 10px; /* Bo tròn cho các thẻ th */
+            }
+            /*
+                        .table-bordered tbody tr td:first-child,
+                        .table-bordered tbody tr td:last-child {
+                            border-radius: 10px; /* Bo tròn cho cột đầu và cuối cùng của các ô trong bảng dữ liệu */
+            }
+            */
+        </style>
+
+        <ul class="nav nav-tabs" style="margin-bottom: 10px">
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#full">Tất cả mã giảm giá</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#true">Các mã đang được sử dụng</a>
+
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#false">Các mã đang tạm ẩn</a>
+            </li>
+        </ul>
+       @* <div class="pagination-container">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+        </div>*@
+
+        <div class="tab-content">
+            <div id="full" class="container-fluid tab-pane active">
+                <br>
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th style="background-color: #333; text-align: center;">
+                                <h6 style="margin: 0; color: white;">Số thứ tự</h6>
+                            </th>
+                            <th style="background-color: #333; text-align: center;">
+                                <h6 style="margin: 0; color: white;">Mã Giảm giá</h6>
+                            </th>
+                            <th style="background-color: #333; text-align: center;">
+                                <h6 style="margin: 0; color: white;">Loại giảm giá</h6>
+                            </th>
+                            <th style="background-color: #333; text-align: center;">
+                                <h6 style="margin: 0; color: white;">Lượng giảm</h6>
+                            </th>
+                            <th style="background-color: #333; text-align: center;">
+                                <h6 style="margin: 0; color: white;">Trạng thái</h6>
+                            </th>
+
+                            <th style="background-color: #333; text-align: center;">
+                                <h6 style="margin: 0; color: white;">Số lượng</h6>
+                            </th>
+                            <th style="background-color: #333; text-align: center;">
+                                <h6 style="margin: 0; color: white;">Ngày bắt đầu</h6>
+                            </th>
+                            <th style="background-color: #333; text-align: center;">
+                                <h6 style="margin: 0; color: white;">Ngày kết thúc</h6>
+                            </th>
+
+                            <th style="background-color: #333; text-align: center;">
+                                <h6 style="margin: 0; color: white;">Giảm từ đơn tối thiểu</h6>
+                            </th>
+                            <th style="background-color: #333; text-align: center;">
+                                <h6 style="margin: 0; color: white;">Hành động</h6>
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+
+                            var a = serialNumber;
+
+                            <style>
+                                .table-bordered td {
+                                    background-color: #f8f9fa; /* Màu mè */
+                                    border-radius: 10px; /* Bo tròn */
+                                }
+                            </style>
+                            <tr>
+                                <td>
+                                    <h6 style="text-align:center">@serialNumber</h6>
+                                </td>
+                                <td>
+                                    <h6 style="text-align:center">@item.MaGiam</h6>
+                                </td>
+
+                                <td style="text-align:center;">
+                                    @if (item.LoaiGiamGia == true)
+                                    {
+                                        <h6>Giảm % giá tiền</h6>
+
+                                    }
+                                    else if (item.LoaiGiamGia != true)
+                                    {
+                                        <h6>Giảm theo số tiền</h6>
+
+                                    }
+                                </td>
+                                <td style="text-align:center;">
+                                    @if (item.LoaiGiamGia == true)
+                                    {
+                                        <h6>@item.PhanTramGiam % , tối đa @FormatCurrency(item.SoTienGiamToiDa) </h6>
+
+                                    }
+                                    else if (item.LoaiGiamGia != true)
+                                    {
+                                        <h6>@FormatCurrency(item.SoTienGiam)</h6>
+
+                                    }
+                                </td>
+                                @if (item.TrangThai != false && item.SoLuong > 0)
+                                {
+                                    <td class="border-bottom-0">
+                                        <p class="mb-0 fw-normal" style="white-space: nowrap; color:white;text-align :center; background-color: forestgreen; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Đang khuyến mãi</p>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td class="border-bottom-0">
+                                        <p class="mb-0 fw-normal" style="white-space: nowrap; color:white;text-align :center; background-color: orange; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Tạm ngưng</p>
+                                    </td>
+                                }
+
+                                <td>
+                                    <h6 style="text-align:center">@item.SoLuong</h6>
+                                </td>
+
+                                <td>
+                                    <h6 style="text-align:center">@item.NgayBatDau</h6>
+                                </td>
+                                <td>
+                                    <h6 style="text-align:center">@item.NgayKetThuc</h6>
+                                </td>
+
+                                <td>
+                                    <h6 style="text-align:center">@item.DieuKienGiam</h6>
+                                </td>
+
+                                @*<td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                            @Html.ActionLink("Details", "Details", new {  id = item.Id}) |
+                            @Html.ActionLink("Delete", "Delete", new {  id = item.Id })
+                            </td>*@
+                                <td style="white-space: nowrap; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                                    <button type="button" class="btn btn-primary"
+                                            style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+
+                                        @Html.ActionLink("Đổi trạng thái", "Edit", new { id = item.Id }, new { @class = "custom-edit-link"})
+                                    </button>
+
+                                    <div style="display: flex; flex-direction: row; gap: 5px;">
+                                        @*<button type="button" style="background-color: wheat; border-color: deepskyblue; border-radius: 10px; font-weight: 400; padding: 2px 8px; font-size: 12px;">
+                                    @Html.ActionLink("Chi tiết", "Details", new { id = item.Id })
+                                    </button>*@
+                                        <button type="button" class="btn btn-danger"
+                                                style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                                            @Html.ActionLink( "Xóa","Delete", new { id=item.Id }, new { @class = "custom-edit-link"})
+                                        </button>
+
+                                    </div>
+                                </td>
+
+
+                            </tr>
+                            serialNumber++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+            @*<div class="pagination-container">
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+            </div>*@
+            <div id="true" class="container-fluid tab-pane fade">
+                <br>
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            @*   <th style="background-color: #333; text-align: center;">
+                            <h6 style="margin: 0; color: white;">Số thứ tự</h6>
+                            </th>*@
+                            <th style="background-color: #333; text-align: center;">
+                                <h6 style="margin: 0; color: white;">Mã Giảm giá</h6>
+                            </th>
+                            <th style="background-color: #333; text-align: center;">
+                                <h6 style="margin: 0; color: white;">Loại giảm giá</h6>
+                            </th>
+                            <th style="background-color: #333; text-align: center;">
+                                <h6 style="margin: 0; color: white;">Lượng giảm</h6>
+                            </th>
+                            <th style="background-color: #333; text-align: center;">
+                                <h6 style="margin: 0; color: white;">Trạng thái</h6>
+                            </th>
+
+                            <th style="background-color: #333; text-align: center;">
+                                <h6 style="margin: 0; color: white;">Số lượng</h6>
+                            </th>
+                            <th style="background-color: #333; text-align: center;">
+                                <h6 style="margin: 0; color: white;">Ngày bắt đầu</h6>
+                            </th>
+                            <th style="background-color: #333; text-align: center;">
+                                <h6 style="margin: 0; color: white;">Ngày kết thúc</h6>
+                            </th>
+
+                            <th style="background-color: #333; text-align: center;">
+                                <h6 style="margin: 0; color: white;">Giảm từ đơn tối thiểu</h6>
+                            </th>
+                            <th style="background-color: #333; text-align: center;">
+                                <h6 style="margin: 0; color: white;">Hành động</h6>
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            @*  var a = serialNumber;*@
+                            <style>
+                                .table-bordered td {
+                                    background-color: #f8f9fa; /* Màu mè */
+                                    border-radius: 10px; /* Bo tròn */
+                                }
+                            </style>
+                            <tr>
+                                @*<td>
+                            <h6 style="text-align:center">@serialNumber</h6>
+                            </td>*@
+                                @if (item.Is_detele != true)
+                                {
+
+                                }
+                                else
+                                {
+
+
+                                    <td>
+                                        <h6 style="text-align:center">@item.MaGiam</h6>
+                                    </td>
+
+                                    <td style="text-align:center;">
+                                        @if (item.LoaiGiamGia == true)
+                                        {
+                                            <h6>Giảm % giá tiền</h6>
+
+                                        }
+                                        else if (item.LoaiGiamGia != true)
+                                        {
+                                            <h6>Giảm theo số tiền</h6>
+
+                                        }
+                                    </td>
+                                    <td style="text-align:center;">
+                                        @if (item.LoaiGiamGia == true)
+                                        {
+                                            <h6>@item.PhanTramGiam % , tối đa @FormatCurrency(item.SoTienGiamToiDa) </h6>
+
+                                        }
+                                        else if (item.LoaiGiamGia != true)
+                                        {
+                                            <h6>@FormatCurrency(item.SoTienGiam)</h6>
+
+                                        }
+                                    </td>
+                                    @if (item.TrangThai != false && item.SoLuong > 0)
+                                    {
+                                        <td class="border-bottom-0">
+                                            <p class="mb-0 fw-normal" style="white-space: nowrap; color:white;text-align :center; background-color: forestgreen; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Đang khuyến mãi</p>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td class="border-bottom-0">
+                                            <p class="mb-0 fw-normal" style="white-space: nowrap; color:white;text-align :center; background-color: orange; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Tạm ngưng</p>
+                                        </td>
+                                    }
+
+                                    <td>
+                                        <h6 style="text-align:center">@item.SoLuong</h6>
+                                    </td>
+
+                                    <td>
+                                        <h6 style="text-align:center">@item.NgayBatDau</h6>
+                                    </td>
+                                    <td>
+                                        <h6 style="text-align:center">@item.NgayKetThuc</h6>
+                                    </td>
+
+                                    <td>
+                                        <h6 style="text-align:center">@item.DieuKienGiam</h6>
+                                    </td>
+
+                                    @*<td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                            @Html.ActionLink("Details", "Details", new {  id = item.Id}) |
+                            @Html.ActionLink("Delete", "Delete", new {  id = item.Id })
+                            </td>*@
+                                    <td style="white-space: nowrap; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                                        <button type="button" class="btn btn-primary"
+                                                style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+
+                                            @Html.ActionLink("Đổi trạng thái", "Edit", new { id = item.Id }, new { @class = "custom-edit-link"})
+                                        </button>
+
+                                        <div style="display: flex; flex-direction: row; gap: 5px;">
+                                            @*<button type="button" style="background-color: wheat; border-color: deepskyblue; border-radius: 10px; font-weight: 400; padding: 2px 8px; font-size: 12px;">
+                                    @Html.ActionLink("Chi tiết", "Details", new { id = item.Id })
+                                    </button>*@
+                                            <button type="button" class="btn btn-danger"
+                                                    style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                                                @Html.ActionLink( "Xóa","Delete", new { id=item.Id }, new { @class = "custom-edit-link"})
+                                            </button>
+
+                                        </div>
+                                    </td>
+                                    @*serialNumber++;*@
+                                }
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div id="false" class="container-fluid tab-pane fade">
+                <br>
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            @*<th style="background-color: #333; text-align: center;">
+                            <h6 style="margin: 0; color: white;">Số thứ tự</h6>
+                            </th>*@
+                            <th style="background-color: #333; text-align: center;">
+                                <h6 style="margin: 0; color: white;">Mã Giảm giá</h6>
+                            </th>
+                            <th style="background-color: #333; text-align: center;">
+                                <h6 style="margin: 0; color: white;">Loại giảm giá</h6>
+                            </th>
+                            <th style="background-color: #333; text-align: center;">
+                                <h6 style="margin: 0; color: white;">Lượng giảm</h6>
+                            </th>
+                            <th style="background-color: #333; text-align: center;">
+                                <h6 style="margin: 0; color: white;">Trạng thái</h6>
+                            </th>
+
+                            <th style="background-color: #333; text-align: center;">
+                                <h6 style="margin: 0; color: white;">Số lượng</h6>
+                            </th>
+                            <th style="background-color: #333; text-align: center;">
+                                <h6 style="margin: 0; color: white;">Ngày bắt đầu</h6>
+                            </th>
+                            <th style="background-color: #333; text-align: center;">
+                                <h6 style="margin: 0; color: white;">Ngày kết thúc</h6>
+                            </th>
+
+                            <th style="background-color: #333; text-align: center;">
+                                <h6 style="margin: 0; color: white;">Giảm từ đơn tối thiểu</h6>
+                            </th>
+                            <th style="background-color: #333; text-align: center;">
+                                <h6 style="margin: 0; color: white;">Hành động</h6>
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            var a = serialNumber;
+                            <style>
+                                .table-bordered td {
+                                    background-color: #f8f9fa; /* Màu mè */
+                                    border-radius: 10px; /* Bo tròn */
+                                }
+                            </style>
+                            <tr>
+                                @*  <td>
+                            <h6 style="text-align:center">@serialNumber</h6>
+                            </td>*@
+                                @if (item.Is_detele != false)
+                                {
+
+                                }
+                                else
+                                {
+                                    <td>
+                                        <h6 style="text-align:center">@item.MaGiam</h6>
+                                    </td>
+
+                                    <td style="text-align:center;">
+                                        @if (item.LoaiGiamGia == true)
+                                        {
+                                            <h6>Giảm % giá tiền</h6>
+
+                                        }
+                                        else if (item.LoaiGiamGia != true)
+                                        {
+                                            <h6>Giảm theo số tiền</h6>
+
+                                        }
+                                    </td>
+                                    <td style="text-align:center;">
+                                        @if (item.LoaiGiamGia == true)
+                                        {
+                                            <h6>@item.PhanTramGiam % , tối đa @FormatCurrency(item.SoTienGiamToiDa) </h6>
+
+                                        }
+                                        else if (item.LoaiGiamGia != true)
+                                        {
+                                            <h6>@FormatCurrency(item.SoTienGiam)</h6>
+
+                                        }
+                                    </td>
+                                    @if (item.TrangThai != false && item.SoLuong > 0)
+                                    {
+                                        <td class="border-bottom-0">
+                                            <p class="mb-0 fw-normal" style="white-space: nowrap; color:white;text-align :center; background-color: forestgreen; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Đang khuyến mãi</p>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td class="border-bottom-0">
+                                            <p class="mb-0 fw-normal" style="white-space: nowrap; color:white;text-align :center; background-color: orange; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Tạm ngưng</p>
+                                        </td>
+                                    }
+
+                                    <td>
+                                        <h6 style="text-align:center">@item.SoLuong</h6>
+                                    </td>
+
+                                    <td>
+                                        <h6 style="text-align:center">@item.NgayBatDau</h6>
+                                    </td>
+                                    <td>
+                                        <h6 style="text-align:center">@item.NgayKetThuc</h6>
+                                    </td>
+
+                                    <td>
+                                        <h6 style="text-align:center">@item.DieuKienGiam</h6>
+                                    </td>
+
+                                    @*<td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                            @Html.ActionLink("Details", "Details", new {  id = item.Id}) |
+                            @Html.ActionLink("Delete", "Delete", new {  id = item.Id })
+                            </td>*@
+                                    <td style="white-space: nowrap; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                                        <button type="button" class="btn btn-primary"
+                                                style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+
+                                            @Html.ActionLink("Đổi trạng thái", "Edit", new { id = item.Id }, new { @class = "custom-edit-link"})
+                                        </button>
+
+                                        <div style="display: flex; flex-direction: row; gap: 5px;">
+                                            @*<button type="button" style="background-color: wheat; border-color: deepskyblue; border-radius: 10px; font-weight: 400; padding: 2px 8px; font-size: 12px;">
+                                    @Html.ActionLink("Chi tiết", "Details", new { id = item.Id })
+                                    </button>*@
+                                            <button type="button" class="btn btn-danger"
+                                                    style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                                                @Html.ActionLink( "Xóa","Delete", new { id=item.Id }, new { @class = "custom-edit-link"})
+                                            </button>
+
+                                        </div>
+                                    </td>
+                                    @*serialNumber++;*@
+                                }
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            @*<div class="row no-gutters justify-content-between paginate">
+                <div class="col-auto ">
+                    @using (Html.BeginForm("Index", "KhuyenMai", FormMethod.Get))
+                    {
+                        <p>
+                            Kích thước trang: @Html.DropDownList("size", (List<SelectListItem>)ViewBag.size, new { @onchange = "this.form.submit();" })
+                        </p>
+                    }
+                </div>
+            
+        </div>*@
+            <div class="col-auto">
+                <div class="row no-gutters align-items-center">
+                    <div class="col-auto mr-3"><span style="color: rgb(128, 128, 128);">Tổng:<span id="id">@Model.Count()</span></span></div>
+                    <div class="col">
+                        <div class="pagination-container">
+                            <ul class="pagination">
+                                @if (Model.HasPreviousPage)
+                                {
+                                    <li class="page-item">
+                                        <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber - 1, size = ViewBag.currentSize })">Previous</a>
+                                    </li>
+                                }
+
+                                @for (var i = 1; i <= Model.PageCount; i++)
+                                {
+                                    <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                                        <a class="page-link" href="@Url.Action("Index", new { page = i, size = ViewBag.currentSize })">@i</a>
+                                    </li>
+                                }
+
+                                @if (Model.HasNextPage)
+                                {
+                                    <li class="page-item">
+                                        <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber + 1, size = ViewBag.currentSize })">Next</a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                @functions {
+                    public string FormatCurrency(float price)
+                    {
+                        string formattedPrice = string.Format("{0:N0}", price); // Định dạng số và thêm dấu phân cách ngàn
+                        return formattedPrice + " VND"; // Thêm ký hiệu việt nam đồng (VND) vào cuối
+                    }
+                }
+            </script>
+           
+            <style>
+                .custom-edit-link {
+                    color: #ffffff; /* Màu đỏ tùy chọn */
+                    text-decoration: none; /* Loại bỏ gạch chân liên kết */
+                }
+
+                    .custom-edit-link:hover {
+                        color: #ffffff; /* Màu đỏ khi hover (tùy chọn) */
+                    }
+            </style>
+
+           @* <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+            <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>*@
+
+
+            <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+       

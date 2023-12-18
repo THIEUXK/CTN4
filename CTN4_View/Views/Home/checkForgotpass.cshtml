@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewData["Title"] = "checkForgotpass";
+}
+
+<h1>Forgot Pass</h1>
+<form asp-action="Edit">
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-container">
+        <div class="form-group">
+            <label  class="control-label"> Mã khuyến mại</label>
+            <input  class="form-control" readonly />
+            <span class="text-danger"></span>
+        </div>
+    </div>
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+</form>
+

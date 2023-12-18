@@ -1,0 +1,48 @@
+﻿@model CTN4_Data.Models.DB_CTN4.PhuongThucThanhToan
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Details</h1>
+<div>
+</div>
+<div class="row">
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Chi tiết</h4>
+                <br></br>
+                <h4>Phương thức thanh toán</h4>
+                <hr />
+                <dl class="row">
+                    <dt class="col-sm-2">
+                       Tên phương thức
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.TenPhuongThuc)
+                    </dd>
+                    <dt class="col-sm-2">
+                       trạng thái
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.TrangThai)
+                    </dd>
+                    <dt class="col-sm-2">
+                       Tình trạng
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Is_detele)
+                    </dd>
+                    <div>
+                        <h4>_________________________________________________</h4>
+                        @Html.ActionLink("Chỉnh sửa", "Edit",new { id=Model.Id },new { style = "text-decoration: none; color: black;" }) |
+
+                        <a asp-action="Index" style="color: black;">Quay về</a>
+                    </div>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>

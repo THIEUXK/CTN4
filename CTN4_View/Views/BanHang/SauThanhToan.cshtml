@@ -1,0 +1,236 @@
+﻿@model CTN4_Serv.ViewModel.ThieuxkView
+@{
+    ViewData["Title"] = "SauThanhToan";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br></br>
+<br></br>
+
+<!--================Order Details Area =================-->
+<section class="order_details section_gap">
+    <div class="container">
+        <h3 class="title_confirmation">Cảm ơn. đơn hàng của bạn đã được nhận.</h3>
+        <h3 >(Hãy vào phần quản lý hóa đơn của bạn để có thể áp dụng giảm giá của cửa hàng)</h3>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>
+                    Mã hóa đơn
+                </th>
+                <th>
+                    Ngày đặt hàng
+                </th>
+                <th>
+                    Trạng thái
+                </th>
+                <th>
+                    Tiền ship
+                </th>
+                <th>
+                    Tổng tiền
+                </th>
+                <th>
+                    Thanh toán
+                </th>
+                <th>
+                    Giao hàng
+                </th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    #@Html.ActionLink(@Model.HoaDon.MaHoaDon, "HoaDonChiTiet", new {  id=Model.HoaDon.Id  })
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => @Model.HoaDon.NgayTaoHoaDon)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => @Model.HoaDon.TrangThai)
+                </td>
+                <td>
+                        @Html.Raw(FormatCurrency(@Model.HoaDon.TienShip))
+                </td>
+                <th>
+                        @Html.Raw(FormatCurrency(@Model.HoaDon.TongTien))
+                </th>
+                    @if (@Model.HoaDon.TrangThaiThanhToan == true)
+                {
+                    <td><div class="hoanthanh">Đã thanh toán</div></td>
+
+                }
+                else
+                {
+                    <td><div class="chuaht">Chưa thanh toán</div></td>
+                }
+                    @if (@Model.HoaDon.NgayGiao != null)
+                {
+
+                    <td>
+                            @Model.HoaDon.NgayGiao
+                    </td>
+                }
+                else
+                {
+                    <td><div class="chuaht">Chưa giao hàng</div></td>
+                }
+            </tr>
+            </tbody>
+        </table>
+        <div class="order_details_table">
+            <h2>Chi tiết đơn hàng</h2>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Ảnh sản phẩm</th>
+                        <th>Thông tin sản phẩm</th>
+                        <th>Số Lượng</th>
+                        <th>Giá Tiền</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var item in Model.hoaDonChiTiets)
+                    {
+                        <tr>
+                            <td>
+                                <!-- Hình ảnh sản phẩm -->
+                                @if (System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".jpg" ||
+                                     System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".png" ||
+                                     System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".jpeg" ||
+                                     System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".tiff" ||
+                                     System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".webp" ||
+                                     System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".gif")
+                                {
+                                    <a href="@Url.Action("HienThiSanPhamChiTiet", "HienThiSanPham", new { id=item.SanPhamChiTiet.SanPham.Id })">
+                                        <img src="~/image/@item.SanPhamChiTiet.SanPham.AnhDaiDien" height="100">
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a>ảnh lỗi</a>
+                                }
+                            </td>
+                            <td>
+                                <!-- Thông tin sản phẩm -->
+                                <div><b style="color:#5a6a85">Tên: </b>@item.SanPhamChiTiet.SanPham.TenSanPham</div>
+                                <div><b style="color:#5a6a85">Màu: </b>@item.SanPhamChiTiet.Mau.TenMau</div>
+                                <div><b style="color:#5a6a85">Size: </b>@item.SanPhamChiTiet.Size.CoSize</div>
+                            </td>
+                            <td>
+                                <!-- Số lượng -->
+                                @Html.DisplayFor(modelItem => item.SoLuong)
+                            </td>
+                            <td>
+                                <!-- Giá tiền -->
+                                @Html.Raw(FormatCurrency(item.GiaTien))
+                            </td>
+                        </tr>
+                    }
+                        <tr>
+                            <td>
+                                <h4>Mã giảm</h4>
+                            </td>
+                            <td>
+                                <h5></h5>
+                            </td>
+                            <td>
+                                <h5></h5>
+                            </td>
+                            <td>
+                                @foreach (var a in Model.GiamGiaChiTiets)
+                                {
+                                    <p>@a.GiamGia.MaGiam</p>
+                                }
+                               
+                            </td>
+                        </tr>
+                    <tr>
+                        <td>
+                            <h4>Tiền hàng</h4>
+                        </td>
+                        <td>
+                            <h5></h5>
+                        </td>
+                        <td>
+                            <h5></h5>
+                        </td>
+                        <td>
+                            <p>@FormatCurrency(Model.HoaDon.TienHang)</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h4>Tiền ship</h4>
+                        </td>
+                        <td>
+                            <h5></h5>
+                        </td>
+                        <td>
+                            <h5></h5>
+                        </td>
+                        <td>
+                            <p>@FormatCurrency(Model.HoaDon.TienShip)</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h4>Tiền giảm</h4>
+                        </td>
+                        <td>
+                            <h5></h5>
+                        </td>
+                        <td>
+                            <h5></h5>
+                        </td>
+                        <td>
+                            <p>@FormatCurrency(Model.HoaDon.TienGiam)</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h4>Tổng tiền</h4>
+                        </td>
+                        <td>
+                            <h5></h5>
+                        </td>
+                        <td>
+                            <h5></h5>
+                        </td>
+                        <td>
+                            <p>@FormatCurrency(Model.HoaDon.TongTien)</p>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    @functions {
+        public string FormatCurrency(float? price)
+        {
+            string formattedPrice = string.Format("{0:N0}", price); // Định dạng số và thêm dấu phân cách ngàn
+            return formattedPrice + " VND"; // Thêm ký hiệu đồng (₫) vào cuối
+        }
+    };
+</script>
+<!--================End Order Details Area =================-->
+<script src="~/js/vendor/jquery-2.2.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.~/js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+        crossorigin="anonymous"></script>
+<script src="~/js/vendor/bootstrap.min.js"></script>
+<script src="~/js/jquery.ajaxchimp.min.js"></script>
+<script src="~/js/jquery.nice-select.min.js"></script>
+<script src="~/js/jquery.sticky.js"></script>
+<script src="~/js/nouislider.min.js"></script>
+<script src="~/js/countdown.js"></script>
+<script src="~/js/jquery.magnific-popup.min.js"></script>
+<script src="~/js/owl.carousel.min.js"></script>
+<!--gmaps Js-->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+<script src="~/js/gmaps.min.js"></script>
+<script src="~/js/main.js"></script>

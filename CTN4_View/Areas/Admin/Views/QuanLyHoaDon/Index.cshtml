@@ -1,0 +1,436 @@
+﻿@model CTN4_View.Areas.Admin.Viewmodel.ThieuxkViewAdmin
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<body>
+    <div class="container-fluid">
+        <div class="card w-100">
+            <div class="card-body p-4">
+                <h5 class="card-title fw-semibold mb-4">Các Đơn Hàng</h5>
+                <div class="d-flex">
+                    <div class="dropdown me-1">
+                        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
+                            Lọc hóa đơn
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("Index")">Tất cả đơn hàng</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("XemDaGiao")">Đơn đã giao</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("XemChuaGiao")">Đơn chưa giao</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("XemChuThanhToan")">Đơn chưa thanh toán</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("XemDaThanhToan")">Đơn đã thanh toán</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("XemDaGiaoHoanTat")">Đơn giao thành công</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("XemDaGiaoThatBai")">Đơn giao thất bại</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("XemDaBiHuy")">Đơn đã bị hủy</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="dropdown me-1">  <button class="btn btn-secondary "><a class="dropdown-item" href="@Url.Action("XemChuaXacNhan")">Đơn chưa xác nhận </a></button></div>
+                    <div class="dropdown me-1">
+                        <button class="btn btn-secondary "> <a class="dropdown-item" href="@Url.Action("XemDaXacNhan")">Đơn đã xác nhận</a></button>
+                    </div>
+                    <div class="dropdown me-1">
+                        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
+                            Sắp xếp hóa đơn
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("XapXepMoiNhat")">Đơn hàng mới nhất</a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("XapXepCuNhat")">Đơn hàng cũ nhất</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("XapXepTienCaoNhat")">Tổng tiền cao nhất</a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("XapXepTienThapNhat")">Tổng tiền Thấp nhất</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="dropdown me-1">
+                        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <button class="btnXuatEx2">Xuất File Excel</button>
+                            <button class="btnXuatEx3">Xác nhận đơn hàng</button>
+                        </ul>
+                    </div>
+                    <div class="dropdown me-1">
+                        <button type="button" class="btn btn-custom-primary" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                            Tạo hóa đơn
+                        </button>
+                        <div class="dropdown-menu p-4">
+                            <a class="dropdown-item" href="@Url.Action("TaoHoaDonnew")">Tạo hóa đơn</a>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="col-7">
+                        <form asp-action="TimKiemNgay" id="searchForm">
+                            <div>
+                                Tìm kiếm theo ngày tạo hóa đơn:
+                                <div>
+                                    Từ
+                                    <input name="NgayDau" id="NgayDau" value="" type="datetime-local">
+                                    </input>
+                                    Đến
+                                    <input name="NgayCuoi" id="NgayCuoi" value="" type="datetime-local">
+                                    </input>
+
+                                    <!-- Thêm mã JavaScript để giữ nguyên giá trị ngày -->
+                                    <button type="button" class="btn btn-primary" onclick="confirmSearch()">Tìm</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                @if (TempData["TB1"] != null)
+                {
+                    <div class="alert alert-danger">@TempData["TB1"]</div>
+                }
+                <div id="aaa"></div>
+                <div id="aaa1"></div>
+
+            </div>
+        </div>
+        <div class="card w-100">
+            <div class="card-body p-4">
+
+                <div class="table-responsive">
+
+                    <table class="table text-nowrap mb-0 align-middle">
+                        <thead class="thead-dark">
+                            @*<div class="row ">
+                            <div class="card">
+                            <div class="card-body">
+                            <table class="table">
+                            <thead class="thead-dark">*@
+                            <tr>
+                                <th class="border-bottom-0">
+
+                                    <input class="Allcheck" type="checkbox" id="defaultCheck1">
+                                </th>
+                                <th class="border-bottom-0">
+                                    <h6 class="fw-semibold mb-0" style="color:white">Mã hóa đơn</h6>
+                                </th>
+                                <th class="border-bottom-0">
+                                    <h6 class="fw-semibold mb-0" style="color:white">Thời gian đặt đơn</h6>
+                                </th>
+                                <th class="border-bottom-0">
+                                    <h6 class="fw-semibold mb-0" style="color:white">Tên người nhận</h6>
+                                </th>
+                                <th class="border-bottom-0">
+                                    <h6 class="fw-semibold mb-0" style="color:white">Thanh toán</h6>
+                                </th>
+                                <th class="border-bottom-0">
+                                    <h6 class="fw-semibold mb-0" style="color:white">Giao hàng</h6>
+                                </th>
+                                <th class="border-bottom-0">
+                                    <h6 class="fw-semibold mb-0" style="color:white">Tổng tiền</h6>
+                                </th>
+                                <th class="border-bottom-0">
+                                    <h6 class="fw-semibold mb-0" style="color:white">Loại</h6>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var a in Model.hoaDons)
+                            {
+                                <tr>
+                                    <td class="border-bottom-0">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="@a.Id" id="defaultCheck1">
+                                        </div>
+                                    </td>
+                                    <td class="border-bottom-0">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <b><span>#@Html.ActionLink(a.MaHoaDon, "XemChiTiet", new { id = a.Id })</span></b>
+                                        </div>
+                                    </td>
+                                    @if (a.NgayDat!=null)
+                                    {
+                                        <td class="border-bottom-0">
+                                            <span class="fw-normal">@a.NgayDat</span>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td class="border-bottom-0">
+                                            <span class="fw-normal">@a.NgayTaoHoaDon</span>
+                                        </td>
+                                    }
+                                    <td class="border-bottom-0">
+                                        <p class="mb-0 fw-normal">@a.TenKhachHang</p>
+                                    </td>
+                                    <td class="border-bottom-0">
+                                        @if (a.TrangThaiThanhToan == true)
+                                        {
+                                            <h6 class="fw-semibold mb-0" style="color:limegreen">Đã thanh toán</h6>
+                                        }
+                                        else
+                                        {
+                                            <h6 class="fw-semibold mb-0" style="color:red">Chưa thanh toán</h6>
+                                        }
+                                    </td>
+                                    @if (a.NgayGiao == null)
+                                    {
+                                        <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0" style="color:red">Chưa Giao Hàng</h6>
+                                        </th>
+                                    }
+                                    else
+                                    {
+                                        <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0" style="color:limegreen">@a.NgayGiao</h6>
+                                        </th>
+                                    }
+                                    <td class="border-bottom-0">
+                                        <p class="mb-0 fw-normal">@FormatCurrency(@a.TongTien)</p>
+                                    </td>
+                                    @if (a.NgayTaoHoaDon!=null)
+                                    {
+                                        <td class="border-bottom-0">
+                                            <p class="mb-0 fw-normal">Mua tại quầy</p>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td class="border-bottom-0">
+                                            <p class="mb-0 fw-normal">Mua tại wed</p>
+                                        </td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="~/js/a.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".Allcheck").click(function () {
+            if ($(this).prop("checked")) {
+                // Nếu ô checkbox được chọn, thì set tất cả các ô checkbox có cùng class là "Allcheck" thành chọn.
+                $(".form-check-input").prop("checked", true);
+            } else {
+                // Nếu ô checkbox không được chọn, thì set tất cả các ô checkbox có cùng class là "Allcheck" thành không chọn.
+                $(".form-check-input").prop("checked", false);
+            }
+        });
+    });
+</script>
+
+
+<style>
+    .btnXuatEx3 {
+        background-color: #3498db; /* Blue background color */
+        color: #ffffff; /* White text color */
+        padding: 12px 24px; /* Padding around the text */
+        font-size: 18px; /* Font size */
+        border: none; /* Remove border */
+        border-radius: 5px; /* Add some border-radius for rounded corners */
+        cursor: pointer; /* Add a pointer cursor on hover */
+        transition: background-color 0.3s ease; /* Smooth transition for background color */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+    }
+
+        /* Hover effect */
+        .btnXuatEx3:hover {
+            background-color: #2980b9; /* Darker blue on hover */
+        }
+
+        /* Optional: Add focus effect for accessibility */
+        .btnXuatEx3:focus {
+            outline: none; /* Remove default focus outline */
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.8); /* Add a box shadow on focus */
+        }
+
+    .btnXuatEx2 {
+        background-color: #4CAF50; /* Green background color */
+        border: none; /* Remove borders */
+        color: white; /* White text color */
+        padding: 3px 24px; /* Add padding */
+        text-align: center; /* Center text */
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 8px; /* Rounded corners */
+    }
+
+    .btn-custom-rangen {
+        --bs-btn-color: #fff;
+        --bs-btn-bg: #ff6347; /* Màu đỏ tùy chọn */
+        --bs-btn-border-color: #ff6347; /* Màu đỏ tùy chọn */
+        --bs-btn-hover-color: #fff;
+        --bs-btn-hover-bg: #dc4735; /* Màu đỏ tương ứng với hover */
+        --bs-btn-hover-border-color: #c84131; /* Màu đỏ tương ứng với hover */
+        --bs-btn-focus-shadow-rgb: #ff6347; /* Màu đỏ tương ứng với focus */
+        --bs-btn-active-color: #fff;
+        --bs-btn-active-bg: #c84131; /* Màu đỏ tương ứng với active */
+        --bs-btn-active-border-color: #b5362d; /* Màu đỏ tương ứng với active */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Thiết lập bóng */
+        --bs-btn-disabled-color: #fff;
+        --bs-btn-disabled-bg: #ff6347; /* Màu đỏ tương ứng với disabled */
+        --bs-btn-disabled-border-color: #ff6347; /* Màu đỏ tương ứng với disabled */
+    }
+
+    .btn-custom-primary {
+        --bs-btn-color: #fff;
+        --bs-btn-bg: #49BEFF; /* Màu xanh lam tương tự như .btn-primary */
+        --bs-btn-border-color: #49BEFF; /* Màu xanh lam tương tự như .btn-primary */
+        --bs-btn-hover-color: #fff;
+        --bs-btn-hover-bg: #4f73d9; /* Màu xanh lam tương tự như .btn-primary */
+        --bs-btn-hover-border-color: #4a6ccc; /* Màu xanh lam tương tự như .btn-primary */
+        --bs-btn-focus-shadow-rgb: 117,153,255; /* Màu xanh lam tương tự như .btn-primary */
+        --bs-btn-active-color: #fff;
+        --bs-btn-active-bg: #4a6ccc; /* Màu xanh lam tương tự như .btn-primary */
+        --bs-btn-active-border-color: #4665bf; /* Màu xanh lam tương tự như .btn-primary */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Thiết lập bóng */
+        --bs-btn-disabled-color: #fff;
+        --bs-btn-disabled-bg: #49BEFF; /* Màu xanh lam tương tự như .btn-primary */
+        --bs-btn-disabled-border-color: #49BEFF; /* Màu xanh lam tương tự như .btn-primary */
+    }
+
+
+    .custom-button {
+        display: inline-block;
+        padding: 8px 16px;
+        border: none;
+        text-decoration: none;
+        font-size: 12px;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        color: red;
+        background-color: transparent;
+        cursor: pointer;
+        border-radius: 7px;
+    }
+
+    .custom-button-1 {
+        display: inline-block;
+        padding: 8px 16px;
+        border: none;
+        text-decoration: none;
+        font-size: 12px;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        color: yellowgreen;
+        background-color: transparent;
+        cursor: pointer;
+        border-radius: 7px;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+
+    .dropdown {
+        margin-right: 10px;
+    }
+
+    .btn-custom-primary {
+        margin-right: 10px;
+    }
+
+    .table-responsive {
+        margin-top: 20px;
+    }
+
+    .thead-dark {
+        background-color: #000;
+        color: #fff;
+    }
+
+    th {
+        color: #fff;
+    }
+
+    .form-check {
+        margin-bottom: 0;
+    }
+
+    .fw-normal {
+        font-weight: normal;
+    }
+
+    .fw-semibold {
+        font-weight: bold;
+    }
+
+    /* Thêm các kiểu khác nếu cần */
+</style>
+<script>
+
+    @functions {
+        public string FormatCurrency(float? price)
+        {
+            string formattedPrice = string.Format("{0:N0}", price); // Định dạng số và thêm dấu phân cách ngàn
+            return formattedPrice + "VND"; // Thêm ký hiệu đồng (₫) vào cuối
+        }
+    }
+</script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+<script>
+        // Hàm để lưu giữ giá trị ngày vào localStorage
+        function saveDateValues() {
+            localStorage.setItem("previousStartDate", document.getElementById("NgayDau").value);
+            localStorage.setItem("previousEndDate", document.getElementById("NgayCuoi").value);
+        }
+
+    // Hàm để khôi phục giá trị ngày từ localStorage
+    function restoreDateValues() {
+        var previousStartDate = localStorage.getItem("previousStartDate");
+        var previousEndDate = localStorage.getItem("previousEndDate");
+
+        if (previousStartDate !== null && previousEndDate !== null) {
+            document.getElementById("NgayDau").value = previousStartDate;
+            document.getElementById("NgayCuoi").value = previousEndDate;
+        }
+    }
+
+    function confirmSearch() {
+        // Lưu giữ giá trị ngày trước khi thực hiện tìm kiếm
+        saveDateValues();
+
+        // Hiển thị hộp thoại xác nhận
+        var isConfirmed = confirm("Bạn có chắc chắn muốn thực hiện tìm kiếm?");
+
+        // Nếu người dùng xác nhận, thực hiện submit form
+        if (isConfirmed) {
+            document.getElementById("searchForm").submit();
+        } else {
+            // Nếu người dùng không xác nhận, khôi phục giá trị ngày từ localStorage
+            restoreDateValues();
+        }
+    }
+
+    // Gọi hàm khôi phục giá trị ngày khi trang được tải lại
+    document.addEventListener("DOMContentLoaded", restoreDateValues);
+</script>

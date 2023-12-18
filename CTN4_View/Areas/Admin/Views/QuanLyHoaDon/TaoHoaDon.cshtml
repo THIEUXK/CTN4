@@ -1,0 +1,609 @@
+﻿@model CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk.viewMode.Thi1View
+@{
+    ViewData["Title"] = "TaoHoaDon";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<br></br>
+<br></br>
+<form >
+<div class="container">
+    <div class="billing_details">
+        <div class="row">
+            <div class="col-lg-7">
+                @if (TempData["TB2"] != null)
+                {
+                    <div class="alert alert-danger">@TempData["TB2"]</div>
+                }
+                <input type="hidden" name="id" value="@Model.HoaDon.Id"/>
+                <h3>Thông tin người mua</h3><h4>Mã hóa đơn:@Model.HoaDon.MaHoaDon</h4><h4>Ngày tạo:@Model.HoaDon.NgayTaoHoaDon</h4>
+                <div class="row contact_form" action="#" method="post" novalidate="novalidate">
+                    <div class="col-md-6 form-group p_star">
+                        <label>Họ và tên</label>
+                        <input type="text" class="form-control" id="first" value="" name="name">
+                    </div>
+                    <div class="col-md-6 form-group p_star">
+                        <label>Số điện thoại</label>
+                        <input type="text" class="form-control" value="" id="number" name="Sodienthoai" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                    </div>
+                    <div class="col-md-6 form-group p_star">
+                        <label>Email</label>
+                        <input type="text" class="form-control" id="email" value="" name="Email">
+                    </div>
+                    <div class="col-md-6 form-group p_star">
+                        <label>Địa chỉ nhận hàng cụ thể</label>
+                        <input type="text" class="form-control" value="" id="addct" name="DiachiNhanChiTiet">
+                    </div>
+                    <div class="col-md-6 form-group p_star">
+                        <label>Địa chỉ :</label>
+                        <input type="text" class="form-control" id="adressnew" name="" value="" disabled></input>
+                        <input type="hidden" class="form-control" id="diachinay" value="" name="addDiaChi"></input>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Chọn Tỉnh/thành<span class="text-danger"></span></label>
+                        <span class="text-danger" id="mess_provin"></span>
+                        <select class="custom-select" asp-items="@ViewBag.Provin" id="provin">
+                            <option selected value="0">Chọn tỉnh thành</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Chọn Quận/Huyện<span class="text-danger"></span></label>
+                        <span class="text-danger" id="mess_district"></span>
+                        <select class="custom-select" id="district">
+                            <option selected value="0">Chọn quận huyện </option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Chọn Phường/Xã<span class="text-danger"></span></label>
+                        <span class="text-danger" id="mess_ward"></span>
+                        <select class="custom-select" id="ward" name="ward">
+                            <option selected value="0">Chọn Phường Xã</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-12 form-group">
+                        <label for="exampleFormControlTextarea1" class="form-label">Ghi chú</label>
+                        <textarea class="form-control" name="ghiChu" id="note_ck" rows="3"></textarea>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <a> @Html.ActionLink("Chọn sản phẩm", "sanphammua", new { idHD = Model.HoaDon.Id }, new { @class = "dropdown-item" })</a>
+                <div class="order_box">
+                    <div class="order_box">
+                        <h2>Sản phẩm đơn hàng</h2>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">Sản phẩm</th>
+
+                                <th scope="col">Thông tìn sản phẩm</th>
+                                <th scope="col">Giá tiền</th>
+                                <th scope="col">Số lượng</th>
+                                <th scope="col">Thành tiền</th>
+                                <th scope="col"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            @foreach (var a in Model.HoaDonChiTiets)
+                            {
+                                <tr>
+
+                                    <td>
+                                        @if (System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".jpg" ||
+                                             System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".png" ||
+                                             System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".jpeg" ||
+                                             System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".tiff" ||
+                                             System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".webp" ||
+                                             System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".gif")
+                                        {
+                                            <a href="@Url.Action("HienThiSanPhamChiTietMua", new {  id=a.SanPhamChiTiet.SanPham.Id })">
+
+                                                <img src="~/image/@a.SanPhamChiTiet.SanPham.AnhDaiDien" height="150">
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <span>Ảnh lỗi rồi =)))</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <div><b style="color:#5a6a85">Tên: </b>@a.SanPhamChiTiet.SanPham.TenSanPham</div>
+                                        <div><b style="color:#5a6a85">Màu: </b>@a.SanPhamChiTiet.Mau.TenMau</div>
+                                        <div><b style="color:#5a6a85">Size: </b>@a.SanPhamChiTiet.Size.CoSize</div>
+                                    </td>
+                                    <td>
+                                        <h5>@FormatCurrency(a.GiaTien)</h5>
+                                    </td>
+                                    <td>
+                                        <h5> @a.SoLuong</h5>
+                                    </td>
+                                    <td>
+                                        <h5>@FormatCurrency(a.GiaTien * a.SoLuong)</h5>
+                                    </td>
+
+                                    <td>
+                                        <button asp-action="xoaKhoiHoaDon" class="delete-link custom-button" name="idHDCT" value="@a.Id" >
+                                            Xóa
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                        @if (Model.addDiaChi != null)
+                        {
+                            if (Model.tenmagiam != null)
+                            {
+                                <ul class="list">
+                                    <li><a href="#">Mã Giảm giá :<span><b id="tonghang" style="color:black">@Model.tenmagiam </b></span></a></li>
+                                    <input type="hidden" name="tenmagiam" value="@Model.tenmagiam" id="tenmagiam"></input>
+                                </ul>
+                            }
+                            else
+                            {
+                                <ul class="list">
+                                    <li><a href="#">Mã Giảm giá :<span><b id="tonghang" style="color:black">Chưa có </b></span></a></li>
+                                    <input type="hidden" name="tenmagiam" value="" id="tenmagiam"></input>
+                                </ul>
+                            }
+                            <ul class="list">
+                                <li><a href="#">Tiền Hàng :<span><b id="tonghang" style="color:black">@FormatCurrency(@Model.tienhanga) </b></span></a></li>
+                                <input type="hidden" name="tienhanga" value="@Model.TongTien" id="tienhanga"></input>
+                            </ul>
+
+                            <ul class="list">
+                                <li><a href="#">Tiền ship :<span><b id="tienship" style="color:black">@FormatCurrency(Model.tienshipb) </b></span></a></li>
+                                <input type="hidden" name="tienshipa" value="@Model.tienshipb" id="tienship1"></input>
+                            </ul>
+                            <ul class="list">
+                                <li><a href="#">Tiền giảm :<span><b id="tiengiam" style="color:black">@FormatCurrency(@Model.tiengiamb)</b></span></a></li>
+                                <input type="hidden" name="tiengiama" value="@Model.tiengiamb" id="tiengiam1"></input>
+                            </ul>
+                            <br>
+                            <ul class="list">
+                                <li><a href="#">Tổng tiền :<span><b name="Amount" id="tongtien" style="color:orange">@FormatCurrency(Model.TienCuoiCungb)</b></span></a></li>
+                                <input hidden name="Amount" value="@(Model.TienCuoiCungb)" />
+                                <input type="hidden" name="tongtien" value="@Model.TienCuoiCungb" id="tongtien1"></input>
+                            </ul>
+                            <br></br>
+                        }
+                        else if (Model.addDiaChi == null && @Model.tenmagiam != null)
+                        {
+                            if (Model.tenmagiam != null)
+                            {
+                                <ul class="list">
+                                    <li><a href="#">Mã Giảm giá :<span><b id="tonghang" style="color:black">@Model.tenmagiam </b></span></a></li>
+                                    <input type="hidden" name="tenmagiam" value="@Model.tenmagiam" id="tenmagiam"></input>
+                                </ul>
+                            }
+                            else
+                            {
+                                <ul class="list">
+                                    <li><a href="#">Mã Giảm giá :<span><b id="tonghang" style="color:black">Chưa có </b></span></a></li>
+                                    <input type="hidden" name="tenmagiam" value="" id="tenmagiam"></input>
+                                </ul>
+                            }
+                            <ul class="list">
+                                <li><a href="#">Tiền Hàng :<span><b id="tonghang" style="color:black">@FormatCurrency(@Model.tienhanga) </b></span></a></li>
+                                <input type="hidden" name="tienhanga" value="@Model.tienhanga" id="tienhanga"></input>
+                            </ul>
+                            <ul class="list">
+                                <li><a href="#">Tiền ship :<span><b id="tienship" style="color:black">Chưa Tính </b></span></a></li>
+                                <input type="hidden" name="tienshipa" value="0" id="tienship1"></input>
+
+                            </ul>
+                            <ul class="list">
+                                <li><a href="#">Tiền giảm :<span><b id="tiengiam" style="color:black">@FormatCurrency(@Model.tiengiamb)</b></span></a></li>
+                                <input type="hidden" name="tiengiama" value="@Model.tiengiamb" id="tiengiam1"></input>
+                            </ul>
+                            <br>
+                            <ul class="list">
+                                <li><a href="#">Tổng tiền :<span><b name="Amount" id="tongtien" style="color:orange">@FormatCurrency(Model.TienCuoiCungb)</b></span></a></li>
+                                <input type="hidden" name="tongtien" value="@Model.TienCuoiCungb" id="tongtien1"></input>
+                            </ul>
+                            <br></br>
+                        }
+                        else
+                        {
+                            <ul class="list">
+                                <li><a href="#">Mã Giảm giá :<span><b id="tonghang" style="color:black">Chưa có </b></span></a></li>
+                                <input type="hidden" name="tenmagiam" value="" id="tenmagiam"></input>
+                            </ul>
+                            <ul class="list">
+                                <li><a href="#">Tiền Hàng :<span><b id="tonghang" style="color:black">@FormatCurrency(Model.TongTien) </b></span></a></li>
+                                <input type="hidden" name="tienhanga" value="@Model.TongTien" id="tienhanga"></input>
+                            </ul>
+                            <ul class="list">
+                                <li><a href="#">Tiền ship :<span><b id="tienship" style="color:black">Chưa Tính</b></span></a></li>
+                                <input type="hidden" name="tienshipa" value="0" id="tienship1"></input>
+                            </ul>
+
+                            <ul class="list">
+                                <li><a href="#">Tiền giảm :<span><b id="tiengiam" style="color:black">Chưa Tính</b></span></a></li>
+                                <input type="hidden" name="tiengiama" value="0" id="tiengiam1"></input>
+                            </ul>
+                            <br></br>
+                            <ul class="list">
+                                <li><a href="#">Tổng tiền :<span><b name="Amount" id="tongtien" style="color:orange">@FormatCurrency(Model.TongTien)</b></span></a></li>
+                                <input type="hidden" name="tongtien" value="@Model.TongTien" id="tongtien1"></input>
+                            </ul>
+                            <br></br>
+                        }
+                        @if (@Model.IdMaGiam != null)
+                        {
+                            <input type="hidden" name="idgiamgia" value="@Model.IdMaGiam" id="idgiamgia"></input>
+                        }
+                        else
+                        {
+                            <input type="hidden" name="idgiamgia" value="" id="idgiamgia"></input>
+                        }
+                        <br></br>
+                        <br />
+                        <div class="card border-secondary mb-5">
+                            <button class="primary-btn" asp-action="Chốt" type="submit" href="#">Chốt đơn</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 form-group p_star">
+            <br />
+
+            <button type="button" class="btn btn-outline-info dropdown-toggle form-control" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                Mã giảm giá
+            </button>
+            <input type="hidden" name="idHD" value="@Model.HoaDon.Id"/>
+            <ul class="dropdown-menu dropdown-menu-end">
+                @foreach (var i in Model.GiamGias)
+                {
+                    <li>
+                        <div class="app1">
+                            <div class="container1">
+                                <div class="card1">
+                                    <div class="main1">
+                                        <div class="content1">
+
+                                            @if (i.LoaiGiamGia == false)
+                                            {
+                                                <span>Giảm giá:</span>
+                                                <h8>@FormatCurrency(i.SoTienGiam)</h8>
+                                                <br />
+                                                <span>Đơn tối thiểu:</span>
+                                                <h8>@FormatCurrency(i.DieuKienGiam)</h8>
+                                                <p>Kết thúc: @i.NgayKetThuc</p>
+                                                <br />
+
+                                            }
+                                            else
+                                            {
+                                                <span>Giảm giá:</span>
+                                                <h8>@i.PhanTramGiam%</h8>
+                                                <br />
+                                                <span>Giảm tối đa:</span>
+                                                <h8>@FormatCurrency(i.SoTienGiamToiDa)</h8>
+                                                <br />
+                                                <span>Đơn tối thiểu:</span>
+                                                <h8>@FormatCurrency(i.DieuKienGiam)</h8>
+                                                <p>Kết thúc: @i.NgayKetThuc</p>
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="copy-button1">
+                                        <input id="copyvalue" type="text" readonly value="@i.MaGiam" />
+                                        <button asp-action="SuDunggiamGia"  name="IdGiamGia2" value="@i.Id">Dùng</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+</form>
+<script>
+    @functions {
+        public string FormatCurrency(float? price)
+        {
+            string formattedPrice = string.Format("{0:N0}", price); // Định dạng số và thêm dấu phân cách ngàn
+            return formattedPrice + "VND"; // Thêm ký hiệu đồng (₫) vào cuối
+        }
+    }
+</script>
+<style>
+    .app1 {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+    }
+
+    .container1 {
+        width: 100%;
+        height: 23vh;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+    }
+
+    .card1 {
+        width: 300px;
+        height: 150px;
+        border-radius: 5px;
+        box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2);
+        padding: 5px;
+        position: relative;
+        background-color: #ffba00;
+        overflow: hidden;
+    }
+
+    .main1,
+    .copy-button1 {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 10px;
+        align-items: center;
+    }
+
+    .card1::after,
+    .card1::before {
+        position: absolute;
+        content: "";
+        height: 40px;
+        border-radius: 40px;
+        z-index: 1;
+        top: 70px;
+        background-color: #fff;
+        width: 35px;
+    }
+
+    .card1::after {
+        right: -28px;
+    }
+
+    .card1::before {
+        left: -28px;
+    }
+
+    .co-img1 img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .vertical1 {
+        border-left: 3px dotted #000;
+        height: 80px;
+        position: absolute;
+        left: 40%;
+    }
+
+    .content h8 {
+        font-size: 24px;
+        margin-left: -15px;
+        color: #000;
+    }
+
+    .content h1 span {
+        font-size: 14px;
+    }
+
+    .content h9 {
+        font-size: 14px;
+        margin-left: -15px;
+        color: #000;
+        text-transform: uppercase;
+    }
+
+    .content p {
+        font-size: 12px;
+        color: #333;
+    }
+
+    .copy-button1 {
+        //margin: 12px 0 -5px 0;
+        height: 32px;
+        border-radius: 4px;
+        padding: 0 1px;
+        background-color: #fff;
+    }
+
+        .copy-button1 input {
+            width: calc(100% - 10px);
+            height: 100%;
+            border: none;
+            outline: none;
+            font-size: 14px;
+            padding-left: 5px;
+        }
+
+        .copy-button1 button {
+            padding: 5px 20px;
+            background-color: #dc143c;
+            color: #fff;
+            border: 1px solid transparent;
+            cursor: pointer;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+    .dropdown-item {
+        display: inline-block;
+        padding: 8px 12px;
+        text-decoration: none;
+        background-color: #3498db; /* Set your desired background color */
+        color: #fff; /* Set your desired text color */
+        border: 1px solid #2980b9; /* Set your desired border color */
+        border-radius: 4px; /* Add rounded corners */
+        transition: background-color 0.3s ease;
+    }
+
+        .dropdown-item:hover {
+            background-color: #2980b9; /* Set your desired hover background color */
+        }
+
+    /* Style the label for "Chọn Phường/Xã" */
+    label[for="ward"] {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #333;
+    }
+
+    /* Style the error message for the ward selection */
+    #mess_ward {
+        display: block;
+        color: red;
+        margin-top: 5px;
+    }
+
+    /* Style the select element for ward selection */
+    #ward {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+        /* Style the default option in the select element */
+        #ward option[value="0"] {
+            color: #999;
+        }
+
+    /* Style the label for "Chọn Quận/Huyện" */
+    label[for="district"] {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #333;
+    }
+
+    /* Style the error message for the district selection */
+    #mess_district {
+        display: block;
+        color: red;
+        margin-top: 5px;
+    }
+
+    /* Style the select element for district selection */
+    #district {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+        /* Style the default option in the select element */
+        #district option[value="0"] {
+            color: #999;
+        }
+
+    /* Style the label for "Chọn Tỉnh/thành" */
+    label[for="provin"] {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #333;
+    }
+
+    /* Style the error message for the province selection */
+    #mess_provin {
+        display: block;
+        color: red;
+        margin-top: 5px;
+    }
+
+    /* Style the select element for province selection */
+    #provin {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+        /* Style the default option in the select element */
+        #provin option[value="0"] {
+            color: #999;
+        }
+
+
+
+    /* Apply some basic styling to the form */
+    .container {
+        max-width: 1200px; /* Adjust the maximum width as needed */
+        margin: 0 auto;
+    }
+
+    .billing_details {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .col-lg-7,
+    .col-lg-5 {
+        width: 100%;
+    }
+
+    /* Style form labels */
+    label {
+        font-weight: bold;
+    }
+
+    /* Style input fields */
+    .form-control {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 15px;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+    }
+
+    /* Style the submit button */
+    .primary-btn {
+        background-color: #28a745;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    /* Style the order details box */
+    .order_box {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+        /* Style the heading */
+        .order_box h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Style the product order link */
+        .order_box a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+            .order_box a:hover {
+                text-decoration: underline;
+            }
+
+</style>
+
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="~/js/a.js"></script>
