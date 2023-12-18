@@ -180,20 +180,20 @@
                                 <label for="tu" class="mr-2">Giá niêm yết từ</label>
                                 @if (luuGiaBatDau != null)
                                 {
-                                    <input type="text" class="price-input" id="minPrice" name="minPrice" value="@luuGiaBatDau" />
+                                    <input type="text" class="price-input" id="minPrice" name="minPrice" value="@luuGiaBatDau" oninput="this.value = this.value.replace(/[^0-9]/g, '');"/>
                                 }
                                 else
                                 {
-                                    <input type="text" class="price-input" id="minPrice" name="minPrice" />
+                                    <input type="text" class="price-input" id="minPrice" name="minPrice" oninput="this.value = this.value.replace(/[^0-9]/g, '');"/>
                                 }
                                 <span class="mr-2">đến</span>
                                 @if (luuGiaKetThuc != null)
                                 {
-                                    <input type="text" class="price-input" id="maxPrice" name="maxPrice" value="@luuGiaKetThuc" />
+                                    <input type="text" class="price-input" id="maxPrice" name="maxPrice" value="@luuGiaKetThuc" oninput="this.value = this.value.replace(/[^0-9]/g, '');"/>
                                 }
                                 else
                                 {
-                                    <input type="text" class="price-input" id="maxPrice" name="maxPrice" />
+                                    <input type="text" class="price-input" id="maxPrice" name="maxPrice" oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
                                 }
                             </div>
                         </div>
