@@ -45,6 +45,8 @@ namespace CTN4_View.Controllers.Shop
         public readonly IVnPayService _ivnPayService;
         public readonly ICurrentUser _CurrentUser;
         public ILichSuHoaDonService _LichSuHoaDonService;
+        public IKhuyenMaiSanPhamService _khuyenMaiSanPhamService;
+        public IKhuyenMaiService _khuyenMaiService;
         public BanHangController(IConfiguration config, IVnPayService vnpay, ICurrentUser currentUser, IGioHangService giohang)
         {
             _diaChiNhanHangService = new DiaChiNhanHangService();
@@ -69,7 +71,8 @@ namespace CTN4_View.Controllers.Shop
             _Secretkey = config["PaypalSettings:SecretKey"];
             _CurrentUser = currentUser;
             _LichSuHoaDonService = new LichSuHoaDonService();
-
+            _khuyenMaiSanPhamService = new KhuyenMaiSanPhamService();
+            _khuyenMaiService = new KhuyenMaiService();
         }
         #endregion
 
@@ -77,6 +80,15 @@ namespace CTN4_View.Controllers.Shop
         [HttpGet]
         public IActionResult GioHang()
         {
+            var KhuyenMaiSp = _khuyenMaiSanPhamService.GetAll().Where(c=>c.KhuyenMai.Mua1tang1 == true).ToList();
+            var a = new List<Guid>();
+
+            foreach(var item in KhuyenMaiSp)
+            {
+                a.Add((Guid)item.IdSanPham);
+            }
+            var listSp11 = _sanPhamService.GetAll().Where(c=>a.Contains(c.Id)).ToList();
+            
             var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
             float tong = 0;
             if (accnew.Count != 0)
@@ -92,7 +104,8 @@ namespace CTN4_View.Controllers.Shop
                 {
                     GioHangChiTiets = ghct,
                     TongTien = tong,
-                    anhs = anh
+                    anhs = anh,
+                    sanPham11 = listSp11,
                 };
                 return View(view2);
             }

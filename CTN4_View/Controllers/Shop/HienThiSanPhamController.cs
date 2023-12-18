@@ -41,7 +41,7 @@ namespace CTN4_View.Controllers.Shop
         public PagingInfo _pagingInfo;
         public ISanPhamService _sanphamService;
         public IKhachHangService _khachHangService;
-         public IKhuyenMaiSanPhamService _kmspService;
+        public IKhuyenMaiSanPhamService _kmspService;
         public HienThiSanPhamController(IGioHangService giohang)
 
         //public IKhuyenMaiSanPhamService _kmspService;
@@ -68,9 +68,9 @@ namespace CTN4_View.Controllers.Shop
             _kmspService = new KhuyenMaiSanPhamService();
         }
 
-        public IActionResult HienThiSanPham(int page, int Soluonghienthi , string load, string sortOrder = "")
+        public IActionResult HienThiSanPham(int page, int Soluonghienthi, string load, string sortOrder = "")
         {
-            if( load == "a")
+            if (load == "a")
             {
                 if (Soluonghienthi == 0) { Soluonghienthi = 6; }
                 if (page == 0) { page = 1; }
@@ -84,7 +84,7 @@ namespace CTN4_View.Controllers.Shop
                 var mauSacs = _mauSacService.GetAll();
                 var khachhang = _khachHangService.GetAll();
                 var khuyenMaiSp = _kmspService.GetAll().Where(c => c.KhuyenMai.TrangThai == true && c.KhuyenMai.Is_Detele == false && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now).ToList();
-               
+
                 var view = new HienThiSanPhamView()
                 {
                     danhMucs = danhMuc,
@@ -109,7 +109,7 @@ namespace CTN4_View.Controllers.Shop
                 };
                 return View(view);
             }
-            
+
             var luuGiaBatDau = SessionBan.Sobatdau(HttpContext.Session, "minPrice");
             var luuGiaKetThuc = SessionBan.Sobatdau(HttpContext.Session, "maxPrice");
             var LuuTamCl = SessionBan.ChatLieuSS(HttpContext.Session, "ChatLieuTam");
@@ -557,6 +557,19 @@ namespace CTN4_View.Controllers.Shop
             var mau = _mauSacService.GetAll().ToList();
             var spctcuthe = _CTN4_Ok.SanPhamChiTiets.Include(c => c.Size).ToList().Where(c => c.IdSp == id && c.Is_detele == true);
             var SpYt = _chiTietSanPhamYeuThichService.GetAll();
+            var splienquan = _danhMucChiTiet.GetAll().Where(c => c.IdSanPham == id && c.DanhMuc.Is_detele == true);
+            var a = new List<Guid>();
+            foreach (var i in splienquan)
+            {
+                a.Add((Guid)i.IdDanhMuc);
+            }
+            var listDanhMucLq = _danhMucChiTiet.GetAll().Where(c => a.Contains((Guid)c.IdDanhMuc) && c.DanhMuc.Is_detele == true).ToList();
+            var b = new List<Guid>();
+            foreach (var i in listDanhMucLq)
+            {
+                b.Add((Guid)i.IdSanPham);
+            }
+             var listSanPhamLq = _sanphamService.GetAll().Where(c => b.Contains((Guid)c.Id) && c.Is_detele == true).ToList();
             var view = new SanPhamBan()
             {
                 sanPham = _sanPhamCuaHangService.GetById(id),
@@ -565,10 +578,11 @@ namespace CTN4_View.Controllers.Shop
                 maus = mau,
                 sizect = spctcuthe.ToList(),
                 anhs = anh,
-                sanPhams = listsp,
+                //sanPhams = listsp,
+                sanPhams = listSanPhamLq,
                 giamgias = giamgia,
-                sanPhamYeuThiches =SpYt,
-                
+                sanPhamYeuThiches = SpYt,
+
             };
             return View(view);
 
@@ -597,7 +611,7 @@ namespace CTN4_View.Controllers.Shop
                 anhs = anh.Where(c => c.SanPhamChiTiet.IdMau == IdMau && c.SanPhamChiTiet.IdSp == IdSanPham).ToList(),
                 sanPhams = listsp,
                 idmau = IdMau,
-                giamgias = giamgia, 
+                giamgias = giamgia,
                 sanPhamYeuThiches = SpYt,
             };
             return View("HienThiSanPhamChiTiet", view);
@@ -620,7 +634,7 @@ namespace CTN4_View.Controllers.Shop
             var size = _CTN4_Ok.SanPhamChiTiets.Include(c => c.Size).Where(c => c.IdMau == IdMau && c.IdSp == IdSanPham).ToList();
             var spcuthe = _CTN4_Ok.SanPhamChiTiets.FirstOrDefault(c => c.IdMau == IdMau && c.IdSp == IdSanPham && c.IdSize == idSize && c.Is_detele == true);
             var giamgia = _giamGiaService.GetAll().Where(c => c.TrangThai == true && c.Is_detele == true && c.NgayBatDau <= DateTime.Now && c.NgayKetThuc >= DateTime.Now).ToList();
-             var SpYt = _chiTietSanPhamYeuThichService.GetAll();
+            var SpYt = _chiTietSanPhamYeuThichService.GetAll();
             var view = new SanPhamBan()
             {
                 sanPham = _sanPhamCuaHangService.GetById(IdSanPham),

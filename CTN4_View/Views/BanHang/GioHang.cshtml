@@ -49,11 +49,22 @@
                         </tr>
                     </thead>
                     <tbody>
-                       
+                        @{
+
+                            var b = new List<Guid>();
+                            foreach (var sp11 in Model.sanPham11)
+                            {
+                                // Kiểm tra xem Mau.Id đã xuất hiện trong danh sách chưa
+                                if (!b.Contains(sp11.Id))
+                                {
+                                    b.Add(sp11.Id);
+                                }
+                            }
+                        }
                         @foreach (var a in Model.GioHangChiTiets)
                         {
                             <tr>
-                                
+
                                 <td>
                                     @if (System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".jpg" ||
                                    System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".png" ||
@@ -63,9 +74,9 @@
                                    System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".gif")
                                     {
                                         <a href="@Url.Action("HienThiSanPhamChiTiet", "HienThiSanPham", new {  id=a.SanPhamChiTiet.SanPham.Id })">
-                                       
+
                                             <img src="~/image/@a.SanPhamChiTiet.SanPham.AnhDaiDien" height="150">
-                                             </a>
+                                        </a>
                                     }
                                     else
                                     {
@@ -73,20 +84,21 @@
                                     }
                                 </td>
                                 <td>
-                                     <div><b style="color:#5a6a85">Tên: </b>@a.SanPhamChiTiet.SanPham.TenSanPham</div>
-                                     <div><b style="color:#5a6a85">Màu: </b>@a.SanPhamChiTiet.Mau.TenMau</div>
-                                     <div><b style="color:#5a6a85">Size: </b>@a.SanPhamChiTiet.Size.CoSize</div>
+                                    <div><b style="color:#5a6a85">Tên: </b>@a.SanPhamChiTiet.SanPham.TenSanPham</div>
+                                    <div><b style="color:#5a6a85">Màu: </b>@a.SanPhamChiTiet.Mau.TenMau</div>
+                                    <div><b style="color:#5a6a85">Size: </b>@a.SanPhamChiTiet.Size.CoSize</div>
                                 </td>
                                 <td>
                                     <h5>@FormatCurrency(a.SanPhamChiTiet.SanPham.GiaNiemYet)</h5>
                                 </td>
                                 <td>
                                     <h5> @a.SoLuong</h5>
+                                  
                                 </td>
                                 <td>
                                     <h5>@FormatCurrency(a.SanPhamChiTiet.SanPham.GiaNiemYet *a.SoLuong)</h5>
                                 </td>
-                                
+
                                 <td>
                                     <button href="#" class="delete-link custom-button" data-id="@a.Id">
                                         Xóa
@@ -105,21 +117,21 @@
                         }
 
                         @*<tr class="bottom_button">
-                            <td>
-                                @foreach (var a in Model.GioHangChiTiets){
-                                <a class="gray_btn" href="@Url.Action("HienThiSanPhamChiTiet", "HienThiSanPham", new {  id=a.SanPhamChiTiet.SanPham.Id })">Quay lại sản phẩm</a>}
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
+                        <td>
+                        @foreach (var a in Model.GioHangChiTiets){
+                        <a class="gray_btn" href="@Url.Action("HienThiSanPhamChiTiet", "HienThiSanPham", new {  id=a.SanPhamChiTiet.SanPham.Id })">Quay lại sản phẩm</a>}
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
 
-                            <td>
-                            </td>
+                        <td>
+                        </td>
                         </tr>*@
                         <tr>
                             <td>
@@ -169,7 +181,7 @@
     </div>
 </section>
 <style>
-  
+
 
     .custom-button {
         padding: 10px 20px;

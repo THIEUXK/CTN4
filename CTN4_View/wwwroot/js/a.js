@@ -62,7 +62,7 @@
                 }
             })
         }
-       
+
     });
     $(document).on('click', '.btnXuatEx2', function () {
         var isConfirmed = confirm("Bạn có chắc chắn muốn xuất File Excel?");
@@ -105,7 +105,7 @@
                 }
             })
         }
-       
+
     });
     var count = 0;
     var downloadURL = function downloadURL(url) {
@@ -277,7 +277,7 @@
                 },
                 contentType: 'application/json',
                 success: function (result) {
-                  
+
                     var x1 = result.TienShip;
                     x1 = x1.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
                     var x2 = result.totaloder;
@@ -332,3 +332,49 @@
     //});
 
 });
+//////////////////// validate
+
+function validateNameInput(input) {
+    debugger
+    var inputValue = input.value;
+
+    // Sử dụng regex để kiểm tra xem chỉ có chữ cái và dấu tiếng Việt hay không
+    var regex = /^[a-zA-ZÀ-Ỹà-ỹ ]+$/;
+
+    if (!regex.test(inputValue)) {
+        document.getElementById('nameError').innerHTML = '*Họ và tên chỉ được chứa chữ cái và dấu tiếng Việt.';
+        // Nếu muốn xóa ký tự không hợp lệ, có thể sử dụng dòng sau đây
+        // input.value = inputValue.replace(/[^a-zA-ZÀ-Ỹà-ỹ ]+/g, '');
+    } else {
+        document.getElementById('nameError').innerHTML = '';
+    }
+}
+
+
+function validateName() {
+    // Lấy giá trị từ ô input
+    var nameInput = document.getElementById('first').value;
+
+    // Sử dụng biểu thức chính quy để kiểm tra chỉ chấp nhận chữ Tiếng Việt
+    var regex = /^[a-zA-Z\sàáạãảăắằẵặẳâầấậẫẩèéẹẽẻêềếệễểđìíịĩỉòóọõỏôồốộỗổơờớợỡởùúụũủưừứựữửỳýỵỹỷ]+$/;
+
+    // Kiểm tra điều kiện và hiển thị thông báo
+    if (!regex.test(nameInput)) {
+        document.getElementById('nameError').innerHTML = 'Tên chỉ được chứa chữ Tiếng Việt và không chấp nhận kí tự đặc biệt hoặc số.';
+    } else {
+        document.getElementById('nameError').innerHTML = '';
+    }
+}
+function validateEmail() {
+        var emailInput = document.getElementById('email').value;
+        var emailError = document.getElementById('emailError');
+
+        // Biểu thức chính quy để kiểm tra định dạng email
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailRegex.test(emailInput)) {
+            emailError.innerHTML = 'Địa chỉ email không hợp lệ.';
+        } else {
+            emailError.innerHTML = '';
+        }
+    }
