@@ -92,11 +92,18 @@
                                     <h5>@FormatCurrency(a.SanPhamChiTiet.SanPham.GiaNiemYet)</h5>
                                 </td>
                                 <td>
-                                    <h5> @a.SoLuong</h5>
-                                  
+                                    @if (b.Contains(a.SanPhamChiTiet.SanPham.Id))
+                                    {
+                                        <h5> @a.SoLuong*2</h5>
+                                    }
+                                    else
+                                    {
+                                        <h5> @a.SoLuong</h5>
+                                    }
+                                   
                                 </td>
                                 <td>
-                                    <h5>@FormatCurrency(a.SanPhamChiTiet.SanPham.GiaNiemYet *a.SoLuong)</h5>
+                                    <h5>@FormatCurrency(a.SanPhamChiTiet.SanPham.GiaNiemYet * a.SoLuong)</h5>
                                 </td>
 
                                 <td>
