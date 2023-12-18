@@ -1,0 +1,89 @@
+﻿@model CTN4_Data.Models.DB_CTN4.KhachHang
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="card w-100">
+    <div class="card-body p-4">
+        <br></br>
+        <br></br>
+        <div>
+            <h4>Thông tin khách hàng</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2">
+                    Họ
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Ho)
+                </dd>
+                <dt class="col-sm-2">
+                    Tên
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Ten)
+                </dd>
+                <dt class="col-sm-2">
+                    giới tính
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.GioiTinh)
+                </dd>
+                <dt class="col-sm-2">
+                   Tên đăng nhập
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.TenDangNhap)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Email)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Email)
+                </dd>
+                <dt class="col-sm-2">
+                   Số điện thoại
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.SDT)
+                </dd>
+                <dt class="col-sm-2">
+                    Địa chỉ
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.DiaChi)
+                </dd>
+                <dt class="col-sm-2">
+                   Ảnh đại hiện
+                </dt>
+                <dd class="col-sm-10">
+                  
+                    @if (System.IO.Path.GetExtension(Model.AnhDaiDien) == ".jpg" ||
+                         System.IO.Path.GetExtension(Model.AnhDaiDien) == ".png" ||
+                         System.IO.Path.GetExtension(Model.AnhDaiDien) == ".jpeg" ||
+                         System.IO.Path.GetExtension(Model.AnhDaiDien) == ".tiff" ||
+                         System.IO.Path.GetExtension(Model.AnhDaiDien) == ".webp" ||
+                         System.IO.Path.GetExtension(Model.AnhDaiDien) == ".gif")
+                    {
+                        <img src="~/image/@Model.AnhDaiDien" height="100">
+                    }
+                    else
+                    {
+                        <a>ảnh lỗi</a>
+                    }
+                </dd>
+            </dl>
+        </div>
+        <div>
+            @Html.ActionLink("Chi tiết", "Details",new { id=Model.Id }, new { style = "text-decoration: none; color: black;" }) |
+            <a asp-action="Index" style="color: black;">Quay về</a>
+        </div>
+
+
+
+    </div>
+</div>
+
+

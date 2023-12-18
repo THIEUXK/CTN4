@@ -1,0 +1,64 @@
+﻿@model CTN4_Data.Models.DB_CTN4.PhanLoai
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+<div class="row">
+    <div class="col-md-9">
+        <br></br>
+        <br></br>
+       
+        <h1>Edit</h1>
+
+        <h4>PhanLoai</h4>
+        <hr />
+        <div class="row">
+            <div class="col-md-9">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Id" class="control-label"></label>
+                        <input asp-for="Id" class="form-control" />
+                        <span asp-validation-for="Id" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TenPhanLoai" class="control-label"></label>
+                        <input asp-for="TenPhanLoai" class="form-control" />
+                        <span asp-validation-for="TenPhanLoai" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="GhiChu" class="control-label"></label>
+                        <input asp-for="GhiChu" class="form-control" />
+                        <span asp-validation-for="GhiChu" class="text-danger"></span>
+                    </div>
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="TrạngThai" /> @Html.DisplayNameFor(model => model.TrạngThai)
+                        </label>
+                    </div>
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="Is_Delete" /> @Html.DisplayNameFor(model => model.Is_Delete)
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                    <div>
+                        <h4>_________________________________________________</h4>
+                        <a asp-action="Index">Back to List</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+

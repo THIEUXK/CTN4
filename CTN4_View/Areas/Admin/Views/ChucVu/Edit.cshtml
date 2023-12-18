@@ -1,0 +1,46 @@
+﻿@model CTN4_Data.Models.DB_CTN4.ChucVu
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div>
+    <a asp-action="Index" style="color: black;">Quay về</a>
+</div>
+<div class="row">
+    <div class="col-md-9">
+        <br></br>
+        <br></br>
+        <h1>Chỉnh sửa</h1>
+
+        <h4>Chức vụ</h4>
+        <hr />
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="TenChucVu" class="control-label">Tên chức vụ</label>
+                        <input asp-for="TenChucVu" class="form-control" />
+                        <span asp-validation-for="TenChucVu" class="text-danger"></span>
+                    </div>
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="TrangThai" />Trạng thái
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Lưu" class="btn btn-primary" />
+                    </div>
+                    <div>
+                        <h4>_________________________________________________</h4>
+                        <a asp-action="Index" style="color: black;">Quay về</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+</div>

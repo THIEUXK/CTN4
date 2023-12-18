@@ -1,0 +1,763 @@
+﻿@model CTN4_Serv.ViewModel.ThieuxkView
+@{
+    ViewData["Title"] = "HoaDonChiTiet";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br></br>
+<section class="tracking_box_area section_gap">
+    <div class="container">
+        @if (TempData["TB4"] != null)
+        {
+            <div class="alert alert-danger">@TempData["TB4"]</div>
+        }
+        <a asp-action="HoaDon" class="btn btn-warning" data-abc="true"> <i class="fa fa-chevron-left"></i> Quay về</a>
+        <br />
+        <article class="card">
+            <div class="card-body">
+                <h6>
+                    Tinh trạng đơn hàng:
+                    @if (Model.HoaDon.TrangThai == "Đơn hàng bị hủy")
+                    {
+                        <b>Đơn hàng đã bị hủy</b>
+                    }
+                    else
+                    {
+                        <b>Bình thường</b>
+                    }
+                </h6>
+                <div class="track">
+                    <div class="step active"> <span class="icon"> <i class="fa1 fa-check"></i> </span> <span class="text">Đơn hàng đã được đặt</span><span class="timea">@Model.HoaDon.NgayDat</span> </div>
+                    @if (Model.HoaDon.TrangThai != "Đang chờ xử lí")
+                    {
+                        <div class="step active"> <span class="icon"> <i class="fa1 fa-user"></i> </span> <span class="text">Xác nhận thông tin</span> </div>
+                        <div class="step active"> <span class="icon"> <i class="fa1 fa-truck"></i> </span> <span class="text">Đang chuẩn bị hàng</span></div>
+                    }
+                    else
+                    {
+                        <div class="step"> <span class="icon"> <i class="fa1 fa-user"></i> </span> <span class="text">Xác nhận thông tin</span> </div>
+                        <div class="step "> <span class="icon"> <i class="fa1 fa-truck"></i> </span> <span class="text">Đang chuẩn bị hàng</span></div>
+                    }
+                    @if (Model.HoaDon.NgayGiao != null)
+                    {
+                        <div class="step active">
+                            <span class="icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="40" fill="currentColor" class="bi bi-box-seam-fill" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M15.528 2.973a.75.75 0 0 1 .472.696v8.662a.75.75 0 0 1-.472.696l-7.25 2.9a.75.75 0 0 1-.557 0l-7.25-2.9A.75.75 0 0 1 0 12.331V3.669a.75.75 0 0 1 .471-.696L7.443.184l.01-.003.268-.108a.75.75 0 0 1 .558 0l.269.108.01.003 6.97 2.789ZM10.404 2 4.25 4.461 1.846 3.5 1 3.839v.4l6.5 2.6v7.922l.5.2.5-.2V6.84l6.5-2.6v-.4l-.846-.339L8 5.961 5.596 5l6.154-2.461z" />
+                                </svg>
+                            </span> <span class="text">Đang giao hàng </span><span class="timea">@Model.HoaDon.NgayGiao</span>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="step ">
+                            <span class="icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="40" fill="currentColor" class="bi bi-box-seam-fill" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M15.528 2.973a.75.75 0 0 1 .472.696v8.662a.75.75 0 0 1-.472.696l-7.25 2.9a.75.75 0 0 1-.557 0l-7.25-2.9A.75.75 0 0 1 0 12.331V3.669a.75.75 0 0 1 .471-.696L7.443.184l.01-.003.268-.108a.75.75 0 0 1 .558 0l.269.108.01.003 6.97 2.789ZM10.404 2 4.25 4.461 1.846 3.5 1 3.839v.4l6.5 2.6v7.922l.5.2.5-.2V6.84l6.5-2.6v-.4l-.846-.339L8 5.961 5.596 5l6.154-2.461z" />
+                                </svg>
+                            </span><span class="text">Đang giao hàng </span>
+                        </div>
+                    }
+                    @if (Model.HoaDon.TrangThai == "Giao hàng thành công")
+                    {
+                        <div class="step active">
+                            <span class="icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="40" fill="currentColor" class="bi bi-bookmark-check" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
+                                    <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z" />
+                                </svg>
+                            </span> <span class="text">Nhận hàng thành công</span><span class="timea">@Model.HoaDon.NgayNhan</span>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="step">
+                            <span class="icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="40" fill="currentColor" class="bi bi-bookmark-check" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
+                                    <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z" />
+                                </svg>
+                            </span> <span class="text">Nhận hàng thành công</span>
+                        </div>
+                    }
+
+                </div>
+                <hr>
+                <hr>
+            </div>
+        </article>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Ảnh sản phẩm</th>
+                                <th>Thông tin sản phẩm</th>
+                                <th>Số Lượng</th>
+                                <th>Giá Tiền</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.hoaDonChiTiets)
+                            {
+                                <tr>
+                                    <td>
+                                        @if (System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".jpg" ||
+                                       System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".png" ||
+                                       System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".jpeg" ||
+                                       System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".tiff" ||
+                                       System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".webp" ||
+                                       System.IO.Path.GetExtension(item.SanPhamChiTiet.SanPham.AnhDaiDien) == ".gif")
+                                        {
+                                            <a href="@Url.Action("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = item.SanPhamChiTiet.SanPham.Id })">
+                                                <img src="~/image/@item.SanPhamChiTiet.SanPham.AnhDaiDien" height="100">
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a>ảnh lỗi</a>
+                                        }
+                                    </td>
+                                    <td>
+                                        <div><b style="color:#5a6a85">Tên: </b>@item.SanPhamChiTiet.SanPham.TenSanPham</div>
+                                        <div><b style="color:#5a6a85">Màu: </b>@item.SanPhamChiTiet.Mau.TenMau</div>
+                                        <div><b style="color:#5a6a85">Size: </b>@item.SanPhamChiTiet.Size.CoSize</div>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SoLuong)
+                                    </td>
+                                    <td>
+                                        @Html.Raw(FormatCurrency(item.GiaTien))
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Thông tin thanh toán</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                var listhoadon = Model.hoaDonChiTiets.Where(c => c.IdHoaDon == Model.HoaDon.Id).ToList();
+                                float TongTienHang = 0;
+                                foreach (var a in listhoadon)
+                                {
+                                    TongTienHang += a.GiaTien * a.SoLuong;
+                                }
+                            }
+                            <tr>
+                                <td>
+                                    <!-- Thông tin thanh toán -->
+                                    <div><b style="color:#5a6a85">Tổng tiền hàng: </b>@FormatCurrency(Model.HoaDon.TienHang)</div>
+                                    <div><b style="color:#5a6a85">Chi phí vận chuyển: </b>@Html.Raw(FormatCurrency(Model.HoaDon.TienShip))</div>
+                                    <div><b style="color:#5a6a85">Tổng tiền : </b>@Html.Raw(FormatCurrency(Model.HoaDon.TienHang + Model.HoaDon.TienShip))</div>
+                                    <div><b style="color:#5a6a85">Tiền giảm giá: </b>@Html.Raw(FormatCurrency(Model.HoaDon.TienGiam))</div>
+                                    <div><b style="color:#5a6a85">Thành tiền: </b>@Html.Raw(FormatCurrency(Model.HoaDon.TongTien))</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="table-container">
+                    @{
+                        var dem = @Model.LichSuDonHangs.Count();
+                    }
+                    <div class="page-content page-container" id="page-content">
+                        <p>Chi tiết tình trạng</p>
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-custom-rangen " data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                Xem
+                            </button>
+                            <div class="dropdown-menu p-4">
+                                <div class="timeline p-4 block mb-4">
+                                    @if (Model.LichSuDonHangs != null)
+                                    {
+                                        @foreach (var a in Model.LichSuDonHangs.Where(c => c.TrangThai == true))
+                                        {
+                                            if (a.Id == @Model.LichSuDonHangs[0].Id)
+                                            {
+                                                <div class="tl-item active">
+                                                    <div class="tl-dot b-warning"></div>
+                                                    <div class="tl-content">
+                                                        <div class=""> @a.ThaoTac</div>
+                                                        <div class="tl-date text-muted mt-1">@a.ThoiGianlam</div>
+                                                    </div>
+                                                </div>
+                                            }
+                                            else if (a.Id == @Model.LichSuDonHangs[dem - 1].Id)
+                                            {
+
+                                                <div class="tl-item">
+                                                    <div class="tl-dot b-primary"></div>
+                                                    <div class="tl-content">
+                                                        <div class=""> @a.ThaoTac</div>
+                                                        <div class="tl-date text-muted mt-1">@a.ThoiGianlam</div>
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="tl-item">
+                                                    <div class="tl-dot b-warning"></div>
+                                                    <div class="tl-content">
+                                                        <div class=""> @a.ThaoTac</div>
+                                                        <div class="tl-date text-muted mt-1">@a.ThoiGianlam</div>
+                                                    </div>
+                                                </div>
+                                            }
+
+                                        }
+
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="table-container">
+                    <div>
+                        <dl class="row invoice-details">
+                            <dt class="col-sm-5">
+                                Mã đơn hàng
+                            </dt>
+                            <dd class="col-sm-7">
+                                @Html.DisplayFor(model => model.HoaDon.MaHoaDon)
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <div class="invoice-title">
+                        Thông tin khách hàng
+                    </div>
+                    <div>
+                        <hr/>
+                        <dl class="row invoice-details">
+                            <dt class="col-sm-5">
+                                Tên khách hàng
+                            </dt>
+                            <dd class="col-sm-7">
+                                @Html.DisplayFor(model => model.HoaDon.TenKhachHang)
+                            </dd>
+                            <dt class="col-sm-5">
+                                Email
+                            </dt>
+                            <dd class="col-sm-7">
+                                @Html.DisplayFor(model => model.HoaDon.Email)
+                            </dd>
+                            <dt class="col-sm-5">
+                                Số điện thoại người nhận
+                            </dt>
+                            <dd class="col-sm-7">
+                                @Html.DisplayFor(model => model.HoaDon.SDTNguoiNhan)
+                            </dd>
+
+                            <dt class="col-sm-5">
+                                Địa chỉ
+                            </dt>
+                            <dd class="col-sm-7">
+                                @Html.DisplayFor(model => model.HoaDon.DiaChi)
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+
+            </div>
+            <div>
+                <br />
+                <div>
+                    <div class="col-md-8 offset-md-2">
+                        <div class="button-container text-center">
+                            @if (Model.HoaDon.TrangThai != "Đơn hàng bị hủy")
+                            {
+                                <div class="dropdown">
+                                    <button type="button" class="btn btn-custom-rangen " data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                        Hủy đơn hàng
+                                    </button>
+                                    <div class="dropdown-menu p-4">
+                                        <form asp-action="huydonKH">
+                                            <input type="hidden" name="id" value="@Model.HoaDon.Id">
+                                            <div class="form-group">
+                                                <label for="GhiChu" class="col-form-label">Lý do hủy đơn</label>
+                                                <textarea name="LyDo" class="form-control"></textarea>
+                                            </div>
+                                            <br />
+                                            <div class="form-row">
+                                                <div class="col">
+                                                    <button type="submit" class="btn btn-custom-primary">Hủy đơn</button>
+                                                </div>
+                                                <div class="col-auto text-right"></div>
+                                            </div>
+                                            <br />
+                                        </form>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div style="color:red">Đơn hàng của bạn đã bị hủy</div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+@* Thông báo lỗi*@
+
+
+@*</section>*@
+<script>
+    @functions {
+        public string FormatCurrency(float? price)
+        {
+            string formattedPrice = string.Format("{0:N0}", price); // Định dạng số và thêm dấu phân cách ngàn
+            return formattedPrice + " VND"; // Thêm ký hiệu đồng (₫) vào cuối
+        }
+    };
+
+
+</script>
+
+<style>
+    .fa1 {
+        display: inline-block;
+        font: normal normal normal 14px/3 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale
+    }
+    .page-container {
+        max-width: 1140px;
+        margin: 0 auto
+    }
+
+    .page-sidenav {
+        display: block !important
+    }
+
+    }
+
+    .padding {
+        padding: 2rem
+    }
+
+    .w-32 {
+        width: 32px !important;
+        height: 32px !important;
+        font-size: .85em
+    }
+
+    .tl-item .avatar {
+        z-index: 2
+    }
+
+    .circle {
+        border-radius: 500px
+    }
+
+    .gd-warning {
+        color: #fff;
+        border: none;
+        background: #f4c414 linear-gradient(45deg, #f4c414, #f45414)
+    }
+
+    .timeline {
+        position: relative;
+        border-color: rgba(160, 175, 185, .15);
+        padding: 0;
+        margin: 0
+    }
+
+    .p-4 {
+        padding: 1.5rem !important
+    }
+
+    .block,
+    .card {
+        background: #fff;
+        border-width: 0;
+        border-radius: .25rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, .05);
+        margin-bottom: 1.5rem
+    }
+
+    .mb-4,
+    .my-4 {
+        margin-bottom: 1.5rem !important
+    }
+
+    .tl-item {
+        border-radius: 3px;
+        position: relative;
+        display: -ms-flexbox;
+        display: flex
+    }
+
+        .tl-item > * {
+            padding: 10px
+        }
+
+        .tl-item .avatar {
+            z-index: 2
+        }
+
+        .tl-item:last-child .tl-dot:after {
+            display: none
+        }
+
+        .tl-item.active .tl-dot:before {
+            border-color: #448bff;
+            box-shadow: 0 0 0 4px rgba(68, 139, 255, .2)
+        }
+
+        .tl-item:last-child .tl-dot:after {
+            display: none
+        }
+
+        .tl-item.active .tl-dot:before {
+            border-color: #448bff;
+            box-shadow: 0 0 0 4px rgba(68, 139, 255, .2)
+        }
+
+    .tl-dot {
+        position: relative;
+        border-color: rgba(160, 175, 185, .15)
+    }
+
+        .tl-dot:after,
+        .tl-dot:before {
+            content: '';
+            position: absolute;
+            border-color: inherit;
+            border-width: 2px;
+            border-style: solid;
+            border-radius: 50%;
+            width: 10px;
+            height: 10px;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%)
+        }
+
+        .tl-dot:after {
+            width: 0;
+            height: auto;
+            top: 25px;
+            bottom: -15px;
+            border-right-width: 0;
+            border-top-width: 0;
+            border-bottom-width: 0;
+            border-radius: 0
+        }
+
+    tl-item.active .tl-dot:before {
+        border-color: #448bff;
+        box-shadow: 0 0 0 4px rgba(68, 139, 255, .2)
+    }
+
+    .tl-dot {
+        position: relative;
+        border-color: rgba(160, 175, 185, .15)
+    }
+
+        .tl-dot:after,
+        .tl-dot:before {
+            content: '';
+            position: absolute;
+            border-color: inherit;
+            border-width: 2px;
+            border-style: solid;
+            border-radius: 50%;
+            width: 10px;
+            height: 10px;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%)
+        }
+
+        .tl-dot:after {
+            width: 0;
+            height: auto;
+            top: 25px;
+            bottom: -15px;
+            border-right-width: 0;
+            border-top-width: 0;
+            border-bottom-width: 0;
+            border-radius: 0
+        }
+
+    .tl-content p:last-child {
+        margin-bottom: 0
+    }
+
+    .tl-date {
+        font-size: .85em;
+        margin-top: 2px;
+        min-width: 100px;
+        max-width: 100px
+    }
+
+    .avatar {
+        position: relative;
+        line-height: 1;
+        border-radius: 500px;
+        white-space: nowrap;
+        font-weight: 700;
+        border-radius: 100%;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-negative: 0;
+        flex-shrink: 0;
+        border-radius: 500px;
+        box-shadow: 0 5px 10px 0 rgba(50, 50, 50, .15)
+    }
+
+    .b-warning {
+        border-color: #f4c414 !important;
+    }
+
+    .b-primary {
+        border-color: #448bff !important;
+    }
+
+    .b-danger {
+        border-color: #f54394 !important;
+    }
+
+    .card {
+        position: relative;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 0.10rem
+    }
+
+    .card-header:first-child {
+        border-radius: calc(0.37rem - 1px) calc(0.37rem - 1px) 0 0
+    }
+
+    .card-header {
+        padding: 0.75rem 1.25rem;
+        margin-bottom: 0;
+        background-color: #fff;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1)
+    }
+
+    .track {
+        position: relative;
+        background-color: #ddd;
+        height: 7px;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        margin-bottom: 60px;
+        margin-top: 50px
+    }
+
+        .track .step {
+            -webkit-box-flex: 1;
+            -ms-flex-positive: 1;
+            flex-grow: 1;
+            width: 25%;
+            margin-top: -18px;
+            text-align: center;
+            position: relative
+        }
+
+            .track .step.active:before {
+                background: #FF5722
+            }
+
+            .track .step::before {
+                height: 7px;
+                position: absolute;
+                content: "";
+                width: 100%;
+                left: 0;
+                top: 18px
+            }
+
+            .track .step.active .icon {
+                background: #ee5435;
+                color: #fff
+            }
+
+        .track .icon {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            position: relative;
+            border-radius: 100%;
+            background: #ddd
+        }
+
+        .track .step.active .text {
+            font-weight: 400;
+            color: #000
+        }
+
+        .track .text {
+            display: block;
+            margin-top: 7px
+        }
+
+    .itemside {
+        position: relative;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        width: 100%
+    }
+
+        .itemside .aside {
+            position: relative;
+            -ms-flex-negative: 0;
+            flex-shrink: 0
+        }
+
+    .img-sm {
+        width: 80px;
+        height: 80px;
+        padding: 7px
+    }
+
+    ul.row, ul.row-sm {
+        list-style: none;
+        padding: 0
+    }
+
+    .itemside .info {
+        padding-left: 15px;
+        padding-right: 7px
+    }
+
+    .itemside .title {
+        display: block;
+        margin-bottom: 5px;
+        color: #212529
+    }
+
+    p {
+        margin-top: 0;
+        margin-bottom: 1rem
+    }
+
+    .btn-warning {
+        color: #ffffff;
+        background-color: #ee5435;
+        border-color: #ee5435;
+        border-radius: 1px
+    }
+
+        .btn-warning:hover {
+            color: #ffffff;
+            background-color: #ff2b00;
+            border-color: #ff2b00;
+            border-radius: 1px
+        }
+
+    .custom-edit-link {
+        color: black; /* Màu đỏ */
+        /* Các thuộc tính CSS khác nếu cần */
+    }
+</style>
+<script src="~/js/vendor/jquery-2.2.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.~/js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+        crossorigin="anonymous"></script>
+<script src="~/js/vendor/bootstrap.min.js"></script>
+<script src="~/js/jquery.ajaxchimp.min.js"></script>
+<script src="~/js/jquery.nice-select.min.js"></script>
+<script src="~/js/jquery.sticky.js"></script>
+<script src="~/js/nouislider.min.js"></script>
+<script src="~/js/countdown.js"></script>
+<script src="~/js/jquery.magnific-popup.min.js"></script>
+<script src="~/js/owl.carousel.min.js"></script>
+<!--gmaps Js-->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+<script src="~/js/gmaps.min.js"></script>
+<script src="~/js/main.js"></script>
+<style>
+    .invoice-container {
+        max-width: 600px;
+        margin: 0 auto;
+        border: 1px solid #ccc;
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .invoice-title {
+        text-align: center;
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .invoice-details dt {
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    .invoice-details dd {
+        margin-top: 10px;
+    }
+
+    .status-unavailable {
+        color: red;
+    }
+
+    .card {
+        width: 110%; /* Điều chỉnh giá trị width theo nhu cầu */
+        margin: auto; /* Đưa thẻ card vào giữa trang */
+    }
+</style>
+<style>
+    .table-container {
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+        padding: 20px;
+    }
+</style>
+<style>
+    .timea {
+        font-size: 12px; /* Điều chỉnh kích thước font */
+        opacity: 0.7; /* Điều chỉnh độ mờ */
+        font-family: Arial, sans-serif; /* Đổi kiểu chữ nếu cần */
+        /* Các thuộc tính khác tùy ý */
+    }
+</style>

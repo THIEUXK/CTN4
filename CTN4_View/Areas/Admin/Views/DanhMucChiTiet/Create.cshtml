@@ -1,0 +1,52 @@
+﻿@model CTN4_Serv.ViewModel.DanhMucChiTietView
+
+
+@{
+    
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-9">
+        <br></br>
+        <br></br>
+        <br></br>
+        <h1>Thêm mới</h1>
+
+        <h4>Danh mục chi tiết</h4>
+        <hr />
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="Create" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="IdSanPhamChiTiet">Sản phẩm chi tiết</label>
+                        <select asp-for="IdSanPhamChiTiet" class="form-control">
+                            <option value="">-- Select ChatLieu --</option>
+                            @foreach (var a in Model.sanPhamItems)
+                            {
+                                <option value="@a.Value">@a.Text</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="IdDanhMuc">Danh mục</label>
+                        <select asp-for="IdDanhMuc" class="form-control">
+                            <option value="">-- Select ChatLieu --</option>
+                            @foreach (var a in Model.danhMucItems)
+                            {
+                                <option value="@a.Value">@a.Text</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Thêm mới" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div>
+            <a asp-action="Index" style="color: black;">Quay về</a>
+        </div>
+

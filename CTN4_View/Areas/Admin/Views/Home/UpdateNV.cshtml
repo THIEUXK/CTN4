@@ -1,0 +1,76 @@
+﻿@model CTN4_Data.Models.DB_CTN4.NhanVien
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+
+}
+
+
+<hr />
+<div class="container mt-5" >
+    <div class="row justify-content-center" style="margin-top: 150px;">
+        <div class="col-md-6 blurry-border p-4">
+            <form asp-action="UpdateNv" method="post" >
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="Ho" class="control-label">Họ:</label>
+                    <input asp-for="Ho" class="form-control" />
+                    <span asp-validation-for="Ho" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Ten" class="control-label">Tên:</label>
+                    <input asp-for="Ten" class="form-control" />
+                    <span asp-validation-for="Ten" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="GioiTinh" class="control-label">Giới tính:</label>
+                    <select asp-for="GioiTinh" class="form-control">
+                        <option value="Nam">Nam</option>
+                        <option value="Nu">Nữ</option>
+                    </select>
+                    <span asp-validation-for="GioiTinh" class="text-danger"></span>
+                </div>
+                
+                    <input asp-for="TenDangNhap" class="form-control" type="hidden" />
+                  
+             
+                    <input asp-for="MatKhau" class="form-control" type="hidden" />
+                   
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label" >Email:</label>
+                    <input asp-for="Email" class="form-control" type="email" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SDT" class="control-label">Số điện thoại:</label>
+                    <input asp-for="SDT" class="form-control" />
+                    <span asp-validation-for="SDT" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DiaChi" class="control-label">Địa chỉ:</label>
+                    <input asp-for="DiaChi" class="form-control" />
+                    <span asp-validation-for="DiaChi" class="text-danger"></span>
+                </div>
+                <div class="form-group text-center">
+                    <input type="submit" style="margin-top: 20px;" value="Lưu" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="text-center mt-4">
+    <a asp-action="Index">Quay lại danh sách</a>
+</div>
+
+
+<style>
+    .blurry-border {
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+        backdrop-filter: blur(10px);
+        background-color: rgba(255, 255, 255, 0.8);
+    }
+</style>

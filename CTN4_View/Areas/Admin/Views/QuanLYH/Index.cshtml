@@ -1,0 +1,112 @@
+﻿@model IEnumerable<CTN4_Data.Models.DB_CTN4.SanPhamChiTiet>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<br></br>
+<br></br>
+<br></br>
+
+
+<h1>Index</h1>
+
+<p>
+    <button type="button" class="btn btn-warning btn-fw editable-click=" asp-action="Create"><a asp-action="Create" style="color:white">Thêm</a></button>
+
+</p>
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+                Ảnh đại diện
+            </th>
+            <th>
+                Tên sản phẩm
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.SoLuong)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrangThai)
+            </th>
+            <th>
+                Mau
+            </th>
+            <th>
+                Size
+            </th>
+          
+            <th>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <tb>
+                        @if (item != null && item.SanPham != null && item.SanPham.AnhDaiDien != null)
+                        {
+                            @if (System.IO.Path.GetExtension(item.SanPham.AnhDaiDien) == ".jpg" ||
+                           System.IO.Path.GetExtension(item.SanPham.AnhDaiDien) == ".png" ||
+                           System.IO.Path.GetExtension(item.SanPham.AnhDaiDien) == ".jpeg" ||
+                           System.IO.Path.GetExtension(item.SanPham.AnhDaiDien) == ".tiff" ||
+                           System.IO.Path.GetExtension(item.SanPham.AnhDaiDien) == ".webp" ||
+                           System.IO.Path.GetExtension(item.SanPham.AnhDaiDien) == ".gif")
+                            {
+                                <img src="~/image/@item.SanPham.AnhDaiDien" height="300">
+                            }
+                            else
+                            {
+                                <a>ảnh lỗi</a>
+                            }
+                        }
+                        else
+                        {
+                            <a>ảnh lỗi2</a>
+                        }
+
+                    </tb>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SanPham.TenSanPham)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SoLuong)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.TrangThai)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mau.TenMau)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Size.TenSize)
+                </td>
+                <td>
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script>
+    @functions {
+        public string FormatCurrency(float price)
+        {
+            string formattedPrice = string.Format("{0:N0}", price); // Định dạng số và thêm dấu phân cách ngàn
+            return formattedPrice + "₫"; // Thêm ký hiệu đồng (₫) vào cuối
+        }
+    };
+</script>

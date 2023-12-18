@@ -1,0 +1,618 @@
+﻿@using CTN4_View_Admin.Controllers.Shop;
+@using Microsoft.AspNetCore.Http;
+@model CTN4_Serv.ViewModel.HienThiSanPhamView;
+<br></br>
+<br></br>
+<br></br>
+
+<!-- End Banner Area -->
+<div class="container">
+
+    <form asp-action="Search" method="get" class="search-bar">
+        <input type="text" name="TenSp" class="search-input" placeholder="Nhập tên sản phẩm" />
+        <button class="search-button">
+            <a class="lnr lnr-magnifier" style="width: 25px; height: 25px;"></a>
+        </button>
+    </form>
+    <div class="row">
+        <div class="col-xl-3 col-lg-4 col-md-5">
+            <div class="sidebar-categories">
+                <div class="head">Danh mục sản phẩm</div>
+                <ul class="main-categories">
+                    <li class="main-nav-list">
+                        <from>
+                            @foreach (var sp in Model.danhMucs)
+                            {
+                                if ((Model.danhMucChiTiets.Where(c => c.IdDanhMuc == sp.Id).Count()) >= 1)
+                                {
+                                    <div style="display: flex; align-items: center;">
+                                        <a>@Html.ActionLink(sp.TenDanhMuc, "SanPhamDanhMuc", "DanhMucSanPham", new { id = sp.Id })</a>
+                                        <span>(@(Model.danhMucChiTiets.Where(c => c.IdDanhMuc == sp.Id).Count()))</span>
+                                    </div>
+                                }
+                            }
+                        </from>
+                    </li>
+                </ul>
+            </div>
+            <div class="sidebar-filter mt-50">
+                <div class="top-filter-head">Lọc sản phẩm</div>
+                <div class="common-filter">
+                    <div class="head">Chất Liệu</div>
+                    <form id="FillterChatLieu">
+                        <ul>
+                            @{
+                                var session = Context.Request.HttpContext.Session;
+                                var LuuTamCl = SessionBan.ChatLieuSS(session, "ChatLieuTam");
+                                var a = new List<Guid>();
+                                foreach (var i in LuuTamCl)
+                                {
+                                    a.Add(i.Id);
+                                }
+                            }
+                            @foreach (var chatLieu in Model.chatLieus)
+                            {
+                                if ((Model.sanPhams.Where(c => c.IdChatLieu == chatLieu.Id).Count()) >= 1)
+                                {
+                                    if (a.Contains(chatLieu.Id))
+                                    {
+                                        <li>
+                                            <input class="pixel-radio" type="checkbox" name="ChatLieu" value="@chatLieu.Id.ToString()" checked>
+                                            <label for="ChatLieu-@chatLieu.Id">
+                                                @chatLieu.TenChatLieu <span>
+                                                    (@(
+                                                       Model.sanPhams.Where(c => c.IdChatLieu == chatLieu.Id).Count()
+                                                       ))
+                                                </span>
+                                            </label>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li>
+                                            <input class="pixel-radio" type="checkbox" name="ChatLieu" value="@chatLieu.Id.ToString()">
+                                            <label for="ChatLieu-@chatLieu.Id">
+                                                @chatLieu.TenChatLieu <span>(@(Model.sanPhams.Where(c => c.IdChatLieu == chatLieu.Id).Count()))</span>
+                                            </label>
+                                        </li>
+                                    }
+                                }
+                            }
+
+                        </ul>
+                    </form>
+                    <div class="common-filter">
+                        <div class="head">Màu Sắc</div>
+                        <form id="FillterMauSac">
+                            <ul>
+                                @{
+                                    var session1 = Context.Request.HttpContext.Session;
+                                    var LuuTamMau = SessionBan.MauSacSS(session1, "MauSacTam");
+                                    var b = new List<Guid>();
+                                    foreach (var i in LuuTamMau)
+                                    {
+                                        b.Add(i.Id);
+                                    }
+                                }
+                                @foreach (var mau in Model.maus)
+                                {
+                                    if ((Model.sanPhamChiTiets.Where(c => c.IdMau == mau.Id).Count()) >= 1)
+                                    {
+                                        if (b.Contains(mau.Id))
+                                        {
+                                            <li>
+                                                <input class="pixel-radio" type="checkbox" name="MauSac" value="@mau.Id.ToString()" checked>
+                                                <label for="Mau-@mau.Id">
+                                                    @mau.TenMau
+                                                </label>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li>
+                                                <input class="pixel-radio" type="checkbox" name="MauSac" value="@mau.Id.ToString()">
+                                                <label for="Mau-@mau.Id">
+                                                    @mau.TenMau
+                                                </label>
+                                            </li>
+                                        }
+                                    }
+                                }
+
+                            </ul>
+                        </form>
+                    </div>
+
+                </div>
+
+
+                <div>
+
+                    <form>
+                        @{
+
+                            var session3 = Context.Request.HttpContext.Session;
+                            var luuGiaBatDau = SessionBan.Sobatdau(session3, "minPrice");
+                            var luuGiaKetThuc = SessionBan.Sobatdau(session3, "maxPrice");
+                        }
+                        <div class="common-filter my-custom-filter">
+                            <div class="head">Giá</div>
+                            <div class="form-group">
+                                <label for="tu">Từ</label>
+                                @if (luuGiaBatDau != null)
+                                {
+                                    <input type="text" class="price-input" id="minPrice" name="minPrice" value="@luuGiaBatDau" oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
+                                }
+                                else
+                                {
+                                    <input type="text" class="price-input" id="minPrice" name="minPrice" placeholder="Nhập giá từ" oninput="this.value = this.value.replace(/[^0-9]/g, '');"/>
+                                }
+                            </div>
+                            <div class="form-group">
+                                <label for="den">đến</label>
+                                @if (luuGiaKetThuc != null)
+                                {
+                                    <input type="text" class="price-input" id="maxPrice" name="maxPrice" value="@luuGiaKetThuc" oninput="this.value = this.value.replace(/[^0-9]/g, '');"/>
+                                }
+                                else
+                                {
+                                    <input type="text" class="price-input" id="maxPrice" name="maxPrice" placeholder="Nhập giá đến" oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
+                                }
+                            </div>
+                        </div>
+
+
+                        @* Thông báo AJAX *@
+                        <div id="aaa1"></div>
+                        <button asp-controller="HienThiSanPham" asp-action="HienThiSanPham" class="btn btn-primary btn-block enter-btn fa fa-search">
+                            Lọc
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-9 col-lg-8 col-md-7">
+            <!-- Start Filter Bar -->
+            <div class="filter-bar d-flex flex-wrap align-items-center">
+                <div class="sorting">
+                    <form asp-action="ChonShowSp" class="page-form">
+                        <select onchange="this.form.submit()" name="Soluonghienthi">
+                            @if (Model.soluonghienthi != null)
+                            {
+                                <option>Đang xem @Model.soluonghienthi</option>
+                            }
+                            <option value="10"> 10</option>
+                            <option value="15"> 15</option>
+                            <option value="15"> 20</option>
+                            <option value="50"> 50</option>
+                        </select>
+                    </form>
+                </div>
+                <div class="sorting mr-auto">
+                    <form asp-action="HienThiSanPham" method="get" class="page-form">
+                        <select name="sortOrder" onchange="this.form.submit()">
+                            @if (Model.SortOrder != null)
+                            {
+                                <option>Giá: @Model.SortOrder</option>
+                            }
+                            <option value="Cao xuống Thấp">Cao xuống Thấp</option>
+                            <option value="Thấp xuống Cao">Thấp xuống Cao</option>
+                        </select>
+                    </form>
+                </div>
+            </div>
+
+            <!-- End Filter Bar -->
+            <!-- Start Best Seller -->
+
+            <section class="lattest-product-area pb-40 category-list">
+                <br>
+                @if (TempData["Notification"] != null)
+                {
+                    <div class="alert alert-info">@TempData["Notification"]</div>
+                }
+                <br />
+                <div class="row" id="Fillter-sanPhams">
+                    @foreach (var sp in Model.sanphampaging)
+                    {
+                        <!-- single product -->
+                        {
+                            <div class="col-lg-4 col-md-6">
+                                <div class="single-product">
+                                    @if (System.IO.Path.GetExtension(sp.AnhDaiDien) == ".jpg" ||
+                                   System.IO.Path.GetExtension(sp.AnhDaiDien) == ".png" ||
+                                   System.IO.Path.GetExtension(sp.AnhDaiDien) == ".jpeg" ||
+                                   System.IO.Path.GetExtension(sp.AnhDaiDien) == ".tiff" ||
+                                   System.IO.Path.GetExtension(sp.AnhDaiDien) == ".webp" ||
+                                   System.IO.Path.GetExtension(sp.AnhDaiDien) == ".gif")
+                                    {
+                                        <div class="product-container">
+                                            <a href="@Url.Action("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = sp.Id })">
+
+                                                <img src="~/image/@sp.AnhDaiDien" height="300" alt="@sp.TenSanPham" />
+                                            </a>
+                                            @foreach (var km in Model.khuyenMaiSanPhams)
+                                            {
+                                                if (km.IdSanPham == sp.Id)
+                                                {
+
+                                                    if (km.KhuyenMai.PhanTramGiamGia != 0)
+                                                    {
+                                                        <div class="discount-tag">-@km.KhuyenMai.PhanTramGiamGia%</div>
+                                                    }
+                                                    else if (km.KhuyenMai.SoTienGiam != 0)
+                                                    {
+                                                        <div class="discount-tag">-@FormatCurrency(@km.KhuyenMai.SoTienGiam)</div>
+                                                    }
+                                                    else if (km.KhuyenMai.DongGia != 0)
+                                                    {
+
+                                                        <div class="discount-tag">Đồng giá chỉ còn @FormatCurrency(@km.KhuyenMai.DongGia)</div>
+                                                    }
+                                                    else if (km.KhuyenMai.Mua1tang1 == true)
+                                                    {
+                                                        <div class="discount-tag">Mua 1 tặng 1</div>
+                                                    }
+
+                                                    else
+                                                    {
+
+                                                    }
+                                                }
+                                            }
+
+                                        </div>
+
+
+
+
+                                    }
+                                    else
+                                    {
+                                        <span>Ảnh lỗi rồi =)))</span>
+                                    }
+                                    <div class="product-details">
+                                        <h6>
+                                            <a style="color: (internal value);"> @Html.ActionLink(sp.TenSanPham, "HienThiSanPhamChiTiet", new { id = sp.Id }) </a>
+                                        </h6>
+                                        <div class="price">
+                                            @if (sp.GiaNiemYet == sp.GiaBan)
+                                            {
+                                                <h6>@FormatCurrency(sp.GiaNiemYet)</h6>
+                                            }
+                                            else
+                                            {
+                                                <h6>@FormatCurrency(sp.GiaNiemYet)</h6>
+                                                <h6 class="l-through">@FormatCurrency(sp.GiaBan)</h6>
+                                            }
+                                        </div>
+                                        <div class="prd-bottom" style="display: flex;">
+                                            <a href="@Url.Action("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = sp.Id })" class="social-info">
+                                                <span class="ti-bag"></span>
+                                                <p class="hover-text">Thêm sản phẩm</p>
+                                                @Html.ActionLink("", "HienThiSanPhamChiTiet", new { id = sp.Id })
+                                            </a>
+                                            @if (Model.sanPhamYeuThiches.FirstOrDefault(c => c.IdSanPham == sp.Id) != null)
+                                            {
+                                                <form asp-controller="SanPhamYeuThich" asp-action="XoaKhoiYeuTich1">
+
+                                                    <input type="hidden" name="idSP" value="@sp.Id">
+                                                    <a onclick="onsubmit" class="social-info">
+                                                        <span class="lnr lnr-heart" style="background: linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);"><button onclick="onsubmit">  </button></span>
+
+                                                        <p type="button" onclick="onsubmit" class="hover-text">Yêu thích</p>
+                                                    </a>
+                                                </form>
+                                            }
+                                            else
+                                            {
+                                                <form asp-controller="SanPhamYeuThich" asp-action="ThemYeuThich">
+
+                                                    <input type="hidden" name="IdSanPham" value="@sp.Id">
+                                                    <a onclick="onsubmit" class="social-info">
+                                                        <span class="lnr lnr-heart"><button onclick="onsubmit">  </button></span>
+
+                                                        <p type="button" onclick="onsubmit" class="hover-text">Yêu thích</p>
+                                                    </a>
+                                                </form>
+                                            }
+
+                                            <a href="" class="social-info">
+                                                <span class="lnr lnr-sync"></span>
+                                                <p class="hover-text">compare</p>
+                                            </a>
+                                            <a href="@Url.Action("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = sp.Id })" class="social-info">
+                                                <span class="lnr lnr-move"></span>
+                                                <p class="hover-text">Xem thêm</p>
+                                            </a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </section>
+
+            <!-- End Best Seller -->
+            <!-- Start Filter Bar -->
+            <div class="filter-bar d-flex flex-wrap align-items-center">
+                <div class="sorting mr-auto">
+                    <form asp-action="ChonShowSp" class="page-form">
+                        <select onchange="this.form.submit()" name="Soluonghienthi">
+                            @if (Model.soluonghienthi != null)
+                            {
+                                <option>Đang xem @Model.soluonghienthi</option>
+                            }
+                            <option value="10"> 10</option>
+                            <option value="15"> 15</option>
+                            <option value="15"> 20</option>
+                            <option value="50"> 50</option>
+                        </select>
+                    </form>
+                </div>
+
+                <div class="pagination2">
+          
+                    @for (int i = 1; i <= Model.pagingInfo.TotalPages; i++)
+                    {
+                        <form asp-action="HienThiSanPham" asp-route-page="@i" asp-route-Soluonghienthi="@Model.soluonghienthi" method="get" class="page-form">
+                            <input name="soluonghienthi" value="@Model.soluonghienthi" type="hidden" />
+                            <button type="submit" class="page-button @(i == Model.pagingInfo.CurrentPage ? "active" : "")" data-page="@i">
+                                <input style="border: none; outline: none; text-decoration: none; @(i == Model.pagingInfo.CurrentPage ? "background: linear-gradient(90deg, #ffba00 0%, #ff6c00 100%); color: #ffffff;" : "")" type="submit" name="page" value="@i" />
+                            </button>
+                        </form>
+                    }
+
+                </div>
+            </div>
+            <!-- End Filter Bar -->
+        </div>
+    </div>
+</div>
+<!-- Start related-product Area -->
+<!-- End related-product Area -->
+<script>
+    @functions {
+        public string FormatCurrency(float price)
+        {
+            string formattedPrice = string.Format("{0:N0}", price); // Định dạng số và thêm dấu phân cách ngàn
+            return formattedPrice + "VND"; // Thêm ký hiệu đồng (₫) vào cuối
+        }
+    };
+</script>
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="~/js/b.js"></script>
+<script>
+
+                            else {
+        throw new Error("Error sedding data controller")
+    }
+                            }).then(function (results) {
+        $("#Fillter-sanPhams").html(results);
+    })
+        .catch(function (error) {
+            console.log("An error occured:", error)
+        })
+                            });
+    function getSetSelectCheckboxes(fromId) {
+        var CheckBoxes = $('#' + fromId + ' input[type=checkbox]:checked'); // Thêm dấu cách sau fromId
+        var value = [];
+        CheckBoxes.each(function () {
+            value.push($(this).val());
+        });
+        return value;
+    }
+    $(document).ready(function () {
+        $(".page-form").on("submit", function (e) {
+            e.preventDefault();
+
+            // Loại bỏ lớp "highlighted-button" từ tất cả các nút
+            $(".page-button").removeClass("highlighted-button");
+
+            // Thêm lớp "highlighted-button" vào nút đã nhấp
+            var clickedButton = $(this).find(".page-button");
+            clickedButton.addClass("highlighted-button");
+
+            // Gửi biểu mẫu
+            $(this).submit();
+        });
+    });
+
+
+</script>
+
+<style>
+    .page-button.active {
+        background: linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);
+        color: #ffffff; /* Màu chữ nổi bật */
+        /* Các kiểu CSS khác cho nút nổi bật */
+    }
+
+    .lnr-heart {
+        display: inline-block;
+        position: relative;
+        width: 40px;
+        height: 40px;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.3s ease-in-out;
+    }
+
+        .lnr-heart button {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            border: none;
+            border-radius: 50%;
+            opacity: 0;
+            transform: scale(0);
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+
+        .lnr-heart:hover button {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+    .highlighted-button {
+        background: linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);
+    }
+
+    .search-bar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        overflow: hidden;
+    }
+
+    .search-input {
+        padding: 10px;
+        border: none;
+        border-radius: 0;
+        flex-grow: 2;
+    }
+
+    .search-button {
+        padding: 10px;
+        background-color: #828bb3;
+        color: white;
+        border: none;
+        border-radius: 0;
+        cursor: pointer;
+    }
+
+        .search-button a {
+            width: 16px;
+            height: 16px;
+        }
+
+
+    .product-container {
+        position: relative;
+        display: inline-block;
+    }
+
+    .discount-tag {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: #FFD700; /* Màu vàng, bạn có thể thay đổi theo ý muốn */
+        color: #FF0000; /* Màu đỏ, bạn có thể thay đổi theo ý muốn */
+        padding: 4px 8px;
+        font-size: 14px;
+        font-weight: bold;
+        border-radius: 0 0 0 8px; /* Điều này tạo các góc cong cho phần tag */
+    }
+
+    .my-custom-filter {
+        background-color: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 5px;
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+
+        .my-custom-filter .head {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .my-custom-filter .form-group {
+            margin-bottom: 10px;
+        }
+
+        .my-custom-filter label {
+            font-size: 14px;
+        }
+
+        .my-custom-filter .price-input {
+            width: 100px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-top: 5px; /* Khoảng cách giữa label và input */
+ .pagination1
+    {
+        margin-top: 20px;
+        /*border-left: 1px solid #eee;*/
+        border-radius: 0px;
+        a
+
+    {
+        width: 40px;
+        line-height: 40px;
+        text-align: center;
+        display: inline-block;
+        background: $white;
+        &.active
+
+    {
+        extend .gradient-bg;
+        color: $white;
+    }
+
+    &:hover {
+        extend .gradient-bg;
+        color: $white;
+    }
+
+    }
+
+    .dot-dot {
+        width: auto;
+        background: transparent;
+        border-top: 0px;
+        border-bottom: 0px;
+        color: #cccccc;
+        padding: 0 5px;
+        &:hover
+
+    {
+        background: transparent;
+        border: 0px;
+        border-right: 1px solid #eee;
+        color: #cccccc;
+    }
+
+    }
+    }
+</style>
+
+<!-- jQuery UI -->
+
+
+<script src="~/js/vendor/jquery-2.2.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.~/js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+        crossorigin="anonymous"></script>
+<script src="~/js/vendor/bootstrap.min.js"></script>
+<script src="~/js/jquery.ajaxchimp.min.js"></script>
+<script src="~/js/jquery.nice-select.min.js"></script>
+<script src="~/js/jquery.sticky.js"></script>
+<script src="~/js/nouislider.min.js"></script>
+<script src="~/js/countdown.js"></script>
+<script src="~/js/jquery.magnific-popup.min.js"></script>
+<script src="~/js/owl.carousel.min.js"></script>
+<!--gmaps Js-->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+<script src="~/js/gmaps.min.js"></script>
+<script src="~/js/main.js"></script>
+<style>
+    .pagination2 {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+</style>
+

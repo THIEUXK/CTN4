@@ -1,0 +1,62 @@
+﻿@model CTN4_Data.Models.DB_CTN4.PhanLoai
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Details</h1>
+
+
+<div class="row">
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Normal buttons</h4>
+                <br></br>
+                <div>
+                    <h4>PhanLoai</h4>
+                    <hr />
+                    <dl class="row">
+                        <dt class = "col-sm-2">
+                            @Html.DisplayNameFor(model => model.Id)
+                        </dt>
+                        <dd class = "col-sm-10">
+                            @Html.DisplayFor(model => model.Id)
+                        </dd>
+                        <dt class = "col-sm-2">
+                            @Html.DisplayNameFor(model => model.TenPhanLoai)
+                        </dt>
+                        <dd class = "col-sm-10">
+                            @Html.DisplayFor(model => model.TenPhanLoai)
+                        </dd>
+                        <dt class = "col-sm-2">
+                            @Html.DisplayNameFor(model => model.GhiChu)
+                        </dt>
+                        <dd class = "col-sm-10">
+                            @Html.DisplayFor(model => model.GhiChu)
+                        </dd>
+                        <dt class = "col-sm-2">
+                            @Html.DisplayNameFor(model => model.TrạngThai)
+                        </dt>
+                        <dd class = "col-sm-10">
+                            @Html.DisplayFor(model => model.TrạngThai)
+                        </dd>
+                        <dt class = "col-sm-2">
+                            @Html.DisplayNameFor(model => model.Is_Delete)
+                        </dt>
+                        <dd class = "col-sm-10">
+                            @Html.DisplayFor(model => model.Is_Delete)
+                        </dd>
+                    </dl>
+                    <div>
+                        <h4>_________________________________________________</h4>
+                        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+                        <a asp-action="Index">Back to List</a>
+                    </div>
+                </div>
+           
+            </div>
+        </div>
+    </div>
+</div>
