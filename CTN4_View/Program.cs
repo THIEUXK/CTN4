@@ -21,7 +21,7 @@ builder.Services.AddTransient<ILoginService, LoginServices>();
 builder.Services.AddTransient<ITokenService, TokenServices>();
 builder.Services.AddScoped<ICurrentUser, CurrentUser>();
 builder.Services.AddScoped<GioHangService>();
-builder.Services.AddScoped<IGioHangService,GioHangService>();
+builder.Services.AddScoped<IGioHangService, GioHangService>();
 builder.Services.AddScoped<ILichSuHoaDonService, LichSuHoaDonService>();
 builder.Services.AddTransient<IKhachHangService, KhachHangService>();
 builder.Services.AddTransient<INhanVienService, NhanVienService>();
@@ -33,17 +33,17 @@ builder.Services.AddTransient<IVnPayService, VnPayService>();
 builder.Services.AddTransient<IEmailService, EmailService>();
 builder.Services.AddSession(option =>
 {
-	//option.IdleTimeout = TimeSpan.FromSeconds(60);
-	// Định hình Session này tồn tại trong 30 giây
+    //option.IdleTimeout = TimeSpan.FromSeconds(60);
+    // Định hình Session này tồn tại trong 30 giây
 }); // Thêm cái này để dùng Session
 
 
 
 builder.Services.AddAuthentication(auth =>
- {
-     auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+{
+    auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     // auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
- })
+})
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
@@ -80,12 +80,12 @@ if (!app.Environment.IsDevelopment())
 app.UseSession();
 app.Use(async (context, next) =>
 {
-	var token = context.Session.GetString("Token");
-	if (!string.IsNullOrEmpty(token))
-	{
-		context.Request.Headers.Add("Authorization", "Bearer " + token);
-	}
-	await next();
+    var token = context.Session.GetString("Token");
+    if (!string.IsNullOrEmpty(token))
+    {
+        context.Request.Headers.Add("Authorization", "Bearer " + token);
+    }
+    await next();
 });
 app.UseStaticFiles();
 app.UseRouting();
