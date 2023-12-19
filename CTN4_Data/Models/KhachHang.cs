@@ -39,6 +39,7 @@ namespace CTN4_Data.Models.DB_CTN4
         public virtual List<HoaDon>? HoaDon { get; set; }
         public virtual List<GioHang>? GioHang { get; set; }
         public virtual List<ChiTietSanPhamYeuThich>? ChiTietSanPhamYeuThiches { get; set; }
+        public virtual List<DanhGiaSanPham>? DanhGiaSanPhams { get; set; }
         public virtual List<DiaChiNhanHang>? DiaChiNhanHangs { get; set; }
     }
 }
