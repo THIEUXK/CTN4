@@ -35,6 +35,8 @@ namespace CTN4_Data.Models.DB_CTN4
         [JsonIgnore]
         public List<ChiTietSanPhamYeuThich> CtietSanPhamYeuThiches
         { get; set; }
+        public List<DanhGiaSanPham> DanhGiaSanPhams
+        { get; set; }
         [JsonIgnore]
         public virtual NSX? NSX { get; set; }
         public virtual ChatLieu? ChatLieu { get; set; }

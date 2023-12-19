@@ -28,31 +28,69 @@
                         <div class="alert alert-danger">@TempData["TBDC"]</div>
                     }
                     <div class="row contact_form" action="#" method="post" novalidate="novalidate">
+                        @{
+                            var hoTen = $"{Model.KhachHang.Ho} {Model.KhachHang.Ten}";
+                            var hoTenTitleCase = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(hoTen);
+                        }
                         @if (Model.name != null)
                         {
+                            <!-- Hiển thị tên người dùng nếu có trong Model -->
                             <div class="col-md-6 form-group p_star">
                                 <label>Họ và tên</label>
-                                <input type="text" class="form-control" id="first" value="@Model.name" name="name">
+                                <!-- Kiểm tra và hiển thị tên người dùng chỉ khi nó không chứa ký tự đặc biệt và không chứa số -->
+                                <input type="text" class="form-control" id="first" value="@Model.name" name="name" maxlength="50"
+                                       onchange="validateName(this.value, 'first')">
+                                <div id="characterMessage_first" class="error-message"></div>
+
                             </div>
                         }
                         else
                         {
+                            <!-- Hiển thị tên người dùng từ thuộc tính KhachHang trong Model -->
                             <div class="col-md-6 form-group p_star">
                                 <label>Họ và tên</label>
-                                @{
-                                    var hoTen = $"{Model.KhachHang.Ho} {Model.KhachHang.Ten}";
-                                    var hoTenTitleCase = System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(hoTen);
-                                }
-                                <input type="text" class="form-control" id="first" value="@hoTenTitleCase" name="name">
+                                <!-- Kiểm tra và hiển thị tên người dùng chỉ khi nó không chứa ký tự đặc biệt và không chứa số -->
+
+                                <input type="text" class="form-control" id="first" value="@hoTen" name="name" maxlength="50" onchange="validateName(this.value, 'first')">
+                                <div id="characterMessage_first" class="error-message"></div>
+
                             </div>
                         }
+                        <style>
+                            /* Tùy chỉnh màu sắc cho thông báo lỗi */
+                            .error-message {
+                                color: red;
+                            }
+                        </style>
+                        <script>
+
+                            function validateName(inputValue, inputId) {
+                                // Kiểm tra xem tên người dùng có chứa ký tự đặc biệt hoặc số không
+
+                                if (containsSpecialCharacters(inputValue) || containsNumbers(inputValue)) {
+                                    document.getElementById('characterMessage_' + inputId).innerText = 'Tên người dùng không hợp lệ.';
+                                    document.getElementById(inputId).setCustomValidity('Tên người dùng không hợp lệ.');
+                                } else {
+                                    document.getElementById('characterMessage_' + inputId).innerText = '';
+                                    document.getElementById(inputId).setCustomValidity('');
+                                }
+                            }
+
+                            // Hàm kiểm tra xem chuỗi có chứa ký tự đặc biệt hay không
+                            function containsSpecialCharacters(input) {
+                                return /[!#$%^&*(),.?":{}|<>]/.test(input);
+                            }
+
+                            // Hàm kiểm tra xem chuỗi có chứa số hay không
+                            function containsNumbers(input) {
+                                return /\d/.test(input);
+                            }
+                        </script>
                         <div class="col-md-6 form-group p_star">
                             <br />
-
                             <button type="button" class="btn btn-outline-info dropdown-toggle form-control" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
                                 Mã giảm giá
                             </button>
-
                             <ul class="dropdown-menu dropdown-menu-end">
                                 @foreach (var i in Model.GiamGias)
                                 {
@@ -88,8 +126,8 @@
                                                             }
                                                         </div>
                                                     </div>
-                                                   
-                                                        <div class="copy-button1">
+
+                                                    <div class="copy-button1">
                                                         @if (i.SoLuong > 0)
                                                         {
                                                             <input id="copyvalue" type="text" readonly value="@i.MaGiam" />
@@ -99,11 +137,11 @@
                                                         {
                                                             <input id="copyvalue" type="text" style="text-decoration: line-through;" readonly value="@i.MaGiam" />
                                                             <button type="button" style="background-color: black; color: white;">Hết</button>
-                                                           
+
                                                         }
                                                     </div>
-                                                   
-                                                    
+
+
 
                                                 </div>
                                             </div>
@@ -117,23 +155,45 @@
                         {
                             <div class="col-md-12 form-group">
                                 <label>Địa chỉ nhận hàng cụ thể</label>
-                                <input type="text" class="form-control" value="@Model.DiachiNhanChiTiet" id="addct" name="DiachiNhanChiTiet">
+                                <input type="text" class="form-control" value="@Model.DiachiNhanChiTiet" id="addct" name="DiachiNhanChiTiet" maxlength="50" onchange="validateAddress(this.value, 'addct')">
+                                <div id="addressMessage" class="error-message"></div>
                             </div>
                         }
                         else if (Model.DiaChiNhanHang != null)
                         {
                             <div class="col-md-12 form-group">
                                 <label>Địa chỉ nhận hàng cụ thể</label>
-                                <input type="text" class="form-control" value="@Model.DiaChiNhanHang.name" id="addct" name="DiachiNhanChiTiet">
+                                <input type="text" class="form-control" value="@Model.DiaChiNhanHang.name" id="addct" name="DiachiNhanChiTiet" maxlength="50" onchange="validateAddress(this.value, 'addct')">
+                                <div id="addressMessage" class="error-message"></div>
                             </div>
                         }
                         else
                         {
                             <div class="col-md-12 form-group">
                                 <label>Địa chỉ nhận hàng cụ thể</label>
-                                <input type="text" class="form-control" value="" id="addct" name="DiachiNhanChiTiet">
+                                <input type="text" class="form-control" value="" id="addct" name="DiachiNhanChiTiet" maxlength="50" onchange="validateAddress(this.value, 'addct')">
+                                <div id="addressMessage" class="error-message"></div>
                             </div>
                         }
+                        <style>
+                            .error-message {
+                                color: red;
+                            }
+                        </style>
+                        <script>
+                            function validateAddress(inputId) {
+                                var inputElement = document.getElementById(inputId);
+                                var inputValue = inputElement.value;
+                                var errorMessageElement = document.getElementById('addressMessage');
+                                var sanitizedValue = inputValue.replace(/[^\w\s]/gi, '');
+                                if (sanitizedValue !== inputValue) {
+                                    errorMessageElement.innerText = 'Địa chỉ chỉ được chứa các ký tự và số.';
+                                    inputElement.value = sanitizedValue;  // Loại bỏ ký tự không mong muốn
+                                } else {
+                                    errorMessageElement.innerText = '';
+                                }
+                            }
+                        </script>
                         @if (@Model.Sodienthoai != null)
                         {
                             <div class="col-md-6 form-group p_star">
@@ -200,7 +260,6 @@
                         <div class="col-md-6 form-group">
                             <label>Chọn chọn địa chỉ có sẵn của bạn<span class="text-danger"></span></label>
                             <span class="text-danger"></span>
-
                             <select asp-for="IdDiaChi" class="custom-select" id="diachicosan">
                                 <option value="0"> Chọn chọn địa chỉ có sẵn của bạn</option>
                                 @foreach (var a in Model.listDiaChi)
@@ -255,7 +314,6 @@
                                 <input class="form-control" name="ghiChu" id="note_ck" rows="3"></input>
                             </div>
                         }
-
                     </div>
                 </div>
                 <div class="col-lg-5">
@@ -266,17 +324,19 @@
                                 <li><a href="#">Tên sản Phẩm <span>Giá tiền</span></a></li>
                                 @foreach (var a in Model.GioHangChiTiets)
                                 {
-                                    <li><a href="#">
-                                        @if (Model.check11.Contains(a.SanPhamChiTiet.SanPham.Id))
-                                        {
-                                            <div>@a.SanPhamChiTiet.SanPham.TenSanPham x @a.SoLuong*2</div>
-                                        }
-                                        else
-                                        {
-                                            <div>@a.SanPhamChiTiet.SanPham.TenSanPham x @a.SoLuong</div>
-                                        }
-                                        <span class="last">@FormatCurrency(a.SanPhamChiTiet.SanPham.GiaNiemYet * a.SoLuong)</span>
-                                    </a></li>
+                                    <li>
+                                        <a href="#">
+                                            @if (Model.check11.Contains(a.SanPhamChiTiet.SanPham.Id))
+                                            {
+                                                <div>@a.SanPhamChiTiet.SanPham.TenSanPham x @a.SoLuong*2</div>
+                                            }
+                                            else
+                                            {
+                                                <div>@a.SanPhamChiTiet.SanPham.TenSanPham x @a.SoLuong</div>
+                                            }
+                                            <span class="last">@FormatCurrency(a.SanPhamChiTiet.SanPham.GiaNiemYet * a.SoLuong)</span>
+                                        </a>
+                                    </li>
                                     <input type="hidden" name="idGHCT" value="@a.Id" />
                                     <input type="hidden" name="idSPCT" value="@a.IdSanPhamChiTiet" />
                                     <input type="hidden" name="OrderDescription" value="Mua Tại Shop Boro" />
@@ -573,25 +633,25 @@
         background-color: #fff;
     }
 
-    .copy-button2 input {
-        width: calc(100% - 10px);
-        height: 100%;
-        border: none;
-        outline: none;
-        font-size: 14px;
-        padding-left: 5px;
-    }
+        .copy-button2 input {
+            width: calc(100% - 10px);
+            height: 100%;
+            border: none;
+            outline: none;
+            font-size: 14px;
+            padding-left: 5px;
+        }
 
-    .copy-button2 button {
-        padding: 5px 20px;
+        .copy-button2 button {
+            padding: 5px 20px;
             background-color: #708090;
-        color: #fff;
-        border: 1px solid transparent;
-        cursor: pointer;
-        height: 100%;
-        display: flex;
-        align-items: center;
-    }
+            color: #fff;
+            border: 1px solid transparent;
+            cursor: pointer;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
 
 </style>
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>

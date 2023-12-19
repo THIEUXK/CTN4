@@ -871,8 +871,19 @@ namespace CTN4_View.Controllers.Shop
                 var diachinhanhang = _diaChiNhanHangService.GetAll().Where(c => c.IdKhachHang == accnew[0].Id).FirstOrDefault(c => c.TrangThai == true && c.Is_detele == true);
                 var giamgia = _giamGiaService.GetAll().Where(c => c.TrangThai == true && c.Is_detele == true && c.NgayBatDau <= DateTime.Now && c.NgayKetThuc >= DateTime.Now).ToList();
 
+                var KhuyenMaiSp = _KKhuyenMaiSanPhamService.GetAll().Where(c => c.KhuyenMai.Mua1tang1 == true).ToList();
+                var g = new List<Guid>();
+                foreach (var item in KhuyenMaiSp)
+                {
+                    // Kiểm tra xem Mau.Id đã xuất hiện trong danh sách chưa
+                    if (!g.Contains((Guid)item.IdSanPham))
+                    {
+                        g.Add((Guid)item.IdSanPham);
+                    }
+                }
                 var view2 = new GioHangView()
                 {
+                    check11 = g,
                     IdMaGiam = IdGiamGia,
                     tienshipb = tienshipa,
                     tiengiamb = tiengiam,
@@ -983,8 +994,19 @@ namespace CTN4_View.Controllers.Shop
                 var nguoidung = _khachHangService.GetAll().FirstOrDefault(c => c.Id == accnew[0].Id);
                 var diachinhanhang = _diaChiNhanHangService.GetAll().Where(c => c.IdKhachHang == accnew[0].Id).FirstOrDefault(c => c.TrangThai == true && c.Is_detele == true);
                 var giamgia = _giamGiaService.GetAll().Where(c => c.TrangThai == true && c.Is_detele == true && c.NgayBatDau <= DateTime.Now && c.NgayKetThuc >= DateTime.Now).ToList();
+                var KhuyenMaiSp = _KKhuyenMaiSanPhamService.GetAll().Where(c => c.KhuyenMai.Mua1tang1 == true).ToList();
+                var g = new List<Guid>();
+                foreach (var item in KhuyenMaiSp)
+                {
+                    // Kiểm tra xem Mau.Id đã xuất hiện trong danh sách chưa
+                    if (!g.Contains((Guid)item.IdSanPham))
+                    {
+                        g.Add((Guid)item.IdSanPham);
+                    }
+                }
                 var view2 = new GioHangView()
                 {
+                    check11 = g,
                     tienshipb = tienshipa,
                     tiengiamb = tiengiam,
                     tenmagiam = giamgia1.MaGiam,
