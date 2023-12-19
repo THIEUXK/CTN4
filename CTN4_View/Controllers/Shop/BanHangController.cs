@@ -45,8 +45,10 @@ namespace CTN4_View.Controllers.Shop
         public readonly IVnPayService _ivnPayService;
         public readonly ICurrentUser _CurrentUser;
         public ILichSuHoaDonService _LichSuHoaDonService;
+        public IKhuyenMaiSanPhamService _KKhuyenMaiSanPhamService;
         public BanHangController(IConfiguration config, IVnPayService vnpay, ICurrentUser currentUser, IGioHangService giohang)
         {
+            _KKhuyenMaiSanPhamService = new KhuyenMaiSanPhamService();
             _diaChiNhanHangService = new DiaChiNhanHangService();
             _sanPhamCuaHangService = new SanPhamCuaHangService();
             _GioHang = giohang;
@@ -88,8 +90,19 @@ namespace CTN4_View.Controllers.Shop
                     tong += float.Parse(x.SanPhamChiTiet.SanPham.GiaNiemYet.ToString()) * (x.SoLuong);
                 }
                 var anh = _anhService.GetAll().ToList();
+                var KhuyenMaiSp = _KKhuyenMaiSanPhamService.GetAll().Where(c => c.KhuyenMai.Mua1tang1 == true).ToList();
+                var g = new List<Guid>();
+                foreach (var item in KhuyenMaiSp)
+                {
+                    // Kiểm tra xem Mau.Id đã xuất hiện trong danh sách chưa
+                    if (!g.Contains((Guid)item.IdSanPham))
+                    {
+                        g.Add((Guid)item.IdSanPham);
+                    }
+                }
                 var view2 = new GioHangView()
                 {
+                    check11 = g,
                     GioHangChiTiets = ghct,
                     TongTien = tong,
                     anhs = anh
@@ -119,6 +132,115 @@ namespace CTN4_View.Controllers.Shop
             TempData["ErrorMessage"] = message;
             return RedirectToAction("GioHang", "BanHang", new { message });
 
+        }
+        public IActionResult ThemVaoGio(int soluong, Guid IdSanPham, Guid IdSize, Guid IdMau)
+        {
+            var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
+            if (accnew.Count != 0)
+            {
+                var checksp = _SanPhamChiTiet.GetAll().FirstOrDefault(c => c.IdSp == IdSanPham && c.IdSize == IdSize && c.IdMau == IdMau);
+                var KhuyenMaiSp = _KKhuyenMaiSanPhamService.GetAll().Where(c => c.KhuyenMai.Mua1tang1 == true).ToList();
+                var g = new List<Guid>();
+                foreach (var item in KhuyenMaiSp)
+                {
+                    // Kiểm tra xem Mau.Id đã xuất hiện trong danh sách chưa
+                    if (!g.Contains((Guid)item.IdSanPham))
+                    {
+                        g.Add((Guid)item.IdSanPham);
+                    }
+                }
+                if (g.Contains(checksp.SanPham.Id))
+                {
+                    if (soluong * 2 > checksp.SoLuong)
+                    {
+                        var message2 = "Số lượng không đủ vì đây là sản phẩm mua 1 tặng 1 !";
+                        TempData["TB2"] = message2;
+                        return RedirectToAction("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = IdSanPham, message2 });
+                    }
+                }
+                if (soluong > checksp.SoLuong)
+                {
+                    var message2 = "Số lượng không đủ !";
+                    TempData["TB2"] = message2;
+                    return RedirectToAction("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = IdSanPham, message2 });
+                }
+                if (IdMau == Guid.Parse("00000000-0000-0000-0000-000000000000") || IdSize == Guid.Parse("00000000-0000-0000-0000-000000000000"))
+                {
+                    var message1 = "hãy chọn màu và size của bạn !";
+                    TempData["TB1"] = message1;
+                    return RedirectToAction("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = IdSanPham, message1 });
+                }
+                if (soluong <= 0)
+                {
+                    var message2 = "Số lượng phải lớn hơn 0 !";
+                    TempData["TB2"] = message2;
+                    return RedirectToAction("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = IdSanPham, message2 });
+                }
+
+                var tkmoi = accnew[0];
+                if (tkmoi != null)
+                {
+                    var sanphamCT = _SanPhamChiTiet.GetAll().FirstOrDefault(c => c.IdSp == IdSanPham && c.IdSize == IdSize && c.IdMau == IdMau);
+                    var gioHang = _GioHang.GetAll();
+                    if (gioHang.Where(c => c.IdKhachHang == tkmoi.Id).ToList().Count == 0)
+                    {
+                        var a = new GioHang()
+                        {
+                            Id = Guid.NewGuid(),
+                            IdKhachHang = tkmoi.Id,
+                            TrangThai = true
+                        };
+                        _GioHang.Them(a);
+                    }
+                    {
+                        var SP = _GioHangChiTiet.GetAll().FirstOrDefault(c => c.IdSanPhamChiTiet == sanphamCT.Id);
+                        if (SP == null)
+                        {
+                            var d = new GioHangChiTiet()
+                            {
+                                Id = Guid.NewGuid(),
+                                IdSanPhamChiTiet = sanphamCT.Id,
+                                IdGioHang = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == tkmoi.Id).Id,
+                                SoLuong = soluong,
+                            };
+                            if (_GioHangChiTiet.Them(d))
+                            {
+                                var product = _SanPhamChiTiet.GetById(sanphamCT.Id);
+                                product.SoLuong -= soluong;
+                                if (_SanPhamChiTiet.Sua(product))
+                                {
+                                    return RedirectToAction("GioHang");
+                                }
+                            }
+                        }
+                        else
+                        {
+                            SP.SoLuong += soluong;
+                            if (_GioHangChiTiet.Sua(SP))
+                            {
+                                var product = _SanPhamChiTiet.GetById(sanphamCT.Id);
+                                product.SoLuong -= soluong;
+                                if (_SanPhamChiTiet.Sua(product))
+                                {
+                                    return RedirectToAction("GioHang");
+                                }
+                            }
+                        }
+                    }
+                    var message3 = "Thêm thất bại !";
+                    TempData["TB1"] = message3;
+                    return RedirectToAction("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = IdSanPham, message3 });
+
+                }
+            }
+            else
+            {
+                return RedirectToAction("login", "Home");
+            }
+
+            var message4 = "Thêm thất bại !";
+            TempData["TB1"] = message4;
+            return RedirectToAction("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = IdSanPham, message4 });
         }
         #endregion
 
@@ -285,98 +407,6 @@ namespace CTN4_View.Controllers.Shop
                 lstWard = JsonConvert.DeserializeObject<Ward>(jsonData2);
             }
             return Json(lstWard, new System.Text.Json.JsonSerializerOptions());
-        }
-      
-        [HttpPost]
-        public IActionResult ThemVaoGio(int soluong, Guid IdSanPham, Guid IdSize, Guid IdMau)
-        {
-            var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
-            if (accnew.Count != 0)
-            {
-                var checksp = _SanPhamChiTiet.GetAll().FirstOrDefault(c => c.IdSp == IdSanPham && c.IdSize == IdSize && c.IdMau == IdMau);
-                if (soluong > checksp.SoLuong)
-                {
-                    var message2 = "Số lượng không đủ !";
-                    TempData["TB2"] = message2;
-                    return RedirectToAction("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = IdSanPham, message2 });
-                }
-                if (IdMau == Guid.Parse("00000000-0000-0000-0000-000000000000") || IdSize == Guid.Parse("00000000-0000-0000-0000-000000000000"))
-                {
-                    var message1 = "hãy chọn màu và size của bạn !";
-                    TempData["TB1"] = message1;
-                    return RedirectToAction("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = IdSanPham, message1 });
-                }
-                if (soluong <= 0)
-                {
-                    var message2 = "Số lượng phải lớn hơn 0 !";
-                    TempData["TB2"] = message2;
-                    return RedirectToAction("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = IdSanPham, message2 });
-                }
-
-                var tkmoi = accnew[0];
-                if (tkmoi != null)
-                {
-                    var sanphamCT = _SanPhamChiTiet.GetAll().FirstOrDefault(c => c.IdSp == IdSanPham && c.IdSize == IdSize && c.IdMau == IdMau);
-                    var gioHang = _GioHang.GetAll();
-                    if (gioHang.Where(c => c.IdKhachHang == tkmoi.Id).ToList().Count == 0)
-                    {
-                        var a = new GioHang()
-                        {
-                            Id = Guid.NewGuid(),
-                            IdKhachHang = tkmoi.Id,
-                            TrangThai = true
-                        };
-                        _GioHang.Them(a);
-                    }
-                    {
-                        var SP = _GioHangChiTiet.GetAll().FirstOrDefault(c => c.IdSanPhamChiTiet == sanphamCT.Id);
-                        if (SP == null)
-                        {
-                            var d = new GioHangChiTiet()
-                            {
-                                Id = Guid.NewGuid(),
-                                IdSanPhamChiTiet = sanphamCT.Id,
-                                IdGioHang = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == tkmoi.Id).Id,
-                                SoLuong = soluong,
-                            };
-                            if (_GioHangChiTiet.Them(d))
-                            {
-                                var product = _SanPhamChiTiet.GetById(sanphamCT.Id);
-                                product.SoLuong -= soluong;
-                                if (_SanPhamChiTiet.Sua(product))
-                                {
-                                    return RedirectToAction("GioHang");
-                                }
-                            }
-                        }
-                        else
-                        {
-                            SP.SoLuong += soluong;
-                            if (_GioHangChiTiet.Sua(SP))
-                            {
-                                var product = _SanPhamChiTiet.GetById(sanphamCT.Id);
-                                product.SoLuong -= soluong;
-                                if (_SanPhamChiTiet.Sua(product))
-                                {
-                                    return RedirectToAction("GioHang");
-                                }
-                            }
-                        }
-                    }
-                    var message3 = "Thêm thất bại !";
-                    TempData["TB1"] = message3;
-                    return RedirectToAction("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = IdSanPham, message3 });
-
-                }
-            }
-            else
-            {
-                return RedirectToAction("login", "Home");
-            }
-
-            var message4 = "Thêm thất bại !";
-            TempData["TB1"] = message4;
-            return RedirectToAction("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = IdSanPham, message4 });
         }
        
         [HttpPost("/CheckOut/GetTotalShipping")]
@@ -666,8 +696,19 @@ namespace CTN4_View.Controllers.Shop
                 var nguoidung = _khachHangService.GetAll().FirstOrDefault(c => c.Id == accnew[0].Id);
                 var diachinhanhang = _diaChiNhanHangService.GetAll().Where(c => c.IdKhachHang == accnew[0].Id).FirstOrDefault(c => c.TrangThai == true && c.Is_detele == true);
                 var giamgia = _giamGiaService.GetAll().Where(c => c.TrangThai == true && c.Is_detele == true && c.NgayBatDau <= DateTime.Now && c.NgayKetThuc >= DateTime.Now).ToList();
+                var KhuyenMaiSp = _KKhuyenMaiSanPhamService.GetAll().Where(c => c.KhuyenMai.Mua1tang1 == true).ToList();
+                var g = new List<Guid>();
+                foreach (var item in KhuyenMaiSp)
+                {
+                    // Kiểm tra xem Mau.Id đã xuất hiện trong danh sách chưa
+                    if (!g.Contains((Guid)item.IdSanPham))
+                    {
+                        g.Add((Guid)item.IdSanPham);
+                    }
+                }
                 var view2 = new GioHangView()
                 {
+                    check11 = g,
                     GiamGias = giamgia,
                     DiaChiNhanHang = diachinhanhang,
                     KhachHang = nguoidung,
