@@ -1,6 +1,50 @@
 ﻿$(document).ready(function () {
 
+    $("#first").on("input", function () {
+        debugger
+        var value = $(this).val();
+        validateName(value, 'first');
+    });
 
+    function validateName(value, inputId) {
+        var specialChars = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+
+        if (specialChars.test(value)) {
+            // Hiển thị thông báo lỗi
+            $("#nameError").text("Tên không được chứa ký tự đặc biệt!");
+            // Xóa giá trị nhập vào
+            $("#" + inputId).val("");
+        } else {
+            // Nếu tên hợp lệ, xóa thông báo lỗi
+            $("#nameError").text("");
+        }
+    }
+    // validateEmail.js
+    $(document).ready(function () {
+        $('#email').on('input', function () {
+            debugger
+            validateEmail();
+        });
+
+        function validateEmail() {
+            var emailInput = $('#email');
+            var emailError = $('#email-error');
+
+            // Kiểm tra định dạng email
+            var emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            var isValid = emailRegex.test(emailInput.val());
+
+            // Hiển thị thông báo nếu định dạng không hợp lệ
+            if (!isValid) {
+                emailError.html('Vui lòng nhập một địa chỉ email hợp lệ.');
+            } else {
+                emailError.html(''); // Xóa thông báo nếu định dạng hợp lệ
+                // Thực hiện các hành động khác nếu cần
+            }
+        }
+    });
+
+   
     $(document).ready(function () {
         $("#nhangiamgia").click(function () {
             var couponCode = $("#nhapgiamgia").val();
@@ -62,7 +106,7 @@
                 }
             })
         }
-       
+
     });
     $(document).on('click', '.btnXuatEx2', function () {
         var isConfirmed = confirm("Bạn có chắc chắn muốn xuất File Excel?");
@@ -106,7 +150,7 @@
                 }
             })
         }
-       
+
     });
     var count = 0;
     var downloadURL = function downloadURL(url) {
@@ -278,7 +322,7 @@
                 },
                 contentType: 'application/json',
                 success: function (result) {
-                  
+
                     var x1 = result.TienShip;
                     x1 = x1.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
                     var x2 = result.totaloder;
@@ -331,5 +375,8 @@
 
 
     //});
-   
+
 });
+// validateEmail.js
+
+
