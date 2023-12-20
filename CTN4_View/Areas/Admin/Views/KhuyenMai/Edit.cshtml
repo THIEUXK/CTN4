@@ -71,7 +71,7 @@
 
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Quay lại khuyến mãi</a>
 </div>
 
 <input id="Idkm" type="hidden" value="@Model.Id"/>
@@ -96,12 +96,12 @@
                                 <span asp-validation-for="MaKhuyenMai" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label asp-for="Ghichu" class="control-label"> Mã khuyến mại</label>
+                                <label asp-for="Ghichu" class="control-label"> Ghi chú</label>
                                 <input asp-for="Ghichu" class="form-control" readonly />
                                 <span asp-validation-for="Ghichu" class="text-danger"></span>
                             </div>
                     <div class="form-group">
-                        <label asp-for="Mua1tang1" class="control-label"> Thể loại khuyến mãi</label>
+                        <label asp-for="Mua1tang1" class="control-label"> Mua 1 tặng 1</label>
                         <input asp-for="Mua1tang1" class="form-control" readonly />
                         <span asp-validation-for="Mua1tang1" class="text-danger"></span>
                     </div>
@@ -168,6 +168,12 @@
                             </div>
                         </form>
             <button id="updateGiaButton" class="btn btn-primary">Cập nhật Giá Sản Phẩm</button>
+            @if (!string.IsNullOrEmpty(TempData["ErrorMessage"]?.ToString()))
+            {
+                <div class="alert alert-danger">
+                    <strong>Lỗi!</strong> @TempData["ErrorMessage"]
+                </div>
+            }
             @{
                 if (TempData["ErrorMessage"] != null)
                 {
@@ -218,7 +224,7 @@
 
         </div>
 
-
+        </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
