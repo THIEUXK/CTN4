@@ -10,7 +10,7 @@
     {
         <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
     }
-    <form method="post" asp-controller="BanHang" asp-action="HoanThanhThanhToan">
+    <form method="post" id="myForm" asp-controller="BanHang" asp-action="HoanThanhThanhToan">
         <div class="billing_details">
             <div class="row">
                 <div class="col-lg-7">
@@ -37,11 +37,9 @@
                             <!-- Hiển thị tên người dùng nếu có trong Model -->
                             <div class="col-md-6 form-group p_star">
                                 <label>Họ và tên</label>
-                                <!-- Kiểm tra và hiển thị tên người dùng chỉ khi nó không chứa ký tự đặc biệt và không chứa số -->
-                                <input type="text" class="form-control" id="first" value="@Model.name" name="name" maxlength="50"
-                                       onchange="validateName(this.value, 'first')">
-                                <div id="characterMessage_first" class="error-message"></div>
-
+                                <input type="text" placeholder="Nhập họ tên của bạn" class="form-control" id="first" value="@Model.name" name="name" maxlength="50">
+                                <div id="nameError" style="color: red;"></div>
+                                <span id="error-message" class="error-message" style="color: red;"></span>
                             </div>
                         }
                         else
@@ -49,43 +47,25 @@
                             <!-- Hiển thị tên người dùng từ thuộc tính KhachHang trong Model -->
                             <div class="col-md-6 form-group p_star">
                                 <label>Họ và tên</label>
-                                <!-- Kiểm tra và hiển thị tên người dùng chỉ khi nó không chứa ký tự đặc biệt và không chứa số -->
-
-                                <input type="text" class="form-control" id="first" value="@hoTen" name="name" maxlength="50" onchange="validateName(this.value, 'first')">
-                                <div id="characterMessage_first" class="error-message"></div>
-
+                                <input type="text" placeholder="Nhập họ tên của bạn" class="form-control" id="first" value="@hoTen" name="name" maxlength="50">
+                                <div id="nameError" style="color: red;"></div>
+                                <span id="error-message" class="error-message" style="color: red;"></span>
                             </div>
                         }
-                        <style>
-                            /* Tùy chỉnh màu sắc cho thông báo lỗi */
-                            .error-message {
-                                color: red;
-                            }
-                        </style>
                         <script>
+                            document.getElementById('first').addEventListener('input', function () {
+                                var inputValue = this.value.trim();
 
-                            function validateName(inputValue, inputId) {
-                                // Kiểm tra xem tên người dùng có chứa ký tự đặc biệt hoặc số không
+                                var errorMessageElement = document.getElementById('error-message');
 
-                                if (containsSpecialCharacters(inputValue) || containsNumbers(inputValue)) {
-                                    document.getElementById('characterMessage_' + inputId).innerText = 'Tên người dùng không hợp lệ.';
-                                    document.getElementById(inputId).setCustomValidity('Tên người dùng không hợp lệ.');
+                                if (inputValue.length === 0) {
+                                    errorMessageElement.textContent = 'Vui lòng nhập tên.';
                                 } else {
-                                    document.getElementById('characterMessage_' + inputId).innerText = '';
-                                    document.getElementById(inputId).setCustomValidity('');
+                                    errorMessageElement.textContent = '';
                                 }
-                            }
-
-                            // Hàm kiểm tra xem chuỗi có chứa ký tự đặc biệt hay không
-                            function containsSpecialCharacters(input) {
-                                return /[!#$%^&*(),.?":{}|<>]/.test(input);
-                            }
-
-                            // Hàm kiểm tra xem chuỗi có chứa số hay không
-                            function containsNumbers(input) {
-                                return /\d/.test(input);
-                            }
+                            });
                         </script>
+
                         <div class="col-md-6 form-group p_star">
                             <br />
                             <button type="button" class="btn btn-outline-info dropdown-toggle form-control" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
@@ -155,75 +135,89 @@
                         {
                             <div class="col-md-12 form-group">
                                 <label>Địa chỉ nhận hàng cụ thể</label>
-                                <input type="text" class="form-control" value="@Model.DiachiNhanChiTiet" id="addct" name="DiachiNhanChiTiet" maxlength="50" onchange="validateAddress(this.value, 'addct')">
+                                <input type="text" class="form-control" placeholder="Nhập địa chỉ nhận hàng cụ thể của bạn" value="@Model.DiachiNhanChiTiet" id="addct" name="DiachiNhanChiTiet" maxlength="50" onchange="validateAddress(this.value, 'addct')">
                                 <div id="addressMessage" class="error-message"></div>
+                                <span id="error-message2" class="error-message" style="color: red;"></span>
                             </div>
                         }
                         else if (Model.DiaChiNhanHang != null)
                         {
                             <div class="col-md-12 form-group">
                                 <label>Địa chỉ nhận hàng cụ thể</label>
-                                <input type="text" class="form-control" value="@Model.DiaChiNhanHang.name" id="addct" name="DiachiNhanChiTiet" maxlength="50" onchange="validateAddress(this.value, 'addct')">
+                                <input type="text" class="form-control" placeholder="Nhập địa chỉ nhận hàng cụ thể của bạn" value="@Model.DiaChiNhanHang.name" id="addct" name="DiachiNhanChiTiet" maxlength="50" onchange="validateAddress(this.value, 'addct')">
                                 <div id="addressMessage" class="error-message"></div>
+                                <span id="error-message2" class="error-message" style="color: red;"></span>
                             </div>
                         }
                         else
                         {
                             <div class="col-md-12 form-group">
                                 <label>Địa chỉ nhận hàng cụ thể</label>
-                                <input type="text" class="form-control" value="" id="addct" name="DiachiNhanChiTiet" maxlength="50" onchange="validateAddress(this.value, 'addct')">
-                                <div id="addressMessage" class="error-message"></div>
+                                <input type="text" class="form-control" placeholder="Nhập địa chỉ nhận hàng cụ thể của bạn" value="" id="addct" name="DiachiNhanChiTiet" maxlength="50" onchange="validateAddress(this.value, 'addct')">
+                                <div id="addressMessage" class="error-message" style="color: red;"></div>
+                                <span id="error-message2" class="error-message" style="color: red;"></span>
                             </div>
                         }
-                        <style>
-                            .error-message {
-                                color: red;
-                            }
-                        </style>
                         <script>
-                            function validateAddress(inputId) {
-                                var inputElement = document.getElementById(inputId);
-                                var inputValue = inputElement.value;
-                                var errorMessageElement = document.getElementById('addressMessage');
-                                var sanitizedValue = inputValue.replace(/[^\w\s]/gi, '');
-                                if (sanitizedValue !== inputValue) {
-                                    errorMessageElement.innerText = 'Địa chỉ chỉ được chứa các ký tự và số.';
-                                    inputElement.value = sanitizedValue;  // Loại bỏ ký tự không mong muốn
+                            document.getElementById('addct').addEventListener('input', function () {
+                                var inputValue = this.value.trim();
+
+                                var errorMessageElement = document.getElementById('error-message2');
+
+                                if (inputValue.length === 0) {
+                                    errorMessageElement.textContent = 'Vui lòng nhập địa chỉ nhận hàng cụ thể của bạn.';
                                 } else {
-                                    errorMessageElement.innerText = '';
+                                    errorMessageElement.textContent = '';
                                 }
-                            }
+                            });
                         </script>
                         @if (@Model.Sodienthoai != null)
                         {
                             <div class="col-md-6 form-group p_star">
                                 <label>Số điện thoại</label>
-                                <input type="text" class="form-control" value="@Model.Sodienthoai" id="number" name="Sodienthoai" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                <input type="text" class="form-control" placeholder="Nhập số điện thoại của bạn" value="@Model.Sodienthoai" id="number" name="Sodienthoai" oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="15">
+                                <span id="error-message3" class="error-message" style="color: red;"></span>
                             </div>
                         }
                         else
                         {
                             <div class="col-md-6 form-group p_star">
                                 <label>Số điện thoại</label>
-                                <input type="text" class="form-control" value="@Model.KhachHang.SDT" id="number" name="Sodienthoai" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                <input type="text" class="form-control" placeholder="Nhập số điện thoại của bạn" value="@Model.KhachHang.SDT" id="number" name="Sodienthoai" oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="15">
+                                <span id="error-message3" class="error-message" style="color: red;"></span>
                             </div>
                         }
+                        <script>
+                            document.getElementById('number').addEventListener('input', function () {
+                                var inputValue = this.value.trim();
+
+                                var errorMessageElement = document.getElementById('error-message3');
+
+                                if (inputValue.length === 0) {
+                                    errorMessageElement.textContent = 'Vui lòng nhập số điện thoại của bạn.';
+                                } else {
+                                    errorMessageElement.textContent = '';
+                                }
+                            });
+                        </script>
+
                         @if (@Model.Email != null)
                         {
                             <div class="col-md-6 form-group p_star">
                                 <label>Email</label>
-                                <input type="text" class="form-control" id="email" value="@Model.Email" name="Email">
-
+                                <input type="text" class="form-control" placeholder="Nhập Email của bạn" id="email" value="@Model.Email" name="Email" maxlength="50" onchange="validateEmail()">
+                                <span id="email-error" style="color: red;"></span>
                             </div>
                         }
                         else
                         {
                             <div class="col-md-6 form-group p_star">
                                 <label>Email</label>
-                                <input type="text" class="form-control" id="email" value="@Model.KhachHang.Email" name="Email">
-
+                                <input type="text" placeholder="Nhập Email của bạn" class="form-control" id="email" value="@Model.KhachHang.Email" name="Email" maxlength="50" onchange="validateEmail()">
+                                <span id="email-error" style="color: red;"></span>
                             </div>
                         }
+
                         @if (Model.addDiaChi != null)
                         {
                             <div class="col-md-6 form-group p_star">
@@ -304,14 +298,15 @@
                         {
                             <div class="col-md-6 form-group">
                                 <label for="exampleFormControlTextarea1" class="form-label">Ghi chú</label>
-                                <input class="form-control" name="ghiChu" value="@Model.ghiChu" id="note_ck" rows="3"></input>
+                                <textarea class="form-control" name="ghiChu" id="note_ck" wrap="soft" maxlength="100">@Model.ghiChu</textarea>
+
                             </div>
                         }
                         else
                         {
                             <div class="col-md-6 form-group">
                                 <label for="exampleFormControlTextarea1" class="form-label">Ghi chú</label>
-                                <input class="form-control" name="ghiChu" id="note_ck" rows="3"></input>
+                                <textarea class="form-control" name="ghiChu" id="note_ck" wrap="soft" maxlength="100"></textarea>
                             </div>
                         }
                     </div>
@@ -490,7 +485,7 @@
                                 <input type="hidden" name="idgiamgia" value="" id="idgiamgia"></input>
                             }
                             <div class="card border-secondary mb-5">
-                                <button class="primary-btn" type="submit" href="#">Mua Hàng</button>
+                                <button class="primary-btn" type="button" onclick="showConfirmation()">Mua Hàng</button>
                             </div>
                         </div>
                     </div>
@@ -614,16 +609,21 @@
             padding-left: 5px;
         }
 
-        .copy-button1 button {
-            padding: 5px 20px;
-            background-color: #dc143c;
-            color: #fff;
-            border: 1px solid transparent;
-            cursor: pointer;
-            height: 100%;
-            display: flex;
-            align-items: center;
-        }
+    .red-placeholder::placeholder {
+        color: red;
+    }
+
+
+    .copy-button1 button {
+        padding: 5px 20px;
+        background-color: #dc143c;
+        color: #fff;
+        border: 1px solid transparent;
+        cursor: pointer;
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
 
     .copy-button2 {
         //margin: 12px 0 -5px 0;
@@ -668,3 +668,24 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 <script src="~/js/gmaps.min.js"></script>
 <script src="~/js/main.js"></script>
+<script>
+    function showConfirmation() {
+        var isConfirmed = confirm("Bạn có chắc chắn muốn mua hàng không?");
+
+        if (isConfirmed) {
+            // Nếu người dùng chọn "OK", thay đổi action của form và submit
+         @*    document.getElementById("myForm").action = "HoanThanhThanhToan"; // Đổi "process.php" thành URL xử lý form của bạn *@
+            document.getElementById("myForm").submit();
+        } 
+    }
+</script>
+<style>
+        .card {
+            text-align: center;
+        }
+
+        .primary-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
