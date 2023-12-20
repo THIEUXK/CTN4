@@ -5,6 +5,11 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 <style>
+
+    .disabled-row {
+        opacity: 0.5; /* Điều chỉnh mức độ mờ tùy ý */
+        pointer-events: none; /* Ngăn chặn tương tác với dòng đã mờ */
+    }
     .pagination button {
         background-color: #3498db;
         color: #ffffff;
@@ -177,9 +182,9 @@
             @{
                 if (TempData["ErrorMessage"] != null)
                 {
-                    <div class="error-message">
-                        @TempData["ErrorMessage"]
-                    </div>
+                            <div class="error-message">
+                                @TempData["ErrorMessage"]
+                            </div>
                 }
             }
 
@@ -376,32 +381,36 @@
         var checkboxStyle = "cursor: pointer;";
 
         function updateProductList(data) {
-            var productListHTML = "<table class='table' style='" + tableStyle + "'>";
-            productListHTML += "<thead><tr><th>Mã Sp</th><th>Danh Mục</th><th>Tên Sản Phẩm</th><th>Giá Nhập</th><th>Giá bán</th><th>Giá Niêm yết</th><th>Ảnh Đại diện</th><th style='" + checkboxStyle + "'><input type='checkbox' id='selectAllCheckbox'/> Chọn</th></tr></thead>";
+        data.sort((a, b) => b.giaNiemYet - a.giaNiemYet);
+        var productListHTML = "<table class='table' style='" + tableStyle + "'>";
+        productListHTML += "<thead><tr><th>Mã Sp</th><th>Danh Mục</th><th>Tên Sản Phẩm</th><th>Giá Nhập</th><th>Giá bán</th><th>Giá Niêm yết</th><th>Ảnh Đại diện</th><th style='" + checkboxStyle + "'><input type='checkbox' id='selectAllCheckbox'/> Chọn</th></tr></thead>";
 
-            if (data.length > 0) {
-                productListHTML += "<tbody>" + data.map(item =>
-                    `<tr>
-                        <td>${item.maSp}</td>
-                        <td>${item.tenDanhMuc}</td>
-                        <td>${item.tenSanPham}</td>
-                        <td>${formatCurrency(item.giaNhap)}đ</td>
-                        <td>${formatCurrency(item.giaBan)}đ</td>
-                        <td>${formatCurrency(item.giaNiemYet)}đ</td>
-                        <td><img src='/image/${item.anhDaiDien}' height='100' alt='Product Image'></td>
-                        <td><input type="checkbox" class="id-sp-button" data-id-sp='${item.id ? item.id : ""}'/></td>
-                    </tr>`
-                ).join('') + "</tbody>";
-            } else {
-                productListHTML += "<tr><td colspan='8'>Không tìm thấy sản phẩm phù hợp</td></tr>";
-            }
+        if (data.length > 0) {
+            productListHTML += "<tbody>" + data.map(item => {
+                const isEligible = item.giaNiemYet >= dongGiaSp && item.giaNiemYet >= giamTheoTienSp;
+                const rowClass = isEligible ? '' : 'disabled-row';
+                console.log('hh',data);
+                return `<tr class='${rowClass}'>
+                    <td>${item.maSp}</td>
+                    <td>${item.tenDanhMuc}</td>
+                    <td>${item.tenSanPham}</td>
+                    <td>${formatCurrency(item.giaNhap)}đ</td>
+                    <td>${formatCurrency(item.giaBan)}đ</td>
+                    <td id="gianiemyet">${formatCurrency(item.giaNiemYet)}đ</td>
+                    <td><img src='/image/${item.anhDaiDien}' height='100' alt='Product Image'></td>
+                    <td>${isEligible ? `<input type='checkbox' class='id-sp-button' data-id-sp='${item.id ? item.id : ""}'/>` : ''}</td>
+                </tr>`;
+            }).join('') + "</tbody>";
+        } else {
+            productListHTML += "<tr><td colspan='8'>Không tìm thấy sản phẩm phù hợp</td></tr>";
+        }
 
-            productListHTML += "</table>";
+        productListHTML += "</table>";
 
-            // Set a fixed height and make the table scrollable
-            productListHTML = "<div style='height: 300px; overflow-y: auto;'>" + productListHTML + "</div>";
+        // Đặt chiều cao cố định và làm cho bảng có thể cuộn
+        productListHTML = "<div style='height: 300px; overflow-y: auto;'>" + productListHTML + "</div>";
 
-            productList.innerHTML = productListHTML;
+        productList.innerHTML = productListHTML;
 
             // Add some additional styling to make the table look better
             var table = document.querySelector('.table');
@@ -453,29 +462,34 @@
             }
 
             function searchProduct(name) {
+              
                 $.ajax({
                     url: '/admin/KhuyenMai/SearchProduct',
                     type: 'GET',
                     dataType: 'json',
                     data: { name: name },
                 success: function (data) {
+                data.sort((a, b) => b.giaNiemYet - a.giaNiemYet);
                     var productListHTML = "<table class='table' style='" + tableStyle + "'>";
                     productListHTML += "<thead><tr><th>Mã Sp</th><th>Danh Mục</th><th>Tên Sản Phẩm</th><th>Giá Nhập</th><th>Giá bán</th><th>Giá Niêm yết</th><th>Ảnh Đại diện</th><th style='" + checkboxStyle + "'><input type='checkbox' id='selectAllCheckbox'/> Chọn</th></tr></thead>";
 
-                    if (data.length > 0) {
-                        productListHTML += "<tbody>" + data.map(item =>
-                            `<tr>
-                                        <td>${item.maSp}</td>
-                                        <td>${item.tenDanhMuc}</td>
-                                        <td>${item.tenSanPham}</td>
-                                        <td>${formatCurrency(item.giaNhap)}đ</td>
-                                        <td>${formatCurrency(item.giaBan)}đ</td>
-                                        <td>${formatCurrency(item.giaNiemYet)}đ</td>
-                                        <td><img src='/image/${item.anhDaiDien}' height='100' alt='Product Image'></td>
-                                        <td><input type="checkbox" class="id-sp-button" data-id-sp='${item.id ? item.id : ""}'/></td>
-                                    </tr>`
-                        ).join('') + "</tbody>";
-                    } else {
+                if (data.length > 0) {
+                    productListHTML += "<tbody>" + data.map(item => {
+                        const isEligible = item.giaNiemYet >= dongGiaSp && item.giaNiemYet >= giamTheoTienSp;
+                        const rowClass = isEligible ? '' : 'disabled-row';
+                        console.log('hh', data);
+                        return `<tr class='${rowClass}'>
+                        <td>${item.maSp}</td>
+                        <td>${item.tenDanhMuc}</td>
+                        <td>${item.tenSanPham}</td>
+                        <td>${formatCurrency(item.giaNhap)}đ</td>
+                        <td>${formatCurrency(item.giaBan)}đ</td>
+                        <td id="gianiemyet">${formatCurrency(item.giaNiemYet)}đ</td>
+                        <td><img src='/image/${item.anhDaiDien}' height='100' alt='Product Image'></td>
+                        <td>${isEligible ? `<input type='checkbox' class='id-sp-button' data-id-sp='${item.id ? item.id : ""}'/>` : ''}</td>
+                    </tr>`;
+                    }).join('') + "</tbody>";
+                } else {
                         productListHTML += "<tr><td colspan='8'>Không tìm thấy sản phẩm phù hợp</td></tr>";
                     }
 
@@ -523,23 +537,27 @@
             dataType: 'json',
             data: { dieukien: product },
             success: function (data) {
+                data.sort((a, b) => b.giaNiemYet - a.giaNiemYet);
                     var productListHTML = "<table class='table' style='" + tableStyle + "'>";
                     productListHTML += "<thead><tr><th>Mã Sp</th><th>Danh Mục</th><th>Tên Sản Phẩm</th><th>Giá Nhập</th><th>Giá bán</th><th>Giá Niêm yết</th><th>Ảnh Đại diện</th><th style='" + checkboxStyle + "'><input type='checkbox' id='selectAllCheckbox'/> Chọn</th></tr></thead>";
 
-                    if (data.length > 0) {
-                        productListHTML += "<tbody>" + data.map(item =>
-                            `<tr>
-                                <td>${item.maSp}</td>
-                                <td>${item.tenDanhMuc}</td>
-                                <td>${item.tenSanPham}</td>
-                                <td>${formatCurrency(item.giaNhap)}đ</td>
-                                <td>${formatCurrency(item.giaBan)}đ</td>
-                                <td>${formatCurrency(item.giaNiemYet)}đ</td>
-                                <td><img src='/image/${item.anhDaiDien}' height='100' alt='Product Image'></td>
-                                <td><input type="checkbox" class="id-sp-button" data-id-sp='${item.id ? item.id : ""}'/></td>
-                            </tr>`
-                        ).join('') + "</tbody>";
-                    } else {
+                if (data.length > 0) {
+                    productListHTML += "<tbody>" + data.map(item => {
+                        const isEligible = item.giaNiemYet >= dongGiaSp && item.giaNiemYet >= giamTheoTienSp;
+                        const rowClass = isEligible ? '' : 'disabled-row';
+                        console.log('hh', data);
+                        return `<tr class='${rowClass}'>
+                        <td>${item.maSp}</td>
+                        <td>${item.tenDanhMuc}</td>
+                        <td>${item.tenSanPham}</td>
+                        <td>${formatCurrency(item.giaNhap)}đ</td>
+                        <td>${formatCurrency(item.giaBan)}đ</td>
+                        <td id="gianiemyet">${formatCurrency(item.giaNiemYet)}đ</td>
+                        <td><img src='/image/${item.anhDaiDien}' height='100' alt='Product Image'></td>
+                        <td>${isEligible ? `<input type='checkbox' class='id-sp-button' data-id-sp='${item.id ? item.id : ""}'/>` : ''}</td>
+                    </tr>`;
+                    }).join('') + "</tbody>";
+                } else {
                         productListHTML += "<tr><td colspan='8'>Không tìm thấy sản phẩm phù hợp</td></tr>";
                     }
 
@@ -628,6 +646,8 @@
     // Gắn sự kiện click vào nút
     updateGiaButton.addEventListener("click", function () {
         updateGiaSanPham();
+
+
     });
      // huyApDungButton.addEventListener("click", function () {
      //     huyApDungKhuyenMai();
@@ -635,11 +655,13 @@
    //  search.addEventListener("click", function () {
    // //     updateView();
    //  });
-
+    var dongGiaSp = parseFloat($("#DongGia").val());;
+    var giamTheoTienSp = parseFloat($("#SoTienGiam").val());;
     function updateGiaSanPham() {
         var giamTheoTien = parseFloat($("#SoTienGiam").val());
         var giamTheoPh = parseFloat($("#PhanTramGiamGia").val());
         var DongGia = parseFloat($("#DongGia").val());
+   
             // Lấy giá trị từ input datetime
             var NgayBatDau = $("#NgayBatDau").val();
 
@@ -679,6 +701,7 @@
             success: function (response) {
                 // Xử lý kết quả trả về từ server (nếu cần)
                 console.log(response);
+
                 // TODO: Xử lý kết quả trả về từ server
             },
             error: function (xhr, status, error) {
@@ -735,7 +758,6 @@
     document.getElementById('updateGiaButton').addEventListener('click', function () {
         // Reload lại trang
         location.reload();  
-
     });
 
     // document.getElementById('huyApDungButton').addEventListener('click', function () {
