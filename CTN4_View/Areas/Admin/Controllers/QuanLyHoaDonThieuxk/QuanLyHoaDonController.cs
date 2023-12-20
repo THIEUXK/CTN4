@@ -1023,11 +1023,11 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             return Json(fileName, new System.Text.Json.JsonSerializerOptions());
         }
         [HttpPost("/QuanLyHd/XuatEx2")]
-        public JsonResult XuatEx2([FromBody] Thi1View Viewaa)
+        public JsonResult XuatEx2([FromBody] EXview exview)
         {
             var Filenameok = new List<string>();
 
-            foreach (var IdHD in Viewaa.IdHD)
+            foreach (var IdHD in exview.IdHD)
             {
                 var wb = new XLWorkbook();
                 var ws = wb.Worksheets.Add("Contacts");
@@ -1122,11 +1122,11 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             return Json(Filenameok, new System.Text.Json.JsonSerializerOptions());
         }
         [HttpPost("/QuanLyHd/XuatEx3")]
-        public JsonResult XacNhanDonHangNhanh([FromBody] Thi1View Viewaa)
+        public JsonResult XacNhanDonHangNhanh([FromBody] EXview exview)
         {
             var Filenameok = new List<string>();
 
-            foreach (var IdHD in Viewaa.IdHD)
+            foreach (var IdHD in exview.IdHD)
             {
                 var kt = _hoaDonService.GetById(IdHD);
                 if (kt.TrangThai != "Đang chờ xử lí")

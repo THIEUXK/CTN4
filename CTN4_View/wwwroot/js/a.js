@@ -89,6 +89,7 @@
                 contentType: 'application/json;charset=utf-8',
                 data: JSON.stringify(obj),
                 success: function (result) {
+                    debugger
 
                     if (result.length !== 0) {
                         var files = [];
