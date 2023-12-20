@@ -139,6 +139,7 @@ namespace CTN4_View.Controllers.Shop
             if (accnew.Count != 0)
             {
                 var checksp = _SanPhamChiTiet.GetAll().FirstOrDefault(c => c.IdSp == IdSanPham && c.IdSize == IdSize && c.IdMau == IdMau);
+
                 var KhuyenMaiSp = _KKhuyenMaiSanPhamService.GetAll().Where(c => c.KhuyenMai.Mua1tang1 == true).ToList();
                 var g = new List<Guid>();
                 foreach (var item in KhuyenMaiSp)
@@ -157,6 +158,12 @@ namespace CTN4_View.Controllers.Shop
                         TempData["TB2"] = message2;
                         return RedirectToAction("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = IdSanPham, message2 });
                     }
+                }
+                if (soluong > 20)
+                {
+                    var message2 = "Sản phẩm này trong giỏ hàng đã vượt quá 20 sản phẩm vui lòng liên hệ shop để mua sỉ hoặc kiểm tra lại số lượng trong giỏ hàng!";
+                    TempData["TB2"] = message2;
+                    return RedirectToAction("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = IdSanPham, message2 });
                 }
                 if (soluong > checksp.SoLuong)
                 {
@@ -216,6 +223,12 @@ namespace CTN4_View.Controllers.Shop
                         else
                         {
                             SP.SoLuong += soluong;
+                            if (SP.SoLuong>20)
+                            {
+                                var message2 = "Sản phẩm này trong giỏ hàng đã vượt quá 20 sản phẩm vui lòng liên hệ shop để mua sỉ hoặc kiểm tra lại số lượng trong giỏ hàng!";
+                                TempData["TB2"] = message2;
+                                return RedirectToAction("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = IdSanPham, message2 });
+                            }
                             if (_GioHangChiTiet.Sua(SP))
                             {
                                 var product = _SanPhamChiTiet.GetById(sanphamCT.Id);
@@ -322,6 +335,16 @@ namespace CTN4_View.Controllers.Shop
                         return RedirectToAction("ThuTucThanhToan", "BanHang", new { message });
                     }
                 }
+                var KhuyenMaiSp = _KKhuyenMaiSanPhamService.GetAll().Where(c => c.KhuyenMai.Mua1tang1 == true).ToList();
+                var g = new List<Guid>();
+                foreach (var item in KhuyenMaiSp)
+                {
+                    // Kiểm tra xem Mau.Id đã xuất hiện trong danh sách chưa
+                    if (!g.Contains((Guid)item.IdSanPham))
+                    {
+                        g.Add((Guid)item.IdSanPham);
+                    }
+                }
                 //Thêm chi tiết hóa đơn cho từng sản phẩm trong giỏ hàng
                 foreach (var ct in _GioHangChiTiet.GetAll().Where(c => c.IdGioHang == gh.Id))
                 {
@@ -335,6 +358,10 @@ namespace CTN4_View.Controllers.Shop
                         TrangThai = true,
                         Is_detele = true,
                     };
+                    if (g.Contains(ct.SanPhamChiTiet.SanPham.Id))
+                    {
+                        cthd.SoLuong *= 2;
+                    }
                     if (_HoaDonChiTiet.Them(cthd) == false)
                     {
                         var message = "thanh toán lỗi(2)";
@@ -607,6 +634,16 @@ namespace CTN4_View.Controllers.Shop
                             return RedirectToAction("ThuTucThanhToan", "BanHang", new { message });
                         }
                     }
+                    var KhuyenMaiSp = _KKhuyenMaiSanPhamService.GetAll().Where(c => c.KhuyenMai.Mua1tang1 == true).ToList();
+                    var g = new List<Guid>();
+                    foreach (var item in KhuyenMaiSp)
+                    {
+                        // Kiểm tra xem Mau.Id đã xuất hiện trong danh sách chưa
+                        if (!g.Contains((Guid)item.IdSanPham))
+                        {
+                            g.Add((Guid)item.IdSanPham);
+                        }
+                    }
                     //Thêm chi tiết hóa đơn cho từng sản phẩm trong giỏ hàng
                     foreach (var ct in _GioHangChiTiet.GetAll().Where(c => c.IdGioHang == gh.Id))
                     {
@@ -620,6 +657,10 @@ namespace CTN4_View.Controllers.Shop
                             TrangThai = true,
                             Is_detele = true,
                         };
+                        if (g.Contains(ct.SanPhamChiTiet.SanPham.Id))
+                        {
+                            cthd.SoLuong *= 2;
+                        }
                         if (_HoaDonChiTiet.Them(cthd) == false)
                         {
                             var message = "thanh toán lỗi(2)";
