@@ -612,7 +612,7 @@ namespace CTN4_View.Controllers.Shop
             }
             else
             {
-                var thongbaoSearch = "Không tìm thất sản phẩm nào ";
+                var thongbaoSearch = "Không tìm thấy sản phẩm nào ";
                 TempData["Notification"] = thongbaoSearch;
                 return RedirectToAction("viewSpRong", "HienThiSanPham", new { thongbaoSearch });
             }
