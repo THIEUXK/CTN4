@@ -144,7 +144,16 @@
                                             <h6 style="text-align:center">@FormatCurrency(item.SoTienGiam) </h6>
                                         </td>
                                     }
-                                    @if(@item.SoTienGiam == 0 && @item.PhanTramGiamGia == 0 && @item.DongGia == 0) {
+                                    @if(item.Mua1tang1 == true)
+                                    {
+                                        <td>
+                                            <h6 style="text-align:center">Mua 1 tặng 1</h6>
+                                        </td>
+                                        <td>
+                                            <h6 style="text-align:center">@FormatCurrency(0) </h6>
+                                        </td>
+                                    }
+                                    @if(@item.SoTienGiam == 0 && @item.PhanTramGiamGia == 0 && @item.DongGia == 0 && item.Mua1tang1 != true) {
                                         <td>
                                             <h6 style="text-align:center">null</h6>
                                         </td>
@@ -176,7 +185,7 @@
                                         else
                                         {
                                             <td class="border-bottom-0">
-                                                <p class="mb-0 fw-normal"  style="white-space: nowrap; color:white;text-align :center; background-color: orange; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Tạm ngưng</p>
+                                                <p class="mb-0 fw-normal"  style="white-space: nowrap; color:white;text-align :center; background-color: orange; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Chưa kích hoạt</p>
                                             </td>
                                         }
                                     }
