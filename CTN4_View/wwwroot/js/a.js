@@ -108,6 +108,82 @@
         }
 
     });
+    $(document).on('click', '.btnXuatEx5', function () {
+        var isConfirmed = confirm("Bạn có chắc chắn muốn ẩn đơn hàng?");
+
+        // Nếu người dùng xác nhận, thực hiện hành động xuất File Excel
+        if (isConfirmed) {
+            var arrcheck = [];
+            //loadTotal()
+            // Get all checkboxes with class form-check-input that are checked
+            var checkedCheckboxes = $(".form-check-input:checked");
+            checkedCheckboxes.each(function () {
+                arrcheck.push(parseInt($(this).val()));
+            })
+            var obj = {
+                IdHD: arrcheck
+            }
+            //if (checkedCheckboxes.length != 0) {
+            console.log(JSON.stringify({ listId: arrcheck }));
+            $.ajax({
+                url: '/QuanLyHd/AnHD',
+                type: 'POST',
+                dataType: 'json',
+                contentType: 'application/json;charset=utf-8',
+                data: JSON.stringify(obj),
+                success: function (result) {
+                    debugger
+                    if (result == "ok") {
+                        location.reload()
+                        $("#aaa1").html(`<div class="alert alert-danger" style="background-color:lightgreen;color:black">Ẩn đơn hàng thành công</div>`);
+                    }
+                    else if (result == "that bai 1") {
+                        $("#aaa").html(`<div class="alert alert-danger">Có đơn hàng không dủ điều kiện</div>`);
+
+                    }
+                }
+            })
+        }
+
+    });
+    $(document).on('click', '.btnXuatEx6', function () {
+        var isConfirmed = confirm("Bạn có chắc chắn muốn hiện đơn hàng?");
+
+        // Nếu người dùng xác nhận, thực hiện hành động xuất File Excel
+        if (isConfirmed) {
+            var arrcheck = [];
+            //loadTotal()
+            // Get all checkboxes with class form-check-input that are checked
+            var checkedCheckboxes = $(".form-check-input:checked");
+            checkedCheckboxes.each(function () {
+                arrcheck.push(parseInt($(this).val()));
+            })
+            var obj = {
+                IdHD: arrcheck
+            }
+            //if (checkedCheckboxes.length != 0) {
+            console.log(JSON.stringify({ listId: arrcheck }));
+            $.ajax({
+                url: '/QuanLyHd/HienHD',
+                type: 'POST',
+                dataType: 'json',
+                contentType: 'application/json;charset=utf-8',
+                data: JSON.stringify(obj),
+                success: function (result) {
+                    debugger
+                    if (result == "ok") {
+                        location.reload()
+                        $("#aaa1").html(`<div class="alert alert-danger" style="background-color:lightgreen;color:black">Hiện đơn hàng thành công</div>`);
+                    }
+                    else if (result == "that bai 1") {
+                        $("#aaa").html(`<div class="alert alert-danger">Có đơn hàng không dủ điều kiện</div>`);
+
+                    }
+                }
+            })
+        }
+
+    });
     $(document).on('click', '.btnXuatEx2', function () {
         var isConfirmed = confirm("Bạn có chắc chắn muốn xuất File Excel?");
 

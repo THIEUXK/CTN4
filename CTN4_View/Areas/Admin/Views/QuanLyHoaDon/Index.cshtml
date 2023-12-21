@@ -39,11 +39,14 @@
                             <li>
                                 <a class="dropdown-item" href="@Url.Action("XemDaBiHuy")">Đơn đã bị hủy</a>
                             </li>
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("XemDaBiAn")">Đơn đã bị ẩn</a>
+                            </li>
                         </ul>
                     </div>
-                    <div class="dropdown me-1">  <button class="btn btn-secondary dropdown-toggle"><a class="dropdown-item" href="@Url.Action("XemChuaXacNhan")">Đơn chưa xác nhận </a></button></div>
+                    <div class="dropdown me-1">  <button class="btn btn-info"><a style="color:white" href="@Url.Action("XemChuaXacNhan")">Đơn chưa xác nhận </a></button></div>
                     <div class="dropdown me-1">
-                        <button class="btn btn-secondary dropdown-toggle"> <a class="dropdown-item" href="@Url.Action("XemDaXacNhan")">Đơn đã xác nhận</a></button>
+                        <button class="btn btn-info"> <a style="color:white" href="@Url.Action("XemDaXacNhan")">Đơn đã xác nhận</a></button>
                     </div>
                     <div class="dropdown me-1">
                         <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
@@ -51,11 +54,18 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li>
-                                <a class="dropdown-item" href="@Url.Action("XapXepMoiNhat")">Đơn hàng mới nhất</a>
+                                <a class="dropdown-item" href="@Url.Action("XapXepMoiNhat")">Đơn hàng mới nhất tại wed</a>
                             </li>
 
                             <li>
-                                <a class="dropdown-item" href="@Url.Action("XapXepCuNhat")">Đơn hàng cũ nhất</a>
+                                <a class="dropdown-item" href="@Url.Action("XapXepCuNhat")">Đơn hàng cũ nhất tại wed</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("XapXepMoiNhat1")">Đơn hàng mới nhất tại quầy</a>
+                            </li>
+
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("XapXepCuNhat1")">Đơn hàng cũ nhất tại quầy</a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="@Url.Action("XapXepTienCaoNhat")">Tổng tiền cao nhất</a>
@@ -73,6 +83,8 @@
                         <ul class="dropdown-menu">
                             <button class="btnXuatEx2">Xuất File Excel</button>
                             <button class="btnXuatEx3">Xác nhận đơn hàng</button>
+                            <button class="btnXuatEx5">Ẩn đơn</button>
+                            <button class="btnXuatEx6">Hiện đơn</button>
                         </ul>
                     </div>
                     <div class="dropdown me-1">
@@ -85,144 +97,163 @@
                     </div>
                 </div>
                 <div>
-                    <div class="col-7">
-                        <form asp-action="TimKiemNgay" id="searchForm">
-                            <div>
-                                Tìm kiếm theo ngày tạo hóa đơn:
+
+                    <div class="row">
+                        <div class="col-5">
+                            <form asp-action="TimKiem">
                                 <div>
-                                    Từ
-                                    <input name="NgayDau" id="NgayDau" value="" type="datetime-local">
+                                    Tìm kiếm:
+                                    <input name="ten" type="text" class="form-control" oninput="luuGiaTri(this)" onchange="this.form.submit()">
                                     </input>
-                                    Đến
-                                    <input name="NgayCuoi" id="NgayCuoi" value="" type="datetime-local">
-                                    </input>
-
-                                    <!-- Thêm mã JavaScript để giữ nguyên giá trị ngày -->
-                                    <button type="button" class="btn btn-primary" onclick="confirmSearch()">Tìm</button>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
+                        <div class="col-7">
+                            <form asp-action="TimKiemNgay" id="searchForm">
+                                <div>
+                                    Tìm kiếm theo ngày tạo hóa đơn:
+                                    <div>
+                                        Từ
+                                        <input name="NgayDau" id="NgayDau" value="" type="datetime-local">
+                                        </input>
+                                        Đến
+                                        <input name="NgayCuoi" id="NgayCuoi" value="" type="datetime-local">
+                                        </input>
+
+                                        <!-- Thêm mã JavaScript để giữ nguyên giá trị ngày -->
+                                        <button type="button" class="btn btn-primary" onclick="confirmSearch()">Tìm</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
+
+                    @if (TempData["TB1"] != null)
+                    {
+                        <div class="alert alert-danger">@TempData["TB1"]</div>
+                    }
+                    <div id="aaa"></div>
+                    <div id="aaa1"></div>
+
                 </div>
-                @if (TempData["TB1"] != null)
-                {
-                    <div class="alert alert-danger">@TempData["TB1"]</div>
-                }
-                <div id="aaa"></div>
-                <div id="aaa1"></div>
-
             </div>
-        </div>
-        <div class="card w-100">
-            <div class="card-body p-4">
+            <div class="card w-100">
+                <div class="card-body p-4">
 
-                <div class="table-responsive">
+                    <div class="table-responsive">
 
-                    <table class="table text-nowrap mb-0 align-middle">
-                        <thead class="thead-dark">
-                            @*<div class="row ">
-                            <div class="card">
-                            <div class="card-body">
-                            <table class="table">
-                            <thead class="thead-dark">*@
-                            <tr>
-                                <th class="border-bottom-0">
-
-                                    <input class="Allcheck" type="checkbox" id="defaultCheck1">
-                                </th>
-                                <th class="border-bottom-0">
-                                    <h6 class="fw-semibold mb-0" style="color:white">Mã hóa đơn</h6>
-                                </th>
-                                <th class="border-bottom-0">
-                                    <h6 class="fw-semibold mb-0" style="color:white">Thời gian đặt đơn</h6>
-                                </th>
-                                <th class="border-bottom-0">
-                                    <h6 class="fw-semibold mb-0" style="color:white">Tên người nhận</h6>
-                                </th>
-                                <th class="border-bottom-0">
-                                    <h6 class="fw-semibold mb-0" style="color:white">Thanh toán</h6>
-                                </th>
-                                <th class="border-bottom-0">
-                                    <h6 class="fw-semibold mb-0" style="color:white">Giao hàng</h6>
-                                </th>
-                                <th class="border-bottom-0">
-                                    <h6 class="fw-semibold mb-0" style="color:white">Tổng tiền</h6>
-                                </th>
-                                <th class="border-bottom-0">
-                                    <h6 class="fw-semibold mb-0" style="color:white">Loại</h6>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var a in Model.hoaDons)
-                            {
+                        <table class="table text-nowrap mb-0 align-middle">
+                            <thead class="thead-dark">
+                                @*<div class="row ">
+                                <div class="card">
+                                <div class="card-body">
+                                <table class="table">
+                                <thead class="thead-dark">*@
                                 <tr>
-                                    <td class="border-bottom-0">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="@a.Id" id="defaultCheck1">
-                                        </div>
-                                    </td>
-                                    <td class="border-bottom-0">
-                                        <div class="d-flex align-items-center gap-2">
-                                            <b><span>#@Html.ActionLink(a.MaHoaDon, "XemChiTiet", new { id = a.Id })</span></b>
-                                        </div>
-                                    </td>
-                                    @if (a.NgayDat!=null)
-                                    {
+                                    <th class="border-bottom-0">
+
+                                        <input class="Allcheck" type="checkbox" id="defaultCheck1">
+                                    </th>
+                                    <th class="border-bottom-0">
+                                        <h6 class="fw-semibold mb-0" style="color:white">Mã hóa đơn</h6>
+                                    </th>
+                                    <th class="border-bottom-0">
+                                        <h6 class="fw-semibold mb-0" style="color:white">Thời gian đặt đơn</h6>
+                                    </th>
+                                    <th class="border-bottom-0">
+                                        <h6 class="fw-semibold mb-0" style="color:white">Tên người nhận</h6>
+                                    </th>
+                                    <th class="border-bottom-0">
+                                        <h6 class="fw-semibold mb-0" style="color:white">Thanh toán</h6>
+                                    </th>
+                                    <th class="border-bottom-0">
+                                        <h6 class="fw-semibold mb-0" style="color:white">Giao hàng</h6>
+                                    </th>
+                                    <th class="border-bottom-0">
+                                        <h6 class="fw-semibold mb-0" style="color:white">Tổng tiền</h6>
+                                    </th>
+                                    <th class="border-bottom-0">
+                                        <h6 class="fw-semibold mb-0" style="color:white">Loại</h6>
+                                    </th>
+                                    <th class="border-bottom-0">
+                                        <h6 class="fw-semibold mb-0" style="color:white">Trạng thái</h6>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var a in Model.hoaDons)
+                                {
+                                    <tr>
                                         <td class="border-bottom-0">
-                                            <span class="fw-normal">@a.NgayDat</span>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="@a.Id" id="defaultCheck1">
+                                            </div>
                                         </td>
-                                    }
-                                    else
-                                    {
                                         <td class="border-bottom-0">
-                                            <span class="fw-normal">@a.NgayTaoHoaDon</span>
+                                            <div class="d-flex align-items-center gap-2">
+                                                <b><span>#@Html.ActionLink(a.MaHoaDon, "XemChiTiet", new { id = a.Id })</span></b>
+                                            </div>
                                         </td>
-                                    }
-                                    <td class="border-bottom-0">
-                                        <p class="mb-0 fw-normal">@a.TenKhachHang</p>
-                                    </td>
-                                    <td class="border-bottom-0">
-                                        @if (a.TrangThaiThanhToan == true)
+                                        @if (a.NgayDat != null)
                                         {
-                                            <h6 class="fw-semibold mb-0" style="color:limegreen">Đã thanh toán</h6>
+                                            <td class="border-bottom-0">
+                                                <span class="fw-normal">@a.NgayDat</span>
+                                            </td>
                                         }
                                         else
                                         {
-                                            <h6 class="fw-semibold mb-0" style="color:red">Chưa thanh toán</h6>
+                                            <td class="border-bottom-0">
+                                                <span class="fw-normal">@a.NgayTaoHoaDon</span>
+                                            </td>
                                         }
-                                    </td>
-                                    @if (a.NgayGiao == null)
-                                    {
-                                        <th class="border-bottom-0">
-                                            <h6 class="fw-semibold mb-0" style="color:red">Chưa Giao Hàng</h6>
-                                        </th>
-                                    }
-                                    else
-                                    {
-                                        <th class="border-bottom-0">
-                                            <h6 class="fw-semibold mb-0" style="color:limegreen">@a.NgayGiao</h6>
-                                        </th>
-                                    }
-                                    <td class="border-bottom-0">
-                                        <p class="mb-0 fw-normal">@FormatCurrency(@a.TongTien)</p>
-                                    </td>
-                                    @if (a.NgayTaoHoaDon!=null)
-                                    {
                                         <td class="border-bottom-0">
-                                            <p class="mb-0 fw-normal">Mua tại quầy</p>
+                                            <p class="mb-0 fw-normal">@a.TenKhachHang</p>
                                         </td>
-                                    }
-                                    else
-                                    {
                                         <td class="border-bottom-0">
-                                            <p class="mb-0 fw-normal">Mua tại wed</p>
+                                            @if (a.TrangThaiThanhToan == true)
+                                            {
+                                                <h6 class="fw-semibold mb-0" style="color:limegreen">Đã thanh toán</h6>
+                                            }
+                                            else
+                                            {
+                                                <h6 class="fw-semibold mb-0" style="color:red">Chưa thanh toán</h6>
+                                            }
                                         </td>
-                                    }
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+                                        @if (a.NgayGiao == null)
+                                        {
+                                            <th class="border-bottom-0">
+                                                <h6 class="fw-semibold mb-0" style="color:red">Chưa Giao Hàng</h6>
+                                            </th>
+                                        }
+                                        else
+                                        {
+                                            <th class="border-bottom-0">
+                                                <h6 class="fw-semibold mb-0" style="color:limegreen">@a.NgayGiao</h6>
+                                            </th>
+                                        }
+                                        <td class="border-bottom-0">
+                                            <p class="mb-0 fw-normal">@FormatCurrency(@a.TongTien)</p>
+                                        </td>
+                                        @if (a.NgayTaoHoaDon != null)
+                                        {
+                                            <td class="border-bottom-0">
+                                                <p class="mb-0 fw-normal">Mua tại quầy</p>
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td class="border-bottom-0">
+                                                <p class="mb-0 fw-normal">Mua tại wed</p>
+                                            </td>
+                                        }
+                                        <td class="border-bottom-0">
+                                            <p class="mb-0 fw-normal" style="color:blue"><b>@a.TrangThai</b></p>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -433,4 +464,21 @@
 
     // Gọi hàm khôi phục giá trị ngày khi trang được tải lại
     document.addEventListener("DOMContentLoaded", restoreDateValues);
+    function luuGiaTri(inputElement) {
+        var fieldName = inputElement.name;
+        var inputValue = inputElement.value;
+        localStorage.setItem(fieldName + 'Value', inputValue);
+    }
+
+    // Hàm để khôi phục giá trị từ localStorage khi trang được tải lại
+    window.onload = function () {
+        var formElements = document.getElementById('myForm').elements;
+        for (var i = 0; i < formElements.length; i++) {
+            var fieldName = formElements[i].name;
+            var storedValue = localStorage.getItem(fieldName + 'Value');
+            if (storedValue) {
+                formElements[i].value = storedValue;
+            }
+        }
+    };
 </script>

@@ -277,7 +277,6 @@
                                         <div class="col">Tiền Giảm</div>
                                         <div class="col-auto text-right">@FormatCurrency(Model.HoaDon.TienGiam)</div>
                                     </div>
-
                                     <br />
                                     <div class="row">
                                         <div class="col"><b>Tổng giá trị đơn hàng</b></div>
@@ -335,11 +334,9 @@
                                 </tbody>
                             </table>
                             <br />
-                            <div class="dropdown">
-                                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
-                                    Xem lịch sử
-                                </button>
-                                <div class="dropdown-menu p-4">
+                            <div >
+                              <h1>Lịch sử</h1>
+                                <div >
                                     @{
                                         var dem = @Model.LichSuHoaDon.Count();
                                     }
@@ -357,7 +354,7 @@
                                                             <span class="timeline-badge-border d-block flex-shrink-0"></span>
                                                         </div>
                                                         <div class="timeline-desc fs-3 text-dark mt-n1 fw-semibold">
-                                                            @a.ThaoTac<a href="javascript:void(0)" class="text-primary d-block fw-normal">@a.NguoiThucHien</a>
+                                                            @a.ThaoTac<a href="javascript:void(0)" class="text-primary d-block fw-normal">@a.NguoiThucHien:@a.GhiChu</a>
                                                         </div>
                                                     </li>
                                                 }
@@ -369,7 +366,7 @@
                                                             <span class="timeline-badge border-2 border border-success flex-shrink-0 my-8"></span>
                                                         </div>
                                                         <div class="timeline-desc fs-3 text-dark mt-n1 fw-semibold">
-                                                            @a.ThaoTac <a href="javascript:void(0)" class="text-primary d-block fw-normal">@a.NguoiThucHien</a>
+                                                            @a.ThaoTac <a href="javascript:void(0)" class="text-primary d-block fw-normal">@a.NguoiThucHien:@a.GhiChu</a>
                                                         </div>
                                                     </li>
                                                 }
@@ -382,7 +379,7 @@
                                                             <span class="timeline-badge-border d-block flex-shrink-0"></span>
                                                         </div>
                                                         <div class="timeline-desc fs-3 text-dark mt-n1 fw-semibold">
-                                                            @a.ThaoTac <a href="javascript:void(0)" class="text-primary d-block fw-normal">@a.NguoiThucHien</a>
+                                                            @a.ThaoTac <a href="javascript:void(0)" class="text-primary d-block fw-normal">@a.NguoiThucHien:@a.GhiChu</a>
                                                         </div>
                                                     </li>
                                                 }
