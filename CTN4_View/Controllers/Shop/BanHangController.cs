@@ -1108,7 +1108,7 @@ namespace CTN4_View.Controllers.Shop
             var b = _HoaDonService.GetById(id);
             var a = _HoaDonChiTiet.GetAll().Where(c => c.IdHoaDon == id).ToList();
             var c = _giamGiaChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
-            var d = _LichSuHoaDonService.GetAll().Where(c => c.IdHoaDonn == id && c.TrangThai == true).OrderByDescending(c => c.ThoiGianlam).ToList();
+            var d = _LichSuHoaDonService.GetAll().Where(c => c.IdHoaDonn == id && c.TrangThai == true&&c.Is_detele==true).OrderByDescending(c => c.ThoiGianlam).ToList();
 
             var view = new ThieuxkView()
             {
