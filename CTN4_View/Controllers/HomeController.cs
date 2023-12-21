@@ -38,7 +38,7 @@ namespace CTN4_View.Controllers
         private readonly IDanhMucChiTietService _danhMucChiTietService;
         private readonly IEmailService _EmailService;
         public IKhachHangService _KHangService;
-         public IDiaChiNhanHangService _diaChiNhanHangService;
+        public IDiaChiNhanHangService _diaChiNhanHangService;
 
         //public HomeController()
         //{
@@ -66,7 +66,7 @@ namespace CTN4_View.Controllers
             _CTN4_Ok = new DB_CTN4_ok();
             _danhMucChiTietService = new DanhMucChiTietMucChiTietService();
             _EmailService = emailService;
-             _diaChiNhanHangService = new DiaChiNhanHangService();
+            _diaChiNhanHangService = new DiaChiNhanHangService();
         }
 
         public IActionResult Index()
@@ -90,7 +90,7 @@ namespace CTN4_View.Controllers
         public IActionResult AddAnhDaiDien(Guid IdKh, [Bind] IFormFile imageFile)
         {
             var khachhang = _khachHangService.GetById(IdKh);
-            var x = imageFile.FileName;
+            //var x = imageFile.FileName;
             if (imageFile != null && imageFile.Length > 0) // Không null và không trống
             {
                 //Trỏ tới thư mục wwwroot để lát nữa thực hiện việc Copy sang
@@ -104,6 +104,13 @@ namespace CTN4_View.Controllers
                 // Gán lại giá trị cho Description của đối tượng bằng tên file ảnh đã được sao chép
                 khachhang.AnhDaiDien = imageFile.FileName;
             }
+            else
+            {
+                var thongbaoAnh = "Hãy Thêm ảnh !";
+                TempData["Notification"] = thongbaoAnh;
+                return RedirectToAction("UserDetail", new { thongbaoAnh });
+            }
+
             if (_khachHangService.Sua(khachhang)) // Nếu thêm thành công
             {
                 return RedirectToAction("UserDetail");
@@ -391,7 +398,7 @@ namespace CTN4_View.Controllers
             }
 
             // Check if the phone number has a length between 10 and 13 characters
-            if ( phoneNumber.Length ==10)
+            if (phoneNumber.Length == 10)
             {
                 return false;
             }
@@ -411,7 +418,7 @@ namespace CTN4_View.Controllers
             {
                 return RedirectToAction("login", "Home");
             }
-          
+
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
@@ -532,29 +539,29 @@ namespace CTN4_View.Controllers
 
         //    return View();
         //}
-       
-       public ActionResult SuccessPass()
+
+        public ActionResult SuccessPass()
         {
             return View();
         }
 
-          public ActionResult QuenMk() 
+        public ActionResult QuenMk()
         {
             return View();
-                }
+        }
         [HttpPost]
         public async Task<IActionResult> QuenMks(MailRequest mailRequest)
         {
             var khachHang = _khachHangService.GetAll().FirstOrDefault(c => c.TenDangNhap == mailRequest.Tendangnhap);
             var checkmail = _khachHangService.GetAll().FirstOrDefault(c => c.Email == mailRequest.ToEmail);
 
-           
-                if (string.IsNullOrEmpty(mailRequest.ToEmail))
-                {
-                    ViewBag.Message = "Không được để trống";
 
-                    return View("QuenMk",mailRequest);
-                }
+            if (string.IsNullOrEmpty(mailRequest.ToEmail))
+            {
+                ViewBag.Message = "Không được để trống";
+
+                return View("QuenMk", mailRequest);
+            }
             if (khachHang == null || checkmail == null)
             {
                 ViewBag.Message = "Tên đăng nhập hoặc email không đúng";
@@ -567,10 +574,10 @@ namespace CTN4_View.Controllers
 
             await _EmailService.SendEmailAsync(mailRequest);
 
-            return RedirectToAction(nameof(SuccessPass)); 
+            return RedirectToAction(nameof(SuccessPass));
         }
     }
 
-    }
+}
 
 

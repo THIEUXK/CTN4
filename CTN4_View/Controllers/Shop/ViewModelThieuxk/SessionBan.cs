@@ -22,7 +22,7 @@ namespace CTN4_View_Admin.Controllers.Shop
             }
             else return new List<ThongTinTam>();
         }
-        public static List<DanhMuc> DanhMucSS(ISession session, string key)
+        public static List<DanhMuc>? DanhMucSS(ISession session, string key)
         {
             var data = session.GetString(key); // Đọc dữ liệu từ Session ở dạng chuỗi
             if (data != null)

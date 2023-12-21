@@ -1,5 +1,6 @@
 ﻿@*@model IEnumerable<CTN4_Data.Models.DB_CTN4.SanPham>*@
 @model X.PagedList.IPagedList<CTN4_Data.Models.DB_CTN4.SanPham>
+@*@model X.PagedList.IPagedList<CTN4_Serv.ViewModel.SanPhamView>*@
 @using X.PagedList.Mvc.Core
 @{
     ViewData["Title"] = "Index";
@@ -35,6 +36,21 @@
         <button type="submit" class="btn btn-outline-secondary">Tìm kiếm</button>
     </div>
 }
+<div class="dropdown me-1">
+    <button type="button" class="btn btn-secondary dropdown-toggle">
+        Tất cả đơn hàng
+    </button>
+    <ul class="dropdown-menu">
+        <li >
+            <a class="dropdown-item" href="@Url.Action("Index")">Tất cả đơn hàng</a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="@Url.Action("SanPhamDaXoa")">SanPhamDaXoa</a>
+        </li>
+    </ul>
+</div>
+
+
 </br>
 <table class="table">
     <thead class="thead-dark">
@@ -106,7 +122,15 @@
                     @Html.DisplayFor(modelItem => item.TrangThai)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Is_detele)
+                    @*  @Html.DisplayFor(modelItem => item.Is_detele )*@
+                    @if (item.Is_detele == true)
+                    {
+                        <p>Hiện thị</p>
+                    }
+                    else
+                    {
+                        <p>Đã ẩn</p>
+                    }
                 </td>
                 <td>
                     <tb>
