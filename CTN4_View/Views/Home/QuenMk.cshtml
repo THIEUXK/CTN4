@@ -17,13 +17,13 @@
                 <div class="form-group">
                     <label asp-for="Tendangnhap" class="control-label">Tên Đăng Nhập</label>
                         <input asp-for="Tendangnhap" class="form-control" maxlength="30" oninput="limitInputLength(this, 30)" />
-                    <span asp-validation-for="Tendangnhap" class="text-danger"></span>
+                    
                 </div>
 
                 <div class="form-group">
                     <label asp-for="ToEmail" class="control-label">Địa chỉ Email</label>
                         <input asp-for="ToEmail" class="form-control" maxlength="50" oninput="limitInputLength(this, 50)" />
-                    <span asp-validation-for="ToEmail" class="text-danger"></span>
+                    
                 </div>
                     @if (!string.IsNullOrEmpty(ViewBag.Message))
                     {
