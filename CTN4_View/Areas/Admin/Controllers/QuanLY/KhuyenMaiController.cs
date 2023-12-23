@@ -158,15 +158,12 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [ValidateAntiForgeryToken]
         public ActionResult Create(KhuyenMai a)
         {
-            if (ModelState.IsValid)
-            {
                 var tontai = _sv.GetAll().FirstOrDefault(c => c.MaKhuyenMai == a.MaKhuyenMai && c.Id != a.Id);
                 if (tontai != null)
                 {
                     ModelState.AddModelError("MaKhuyenMai", "Mã khuyến mại không được trùng.");
                     return View(a);
                 }
-                a.TrangThai = false;
 
                 if (_sv.Them(a)) // Nếu thêm thành công
                 {
@@ -174,8 +171,6 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                 }
 
                 return View();
-            }
-            return View(a);
         }
         // GET: KhuyenMaiController/Edit/5
         public ActionResult Edit(Guid id)
