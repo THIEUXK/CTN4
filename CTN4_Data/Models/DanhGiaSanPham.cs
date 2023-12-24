@@ -16,6 +16,8 @@ namespace CTN4_Data.Models
         public int SoSao { get; set; }
         public bool TrangThai { get; set; }
         public bool Is_delete { get; set; }
+        public DateTime ThoiGian { get; set; }
+        public int SoSua { get; set; }
         public virtual KhachHang? KhachHang { get; set; }
         public virtual SanPham? SanPham { get; set; }
     }
