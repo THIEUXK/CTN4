@@ -290,9 +290,9 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         {
 
            
-            var check = _sanPhamChiTietService.GetAll().FirstOrDefault(c => c.IdSp == a.IdSp && c.IdMau == a.IdMau && c.IdSize == a.IdSize);
+            var check = _sanPhamChiTietService.GetAll().FirstOrDefault(c => c.IdSp == a.IdSp && c.IdMau == a.IdMau && c.IdSize == a.IdSize && c.TrangThai == true && c.Is_detele == true);
 
-            if (check == null)
+            if (check != null)
             {
                 var message = "Sản phẩm đã tồn tại !";
                 TempData["ErrorMessage"] = message;

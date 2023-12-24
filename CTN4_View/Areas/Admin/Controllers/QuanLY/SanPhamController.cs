@@ -8,6 +8,7 @@ using CTN4_View.Areas.Admin.Viewmodel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using X.PagedList;
 
 namespace CTN4_View_Admin.Controllers.QuanLY
@@ -156,11 +157,11 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         {
 
             if (System.IO.Path.GetExtension(imageFile.FileName) == ".jpg" ||
-                                   System.IO.Path.GetExtension(imageFile.FileName) == ".png" ||
-                                   System.IO.Path.GetExtension(imageFile.FileName) == ".jpeg" ||
-                                   System.IO.Path.GetExtension(imageFile.FileName) == ".tiff" ||
-                                   System.IO.Path.GetExtension(imageFile.FileName) == ".webp" ||
-                                   System.IO.Path.GetExtension(imageFile.FileName) == ".gif")
+                System.IO.Path.GetExtension(imageFile.FileName) == ".png" ||
+                System.IO.Path.GetExtension(imageFile.FileName) == ".jpeg" ||
+                System.IO.Path.GetExtension(imageFile.FileName) == ".tiff" ||
+                System.IO.Path.GetExtension(imageFile.FileName) == ".webp" ||
+                System.IO.Path.GetExtension(imageFile.FileName) == ".gif")
             {
 
                 if (imageFile != null && imageFile.Length > 0) // Không null và không trống
@@ -261,7 +262,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                 GhiChu = _sanPhamService.GetById(id).GhiChu,
                 Is_detele = _sanPhamService.GetById(id).Is_detele,
                 AnhDaiDien = _sanPhamService.GetById(id).AnhDaiDien,
-                Id= id,
+                Id = id,
 
             };
 
@@ -273,26 +274,27 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [ValidateAntiForgeryToken]
         public ActionResult Edit(SanPhamView c, [Bind] IFormFile imageFile, string anhdaidiencheck)
         {
-            
-            if (imageFile != null && imageFile.Length > 0) // Không null và không trống
-            {
-                //Trỏ tới thư mục wwwroot để lát nữa thực hiện việc Copy sang
-                var path = Path.Combine(
-                    Directory.GetCurrentDirectory(), "wwwroot", "image", imageFile.FileName);
-                using (var stream = new FileStream(path, FileMode.Create))
+           
+                if (imageFile != null && imageFile.Length > 0) // Không null và không trống
                 {
-                    // Thực hiện copy ảnh vừa chọn sang thư mục mới (wwwroot)
-                    imageFile.CopyTo(stream);
+                    //Trỏ tới thư mục wwwroot để lát nữa thực hiện việc Copy sang
+                    var path = Path.Combine(
+                        Directory.GetCurrentDirectory(), "wwwroot", "image", imageFile.FileName);
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        // Thực hiện copy ảnh vừa chọn sang thư mục mới (wwwroot)
+                        imageFile.CopyTo(stream);
+                    }
+
+                    // Gán lại giá trị cho Description của đối tượng bằng tên file ảnh đã được sao chép
+                    c.AnhDaiDien = imageFile.FileName;
+                }
+                else
+                {
+                    c.AnhDaiDien = anhdaidiencheck;
                 }
 
-                // Gán lại giá trị cho Description của đối tượng bằng tên file ảnh đã được sao chép
-                c.AnhDaiDien = imageFile.FileName;
-            }
-            else
-            {
-                c.AnhDaiDien = anhdaidiencheck;
-            }
-             var p = new SanPham()
+                var p = new SanPham()
                 {
                     Id = c.Id,
                     MaSp = c.MaSp,
@@ -309,14 +311,17 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                     AnhDaiDien = c.AnhDaiDien,
 
                 };
-            if (_sanPhamService.Sua(p))
-            {
-                return RedirectToAction("Index");
+                if (_sanPhamService.Sua(p))
+                {
+                    return RedirectToAction("Index");
 
+                }
+
+                return RedirectToAction("Edit", p.Id);
             }
+         
 
-            return RedirectToAction("Edit", p.Id);
-        }
+        // Hàm kiểm tra và xử lý giá trị TenSanPham
 
         // GET: SanPhamController/Delete/5
         public ActionResult Delete(Guid id)

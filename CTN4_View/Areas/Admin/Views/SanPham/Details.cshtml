@@ -136,6 +136,8 @@
 
             <th>
                 Trạng thái
+            </th> <th>
+                Tình trạng
             </th>
             <th>
             </th>
@@ -193,11 +195,23 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.TrangThai)
+                </td><td>
+                    @if (item.Is_detele == true)
+                    {
+                        <a>Hiện thị</a>
+                    }
+                    else
+                    {
+                        <a>Tạm ẩn</a>
+                    }
+                   
                 </td>
                 <td>
                     @Html.ActionLink("Chỉnh sửa", "Edit", "QuanLYH",new { id=item.Id },new { style = "text-decoration: none; color: black;" }) |
                     @Html.ActionLink("Chi tiết", "Details","QuanLYH" ,new { id=item.Id }, new { style = "text-decoration: none; color: black;" }) |
-                    @Html.ActionLink("Xóa", "Delete", "QuanLYH",new { id=item.Id },new { style = "text-decoration: none; color: black;" }) |
+                    @Html.ActionLink("Xóa", "Delete", "QuanLYH",new { id=item.Id },new { style = "text-decoration: none; color: black;", onclick = "return confirmDelete();" }) |
+                    
+
                 </td>
             </tr>
         }
@@ -241,8 +255,12 @@
             string formattedPrice = string.Format("{0:N0}", price); // Định dạng số và thêm dấu phân cách ngàn
             return formattedPrice + "VND"; // Thêm ký hiệu đồng (₫) vào cuối
         }
-    };
 
+    };
+    function confirmDelete() {
+        var result = confirm("Bạn có chắc chắn muốn xóa không?");
+        return result;
+    }
 </script>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
