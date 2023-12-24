@@ -52,13 +52,13 @@
 
                 <div class="form-group">
                     <label asp-for="Email" class="control-label">Email:</label>
-                    <input asp-for="Email" class="form-control" type="email" />
+                    <input asp-for="Email" class="form-control" type="email" oninput="removeSpaces(event)" />
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
                     <label asp-for="SDT" class="control-label">Số điện thoại:</label>
-                    <input asp-for="SDT" class="form-control" />
+                    <input asp-for="SDT" class="form-control" oninput="removeSpaces(event)" />
                     <span asp-validation-for="SDT" class="text-danger"></span>
                 </div>
 
@@ -98,3 +98,9 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 <script src="~/js/gmaps.min.js"></script>
 <script src="~/js/main.js"></script>
+<script>
+    function removeSpaces(event) {
+        var input = event.target;
+        input.value = input.value.replace(/\s/g, ''); // Loại bỏ dấu cách
+    }
+</script>

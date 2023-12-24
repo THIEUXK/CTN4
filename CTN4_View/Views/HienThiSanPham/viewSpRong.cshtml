@@ -39,10 +39,17 @@
                     <li class="main-nav-list">
                         <from>
                             @{
+                                Guid danhmucATV;
                                 var session5 = Context.Request.HttpContext.Session;
                                 var LuuTamDM = SessionBan.DanhMucSS(session5, "DanhMucTam");
-                                var danhmucATV = LuuTamDM[0].Id;
-
+                                if(LuuTamDM.Count != 0)
+                                {
+                                    danhmucATV = LuuTamDM[0].Id;
+                                }
+                                else {
+                                    danhmucATV = Guid.Parse("00000000-0000-0000-0000-000000000000");
+                                }
+                               
                             }
                             @foreach (var sp in Model.danhMucs)
                             {

@@ -158,17 +158,20 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [ValidateAntiForgeryToken]
         public ActionResult Create(KhuyenMai a)
         {
-
                 var tontai = _sv.GetAll().FirstOrDefault(c => c.MaKhuyenMai == a.MaKhuyenMai && c.Id != a.Id);
                 if (tontai != null)
                 {
                     ModelState.AddModelError("MaKhuyenMai", "Mã khuyến mại không được trùng.");
                     return View(a);
                 }
-                a.TrangThai = true;
-                _sv.Them(a);
-                return RedirectToAction("Index");
-            }
+
+                if (_sv.Them(a)) // Nếu thêm thành công
+                {
+                    return RedirectToAction("Index");
+                }
+
+                return View();
+        }
         // GET: KhuyenMaiController/Edit/5
         public ActionResult Edit(Guid id)
         {
@@ -268,68 +271,86 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         }
 
         [HttpPost]
-        public ActionResult UpdateGiaSanPham( string id,string[] ids, float giamTheoTien, float giamTheoPh, string tenSanPham, string maSp, string tenChatLieu,
-            string tenNSX, string moTa, float giaNhap, float giaBan, float giaNiemYet, string ghiChu, float DongGia, DateTime ngayBatDauDate,DateTime ngayKetThucDate)
+        public ActionResult UpdateGiaSanPham(
+    string id, string[] ids, float giamTheoTien, float giamTheoPh,
+    string tenSanPham, string maSp, string tenChatLieu, string tenNSX,
+    string moTa, float giaNhap, float giaBan, float giaNiemYet,
+    string ghiChu, float DongGia, DateTime ngayBatDauDate, DateTime ngayKetThucDate)
         {
+            TempData["ErrorMessage"] = "";  // Đặt thông báo lỗi về rỗng ban đầu
+            DateTime currentDate = DateTime.Now;
 
-            TempData["ErrorMessage"] = "Thông báo lỗi của bạn ở đây.";
-            DateTime currentDate = DateTime.Now; // Get the current date
-
-            foreach (var item in ids)
+            foreach (var itemId in ids)
             {
-                var sp = _sp.GetById(Guid.Parse(item.ToString()));
-                if (giamTheoTien > sp.GiaBan || DongGia > sp.GiaBan)
+                var product = _sp.GetById(Guid.Parse(itemId));
+
+                if (IsDiscountValid(giamTheoTien, giamTheoPh, DongGia, product))
+                {
+                    ApplyDiscount(giamTheoTien, giamTheoPh, DongGia, currentDate, ngayBatDauDate, product);
+                    UpdateProductAndAddToPromotion(id, itemId);
+                }
+                else
                 {
                     TempData["ErrorMessage"] = "Giảm giá không hợp lệ vì vượt quá giá gốc của sản phẩm.";
-                    // Additional error handling or return if needed
-                    
+                    break;  // Dừng vòng lặp khi gặp lỗi
                 }
-
-                // Check if the start date has been reached
-                if (currentDate >= ngayBatDauDate)
-                {
-                    // Apply discounts only if the start date has been reached
-                    if (giamTheoTien > 0 && giamTheoTien < sp.GiaBan)
-                    {
-                        sp.GiaNiemYet = sp.GiaBan - giamTheoTien;
-                    }
-                    else if (giamTheoPh > 0 && giamTheoPh <= 100)
-                    {
-                        sp.GiaNiemYet = sp.GiaBan - (sp.GiaBan * giamTheoPh / 100);
-                    }
-                    else if (DongGia > 0 && DongGia < sp.GiaBan)
-                    {
-                        sp.GiaNiemYet = DongGia;
-                    }
-                    _sp.Sua(sp); // Update product information
-                }
-
-                // Regardless of the start date, add the product to the promotion
-                KhuyenMaiSanPham km = new KhuyenMaiSanPham()
-                {
-                    Id = Guid.NewGuid(),
-                    IdkhuyenMai = Guid.Parse(id),
-                    IdSanPham = Guid.Parse(item)
-                };
-                _kmsp.Them(km);
             }
 
-            // Handle errors or invalid discount scenarios
-          
+            if (!string.IsNullOrEmpty(TempData["ErrorMessage"].ToString()))
+            {
+                // Nếu có thông báo lỗi, trả về view với thông báo lỗi
+                return View();
+            }
 
-            // Filtering products based on criteria
             var filteredProducts = _sp.GetAll();
             if (!string.IsNullOrEmpty(maSp))
             {
-                filteredProducts = (List<SanPham>)filteredProducts.Where(p => p.MaSp == maSp);
+                filteredProducts = filteredProducts.Where(p => p.MaSp == maSp).ToList();
             }
             if (!string.IsNullOrEmpty(tenSanPham))
             {
-                filteredProducts = (List<SanPham>)filteredProducts.Where(p => p.TenSanPham == tenSanPham);
+                filteredProducts = filteredProducts.Where(p => p.TenSanPham == tenSanPham).ToList();
             }
-            return View(filteredProducts);
 
+            return View(filteredProducts);
         }
+
+        private bool IsDiscountValid(float giamTheoTien, float giamTheoPh, float DongGia, SanPham product)
+        {
+            return giamTheoTien < product.GiaBan && giamTheoPh <= 100 && DongGia < product.GiaBan;
+        }
+
+        private void ApplyDiscount(float giamTheoTien, float giamTheoPh, float DongGia, DateTime currentDate, DateTime ngayBatDauDate, SanPham product)
+        {
+            if (currentDate >= ngayBatDauDate)
+            {
+                if (giamTheoTien > 0 && giamTheoTien < product.GiaBan)
+                {
+                    product.GiaNiemYet = product.GiaBan - giamTheoTien;
+                }
+                else if (giamTheoPh > 0 && giamTheoPh <= 100)
+                {
+                    product.GiaNiemYet = product.GiaBan - (product.GiaBan * giamTheoPh / 100);
+                }
+                else if (DongGia > 0 && DongGia < product.GiaBan)
+                {
+                    product.GiaNiemYet = DongGia;
+                }
+                _sp.Sua(product);
+            }
+        }
+
+        private void UpdateProductAndAddToPromotion(string promotionId, string productId)
+        {
+            KhuyenMaiSanPham promotionProduct = new KhuyenMaiSanPham
+            {
+                Id = Guid.NewGuid(),
+                IdkhuyenMai = Guid.Parse(promotionId),
+                IdSanPham = Guid.Parse(productId)
+            };
+            _kmsp.Them(promotionProduct);
+        }
+
         [HttpPost]
         public ActionResult HuyApDungKm(string[] Ids)
         {
