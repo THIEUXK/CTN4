@@ -43,7 +43,7 @@ namespace CTN4_Data.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     TenDanhMuc = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Is_detele = table.Column<bool>(type: "bit", nullable: true)
+                    Is_detele = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -267,7 +267,7 @@ namespace CTN4_Data.Migrations
                     IdChatLieu = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IdNSX = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     MaSp = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    TenSanPham = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    TenSanPham = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
                     AnhDaiDien = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TrangThai = table.Column<bool>(type: "bit", nullable: false),
                     MoTa = table.Column<string>(type: "nvarchar(max)", nullable: true),

@@ -210,7 +210,7 @@ namespace CTN4_Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool?>("Is_detele")
+                    b.Property<bool>("Is_detele")
                         .HasColumnType("bit");
 
                     b.Property<string>("TenDanhMuc")
@@ -1446,8 +1446,8 @@ namespace CTN4_Data.Migrations
 
                     b.Property<string>("TenSanPham")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
 
                     b.Property<bool>("TrangThai")
                         .HasColumnType("bit");
