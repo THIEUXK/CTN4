@@ -11,12 +11,14 @@ namespace CTN4_Data.Models.DB_CTN4
         [Required(ErrorMessage = " không được để trống")]
         public Guid? IdNSX { get; set; }
         [Required(ErrorMessage = " không được để trống")]
+
         [StringLength(30, ErrorMessage = "Không được quá 30 ký tự")]
         [RegularExpression(@"^[a-zA-Z\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵđĐ]+$", ErrorMessage = "Chỉ được nhập chữ")]
         public string MaSp { get; set; }
         [Required(ErrorMessage = " không được để trống")]
         [StringLength(30, ErrorMessage = "Không được quá 30 ký tự")]
         [RegularExpression(@"^[a-zA-Z\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵđĐ]+$", ErrorMessage = "Chỉ được nhập chữ")]
+
         public string TenSanPham { get; set; }
         public string AnhDaiDien { get; set; }
         public bool TrangThai { get; set; }
