@@ -16,7 +16,7 @@ namespace CTN4_Data.Models.DB_CTN4
         [RegularExpression(@"^[a-zA-Z\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵđĐ]+$", ErrorMessage = "Chỉ được nhập chữ")]
         public string MaSp { get; set; }
         [Required(ErrorMessage = " không được để trống")]
-        [StringLength(30, ErrorMessage = "Không được quá 30 ký tự")]
+        [StringLength(80, ErrorMessage = "Không được quá 80 ký tự")]
         [RegularExpression(@"^[a-zA-Z\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵđĐ]+$", ErrorMessage = "Chỉ được nhập chữ")]
 
         public string TenSanPham { get; set; }

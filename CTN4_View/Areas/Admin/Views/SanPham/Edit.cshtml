@@ -20,8 +20,9 @@
         <hr />
         <div class="row">
             <div class="col-md-4">
-                <form asp-action="Edit" enctype="multipart/form-data">
+                <form asp-action="Edit" enctype="multipart/form-data" onsubmit="return confirmSubmit();">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
 
 
                     <input type="hidden" asp-for="Id" class="form-control" />
@@ -29,13 +30,18 @@
 
                     <div class="form-group">
                         <label asp-for="MaSp" class="control-label">Mã sản phẩm</label>
-                        <input asp-for="MaSp" class="form-control" />
+                        <div class="corner-text" onclick="generateRandomMaSp()">Tạo mã sản phẩm</div>
+                        <input asp-for="MaSp" class="form-control" id="MaSpInput" readonly />
                         <span asp-validation-for="MaSp" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="TenSanPham" class="control-label">Tên sản phẩm</label>
-                        <input asp-for="TenSanPham" class="form-control" />
-                        <span asp-validation-for="TenSanPham" class="text-danger"></span>
+                        <input asp-for="TenSanPham"
+                               class="form-control"
+                               required
+                               maxlength="50"
+                               oninput="validateTenSanPham(this)" />
+                        <span asp-validation-for="TenSanPham" class="text-danger" id="tenSanPhamError"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="IdChatLieu">Chat lieu</label>
@@ -65,18 +71,18 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="GiaNhap" class="control-label">Giá nhập</label>
-                        <input asp-for="GiaNhap" class="form-control" />
-                        <span asp-validation-for="GiaNhap" class="text-danger"></span>
+                        <input asp-for="GiaNhap" class="form-control" type="number" min="0" max="999999999999" oninput="validateGiaNhap(this)" />
+                        <span asp-validation-for="GiaNhap" class="text-danger" id="giaNhapError"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="GiaBan" class="control-label">Giá bán</label>
-                        <input asp-for="GiaBan" class="form-control" />
-                        <span asp-validation-for="GiaBan" class="text-danger"></span>
+                        <input asp-for="GiaBan" class="form-control" type="number" min="0" max="999999999999" oninput="validateGiaNhap(this)" />
+                        <span asp-validation-for="GiaBan" class="text-danger" id="giaNhapError"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="GiaNiemYet" class="control-label">Giá niêm yết</label>
-                        <input asp-for="GiaNiemYet" class="form-control" />
-                        <span asp-validation-for="GiaNiemYet" class="text-danger"></span>
+                        <input asp-for="GiaNiemYet" class="form-control" type="number" min="0" max="999999999999" oninput="validateGiaNhap(this)" />
+                        <span asp-validation-for="GiaNiemYet" class="text-danger" id="giaNhapError"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="GhiChu" class="control-label">Ghi chú</label>
@@ -111,4 +117,97 @@
                 </form>
             </div>
         </div>
+        
+        <script>
+            // Sự kiện onload trực tiếp trong thẻ script
+            window.onload = function () {
+                generateRandomMaSp();
+            };
 
+            function generateRandomMaSp() {
+                // Chuỗi các chữ cái
+                var letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                var letters = 'abcdefghijklmnopqrstuvwxyz';
+
+                // Sinh một chữ cái ngẫu nhiên
+                var randomLetter = letters.charAt(Math.floor(Math.random() * letters.length));
+
+                // Sinh một số ngẫu nhiên
+                var randomNumber = Math.floor(Math.random() * 10000);
+
+                // Sinh một số ngẫu nhiên để quyết định thứ tự chữ cái và số
+                var order = Math.random() < 0.5 ? 'SP' + randomLetter + randomNumber : 'SP' + randomNumber + randomLetter;
+
+                // Set giá trị cho ô nhập liệu MaSpInput
+                document.getElementById('MaSpInput').value = order;
+
+                // Hiển thị giá trị mã trong phần tử có ID là "randomMaSpDisplay"
+                document.getElementById('randomMaSpDisplay').innerText = 'Random Mã SP: ' + order;
+            }
+            
+            ///////////
+            function validateTenSanPham(input) {
+                var value = input.value.trim();
+                var errorElement = document.getElementById('tenSanPhamError');
+
+                // Kiểm tra không được để trống
+                if (value === '') {
+                    errorElement.innerText = 'Không được để trống';
+                    return;
+                }
+
+                // Kiểm tra độ dài ít nhất 3 và tối đa 50 ký tự
+                if (value.length > 50) {
+                    errorElement.innerText = 'Không quá 50 ký tự';
+                    return;
+                }
+
+                // Kiểm tra chỉ chấp nhận chữ cái tiếng Việt
+                
+                if (/[^a-zA-Zàáạảãăắằẵặẳâầấậẩẫóòọõỏôổồốộơờớợởỡéèẻẹẽêềếệểễíìịỉĩúùụủũưừứựửữýỳỷỵỹ]+$/.test(value)) {
+                    errorElement.innerText = 'Không chứa ký tự đặc biệt hoặc chứa số';
+                    return;
+                }
+                // Nếu tất cả các kiểm tra đều qua, xóa thông báo lỗi
+                errorElement.innerText = '';
+            }
+            ////
+            function validateGiaNhap(input) {
+                var value = input.value.trim();
+                var errorElement = document.getElementById('giaNhapError');
+
+                // Kiểm tra không được để trống
+                if (value === '') {
+                    errorElement.innerText = 'Không được để trống';
+                    return;
+                }
+
+                // Kiểm tra có phải là số không âm hay không
+                if (!/^\d+$/.test(value) || parseInt(value, 10) < 0) {
+                    errorElement.innerText = 'Chỉ được nhập số không âm';
+                    return;
+                }
+
+                // Kiểm tra không quá 12 chữ số
+                if (value.length > 12) {
+                    errorElement.innerText = 'Không được nhập quá 12 chữ số';
+                    return;
+                }
+
+                // Nếu tất cả các kiểm tra đều qua, xóa thông báo lỗi
+                errorElement.innerText = '';
+            }
+            /////
+            function confirmSubmit() {
+               
+                // Hiển thị hộp thoại xác nhận
+                var result = confirm("Bạn có chắc muốn chỉnh sửa sản phẩm này không?");
+                return result;
+            }
+        </script>
+        <style>
+            .form-control[readonly] {
+                background-color: #f8f9fa; /* Màu nền xám nhạt */
+                cursor: not-allowed; /* Hình con trỏ không cho biết không thể nhập */
+            }
+        </style>

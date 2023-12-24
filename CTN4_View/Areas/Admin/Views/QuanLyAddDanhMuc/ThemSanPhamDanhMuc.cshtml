@@ -74,14 +74,14 @@
                     @Html.DisplayFor(modelItem => item.TenSanPham)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.GiaNiemYet)
+                   
+                    @Html.Raw(FormatCurrency(item.GiaNiemYet))
                 </td>
                 <td>
                 </td>
                 <td>
-                    <button class="btn btn-success m-1">
-                        @Html.ActionLink("Thêm", "TaoMoiDanhMuc","QuanLyAddDanhMuc", new { idsp = item.Id,iddm = Model.danhMuc.Id }, new { style = "color: white;" })
-                    </button>
+                    @Html.ActionLink("Thêm", "TaoMoiDanhMuc", "QuanLyAddDanhMuc", new { idsp = item.Id, iddm = Model.danhMuc.Id }, new { @class = "btn btn-success m-1", style = "color: white;", onclick = "return confirmSubmit();" })
+
                 </td>
             </tr>
         }
@@ -90,5 +90,21 @@
 
 <div>
     <a>@Html.ActionLink("Quay lại", "details","DanhMuc", new {id = Model.danhMuc.Id }, new { style="text-decoration: none;color: black;" }) </a>
-
 </div>
+<script>
+    @functions {
+        public string FormatCurrency(float price)
+        {
+            string formattedPrice = string.Format("{0:N0}", price); // Định dạng số và thêm dấu phân cách ngàn
+            return formattedPrice + "VND"; // Thêm ký hiệu đồng (₫) vào cuối
+        }
+    };
+    /////
+    function confirmSubmit() {
+        
+
+        // Hiển thị hộp thoại xác nhận
+        var result = confirm("Bạn có chắc muốn chỉnh sửa sản phẩm này không?");
+        return result;
+    }
+</script>

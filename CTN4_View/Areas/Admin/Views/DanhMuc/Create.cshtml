@@ -4,46 +4,67 @@
     ViewData["Title"] = "Create";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
+<br/>
+<br/>
+<br/>
+<h1>Thêm mới</h1>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+<h4>Danh mục</h4>
+<hr />
 <div class="row">
-    <div class="col-md-9">
-        <br></br>
-        <br></br>
-
-
-        <h1>Thêm mới</h1>
-
-        <h4>Danh mục</h4>
-        <hr />
-        <div class="row">
-            <div class="col-md-9">
-                <form asp-action="Create">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="form-group">
-                        <label asp-for="TenDanhMuc" class="control-label">Tên danh mục</label>
-                        <input asp-for="TenDanhMuc" class="form-control" />
-                        <span asp-validation-for="TenDanhMuc" class="text-danger"></span>
-                    </div>
-                    <div class="form-group form-check">
-                        <label class="form-check-label">
-                            <input class="form-check-input" asp-for="Is_detele" /> Tình trạng
-                        </label>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" value="Thêm mới" class="btn btn-primary" />
-                    </div>
-                    <h4>_________________________________________________</h4>
-                    <a asp-action="Index" style="color: black;">Quay về</a>
-                </form>
+    <div class="col-md-4">
+        <form asp-action="Create" onsubmit="return confirmSubmit();">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            <div class="form-group">
+                <label asp-for="TenDanhMuc" class="control-label">Tên danh mục</label>
+                <input asp-for="TenDanhMuc" class="form-control" />
+                <span asp-validation-for="TenDanhMuc" class="text-danger"></span>
             </div>
-        </div>
-
-
-
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Is_detele" />Tình trạng
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+    <div>
+        <h4>_________________________________________________</h4>
+        <a asp-action="Index" style="color: black;">Quay về</a>
     </div>
 </div>
+
+<script>
+    function confirmSubmit() {
+        // Lấy tất cả các trường input cần kiểm tra
+        var inputs = document.querySelectorAll('input[required], textarea[required], select[required]');
+
+        // Kiểm tra từng trường xem đã được điền đầy đủ hay chưa
+        for (var i = 0; i < inputs.length; i++) {
+            if (!inputs[i].checkValidity()) {
+                alert("Vui lòng điền đầy đủ thông tin.");
+                return false;
+            }
+        }
+
+        // Kiểm tra ModelState và xử lý thông báo lỗi
+        var validationSummary = document.querySelector('[asp-validation-summary="ModelOnly"]');
+        if (validationSummary) {
+            // Kiểm tra xem có thông báo lỗi nào hay không
+            var errorMessages = validationSummary.querySelectorAll('ul li');
+            if (errorMessages.length > 0) {
+                alert("Biểu mẫu chưa hợp lệ. Vui lòng kiểm tra lại thông tin.");
+                return false;
+            }
+        }
+
+        // Hiển thị hộp thoại xác nhận
+        var result = confirm("Bạn có chắc muốn thêm mới danh mục này không?");
+        return result;
+    }
+</script>
 
 

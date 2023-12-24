@@ -28,13 +28,13 @@
     </div>
 </div>
 <table class="table">
-    <form method="post" asp-action="ThemSanPham" enctype="multipart/form-data">
+    <form method="post" asp-action="ThemSanPham" enctype="multipart/form-data" onsubmit="return validateForm();">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
         <div class="form-group">
-            <label asp-for="SoLuong" class="control-label"></label>
+            <label asp-for="SoLuong" class="control-label">Số lượng</label>
             <input asp-for="SoLuong" class="form-control" />
-            <span asp-validation-for="SoLuong" class="text-danger"></span>
+            <span asp-validation-for="SoLuong" class="text-danger" id="soLuongError"></span>
         </div>
 
         <div class="form-group form-check">
@@ -51,24 +51,27 @@
         </div>
 
         <div class="form-group">
-            <label asp-for="IdMau">mau</label>
-            <select asp-for="IdMau" class="form-control">
-                <option value="">-- Select Mau --</option>
+            <label asp-for="IdMau">Màu sắc</label>
+            <select asp-for="IdMau" class="form-control" id="mauSelect">
+                <option value="">-- Chọn màu --</option>
                 @foreach (var a in Model.MauItems)
                 {
                     <option value="@a.Value">@a.Text</option>
                 }
             </select>
+            <span asp-validation-for="IdMau" class="text-danger" id="mauError"></span>
         </div>
+
         <div class="form-group">
-            <label asp-for="IdSize">size</label>
-            <select asp-for="IdSize" class="form-control">
-                <option value="">-- Select size --</option>
+            <label asp-for="IdSize">Size</label>
+            <select asp-for="IdSize" class="form-control" id="sizeSelect" >
+                <option value="">-- Chọn size --</option>
                 @foreach (var a in Model.SizeItems)
                 {
                     <option value="@a.Value">@a.Text</option>
                 }
             </select>
+            <span asp-validation-for="IdSize" class="text-danger" id="sizeError"></span>
         </div>
         @if (TempData["sussces"] != null)
         {
@@ -90,3 +93,67 @@
     <a>@Html.ActionLink("Quay lại", "details","SanPham", new {id = Model.IdSp }, new { style="text-decoration: none;color: black;" }) </a>
 
 </div>
+<script>
+    function validateForm() {
+        var result = true; // Biến để kiểm tra xem có nên hiển thị confirm hay không
+
+        // Kiểm tra và hiển thị thông báo lỗi cho số lượng
+        var soLuongValue = document.getElementById("SoLuong").value;
+        var errorSoLuongSpan = document.getElementById("soLuongError");
+
+        validateSoLuong(soLuongValue, errorSoLuongSpan);
+
+        // Kiểm tra và hiển thị thông báo lỗi cho IdMau
+        var selectedMauValue = document.getElementById("mauSelect").value;
+        var errorMauSpan = document.getElementById("mauError");
+
+        if (selectedMauValue === "") {
+            errorMauSpan.innerText = "Vui lòng chọn một giá trị cho Màu sắc.";
+            result = false; // Đặt result thành false nếu có lỗi
+        } else {
+            errorMauSpan.innerText = ""; // Xóa thông báo lỗi nếu hợp lệ
+        }
+
+        // Kiểm tra và hiển thị thông báo lỗi cho IdSize
+        var selectedSizeValue = document.getElementById("sizeSelect").value;
+        var errorSizeSpan = document.getElementById("sizeError");
+
+        if (selectedSizeValue === "") {
+            errorSizeSpan.innerText = "Vui lòng chọn một giá trị cho Size.";
+            result = false; // Đặt result thành false nếu có lỗi
+        } else {
+            errorSizeSpan.innerText = ""; // Xóa thông báo lỗi nếu hợp lệ
+        }
+
+        // Hiển thị confirm khi không có lỗi
+        if (result) {
+            result = confirm("Bạn có chắc muốn chỉnh sửa sản phẩm này không?");
+        }
+
+        return result;
+    }
+
+    function validateSoLuong(value, errorElement) {
+        // Kiểm tra không được để trống
+        if (value === '') {
+            errorElement.innerText = 'Không được để trống';
+            return false;
+        }
+
+        // Kiểm tra có phải là số không âm hay không
+        if (!/^\d+$/.test(value) || parseInt(value, 10) < 0) {
+            errorElement.innerText = 'Chỉ được nhập số không âm';
+            return false;
+        }
+
+        // Kiểm tra số lượng lớn hơn 1
+        if (parseInt(value, 10) <= 1) {
+            errorElement.innerText = 'Số lượng phải lớn hơn 1';
+            return false;
+        }
+
+        // Nếu tất cả các kiểm tra đều qua, xóa thông báo lỗi
+        errorElement.innerText = '';
+        return true;
+    }
+</script>

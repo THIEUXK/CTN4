@@ -24,11 +24,11 @@ namespace CTN4_Serv.ViewModel
         public Guid? IdNSX { get; set; }
         [Required(ErrorMessage = " không được để trống")]
 
-        
+
         [StringLength(30, ErrorMessage = " Mã sản phẩm không được quá 30 ký tự")]
         public string MaSp { get; set; }
         [Required(ErrorMessage = " không được để trống")]
-
+        [DataType(DataType.Text)]
         [RegularExpression(@"^[a-zA-Z\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵđĐ]+$", ErrorMessage = "Chỉ được nhập chữ")]
         [MaxLength(50, ErrorMessage = "Tên sản phẩm không được quá 50 ký tự")]
         public string TenSanPham { get; set; }
@@ -47,6 +47,6 @@ namespace CTN4_Serv.ViewModel
         public float GiaNiemYet { get; set; }
         public string? GhiChu { get; set; }
         public bool Is_detele { get; set; }
-      
+       
     }
 }
