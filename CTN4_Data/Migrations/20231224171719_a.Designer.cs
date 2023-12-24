@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CTN4_Data.Migrations
 {
     [DbContext(typeof(DB_CTN4_ok))]
-    [Migration("20231224170725_a")]
+    [Migration("20231224171719_a")]
     partial class a
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -212,7 +212,7 @@ namespace CTN4_Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool?>("Is_detele")
+                    b.Property<bool>("Is_detele")
                         .HasColumnType("bit");
 
                     b.Property<string>("TenDanhMuc")
@@ -1448,8 +1448,8 @@ namespace CTN4_Data.Migrations
 
                     b.Property<string>("TenSanPham")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
 
                     b.Property<bool>("TrangThai")
                         .HasColumnType("bit");
