@@ -43,8 +43,6 @@
             }
         }
     });
-
-   
     $(document).ready(function () {
         $("#nhangiamgia").click(function () {
             var couponCode = $("#nhapgiamgia").val();
