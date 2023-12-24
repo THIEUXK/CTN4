@@ -15,22 +15,22 @@ namespace CTN4_Data.Models.DB_CTN4
         [RegularExpression(@"^[a-zA-Z\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵđĐ]+$", ErrorMessage = "Chỉ được nhập chữ")]
         public string Ten { get; set; }
         [Required(ErrorMessage = " không được để trống")]
-        [StringLength(100, ErrorMessage = " không được quá 30 ký tự")]
+        [StringLength(30, ErrorMessage = " không được quá 30 ký tự")]
         public string TenDangNhap { get; set; }
         [Required(ErrorMessage = " không được để trống")]
-        [StringLength(100, ErrorMessage = " không được quá 30 ký tự")]
+        [StringLength(30, ErrorMessage = " không được quá 30 ký tự")]
 
         public string MatKhau { get; set; }
         public string GioiTinh { get; set; }
-        [Required(ErrorMessage = " không được để trống")]
-        [StringLength(100, ErrorMessage = " không được quá 30 ký tự")]
+        [Required(ErrorMessage = " Không được bỏ trống.")]
+        [RegularExpression(@"^\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b", ErrorMessage = "Địa chỉ email không hợp lệ.")]
         public string Email { get; set; }
         [Required(ErrorMessage = " không được để trống")]
         [StringLength(13, MinimumLength = 10, ErrorMessage = "Số điện thoại phải có từ 10 đến 13 số")]
         [RegularExpression("^[0-9]{1,13}$", ErrorMessage = "Số điện thoại không hợp lệ")]
         public string SDT { get; set; }
         [Required(ErrorMessage = "không được để trống")]
-        [StringLength(100, ErrorMessage = " không được quá 30 ký tự")]
+        [StringLength(100, ErrorMessage = " không được quá 100 ký tự")]
         public string DiaChi { get; set; }
         public string AnhDaiDien { get; set; }
         public bool Trangthai { get; set; }

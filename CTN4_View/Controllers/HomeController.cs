@@ -398,12 +398,13 @@ namespace CTN4_View.Controllers
             }
 
             // Check if the phone number has a length between 10 and 13 characters
-            if (phoneNumber.Length == 10)
+            if ( phoneNumber.Length <10 || phoneNumber.Length > 13)
+
             {
                 return false;
             }
             // (Ví dụ: định dạng có thể là số và không có ký tự đặc biệt)
-            return Regex.IsMatch(phoneNumber, @"^[0-9]+$") && phoneNumber.Length <= 10;
+            return Regex.IsMatch(phoneNumber, @"^[0-9]+$") ;
         }
         public IActionResult UserDetail()
         {

@@ -9,10 +9,11 @@ namespace CTN4_Serv.ViewModel
 {
     public class Loginviewmodel
     {
-        [Required(ErrorMessage = "Username is required")]
+        [Required(ErrorMessage = "Tên đăng nhập không được bỏ trống")]
+        [RegularExpression("^[a-zA-Z0-9]{8,30}$", ErrorMessage = "Tên đăng nhập phải nhiều hơn 8 ký tự và ít hơn 30 ký tự")]
         public string User { get; set; }
-        [Required(ErrorMessage = "Username is required")]
-        [RegularExpression("^[a-zA-Z0-9]{8,16}$", ErrorMessage = "Username must be 8 to 16 alphanumeric characters.")]
+        [Required(ErrorMessage = "Mật khẩu không được bỏ trống")]
+        [RegularExpression("^[a-zA-Z0-9]{8,30}$", ErrorMessage = "Mật khẩu phải nhiều hơn 8 ký tự và ít hơn 30 ký tự")]
         public string Password { get; set; } 
     }
 }
