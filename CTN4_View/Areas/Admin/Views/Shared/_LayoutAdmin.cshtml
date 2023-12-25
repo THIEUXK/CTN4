@@ -232,6 +232,43 @@
         //        $(this).closest('.dropdown').css('margin-bottom', height);
         //    });
         //});
+        $(document).ready(function () {
+            $("#GiaNhap, #GiaBan, #GiaNiemYet").blur(function () {
+                checkGiaNhapBanNiemYet();
+            });
+
+            function checkGiaNhapBanNiemYet() {
+                var giaNhap = parseFloat($("#GiaNhap").val());
+                var giaBan = parseFloat($("#GiaBan").val());
+                var giaNiemYet = parseFloat($("#GiaNiemYet").val());
+
+                if (isNaN(giaNhap) || isNaN(giaBan) || isNaN(giaNiemYet)) {
+                    return;
+                }
+
+                var errorSpanNhap = $("#giaNhapError");
+                var errorSpanBan = $("#giaBanError");
+                var errorSpanNiemYet = $("#giaNiemYetError");
+
+                if (giaNhap >= giaBan) {
+                    errorSpanNhap.text('Giá nhập phải nhỏ hơn giá bán.');
+                } else {
+                    errorSpanNhap.text('');
+                }
+
+                if (giaBan <= giaNhap) {
+                    errorSpanBan.text('Giá bán phải lớn hơn giá nhập.');
+                } else {
+                    errorSpanBan.text('');
+                }
+
+                if (giaNiemYet > giaBan) {
+                    errorSpanNiemYet.text('Giá niêm yết phải nhỏ hơn hoặc bằng giá bán.');
+                } else {
+                    errorSpanNiemYet.text('');
+                }
+            }
+        });
     </script>
     <style>
         .sidebar {

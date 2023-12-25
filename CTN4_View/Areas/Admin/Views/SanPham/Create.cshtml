@@ -22,7 +22,7 @@
         <div class="row">
             <div class="col-md-4">
                 <form method="post" asp-action="Create" enctype="multipart/form-data" onsubmit="return confirmSubmit();">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div asp-validation-summary="All" class="text-danger"></div>
 
                     <div class="form-group">
 
@@ -67,18 +67,18 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="GiaNhap" class="control-label">Giá nhập</label>
-                        <input asp-for="GiaNhap" class="form-control" />
-                        <span asp-validation-for="GiaNhap" class="text-danger" id="errorElement"></span>
+                        <input asp-for="GiaNhap" class="form-control"  />
+                        <span asp-validation-for="GiaNhap" class="text-danger" id="giaNhapError"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="GiaBan" class="control-label">Giá bán</label>
-                        <input asp-for="GiaBan" class="form-control" />
-                        <span asp-validation-for="GiaBan" class="text-danger" id="errorElement"></span>
+                        <input asp-for="GiaBan" class="form-control"  />
+                        <span asp-validation-for="GiaBan" class="text-danger" id="giaBanError"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="GiaNiemYet" class="control-label">Giá niêm yết</label>
-                        <input asp-for="GiaNiemYet" class="form-control" />
-                        <span asp-validation-for="GiaNiemYet" class="text-danger" id="errorElement"></span>
+                        <input asp-for="GiaNiemYet" class="form-control"  />
+                        <span asp-validation-for="GiaNiemYet" class="text-danger" id="giaNiemYetError"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="GhiChu" class="control-label">Ghi chú</label>
@@ -153,29 +153,13 @@
     }
     /////
     function confirmSubmit() {
-        var giaNhap = parseFloat(document.getElementById('GiaNhap').value);
-        var giaBan = parseFloat(document.getElementById('GiaBan').value);
-        var giaNiemYet = parseFloat(document.getElementById('GiaNiemYet').value);
-
-        if (isNaN(giaNhap) || isNaN(giaBan) || isNaN(giaNiemYet)) {
-            errorElement.innerText('Vui lòng nhập giá trị hợp lệ.');
-            return false;
-        }
-        if (giaBan >= giaNhap) {
-            errorElement.innerText = 'Giá nhập phải nhỏ hơn giá bán';
-            return false;
-        }
-
-        // Kiểm tra giá bán phải lớn hơn hoặc bằng giá niêm yết
-        if (giaBan < giaNiemYet) {
-            errorElement.innerText = 'Giá bán phải lớn hơn hoặc bằng giá niêm yết';
-            return false;
-        }
         // Hiển thị hộp thoại xác nhận
         var result = confirm("Bạn có chắc muốn thêm mới sản phẩm này không?");
         return result;
     }
+   
 </script>
+
 <style>
     .form-control[readonly] {
         background-color: #f8f9fa; /* Màu nền xám nhạt */

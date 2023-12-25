@@ -155,14 +155,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [ValidateAntiForgeryToken]
         public ActionResult Create(SanPhamView p, [Bind] IFormFile imageFile)
         {
-
-            if (System.IO.Path.GetExtension(imageFile.FileName) == ".jpg" ||
-                System.IO.Path.GetExtension(imageFile.FileName) == ".png" ||
-                System.IO.Path.GetExtension(imageFile.FileName) == ".jpeg" ||
-                System.IO.Path.GetExtension(imageFile.FileName) == ".tiff" ||
-                System.IO.Path.GetExtension(imageFile.FileName) == ".webp" ||
-                System.IO.Path.GetExtension(imageFile.FileName) == ".gif")
-            {
+            // Kiểm tra xem ModelState có hợp lệ hay không
 
                 if (imageFile != null && imageFile.Length > 0) // Không null và không trống
                 {
@@ -185,52 +178,59 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                     TempData["Notification"] = thongbaoAnh;
                     return RedirectToAction("Create", new { thongbaoAnh });
                 }
-                var b = new SanPham()
+                if (System.IO.Path.GetExtension(imageFile.FileName) == ".jpg" ||
+                System.IO.Path.GetExtension(imageFile.FileName) == ".png" ||
+                System.IO.Path.GetExtension(imageFile.FileName) == ".jpeg" ||
+                System.IO.Path.GetExtension(imageFile.FileName) == ".tiff" ||
+                System.IO.Path.GetExtension(imageFile.FileName) == ".webp" ||
+                System.IO.Path.GetExtension(imageFile.FileName) == ".gif")
                 {
+                    var b = new SanPham()
+                    {
 
-                    Id = Guid.NewGuid(),
-                    MaSp = p.MaSp,
-                    TenSanPham = p.TenSanPham,
-                    IdChatLieu = Guid.Parse(p.IdChatLieu.Value.ToString()),
-                    IdNSX = Guid.Parse(p.IdNSX.Value.ToString()),
-                    MoTa = p.MoTa,
-                    TrangThai = p.TrangThai,
-                    GiaNhap = p.GiaNhap,
-                    GiaBan = p.GiaBan,
-                    GiaNiemYet = p.GiaNiemYet,
-                    GhiChu = p.GhiChu,
-                    Is_detele = p.Is_detele,
-                    AnhDaiDien = p.AnhDaiDien,
+                        Id = Guid.NewGuid(),
+                        MaSp = p.MaSp,
+                        TenSanPham = p.TenSanPham,
+                        IdChatLieu = Guid.Parse(p.IdChatLieu.Value.ToString()),
+                        IdNSX = Guid.Parse(p.IdNSX.Value.ToString()),
+                        MoTa = p.MoTa,
+                        TrangThai = p.TrangThai,
+                        GiaNhap = p.GiaNhap,
+                        GiaBan = p.GiaBan,
+                        GiaNiemYet = p.GiaNiemYet,
+                        GhiChu = p.GhiChu,
+                        Is_detele = p.Is_detele,
+                        AnhDaiDien = p.AnhDaiDien,
 
-                };
-                if (_sanPhamService.Them(b)) // Nếu thêm thành công
-                {
+                    };
+                    if (_sanPhamService.Them(b)) // Nếu thêm thành công
+                    {
 
-                    return RedirectToAction("Index");
+                        return RedirectToAction("Index");
+                    }
+                    var viewModel = new SanPhamView()
+                    {
+                        NsxItems = _nsxService.GetAll().Select(s => new SelectListItem
+                        {
+                            Value = s.Id.ToString(),
+                            Text = s.TenNSX
+                        }).ToList(),
+                        ChalieuItems = _chatLieuService.GetAll().Select(s => new SelectListItem
+                        {
+                            Value = s.Id.ToString(),
+                            Text = s.TenChatLieu
+                        }).ToList(),
+                    };
+                    return View(viewModel);
                 }
-                var viewModel = new SanPhamView()
+                else
                 {
-                    NsxItems = _nsxService.GetAll().Select(s => new SelectListItem
-                    {
-                        Value = s.Id.ToString(),
-                        Text = s.TenNSX
-                    }).ToList(),
-                    ChalieuItems = _chatLieuService.GetAll().Select(s => new SelectListItem
-                    {
-                        Value = s.Id.ToString(),
-                        Text = s.TenChatLieu
-                    }).ToList(),
-                };
-                return View(viewModel);
+                    var Loi = "Không đúng định dạng ảnh";
+                    TempData["Loi"] = Loi;
+                    return RedirectToAction("Index", new { Loi });
+                }
             }
-            else
-            {
-                var Loi = "Không đúng định dạng ảnh";
-                TempData["Loi"] = Loi;
-                return RedirectToAction("Index", new { Loi });
-            }
-        }
-
+          
 
 
         // GET: SanPhamController/Edit/5
@@ -274,52 +274,52 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [ValidateAntiForgeryToken]
         public ActionResult Edit(SanPhamView c, [Bind] IFormFile imageFile, string anhdaidiencheck)
         {
-           
-                if (imageFile != null && imageFile.Length > 0) // Không null và không trống
-                {
-                    //Trỏ tới thư mục wwwroot để lát nữa thực hiện việc Copy sang
-                    var path = Path.Combine(
-                        Directory.GetCurrentDirectory(), "wwwroot", "image", imageFile.FileName);
-                    using (var stream = new FileStream(path, FileMode.Create))
-                    {
-                        // Thực hiện copy ảnh vừa chọn sang thư mục mới (wwwroot)
-                        imageFile.CopyTo(stream);
-                    }
 
-                    // Gán lại giá trị cho Description của đối tượng bằng tên file ảnh đã được sao chép
-                    c.AnhDaiDien = imageFile.FileName;
-                }
-                else
+            if (imageFile != null && imageFile.Length > 0) // Không null và không trống
+            {
+                //Trỏ tới thư mục wwwroot để lát nữa thực hiện việc Copy sang
+                var path = Path.Combine(
+                    Directory.GetCurrentDirectory(), "wwwroot", "image", imageFile.FileName);
+                using (var stream = new FileStream(path, FileMode.Create))
                 {
-                    c.AnhDaiDien = anhdaidiencheck;
+                    // Thực hiện copy ảnh vừa chọn sang thư mục mới (wwwroot)
+                    imageFile.CopyTo(stream);
                 }
 
-                var p = new SanPham()
-                {
-                    Id = c.Id,
-                    MaSp = c.MaSp,
-                    TenSanPham = c.TenSanPham,
-                    IdChatLieu = Guid.Parse(c.IdChatLieu.Value.ToString()),
-                    IdNSX = Guid.Parse(c.IdNSX.Value.ToString()),
-                    MoTa = c.MoTa,
-                    TrangThai = c.TrangThai,
-                    GiaNhap = c.GiaNhap,
-                    GiaBan = c.GiaBan,
-                    GiaNiemYet = c.GiaNiemYet,
-                    GhiChu = c.GhiChu,
-                    Is_detele = c.Is_detele,
-                    AnhDaiDien = c.AnhDaiDien,
-
-                };
-                if (_sanPhamService.Sua(p))
-                {
-                    return RedirectToAction("Index");
-
-                }
-
-                return RedirectToAction("Edit", p.Id);
+                // Gán lại giá trị cho Description của đối tượng bằng tên file ảnh đã được sao chép
+                c.AnhDaiDien = imageFile.FileName;
             }
-         
+            else
+            {
+                c.AnhDaiDien = anhdaidiencheck;
+            }
+
+            var p = new SanPham()
+            {
+                Id = c.Id,
+                MaSp = c.MaSp,
+                TenSanPham = c.TenSanPham,
+                IdChatLieu = Guid.Parse(c.IdChatLieu.Value.ToString()),
+                IdNSX = Guid.Parse(c.IdNSX.Value.ToString()),
+                MoTa = c.MoTa,
+                TrangThai = c.TrangThai,
+                GiaNhap = c.GiaNhap,
+                GiaBan = c.GiaBan,
+                GiaNiemYet = c.GiaNiemYet,
+                GhiChu = c.GhiChu,
+                Is_detele = c.Is_detele,
+                AnhDaiDien = c.AnhDaiDien,
+
+            };
+            if (_sanPhamService.Sua(p))
+            {
+                return RedirectToAction("Index");
+
+            }
+
+            return RedirectToAction("Edit", p.Id);
+        }
+
 
         // Hàm kiểm tra và xử lý giá trị TenSanPham
 

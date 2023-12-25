@@ -76,13 +76,13 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="GiaBan" class="control-label">Giá bán</label>
-                        <input asp-for="GiaBan" class="form-control" type="number" min="0" max="999999999999" oninput="validateGiaNhap(this)" />
-                        <span asp-validation-for="GiaBan" class="text-danger" id="giaNhapError"></span>
+                        <input asp-for="GiaBan" class="form-control" type="number" min="0" max="999999999999" oninput="validateGiaBan(this)" />
+                        <span asp-validation-for="GiaBan" class="text-danger" id="giaBanError"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="GiaNiemYet" class="control-label">Giá niêm yết</label>
-                        <input asp-for="GiaNiemYet" class="form-control" type="number" min="0" max="999999999999" oninput="validateGiaNhap(this)" />
-                        <span asp-validation-for="GiaNiemYet" class="text-danger" id="giaNhapError"></span>
+                        <input asp-for="GiaNiemYet" class="form-control" type="number" min="0" max="999999999999" oninput="validateNiemYet(this)" />
+                        <span asp-validation-for="GiaNiemYet" class="text-danger" id="giaNiemYetError"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="GhiChu" class="control-label">Ghi chú</label>
@@ -117,7 +117,7 @@
                 </form>
             </div>
         </div>
-        
+
         <script>
             // Sự kiện onload trực tiếp trong thẻ script
             window.onload = function () {
@@ -144,7 +144,7 @@
                 // Hiển thị giá trị mã trong phần tử có ID là "randomMaSpDisplay"
                 document.getElementById('randomMaSpDisplay').innerText = 'Random Mã SP: ' + order;
             }
-            
+
             ///////////
             function validateTenSanPham(input) {
                 var value = input.value.trim();
@@ -163,7 +163,7 @@
                 }
 
                 // Kiểm tra chỉ chấp nhận chữ cái tiếng Việt
-                
+
                 if (/[^a-zA-Zàáạảãăắằẵặẳâầấậẩẫóòọõỏôổồốộơờớợởỡéèẻẹẽêềếệểễíìịỉĩúùụủũưừứựửữýỳỷỵỹ]+$/.test(value)) {
                     errorElement.innerText = 'Không chứa ký tự đặc biệt hoặc chứa số';
                     return;
@@ -196,10 +196,58 @@
 
                 // Nếu tất cả các kiểm tra đều qua, xóa thông báo lỗi
                 errorElement.innerText = '';
+            } function validateGiaBan(input) {
+                var value = input.value.trim();
+                var errorElement = document.getElementById('giaBanError');
+
+                // Kiểm tra không được để trống
+                if (value === '') {
+                    errorElement.innerText = 'Không được để trống';
+                    return;
+                }
+
+                // Kiểm tra có phải là số không âm hay không
+                if (!/^\d+$/.test(value) || parseInt(value, 10) < 0) {
+                    errorElement.innerText = 'Chỉ được nhập số không âm';
+                    return;
+                }
+
+                // Kiểm tra không quá 12 chữ số
+                if (value.length > 12) {
+                    errorElement.innerText = 'Không được nhập quá 12 chữ số';
+                    return;
+                }
+
+                // Nếu tất cả các kiểm tra đều qua, xóa thông báo lỗi
+                errorElement.innerText = '';
+            } function validateNiemYet(input) {
+                var value = input.value.trim();
+                var errorElement = document.getElementById('giaNiemYetError');
+
+                // Kiểm tra không được để trống
+                if (value === '') {
+                    errorElement.innerText = 'Không được để trống';
+                    return;
+                }
+
+                // Kiểm tra có phải là số không âm hay không
+                if (!/^\d+$/.test(value) || parseInt(value, 10) < 0) {
+                    errorElement.innerText = 'Chỉ được nhập số không âm';
+                    return;
+                }
+
+                // Kiểm tra không quá 12 chữ số
+                if (value.length > 12) {
+                    errorElement.innerText = 'Không được nhập quá 12 chữ số';
+                    return;
+                }
+
+                // Nếu tất cả các kiểm tra đều qua, xóa thông báo lỗi
+                errorElement.innerText = '';
             }
             /////
             function confirmSubmit() {
-               
+
                 // Hiển thị hộp thoại xác nhận
                 var result = confirm("Bạn có chắc muốn chỉnh sửa sản phẩm này không?");
                 return result;
