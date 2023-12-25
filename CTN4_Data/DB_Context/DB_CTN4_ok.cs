@@ -41,11 +41,6 @@ namespace CTN4_Data.DB_Context
         public DbSet<Size> Sizes { get; set; }
         public DbSet<DanhGiaSanPham> DanhGiaSanPhams { get; set; }
 
-
-
-
-
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=MSI;Initial Catalog=CTN4;User ID=sa;Password=thieu12345");
