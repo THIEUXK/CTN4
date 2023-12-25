@@ -505,7 +505,7 @@ namespace CTN4_View.Controllers.Shop
                     return RedirectToAction("ThuTucThanhToan", "BanHang", new { message });
                 }
             }
-            if (Sodienthoai == null)
+            if (Email == null)
             {
                 {
                     var message = "hãy nhớ điền Email của bạn";

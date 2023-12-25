@@ -21,9 +21,7 @@ namespace CTN4_Serv.ViewModel
         public float TongTienGioHang { get; set; }
         public List<SelectListItem> listPhuongThucs { get; set; }
         public List<SelectListItem> listDiaChi { get; set; }
-        
         public List<GiamGia> GiamGias { get; set; }
-
         public float tienhanga { get; set; }
         public string DiachiNhanChiTiet { get; set; }
         public string Sodienthoai { get; set; }
