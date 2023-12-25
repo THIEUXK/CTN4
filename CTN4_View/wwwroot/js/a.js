@@ -355,6 +355,9 @@
                         $("#adressnew").val(`Địa chỉ này hiện không hỗ trợ ship`);
                     }
                     else {
+                        if (result.data.totaloder < 1) {
+                            result.data.totaloder=0
+                        }
                         var x1 = result.data.total;
                         x1 = x1.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
                         var x2 = result.data.totaloder;
@@ -396,7 +399,9 @@
                 },
                 contentType: 'application/json',
                 success: function (result) {
-
+                    if (result.data.totaloder < 1) {
+                        result.data.totaloder = 0
+                    }
                     var x1 = result.TienShip;
                     x1 = x1.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
                     var x2 = result.totaloder;

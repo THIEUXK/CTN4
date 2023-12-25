@@ -248,7 +248,6 @@
                                 <label>Địa chỉ :</label>
                                 <input type="text" class="form-control" id="adressnew" name="" value="" disabled></input>
                                 <input type="hidden" class="form-control" id="diachinay" value="" name="addDiaChi"></input>
-                                <span><in id="themdiachi">Thêm</in></span>
                             </div>
                         }
                         <div class="col-md-6 form-group">
@@ -371,11 +370,20 @@
                                     <input type="hidden" name="tiengiama" value="@Model.tiengiamb" id="tiengiam1"></input>
                                 </ul>
                                 <br>
-                                <ul class="list">
-                                    <li><a href="#">Tổng tiền :<span><b name="Amount" id="tongtien" style="color:orange">@FormatCurrency(Model.TienCuoiCungb)</b></span></a></li>
-                                    <input hidden name="Amount" value="@(Model.TienCuoiCungb)" />
-                                    <input type="hidden" name="tongtien" value="@Model.TienCuoiCungb" id="tongtien1"></input>
-                                </ul>
+                                @if (Model.TienCuoiCungb < 1)
+                                {
+                                    <ul class="list">
+                                        <li><a href="#">Tổng tiền :<span><b name="Amount" id="tongtien" style="color:orange">@FormatCurrency(0)</b></span></a></li>
+                                        <input type="hidden" name="tongtien" value="0" id="tongtien1"></input>
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <ul class="list">
+                                        <li><a href="#">Tổng tiền :<span><b name="Amount" id="tongtien" style="color:orange">@FormatCurrency(Model.TienCuoiCungb)</b></span></a></li>
+                                        <input type="hidden" name="tongtien" value="@Model.TienCuoiCungb" id="tongtien1"></input>
+                                    </ul>
+                                }
                                 <br></br>
                             }
                             else if (Model.addDiaChi == null && @Model.tenmagiam != null)
@@ -408,10 +416,21 @@
                                     <input type="hidden" name="tiengiama" value="@Model.tiengiamb" id="tiengiam1"></input>
                                 </ul>
                                 <br>
-                                <ul class="list">
-                                    <li><a href="#">Tổng tiền :<span><b name="Amount" id="tongtien" style="color:orange">@FormatCurrency(Model.TienCuoiCungb)</b></span></a></li>
-                                    <input type="hidden" name="tongtien" value="@Model.TienCuoiCungb" id="tongtien1"></input>
-                                </ul>
+                                @if (Model.TienCuoiCungb < 1)
+                                {
+                                    <ul class="list">
+                                        <li><a href="#">Tổng tiền :<span><b name="Amount" id="tongtien" style="color:orange">@FormatCurrency(0)</b></span></a></li>
+                                        <input type="hidden" name="tongtien" value="0" id="tongtien1"></input>
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <ul class="list">
+                                        <li><a href="#">Tổng tiền :<span><b name="Amount" id="tongtien" style="color:orange">@FormatCurrency(Model.TienCuoiCungb)</b></span></a></li>
+                                        <input type="hidden" name="tongtien" value="@Model.TienCuoiCungb" id="tongtien1"></input>
+                                    </ul>
+                                }
+                               
                                 <br></br>
                             }
                             else if (Model.DiaChiNhanHang != null)
@@ -444,10 +463,21 @@
                                     <input type="hidden" name="tiengiama" value="0" id="tiengiam1"></input>
                                 </ul>
                                 <br>
-                                <ul class="list">
-                                    <li><a href="#">Tổng tiền :<span><b name="Amount" id="tongtien" style="color:orange">@FormatCurrency(Model.TongTien + Model.DiaChiNhanHang.TienShip)</b></span></a></li>
-                                    <input type="hidden" name="tongtien" value="@(Model.TongTien+Model.DiaChiNhanHang.TienShip)" id="tongtien1"></input>
-                                </ul>
+                                @if ((Model.TongTien + Model.DiaChiNhanHang.TienShip)<1)
+                                {
+                                    <ul class="list">
+                                        <li><a href="#">Tổng tiền :<span><b name="Amount" id="tongtien" style="color:orange">@FormatCurrency(0)</b></span></a></li>
+                                        <input type="hidden" name="tongtien" value="0" id="tongtien1"></input>
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <ul class="list">
+                                        <li><a href="#">Tổng tiền :<span><b name="Amount" id="tongtien" style="color:orange">@FormatCurrency(Model.TongTien + Model.DiaChiNhanHang.TienShip)</b></span></a></li>
+                                        <input type="hidden" name="tongtien" value="@(Model.TongTien+Model.DiaChiNhanHang.TienShip)" id="tongtien1"></input>
+                                    </ul>
+                                }
+                               
                                 <br></br>
                             }
                             else

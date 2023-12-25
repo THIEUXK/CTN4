@@ -1806,7 +1806,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                 }
                 if (giamgia1.LoaiGiamGia == false)
                 {
-                    if (giamgia1.DieuKienGiam < tienhanga)
+                    if (giamgia1.DieuKienGiam <= tienhanga)
                     {
                         tiensaugiam = tienhanga - giamgia1.SoTienGiam;
                     }
@@ -1821,7 +1821,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                 }
                 else
                 {
-                    if (giamgia1.DieuKienGiam < tienhanga)
+                    if (giamgia1.DieuKienGiam <= tienhanga)
                     {
                         var tientru = (tienhanga * giamgia1.PhanTramGiam / 100);
                         if (tientru >= giamgia1.SoTienGiamToiDa)
@@ -1931,7 +1931,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                 }
                 if (giamgia1.LoaiGiamGia == false)
                 {
-                    if (giamgia1.DieuKienGiam < tienhanga)
+                    if (giamgia1.DieuKienGiam <= tienhanga)
                     {
                         tiensaugiam = tienhanga - giamgia1.SoTienGiam;
                     }
@@ -1946,7 +1946,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                 }
                 else
                 {
-                    if (giamgia1.DieuKienGiam < tienhanga)
+                    if (giamgia1.DieuKienGiam <= tienhanga)
                     {
                         var tientru = (tienhanga * giamgia1.PhanTramGiam / 100);
                         if (tientru >= giamgia1.SoTienGiamToiDa)
@@ -2002,122 +2002,203 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                 return View("TaoHoaDon", view);
             }
         }
-        public IActionResult Chốt(string tenmagiam, float tiengiama, float tienhanga, string name, string DiachiNhanChiTiet, string Sodienthoai, string Email, string addDiaChi, string ghiChu, float tienshipa, float tongtien, int idHD)
+        public IActionResult Chốt(string tenmagiam,bool loaimua, float tiengiama, float tienhanga, string name, string DiachiNhanChiTiet, string Sodienthoai, string Email, string addDiaChi, string ghiChu, float tienshipa, float tongtien, int idHD)
         {
             var nvnew = SessionServices.NhanVienSS(HttpContext.Session, "ACA");
             if (nvnew.Count() != 0)
             {
-                #region Check validate
-                if (name == null)
+                if (loaimua==true)
                 {
+                    if (name==null||(Sodienthoai == null&& Email == null))
                     {
-                        var message = "hãy nhớ điền tên của bạn của bạn";
-                        TempData["TB2"] = message;
-                        return RedirectToAction("TaoHoaDon", new { message });
-                    }
-                }
-                if (DiachiNhanChiTiet == null)
-                {
-                    {
-                        var message = "hãy nhớ điền địa chỉ chi tiết của bạn";
-                        TempData["TB2"] = message;
-                        return RedirectToAction("TaoHoaDon", new { message });
-                    }
-                }
-                if (Sodienthoai == null)
-                {
-                    {
-                        var message = "hãy nhớ điền số điện thoại của bạn";
-                        TempData["TB2"] = message;
-                        return RedirectToAction("TaoHoaDon", new { message });
-                    }
-                }
-                if (Sodienthoai == null)
-                {
-                    {
-                        var message = "hãy nhớ điền Email của bạn";
-                        TempData["TB2"] = message;
-                        return RedirectToAction("TaoHoaDon", new { message });
-                    }
-                }
-                if (addDiaChi == null)
-                {
-                    {
-                        var message = "hãy nhớ chọn địa chỉ của bạn";
-                        TempData["TB2"] = message;
-                        return RedirectToAction("TaoHoaDon", new { message });
-                    }
-                }
-
-                #endregion
-
-                var hd = _hoaDonService.GetById(idHD);
-                if (hd != null)
-                {
-                    hd.TrangThai = "Đang chờ xử lí";
-                    hd.TongTien = tongtien;
-                    hd.TienShip = tienshipa;
-                    hd.TienGiam = tiengiama;
-                    hd.TienHang = tienhanga;
-                    hd.TenKhachHang = name;
-                    hd.Email = Email;
-                    hd.SDTNguoiNhan = Sodienthoai;
-                    hd.DiaChi = DiachiNhanChiTiet + " " + addDiaChi;
-                    hd.GhiChu = ghiChu;
-                    if (_hoaDonService.Sua(hd) == false)
-                    {
-                        var message = "Lỗi hóa đơn (2)";
-                        TempData["TB2"] = message;
-                        return RedirectToAction("TaoHoaDon", new { id = idHD, message });
-                    }
-                    var lichsuhd = new LichSuDonHang()
-                    {
-                        GhiChu = null,
-                        ThaoTac = $"Tạo hóa đơn {hd.MaHoaDon} ",
-                        IdHoaDonn = hd.Id,
-                        ThoiGianlam = DateTime.Now,
-                        NguoiThucHien = nvnew[0].TenDangNhap,
-                        TrangThai = true,
-                        Is_detele = true
-                    };
-                    if (_LichSuHoaDonService.Them(lichsuhd) == false)
-                    {
-                        var message = "Lỗi hóa đơn (3)";
-                        TempData["TB2"] = message;
-                        return RedirectToAction("TaoHoaDon", new { id = idHD, message });
-                    }
-                    var giamgianew = SessionBan.GiamGiaSS(HttpContext.Session, "GiamGia2");
-                    if (tiengiama != 0)
-                    {
-                        var giamct = new GiamGiaChiTiet()
                         {
-                            IdHoaDon = hd.Id,
-                            IdGiamGia = giamgianew[0].Id
-                        };
-                        var a = _giamGiaService.GetById(giamgianew[0].Id);
-                        a.SoLuong -= 1;
-                        if (_GiamGiaChiTietService.Them(giamct) == false || _giamGiaService.Sua(a) == false)
-                        {
-                            var message = "lỗi mã giảm giá";
-                            TempData["ErrorMessage"] = message;
+                            var message = "hãy nhớ điền số điện thoại hoặc Email của bạn còn tên là bắt buộc";
+                            TempData["TB2"] = message;
                             return RedirectToAction("TaoHoaDon", new { id = idHD, message });
                         }
                     }
+                    var hd = _hoaDonService.GetById(idHD);
+                    if (hd != null)
+                    {
+                        hd.TrangThai = "Đang chờ xử lí";
+                        hd.TongTien = tongtien;
+                        hd.TienShip = tienshipa;
+                        hd.TienGiam = tiengiama;
+                        hd.TienHang = tienhanga;
+                        hd.TenKhachHang = name;
+                        if (Sodienthoai!=null)
+                        {
+                            hd.SDTNguoiNhan = Sodienthoai;
+                        }
+                        if (Email != null)
+                        {
+                            hd.Email = Email;
+                        }
+                        if (_hoaDonService.Sua(hd) == false)
+                        {
+                            var message = "Lỗi hóa đơn (2)";
+                            TempData["TB2"] = message;
+                            return RedirectToAction("TaoHoaDon", new { id = idHD, message });
+                        }
+                        var lichsuhd = new LichSuDonHang()
+                        {
+                            GhiChu = null,
+                            ThaoTac = $"Tạo hóa đơn {hd.MaHoaDon} ",
+                            IdHoaDonn = hd.Id,
+                            ThoiGianlam = DateTime.Now,
+                            NguoiThucHien = nvnew[0].TenDangNhap,
+                            TrangThai = true,
+                            Is_detele = true
+                        };
+                        if (_LichSuHoaDonService.Them(lichsuhd) == false)
+                        {
+                            var message = "Lỗi hóa đơn (3)";
+                            TempData["TB2"] = message;
+                            return RedirectToAction("TaoHoaDon", new { id = idHD, message });
+                        }
+                        var giamgianew = SessionBan.GiamGiaSS(HttpContext.Session, "GiamGia2");
+                        if (tiengiama != 0)
+                        {
+                            var giamct = new GiamGiaChiTiet()
+                            {
+                                IdHoaDon = hd.Id,
+                                IdGiamGia = giamgianew[0].Id
+                            };
+                            var a = _giamGiaService.GetById(giamgianew[0].Id);
+                            a.SoLuong -= 1;
+                            if (_GiamGiaChiTietService.Them(giamct) == false || _giamGiaService.Sua(a) == false)
+                            {
+                                var message = "lỗi mã giảm giá";
+                                TempData["ErrorMessage"] = message;
+                                return RedirectToAction("TaoHoaDon", new { id = idHD, message });
+                            }
+                        }
+                    }
+                    else
+                    {
+                        var message = "Lỗi hóa đơn (1)";
+                        TempData["TB2"] = message;
+                        return RedirectToAction("TaoHoaDon", new { id = idHD, message });
+                    }
+
+                    return RedirectToAction("Index");
                 }
+            
                 else
                 {
-                    var message = "Lỗi hóa đơn (1)";
-                    TempData["TB2"] = message;
-                    return RedirectToAction("TaoHoaDon", new { id = idHD, message });
-                    return RedirectToAction("TaoHoaDon", new { id = idHD, message });
-                }
+                    #region Check validate
+                    if (name == null)
+                    {
+                        {
+                            var message = "hãy nhớ điền tên của bạn của bạn";
+                            TempData["TB2"] = message;
+                            return RedirectToAction("TaoHoaDon", new { id = idHD, message });
+                        }
+                    }
+                    if (DiachiNhanChiTiet == null)
+                    {
+                        {
+                            var message = "hãy nhớ điền địa chỉ chi tiết của bạn";
+                            TempData["TB2"] = message;
+                            return RedirectToAction("TaoHoaDon", new { id = idHD, message });
+                        }
+                    }
+                    if (Sodienthoai == null)
+                    {
+                        {
+                            var message = "hãy nhớ điền số điện thoại của bạn";
+                            TempData["TB2"] = message;
+                            return RedirectToAction("TaoHoaDon", new { id = idHD, message });
+                        }
+                    }
+                    if (Email == null)
+                    {
+                        {
+                            var message = "hãy nhớ điền Email của bạn";
+                            TempData["TB2"] = message;
+                            return RedirectToAction("TaoHoaDon", new { id = idHD, message });
+                        }
+                    }
+                    if (addDiaChi == null)
+                    {
+                        {
+                            var message = "hãy nhớ chọn địa chỉ của bạn";
+                            TempData["TB2"] = message;
+                            return RedirectToAction("TaoHoaDon", new { id = idHD, message });
+                        }
+                    }
 
-                return RedirectToAction("Index");
+                    #endregion
+                    var hd = _hoaDonService.GetById(idHD);
+                    if (hd != null)
+                    {
+                        hd.TrangThai = "Đang chờ xử lí";
+                        hd.TongTien = tongtien;
+                        hd.TienShip = tienshipa;
+                        hd.TienGiam = tiengiama;
+                        hd.TienHang = tienhanga;
+                        hd.TenKhachHang = name;
+                        hd.Email = Email;
+                        hd.SDTNguoiNhan = Sodienthoai;
+                        hd.DiaChi = DiachiNhanChiTiet + " " + addDiaChi;
+                        hd.GhiChu = ghiChu;
+                        if (_hoaDonService.Sua(hd) == false)
+                        {
+                            var message = "Lỗi hóa đơn (2)";
+                            TempData["TB2"] = message;
+                            return RedirectToAction("TaoHoaDon", new { id = idHD, message });
+                        }
+                        var lichsuhd = new LichSuDonHang()
+                        {
+                            GhiChu = null,
+                            ThaoTac = $"Tạo hóa đơn {hd.MaHoaDon} ",
+                            IdHoaDonn = hd.Id,
+                            ThoiGianlam = DateTime.Now,
+                            NguoiThucHien = nvnew[0].TenDangNhap,
+                            TrangThai = true,
+                            Is_detele = true
+                        };
+                        if (_LichSuHoaDonService.Them(lichsuhd) == false)
+                        {
+                            var message = "Lỗi hóa đơn (3)";
+                            TempData["TB2"] = message;
+                            return RedirectToAction("TaoHoaDon", new { id = idHD, message });
+                        }
+                        var giamgianew = SessionBan.GiamGiaSS(HttpContext.Session, "GiamGia2");
+                        if (tiengiama != 0)
+                        {
+                            var giamct = new GiamGiaChiTiet()
+                            {
+                                IdHoaDon = hd.Id,
+                                IdGiamGia = giamgianew[0].Id
+                            };
+                            var a = _giamGiaService.GetById(giamgianew[0].Id);
+                            a.SoLuong -= 1;
+                            if (_GiamGiaChiTietService.Them(giamct) == false || _giamGiaService.Sua(a) == false)
+                            {
+                                var message = "lỗi mã giảm giá";
+                                TempData["ErrorMessage"] = message;
+                                return RedirectToAction("TaoHoaDon", new { id = idHD, message });
+                            }
+                        }
+                    }
+                    else
+                    {
+                        var message = "Lỗi hóa đơn (1)";
+                        TempData["TB2"] = message;
+                        return RedirectToAction("TaoHoaDon", new { id = idHD, message });
+                    }
+
+                    return RedirectToAction("Index");
+                }
+              
             }
             else
             {
                 return RedirectToAction("DangNhap", "Home");
             }
+
+            return RedirectToAction("DangNhap", "Home");
         }
         #endregion
     }
