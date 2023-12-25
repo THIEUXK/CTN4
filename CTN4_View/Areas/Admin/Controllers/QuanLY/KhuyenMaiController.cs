@@ -20,6 +20,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         public IDanhMucService _dm;
         public IDanhMucChiTietService _dmct;
         public IKhuyenMaiSanPhamService _kmsp;
+        public IKhachHangService _kh;
 
         public KhuyenMaiController()
         {
@@ -30,6 +31,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             _dm = new DanhMucMucService();
             _dmct = new DanhMucChiTietMucChiTietService();
             _kmsp = new KhuyenMaiSanPhamService();
+            _kh = new KhachHangService();
         }
         // GET: KhuyenMaiController
         [HttpGet]
@@ -164,6 +166,8 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                     ModelState.AddModelError("MaKhuyenMai", "Mã khuyến mại không được trùng.");
                     return View(a);
                 }
+                a.TrangThai = false;
+                  
 
                 if (_sv.Them(a)) // Nếu thêm thành công
                 {
@@ -350,7 +354,20 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             };
             _kmsp.Them(promotionProduct);
         }
+        public ActionResult Getallkh()
+        {
 
+            var khachHangList = _kh.GetAll();
+
+            // Chỉ lấy thông tin tên và email
+            var khachHangInfoList = khachHangList.Select(kh => new
+            {
+                TenKhachHang = kh.Ten,
+                Email = kh.Email
+            });
+
+            return Json(khachHangInfoList);
+        }
         [HttpPost]
         public ActionResult HuyApDungKm(string[] Ids)
         {
