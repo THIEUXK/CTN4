@@ -11,9 +11,9 @@ namespace CTN4_Serv.ViewModel
 {
     public class SanPhamView
     {
-        [Required(ErrorMessage = " không được để trống")]
+        
         public List<SelectListItem> ChalieuItems { get; set; }
-        [Required(ErrorMessage = " không được để trống")]
+        
         public List<SelectListItem> NsxItems { get; set; }
         public List<SanPham> sanPhams { get; set; }
         public SanPham sanPham { get; set; }
@@ -38,12 +38,18 @@ namespace CTN4_Serv.ViewModel
         public string? MoTa { get; set; }
         [Required(ErrorMessage = "Giá nhập vào không được bỏ trống.")]
         [Range(0, float.MaxValue, ErrorMessage = "Giá nhập vào phải lớn hơn hoặc bằng 0.")]
+        [RegularExpression(@"^\d+(\.\d+)?$", ErrorMessage = "Vui lòng nhập số.")]
+        [StringLength(12, ErrorMessage = "Giá nhập vào không được vượt quá 12 ký tự.")]
         public float GiaNhap { get; set; }
         [Required(ErrorMessage = "Giá bán ra không được bỏ trống.")]
         [Range(0, float.MaxValue, ErrorMessage = "Giá bán ra phải lớn hơn hoặc bằng 0.")]
+        [RegularExpression(@"^\d+(\.\d+)?$", ErrorMessage = "Vui lòng nhập số.")]
+        [StringLength(12, ErrorMessage = "Giá bán ra không được vượt quá 12 ký tự.")]
         public float GiaBan { get; set; }
         [Required(ErrorMessage = "Giá niêm yết không được bỏ trống.")]
         [Range(0, float.MaxValue, ErrorMessage = "Giá niêm yết phải lớn hơn hoặc bằng 0.")]
+        [RegularExpression(@"^\d+(\.\d+)?$", ErrorMessage = "Vui lòng nhập số.")]
+        [StringLength(12, ErrorMessage = "Giá niêm yết không được vượt quá 12 ký tự.")]
         public float GiaNiemYet { get; set; }
         public string? GhiChu { get; set; }
         public bool Is_detele { get; set; }

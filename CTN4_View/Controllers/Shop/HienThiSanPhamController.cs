@@ -657,11 +657,11 @@ namespace CTN4_View.Controllers.Shop
         {
 
             var giamgiact = _giamGiaService.GetById(idVoucher);
-            if (giamgiact.LoaiGiamGia == true)
+            if (giamgiact.LoaiGiamGia == false)
             {
 
                 var message = $"Nhập Mã {giamgiact.MaGiam} còn ( {giamgiact.SoLuong} lượt). \n" +
-               $"Giảm {giamgiact.SoTienGiam}đ cho đơn hàng từ {giamgiact.DieuKienGiam}đ";
+               $"Giảm {giamgiact.SoTienGiam.ToString("N0")}VND cho đơn hàng từ {giamgiact.DieuKienGiam.ToString("N0")}VND";
 
                 TempData["Notification"] = message;
                 return RedirectToAction("HienThiSanPhamChiTiet", new { id = idSp, message });
@@ -669,7 +669,7 @@ namespace CTN4_View.Controllers.Shop
             else
             {
                 var message = $"Nhập Mã {giamgiact.MaGiam} còn ( {giamgiact.SoLuong} lượt). \n" +
-              $"Giảm {giamgiact.PhanTramGiam}% cho đơn hàng từ {giamgiact.DieuKienGiam}đ";
+              $"Giảm {giamgiact.PhanTramGiam}% cho đơn hàng từ {giamgiact.DieuKienGiam.ToString("N0")}VND";
 
                 TempData["Notification"] = message;
                 return RedirectToAction("HienThiSanPhamChiTiet", new { id = idSp, message });
