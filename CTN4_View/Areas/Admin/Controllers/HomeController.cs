@@ -132,7 +132,7 @@ namespace CTN4_View_Admin.Controllers
             user.MatKhau = kh.MatKhauMoi;
             // Lưu người dùng có mật khẩu mới vào cơ sở dữ liệu
             _nhanvienService.Sua(user);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "QuanLyHoaDon");
         }
         [AllowAnonymous]
         [HttpPost]
@@ -185,7 +185,7 @@ namespace CTN4_View_Admin.Controllers
                 {
                  
                     HttpContext.Session.SetString("Token", generatedToken);
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction("Index", "QuanLyHoaDon");
                 }
                 else
                 {
@@ -222,11 +222,11 @@ namespace CTN4_View_Admin.Controllers
             if (!_tokenService.IsTokenValid(_config["Jwt:Key"].ToString(),
                 _config["Jwt:Issuer"].ToString(), token))
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","QuanLyHoaDon");
             }
 
             ViewBag.Message = BuildMessage(token, 50);
-            return View("Index");
+            return View("Index", "QuanLyHoaDon");
         }
 
         public IActionResult Logouts()
@@ -335,7 +335,7 @@ namespace CTN4_View_Admin.Controllers
             if (result)
             {
                 // Cập nhật thành công, chuyển hướng về trang danh sách hoặc trang chi tiết
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "QuanLyHoaDon");
             }
             else
             {
