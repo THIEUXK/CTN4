@@ -330,6 +330,13 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             if (nvnew.Count() != 0)
             {
                 var hd = _hoaDonService.GetById(id);
+              var  hdct=_hoaDonChiTietService.GetAll().Where(c=>c.IdHoaDon==id).ToList();
+              if (hdct.Count==0)
+              {
+                  var message = "Đơn hàng không thể giao khi chưa có sản phẩm nào";
+                  TempData["TB1"] = message;
+                  return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
                 if (hd.TrangThai == "Đang chuẩn bị hàng")
                 {
                     hd.TrangThai = "Hàng của bạn đang được giao";
