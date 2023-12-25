@@ -98,7 +98,7 @@ namespace CTN4_View.Controllers.Shop
                 var chatLieus = _chatLieuService.GetAll();
                 var mauSacs = _mauSacService.GetAll();
                 var khachhang = _khachHangService.GetAll();
-                var khuyenMaiSp = _kmspService.GetAll().Where(c => c.KhuyenMai.TrangThai == true && c.KhuyenMai.Is_Detele == false && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now).ToList();
+                var khuyenMaiSp = _kmspService.GetAll().Where(c => c.KhuyenMai.TrangThai == true && c.KhuyenMai.Is_Detele == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now).ToList();
 
                 var view = new HienThiSanPhamView()
                 {
@@ -181,7 +181,7 @@ namespace CTN4_View.Controllers.Shop
                 var listSp1 = _sanphamService.GetAll().Where(c => c.Is_detele == true).ToList();
                 var listSp2 = _sanPhamChiTietService.GetAll().Where(c => c.Is_detele == true).ToList();
                 var khachhang = _khachHangService.GetAll();
-                var khuyenMaiSp = _kmspService.GetAll().Where(c => c.KhuyenMai.TrangThai == true && c.KhuyenMai.Is_Detele == false && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now).ToList();
+                var khuyenMaiSp = _kmspService.GetAll().Where(c => c.KhuyenMai.TrangThai == true && c.KhuyenMai.Is_Detele == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now).ToList();
                 var chatLieus = _chatLieuService.GetAll();
                 var mauSacs = _mauSacService.GetAll();
                 var view = new HienThiSanPhamView()
@@ -234,7 +234,7 @@ namespace CTN4_View.Controllers.Shop
                 var listSp1 = _sanphamService.GetAll().Where(c => c.Is_detele == true).ToList();
                 var listSp2 = _sanPhamChiTietService.GetAll().Where(c => c.Is_detele == true).ToList();
                 var khachhang = _khachHangService.GetAll();
-                var khuyenMaiSp = _kmspService.GetAll().Where(c => c.KhuyenMai.TrangThai == true && c.KhuyenMai.Is_Detele == false && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now).ToList();
+                var khuyenMaiSp = _kmspService.GetAll().Where(c => c.KhuyenMai.TrangThai == true && c.KhuyenMai.Is_Detele == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now).ToList();
                 var chatLieus = _chatLieuService.GetAll();
                 var mauSacs = _mauSacService.GetAll();
                 switch (sortOrder)
@@ -299,7 +299,7 @@ namespace CTN4_View.Controllers.Shop
                 var listSp1 = _sanphamService.GetAll().Where(c => c.Is_detele == true).ToList();
                 var listSp2 = _sanPhamChiTietService.GetAll().Where(c => c.Is_detele == true).ToList();
                 var khachhang = _khachHangService.GetAll();
-                var khuyenMaiSp = _kmspService.GetAll().Where(c => c.KhuyenMai.TrangThai == true && c.KhuyenMai.Is_Detele == false && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now).ToList();
+                var khuyenMaiSp = _kmspService.GetAll().Where(c => c.KhuyenMai.TrangThai == true && c.KhuyenMai.Is_Detele == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now).ToList();
                 var chatLieus = _chatLieuService.GetAll();
                 var mauSacs = _mauSacService.GetAll();
                 switch (sortOrder)
@@ -363,7 +363,7 @@ namespace CTN4_View.Controllers.Shop
                 var listSp1 = _sanphamService.GetAll().Where(c => c.Is_detele == true).ToList();
                 var listSp2 = _sanPhamChiTietService.GetAll().Where(c => c.Is_detele == true).ToList();
                 var khachhang = _khachHangService.GetAll();
-                var khuyenMaiSp = _kmspService.GetAll().Where(c => c.KhuyenMai.TrangThai == true && c.KhuyenMai.Is_Detele == false && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now).ToList();
+                var khuyenMaiSp = _kmspService.GetAll().Where(c => c.KhuyenMai.TrangThai == true && c.KhuyenMai.Is_Detele == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now).ToList();
                 var chatLieus = _chatLieuService.GetAll();
                 var mauSacs = _mauSacService.GetAll();
                 switch (sortOrder)
@@ -425,7 +425,7 @@ namespace CTN4_View.Controllers.Shop
                 var listSp1 = _sanphamService.GetAll().Where(c => c.Is_detele == true).ToList();
                 var listSp2 = _sanPhamChiTietService.GetAll().Where(c => c.Is_detele == true).ToList();
                 var khachhang = _khachHangService.GetAll();
-                var khuyenMaiSp = _kmspService.GetAll().Where(c => c.KhuyenMai.TrangThai == true && c.KhuyenMai.Is_Detele == false && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now).ToList();
+                var khuyenMaiSp = _kmspService.GetAll().Where(c => c.KhuyenMai.TrangThai == true && c.KhuyenMai.Is_Detele == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now).ToList();
                 var chatLieus = _chatLieuService.GetAll();
                 var mauSacs = _mauSacService.GetAll();
                 switch (sortOrder)
@@ -482,7 +482,7 @@ namespace CTN4_View.Controllers.Shop
                 var chatLieus = _chatLieuService.GetAll();
                 var mauSacs = _mauSacService.GetAll();
                 var khachhang = _khachHangService.GetAll();
-                var khuyenMaiSp = _kmspService.GetAll().Where(c => c.KhuyenMai.TrangThai == true && c.KhuyenMai.Is_Detele == false && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now).ToList();
+                var khuyenMaiSp = _kmspService.GetAll().Where(c => c.KhuyenMai.TrangThai == true && c.KhuyenMai.Is_Detele == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now).ToList();
 
                 switch (sortOrder)
                 {
@@ -521,46 +521,7 @@ namespace CTN4_View.Controllers.Shop
 
             }
 
-            ////////////////////////////////////////////////////////////////////////////////
-            //var LuuTamCl = SessionBan.ChatLieuSS(HttpContext.Session, "ChatLieuTam");
-            //var LuuTamMau = SessionBan.MauSacSS(HttpContext.Session, "MauSacTam");
-            //var LuuTam = SessionBan.DanhMucSS(HttpContext.Session, "DanhMucTam");
-            //LuuTam.Clear();
-            //if (Soluonghienthi == 0) { Soluonghienthi = 6; }
-            //if (page == 0) { page = 1; }
-            //var danhMuc = _danhMucService.GetAll();
-            //var danhMucChiTiets = _danhMucChiTiet.GetAll();
-            //var listSp = _sanPhamCuaHangService.GetAll().Where(c => c.Is_detele == true).ToList();
-            //var listSp1 = _sanphamService.GetAll().Where(c => c.Is_detele == true).ToList();
-            //var listSp2 = _sanPhamChiTietService.GetAll().Where(c => c.Is_detele == true).ToList();
-            //var SpYt = _chiTietSanPhamYeuThichService.GetAll();
-            //var chatLieus = _chatLieuService.GetAll();
-            //var mauSacs = _mauSacService.GetAll();
-            //var khachhang = _khachHangService.GetAll();
-            //var khuyenMaiSp = _kmspService.GetAll().Where(c => c.KhuyenMai.TrangThai == true && c.KhuyenMai.Is_Detele == false && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now).ToList();
-            //var view = new HienThiSanPhamView()
-            //{
-            //    danhMucs = danhMuc,
-            //    danhMucChiTiets = danhMucChiTiets,
-            //    sanPhams = listSp1,
-            //    sanPhamChiTiets = listSp2,
-            //    chatLieus = chatLieus,
-            //    maus = mauSacs,
-            //    sanphampaging = listSp.Skip((page - 1) * Soluonghienthi).Take(Soluonghienthi).ToList(),
-            //    pagingInfo = new PagingInfo()
-            //    {
-            //        TotalItems = listSp.Count(),
-            //        CurrentPage = page,
-            //        ItemsPerPage = Soluonghienthi,
-
-            //    },
-            //    soluonghienthi = Soluonghienthi,
-            //    sanPhamYeuThiches = SpYt,
-            //    khuyenMaiSanPhams = khuyenMaiSp,
-
-
-            //};
-            //return View(view);
+            
         }
         public IActionResult HienThiSanPhamChiTiet(Guid id)
         {
@@ -696,7 +657,7 @@ namespace CTN4_View.Controllers.Shop
                 var listSp1 = _sanphamService.GetAll().Where(c => c.Is_detele == true).ToList();
                 var listSp2 = _sanPhamChiTietService.GetAll().Where(c => c.Is_detele == true).ToList();
                 var khachhang = _khachHangService.GetAll();
-                var khuyenMaiSp = _kmspService.GetAll().Where(c => c.KhuyenMai.TrangThai == true && c.KhuyenMai.Is_Detele == false && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now).ToList();
+                var khuyenMaiSp = _kmspService.GetAll().Where(c => c.KhuyenMai.TrangThai == true && c.KhuyenMai.Is_Detele == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now).ToList();
                 var chatLieus = _chatLieuService.GetAll();
                 var mauSacs = _mauSacService.GetAll();
                 var view = new HienThiSanPhamView()
@@ -748,7 +709,7 @@ namespace CTN4_View.Controllers.Shop
             var chatLieus = _chatLieuService.GetAll();
             var mauSacs = _mauSacService.GetAll();
             var khachhang = _khachHangService.GetAll();
-            var khuyenMaiSp = _kmspService.GetAll().Where(c => c.KhuyenMai.TrangThai == true && c.KhuyenMai.Is_Detele == false && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now).ToList();
+            var khuyenMaiSp = _kmspService.GetAll().Where(c => c.KhuyenMai.TrangThai == true && c.KhuyenMai.Is_Detele == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now).ToList();
             var view = new HienThiSanPhamView()
             {
                 danhMucs = danhMuc,
@@ -785,7 +746,7 @@ namespace CTN4_View.Controllers.Shop
             var chatLieus = _chatLieuService.GetAll();
             var mauSacs = _mauSacService.GetAll();
             var khachhang = _khachHangService.GetAll();
-            var khuyenMaiSp = _kmspService.GetAll().Where(c => c.KhuyenMai.TrangThai == true && c.KhuyenMai.Is_Detele == false && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now).ToList();
+            var khuyenMaiSp = _kmspService.GetAll().Where(c => c.KhuyenMai.TrangThai == true && c.KhuyenMai.Is_Detele == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now).ToList();
             var view = new HienThiSanPhamView()
             {
                 danhMucs = danhMuc,

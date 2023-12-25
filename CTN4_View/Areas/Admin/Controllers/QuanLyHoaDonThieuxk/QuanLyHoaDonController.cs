@@ -1586,7 +1586,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
         public IActionResult sanphammua()
         {
             var sanPhamList = _sanPhamService.GetAll();
-            var khuyenMaiSp = _KhuyenMaiSanPhams.GetAll().Where(c => c.KhuyenMai.TrangThai == true && c.KhuyenMai.Is_Detele == false && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now).ToList();
+            var khuyenMaiSp = _KhuyenMaiSanPhams.GetAll().Where(c => c.KhuyenMai.TrangThai == true && c.KhuyenMai.Is_Detele == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now).ToList();
 
             var view = new Thi1View()
             {
@@ -2199,6 +2199,29 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             }
 
             return RedirectToAction("DangNhap", "Home");
+        }
+        public IActionResult ThongTinVocher(Guid idVoucher, Guid idSp)
+        {
+
+            var giamgiact = _giamGiaService.GetById(idVoucher);
+            if (giamgiact.LoaiGiamGia == false)
+            {
+
+                var message = $"Nhập Mã {giamgiact.MaGiam} còn ( {giamgiact.SoLuong} lượt). \n" +
+               $"Giảm {giamgiact.SoTienGiam.ToString("N0")}VND cho đơn hàng từ {giamgiact.DieuKienGiam.ToString("N0")}VND";
+
+                TempData["Notification"] = message;
+                return RedirectToAction("HienThiSanPhamChiTietMua", new { id = idSp, message });
+            }
+            else
+            {
+                var message = $"Nhập Mã {giamgiact.MaGiam} còn ( {giamgiact.SoLuong} lượt). \n" +
+              $"Giảm {giamgiact.PhanTramGiam}% cho đơn hàng từ {giamgiact.DieuKienGiam.ToString("N0")}VND";
+
+                TempData["Notification"] = message;
+                return RedirectToAction("HienThiSanPhamChiTietMua", new { id = idSp, message });
+            }
+
         }
         #endregion
     }
