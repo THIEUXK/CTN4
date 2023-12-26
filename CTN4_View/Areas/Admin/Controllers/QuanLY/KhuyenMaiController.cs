@@ -7,6 +7,9 @@ using System.Text.Json.Serialization;
 using System.Text.Json;
 using X.PagedList;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using CTN4_Serv.ViewModel;
+using System.Drawing;
+using System.Net;
 
 namespace CTN4_View_Admin.Controllers.QuanLY
 {
@@ -21,8 +24,9 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         public IDanhMucChiTietService _dmct;
         public IKhuyenMaiSanPhamService _kmsp;
         public IKhachHangService _kh;
+        private readonly IEmailService _EmailService;
 
-        public KhuyenMaiController()
+        public KhuyenMaiController(IEmailService emailService)
         {
             _sp = new SanPhamService();
             _sv = new KhuyenMaiService();
@@ -32,6 +36,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             _dmct = new DanhMucChiTietMucChiTietService();
             _kmsp = new KhuyenMaiSanPhamService();
             _kh = new KhachHangService();
+            _EmailService = emailService;
         }
         // GET: KhuyenMaiController
         [HttpGet]
@@ -157,25 +162,56 @@ namespace CTN4_View_Admin.Controllers.QuanLY
 
         // POST: KhuyenMaiController/Create
         [HttpPost]
-        public ActionResult Creates([FromForm] KhuyenMai datasubmit, [FromForm] List<string> lstMail)
+        public async Task<ActionResult> Creates([FromForm] KhuyenMai datasubmit, [FromForm] string lstMail)
         {
-            var tontai = _sv.GetAll().FirstOrDefault(c => c.MaKhuyenMai == datasubmit.MaKhuyenMai && c.Id != datasubmit.Id);
-            if (tontai != null)
-            {
-                ModelState.AddModelError("MaKhuyenMai", "Mã khuyến mại không được trùng.");
-                return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
-            }
-
             datasubmit.TrangThai = false;
-
-            // Sử dụng lstMail trong xử lý của bạn
 
             if (_sv.Them(datasubmit))
             {
+                string imageUrl = "https://png.pngtree.com/png-vector/20210119/ourlarge/pngtree-3d-mega-sale-icon-with-bag-shop-accesories-png-image_2764907.jpg";
+                string base64Image = ConvertImageUrlToBase64(imageUrl);
+                string imageTag = $"<img src='data:image/jpeg;base64,{base64Image}' />";
+
+                // Tách địa chỉ email từ chuỗi
+                string[] emailAddresses = lstMail.Split(',');
+
+                foreach (var emailAddress in emailAddresses)
+                {
+                    MailRequest hh = new MailRequest()
+                    {
+                        Body = "Chào mừng bạn đến với cửa hàng chúng tôi bên tôi đang có khuyến mãi hot  " + imageTag,
+                        ToEmail = emailAddress.Trim(), // Xóa khoảng trắng từ địa chỉ email
+                        Subject = "Cửa hàng đang đại giảm giá"
+                    };
+
+                    try
+                    {
+                        // Gửi email cho từng địa chỉ trong danh sách
+                        await _EmailService.SendEmailAsync(hh);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Xử lý exception (ghi log, thông báo, ...)
+                        Console.WriteLine($"Error sending email to {hh.ToEmail}: {ex.Message}");
+                    }
+
+                    // Kiểm soát tốc độ, chờ 1 giây trước khi gửi email tiếp theo
+                    await Task.Delay(1000);
+                }
+
                 return Json(new { success = true, redirectUrl = Url.Action("Index") });
             }
 
             return Json(new { success = false, errors = new List<string> { "Lỗi khi thêm khuyến mại." } });
+        }
+
+        private string ConvertImageUrlToBase64(string imageUrl)
+        {
+            using (WebClient client = new WebClient())
+            {
+                byte[] imageBytes = client.DownloadData(imageUrl);
+                return Convert.ToBase64String(imageBytes);
+            }
         }
 
 
