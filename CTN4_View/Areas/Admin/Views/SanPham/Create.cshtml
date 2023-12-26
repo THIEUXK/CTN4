@@ -27,7 +27,7 @@
                     <div class="form-group">
 
                         <label asp-for="MaSp" class="form-label">Mã sản phẩm</label>
-                        <div class="corner-text" onclick="generateRandomMaSp()">Tạo mã sản phẩm</div>
+                        <div class="corner-text" onclick="generateRandomMaSp()"><a href="#" style="color: black;">Tạo mã sản phẩm</a></div>
                         <input asp-for="MaSp" class="form-control" id="MaSpInput" readonly />
                         <span asp-validation-for="MaSp" class="text-danger"></span>
 
@@ -38,7 +38,10 @@
                         <span asp-validation-for="TenSanPham" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="IdChatLieu">Chat lieu</label>
+                        <div style="display: flex; align-items: center;">
+                            <label asp-for="IdChatLieu" style="margin-right: 124px;">Chất liệu</label>
+                            <a style="color: black;" asp-controller="ChatLieu" asp-action="Index">Quản lý Chất liệu</a>
+                        </div>
                         <select asp-for="IdChatLieu" class="form-control">
                             <option value="">-- Select Chat Lieu --</option>
                             @foreach (var a in Model.ChalieuItems)
@@ -49,7 +52,11 @@
                         <span asp-validation-for="IdChatLieu" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="IdNSX">Nsx</label>
+                        <div style="display: flex; align-items: center;">
+                            <label asp-for="IdNSX" style="margin-right: 190px;">Nsx</label>
+                            <a style="color: black;" asp-controller="NSX" asp-action="Index">Quản lý Nsx</a>
+                        </div>
+
                         <select asp-for="IdNSX" class="form-control">
                             <option value="">-- Select NSX --</option>
                             @foreach (var a in Model.NsxItems)
@@ -85,16 +92,7 @@
                         <textarea asp-for="GhiChu" class="form-control"></textarea>
                         <span asp-validation-for="GhiChu" class="text-danger"></span>
                     </div>
-                    <div class="form-group form-check">
-                        <label class="form-check-label">
-                            <input class="form-check-input" asp-for="TrangThai" /> Trạng thái
-                        </label>
-                    </div>
-                    <div class="form-group form-check">
-                        <label class="form-check-label">
-                            <input class="form-check-input" asp-for="Is_detele" />Tình trạng
-                        </label>
-                    </div>
+                   
                     <div class="form-group">
                         <label>Chọn ảnh từ Máy tính:</label>
                         <input type="file" name="imageFile" />
