@@ -135,6 +135,12 @@ namespace CTN4_View.Controllers.Shop
         }
         public IActionResult ThemVaoGio(int soluong, Guid IdSanPham, Guid IdSize, Guid IdMau)
         {
+            if (IdSize == Guid.Parse("00000000-0000-0000-0000-000000000000") || IdMau == Guid.Parse("00000000-0000-0000-0000-000000000000"))
+                {
+                   var message2 = "Hãy chọn màu và size trước khi thêm vào giỏ hàng !";
+                        TempData["TB2"] = message2;
+                        return RedirectToAction("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = IdSanPham, message2 });
+                }
             var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
             if (accnew.Count != 0)
             {

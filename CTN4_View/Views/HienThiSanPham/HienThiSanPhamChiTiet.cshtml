@@ -188,15 +188,15 @@
                         <a>Số lượng:</a>
                         <div class="product_count">
 
-                            <input type="text" name="soluong" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty">
-                            <button onclick="var result = document.getElementById('sst');var sst = result.value;if (!isNaN(sst)) result.value++;return false;"
-                                    class="increase items-count" type="button">
-                                <i class="lnr lnr-chevron-up"></i>
+                            <input type="number" name="soluong" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty" oninput="this.value = this.value.replace(/[^0-9]/g, '');"/>
+                            @* <button onclick="var result = document.getElementById('sst');var sst = result.value;if (!isNaN(sst)) result.value++;return false;"
+                            class="increase items-count" type="button">
+                            <i class="lnr lnr-chevron-up"></i>
                             </button>
                             <button onclick="var result = document.getElementById('sst');var sst = result.value;if (!isNaN(sst) & sst > 0) result.value--;return false;"
-                                    class="reduced items-count" type="button">
-                                <i class="lnr lnr-chevron-down"></i>
-                            </button>
+                            class="reduced items-count" type="button">
+                            <i class="lnr lnr-chevron-down"></i>
+                            </button>*@
                         </div>
 
                         <div>
@@ -221,42 +221,34 @@
                             {
                                 <div class="alert alert-danger">@TempData["TB2"]</div>
                             }
-                            <div class="card_area d-flex align-items-center">
+                           <div class="card_area d-flex align-items-center">
                                 <button class="primary-btn" type="submit" href="#">Thêm vào giỏ</button>
-                                <a class="icon_btn" href="#"><i class="lnr lnr1 lnr-diamond"></i></a>
 
-                                @if (Model.sanPhamYeuThiches.FirstOrDefault(c => c.IdSanPham == Model.sanPham.Id) != null)
+                                @* @if (Model.sanPhamYeuThiches.FirstOrDefault(c => c.IdSanPham == Model.sanPham.Id) != null)
                                 {
-                                    <form asp-controller="SanPhamYeuThich" asp-action="XoaKhoiYeuTich1">
 
-                                        <input type="hidden" name="idSP" value="@Model.sanPham.Id">
-                                        <a onclick="onsubmit" class="social-info">
-                                            <span class="lnr lnr1 lnr-heart" style="background: linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);"><button onclick="onsubmit">  </button></span>
-                                           
-                                        </a>
-                                    </form>
+                                    <input type="hidden" name="idSP" value="@Model.sanPham.Id">
+                                    <a onclick="onsubmit" class="social-info">
+                                        <span class="lnr lnr1 lnr-heart" style="background: linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);"><button asp-controller="SanPhamYeuThich" asp-action="XoaKhoiYeuTich1">  </button></span>
+
+                                    </a>
+
                                 }
                                 else
                                 {
-                                    <form asp-controller="SanPhamYeuThich" asp-action="ThemYeuThich">
 
-                                        <input type="hidden" name="IdSanPham" value="@Model.sanPham.Id">
-                                        <a onclick="onsubmit" class="icon_btn">
-                                            <span class="lnr lnr1 lnr-heart"><button onclick="onsubmit">  </button></span>
-                                           
-                                        </a>
-                                    </form>
+                                    <input type="hidden" name="IdSanPham" value="@Model.sanPham.Id">
+                                    <a onclick="onsubmit" class="icon_btn">
+                                        <span class="lnr lnr1 lnr-heart"><button asp-controller="SanPhamYeuThich" asp-action="ThemYeuThich">  </button></span>
+
+                                    </a>
+
                                 }
-                                @* <a class="icon_btn" type="button" onclick="onsubmit"><i class="lnr lnr lnr-heart"></i></a>*@
+                                <a class="icon_btn" type="button" onclick="onsubmit"><i class="lnr lnr lnr-heart"></i></a>*@
                             </div>
                             <input type="hidden" name="idSP" value="">
                         </div>
                     </form>
-                    <p>
-                        Mill Oil is an innovative oil filled radiator with the most modern technology. If you are looking for
-                        something that can make your interior look awesome, and at the same time give you the pleasant warm feeling
-                        during the winter.
-                    </p>
                 </ul>
             </div>
         </div>
@@ -268,15 +260,15 @@
     <div class="container">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
-                <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Description</a>
+                <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Ghi Chú</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
-                   aria-selected="false">Specification</a>
+                   aria-selected="false">Sản phảm liên quan</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
-                   aria-selected="false">Comments</a>
+                   aria-selected="false">Đánh giá</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link active" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
@@ -633,123 +625,52 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-9">
+            <div class="col-lg-12">
                 <div class="row">
-                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-                        <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/img/r1.jpg" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Black lace Heels</a>
-                                <div class="price">
-                                    <h6>$189.00</h6>
-                                    <h6 class="l-through">$210.00</h6>
+                    @{
+                        // Tạo danh sách để theo dõi các Mau.Id đã xuất hiện
+                        var SanPhamDaXuatHien = new List<Guid>();
+                        SanPhamDaXuatHien.Add(Model.sanPham.Id);
+                    }
+                    @foreach (var a in Model.sanPhams)
+                    {
+                        // Kiểm tra xem Mau.Id đã xuất hiện trong danh sách chưa
+                        if (!SanPhamDaXuatHien.Contains(a.Id))
+                        {
+                            // Nếu chưa xuất hiện, hiển thị nút và thêm Mau.Id vào danh sách
+                            SanPhamDaXuatHien.Add(a.Id);
+                            <div class="col-lg-4 col-md-4 col-sm-4 mb-20">
+                                <div class="single-related-product d-flex">
+                                    @if (System.IO.Path.GetExtension(a.AnhDaiDien) == ".jpg" ||
+                                   System.IO.Path.GetExtension(a.AnhDaiDien) == ".png" ||
+                                   System.IO.Path.GetExtension(a.AnhDaiDien) == ".jpeg" ||
+                                   System.IO.Path.GetExtension(a.AnhDaiDien) == ".tiff" ||
+                                   System.IO.Path.GetExtension(a.AnhDaiDien) == ".webp" ||
+                                   System.IO.Path.GetExtension(a.AnhDaiDien) == ".gif")
+                                    {
+                                        <a href="@Url.Action("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = a.Id })">
+
+                                            <img src="~/image/@a.AnhDaiDien" height="150" alt="@a.TenSanPham" />
+                                        </a>
+                                        <div class="desc">
+                                            <a href="#" class="title">@a.TenSanPham</a>
+                                            <div class="price">
+                                                @if (a.GiaNiemYet == a.GiaBan)
+                                                {
+                                                    <h6>@FormatCurrency(a.GiaNiemYet)</h6>
+                                                }
+                                                else
+                                                {
+                                                    <h6>@FormatCurrency(a.GiaNiemYet)</h6>
+                                                    <h6 class="l-through">@FormatCurrency(a.GiaBan)</h6>
+                                                }
+                                            </div>
+                                        </div>
+                                    }
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-                        <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/img/r2.jpg" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Black lace Heels</a>
-                                <div class="price">
-                                    <h6>$189.00</h6>
-                                    <h6 class="l-through">$210.00</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-                        <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/img/r3.jpg" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Black lace Heels</a>
-                                <div class="price">
-                                    <h6>$189.00</h6>
-                                    <h6 class="l-through">$210.00</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-                        <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/img/r5.jpg" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Black lace Heels</a>
-                                <div class="price">
-                                    <h6>$189.00</h6>
-                                    <h6 class="l-through">$210.00</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-                        <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/img/r6.jpg" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Black lace Heels</a>
-                                <div class="price">
-                                    <h6>$189.00</h6>
-                                    <h6 class="l-through">$210.00</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-                        <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/img/r7.jpg" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Black lace Heels</a>
-                                <div class="price">
-                                    <h6>$189.00</h6>
-                                    <h6 class="l-through">$210.00</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6">
-                        <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/img/r9.jpg" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Black lace Heels</a>
-                                <div class="price">
-                                    <h6>$189.00</h6>
-                                    <h6 class="l-through">$210.00</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6">
-                        <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/img/r10.jpg" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Black lace Heels</a>
-                                <div class="price">
-                                    <h6>$189.00</h6>
-                                    <h6 class="l-through">$210.00</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm-6">
-                        <div class="single-related-product d-flex">
-                            <a href="#"><img src="~/img/r11.jpg" alt=""></a>
-                            <div class="desc">
-                                <a href="#" class="title">Black lace Heels</a>
-                                <div class="price">
-                                    <h6>$189.00</h6>
-                                    <h6 class="l-through">$210.00</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="ctg-right">
-                    <a href="#" target="_blank">
-                        <img class="img-fluid d-block mx-auto" src="~/img/category/c5.jpg" alt="">
-                    </a>
+                        }
+                    }
                 </div>
             </div>
         </div>

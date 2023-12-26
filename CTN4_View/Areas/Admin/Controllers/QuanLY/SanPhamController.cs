@@ -155,7 +155,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [ValidateAntiForgeryToken]
         public ActionResult Create(SanPhamView p, [Bind] IFormFile imageFile)
         {
-            // Kiểm tra xem ModelState có hợp lệ hay không
+           
 
                 if (imageFile != null && imageFile.Length > 0) // Không null và không trống
                 {
