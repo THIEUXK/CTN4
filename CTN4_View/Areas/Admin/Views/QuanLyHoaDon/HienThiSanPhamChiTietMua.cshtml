@@ -121,7 +121,7 @@
                     <br>
                     @if (TempData["Notification"] != null)
                     {
-                        <div class="alert alert-info">@TempData["Notification"]</div>
+                        <div style="color:aliceblue" class="alert alert-info">@TempData["Notification"]</div>
                     }
                     <br />
                     <div>
@@ -166,7 +166,7 @@
                     <br>
                     @if (TempData["ErrorMessage"] != null)
                     {
-                        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+                        <div style="color:aliceblue" class="alert alert-danger">@TempData["ErrorMessage"]</div>
                     }
                     <br />
                     <div>
@@ -255,12 +255,12 @@
                             <input type="hidden" name="IdSanPham" value="@Model.sanPham.Id">
                             @if (TempData["TB1"] != null)
                             {
-                                <div class="alert alert-danger">@TempData["TB1"]</div>
+                                <div class="alert style=&quot;color:aliceblue&quot; alert-danger">@TempData["TB1"]</div>
                             }
 
                             @if (TempData["TB2"] != null)
                             {
-                                <div class="alert alert-danger">@TempData["TB2"]</div>
+                                <div style="color:aliceblue" class="alert alert-danger">@TempData["TB2"]</div>
                             }
                             <input type="hidden" name="idHD" value="@Model.idHD" id="idHD">
                             <div class="card_area d-flex align-items-center">

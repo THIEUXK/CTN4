@@ -15,6 +15,39 @@
         white-space: nowrap; /* Ngăn chuyển dòng */
         word-wrap: break-word; /* Cho phép xuống dòng nếu giá trị quá dài */
     }
+
+    .form-container {
+        margin: 10px 0;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+
+    #khachHangSelect {
+        width: 100%;
+        height: 150px; /* Adjust height as needed */
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: white;
+        padding: 5px;
+    }
+
+    #selectedValues {
+        width: 100%;
+        height: 100px; /* Adjust height as needed */
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 5px;
+        resize: none; /* Prevents resizing */
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
     .form-container {
         border: 1px solid #ccc;
         padding: 10px;
@@ -64,8 +97,11 @@
         <div class="row">
             <div class="container">
             <div class="col-md-9">
-
-                    <form id="create-form" asp-controller="KhuyenMai" asp-action="Create"  method="post">
+                    @using (Html.BeginForm("Creates", "KhuyenMai", FormMethod.Post, new { id = "create-form" }))
+                    {
+                       
+                     @Html.AntiForgeryToken()
+                   
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-container">
                       
@@ -97,6 +133,15 @@
                             <span asp-validation-for="NgayKetThuc" class="text-danger"></span>
                         </div>
                     </div>
+                        <div class="form-container" id="selectkh">
+                            <label for="khachHangSelect">Chọn Khách Hàng gửi gmail thông báo:</label>
+                            <select id="khachHangSelect" multiple>
+                                <!-- Options will be dynamically added here -->
+                            </select>
+                        </div>
+                        <div class="form-container" id="formContainer">
+                            <textarea id="selectedValues" placeholder="Thông tin khách hàng được chọn" readonly></textarea>
+                        </div>
                         <div class="form-container">
                             <th>
                                 <select class="form-select form-select-lg mb-3" id="selectOption" required>
@@ -151,12 +196,14 @@
                             </div>
                             <span asp-validation-for="DongGia" class="text-danger"></span>
                         </div>
-
+                 
+                       
                     <div class="form-group">
-                            <input asp-controller="KhuyenMai" asp-action="Create" type="submit" class="btn btn-primary" />
+                            <input  type="submit" id="createkh" class="btn btn-primary" />
                     </div>
 
-                </form> 
+               
+                }
                 </div>
             </div>         
         </div>
@@ -183,12 +230,16 @@
         </div>
             <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
             <script>
+
     document.getElementById('selectOption').addEventListener('change', function () {
         var mua1Tang1Field = document.getElementById('Mua1Tang1').querySelector('input');
         mua1Tang1Field.value = this.value === '3' ? 'true' : 'false';
         updateDisplay(mua1Tang1Field.value);
+
+            
     });
 
+    var emailselect = [];
     function updateDisplay(value) {
         var displayValue = value === 'true' ? 'Áp dụng' : 'Không áp dụng';
         // Hiển thị giá trị trên view, có thể sử dụng innerHTML hoặc innerText của một phần tử
@@ -218,28 +269,110 @@
     });
 
     $(document).ready(function () {
-        // Ẩn tất cả các nhóm khi trang được load lên
-        $("#giaDonViGroup, #soTienGiamGroup, #dongGiaGroup").hide();
+        var selectkhSelect = $('#khachHangSelect');
+        $.ajax({
+            type: 'GET',
+            url: '/admin/KhuyenMai/Getallkh',
+            dataType: 'json',
+            success: function (data) {
+              
+                selectkhSelect.append('<option value="" disabled>Chọn...</option>');
 
-        // Xử lý sự kiện khi select thay đổi giá trị
-        $("#selectOption").change(function () {
-            // Ẩn tất cả các nhóm trước khi hiển thị nhóm mới
-            $("#giaDonViGroup, #soTienGiamGroup, #dongGiaGroup").hide();
+                $.each(data, function (index, khachHang) {
+                    var optionHtml = '<option value="' + khachHang.email + '" data-ten="' + khachHang.tenKhachHang + '">' + khachHang.tenKhachHang + ' -- ' + khachHang.email + '</option>';
+                    selectkhSelect.append(optionHtml);
+                });
 
-            // Lấy giá trị của select
-            var selectedOption = $(this).val();
+                selectkhSelect.change(function () {
+                    var selectedOptions = $(this).find('option:selected');
+                    var displayText = "";
 
-            // Hiển thị nhóm tương ứng
-            if (selectedOption === "1") {
-                $("#dongGiaGroup").show();
-            } else if (selectedOption === "2") {
-                $("#soTienGiamGroup").show();
-            }
-            else if (selectedOption === "3") {
-                $("#Mua1Tang1").show();
+                    selectedOptions.each(function () {
+                        var email = $(this).val();
+                        var ten = $(this).data('ten');
+                        displayText += 'Email: ' + email + ', Tên: ' + ten + '\n';
+                    });
+
+                    console.log(displayText);
+                    // Update the form fields or display the selected values
+                    // For example, you can display them in a div or textarea
+                    $('#selectedValues').text(displayText);
+                });
+            },
+            error: function (error) {
+                console.log(error);
+              
             }
         });
-    });
+        selectkhSelect.change(function () {
+            var selectedEmail = $(this).val();
+            console.log('Đã chọn khách hàng có email: ' + selectedEmail);
+            emailselect = selectedEmail;
+           // Cập nhật giá trị vào các trường trong form
+            $('#tenKhachHang').val("");  // Cần thay đổi dựa vào dữ liệu trả về từ server
+            $('#email').val(selectedEmail);
+
+            // Vô hiệu hóa option "Chọn..."
+            $(this).find('option[value=""]').prop('disabled', true);
+        });
+        $('#createkh').click(function (e) {
+            e.preventDefault(); // Ngăn chặn sự kiện submit mặc định
+
+            // Sử dụng FormData để lấy dữ liệu từ form
+            var formData = new FormData($('#create-form')[0]);
+
+            // Lấy giá trị của select
+            var emailselect = $('#khachHangSelect').val();
+
+            // Thêm giá trị của select vào formData
+            formData.append('lstMail', emailselect);
+
+            // Ajax request
+            $.ajax({
+                url: '@Url.Action("Creates")',
+                type: 'POST',
+                processData: false,  // Ngăn chặn jQuery xử lý dữ liệu thành query string
+                contentType: false,  // Ngăn chặn jQuery thiết lập contentType
+                data: formData,
+                success: function (result) {
+                    console.log('result', result);
+                    if (result.success) {
+                        window.location.href = result.redirectUrl;
+                    } else {
+                        // Xử lý lỗi và hiển thị
+                        var errors = result.errors.join('<br/>');
+                        $('#errorDiv').html(errors);
+                    }
+                }
+            });
+        });
+
+
+
+
+  
+      //  Ẩn tất cả các nhóm khi trang được load lên
+            $("#giaDonViGroup, #soTienGiamGroup, #dongGiaGroup").hide();
+
+            // Xử lý sự kiện khi select thay đổi giá trị
+            $("#selectOption").change(function () {
+                // Ẩn tất cả các nhóm trước khi hiển thị nhóm mới
+                $("#giaDonViGroup, #soTienGiamGroup, #dongGiaGroup").hide();
+
+                // Lấy giá trị của select
+                var selectedOption = $(this).val();
+
+                // Hiển thị nhóm tương ứng
+                if (selectedOption === "1") {
+                    $("#dongGiaGroup").show();
+                } else if (selectedOption === "2") {
+                    $("#soTienGiamGroup").show();
+                }
+                else if (selectedOption === "3") {
+                    $("#Mua1Tang1").show();
+                }
+            });
+        });
 
     // Hoặc nếu bạn muốn đặt giá trị mặc định khi có sự kiện khác, bạn có thể sử dụng
     // một hàm JavaScript và gọi nó từ sự kiện đó.
@@ -471,6 +604,8 @@
             alert("Vui lòng nhập ít nhất một trong ba trường: Đồng giá, Phần trăm giảm giá, hoặc Số tiền giảm.");
         }
     }
+    
+ 
             </script>
 
 
