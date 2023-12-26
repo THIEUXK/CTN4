@@ -44,13 +44,23 @@
     </div>
 </div>
 
-<form method="get" style="display:flex">
+@* <form method="get" style="display:flex">
     <div class="form-outline">
         <input type="text" name="MaGiam" style="width: 980px" placeholder="Tìm kiếm..." />
     </div>
     <button type="submit" class="btn btn-primary">
-        <i class="fas fa-search"></i>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+        </svg>
     </button>
+</form> *@
+<form method="get" class="d-flex">
+    <div class="input-group">
+        <input type="text" id="form1" class="form-control" name="MaGiam" style="width: 980px;"  placeholder="Tìm kiếm..." />
+        <button type="submit" class="btn btn-primary">
+            <i class="fas fa-search"></i>
+        </button>
+    </div>
 </form>
 <div class="dropdown me-1">
     <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
@@ -85,10 +95,6 @@
                 background-color: #ffffff; /* Màu nền cho hàng chẵn */
             }
 
-            .thead-dark th {
-                color: white;
-                border-radius: 10px; /* Bo tròn cho các thẻ th */
-            }
             /*
                         .table-bordered tbody tr td:first-child,
                         .table-bordered tbody tr td:last-child {
@@ -139,10 +145,10 @@
                                 <h6 style="margin: 0; color: white;">Số lượng</h6>
                             </th>
                             <th style="background-color: #333; text-align: center;">
-                                <h6 style="margin: 0; color: white;">Ngày bắt đầu</h6>
+                                <h6 style="margin: 0; color: white;">Thời gian bắt đầu</h6>
                             </th>
                             <th style="background-color: #333; text-align: center;">
-                                <h6 style="margin: 0; color: white;">Ngày kết thúc</h6>
+                                <h6 style="margin: 0; color: white;">Thời gian kết thúc</h6>
                             </th>
 
                             <th style="background-color: #333; text-align: center;">
@@ -151,7 +157,7 @@
                             <th style="background-color: #333; text-align: center;">
                                 <h6 style="margin: 0; color: white;">Hành động</h6>
                             </th>
-                            <th></th>
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -223,7 +229,7 @@
                                 </td>
 
                                 <td>
-                                    <h6 style="text-align:center">@item.DieuKienGiam</h6>
+                                    <h6 style="text-align:center">@FormatCurrency(item.DieuKienGiam)</h6>
                                 </td>
 
                                 @*<td>
@@ -285,10 +291,10 @@
                                 <h6 style="margin: 0; color: white;">Số lượng</h6>
                             </th>
                             <th style="background-color: #333; text-align: center;">
-                                <h6 style="margin: 0; color: white;">Ngày bắt đầu</h6>
+                                <h6 style="margin: 0; color: white;">Thời gian bắt đầu</h6>
                             </th>
                             <th style="background-color: #333; text-align: center;">
-                                <h6 style="margin: 0; color: white;">Ngày kết thúc</h6>
+                                <h6 style="margin: 0; color: white;">Thời gian kết thúc</h6>
                             </th>
 
                             <th style="background-color: #333; text-align: center;">
@@ -297,7 +303,7 @@
                             <th style="background-color: #333; text-align: center;">
                                 <h6 style="margin: 0; color: white;">Hành động</h6>
                             </th>
-                            <th></th>
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -375,7 +381,7 @@
                                     </td>
 
                                     <td>
-                                        <h6 style="text-align:center">@item.DieuKienGiam</h6>
+                                        <h6 style="text-align:center">@FormatCurrency(item.DieuKienGiam)</h6>
                                     </td>
 
                                     @*<td>
@@ -434,10 +440,10 @@
                                 <h6 style="margin: 0; color: white;">Số lượng</h6>
                             </th>
                             <th style="background-color: #333; text-align: center;">
-                                <h6 style="margin: 0; color: white;">Ngày bắt đầu</h6>
+                                <h6 style="margin: 0; color: white;">Thời gian bắt đầu</h6>
                             </th>
                             <th style="background-color: #333; text-align: center;">
-                                <h6 style="margin: 0; color: white;">Ngày kết thúc</h6>
+                                <h6 style="margin: 0; color: white;">Thời gian kết thúc</h6>
                             </th>
 
                             <th style="background-color: #333; text-align: center;">
@@ -446,7 +452,7 @@
                             <th style="background-color: #333; text-align: center;">
                                 <h6 style="margin: 0; color: white;">Hành động</h6>
                             </th>
-                            <th></th>
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -522,7 +528,7 @@
                                     </td>
 
                                     <td>
-                                        <h6 style="text-align:center">@item.DieuKienGiam</h6>
+                                        <h6 style="text-align:center">@FormatCurrency(item.DieuKienGiam)</h6>
                                     </td>
 
                                     @*<td>
@@ -629,8 +635,17 @@
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>*@
 
 
+          @*   <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script> *@
+
+            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
             <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 
        

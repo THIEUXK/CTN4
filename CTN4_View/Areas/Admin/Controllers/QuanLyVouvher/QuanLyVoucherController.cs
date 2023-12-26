@@ -53,9 +53,9 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyVouvher
 
             return View(pagedList);
 
-         
-            
-          
+
+
+
 
         }
         // lọc
@@ -75,27 +75,27 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyVouvher
 
 
         //}
-        //public IActionResult GiamTien()
-        //{
-        //    var hd = _gg.GetAll();
-        //    var view = new GiamGiaViewModel()
-        //    {
-        //        GiamGias = hd.Where(c => c.LoaiGiamGia == false ).ToList(),
-        //    };
-        //    return View("Index", view);
-           
+        public IActionResult GiamTien()
+        {
+            var hd = _gg.GetAll();
+            var view = new GiamGiaViewModel()
+            {
+                GiamGias = hd.Where(c => c.LoaiGiamGia == false).ToList(),
+            };
+            return View("Index", view);
 
-           
-        //}
-        //public IActionResult GiamPhanTram()
-        //{
-        //    var hd = _gg.GetAll();
-        //    var view = new GiamGiaViewModel()
-        //    {
-        //        GiamGias = hd.Where(c => c.LoaiGiamGia == true ).ToList(),
-        //    };
-        //    return View("Index", view);
-        //}
+
+
+        }
+        public IActionResult GiamPhanTram()
+        {
+            var hd = _gg.GetAll();
+            var view = new GiamGiaViewModel()
+            {
+                GiamGias = hd.Where(c => c.LoaiGiamGia == true).ToList(),
+            };
+            return View("Index", view);
+        }
 
 
 
@@ -128,10 +128,10 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyVouvher
         //public IActionResult GiamGiaPage(int? size, string searchString, int? page)
         //{
         //    // Tạo danh sách kích thước trang để hiển thị trong DropDownList
-          
+
 
         //    // Xác định kích thước trang hiện tại từ DropDownList
-           
+
         //    ViewBag.currentSize = size;
 
         //    // Xác định trang hiện tại
@@ -203,21 +203,36 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyVouvher
         {
             //if (ModelState.IsValid)
             //{
-                a.TrangThai = true;
-                a.Is_detele = true;
-                //var tontai = _gg.GetAll().FirstOrDefault(c => c.MaGiam == a.MaGiam && c.Id != a.Id);
-                //if (tontai != null)
-                //{
-                //    ModelState.AddModelError("MaGiam", "Mã giảm không được trùng.");
-                //    return View(a);
-                //}
+            a.TrangThai = true;
+            a.Is_detele = true;
+            var tontai = _gg.GetAll().FirstOrDefault(c => c.MaGiam == a.MaGiam && c.Id != a.Id);
+            if (tontai != null)
+            {
+                ModelState.AddModelError("MaGiam", "Mã giảm không được trùng.");
+                return View(a);
+            }
 
-                if (_gg.Them(a)) // Nếu thêm thành công
-                {
+            // Kiểm tra thời gian
+            if (a.NgayKetThuc <= a.NgayBatDau)
+            {
+                ModelState.AddModelError("NgayKetThuc", "Ngày kết thúc phải lớn hơn ngày bắt đầu.");
+                return View(a);
+            }
+
+            // Kiểm tra NgayBatDau > Now
+            if (a.NgayBatDau <= DateTime.Now)
+            {
+                ModelState.AddModelError("NgayBatDau", "Ngày bắt đầu phải lớn hơn ngày hiện tại.");
+                return View(a);
+            }
 
 
-                    return RedirectToAction("Index");
-                }
+            if (_gg.Them(a)) // Nếu thêm thành công
+            {
+
+
+                return RedirectToAction("Index");
+            }
             //}
             return View();
 
@@ -241,16 +256,13 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyVouvher
             //    return View(a);
             //}
 
-            if (ModelState.IsValid)
-            {
-                if (_gg.Sua(a))
+                if (_gg.Sua(a)) // Nếu sửa thành công
                 {
                     return RedirectToAction("Index");
 
                 }
                 return View();
-            }
-            return View();
+            
 
 
         }
@@ -268,3 +280,4 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyVouvher
         }
     }
 }
+
