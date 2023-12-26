@@ -1,5 +1,4 @@
 ﻿$(document).ready(function () {
-
     $('input[name="ChatLieu"]').change(function () {
         // Kiểm tra trạng thái của checkbox
         if ($(this).is(':checked')) {
@@ -139,7 +138,6 @@ $(document).ready(function () {
         }
     });
 });
-
 
 
  

@@ -177,11 +177,19 @@
             <!-- Start Filter Bar -->
             <div class="filter-bar d-flex flex-wrap align-items-center">
                 <div class="sorting">
+                    @{
+                        var session6 = Context.Request.HttpContext.Session;
+                        var show1 = SessionBan.SanPhamMoRong(session6, "ChonShowSp");
+                    }
                     <form asp-action="ChonShowSp" class="page-form">
                         <select onchange="this.form.submit()" name="Soluonghienthi">
                             @if (Model.soluonghienthi != null)
                             {
                                 <option>Đang xem @Model.soluonghienthi</option>
+                            }
+                            else
+                            {
+                                <option>Đang xem @show1</option>
                             }
                             <option value="10"> 10</option>
                             <option value="15"> 15</option>
@@ -189,6 +197,7 @@
                             <option value="50"> 50</option>
                         </select>
                     </form>
+                   
                 </div>
                 <div class="sorting mr-auto">
                     <form asp-action="HienThiSanPham" method="get" class="page-form">
@@ -341,11 +350,16 @@
             <!-- Start Filter Bar -->
             <div class="filter-bar d-flex flex-wrap align-items-center">
                 <div class="sorting mr-auto">
+                    
                     <form asp-action="ChonShowSp" class="page-form">
                         <select onchange="this.form.submit()" name="Soluonghienthi">
                             @if (Model.soluonghienthi != null)
                             {
                                 <option>Đang xem @Model.soluonghienthi</option>
+                            }
+                            else
+                            {
+                                <option>Đang xem @show1</option>
                             }
                             <option value="10"> 10</option>
                             <option value="15"> 15</option>

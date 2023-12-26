@@ -77,16 +77,19 @@ namespace CTN4_View.Controllers.Shop
                 var LuuTamCl1 = SessionBan.ChatLieuSS(HttpContext.Session, "ChatLieuTam");
                 var LuuTamMau1 = SessionBan.MauSacSS(HttpContext.Session, "MauSacTam");
                 var LuuTam1 = SessionBan.DanhMucSS(HttpContext.Session, "DanhMucTam");
+                var showSp1 = SessionBan.SanPhamMoRong(HttpContext.Session, "ChonShowSp");
                 luuGiaBatDau1 = 0;
                 luuGiaKetThuc1 = 0;
                 LuuTamCl1.Clear();
                 LuuTamMau1.Clear();
                 LuuTam1.Clear();
+                showSp1 = 0;
                 SessionBan.SetObjToJson(HttpContext.Session, "minPrice", luuGiaBatDau1);
-                 SessionBan.SetObjToJson(HttpContext.Session, "maxPrice", luuGiaKetThuc1);
-                 SessionBan.SetObjToJson(HttpContext.Session, "ChatLieuTam", LuuTamCl1);
-                 SessionBan.SetObjToJson(HttpContext.Session, "MauSacTam", LuuTamMau1);
-                 SessionBan.SetObjToJson(HttpContext.Session, "DanhMucTam", LuuTam1);
+                SessionBan.SetObjToJson(HttpContext.Session, "maxPrice", luuGiaKetThuc1);
+                SessionBan.SetObjToJson(HttpContext.Session, "ChatLieuTam", LuuTamCl1);
+                SessionBan.SetObjToJson(HttpContext.Session, "MauSacTam", LuuTamMau1);
+                SessionBan.SetObjToJson(HttpContext.Session, "DanhMucTam", LuuTam1);
+                SessionBan.SetObjToJson(HttpContext.Session, "ChonShowSp", showSp1);
                 if (Soluonghienthi == 0) { Soluonghienthi = 6; }
                 if (page == 0) { page = 1; }
                 var danhMuc = _danhMucService.GetAll();
@@ -130,7 +133,12 @@ namespace CTN4_View.Controllers.Shop
             var LuuTamCl = SessionBan.ChatLieuSS(HttpContext.Session, "ChatLieuTam");
             var LuuTamMau = SessionBan.MauSacSS(HttpContext.Session, "MauSacTam");
             var LuuTam = SessionBan.DanhMucSS(HttpContext.Session, "DanhMucTam");
-
+            var showSp = SessionBan.SanPhamMoRong(HttpContext.Session, "ChonShowSp");
+           
+            if(showSp != 0)
+            {
+               Soluonghienthi = showSp;
+            }
             var b = new List<Guid>();
             foreach (var i in LuuTamMau)
             {
@@ -521,7 +529,7 @@ namespace CTN4_View.Controllers.Shop
 
             }
 
-            
+
         }
         public IActionResult HienThiSanPhamChiTiet(Guid id)
         {
@@ -532,6 +540,19 @@ namespace CTN4_View.Controllers.Shop
             var mau = _mauSacService.GetAll().ToList();
             var spctcuthe = _CTN4_Ok.SanPhamChiTiets.Include(c => c.Size).ToList().Where(c => c.IdSp == id && c.Is_detele == true);
             var SpYt = _chiTietSanPhamYeuThichService.GetAll();
+            var splienquan = _danhMucChiTiet.GetAll().Where(c => c.IdSanPham == id && c.DanhMuc.Is_detele == true);
+            var a = new List<Guid>();
+            foreach (var i in splienquan)
+            {
+                a.Add((Guid)i.IdDanhMuc);
+            }
+            var listDanhMucLq = _danhMucChiTiet.GetAll().Where(c => a.Contains((Guid)c.IdDanhMuc) && c.DanhMuc.Is_detele == true).ToList();
+            var b = new List<Guid>();
+            foreach (var i in listDanhMucLq)
+            {
+                b.Add((Guid)i.IdSanPham);
+            }
+            var listSanPhamLq = _sanphamService.GetAll().Where(c => b.Contains((Guid)c.Id) && c.Is_detele == true).ToList();
             var view = new SanPhamBan()
             {
                 sanPham = _sanPhamCuaHangService.GetById(id),
@@ -540,7 +561,7 @@ namespace CTN4_View.Controllers.Shop
                 maus = mau,
                 sizect = spctcuthe.ToList(),
                 anhs = anh,
-                sanPhams = listsp,
+                sanPhams = listSanPhamLq,
                 giamgias = giamgia,
                 sanPhamYeuThiches = SpYt,
 
@@ -735,6 +756,9 @@ namespace CTN4_View.Controllers.Shop
         }
         public IActionResult ChonShowSp(int Soluonghienthi, int page)
         {
+            var luuChonShow = SessionBan.SanPhamMoRong(HttpContext.Session, "ChonShowSp");
+            luuChonShow = Soluonghienthi;
+            SessionBan.SetObjToJson(HttpContext.Session, "ChonShowSp", luuChonShow);
             if (Soluonghienthi == 0) { Soluonghienthi = 1; }
             if (page == 0) { page = 1; }
             var danhMuc = _danhMucService.GetAll();
@@ -871,9 +895,11 @@ namespace CTN4_View.Controllers.Shop
             var luuGiaKetThuc = SessionBan.Sobatdau(HttpContext.Session, "maxPrice");
             luuGiaBatDau = null;
             luuGiaKetThuc = null;
+            SessionBan.SetObjToJson(HttpContext.Session, "minPrice", luuGiaBatDau);
+            SessionBan.SetObjToJson(HttpContext.Session, "maxPrice", luuGiaKetThuc);
             return Json("ok", new System.Text.Json.JsonSerializerOptions());
         }
-
+        
 
     }
 }

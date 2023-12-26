@@ -51,7 +51,7 @@ namespace CTN4_View_Admin.Controllers.Shop
                 return listObj;
             }
             else return new List<Mau>();
-        } 
+        }
         public static float? Sobatdau(ISession session, string key)
         {
             var data = session.GetString(key); // Đọc dữ liệu từ Session ở dạng chuỗi
@@ -61,7 +61,7 @@ namespace CTN4_View_Admin.Controllers.Shop
                 return listObj;
             }
             else return new float();
-        } 
+        }
         public static float? Soketthuc(ISession session, string key)
         {
             var data = session.GetString(key); // Đọc dữ liệu từ Session ở dạng chuỗi
@@ -91,6 +91,36 @@ namespace CTN4_View_Admin.Controllers.Shop
                 return listObj;
             }
             else return new List<SanPhamChiTiet>();
+        }
+        public static int SanPhamMoRong(ISession session, string key)
+        {
+            var data = session.GetString(key); // Đọc dữ liệu từ Session ở dạng chuỗi
+            if (data != null)
+            {
+                var listObj = JsonConvert.DeserializeObject<int>(data);
+                return listObj;
+            }
+            else return new int();
+        }
+        public static int SanPhamMoRongPage(ISession session, string key)
+        {
+            var data = session.GetString(key); // Đọc dữ liệu từ Session ở dạng chuỗi
+            if (data != null)
+            {
+                var listObj = JsonConvert.DeserializeObject<int>(data);
+                return listObj;
+            }
+            else return new int();
+        }
+        public static List<SanPham> SapXepTheoGianb(ISession session, string key)
+        {
+            var data = session.GetString(key); // Đọc dữ liệu từ Session ở dạng chuỗi
+            if (data != null)
+            {
+                var listObj = JsonConvert.DeserializeObject<List<SanPham>>(data);
+                return listObj;
+            }
+            else return new List<SanPham>();
         }
         public static List<SanPhamTam> SanPhamTamSS(ISession session, string key)
         {

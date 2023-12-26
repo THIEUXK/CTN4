@@ -97,7 +97,6 @@
                     </div>
                 </div>
                 <div>
-
                     <div class="row">
                         <div class="col-5">
                             <form asp-action="TimKiem">
@@ -219,7 +218,13 @@
                                                 <h6 class="fw-semibold mb-0" style="color:red">Chưa thanh toán</h6>
                                             }
                                         </td>
-                                        @if (a.NgayGiao == null)
+                                        @if (a.NgayGiao == null&&a.NgayNhan!=null)
+                                        {
+                                            <th class="border-bottom-0">
+                                                <h6 class="fw-semibold mb-0" style="color:limegreen">Nhận tại quầy</h6>
+                                            </th>
+                                        }
+                                        else if (a.NgayGiao == null)
                                         {
                                             <th class="border-bottom-0">
                                                 <h6 class="fw-semibold mb-0" style="color:red">Chưa Giao Hàng</h6>
