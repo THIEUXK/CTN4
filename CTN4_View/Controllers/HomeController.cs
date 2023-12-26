@@ -39,7 +39,7 @@ namespace CTN4_View.Controllers
         private readonly IEmailService _EmailService;
         public IKhachHangService _KHangService;
         public IDiaChiNhanHangService _diaChiNhanHangService;
-
+        public IGioHangService _GioHangService;
         //public HomeController()
         //{
         //    _phamChiTietService = new SanPhamChiTietService();
@@ -47,7 +47,7 @@ namespace CTN4_View.Controllers
         //}
 
 
-        public HomeController(ILogger<HomeController> logger, IConfiguration config, ITokenService tokenService, ILoginService userRepository, ICurrentUser curent, IKhachHangService khachhang, ISanPhamService sanpham, IHttpClientFactory httpClientFactory, IDiaChiNhanHangService diachi, IGiamGiaService giamgia, IEmailService emailService)
+        public HomeController(ILogger<HomeController> logger, IConfiguration config, ITokenService tokenService, ILoginService userRepository, ICurrentUser curent, IKhachHangService khachhang, ISanPhamService sanpham, IHttpClientFactory httpClientFactory, IDiaChiNhanHangService diachi, IGiamGiaService giamgia, IEmailService emailService,IGioHangService gh)
 
         {
             _spService = sanpham;
@@ -67,6 +67,7 @@ namespace CTN4_View.Controllers
             _danhMucChiTietService = new DanhMucChiTietMucChiTietService();
             _EmailService = emailService;
             _diaChiNhanHangService = new DiaChiNhanHangService();
+            _GioHangService =gh ;
         }
 
         public IActionResult Index()
@@ -455,7 +456,21 @@ namespace CTN4_View.Controllers
                 accnew.Add(TK);
                 SessionServices.SetObjToJson(HttpContext.Session, "ACC", accnew);
             }
-
+            if (accnew.Count != 0)
+            {
+                var tkmoi = accnew[0];
+                var gioHang = _GioHangService.GetAll().FirstOrDefault(c => c.IdKhachHang == tkmoi.Id);
+                if (gioHang == null)
+                {
+                    var a = new GioHang()
+                    {
+                        Id = Guid.NewGuid(),
+                        IdKhachHang = tkmoi.Id,
+                        TrangThai = true
+                    };
+                    _GioHangService.Them(a);
+                }
+            }
             IActionResult response = Unauthorized();
             var validUser = GetUserKH(userModel);
             if (validUser != null)

@@ -23,13 +23,18 @@
                                         <tbody>
                                             <tr>
                                                 <th scope="row"><h4>@Model.HoaDon.MaHoaDon</h4></th>
-                                                @if (@Model.HoaDon.NgayGiao == null)
+                                                @if (Model.HoaDon.NgayGiao != null)
                                                 {
-                                                    <td><button class="custom-button">Chưa Giao Hàng</button> </td>
+                                                    <td><button class="custom-button" style="color:yellowgreen">Đơn hàng đã bắt đầu được giao</button> </td>
+                                                }
+                                                else if (Model.HoaDon.NgayGiao == null && Model.HoaDon.NgayNhan != null)
+                                                {
+
+                                                    <td><button class="custom-button" style="color:yellowgreen">Nhận tại quầy</button> </td>
                                                 }
                                                 else
                                                 {
-                                                    <td>@Model.HoaDon.NgayGiao</td>
+                                                    <td><button class="custom-button">Chưa Giao Hàng</button> </td>
                                                 }
                                                 @if (@Model.HoaDon.TrangThaiThanhToan == true)
                                                 {
@@ -43,7 +48,7 @@
                                         </tbody>
                                     </table>
                                     <hr></hr>
-                                    @if (Model.HoaDon.NgayTaoHoaDon!=null)
+                                    @if (Model.HoaDon.NgayTaoHoaDon != null)
                                     {
                                         <div>Ngày tạo : @Model.HoaDon.NgayTaoHoaDon</div>
                                     }
@@ -51,7 +56,7 @@
                                     {
                                         <div>Ngày đặt : @Model.HoaDon.NgayDat</div>
                                     }
-                                   
+
                                     @if (TempData["TB4"] != null)
                                     {
                                         <div class="alert alert-danger">@TempData["TB4"]</div>
@@ -83,6 +88,10 @@
                             @if (Model.HoaDon.NgayGiao != null)
                             {
                                 <div style="color:yellowgreen">Đơn hàng đã bắt đầu được giao</div>
+                            }
+                            else if (Model.HoaDon.NgayGiao == null && Model.HoaDon.NgayNhan != null)
+                            {
+                                <div style="color:yellowgreen">Nhận tại quầy</div>
                             }
                             else
                             {
@@ -224,6 +233,9 @@
                                 </div>
                             </div>
                         }
+                    @if (Model.HoaDon.TrangThai == "Đang chờ xử lí")
+                    {
+                    }
                     </div>
                     <div class="card w-100">
                         <div class="card-body p-4">
@@ -359,9 +371,9 @@
                                 </tbody>
                             </table>
                             <br />
-                            <div >
-                              <h1>Lịch sử</h1>
-                                <div >
+                            <div>
+                                <h1>Lịch sử</h1>
+                                <div>
                                     @{
                                         var dem = @Model.LichSuHoaDon.Count();
                                     }
@@ -496,6 +508,23 @@
                             <span class="btn btn-custom-primary">@Html.ActionLink("Xem thông tin chi tiết", "Details", "KhachHang", new { id = Model.HoaDon.IdKhachHang }, new { @class = "custom-edit-link" })</span>
                         }
                     </div>
+                    @if (Model.HoaDon.TrangThai == "Đang chờ xử lí")
+                    {
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-custom-primary" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                ...
+                            </button>
+                            <div class="dropdown-menu p-4">
+                                <form asp-action="SuaDiaChiVaThongTin">
+                                    <input type="hidden" name="id" value="@Model.HoaDon.Id"/>
+                                    <input type="text" name="ten" value="@Model.HoaDon.TenKhachHang"/>
+                                    <input type="text" name="sdt" value="@Model.HoaDon.SDTNguoiNhan"/>
+                                    <input type="text" name="email" value="@Model.HoaDon.Email"/>
+                                    <button type="submit" name="loai" value="0" class="btn btn-custom-primary">Sửa</button>
+                                </form>
+                            </div>
+                        </div>
+                    }
                 </div>
                 <div class="card w-100">
                     <div class="card-body p-4">
@@ -503,6 +532,17 @@
                         <hr></hr>
                         <div>Địa chỉ giao: @Model.HoaDon.DiaChi</div>
                     </div>
+                @if (Model.HoaDon.TrangThai == "Đang chờ xử lí")
+                {
+                    <div class="dropdown">
+                        <button type="button" class="btn btn-custom-primary" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                            ...
+                        </button>
+                        <div class="dropdown-menu p-4">
+                            <span class="btn btn-custom-primary">@Html.ActionLink("Sửa", "SuaDiaChi", new { id = Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span>
+                        </div>
+                    </div>
+                }
                 </div>
                 <div class="card w-100">
                     <div class="card-body p-4">

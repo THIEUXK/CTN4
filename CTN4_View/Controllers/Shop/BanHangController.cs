@@ -83,6 +83,18 @@ namespace CTN4_View.Controllers.Shop
             float tong = 0;
             if (accnew.Count != 0)
             {
+                var tkmoi = accnew[0];
+                var gioHang = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == tkmoi.Id);
+                if (gioHang == null)
+                {
+                    var a = new GioHang()
+                    {
+                        Id = Guid.NewGuid(),
+                        IdKhachHang = tkmoi.Id,
+                        TrangThai = true
+                    };
+                    _GioHang.Them(a);
+                }
                 var gh = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == accnew[0].Id);
                 IEnumerable<GioHangChiTiet> ghct = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh.Id);
                 foreach (var x in ghct)
@@ -194,8 +206,8 @@ namespace CTN4_View.Controllers.Shop
                 if (tkmoi != null)
                 {
                     var sanphamCT = _SanPhamChiTiet.GetAll().FirstOrDefault(c => c.IdSp == IdSanPham && c.IdSize == IdSize && c.IdMau == IdMau);
-                    var gioHang = _GioHang.GetAll();
-                    if (gioHang.Where(c => c.IdKhachHang == tkmoi.Id).ToList().Count == 0)
+                    var gioHang = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == tkmoi.Id);
+                    if (gioHang == null)
                     {
                         var a = new GioHang()
                         {
@@ -206,7 +218,7 @@ namespace CTN4_View.Controllers.Shop
                         _GioHang.Them(a);
                     }
                     {
-                        var SP = _GioHangChiTiet.GetAll().FirstOrDefault(c => c.IdSanPhamChiTiet == sanphamCT.Id);
+                        var SP = _GioHangChiTiet.GetAll().FirstOrDefault(c => c.IdSanPhamChiTiet == sanphamCT.Id&&c.IdGioHang==gioHang.Id);
                         if (SP == null)
                         {
                             var d = new GioHangChiTiet()

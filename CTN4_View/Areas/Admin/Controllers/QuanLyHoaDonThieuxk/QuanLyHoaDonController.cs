@@ -131,6 +131,58 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             //}
         }
         #region quan ly hoa don
+        public IActionResult SuaDiaChiVaThongTin(int id,string ten,string sdt,string email)
+        {
+            var nvnew = SessionServices.NhanVienSS(HttpContext.Session, "ACA");
+            if (nvnew.Count() != 0)
+            {
+                var hd = _hoaDonService.GetById(id);
+                hd.TenKhachHang = ten;
+                hd.SDTNguoiNhan = sdt;
+                hd.Email = email;
+                if (_hoaDonService.Sua(hd) == true)
+                {
+                    var li = new LichSuDonHang()
+                    {
+                        GhiChu = null,
+                        ThaoTac = $"Sửa thông tin khách hàng đơn hàng {hd.MaHoaDon} thành tên:{ten},sđt:{sdt},email:{email} ",
+                        IdHoaDonn = id,
+                        ThoiGianlam = DateTime.Now,
+                        NguoiThucHien = nvnew[0].TenDangNhap,
+                        TrangThai = true,
+                        Is_detele = true
+                    };
+                    _LichSuHoaDonService.Them(li);
+                }
+                var hdct1 = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
+                var lshd = _LichSuHoaDonService.GetAll().Where(c => c.IdHoaDonn == id).ToList();
+                int tongSoLuongSP = 0;
+                float tongTienSP = 0;
+                foreach (var a in hdct1)
+                {
+                    tongSoLuongSP += a.SoLuong;
+                }
+                foreach (var a in hdct1)
+                {
+                    tongTienSP += a.GiaTien;
+                }
+                var c = _GiamGiaChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
+                var view = new ThieuxkViewAdmin()
+                {
+                    GiamGiaChiTiets = c,
+                    HoaDon = hd,
+                    hoaDonChiTiets = hdct1,
+                    LichSuHoaDon = lshd.OrderByDescending(c => c.ThoiGianlam).ToList(),
+                    TongTienHang = tongTienSP,
+                    soLuongTong = tongSoLuongSP
+                };
+                return View("XemChiTiet", view);
+            }
+            else
+            {
+                return RedirectToAction("DangNhap", "Home");
+            }
+        }
         public IActionResult ThemSanPhamVaoDon(int id)
         {
             var nvnew = SessionServices.NhanVienSS(HttpContext.Session, "ACA");
@@ -2033,6 +2085,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                         hd.TienGiam = tiengiama;
                         hd.TienHang = tienhanga;
                         hd.TenKhachHang = name;
+                        hd.NgayNhan=DateTime.Now;
                         if (Sodienthoai!=null)
                         {
                             hd.SDTNguoiNhan = Sodienthoai;
