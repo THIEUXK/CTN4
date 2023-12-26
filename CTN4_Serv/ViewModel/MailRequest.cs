@@ -8,7 +8,7 @@ namespace CTN4_Serv.ViewModel
 {
     public class MailRequest
     {
-        public  string Tendangnhap { get; set; }
+        public  string? Tendangnhap { get; set; }
         public string ToEmail { get; set; }
         public string Subject { get; set; }
         public string Body { get; set; }
