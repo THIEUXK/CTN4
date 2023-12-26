@@ -199,7 +199,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                         GiaBan = p.GiaBan,
                         GiaNiemYet = p.GiaNiemYet,
                         GhiChu = p.GhiChu,
-                        Is_detele =true ,
+                        Is_detele = true,
                         AnhDaiDien = p.AnhDaiDien,
 
                     };

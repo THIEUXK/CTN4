@@ -24,13 +24,13 @@ namespace CTN4_Data.Models.DB_CTN4
         public bool TrangThai { get; set; }
         public string? MoTa { get; set; }
          [Required(ErrorMessage = "Giá nhập không được bỏ trống.")]
-        
+        [Range(0, float.MaxValue, ErrorMessage = "Số tiền giảm không được nhỏ hơn 0.")]
         public float GiaNhap { get; set; }
          [Required(ErrorMessage = "Giá bán không được bỏ trống.")]
-        
+        [Range(0, float.MaxValue, ErrorMessage = "Số tiền giảm không được nhỏ hơn 0.")]
         public float GiaBan { get; set; }
          [Required(ErrorMessage = "Số tiền giảm không được bỏ trống.")]
-        
+        [Range(0, float.MaxValue, ErrorMessage = "Số tiền giảm không được nhỏ hơn 0.")]
         public float GiaNiemYet { get; set; }
         public string? GhiChu { get; set; }
         public bool Is_detele { get; set; }
