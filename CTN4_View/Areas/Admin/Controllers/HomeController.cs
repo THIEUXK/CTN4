@@ -30,10 +30,11 @@ namespace CTN4_View_Admin.Controllers
         private readonly ISanPhamService _spsv;
         private readonly IGiamGiaService _giamgia;
         private readonly ILichSuHoaDonService _ls;
+        public IGioHangService _GioHangService;
 
         private readonly IHoaDonService _hd;
         public HomeController(ILogger<HomeController> logger, ITokenService tokenService, ILoginService userRepository, IConfiguration config, ICurrentUser curent,
-          INhanVienService nhanvien, ISanPhamService Sp, IGiamGiaService giamgia, ILichSuHoaDonService lichsu,IHoaDonService hoaDon)
+          INhanVienService nhanvien, ISanPhamService Sp, IGiamGiaService giamgia, ILichSuHoaDonService lichsu,IHoaDonService hoaDon, IGioHangService gioHangService)
 
         {
             _logger = logger;
@@ -45,12 +46,8 @@ namespace CTN4_View_Admin.Controllers
             _spsv = Sp;
             _giamgia = giamgia;
             _ls = lichsu;
-
             _hd = hoaDon;
-
-
-
-
+            _GioHangService = gioHangService;
         }
 
         public IActionResult Index()
@@ -159,6 +156,7 @@ namespace CTN4_View_Admin.Controllers
                 nvnew.Add(TK);
                 SessionServices.SetObjToJson(HttpContext.Session, "ACA", nvnew);
             }
+           
             if (!ModelState.IsValid)
             {
                 ViewBag.Message = "Vui lòng nhập đúng đầu vào.";
