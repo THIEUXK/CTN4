@@ -27,41 +27,41 @@
                     @Html.DisplayFor(model => model.SanPhamChiTiet.SanPham.TenSanPham)
                 </dd>
                 <dt class="col-sm-2">
-                   Số lượng
+                    Số lượng
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.SanPhamChiTiet.SoLuong)
                 </dd>
-         
+
                 <dt class="col-sm-2">
                     Trạng thái
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.SanPhamChiTiet.TrangThai)
                 </dd>
-           
-             
+
+
                 <dt class="col-sm-2">
                     Tình trạng
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.SanPhamChiTiet.Is_detele)
                 </dd>
-              
+
                 <dt class="col-sm-2">
                     Màu sắc
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.SanPhamChiTiet.Mau.TenMau)
                 </dd>
-               
+
                 <dt class="col-sm-2">
-                   Kích cỡ
+                    Kích cỡ
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.SanPhamChiTiet.Size.CoSize)
                 </dd>
-                
+
             </dl>
         </div>
         <div>
@@ -69,11 +69,11 @@
 
             <a>@Html.ActionLink("Quay lại", "Details","SanPham" ,new {id = Model.SanPham.Id },new { style="text-decoration: none;color: black;" })</a>
         </div>
-        
+
 
     </div>
 </div>
-@if (Model.AhList.Count != 0 )
+@if (Model.AhList.Count != 0)
 {
     @foreach (var a in Model.AhList)
     {
@@ -93,7 +93,7 @@
             }
         </td>
         <td>
-            @Html.ActionLink("Xóa", "XoaAnh", new { NameAnh=a.DuongDanAnh,IdSP=Model.SanPham.Id,IdMau=Model.IdMau,idSPCT=a.IdSanPhamChiTiet}) 
+            @Html.ActionLink("Xóa", "XoaAnh", new { NameAnh=a.DuongDanAnh,IdSP=Model.SanPham.Id,IdMau=Model.IdMau,idSPCT=a.IdSanPhamChiTiet})
         </td>
 
     }
@@ -110,11 +110,15 @@
         <input type="hidden" name="idSPCT" value="@Model.SanPhamChiTiet.Id" />
         <input type="hidden" name="IdMau" value="@Model.SanPhamChiTiet.IdMau" />
         <input name="imageFile" type="file" multiple class="form-control-file" />
-        <button id="btnUpload" class="btn btn-primary" >
+        <button id="btnUpload" class="btn btn-primary">
         </button>
         <button type="submit" class="btn btn-primary">Thêm ảnh</button>
     </div>
 </form>
+@if (TempData["Notification"] != null)
+{
+    <a style="color:red">@TempData["Notification"]</a>
+}
 <script>
     // Sử dụng JavaScript để ẩn nút khi trang web được tải
     document.getElementById("btnUpload").style.display = "none";

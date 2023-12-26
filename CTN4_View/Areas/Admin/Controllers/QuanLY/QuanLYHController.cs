@@ -71,11 +71,44 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [HttpPost]
         public async Task<ActionResult> AddAnh(Guid IdSP, List<IFormFile> imageFile, Guid IdMau, Guid idSPCT)
         {
+            const int kichThuocToiDa = 2 * 1024 * 1024; // 2MB
+            const int soAnhToiDa = 5;
             var listAnh = imageFile.ToList();
+            if (listAnh.Count > soAnhToiDa)
+            {
+                var thongbaoAnh = $"Chỉ được phép tải lên tối đa {soAnhToiDa} ảnh";
+                TempData["Notification"] = thongbaoAnh;
+                return RedirectToAction("Details", new { id = idSPCT });
+            }
             foreach (var anh in listAnh)
             {
+
                 if (anh != null && anh.Length > 0) // Không null và không trống
                 {
+                    // Kiểm tra kích thước của tập tin có trong giới hạn không
+                    if (anh.Length > kichThuocToiDa)
+                    {
+                        var thongbaoAnh = "Kích thước ảnh vượt quá 2MB";
+                        TempData["Notification"] = thongbaoAnh;
+                        return RedirectToAction("Details", new { id = idSPCT });
+                    }
+                    // Kiểm tra định dạng của ảnh
+                    var allowedExtensions = new[] { ".jpg", ".png", ".jpeg", ".tiff", ".webp", ".gif" };
+                    var extension = System.IO.Path.GetExtension(anh.FileName).ToLower();
+                    if (!allowedExtensions.Contains(extension))
+                    {
+                        var thongbaoAnh = "Định dạng ảnh không hợp lệ";
+                        TempData["Notification"] = thongbaoAnh;
+                        return RedirectToAction("Details", new { id = idSPCT });
+                    }
+                    // Kiểm tra số lượng ảnh đã lưu trong cơ sở dữ liệu
+                    var soLuongAnhDaLuu = _db.Anhs.Count(a => a.IdSanPhamChiTiet == idSPCT );
+                    if (soLuongAnhDaLuu >= soAnhToiDa)
+                    {
+                        var thongbaoAnh = $"Số lượng ảnh đã đạt đến giới hạn là {soAnhToiDa}";
+                        TempData["Notification"] = thongbaoAnh;
+                        return RedirectToAction("Details", new { id = idSPCT });
+                    }
                     //Trỏ tới thư mục wwwroot để lát nữa thực hiện việc Copy sang
                     var path = Path.Combine(
                         Directory.GetCurrentDirectory(), "wwwroot", "image", anh.FileName);
@@ -263,7 +296,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         public ActionResult ThemSanPhamChiTiet(Guid id)
         {
 
-            
+
             var viewModel = new SanPhamChiTietView()
             {
                 MauItems = _mauService.GetAll().Select(s => new SelectListItem
@@ -278,7 +311,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                     Text = s.TenSize
                 }).ToList(),
                 IdSp = id,
-               
+
 
 
             };
@@ -289,7 +322,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         public ActionResult ThemSanPham(SanPhamChiTietView a)
         {
 
-           
+
             var check = _sanPhamChiTietService.GetAll().FirstOrDefault(c => c.IdSp == a.IdSp && c.IdMau == a.IdMau && c.IdSize == a.IdSize && c.TrangThai == true && c.Is_detele == true);
 
             if (check != null)

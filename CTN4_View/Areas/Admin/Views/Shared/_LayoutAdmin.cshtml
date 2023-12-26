@@ -88,18 +88,8 @@
                                 <span class="hide-menu">Quản lý</span>
                             </a>
                             <div class="dropdown-menu">
-                                <a href="#" class="dropdown-item">All</a>
-                                <a href="#" class="dropdown-item">Recent</a>
-                                <a href="#" class="dropdown-item">Images</a>
-                                <a href="#" class="dropdown-item">Video</a>
-                                <a href="#" class="dropdown-item">Video</a>
-                                <a href="#" class="dropdown-item">Video</a>
-                                <a href="#" class="dropdown-item">Video</a>
-                                <a href="#" class="dropdown-item">Video</a>
-                                <a href="#" class="dropdown-item">Video</a>
-                                <a href="#" class="dropdown-item">Video</a>
-                                <a href="#" class="dropdown-item">Video</a>
-                                <a href="#" class="dropdown-item">Video</a>
+                                <a class="dropdown-item" asp-controller="SanPham" asp-action="Index">Quản lí sản phẩm</a>
+                                <a class="dropdown-item" aasp-controller="DanhMuc" asp-action="Index">Quản lí danh mục</a>
                             </div>
                         </li>
 
@@ -116,7 +106,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="./ui-alerts.html" >
+                            <a class="sidebar-link" href="./ui-alerts.html">
                                 <span>
                                     <i class="ti ti-alert-circle"></i>
                                 </span>
@@ -124,7 +114,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="./ui-alerts.html" >
+                            <a class="sidebar-link" href="./ui-alerts.html">
                                 <span>
                                     <i class="ti ti-alert-circle"></i>
                                 </span>
@@ -132,7 +122,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="./ui-alerts.html" >
+                            <a class="sidebar-link" href="./ui-alerts.html">
                                 <span>
                                     <i class="ti ti-alert-circle"></i>
                                 </span>
@@ -275,6 +265,7 @@
             list-style: none;
             padding: 0;
         }
+
         .sidebar-link {
             text-decoration: none;
             color: black;
@@ -287,11 +278,8 @@
                 background-color: #f0f0f0;
             }
 
-      
-        .dropdown-menu {
-            display: none;
-        }
-        
+
+
         .dropdown-item {
             display: block;
             padding: 10px;
@@ -327,10 +315,7 @@
                 background-color: #f0f0f0;
             }
 
-        .dropdown-menu {
-            display: none;
-            margin-top: 10px; /* Add some margin to separate the dropdown from the items below */
-        }
+
 
         .dropdown-item {
             display: block;
@@ -342,6 +327,52 @@
             .dropdown-item:hover {
                 background-color: #f0f0f0;
             }
+        /* Kiểu dáng cho Menu Dropdown */
+        .dropdown-menu {
+            --bs-dropdown-zindex: 1000;
+            --bs-dropdown-min-width: 13.8rem;
+            --bs-dropdown-padding-x: 0;
+            --bs-dropdown-padding-y: 0.5rem;
+            --bs-dropdown-spacer: 0.125rem;
+            --bs-dropdown-font-size: 0.875rem;
+            --bs-dropdown-color: var(--bs-body-color);
+            --bs-dropdown-bg: var(--bs-body-bg);
+            --bs-dropdown-border-color: transparent;
+            --bs-dropdown-border-radius: 7px;
+            --bs-dropdown-border-width: var(--bs-border-width);
+            --bs-dropdown-inner-border-radius: calc(7px - var(--bs-border-width));
+            --bs-dropdown-divider-bg: transparent;
+            --bs-dropdown-divider-margin-y: 0.5rem;
+            --bs-dropdown-box-shadow: rgba(145, 158, 171, 0.2) 0px 0px 2px 0px, rgba(145, 158, 171, 0.12) 0px 12px 24px -4px;
+            --bs-dropdown-link-color: var(--bs-body-color);
+            --bs-dropdown-link-hover-color: var(--bs-body-color);
+            --bs-dropdown-link-hover-bg: #F6F9FC;
+            --bs-dropdown-link-active-color: #2A3547;
+            --bs-dropdown-link-active-bg: #F6F9FC;
+            --bs-dropdown-link-disabled-color: #5A6A85;
+            --bs-dropdown-item-padding-x: 1rem;
+            --bs-dropdown-item-padding-y: 10px;
+            --bs-dropdown-header-color: #2A3547;
+            --bs-dropdown-header-padding-x: 1rem;
+            --bs-dropdown-header-padding-y: 0.5rem;
+            /* Các kiểu dáng chung */
+            position: absolute;
+            z-index: var(--bs-dropdown-zindex);
+            display: none;
+            min-width: var(--bs-dropdown-min-width);
+            padding: var(--bs-dropdown-padding-y) var(--bs-dropdown-padding-x);
+            margin: 0;
+            font-size: var(--bs-dropdown-font-size);
+            color: var(--bs-dropdown-color);
+            text-align: left;
+            list-style: none;
+            background-color: var(--bs-dropdown-bg);
+            background-clip: padding-box;
+            border: var(--bs-dropdown-border-width) solid var(--bs-dropdown-border-color);
+            border-radius: var(--bs-dropdown-border-radius);
+            -webkit-box-shadow: var(--bs-dropdown-box-shadow);
+            box-shadow: var(--bs-dropdown-box-shadow);
+        }
 
     </style>
 </body>
