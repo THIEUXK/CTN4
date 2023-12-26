@@ -97,8 +97,11 @@
         <div class="row">
             <div class="container">
             <div class="col-md-9">
-
-                    <form id="create-form" asp-controller="KhuyenMai" asp-action="Create"  method="post">
+                    @using (Html.BeginForm("Creates", "KhuyenMai", FormMethod.Post, new { id = "create-form" }))
+                    {
+                       
+                     @Html.AntiForgeryToken()
+                   
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-container">
                       
@@ -196,10 +199,11 @@
                  
                        
                     <div class="form-group">
-                            <input asp-controller="KhuyenMai" asp-action="Create" type="submit" class="btn btn-primary" />
+                            <input  type="submit" id="createkh" class="btn btn-primary" />
                     </div>
 
-                </form> 
+               
+                }
                 </div>
             </div>         
         </div>
@@ -226,12 +230,16 @@
         </div>
             <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
             <script>
+
     document.getElementById('selectOption').addEventListener('change', function () {
         var mua1Tang1Field = document.getElementById('Mua1Tang1').querySelector('input');
         mua1Tang1Field.value = this.value === '3' ? 'true' : 'false';
         updateDisplay(mua1Tang1Field.value);
+
+            
     });
 
+    var emailselect = [];
     function updateDisplay(value) {
         var displayValue = value === 'true' ? 'Áp dụng' : 'Không áp dụng';
         // Hiển thị giá trị trên view, có thể sử dụng innerHTML hoặc innerText của một phần tử
@@ -293,12 +301,13 @@
             },
             error: function (error) {
                 console.log(error);
+              
             }
         });
         selectkhSelect.change(function () {
             var selectedEmail = $(this).val();
             console.log('Đã chọn khách hàng có email: ' + selectedEmail);
-
+            emailselect = selectedEmail;
            // Cập nhật giá trị vào các trường trong form
             $('#tenKhachHang').val("");  // Cần thay đổi dựa vào dữ liệu trả về từ server
             $('#email').val(selectedEmail);
@@ -306,6 +315,42 @@
             // Vô hiệu hóa option "Chọn..."
             $(this).find('option[value=""]').prop('disabled', true);
         });
+        $('#createkh').click(function (e) {
+            e.preventDefault(); // Ngăn chặn sự kiện submit mặc định
+
+            // Sử dụng FormData để lấy dữ liệu từ form
+            var formData = new FormData($('#create-form')[0]);
+
+            // Lấy giá trị của select
+            var emailselect = $('#khachHangSelect').val();
+
+            // Thêm giá trị của select vào formData
+            formData.append('lstMail', emailselect);
+
+            // Ajax request
+            $.ajax({
+                url: '@Url.Action("Creates")',
+                type: 'POST',
+                processData: false,  // Ngăn chặn jQuery xử lý dữ liệu thành query string
+                contentType: false,  // Ngăn chặn jQuery thiết lập contentType
+                data: formData,
+                success: function (result) {
+                    console.log('result', result);
+                    if (result.success) {
+                        window.location.href = result.redirectUrl;
+                    } else {
+                        // Xử lý lỗi và hiển thị
+                        var errors = result.errors.join('<br/>');
+                        $('#errorDiv').html(errors);
+                    }
+                }
+            });
+        });
+
+
+
+
+  
       //  Ẩn tất cả các nhóm khi trang được load lên
             $("#giaDonViGroup, #soTienGiamGroup, #dongGiaGroup").hide();
 
@@ -559,6 +604,8 @@
             alert("Vui lòng nhập ít nhất một trong ba trường: Đồng giá, Phần trăm giảm giá, hoặc Số tiền giảm.");
         }
     }
+    
+ 
             </script>
 
 

@@ -157,25 +157,28 @@ namespace CTN4_View_Admin.Controllers.QuanLY
 
         // POST: KhuyenMaiController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(KhuyenMai a)
+        public ActionResult Creates([FromForm] KhuyenMai datasubmit, [FromForm] List<string> lstMail)
         {
-                var tontai = _sv.GetAll().FirstOrDefault(c => c.MaKhuyenMai == a.MaKhuyenMai && c.Id != a.Id);
-                if (tontai != null)
-                {
-                    ModelState.AddModelError("MaKhuyenMai", "Mã khuyến mại không được trùng.");
-                    return View(a);
-                }
-                a.TrangThai = false;
-                  
+            var tontai = _sv.GetAll().FirstOrDefault(c => c.MaKhuyenMai == datasubmit.MaKhuyenMai && c.Id != datasubmit.Id);
+            if (tontai != null)
+            {
+                ModelState.AddModelError("MaKhuyenMai", "Mã khuyến mại không được trùng.");
+                return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
+            }
 
-                if (_sv.Them(a)) // Nếu thêm thành công
-                {
-                    return RedirectToAction("Index");
-                }
+            datasubmit.TrangThai = false;
 
-                return View();
+            // Sử dụng lstMail trong xử lý của bạn
+
+            if (_sv.Them(datasubmit))
+            {
+                return Json(new { success = true, redirectUrl = Url.Action("Index") });
+            }
+
+            return Json(new { success = false, errors = new List<string> { "Lỗi khi thêm khuyến mại." } });
         }
+
+
         // GET: KhuyenMaiController/Edit/5
         public ActionResult Edit(Guid id)
         {
@@ -389,5 +392,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             }
             return RedirectToAction("Index");
         }
+       
+    
     }
 }
