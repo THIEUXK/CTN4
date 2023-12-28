@@ -2,6 +2,8 @@
 using CTN4_Serv.Service;
 using CTN4_Serv.Service.IService;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using X.PagedList;
 
 namespace CTN4_View_Admin.Controllers.QuanLY
 {
@@ -15,16 +17,39 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         }
         // GET: MauController
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(string TenSp, int? page, int? size)
         {
-            var a = _mau.GetAll();
-            return View(a);
+            var sanPhamList = _mau.GetAll().ToList();
+
+            if (!string.IsNullOrEmpty(TenSp))
+            {
+                sanPhamList = sanPhamList
+                    .Where(c => c.TenMau.ToLower().Contains(TenSp.ToLower()))
+                    .ToList();
+            }
+            // Thêm phần phân trang vào đây
+            int pageSize = size ?? 10;
+            var pageNumber = page ?? 1;
+            var pagedList = sanPhamList.ToPagedList(pageNumber, pageSize);
+            // Tạo danh sách dropdown kích thước trang
+            var pageSizeOptions = new List<SelectListItem>
+    {
+        new SelectListItem { Text = "10", Value = "10" },
+        new SelectListItem { Text = "20", Value = "20" },
+        new SelectListItem { Text = "25", Value = "25" },
+        new SelectListItem { Text = "50", Value = "50" }
+    };
+            ViewBag.SizeOptions = new SelectList(pageSizeOptions, "Value", "Text", size);
+
+            ViewBag.CurrentSize = size ?? 10; // Kích thước trang mặc định
+
+            return View(pagedList);
         }
         // GET: MauController/Details/5
         public ActionResult Details(Guid id)
         {
             var a = _mau.GetById(id);
-            return View();
+            return View(a);
         }
 
         // GET: MauController/Create
@@ -37,7 +62,13 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [ValidateAntiForgeryToken]
         public ActionResult Create(Mau a)
         {
-            if (_mau.Them(a))
+            var b = new Mau();
+            {
+                b.TenMau = a.TenMau;
+                b.TrangThai = true;
+                b.Is_detele = true;
+            }
+            if (_mau.Them(b))
             {
                 return RedirectToAction("Index");
             }

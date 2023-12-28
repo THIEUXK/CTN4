@@ -5,6 +5,7 @@ using CTN4_Serv.Service.IService;
 using CTN4_Serv.ServiceJoin;
 using CTN4_Serv.ViewModel;
 using CTN4_View.Areas.Admin.Controllers.QuanLyAdd;
+using DocumentFormat.OpenXml.EMMA;
 using DocumentFormat.OpenXml.Office2010.Excel;
 using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.AspNetCore.Mvc;
@@ -242,8 +243,13 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                     Value = s.Id.ToString(),
                     Text = s.TenSize
                 }).ToList(),
-
-                SnaSanPhamChiTiet = _sv.GetById(id)
+                SnaSanPhamChiTiet = _sv.GetById(id),
+                 IdMau = _sv.GetById(id).IdMau,
+                IdSize = _sv.GetById(id).IdSize,
+                IdSp = _sv.GetById(id).IdSp,
+                Is_detele = _sv.GetById(id).Is_detele,
+                TrangThai = _sv.GetById(id).TrangThai,
+                SoLuong = _sv.GetById(id).SoLuong,
 
             };
             return View(viewModel);
@@ -256,7 +262,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         {
             if (_sv.Sua(a))
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Details","SanPham",  new { id = a.IdSp });
 
             }
             return View();
@@ -336,8 +342,8 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                 IdMau = a.IdMau,
                 IdSize = a.IdSize,
                 IdSp = a.IdSp,
-                Is_detele = a.Is_detele,
-                TrangThai = a.TrangThai,
+                Is_detele = true,
+                TrangThai = true,
                 SoLuong = a.SoLuong,
 
             };

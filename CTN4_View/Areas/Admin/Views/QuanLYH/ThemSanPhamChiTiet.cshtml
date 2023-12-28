@@ -27,68 +27,64 @@
 
     </div>
 </div>
-<table class="table">
-    <form method="post" asp-action="ThemSanPham" enctype="multipart/form-data" onsubmit="return validateForm();">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" asp-action="ThemSanPham" enctype="multipart/form-data" onsubmit="return validateForm();">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-        <div class="form-group">
-            <label asp-for="SoLuong" class="control-label">Số lượng</label>
-            <input asp-for="SoLuong" class="form-control" />
-            <span asp-validation-for="SoLuong" class="text-danger" id="soLuongError"></span>
-        </div>
+            <div class="form-group">
+                <label asp-for="SoLuong" class="control-label">Số lượng</label>
+                <input asp-for="SoLuong" class="form-control" />
+                <span asp-validation-for="SoLuong" class="text-danger" id="soLuongError"></span>
+            </div>
 
-        <div class="form-group form-check">
-            <label class="form-check-label">
-                <input class="form-check-input" asp-for="TrangThai" /> @Html.DisplayNameFor(model => model.TrangThai)
-            </label>
-        </div>
+            <div class="form-group">
+                <div style="display: flex; align-items: center;">
+                    <label asp-for="IdMau" style="margin-right: 240px;">Màu sắc</label>
+                    <a style="color: black;" asp-controller="Mau" asp-action="Index">Quản lý màu sắc</a>
+                </div>
+                <select asp-for="IdMau" class="form-control" id="mauSelect">
+                    <option value="">-- Chọn màu --</option>
+                    @foreach (var a in Model.MauItems)
+                    {
+                        <option value="@a.Value">@a.Text</option>
+                    }
+                </select>
+                <span asp-validation-for="IdMau" class="text-danger" id="mauError"></span>
+            </div>
 
+            <div class="form-group">
+                
+                <div style="display: flex; align-items: center;">
+                    <label asp-for="IdSize" style="margin-right: 295px;">Size</label>
+                    <a style="color: black;" asp-controller="Size" asp-action="Index">Quản lý size</a>
+                </div>
+                <select asp-for="IdSize" class="form-control" id="sizeSelect">
+                    <option value="">-- Chọn size --</option>
+                    @foreach (var a in Model.SizeItems)
+                    {
+                        <option value="@a.Value">@a.Text</option>
+                    }
+                </select>
+                <span asp-validation-for="IdSize" class="text-danger" id="sizeError"></span>
+            </div>
+            @if (TempData["sussces"] != null)
+            {
+                <div class="alert alert-info">@TempData["ErrorMessage"]</div>
+            }
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+            }
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="hidden" name="IdSp" value="@Model.IdSp" />
+            </div>
+        </form>
 
-        <div class="form-group form-check">
-            <label class="form-check-label">
-                <input class="form-check-input" asp-for="Is_detele" /> @Html.DisplayNameFor(model => model.Is_detele)
-            </label>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="IdMau">Màu sắc</label>
-            <select asp-for="IdMau" class="form-control" id="mauSelect">
-                <option value="">-- Chọn màu --</option>
-                @foreach (var a in Model.MauItems)
-                {
-                    <option value="@a.Value">@a.Text</option>
-                }
-            </select>
-            <span asp-validation-for="IdMau" class="text-danger" id="mauError"></span>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="IdSize">Size</label>
-            <select asp-for="IdSize" class="form-control" id="sizeSelect" >
-                <option value="">-- Chọn size --</option>
-                @foreach (var a in Model.SizeItems)
-                {
-                    <option value="@a.Value">@a.Text</option>
-                }
-            </select>
-            <span asp-validation-for="IdSize" class="text-danger" id="sizeError"></span>
-        </div>
-        @if (TempData["sussces"] != null)
-        {
-            <div class="alert alert-info">@TempData["ErrorMessage"]</div>
-        }
-        @if (TempData["ErrorMessage"] != null)
-        {
-            <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
-        }
-        <br />
-        <div class="form-group">
-            <input type="submit" value="Create" class="btn btn-primary"  />
-            <input type="hidden" name="IdSp" value="@Model.IdSp" />
-        </div>
-    </form>
-
-</table>
+    </div>
+</div>
 <div>
     <a>@Html.ActionLink("Quay lại", "details","SanPham", new {id = Model.IdSp }, new { style="text-decoration: none;color: black;" }) </a>
 
