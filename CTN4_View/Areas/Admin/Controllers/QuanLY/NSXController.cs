@@ -2,6 +2,9 @@
 using CTN4_Serv.Service.IService;
 using CTN4_Serv.Service;
 using Microsoft.AspNetCore.Mvc;
+using CTN4_Serv.ServiceJoin;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using X.PagedList;
 
 namespace CTN4_View_Admin.Controllers.QuanLY
 {
@@ -15,16 +18,39 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         }
         // GET: NSXController
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(string TenSp, int? page, int? size)
         {
-            var a = _nsx.GetAll();
-            return View(a);
+            var sanPhamList = _nsx.GetAll().ToList();
+
+            if (!string.IsNullOrEmpty(TenSp))
+            {
+                sanPhamList = sanPhamList
+                    .Where(c => c.TenNSX.ToLower().Contains(TenSp.ToLower()))
+                    .ToList();
+            }
+            // Thêm phần phân trang vào đây
+            int pageSize = size ?? 10;
+            var pageNumber = page ?? 1;
+            var pagedList = sanPhamList.ToPagedList(pageNumber, pageSize);
+            // Tạo danh sách dropdown kích thước trang
+            var pageSizeOptions = new List<SelectListItem>
+    {
+        new SelectListItem { Text = "10", Value = "10" },
+        new SelectListItem { Text = "20", Value = "20" },
+        new SelectListItem { Text = "25", Value = "25" },
+        new SelectListItem { Text = "50", Value = "50" }
+    };
+            ViewBag.SizeOptions = new SelectList(pageSizeOptions, "Value", "Text", size);
+
+            ViewBag.CurrentSize = size ?? 10; // Kích thước trang mặc định
+
+            return View(pagedList);
         }
         // GET: NSXController/Details/5
         public ActionResult Details(Guid id)
         {
             var a = _nsx.GetById(id);
-            return View();
+            return View(a);
         }
 
         // GET: NSXController/Create
@@ -37,8 +63,18 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [ValidateAntiForgeryToken]
         public ActionResult Create(NSX a)
         {
-            if (_nsx.Them(a))
+            var b = new NSX();
             {
+                b.TenNSX = a.TenNSX;
+                b.GhiChu = a.GhiChu;
+                b.TrangThai = true;
+                b.Is_detele = true;
+
+
+            }
+            if (_nsx.Them(b))
+            {
+
                 return RedirectToAction("Index");
             }
             return View();

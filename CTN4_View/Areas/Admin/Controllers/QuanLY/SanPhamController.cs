@@ -60,13 +60,13 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                     .ToList();
             }
             // Thêm phần phân trang vào đây
-            int pageSize = size ?? 5;
+            int pageSize = size ?? 10;
             var pageNumber = page ?? 1;
             var pagedList = sanPhamList.ToPagedList(pageNumber, pageSize);
             // Tạo danh sách dropdown kích thước trang
             var pageSizeOptions = new List<SelectListItem>
     {
-        new SelectListItem { Text = "5", Value = "5" },
+      
         new SelectListItem { Text = "10", Value = "10" },
         new SelectListItem { Text = "20", Value = "20" },
         new SelectListItem { Text = "25", Value = "25" },
@@ -74,7 +74,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
     };
             ViewBag.SizeOptions = new SelectList(pageSizeOptions, "Value", "Text", size);
 
-            ViewBag.CurrentSize = size ?? 5; // Kích thước trang mặc định
+            ViewBag.CurrentSize = size ?? 10; // Kích thước trang mặc định
 
             return View(pagedList);
         }
@@ -95,13 +95,12 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                     .ToList();
             }
             // Thêm phần phân trang vào đây
-            int pageSize = size ?? 5;
+            int pageSize = size ?? 10;
             var pageNumber = page ?? 1;
             var pagedList = sanPhamList.ToPagedList(pageNumber, pageSize);
             // Tạo danh sách dropdown kích thước trang
             var pageSizeOptions = new List<SelectListItem>
     {
-        new SelectListItem { Text = "5", Value = "5" },
         new SelectListItem { Text = "10", Value = "10" },
         new SelectListItem { Text = "20", Value = "20" },
         new SelectListItem { Text = "25", Value = "25" },
