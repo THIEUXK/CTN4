@@ -25,79 +25,102 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyVouvher
         {
             var a = _gg.GetAll().AsQueryable();
 
-            //List<SelectListItem> items = new List<SelectListItem>();
-            //items.Add(new SelectListItem { Text = "5", Value = "5" });
-            //items.Add(new SelectListItem { Text = "10", Value = "10" });
-            //items.Add(new SelectListItem { Text = "20", Value = "20" });
-            //items.Add(new SelectListItem { Text = "25", Value = "25" });
-            //items.Add(new SelectListItem { Text = "50", Value = "50" });
-
-            //foreach (var item in items)
-            //{
-            //    if (item.Value == size.ToString()) item.Selected = true;
-            //}
-
-            //ViewBag.size = items; // ViewBag DropDownList
-            //ViewBag.currentSize = size; // tạo biến kích thước trang hiện tại
             page = page ?? 1;
+
+            
 
             if (!string.IsNullOrEmpty(MaGiam))
             {
-                a = a.Where(c => c.MaGiam.Contains(MaGiam)); // Chắc chắn chuyển kết quả thành danh sách
+                a = a.Where(c => c.MaGiam.Contains(MaGiam, StringComparison.OrdinalIgnoreCase)); // Chắc chắn chuyển kết quả thành danh sách
 
             }
 
-            int pageSize = size ?? 5;
+            int pageSize = size ?? 10;
             var pageNumber = page ?? 1;
             var pagedList = a.ToPagedList(pageNumber, pageSize);
 
             return View(pagedList);
-
-
-
-
-
         }
-        // lọc
 
 
 
 
-        //public IActionResult GiamHet()
-        //{
-        //    var hd = _gg.GetAll();
-        //    var view = new GiamGiaViewModel()
-        //    {
-        //        GiamGias = hd.ToList(),
-        //    };
-        //    return View("Index", view);
+
+
+            // lọc
 
 
 
-        //}
-        public IActionResult GiamTien()
+
+            //public IActionResult GiamHet()
+            //{
+            //    var hd = _gg.GetAll();
+            //    var view = new GiamGiaViewModel()
+            //    {
+            //        GiamGias = hd.ToList(),
+            //    };
+            //    return View("Index", view);
+
+
+
+            //}
+            //public IActionResult GiamTien(int? page, bool loaiGiamGia = false)
+            //{
+            //    var hd = _gg.GetAll();
+            //    var pageNumber = page ?? 1;
+            //    var pageSize = 5; // Số lượng phần tử trên mỗi trang
+
+            //    var view = new GiamGiaViewModel()
+            //    {
+            //        GiamGias = hd.Where(c => c.LoaiGiamGia == loaiGiamGia).ToPagedList(pageNumber, pageSize).ToList(),
+            //    };
+            //    return View("Index", view);
+            //}
+
+            //public IActionResult GiamPhanTram(int? page, bool loaiGiamGia = true)
+            //{
+            //    var hd = _gg.GetAll();
+            //    var pageNumber = page ?? 1;
+            //    var pageSize = 5; // Số lượng phần tử trên mỗi trang
+
+            //    var view = new GiamGiaViewModel()
+            //    {
+            //        GiamGias = hd.Where(c => c.LoaiGiamGia == loaiGiamGia).ToPagedList(pageNumber, pageSize).ToList(),
+            //    };
+            //    return View("Index", view);
+            //}
+
+            public IActionResult TatCa(int? page)
         {
-            var hd = _gg.GetAll();
-            var view = new GiamGiaViewModel()
-            {
-                GiamGias = hd.Where(c => c.LoaiGiamGia == false).ToList(),
-            };
-            return View("Index", view);
+            var giamGias = _gg.GetAll()/*.Where(c => c.LoaiGiamGia == true || false).ToList()*/;
+            int pageNumber = page ?? 1;
+            int pageSize = 10; // Số lượng item trên mỗi trang
 
+            var pagedList = giamGias.ToPagedList(pageNumber, pageSize);
 
-
+            return View("Index", pagedList);
         }
-        public IActionResult GiamPhanTram()
+        public IActionResult GiamTien(int? page)
         {
-            var hd = _gg.GetAll();
-            var view = new GiamGiaViewModel()
-            {
-                GiamGias = hd.Where(c => c.LoaiGiamGia == true).ToList(),
-            };
-            return View("Index", view);
+            var giamGias = _gg.GetAll().Where(c => c.LoaiGiamGia == false).ToList();
+            int pageNumber = page ?? 1;
+            int pageSize = 10; // Số lượng item trên mỗi trang
+
+            var pagedList = giamGias.ToPagedList(pageNumber, pageSize);
+
+            return View("Index", pagedList);
+        } 
+
+        public IActionResult GiamPhanTram(int? page)
+        {
+            var giamGias = _gg.GetAll().Where(c => c.LoaiGiamGia == true).ToList();
+            int pageNumber = page ?? 1;
+            int pageSize = 10;
+
+            var pagedList = giamGias.ToPagedList(pageNumber, pageSize);
+
+            return View("Index", pagedList);
         }
-
-
 
 
         //public IActionResult Index(int page = 1)
@@ -205,7 +228,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyVouvher
             //{
             a.TrangThai = true;
             a.Is_detele = true;
-            var tontai = _gg.GetAll().FirstOrDefault(c => c.MaGiam == a.MaGiam && c.Id != a.Id);
+            var tontai = _gg.GetAll().FirstOrDefault(c => c.MaGiam.ToLower() == a.MaGiam.ToLower() && c.Id != a.Id);
             if (tontai != null)
             {
                 ModelState.AddModelError("MaGiam", "Mã giảm không được trùng.");
@@ -215,14 +238,14 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyVouvher
             // Kiểm tra thời gian
             if (a.NgayKetThuc <= a.NgayBatDau)
             {
-                ModelState.AddModelError("NgayKetThuc", "Ngày kết thúc phải lớn hơn ngày bắt đầu.");
+                ModelState.AddModelError("NgayKetThuc", "Thời gian kết thúc phải lớn hơn thời gian bắt đầu.");
                 return View(a);
             }
 
             // Kiểm tra NgayBatDau > Now
             if (a.NgayBatDau <= DateTime.Now)
             {
-                ModelState.AddModelError("NgayBatDau", "Ngày bắt đầu phải lớn hơn ngày hiện tại.");
+                ModelState.AddModelError("NgayBatDau", "Thời gian bắt đầu phải lớn hơn thời gian hiện tại.");
                 return View(a);
             }
 
@@ -238,35 +261,82 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyVouvher
 
             //return View();
         }
+        //public ActionResult Edit(Guid id)
+        //{
+        //    var a = _gg.GetById(id);
+        //    return View(a);
+        //}
+        //// POST: PhanLoaiController/Edit/5
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit(GiamGia a)
+        //{
+
+        //    //var tontai = _gg.GetAll().FirstOrDefault(c => c.MaGiam == a.MaGiam && c.Id != a.Id);
+        //    //if (tontai != null)
+        //    //{
+        //    //    ModelState.AddModelError("MaGiam", "Mã giảm không được trùng.");
+        //    //    return View(a);
+        //    //}
+
+        //        if (_gg.Sua(a)) // Nếu sửa thành công
+        //        {
+        //            return RedirectToAction("Index");
+
+        //        }
+        //        return View();
+
+
+
+        //}
+
         public ActionResult Edit(Guid id)
         {
             var a = _gg.GetById(id);
+
+            // Kiểm tra điều kiện NgayBatDau
+            if (a.NgayBatDau <= DateTime.Now)
+            {
+                ViewData["IsReadOnly"] = true;
+            }
+            else
+            {
+                ViewData["IsReadOnly"] = false;
+            }
+
             return View(a);
         }
-        // POST: PhanLoaiController/Edit/5
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(GiamGia a)
         {
-
-            //var tontai = _gg.GetAll().FirstOrDefault(c => c.MaGiam == a.MaGiam && c.Id != a.Id);
-            //if (tontai != null)
-            //{
-            //    ModelState.AddModelError("MaGiam", "Mã giảm không được trùng.");
-            //    return View(a);
-            //}
-
-                if (_gg.Sua(a)) // Nếu sửa thành công
+            if (ModelState.IsValid)
+            {
+                // Kiểm tra điều kiện NgayBatDau
+                //if (a.NgayBatDau <= DateTime.Now)
+                //{
+                //    ModelState.Remove("NgayBatDau");
+                //    ModelState.AddModelError("NgayBatDau", "Không thể sửa đổi khi đã đến thời gian áp dụng.");
+                //}
+                if (a.NgayKetThuc <= DateTime.Now)
                 {
-                    return RedirectToAction("Index");
-
+                    ModelState.AddModelError("NgayBatDau", "Không thể sửa khi đã đến thời gian áp dụng.");
+                    return View(a);
                 }
-                return View();
-            
 
+                else
+                {
+                    if (_gg.Sua(a))
+                    {
+                        return RedirectToAction("Index");
+                    }
+                }
+            }
 
+            ViewData["IsReadOnly"] = a.NgayBatDau <= DateTime.Now;
+            return View(a);
         }
-
 
 
         // GET: GiamGIaController/Delete/5

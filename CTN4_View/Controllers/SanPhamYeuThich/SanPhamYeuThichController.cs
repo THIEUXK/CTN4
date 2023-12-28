@@ -13,44 +13,51 @@ namespace CTN4_View.Controllers.SanPhamYeuThich
         {
             _YT = new ChiTietSanPhamYeuThichService();
         }
-        public IActionResult ThemYeuThich(Guid IdSanPham) 
+        public IActionResult ThemYeuThich(Guid IdSanPham)
         {
             var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
+
             if (accnew.Count != 0)
             {
-                var SPYT = new ChiTietSanPhamYeuThich() 
+                var tkmoi = accnew[0];
+                var DSYT = _YT.GetAll().FirstOrDefault(c => c.IdKhachHang == tkmoi.Id);
+                var SPYT = new ChiTietSanPhamYeuThich()
                 {
                     IdSanPham = IdSanPham,
                     IdKhachHang = accnew[0].Id,
                 };
-                if(_YT.Them (SPYT))
+                if (_YT.Them(SPYT))
                 {
-                      return RedirectToAction("HienThiSanPham","HienThiSanPham");
+                    return RedirectToAction("HienThiSanPham", "HienThiSanPham");
                 }
 
             }
-            else 
+            else
             {
 
                 return RedirectToAction("login", "Home");
             }
-              return RedirectToAction("HienThiSanPham","HienThiSanPham");
+            return RedirectToAction("HienThiSanPham", "HienThiSanPham");
 
         }
-        public IActionResult Index()
+        public IActionResult Index(/*Guid IdKhachHang*/)
         {
             var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
-            var a=  _YT.GetAll();
-            var view = new SanPhamYeuThichView(){
-                chiTietSanPhamYeuThiches=a,
+            var a = _YT.GetAll()/*.Where(c => c.IdKhachHang == IdKhachHang).ToList()*/;
+            var view = new SanPhamYeuThichView()
+            {
+                chiTietSanPhamYeuThiches = a,
                 KhachHang = accnew[0],
             };
-                 
+
             return View(view);
+
+            //var a = _YT.GetAll();
+            //return View(a);
         }
-        public IActionResult XoaKhoiYeuTich(Guid idSP,Guid IdKhachHang)
+        public IActionResult XoaKhoiYeuTich(Guid idSP, Guid IdKhachHang)
         {
-           var lisSpYT= _YT.GetAll().FirstOrDefault(c=>c.IdKhachHang == IdKhachHang&&c.IdSanPham==idSP);
+            var lisSpYT = _YT.GetAll().FirstOrDefault(c => c.IdKhachHang == IdKhachHang && c.IdSanPham == idSP);
             Guid idYT = lisSpYT.Id;
 
             _YT.Xoa(idYT);
@@ -59,11 +66,11 @@ namespace CTN4_View.Controllers.SanPhamYeuThich
         }
         public IActionResult XoaKhoiYeuTich1(Guid idSP)
         {
-           var lisSpYT= _YT.GetAll().FirstOrDefault(c=>c.IdSanPham == idSP);
+            var lisSpYT = _YT.GetAll().FirstOrDefault(c => c.IdSanPham == idSP);
             Guid idYT = lisSpYT.Id;
 
             _YT.Xoa(idYT);
-             return RedirectToAction("HienThiSanPham","HienThiSanPham");
+            return RedirectToAction("HienThiSanPham", "HienThiSanPham");
 
         }
     }
