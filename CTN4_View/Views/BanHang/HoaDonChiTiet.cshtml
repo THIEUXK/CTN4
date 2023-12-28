@@ -154,6 +154,12 @@
                             }
                             <tr>
                                 <td>
+                                    <div class="row">
+                                        <div><b style="color:#5a6a85">Mã giảm giá: </b> @foreach (var a in Model.GiamGiaChiTiets)
+                                                                                           {
+                                                                                               <p>@a.GiamGia.MaGiam</p>
+                                                                                           }</div>
+                                    </div>
                                     <!-- Thông tin thanh toán -->
                                     <div><b style="color:#5a6a85">Tổng tiền hàng: </b>@FormatCurrency(Model.HoaDon.TienHang)</div>
                                     <div><b style="color:#5a6a85">Chi phí vận chuyển: </b>@Html.Raw(FormatCurrency(Model.HoaDon.TienShip))</div>
