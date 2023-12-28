@@ -33,7 +33,7 @@
                                 }
                                 <div class="product-details">
                                     <h6>
-                                        <a style="color: (internal value);"> @Html.ActionLink(sp.SanPham.TenSanPham, "HienThiSanPhamChiTiet", new { id = sp.Id}) </a>
+                                        <a style="color: (internal value);"> @Html.ActionLink(sp.SanPham.TenSanPham, "HienThiSanPhamChiTiet", new { id = sp.Id }) </a>
                                     </h6>
                                     <div class="price">
                                         @if (sp.SanPham.GiaNiemYet == sp.SanPham.GiaBan)
@@ -46,11 +46,11 @@
                                             <h6 class="l-through">@FormatCurrency(sp.SanPham.GiaBan)</h6>
                                         }
                                     </div>
-                                    <form asp-controller="SanPhamYeuThich" asp-action="XoaKhoiYeuTich">
+                                    <form asp-controller="SanPhamYeuThich" asp-action="XoaKhoiYeuTich" method="post">
                                         <input type="hidden" name="idSP" value="@sp.IdSanPham" />
                                         <input type="hidden" name="IdKhachHang" value="@Model.KhachHang.Id" />
 
-                                        <button type="button" class="btn btn-info">Bỏ yêu thích</button>
+                                        <button type="submit" class="btn btn-info">Bỏ yêu thích</button>
                                     </form>
 
                                 </div>

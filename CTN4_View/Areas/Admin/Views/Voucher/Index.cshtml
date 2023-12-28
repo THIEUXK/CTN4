@@ -23,8 +23,12 @@
 </p>*@
 <div class="row no-gutters pb-4">
     <div class="col align-items-center d-flex">
-        </ul>
-        <strong><h3 class="title-page">Danh sách voucher</h3></strong>
+
+        <strong>
+            <h3 class="title-page" id="danhSachVoucher">Danh sách voucher</h3>
+        </strong>
+
+
     </div>
     <div class="col-auto pl-3">
         <div class="d-flex">
@@ -54,31 +58,68 @@
         </svg>
     </button>
 </form> *@
-<form method="get" class="d-flex">
+<form method="get" class="d-flex" onsubmit="saveSearchValue()">
     <div class="input-group">
-        <input type="text" id="form1" class="form-control" name="MaGiam" style="width: 980px;"  placeholder="Tìm kiếm..." />
+        <input type="text" id="form1" class="form-control" name="MaGiam" style="width: 980px;" placeholder="Tìm kiếm..." value="@ViewBag.SearchValue" />
         <button type="submit" class="btn btn-primary">
             <i class="fas fa-search"></i>
         </button>
     </div>
 </form>
+
+<script>
+    // Hàm để lưu giá trị của textbox vào sessionStorage
+    function saveSearchValue() {
+        var searchValue = document.getElementById("form1").value;
+        sessionStorage.setItem("searchValue", searchValue);
+    }
+
+    // Kiểm tra xem có giá trị nào đã được lưu trong sessionStorage không
+    var storedSearchValue = sessionStorage.getItem("searchValue");
+    if (storedSearchValue) {
+        // Nếu có giá trị, đặt giá trị vào textbox
+        document.getElementById("form1").value = storedSearchValue;
+    }
+</script>
+
 <div class="dropdown me-1">
-    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
-        Lọc 
+    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20" id="filterDropdown">
+        Lọc
     </button>
     <ul class="dropdown-menu">
-   
-        
         <li>
-            <a class="dropdown-item" href="@Url.Action("GiamTien")">Giảm giá tiền </a>
-        </li> 
-        <li>
-            <a class="dropdown-item" href="@Url.Action("GiamPhanTram")">Giảm phần trăm </a>
+            <a class="dropdown-item" href="@Url.Action("TatCa", new { loaiGiamGia = "all" })" data-value="all">Tất cả các mã</a>
         </li>
-
+        <li>
+            <a class="dropdown-item" href="@Url.Action("GiamTien", new { loaiGiamGia = "giamtien" })" data-value="giamtien">Giảm theo giá tiền</a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="@Url.Action("GiamPhanTram", new { loaiGiamGia = "giamphantram" })" data-value="giamphantram">Giảm phần trăm</a>
+        </li>
     </ul>
 </div>
 
+@* <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    // Function để lưu giữ giá trị lọc vào localStorage
+    function setSelectedFilter(filterText) {
+        localStorage.setItem('selectedFilter', filterText);
+        $('#selectedFilter').text(filterText);
+    }
+
+    // Function để khôi phục giá trị lọc từ localStorage khi trang được tải lên
+    function restoreSelectedFilter() {
+        var selectedFilter = localStorage.getItem('selectedFilter');
+        if (selectedFilter) {
+            $('#selectedFilter').text(selectedFilter);
+        }
+    }
+
+    $(document).ready(function () {
+        // Kích hoạt sự kiện khi trang được tải lại để khôi phục giá trị lọc
+        restoreSelectedFilter();
+    });
+</script> *@
 @*<table class="table table-striped">
     <thead>
         <tr>*@
@@ -96,9 +137,9 @@
             }
 
             /*
-                        .table-bordered tbody tr td:first-child,
-                        .table-bordered tbody tr td:last-child {
-                            border-radius: 10px; /* Bo tròn cho cột đầu và cuối cùng của các ô trong bảng dữ liệu */
+                                                            .table-bordered tbody tr td:first-child,
+                                                            .table-bordered tbody tr td:last-child {
+                                                                border-radius: 10px; /* Bo tròn cho cột đầu và cuối cùng của các ô trong bảng dữ liệu */
             }
             */
         </style>
@@ -115,8 +156,8 @@
                 <a class="nav-link" data-toggle="tab" href="#false">Các mã đang tạm ẩn</a>
             </li>
         </ul>
-       @* <div class="pagination-container">
-            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+        @* <div class="pagination-container">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
         </div>*@
 
         <div class="tab-content">
@@ -157,7 +198,7 @@
                             <th style="background-color: #333; text-align: center;">
                                 <h6 style="margin: 0; color: white;">Hành động</h6>
                             </th>
-                            
+
                         </tr>
                     </thead>
                     <tbody>
@@ -241,7 +282,7 @@
                                     <button type="button" class="btn btn-primary"
                                             style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
 
-                                        @Html.ActionLink("Đổi trạng thái", "Edit", new { id = item.Id }, new { @class = "custom-edit-link"})
+                                        @Html.ActionLink("Chỉnh sửa Mã", "Edit", new { id = item.Id }, new { @class = "custom-edit-link" })
                                     </button>
 
                                     <div style="display: flex; flex-direction: row; gap: 5px;">
@@ -250,7 +291,7 @@
                                     </button>*@
                                         <button type="button" class="btn btn-danger"
                                                 style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-                                            @Html.ActionLink( "Xóa","Delete", new { id=item.Id }, new { @class = "custom-edit-link"})
+                                            @Html.ActionLink("Xóa", "Delete", new { id = item.Id }, new { @class = "custom-edit-link" })
                                         </button>
 
                                     </div>
@@ -264,7 +305,7 @@
                 </table>
             </div>
             @*<div class="pagination-container">
-                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
             </div>*@
             <div id="true" class="container-fluid tab-pane fade">
                 <br>
@@ -303,7 +344,7 @@
                             <th style="background-color: #333; text-align: center;">
                                 <h6 style="margin: 0; color: white;">Hành động</h6>
                             </th>
-                            
+
                         </tr>
                     </thead>
                     <tbody>
@@ -393,7 +434,7 @@
                                         <button type="button" class="btn btn-primary"
                                                 style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
 
-                                            @Html.ActionLink("Đổi trạng thái", "Edit", new { id = item.Id }, new { @class = "custom-edit-link"})
+                                            @Html.ActionLink("Chỉnh sửa mã", "Edit", new { id = item.Id }, new { @class = "custom-edit-link" })
                                         </button>
 
                                         <div style="display: flex; flex-direction: row; gap: 5px;">
@@ -402,7 +443,7 @@
                                     </button>*@
                                             <button type="button" class="btn btn-danger"
                                                     style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-                                                @Html.ActionLink( "Xóa","Delete", new { id=item.Id }, new { @class = "custom-edit-link"})
+                                                @Html.ActionLink("Xóa", "Delete", new { id = item.Id }, new { @class = "custom-edit-link" })
                                             </button>
 
                                         </div>
@@ -452,7 +493,7 @@
                             <th style="background-color: #333; text-align: center;">
                                 <h6 style="margin: 0; color: white;">Hành động</h6>
                             </th>
-                            
+
                         </tr>
                     </thead>
                     <tbody>
@@ -540,7 +581,7 @@
                                         <button type="button" class="btn btn-primary"
                                                 style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
 
-                                            @Html.ActionLink("Đổi trạng thái", "Edit", new { id = item.Id }, new { @class = "custom-edit-link"})
+                                            @Html.ActionLink("Chỉnh sửa mã", "Edit", new { id = item.Id }, new { @class = "custom-edit-link" })
                                         </button>
 
                                         <div style="display: flex; flex-direction: row; gap: 5px;">
@@ -549,7 +590,7 @@
                                     </button>*@
                                             <button type="button" class="btn btn-danger"
                                                     style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-                                                @Html.ActionLink( "Xóa","Delete", new { id=item.Id }, new { @class = "custom-edit-link"})
+                                                @Html.ActionLink("Xóa", "Delete", new { id = item.Id }, new { @class = "custom-edit-link" })
                                             </button>
 
                                         </div>
@@ -564,16 +605,16 @@
             </div>
 
             @*<div class="row no-gutters justify-content-between paginate">
-                <div class="col-auto ">
-                    @using (Html.BeginForm("Index", "KhuyenMai", FormMethod.Get))
-                    {
-                        <p>
-                            Kích thước trang: @Html.DropDownList("size", (List<SelectListItem>)ViewBag.size, new { @onchange = "this.form.submit();" })
-                        </p>
-                    }
-                </div>
-            
-        </div>*@
+            <div class="col-auto ">
+            @using (Html.BeginForm("Index", "KhuyenMai", FormMethod.Get))
+            {
+            <p>
+            Kích thước trang: @Html.DropDownList("size", (List<SelectListItem>)ViewBag.size, new { @onchange = "this.form.submit();" })
+            </p>
+            }
+            </div>
+
+            </div>*@
             <div class="col-auto">
                 <div class="row no-gutters align-items-center">
                     <div class="col-auto mr-3"><span style="color: rgb(128, 128, 128);">Tổng:<span id="id">@Model.Count()</span></span></div>
@@ -614,7 +655,7 @@
                     }
                 }
             </script>
-           
+
             <style>
                 .custom-edit-link {
                     color: #ffffff; /* Màu đỏ tùy chọn */
@@ -626,7 +667,7 @@
                     }
             </style>
 
-           @* <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+            @* <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
             <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -635,7 +676,7 @@
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>*@
 
 
-          @*   <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+            @*   <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script> *@
 
@@ -648,4 +689,4 @@
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 
-       
+
