@@ -547,8 +547,7 @@ namespace CTN4_View.Controllers.Shop
                 {
                     idhoadon.Add(item.Id);
                 }
-               
-                 var hdct = _hoaDonChiTietService.GetAll().Where(c =>hoadon1.Contains(c.HoaDon.Id));
+                 var hdct = _hoaDonChiTietService.GetAll().Where(c =>idhoadon.Contains(c.IdHoaDon));
             }
             var hoadon = _hoaDonService.GetAll().Where(c=>c.IdKhachHang == accnew[0].Id).ToList();
             var listsp1 = _sanPhamCuaHangService.GetAllSpcts(id).Where(c => c.Is_detele == true).ToList();
