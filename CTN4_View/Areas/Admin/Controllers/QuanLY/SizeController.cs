@@ -20,7 +20,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         }
         // GET: SizeController
         [HttpGet]
-         public ActionResult Index(string TenSp, int? page, int? size)
+        public ActionResult Index(string TenSp, int? page, int? size)
         {
             var sanPhamList = _sv.GetAll().ToList();
 
@@ -67,14 +67,14 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [ValidateAntiForgeryToken]
         public ActionResult Create(Size a)
         {
-            
+
             var b = new Size();
             {
                 b.TenSize = a.TenSize;
                 b.CoSize = a.CoSize;
                 b.TrangThai = true;
                 b.Is_detele = true;
-                
+
             }
             if (_sv.Them(b)) // Nếu thêm thành công
             {

@@ -15,7 +15,7 @@
     <div class="card">
         <div class="card-body">
             <br></br>
-            <h1 class="card-title">Quản lý Size</h1>
+            <h1 >Quản lý Size</h1>
 
             <p>
                 <button type="button" class="btn btn-warning btn-fw editable-click=" asp-action="Create"><a asp-action="Create" style="color:white">Thêm</a></button>
@@ -64,7 +64,14 @@
                                 @Html.DisplayFor(modelItem => item.TrangThai)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Is_detele)
+                                @if (item.Is_detele == true)
+                                {
+                                <p>Hiện thị</p>
+                                }
+                                else
+                                {
+                                <p>Đã ẩn</p>
+                                }
                             </td>
                             <td>
                                 @Html.ActionLink("Chỉnh sửa", "Edit",new { id=item.Id },new { style = "text-decoration: none; color: black;" }) |

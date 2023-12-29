@@ -21,7 +21,7 @@
         <hr />
         <div class="row">
             <div class="col-md-9">
-                <form asp-action="Create">
+                <form asp-action="Create" onsubmit="return confirmSubmit();">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
                         <label asp-for="TenChatLieu" class="control-label">Tên chất liệu</label>
@@ -29,21 +29,13 @@
                         <span asp-validation-for="TenChatLieu" class="text-danger"></span>
                        @* @Html.ValidationMessageFor(model => model.TenChatLieu, "", new { @class = "text-danger" })*@
                     </div>
-                    <div class="form-group form-check">
-                        <label class="form-check-label">
-                            <input class="form-check-input" asp-for="TrangThai" /> Trạng thái
-                        </label>
-                    </div>
+                   
                     <div class="form-group">
                         <label asp-for="GhiChu" class="control-label">Ghi Chú</label>
                         <input asp-for="GhiChu" class="form-control" />
                         <span asp-validation-for="GhiChu" class="text-danger"></span>
                     </div>
-                    <div class="form-group form-check">
-                        <label class="form-check-label">
-                            <input class="form-check-input" asp-for="Is_detele" /> tình trạng
-                        </label>
-                    </div>
+                   
                     <div class="form-group">
                         <input type="submit" value="Thêm mới" class="btn btn-primary" />
                     </div>
@@ -58,3 +50,10 @@
 </div>
 
 
+<script>
+    function confirmSubmit() {
+        // Hiển thị hộp thoại xác nhận
+        var result = confirm("Bạn có chắc muốn thêm mới chất liệu này không?");
+        return result;
+    }
+</script>
