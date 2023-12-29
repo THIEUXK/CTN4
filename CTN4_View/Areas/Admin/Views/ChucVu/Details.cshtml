@@ -12,10 +12,9 @@
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Normal buttons</h4>
                 <br></br>
                 <div>
-                    <h4>ChucVu</h4>
+                    <h4>Chi tiết chức vụ</h4>
                     <hr />
                     <dl class="row">
                         <dt class = "col-sm-2">
@@ -32,8 +31,8 @@
                         </dd>
                     </dl>
                     <div>
-                        <h4>_________________________________________________</h4>
-                        @Html.ActionLink("Chỉnh sửa", "Edit", new { style = "text-decoration: none; color: black;" }) |
+                       
+                        @Html.ActionLink("Edit", "Edit", new { id= Model.Id },new { style = "text-decoration: none; color: black;" }) |
                         <a asp-action="Index" style="color: black;">Quay về</a>
                     </div>
                 </div>
