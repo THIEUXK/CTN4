@@ -2353,6 +2353,13 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                         }
                     }
                     var hd = _hoaDonService.GetById(idHD);
+                    var hdct = _hoaDonChiTietService.GetAll().Where(c=>c.IdHoaDon==idHD);
+                    if (hdct.Count()==0)
+                    {
+                        var message = "hãy nhớ thêm sản phẩm trước khi chốt";
+                        TempData["TB2"] = message;
+                        return RedirectToAction("TaoHoaDon", new { id = idHD, message });
+                    }
                     if (hd != null)
                     {
                         hd.TrangThai = "Đang chờ xử lí";
