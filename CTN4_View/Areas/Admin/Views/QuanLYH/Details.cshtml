@@ -104,7 +104,7 @@
 {
     <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
 }
-<form asp-action="AddAnh" method="post" enctype="multipart/form-data">
+<form asp-action="AddAnh" method="post" enctype="multipart/form-data" onsubmit="return confirmSubmit();">
     <div class="m-b-15">
         <input type="hidden" name="IdSP" value="@Model.SanPhamChiTiet.IdSp" />
         <input type="hidden" name="idSPCT" value="@Model.SanPhamChiTiet.Id" />
@@ -122,4 +122,10 @@
 <script>
     // Sử dụng JavaScript để ẩn nút khi trang web được tải
     document.getElementById("btnUpload").style.display = "none";
+    function confirmSubmit() {
+
+        // Hiển thị hộp thoại xác nhận
+        var result = confirm("Bạn có chắc muốn thêm ảnh này không?");
+        return result;
+    }
 </script>

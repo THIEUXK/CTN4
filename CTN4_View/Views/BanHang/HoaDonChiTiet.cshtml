@@ -79,7 +79,6 @@
                             </span> <span class="text">Nhận hàng thành công</span>
                         </div>
                     }
-
                 </div>
                 <hr>
                 <hr>
@@ -154,6 +153,14 @@
                             }
                             <tr>
                                 <td>
+                                    <div class="row">
+                                        <div>
+                                            <b style="color:#5a6a85">Mã giảm giá: </b> @foreach (var a in Model.GiamGiaChiTiets)
+                                            {
+                                                <p>@a.GiamGia.MaGiam</p>
+                                            }
+                                        </div>
+                                    </div>
                                     <!-- Thông tin thanh toán -->
                                     <div><b style="color:#5a6a85">Tổng tiền hàng: </b>@FormatCurrency(Model.HoaDon.TienHang)</div>
                                     <div><b style="color:#5a6a85">Chi phí vận chuyển: </b>@Html.Raw(FormatCurrency(Model.HoaDon.TienShip))</div>
@@ -241,7 +248,7 @@
                         Thông tin khách hàng
                     </div>
                     <div>
-                        <hr/>
+                        <hr />
                         <dl class="row invoice-details">
                             <dt class="col-sm-5">
                                 Tên khách hàng
@@ -314,16 +321,6 @@
         </div>
     </div>
 </section>
-
-
-
-
-
-
-@* Thông báo lỗi*@
-
-
-@*</section>*@
 <script>
     @functions {
         public string FormatCurrency(float? price)
@@ -335,7 +332,6 @@
 
 
 </script>
-
 <style>
     .fa1 {
         display: inline-block;
@@ -345,6 +341,7 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale
     }
+
     .page-container {
         max-width: 1140px;
         margin: 0 auto

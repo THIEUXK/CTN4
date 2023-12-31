@@ -27,18 +27,19 @@
                 <dd class = "col-sm-10">
                     @Html.DisplayFor(model => model.TenChatLieu)
                 </dd>
+                <dt class="col-sm-2">
+                    Ghi chú
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.GhiChu)
+                </dd>
                 <dt class = "col-sm-2">
                    Trạng thái
                 </dt>
                 <dd class = "col-sm-10">
                     @Html.DisplayFor(model => model.TrangThai)
                 </dd>
-                <dt class = "col-sm-2">
-                  Ghi chú
-                </dt>
-                <dd class = "col-sm-10">
-                    @Html.DisplayFor(model => model.GhiChu)
-                </dd>
+                
                 <dt class = "col-sm-2">
                     @Html.DisplayNameFor(model => model.Is_detele)
                 </dt>
@@ -49,7 +50,7 @@
         </div>
         <div>
             @Html.ActionLink("Edit", "Edit", new { id= Model.Id },new { style = "text-decoration: none; color: black;" }) |
-            <a asp-action="Index">Quay về</a>
+            <a asp-action="Index" style="color: black;">Quay về</a>
         </div>
 
 

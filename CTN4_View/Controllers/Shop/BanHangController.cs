@@ -453,7 +453,6 @@ namespace CTN4_View.Controllers.Shop
             }
             return Json(lstWard, new System.Text.Json.JsonSerializerOptions());
         }
-       
         [HttpPost("/CheckOut/GetTotalShipping")]
         public async Task<JsonResult> GetTotalShipping([FromBody] ShippingOrder shippingOrder)
         {
@@ -833,7 +832,6 @@ namespace CTN4_View.Controllers.Shop
             };
             return View(view);
         }
-        
         public IActionResult SuDunggiamGia(Guid IdGiamGia, float tienhanga, string DiachiNhanChiTiet, string name, string Sodienthoai, string Email, string addDiaChi, Guid IdDiaChi, Guid idphuongthuc, string ghiChu, float tienshipa, float tongtien)
         {
             HttpResponseMessage responseProvin = _httpClient.GetAsync("https://online-gateway.ghn.vn/shiip/public-api/master-data/province").Result;

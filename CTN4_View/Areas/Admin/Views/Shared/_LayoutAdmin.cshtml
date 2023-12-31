@@ -7,6 +7,7 @@
     <title>Modernize Free</title>
     <link rel="shortcut icon" type="image/png" href="~/admina/assets/images/logos/favicon.png" />
     <link rel="stylesheet" href="~/admina/assets/css/styles.min.css" />
+    <link rel="stylesheet" href="~/css/Pagelist.css" />
 </head>
 
 <body>
@@ -32,21 +33,14 @@
                             <span class="hide-menu">Home</span>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" asp-area="Admin" asp-controller="QuanLyHoaDon" asp-action="Index">
+                            <a class="sidebar-link" asp-area="Admin" asp-controller="QuanLyHoaDon" asp-action="Index" >
                                 <span>
                                     <i class="ti ti-receipt"></i>
                                 </span>
                                 <span class="hide-menu">Quản lý hóa đơn</span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" asp-area="Admin" asp-controller="Voucher" asp-action="Index">
-                                <span>
-                                    <i class="ti ti-ticket"></i>
-                                </span>
-                                <span class="hide-menu">Quản lý voucher</span>
-                            </a>
-                        </li>
+
 
                         <li class="sidebar-item">
                             <a class="sidebar-link" asp-area="Admin" asp-controller="Home" asp-action="Thongkels">
@@ -64,73 +58,101 @@
                                 <span class="hide-menu">Sản phẩm bán chạy</span>
                             </a>
                         </li>
+
+
                         <li class="sidebar-item">
-                            <a class="sidebar-link" asp-area="Admin" asp-controller="KhuyenMai" asp-action="Index">
-                                <span>
-                                    <i class="ti ti-discount-2"></i>
-                                </span>
-                                <span class="hide-menu">Khuyến mãi</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" asp-controller="Home" asp-action="BangQuanLy">
+                            <a class="sidebar-link" asp-controller="DanhMuc" asp-action="Index">
                                 <span>
                                     <i class="ti ti-brand-producthunt"></i>
                                 </span>
-                                <span class="hide-menu">Quản lý</span>
+                                <span class="hide-menu">Quản lý danh mục</span>
                             </a>
                         </li>
+
                         <li class="sidebar-item dropdown">
-                            <a class="sidebar-link dropdown-toggle">
+                            <a class="sidebar-link dropdown-toggle" id="quanLyDropdown">
                                 <span>
                                     <i class="ti ti-brand-producthunt"></i>
                                 </span>
                                 <span class="hide-menu">Quản lý</span>
                             </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" asp-controller="SanPham" asp-action="Index">Quản lí sản phẩm</a>
-                                <a class="dropdown-item" aasp-controller="DanhMuc" asp-action="Index">Quản lí danh mục</a>
+                            <div class="dropdown-menu" id="quanLyDropdownMenu">
+                                <a class="dropdown-item" asp-controller="SanPham" asp-action="Index">Quản lý sản phẩm</a>
+                                <a class="dropdown-item" asp-controller="NSX" asp-action="Index">Quản lý NSX</a>
+                                <a class="dropdown-item" asp-controller="Mau" asp-action="Index">Quản lý Màu</a>
+                                <a class="dropdown-item" asp-controller="Size" asp-action="Index">Quản lý Size</a>
+                                <a class="dropdown-item" asp-controller="ChatLieu" asp-action="Index">Quản lý Chất liệu</a>
+                                <a class="dropdown-item" asp-controller="Home" asp-action="BangQuanLy">Quản lý X</a>
                             </div>
                         </li>
+                        @if (User.IsInRole("Quản lý"))
+                        {
+                            <li class="nav-small-cap">
+                                <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                                <span class="hide-menu">Quản lý </span>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" asp-controller="ChucVu" asp-action="Index">
+                                    <span>
+                                        <i class="ti ti-brand-producthunt"></i>
+                                    </span>
+                                    <span class="hide-menu">
+                                        Quản lý Chức vụ
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" asp-controller="NhanVien" asp-action="Index">
 
-                        <li class="nav-small-cap">
-                            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                            <span class="hide-menu">UI COMPONENTS</span>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="./ui-buttons.html">
-                                <span>
-                                    <i class="ti ti-article"></i>
-                                </span>
-                                <span class="hide-menu">Buttons</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="./ui-alerts.html">
-                                <span>
-                                    <i class="ti ti-alert-circle"></i>
-                                </span>
-                                <span class="hide-menu">Alerts</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="./ui-alerts.html">
-                                <span>
-                                    <i class="ti ti-alert-circle"></i>
-                                </span>
-                                <span class="hide-menu">Alerts</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="./ui-alerts.html">
-                                <span>
-                                    <i class="ti ti-alert-circle"></i>
-                                </span>
-                                <span class="hide-menu">Alerts</span>
-                            </a>
-                        </li>
+                                    <span>
+                                        <i class="ti ti-brand-producthunt"></i>
+                                    </span>
+                                    <span class="hide-menu">
+                                        Quản lý Nhân viên
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" asp-controller="KhachHang" asp-action="Index">
 
+                                    <span>
+                                        <i class="ti ti-brand-producthunt"></i>
+                                    </span>
+                                    <span class="hide-menu">
+                                        Quản lý Khách hàng
+                                    </span>
+                                </a>
+                            </li>
 
+                            <li class="nav-small-cap">
+                                <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                                <span class="hide-menu">Quản lý </span>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" asp-area="Admin" asp-controller="Voucher" asp-action="Index">
+                                    <span>
+                                        <i class="ti ti-ticket"></i>
+                                    </span>
+                                    <span class="hide-menu">Quản lý voucher</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" asp-area="Admin" asp-controller="KhuyenMai" asp-action="Index">
+                                    <span>
+                                        <i class="ti ti-discount-2"></i>
+                                    </span>
+                                    <span class="hide-menu">Quản lý Khuyến mãi</span>
+                                </a>
+                            </li>
+                            <li class="nav-small-cap">
+                                <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                                <span class="hide-menu">UI COMPONENTS</span>
+                            </li>
+                            <li class="nav-small-cap">
+                                <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                                <span class="hide-menu">UI COMPONENTS</span>
+                            </li>
+                        }
                     </ul>
                 </nav>
             </div>
@@ -259,6 +281,25 @@
                 }
             }
         });
+        ////////////////////
+        // Thêm sự kiện click cho liên kết dropdown "Quản lý"
+        document.getElementById('quanLyDropdownLink').addEventListener('click', function () {
+            // Chuyển đổi tính hiển thị của menu dropdown
+            document.getElementById('quanLyDropdownMenu').classList.toggle('show');
+        });
+
+        // Đóng menu dropdown nếu người dùng click bên ngoài nó
+        window.onclick = function (event) {
+            if (!event.target.matches('#quanLyDropdownLink')) {
+                var dropdowns = document.getElementsByClassName('dropdown-menu');
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
     </script>
     <style>
         .sidebar {
@@ -281,8 +322,11 @@
 
 
         .dropdown-item {
-            display: block;
-            padding: 10px;
+            /*display: block;*/
+            /* padding: 10px;*/
+            padding-right: 70px;
+            padding-top: 10px;
+            padding-bottom: 10px;
             text-decoration: none;
             color: black;
         }
@@ -291,6 +335,13 @@
                 background-color: #f0f0f0;
             }
 
+        a {
+            text-decoration: none;
+        }
+
+        a:hover {
+                text-decoration: none;
+            }
     </style>
 
     <style>
@@ -317,63 +368,7 @@
 
 
 
-        .dropdown-item {
-            display: block;
-            padding: 10px;
-            text-decoration: none;
-            color: black;
-        }
-
-            .dropdown-item:hover {
-                background-color: #f0f0f0;
-            }
-        /* Kiểu dáng cho Menu Dropdown */
-        .dropdown-menu {
-            --bs-dropdown-zindex: 1000;
-            --bs-dropdown-min-width: 13.8rem;
-            --bs-dropdown-padding-x: 0;
-            --bs-dropdown-padding-y: 0.5rem;
-            --bs-dropdown-spacer: 0.125rem;
-            --bs-dropdown-font-size: 0.875rem;
-            --bs-dropdown-color: var(--bs-body-color);
-            --bs-dropdown-bg: var(--bs-body-bg);
-            --bs-dropdown-border-color: transparent;
-            --bs-dropdown-border-radius: 7px;
-            --bs-dropdown-border-width: var(--bs-border-width);
-            --bs-dropdown-inner-border-radius: calc(7px - var(--bs-border-width));
-            --bs-dropdown-divider-bg: transparent;
-            --bs-dropdown-divider-margin-y: 0.5rem;
-            --bs-dropdown-box-shadow: rgba(145, 158, 171, 0.2) 0px 0px 2px 0px, rgba(145, 158, 171, 0.12) 0px 12px 24px -4px;
-            --bs-dropdown-link-color: var(--bs-body-color);
-            --bs-dropdown-link-hover-color: var(--bs-body-color);
-            --bs-dropdown-link-hover-bg: #F6F9FC;
-            --bs-dropdown-link-active-color: #2A3547;
-            --bs-dropdown-link-active-bg: #F6F9FC;
-            --bs-dropdown-link-disabled-color: #5A6A85;
-            --bs-dropdown-item-padding-x: 1rem;
-            --bs-dropdown-item-padding-y: 10px;
-            --bs-dropdown-header-color: #2A3547;
-            --bs-dropdown-header-padding-x: 1rem;
-            --bs-dropdown-header-padding-y: 0.5rem;
-            /* Các kiểu dáng chung */
-            position: absolute;
-            z-index: var(--bs-dropdown-zindex);
-            display: none;
-            min-width: var(--bs-dropdown-min-width);
-            padding: var(--bs-dropdown-padding-y) var(--bs-dropdown-padding-x);
-            margin: 0;
-            font-size: var(--bs-dropdown-font-size);
-            color: var(--bs-dropdown-color);
-            text-align: left;
-            list-style: none;
-            background-color: var(--bs-dropdown-bg);
-            background-clip: padding-box;
-            border: var(--bs-dropdown-border-width) solid var(--bs-dropdown-border-color);
-            border-radius: var(--bs-dropdown-border-radius);
-            -webkit-box-shadow: var(--bs-dropdown-box-shadow);
-            box-shadow: var(--bs-dropdown-box-shadow);
-        }
-
+       
     </style>
 </body>
 </html>

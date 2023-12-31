@@ -16,6 +16,7 @@ using DocumentFormat.OpenXml.Office2010.Excel;
 using CTN4_View_Admin.Controllers.Shop;
 using DocumentFormat.OpenXml.Wordprocessing;
 using DocumentFormat.OpenXml.Spreadsheet;
+using System.Linq;
 
 namespace CTN4_View.Controllers.Shop
 {
@@ -42,6 +43,8 @@ namespace CTN4_View.Controllers.Shop
         public ISanPhamService _sanphamService;
         public IKhachHangService _khachHangService;
         public IKhuyenMaiSanPhamService _kmspService;
+        public IHoaDonChiTietService _hoaDonChiTietService;
+        public IHoaDonService _hoaDonService;
         public HienThiSanPhamController(IGioHangService giohang)
 
         //public IKhuyenMaiSanPhamService _kmspService;
@@ -66,6 +69,8 @@ namespace CTN4_View.Controllers.Shop
             _khachHangService = new KhachHangService();
             _sanPhamChiTietService = new SanPhamChiTietService();
             _kmspService = new KhuyenMaiSanPhamService();
+            _hoaDonChiTietService = new HoaDonChiTietService();
+            _hoaDonService = new HoaDonService();
         }
 
         public IActionResult HienThiSanPham(int page, int Soluonghienthi, string load, string sortOrder = "")
@@ -533,6 +538,18 @@ namespace CTN4_View.Controllers.Shop
         }
         public IActionResult HienThiSanPhamChiTiet(Guid id)
         {
+             var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
+            if(accnew.Count != 0)
+            {
+                var  idhoadon = new List<int>();
+                 var hoadon1 = _hoaDonService.GetAll().Where(c=>c.IdKhachHang == accnew[0].Id && c.NgayNhan != null).ToList();
+                foreach (var item in hoadon1)
+                {
+                    idhoadon.Add(item.Id);
+                }
+                 var hdct = _hoaDonChiTietService.GetAll().Where(c =>idhoadon.Contains(c.IdHoaDon));
+            }
+            var hoadon = _hoaDonService.GetAll().Where(c=>c.IdKhachHang == accnew[0].Id).ToList();
             var listsp1 = _sanPhamCuaHangService.GetAllSpcts(id).Where(c => c.Is_detele == true).ToList();
             var anh = _anhService.GetAll().Where(c => c.SanPhamChiTiet.SanPham.Id == id).ToList();
             var giamgia = _giamGiaService.GetAll().Where(c => c.TrangThai == true && c.Is_detele == true && c.NgayBatDau <= DateTime.Now && c.NgayKetThuc >= DateTime.Now).ToList();
