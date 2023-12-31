@@ -444,33 +444,42 @@ namespace CTN4_View.Controllers
             }
             var TK = _KHangService.GetAll().FirstOrDefault(c => c.TenDangNhap == userModel.User && c.MatKhau == userModel.Password);
             // Đọc dữ liệu từ Session xem trong Cart nó có cái gì chưa?
-            var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
-            if (accnew.Count == 0)
+            if (TK!=null)
             {
-                accnew.Add(TK);
-                SessionServices.SetObjToJson(HttpContext.Session, "ACC", accnew);
-            }
-            else if (accnew.Count != 0)
-            {
-                accnew.Clear();
-                accnew.Add(TK);
-                SessionServices.SetObjToJson(HttpContext.Session, "ACC", accnew);
-            }
-            if (accnew.Count != 0)
-            {
-                var tkmoi = accnew[0];
-                var gioHang = _GioHangService.GetAll().FirstOrDefault(c => c.IdKhachHang == tkmoi.Id);
-                if (gioHang == null)
+                var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
+                if (accnew.Count == 0)
                 {
-                    var a = new GioHang()
+                    accnew.Add(TK);
+                    SessionServices.SetObjToJson(HttpContext.Session, "ACC", accnew);
+                }
+                else if (accnew.Count != 0)
+                {
+                    accnew.Clear();
+                    accnew.Add(TK);
+                    SessionServices.SetObjToJson(HttpContext.Session, "ACC", accnew);
+                }
+                if (accnew.Count != 0)
+                {
+                    var tkmoi = accnew[0];
+                    var gioHang = _GioHangService.GetAll().FirstOrDefault(c => c.IdKhachHang == tkmoi.Id);
+                    if (gioHang == null)
                     {
-                        Id = Guid.NewGuid(),
-                        IdKhachHang = tkmoi.Id,
-                        TrangThai = true
-                    };
-                    _GioHangService.Them(a);
+                        var a = new GioHang()
+                        {
+                            Id = Guid.NewGuid(),
+                            IdKhachHang = tkmoi.Id,
+                            TrangThai = true
+                        };
+                        _GioHangService.Them(a);
+                    }
                 }
             }
+            else
+            {
+                ViewBag.Message = "Tên đăng nhập hoặc mật khẩu không đúng";
+                return View("Login");
+            }
+           
             IActionResult response = Unauthorized();
             var validUser = GetUserKH(userModel);
             if (validUser != null)
