@@ -86,6 +86,7 @@
             }
             //if (checkedCheckboxes.length != 0) {
             console.log(JSON.stringify({ listId: arrcheck }));
+            if (arrcheck.length > 0) {
             $.ajax({
                 url: '/QuanLyHd/XuatEx3',
                 type: 'POST',
@@ -103,6 +104,13 @@
                     }
                 }
             })
+            } else {
+                console.log('Không có sản phẩm được chọn.');
+                $('#alertMessage').addClass('red-alert').html('Không có sản phẩm nào được chọn. Vui lòng chọn ít nhất một sản phẩm để tiếp tục.').show();
+                // Nếu không có sản phẩm được chọn, có thể hiển thị thông báo hoặc thực hiện hành động khác mà bạn muốn
+                // Ngăn chặn sự kiện mặc định của nút để tránh chuyển trang
+                return false;
+            }
         }
 
     });
@@ -122,6 +130,7 @@
                 IdHD: arrcheck
             }
             //if (checkedCheckboxes.length != 0) {
+            if (arrcheck.length > 0) {
             console.log(JSON.stringify({ listId: arrcheck }));
             $.ajax({
                 url: '/QuanLyHd/AnHD',
@@ -141,6 +150,13 @@
                     }
                 }
             })
+            } else {
+                console.log('Không có sản phẩm được chọn.');
+                $('#alertMessage').addClass('red-alert').html('Không có sản phẩm nào được chọn. Vui lòng chọn ít nhất một sản phẩm để tiếp tục.').show();
+                // Nếu không có sản phẩm được chọn, có thể hiển thị thông báo hoặc thực hiện hành động khác mà bạn muốn
+                // Ngăn chặn sự kiện mặc định của nút để tránh chuyển trang
+                return false;
+            }
         }
 
     });
@@ -160,6 +176,7 @@
                 IdHD: arrcheck
             }
             //if (checkedCheckboxes.length != 0) {
+            if (arrcheck.length > 0) {
             console.log(JSON.stringify({ listId: arrcheck }));
             $.ajax({
                 url: '/QuanLyHd/HienHD',
@@ -179,6 +196,13 @@
                     }
                 }
             })
+            } else {
+                console.log('Không có sản phẩm được chọn.');
+                $('#alertMessage').addClass('red-alert').html('Không có sản phẩm nào được chọn. Vui lòng chọn ít nhất một sản phẩm để tiếp tục.').show();
+                // Nếu không có sản phẩm được chọn, có thể hiển thị thông báo hoặc thực hiện hành động khác mà bạn muốn
+                // Ngăn chặn sự kiện mặc định của nút để tránh chuyển trang
+                return false;
+            }
         }
 
     });
@@ -199,6 +223,7 @@
                 IdHD: arrcheck
             }
             //if (checkedCheckboxes.length != 0) {
+            if (arrcheck.length > 0) {
             console.log(JSON.stringify({ listId: arrcheck }));
             $.ajax({
                 url: '/QuanLyHd/XuatEx2',
@@ -223,6 +248,13 @@
                     }
                 }
             })
+            } else {
+                console.log('Không có sản phẩm được chọn.');
+                $('#alertMessage').addClass('red-alert').html('Không có sản phẩm nào được chọn. Vui lòng chọn ít nhất một sản phẩm để tiếp tục.').show();
+                // Nếu không có sản phẩm được chọn, có thể hiển thị thông báo hoặc thực hiện hành động khác mà bạn muốn
+                // Ngăn chặn sự kiện mặc định của nút để tránh chuyển trang
+                return false;
+            }
         }
 
     });
@@ -351,6 +383,7 @@
                 data: JSON.stringify(obj),
                 contentType: 'application/json',
                 success: function (result) {
+                    debugger
                     if (result.message == "False") {
                         $("#adressnew").val(`Địa chỉ này hiện không hỗ trợ ship`);
                     }
@@ -386,6 +419,7 @@
         var tienhangaValue = $('#tienhanga').val();
         var tiengiamaValue = $("#tiengiam1").val();
         var tongtienValue = $("#tongtien1").val();
+        debugger
         if (idDiaChi != 0) {
             $.ajax({
                 url: '/CheckOut/chonDiaChi',
@@ -399,8 +433,9 @@
                 },
                 contentType: 'application/json',
                 success: function (result) {
-                    if (result.data.totaloder < 1) {
-                        result.data.totaloder = 0
+                    debugger
+                    if (result.totaloder < 1) {
+                        result.totaloder = 0
                     }
                     var x1 = result.TienShip;
                     x1 = x1.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });

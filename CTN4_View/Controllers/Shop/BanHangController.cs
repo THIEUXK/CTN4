@@ -273,8 +273,32 @@ namespace CTN4_View.Controllers.Shop
             TempData["TB1"] = message4;
             return RedirectToAction("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = IdSanPham, message4 });
         }
-        #endregion
 
+        [HttpPost("/CheckOut/ChotGio")]
+        public JsonResult ChotHang(List<Guid> selectedIds)
+        {
+            var luuGio = SessionBan.IdGio(HttpContext.Session, "LuoGio");
+            if (luuGio.Count == 0)
+            {
+                foreach (var a in selectedIds)
+                {
+                    luuGio.Add(a);
+                    SessionBan.SetObjToJson(HttpContext.Session, "LuoGio", luuGio);
+                }
+            }
+            else
+            {
+                luuGio.Clear();
+                foreach (var a in selectedIds)
+                {
+                    luuGio.Add(a);
+                    SessionBan.SetObjToJson(HttpContext.Session, "LuoGio", luuGio);
+
+                }
+            }
+            return Json("ok", new System.Text.Json.JsonSerializerOptions());
+        }
+        #endregion
         #region Ban Hang
         public IActionResult PaymentCallback()
         {
@@ -364,7 +388,8 @@ namespace CTN4_View.Controllers.Shop
                     }
                 }
                 //Thêm chi tiết hóa đơn cho từng sản phẩm trong giỏ hàng
-                foreach (var ct in _GioHangChiTiet.GetAll().Where(c => c.IdGioHang == gh.Id))
+                var luuGio = SessionBan.IdGio(HttpContext.Session, "LuoGio");
+                foreach (var ct in _GioHangChiTiet.GetAll().Where(c => c.IdGioHang == gh.Id && luuGio.Contains(c.Id)))
                 {
                     var cthd = new HoaDonChiTiet()
                     {
@@ -477,7 +502,6 @@ namespace CTN4_View.Controllers.Shop
             if (respose.IsSuccessStatusCode)
             {
                 string jsonData2 = respose.Content.ReadAsStringAsync().Result;
-
                 shipping = JsonConvert.DeserializeObject<Shipping>(jsonData2);
                 HttpContext.Session.SetInt32("shiptotal", shipping.data.total);
                 shipping.data.totaloder = shippingOrder.tienhang + shipping.data.total - shippingOrder.tiengiam;
@@ -495,6 +519,7 @@ namespace CTN4_View.Controllers.Shop
             }
 
         }
+        
         public IActionResult HoanThanhThanhToan(string tenmagiam, float tiengiama, float tienhanga, string name, string DiachiNhanChiTiet, string Sodienthoai, string Email, string addDiaChi, Guid IdDiaChi, Guid idphuongthuc, string ghiChu, float tienshipa, float tongtien)
         {
             #region Check validate
@@ -662,7 +687,8 @@ namespace CTN4_View.Controllers.Shop
                         }
                     }
                     //Thêm chi tiết hóa đơn cho từng sản phẩm trong giỏ hàng
-                    foreach (var ct in _GioHangChiTiet.GetAll().Where(c => c.IdGioHang == gh.Id))
+                    var luuGio = SessionBan.IdGio(HttpContext.Session, "LuoGio");
+                    foreach (var ct in _GioHangChiTiet.GetAll().Where(c => c.IdGioHang == gh.Id && luuGio.Contains(c.Id)))
                     {
                         var cthd = new HoaDonChiTiet()
                         {
@@ -718,6 +744,7 @@ namespace CTN4_View.Controllers.Shop
 
             return RedirectToAction("SauThanhToan", new { id = idHoaDon });
         }
+        [HttpGet("/BanHang/ThuTuc")]
         public IActionResult ThuTucThanhToan()
         {
             var giamgianew = SessionBan.GiamGiaSS(HttpContext.Session, "GiamGia");
@@ -736,8 +763,15 @@ namespace CTN4_View.Controllers.Shop
             var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
             if (accnew.Count != 0)
             {
+                var luuGio = SessionBan.IdGio(HttpContext.Session, "LuoGio");
+                if (luuGio.Count == 0)
+                {
+                    var message = "Giỏ hàng đang không được tích hãy thêm sản phẩm của bạn để tiến hàng đặt hàng";
+                    TempData["TB4"] = message;
+                    return RedirectToAction("GioHang", new { message });
+                }
                 var gh = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == accnew[0].Id);
-                IEnumerable<GioHangChiTiet> ghct = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh.Id);
+                IEnumerable<GioHangChiTiet> ghct = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh.Id&&luuGio.Contains(c.Id));
                 if (ghct.Count() == 0)
                 {
                     var message = "Giỏ hàng đang trống hãy thêm sản phẩm của bạn để tiến hàng đặt hàng";
@@ -750,7 +784,7 @@ namespace CTN4_View.Controllers.Shop
                     tong += float.Parse(x.SanPhamChiTiet.SanPham.GiaNiemYet.ToString()) * (x.SoLuong);
 
                 }
-                var a = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh.Id);
+                var a = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh.Id && luuGio.Contains(c.Id));
                 var nguoidung = _khachHangService.GetAll().FirstOrDefault(c => c.Id == accnew[0].Id);
                 var diachinhanhang = _diaChiNhanHangService.GetAll().Where(c => c.IdKhachHang == accnew[0].Id).FirstOrDefault(c => c.TrangThai == true && c.Is_detele == true);
                 var giamgia = _giamGiaService.GetAll().Where(c => c.TrangThai == true && c.Is_detele == true && c.NgayBatDau <= DateTime.Now && c.NgayKetThuc >= DateTime.Now).ToList();
@@ -800,8 +834,13 @@ namespace CTN4_View.Controllers.Shop
             var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
             if (accnew.Count != 0)
             {
+                var luuGio = SessionBan.IdGio(HttpContext.Session, "LuoGio");
+                if (luuGio.Count == 0)
+                {
+                    return Json(0, new System.Text.Json.JsonSerializerOptions());
+                }
                 var gh = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == accnew[0].Id);
-                IEnumerable<GioHangChiTiet> ghct = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh.Id);
+                IEnumerable<GioHangChiTiet> ghct = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh.Id && luuGio.Contains(c.Id));
                 var diaChi = _diaChiNhanHangService.GetAll().FirstOrDefault(c => c.Id == idDiaChiKD);
                 foreach (var x in ghct)
                 {
@@ -846,6 +885,13 @@ namespace CTN4_View.Controllers.Shop
             var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
             if (accnew.Count != 0 && addDiaChi != null)
             {
+                var luuGio = SessionBan.IdGio(HttpContext.Session, "LuoGio");
+                if (luuGio.Count == 0)
+                {
+                    var message = "Giỏ hàng đang không được tích hãy thêm sản phẩm của bạn để tiến hàng đặt hàng";
+                    TempData["TB4"] = message;
+                    return RedirectToAction("GioHang", new { message });
+                }
                 float tiensaugiam;
                 var giamgia1 = _giamGiaService.GetById(IdGiamGia);
                 if (giamgia1 == null || giamgia1.NgayBatDau > DateTime.Now || giamgia1.NgayKetThuc < DateTime.Now)
@@ -912,7 +958,7 @@ namespace CTN4_View.Controllers.Shop
                 }
                 float tiengiam = (tienhanga + tienshipa) - (tiensaugiam + tienshipa);
                 var gh = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == accnew[0].Id);
-                IEnumerable<GioHangChiTiet> ghct = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh.Id);
+                IEnumerable<GioHangChiTiet> ghct = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh.Id && luuGio.Contains(c.Id));
                 if (ghct.Count() == 0)
                 {
                     var message = "Giỏ hàng đang trống hãy thêm sản phẩm của bạn để tiến hàng đặt hàng";
@@ -1019,6 +1065,13 @@ namespace CTN4_View.Controllers.Shop
                         }
                     }
                 }
+                var luuGio = SessionBan.IdGio(HttpContext.Session, "LuoGio");
+                if (luuGio.Count == 0)
+                {
+                    var message = "Giỏ hàng đang không được tích hãy thêm sản phẩm của bạn để tiến hàng đặt hàng";
+                    TempData["TB4"] = message;
+                    return RedirectToAction("GioHang", new { message });
+                }
 
                 var gg = _giamGiaService.GetById(IdGiamGia);
                 // Đọc dữ liệu từ Session xem trong Cart nó có cái gì chưa?
@@ -1047,7 +1100,7 @@ namespace CTN4_View.Controllers.Shop
                 {
                     tong += float.Parse(x.SanPhamChiTiet.SanPham.GiaNiemYet.ToString()) * (x.SoLuong);
                 }
-                var a = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh.Id);
+                var a = _GioHangjoiin.GetAll().Where(c => c.IdGioHang == gh.Id && luuGio.Contains(c.Id));
                 var nguoidung = _khachHangService.GetAll().FirstOrDefault(c => c.Id == accnew[0].Id);
                 var diachinhanhang = _diaChiNhanHangService.GetAll().Where(c => c.IdKhachHang == accnew[0].Id).FirstOrDefault(c => c.TrangThai == true && c.Is_detele == true);
                 var giamgia = _giamGiaService.GetAll().Where(c => c.TrangThai == true && c.Is_detele == true && c.NgayBatDau <= DateTime.Now && c.NgayKetThuc >= DateTime.Now).ToList();

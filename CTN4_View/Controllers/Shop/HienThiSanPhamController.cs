@@ -549,6 +549,7 @@ namespace CTN4_View.Controllers.Shop
                 {
                     idhoadon.Add(item.Id);
                 }
+
                 var hdct = _hoaDonChiTietService.GetAll().Where(c => idhoadon.Contains(c.IdHoaDon) && c.TrangThai == true && c.Is_detele == true).ToList();
 
                 foreach (var item in hdct)
@@ -559,6 +560,7 @@ namespace CTN4_View.Controllers.Shop
                     }
 
                 }
+
             }
             var listsp1 = _sanPhamCuaHangService.GetAllSpcts(id).Where(c => c.Is_detele == true).ToList();
             var anh = _anhService.GetAll().Where(c => c.SanPhamChiTiet.SanPham.Id == id).ToList();
