@@ -124,6 +124,7 @@
         {
             <div class="form-group">
                 @* Kiểm tra điều kiện cho GiamGia để hiển thị và sửa *@
+                @* chưa đến giờ*@
                 @if (item.Name == "MaGiam" && Model.NgayBatDau > DateTime.Now)
                 {
                     <br></br>
@@ -246,31 +247,58 @@
                                         <span asp-validation-for="DieuKienGiam" class="text-danger"></span>
                                     </div>
                                     @*Checkbox*@
+
+                                   @*  <script>
+                                        // Ngăn chặn sự kiện click trên checkbox khi nó đã được chọn
+                                        $(document).ready(function () {
+                                            $('#TrangThaiCheckbox').on('click', function () {
+                                                return false;
+                                            });
+
+                                            $('#DeleteCheckbox').on('change', function () {
+                                                // Khi giá trị của Is_Delete thay đổi, kiểm tra nếu nó là false
+                                                if (!$(this).prop('checked')) {
+                                                    // Nếu là false, đặt giá trị của TrangThai và TrangThaiCheckbox thành false
+                                                    $('#TrangThaiCheckbox').prop('checked', false);
+
+                                                }
+                                            });
+
+                                        });
+                                    </script> *@
+
                                     <style>
                                         .form-check-input.custom-checkbox {
-                                            width: 16px; /* Điều chỉnh chiều rộng của checkbox */
-                                            height: 16px; /* Điều chỉnh chiều cao của checkbox */
-                                            margin-top: 3px; /* Điều chỉnh khoảng cách từ checkbox đến văn bản */
-                                            margin-right: 10px; /* Khoảng cách giữa checkbox đầu và checkbox thứ hai */
-                                        }
-                                        /* Tùy chỉnh kiểu checkbox */
-                                        .form-group.form-check {
-                                            display: flex; /* Hiển thị các phần tử trên cùng một dòng */
-                                            align-items: center; /* Căn giữa các phần tử theo chiều dọc */
-                                            justify-content: space-around; /* Khoảng cách giữa các phần tử */
+                                            width: 16px;
+                                            height: 16px;
+                                            margin-top: 3px;
                                         }
 
+                                        .form-group.form-check {
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: space-around;
+                                        }
+
+                                        .custom-checkbox {
+                                            margin-right: 10px;
+                                        }
                                     </style>
 
+                                    <!-- Form -->
+
                                     <div class="form-group form-check">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input custom-checkbox" asp-for="TrangThai" /> Hiện mã với khách
+                                        <label class="form-check-label ">
+                                            <input class="form-check-input custom-checkbox" asp-for="TrangThai" id="TrangThaiCheckbox" />
+                                            Hiện mã với khách
                                         </label>
 
                                         <label class="form-check-label">
-                                            <input class="form-check-input custom-checkbox" asp-for="Is_detele" /> Hiện mã với nhân viên
+                                            <input class="form-check-input custom-checkbox" asp-for="Is_detele" id="DeleteCheckbox" />
+                                            Hiện mã với nhân viên
                                         </label>
                                     </div>
+
                                     @*Nút submit*@
                                     <div class="form-group">
                                         <input type="submit" value="Cập nhật" class="btn btn-primary" />
@@ -287,6 +315,7 @@
                     </div>
 
                 }
+                 @* đang khuyến mãi*@
                 else if (item.Name == "TrangThai" && Model.NgayBatDau <= DateTime.Now && Model.NgayKetThuc >= DateTime.Now)
                 {
 
@@ -305,7 +334,7 @@
 
                                 <div class="form-container">
 
-                                    <label style="color: red;">Đã đến thời gian áp dụng nên bạn chỉ có thể tạm ẩn mã giảm giá này</label>
+                                    <label style="color: red;">Chỉ có thể tạm ẩn mã giảm giá đang trong thời gian áp dụng</label>
                                     <br></br>
 
 
@@ -434,10 +463,13 @@
                                             });
                                         });
                                     </script> *@
+                                    
                                     <script>
-                                        // Disable checkbox khi trang được tải lên
+                                        // Ngăn chặn sự kiện click trên checkbox khi nó đã được chọn
                                         $(document).ready(function () {
-                                            $('#DeleteCheckbox').prop('disabled', true);
+                                            $('#DeleteCheckbox').on('click', function () {
+                                                return false;
+                                            });
                                         });
                                     </script>
                                     <style>
@@ -461,13 +493,13 @@
                                     </style>
 
                                     <div class="form-group form-check">
-                                        <label class="form-check-label ">
-                                            <input class="form-check-input custom-checkbox" asp-for="TrangThai" id="TrangThaiCheckbox" />
+                                        <label class="form-check-label">
+                                            <input class="form-check-input custom-checkbox" asp-for="TrangThai"/>
                                             Hiện mã với khách
                                         </label>
 
-                                        <label class="form-check-label">
-                                            <input class="form-check-input custom-checkbox" asp-for="Is_detele" id="DeleteCheckbox"/>
+                                        <label class="form-check-label disabled-field">
+                                            <input class="form-check-input custom-checkbox" asp-for="Is_detele" id="DeleteCheckbox" />
                                             Hiện mã với nhân viên
                                         </label>
                                     </div>
@@ -489,7 +521,7 @@
 
                 }
 
-
+                @*Hết hết hạn*@
 
                 else if (item.Name == "TrangThai" && Model.NgayKetThuc <= DateTime.Now)
                 {
@@ -613,14 +645,8 @@
 
 
 
-                                    <script>
-                                        // Ngăn chặn sự kiện click trên checkbox khi nó đã được chọn
-                                        $(document).ready(function () {
-                                            $('#TrangThaiCheckbox').on('click', function () {
-                                                return false;
-                                            });
-                                        });
-                                    </script>
+                                    
+                                    
                                     @*Các trường textbox*@
                                     <div class="form-group">
                                         <label asp-for="SoLuong" class="control-label disabled-field">Số lượng khả dụng</label>
@@ -635,24 +661,38 @@
                                         <span asp-validation-for="DieuKienGiam" class="text-danger"></span>
                                     </div>
                                     @*Checkbox*@
+                                    
+                                    <script>
+                                        // Ngăn chặn sự kiện click trên checkbox khi nó đã được chọn
+                                        $(document).ready(function () {
+                                            $('#TrangThaiCheckbox').on('click', function () {
+                                                return false;
+                                            });
+
+                                           
+                                            
+                                        });
+                                    </script>
+                                   
                                     <style>
+                                        
                                         .form-check-input.custom-checkbox {
-                                            width: 16px; /* Điều chỉnh chiều rộng của checkbox */
-                                            height: 16px; /* Điều chỉnh chiều cao của checkbox */
-                                            margin-top: 3px; /* Điều chỉnh khoảng cách từ checkbox đến văn bản */
+                                            width: 16px;
+                                            height: 16px;
+                                            margin-top: 3px;
                                         }
-                                        /* Tùy chỉnh kiểu checkbox */
+
                                         .form-group.form-check {
-                                            display: flex; /* Hiển thị các phần tử trên cùng một dòng */
-                                            align-items: center; /* Căn giữa các phần tử theo chiều dọc */
-                                            justify-content: space-around; /* Khoảng cách giữa các phần tử */
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: space-around;
                                         }
 
-                                        /* Checkbox đang khuyến mãi */
                                         .custom-checkbox {
-                                            margin-right: 10px; /* Khoảng cách giữa checkbox đầu và checkbox thứ hai */
+                                            margin-right: 10px;
                                         }
 
+                                        
                                     </style>
 
                                     <div class="form-group form-check">
@@ -662,15 +702,18 @@
                                         </label>
 
                                         <label class="form-check-label">
-                                            <input class="form-check-input custom-checkbox" asp-for="Is_detele" />
+                                            <input class="form-check-input custom-checkbox" asp-for="Is_detele" id="DeleteCheckbox" />
                                             Hiện mã với nhân viên
                                         </label>
                                     </div>
 
-                                    @*Nút submit*@
-                                    <div class="form-group">
-                                        <input type="submit" value="Cập nhật" class="btn btn-primary" />
-                                    </div>
+                                        <!-- Nút submit -->
+                                        <div class="form-group">
+                                            <input type="submit" value="Cập nhật" class="btn btn-primary" />
+                                        </div>
+                                   
+
+                                    
 
                             </form>
 

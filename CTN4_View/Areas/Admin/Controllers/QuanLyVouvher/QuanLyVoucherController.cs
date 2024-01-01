@@ -344,27 +344,33 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyVouvher
         [ValidateAntiForgeryToken]
         public ActionResult Edit(GiamGia a)
         {
-            if (ModelState.IsValid)
+           
+            if (a.Is_detele == false)
             {
+                a.TrangThai = false;
+
                 // Kiểm tra điều kiện NgayBatDau
                 //if (a.NgayBatDau <= DateTime.Now)
                 //{
                 //    ModelState.Remove("NgayBatDau");
                 //    ModelState.AddModelError("NgayBatDau", "Không thể sửa đổi khi đã đến thời gian áp dụng.");
                 //}
-                if (a.NgayBatDau >= DateTime.Now)
-                {
-                    ModelState.AddModelError("NgayBatDau", "Không thể sửa khi đã đến thời gian áp dụng.");
-                    return View(a);
-                }
-                
 
-                else
+
+
+
+                if (_gg.Sua(a))
                 {
-                    if (_gg.Sua(a))
-                    {
-                        return RedirectToAction("Index");
-                    }
+                    return RedirectToAction("Index");
+                }
+
+            }
+            else
+            {
+
+                if (_gg.Sua(a))
+                {
+                    return RedirectToAction("Index");
                 }
             }
 
