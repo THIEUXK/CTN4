@@ -7,135 +7,139 @@
 <body>
     <div class="container-fluid">
         <div class="card w-100">
-            <div class="card-body p-4">
-                <h5 class="card-title fw-semibold mb-4">Các Đơn Hàng</h5>
-                <div class="d-flex">
-                    <div class="dropdown me-1">
-                        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
-                            Lọc hóa đơn
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a class="dropdown-item" href="@Url.Action("Index")">Tất cả đơn hàng</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="@Url.Action("XemDaGiao")">Đơn đã giao</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="@Url.Action("XemChuaGiao")">Đơn chưa giao</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="@Url.Action("XemChuThanhToan")">Đơn chưa thanh toán</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="@Url.Action("XemDaThanhToan")">Đơn đã thanh toán</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="@Url.Action("XemDaGiaoHoanTat")">Đơn giao thành công</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="@Url.Action("XemDaGiaoThatBai")">Đơn giao thất bại</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="@Url.Action("XemDaBiHuy")">Đơn đã bị hủy</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="@Url.Action("XemDaBiAn")">Đơn đã bị ẩn</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="dropdown me-1">  <button class="btn btn-info"><a style="color:white" href="@Url.Action("XemChuaXacNhan")">Đơn chưa xác nhận </a></button></div>
-                    <div class="dropdown me-1">
-                        <button class="btn btn-info"> <a style="color:white" href="@Url.Action("XemDaXacNhan")">Đơn đã xác nhận</a></button>
-                    </div>
-                    <div class="dropdown me-1">
-                        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
-                            Sắp xếp hóa đơn
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a class="dropdown-item" href="@Url.Action("XapXepMoiNhat")">Đơn hàng mới nhất tại wed</a>
-                            </li>
+        <div class="card-body p-4">
+            <div id="alertMessage" class="red-alert" style="display:none;">
+                Không có sản phẩm nào được chọn. Vui lòng chọn ít nhất một sản phẩm để tiếp tục.
+            </div>
 
-                            <li>
-                                <a class="dropdown-item" href="@Url.Action("XapXepCuNhat")">Đơn hàng cũ nhất tại wed</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="@Url.Action("XapXepMoiNhat1")">Đơn hàng mới nhất tại quầy</a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" href="@Url.Action("XapXepCuNhat1")">Đơn hàng cũ nhất tại quầy</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="@Url.Action("XapXepTienCaoNhat")">Tổng tiền cao nhất</a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" href="@Url.Action("XapXepTienThapNhat")">Tổng tiền Thấp nhất</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="dropdown me-1">
-                        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
-                            <i class="fa fa-bars"></i>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <button class="btnXuatEx2">Xuất File Excel</button>
-                            <button class="btnXuatEx3">Xác nhận đơn hàng</button>
-                            <button class="btnXuatEx5">Ẩn đơn</button>
-                            <button class="btnXuatEx6">Hiện đơn</button>
-                        </ul>
-                    </div>
-                    <div class="dropdown me-1">
-                        <button type="button" class="btn btn-custom-primary" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
-                            Tạo hóa đơn
-                        </button>
-                        <div class="dropdown-menu p-4">
-                            <a class="dropdown-item" href="@Url.Action("TaoHoaDonnew")">Tạo hóa đơn</a>
-                        </div>
-                    </div>
+            <h5 class="card-title fw-semibold mb-4">Các Đơn Hàng</h5>
+            <div class="d-flex">
+                <div class="dropdown me-1">
+                    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
+                        Lọc hóa đơn
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("Index")">Tất cả đơn hàng</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("XemDaGiao")">Đơn đã giao</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("XemChuaGiao")">Đơn chưa giao</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("XemChuThanhToan")">Đơn chưa thanh toán</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("XemDaThanhToan")">Đơn đã thanh toán</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("XemDaGiaoHoanTat")">Đơn giao thành công</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("XemDaGiaoThatBai")">Đơn giao thất bại</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("XemDaBiHuy")">Đơn đã bị hủy</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("XemDaBiAn")">Đơn đã bị ẩn</a>
+                        </li>
+                    </ul>
                 </div>
-                <div>
-                    <div class="row">
-                        <div class="col-5">
-                            <form asp-action="TimKiem">
-                                <div>
-                                    Tìm kiếm:
-                                    <input name="ten" type="text" class="form-control" oninput="luuGiaTri(this)" onchange="this.form.submit()">
-                                    </input>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="col-7">
-                            <form asp-action="TimKiemNgay" id="searchForm">
-                                <div>
-                                    Tìm kiếm theo ngày tạo hóa đơn:
-                                    <div>
-                                        Từ
-                                        <input name="NgayDau" id="NgayDau" value="" type="datetime-local">
-                                        </input>
-                                        Đến
-                                        <input name="NgayCuoi" id="NgayCuoi" value="" type="datetime-local">
-                                        </input>
+                <div class="dropdown me-1"> <button class="btn btn-info"><a style="color:white" href="@Url.Action("XemChuaXacNhan")">Đơn chưa xác nhận </a></button></div>
+                <div class="dropdown me-1">
+                    <button class="btn btn-info"> <a style="color:white" href="@Url.Action("XemDaXacNhan")">Đơn đã xác nhận</a></button>
+                </div>
+                <div class="dropdown me-1">
+                    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
+                        Sắp xếp hóa đơn
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("XapXepMoiNhat")">Đơn hàng mới nhất tại wed</a>
+                        </li>
 
-                                        <!-- Thêm mã JavaScript để giữ nguyên giá trị ngày -->
-                                        <button type="button" class="btn btn-primary" onclick="confirmSearch()">Tìm</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("XapXepCuNhat")">Đơn hàng cũ nhất tại wed</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("XapXepMoiNhat1")">Đơn hàng mới nhất tại quầy</a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("XapXepCuNhat1")">Đơn hàng cũ nhất tại quầy</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("XapXepTienCaoNhat")">Tổng tiền cao nhất</a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("XapXepTienThapNhat")">Tổng tiền Thấp nhất</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="dropdown me-1">
+                    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <button class="btnXuatEx2">Xuất File Excel</button>
+                        <button class="btnXuatEx3">Xác nhận đơn hàng</button>
+                        <button class="btnXuatEx5">Ẩn đơn</button>
+                        <button class="btnXuatEx6">Hiện đơn</button>
+                    </ul>
+                </div>
+                <div class="dropdown me-1">
+                    <button type="button" class="btn btn-custom-primary" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                        Tạo hóa đơn
+                    </button>
+                    <div class="dropdown-menu p-4">
+                        <a class="dropdown-item" href="@Url.Action("TaoHoaDonnew")">Tạo hóa đơn</a>
                     </div>
-
-                    @if (TempData["TB1"] != null)
-                    {
-                        <div class="alert alert-danger">@TempData["TB1"]</div>
-                    }
-                    <div id="aaa"></div>
-                    <div id="aaa1"></div>
-
                 </div>
             </div>
+            <div>
+                <div class="row">
+                    <div class="col-5">
+                        <form asp-action="TimKiem">
+                            <div>
+                                Tìm kiếm:
+                                <input name="ten" type="text" class="form-control" oninput="luuGiaTri(this)" onchange="this.form.submit()">
+                                </input>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-7">
+                        <form asp-action="TimKiemNgay" id="searchForm">
+                            <div>
+                                Tìm kiếm theo ngày tạo hóa đơn:
+                                <div>
+                                    Từ
+                                    <input name="NgayDau" id="NgayDau" value="" type="datetime-local">
+                                    </input>
+                                    Đến
+                                    <input name="NgayCuoi" id="NgayCuoi" value="" type="datetime-local">
+                                    </input>
+
+                                    <!-- Thêm mã JavaScript để giữ nguyên giá trị ngày -->
+                                    <button type="button" class="btn btn-primary" onclick="confirmSearch()">Tìm</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                @if (TempData["TB1"] != null)
+                {
+                    <div class="alert alert-danger">@TempData["TB1"]</div>
+                }
+                <div id="aaa"></div>
+                <div id="aaa1"></div>
+
+            </div>
+        </div>
             <div class="card w-100">
                 <div class="card-body p-4">
 
@@ -283,6 +287,14 @@
 
 
 <style>
+    #alertMessage {
+        display: none;
+        color: white;
+        background-color: #ff0000; /* Màu đỏ */
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+    }
     .btnXuatEx3 {
         background-color: #3498db; /* Blue background color */
         color: #ffffff; /* White text color */

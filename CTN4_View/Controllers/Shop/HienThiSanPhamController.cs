@@ -548,8 +548,8 @@ namespace CTN4_View.Controllers.Shop
                     idhoadon.Add(item.Id);
                 }
                  var hdct = _hoaDonChiTietService.GetAll().Where(c =>idhoadon.Contains(c.IdHoaDon));
+                 var hoadon = _hoaDonService.GetAll().Where(c => c.IdKhachHang == accnew[0].Id).ToList();
             }
-            var hoadon = _hoaDonService.GetAll().Where(c=>c.IdKhachHang == accnew[0].Id).ToList();
             var listsp1 = _sanPhamCuaHangService.GetAllSpcts(id).Where(c => c.Is_detele == true).ToList();
             var anh = _anhService.GetAll().Where(c => c.SanPhamChiTiet.SanPham.Id == id).ToList();
             var giamgia = _giamGiaService.GetAll().Where(c => c.TrangThai == true && c.Is_detele == true && c.NgayBatDau <= DateTime.Now && c.NgayKetThuc >= DateTime.Now).ToList();

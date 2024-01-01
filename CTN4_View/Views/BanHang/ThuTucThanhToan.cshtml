@@ -318,19 +318,22 @@
                                 <li><a href="#">Tên sản Phẩm <span>Giá tiền</span></a></li>
                                 @foreach (var a in Model.GioHangChiTiets)
                                 {
-                                    <li>
-                                        <a href="#">
-                                            @if (Model.check11.Contains(a.SanPhamChiTiet.SanPham.Id))
-                                            {
-                                                <div>@a.SanPhamChiTiet.SanPham.TenSanPham x @a.SoLuong x 2</div>
-                                            }
-                                            else
-                                            {
-                                                <div>@a.SanPhamChiTiet.SanPham.TenSanPham x @(a.SoLuong)</div>
-                                            }
-                                            <span class="last">@FormatCurrency(a.SanPhamChiTiet.SanPham.GiaNiemYet * a.SoLuong)</span>
-                                        </a>
-                                    </li>
+                                    <ul class="list">
+                                        <li>
+                                            <a href="#">
+                                                @if (Model.check11.Contains(a.SanPhamChiTiet.SanPham.Id))
+                                                {
+                                                    <h>@a.SanPhamChiTiet.SanPham.TenSanPham x @a.SoLuong x 2</h>
+                                                }
+                                                else
+                                                {
+                                                    <h>@a.SanPhamChiTiet.SanPham.TenSanPham x @(a.SoLuong)</h>
+                                                }
+                                                <span class="last">@FormatCurrency(a.SanPhamChiTiet.SanPham.GiaNiemYet * a.SoLuong)</span>
+                                             
+                                            </a>
+                                        </li>
+                                    </ul>
                                     <input type="hidden" name="idGHCT" value="@a.Id" />
                                     <input type="hidden" name="idSPCT" value="@a.IdSanPhamChiTiet" />
                                     <input type="hidden" name="OrderDescription" value="Mua Tại Shop Boro" />

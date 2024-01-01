@@ -22,6 +22,16 @@ namespace CTN4_View_Admin.Controllers.Shop
             }
             else return new List<ThongTinTam>();
         }
+        public static List<Guid> IdGio(ISession session, string key)
+        {
+            var data = session.GetString(key); // Đọc dữ liệu từ Session ở dạng chuỗi
+            if (data != null)
+            {
+                var listObj = JsonConvert.DeserializeObject<List<Guid>>(data);
+                return listObj;
+            }
+            else return new List<Guid>();
+        }
         public static List<DanhMuc>? DanhMucSS(ISession session, string key)
         {
             var data = session.GetString(key); // Đọc dữ liệu từ Session ở dạng chuỗi
