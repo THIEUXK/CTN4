@@ -138,6 +138,27 @@ $(document).ready(function () {
         }
     });
 });
+$(document).ready(function () {
+    $('input[name="rating"]').change(function () {
+        // Lấy giá trị từ radio button
+        var selectedRating = $(this).val();
+        debugger;
+
+        // Thực hiện AJAX request khi radio button được chọn
+        $.ajax({
+            url: '/XxemSanPham/luuDanhGia', // Điền đường dẫn tương ứng khi radio button được chọn
+            type: 'POST', // Hoặc 'GET' tùy thuộc vào yêu cầu của bạn
+            data: { rating: selectedRating },
+            success: function (response) {
+                // Xử lý kết quả từ server nếu cần
+                console.log(response);
+            },
+            error: function (error) {
+                console.error('Lỗi AJAX:', error);
+            }
+        });
+    });
+});
 
 
  
