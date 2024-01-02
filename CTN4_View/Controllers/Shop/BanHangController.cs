@@ -273,7 +273,6 @@ namespace CTN4_View.Controllers.Shop
             TempData["TB1"] = message4;
             return RedirectToAction("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = IdSanPham, message4 });
         }
-
         public IActionResult CapNhanSoLuong(Guid id,int soluong)
         {
             var b = _GioHangChiTiet.GetById(id);

@@ -5,6 +5,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk.viewMode
 {
     public class Thi1View
     {
+        public List<Guid> check11 { get; set; }
         public List<HoaDonChiTiet> HoaDonChiTiets { get; set; }
         public int idHD { get; set; }
         public HoaDon HoaDon { get; set; }
