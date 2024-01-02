@@ -121,6 +121,15 @@ namespace CTN4_View_Admin.Controllers.Shop
                 return listObj;
             }
             else return new int();
+        }public static int DanhGia(ISession session, string key)
+        {
+            var data = session.GetString(key); // Đọc dữ liệu từ Session ở dạng chuỗi
+            if (data != null)
+            {
+                var listObj = JsonConvert.DeserializeObject<int>(data);
+                return listObj;
+            }
+            else return new int();
         }
         public static List<SanPham> SapXepTheoGianb(ISession session, string key)
         {

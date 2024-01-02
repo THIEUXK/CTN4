@@ -188,7 +188,7 @@
                         <a>Số lượng:</a>
                         <div class="product_count">
 
-                            <input type="number" name="soluong" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty" oninput="this.value = this.value.replace(/[^0-9]/g, '');"/>
+                            <input type="number" name="soluong" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty" oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
                             @* <button onclick="var result = document.getElementById('sst');var sst = result.value;if (!isNaN(sst)) result.value++;return false;"
                             class="increase items-count" type="button">
                             <i class="lnr lnr-chevron-up"></i>
@@ -221,27 +221,27 @@
                             {
                                 <div class="alert alert-danger">@TempData["TB2"]</div>
                             }
-                           <div class="card_area d-flex align-items-center">
+                            <div class="card_area d-flex align-items-center">
                                 <button class="primary-btn" type="submit" href="#">Thêm vào giỏ</button>
 
                                 @* @if (Model.sanPhamYeuThiches.FirstOrDefault(c => c.IdSanPham == Model.sanPham.Id) != null)
                                 {
 
-                                    <input type="hidden" name="idSP" value="@Model.sanPham.Id">
-                                    <a onclick="onsubmit" class="social-info">
-                                        <span class="lnr lnr1 lnr-heart" style="background: linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);"><button asp-controller="SanPhamYeuThich" asp-action="XoaKhoiYeuTich1">  </button></span>
+                                <input type="hidden" name="idSP" value="@Model.sanPham.Id">
+                                <a onclick="onsubmit" class="social-info">
+                                <span class="lnr lnr1 lnr-heart" style="background: linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);"><button asp-controller="SanPhamYeuThich" asp-action="XoaKhoiYeuTich1">  </button></span>
 
-                                    </a>
+                                </a>
 
                                 }
                                 else
                                 {
 
-                                    <input type="hidden" name="IdSanPham" value="@Model.sanPham.Id">
-                                    <a onclick="onsubmit" class="icon_btn">
-                                        <span class="lnr lnr1 lnr-heart"><button asp-controller="SanPhamYeuThich" asp-action="ThemYeuThich">  </button></span>
+                                <input type="hidden" name="IdSanPham" value="@Model.sanPham.Id">
+                                <a onclick="onsubmit" class="icon_btn">
+                                <span class="lnr lnr1 lnr-heart"><button asp-controller="SanPhamYeuThich" asp-action="ThemYeuThich">  </button></span>
 
-                                    </a>
+                                </a>
 
                                 }
                                 <a class="icon_btn" type="button" onclick="onsubmit"><i class="lnr lnr lnr-heart"></i></a>*@
@@ -260,7 +260,7 @@
     <div class="container">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
-                <a class="nav-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Ghi Chú</a>
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Ghi Chú</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
@@ -271,11 +271,131 @@
                    aria-selected="false">Đánh giá</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
+                <a class="nav-link " id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
                    aria-selected="false">Reviews</a>
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">
+            @if (Model.idsanphamdamuas != null && Model.idsanphamdamuas.Contains(Model.sanPham.Id))
+            {
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="row total_rate">
+                                <div class="col-6">
+                                    <div class="box_total">
+                                        <h5>Overall</h5>
+                                        <h4>4.0</h4>
+                                        <h6>(03 Reviews)</h6>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="rating_list">
+                                        <h3>Based on 3 Reviews</h3>
+                                        <ul class="list">
+                                            <li>
+                                                <a href="#">
+                                                    5 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 01
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    4 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 01
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    3 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 01
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    2 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 01
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    1 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 01
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="review_list">
+                                <div class="review_item">
+                                    <div class="media">
+                                        <div class="d-flex">
+                                            <img src="~/img/product/review-3.png" alt="">
+                                        </div>
+                                        <div class="media-body">
+                                            <h4>Blake Ruiz</h4>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                    </div>
+                                    <p>
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+                                        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                                        commodo
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="review_box">
+                                <h4>Thêm đánh giá sản phẩm</h4>
+                                <p>Đánh giá của bạn :</p>
+                                <ul class="list">
+                                    <div class="stars">
+                                        <input type="radio" id="star1" name="rating" value="1" />
+                                        <input type="radio" id="star2" name="rating" value="2" />
+                                        <input type="radio" id="star3" name="rating" value="3" />
+                                        <input type="radio" id="star4" name="rating" value="4" />
+                                        <input type="radio" id="star5" name="rating" value="5" />
+
+                                        <label for="star1" aria-label="Banana">1 star</label>
+                                        <label for="star2">2 stars</label>
+                                        <label for="star3">3 stars</label>
+                                        <label for="star4">4 stars</label>
+                                        <label for="star5">5 stars</label>
+                                    </div>
+                                </ul>
+
+                                <form asp-action="XacNhanDanhGia" asp-controller="HienThiSanPham" class="row contact_form" id="contactForm" novalidate="novalidate">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <input type="hidden" name="idsp" value="@Model.sanPham.Id"/>
+                                            <textarea class="form-control" maxlength="200" name="message" id="message" rows="1" placeholder="Review" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Review'"></textarea>
+                                        </div>
+                                    </div>
+                                    @if (TempData["message1"] != null)
+                                    {
+                                       <div class=" form-group">
+                                            <div class="alert alert-danger">@TempData["message1"]</div>
+                                       </div>
+                                        
+                                    }
+
+                                    <div class="col-md-12 text-right">
+                                        <button type="submit" value="submit" class="primary-btn">Submit Now</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <p>Hãy mua hàng để có thế đánh giá sản phẩm này!</p>
+                </div>
+            }
+
             <div class="tab-pane fade" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <p>
                     Beryl Cook is one of Britain’s most talented and amusing artists .Beryl’s pictures feature women of all shapes
@@ -458,7 +578,7 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane fade show active" id="review" role="tabpanel" aria-labelledby="review-tab">
+            <div class="tab-pane fade " id="review" role="tabpanel" aria-labelledby="review-tab">
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="row total_rate">
@@ -871,6 +991,32 @@
             transform: scale(1);
             opacity: 1;
         }
+
+
+   
+ /* ////// rating*/
+    .stars input {
+        position: absolute;
+        clip: rect(0, 0, 0, 0);
+    }
+
+    .stars label {
+        box-sizing: border-box;
+        display: inline-block;
+        margin-right: 6px;
+        height: 60px; /* Star size */
+        width: 60px; /* Star size */
+        background: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='transparent' stroke='slategray' stroke-width='38' d='M259.216 29.942L330.27 173.92l158.89 23.087L374.185 309.08l27.145 158.23-142.114-74.698-142.112 74.698 27.146-158.23L29.274 197.007l158.89-23.088z' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        font-size: 0;
+        cursor: pointer;
+    }
+
+    .stars input:nth-child(1):checked ~ label:nth-of-type(-n + 1),
+    .stars input:nth-child(2):checked ~ label:nth-of-type(-n + 2),
+    .stars input:nth-child(3):checked ~ label:nth-of-type(-n + 3),
+    .stars input:nth-child(4):checked ~ label:nth-of-type(-n + 4),
+    .stars input:nth-child(5):checked ~ label:nth-of-type(-n + 5) {
+        background: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='yellow' stroke='yellow' stroke-width='38' d='M259.216 29.942L330.27 173.92l158.89 23.087L374.185 309.08l27.145 158.23-142.114-74.698-142.112 74.698 27.146-158.23L29.274 197.007l158.89-23.088z' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 </style>
 <script src="~/js/vendor/jquery-2.2.4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.~/js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
@@ -887,3 +1033,5 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 <script src="~/js/gmaps.min.js"></script>
 <script src="~/js/main.js"></script>
+<script src="~/js/b.js"></script>
+@*<link rel="stylesheet" href="~/css/Rating.css">*@
