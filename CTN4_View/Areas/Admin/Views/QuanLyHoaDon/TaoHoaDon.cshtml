@@ -276,6 +276,7 @@
                     </tr>
                 }
             </table>
+            <input type="hidden" name="idDon" value="@Model.HoaDon.Id" id="idDon"></input>
             @if (Model.addDiaChi != null)
             {
                 if (Model.tenmagiam != null)
@@ -322,6 +323,7 @@
                 }
                 <br></br>
             }
+                          
             else if (Model.addDiaChi == null && @Model.tenmagiam != null)
             {
                 if (Model.tenmagiam != null)
@@ -779,4 +781,4 @@
 </style>
 
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-<script src="~/js/a.js"></script>
+<script src="~/js/d.js"></script>

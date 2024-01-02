@@ -20,6 +20,7 @@ namespace CTN4_Serv.ViewModel.banhangview
         public float tienhang { get; set; }
         public float tiengiam { get; set; }
         public float tongtien { get; set; }
+        public int idDon { get; set; }
 
     }
 }

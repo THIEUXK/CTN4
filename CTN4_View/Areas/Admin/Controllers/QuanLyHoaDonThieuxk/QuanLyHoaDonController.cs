@@ -21,6 +21,7 @@ using Microsoft.Diagnostics.Tracing.Parsers.IIS_Trace;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
+using System.Text;
 using System.Xml.Linq;
 using X.PagedList;
 
@@ -2571,6 +2572,60 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             {
                 return RedirectToAction("DangNhap", "Home");
             }
+        }
+        [HttpPost("/CheckOut/GetTotalShipping2")]
+        public async Task<JsonResult> GetTotalShipping([FromBody] ShippingOrder shippingOrder)
+        {
+            var hang = new TinhTienShip()
+            {
+                service_id = shippingOrder.service_id,
+                insurance_value = shippingOrder.insurance_value,
+                from_district_id = shippingOrder.from_district_id,
+                to_district_id = shippingOrder.to_district_id,
+                to_ward_code = shippingOrder.to_ward_code.ToString(),
+                height = shippingOrder.height,
+                length = shippingOrder.length,
+                weight = shippingOrder.weight,
+                width = shippingOrder.width,
+            };
+            var hd = _hoaDonService.GetById(shippingOrder.idDon);
+            var hdct = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == hd.Id&&c.TrangThai==true&&c.Is_detele==true);
+            int dem = 0;
+            foreach (var a in hdct)
+            {
+                dem += a.SoLuong;
+            }
+            var url = $"https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee";
+            float tong = 0;
+            var content = new StringContent(JsonConvert.SerializeObject(hang), Encoding.UTF8, "application/json");
+            var respose = await _httpClient.PostAsync(url, content);
+            Shipping shipping = new Shipping();
+            if (respose.IsSuccessStatusCode)
+            {
+                //var luuGio = SessionBan.IdGio(HttpContext.Session, "LuoGio");
+                //int dem = 0;
+                //var ghct = _GioHangChiTiet.GetAll().Where(c => luuGio.Contains(c.Id));
+                //foreach (var a in ghct)
+                //{
+                //    dem += a.SoLuong;
+                //}
+                string jsonData2 = respose.Content.ReadAsStringAsync().Result;
+                shipping = JsonConvert.DeserializeObject<Shipping>(jsonData2);
+                HttpContext.Session.SetInt32("shiptotal", shipping.data.total);
+                shipping.data.totaloder = shippingOrder.tienhang + (shipping.data.total * dem) - shippingOrder.tiengiam;
+                shipping.tienGiam = shippingOrder.tiengiam;
+                shipping.data.total *= dem;
+                //shipping.data.totaloder = shipping.data.total + int.Parse(tong.ToString());
+                return Json(shipping, new System.Text.Json.JsonSerializerOptions());
+            }
+            else
+            {
+                shipping.message = "False";
+
+                //shipping.data.totaloder = shipping.data.total + int.Parse(tong.ToString());
+                return Json(shipping, new System.Text.Json.JsonSerializerOptions());
+            }
+
         }
         #endregion
     }
