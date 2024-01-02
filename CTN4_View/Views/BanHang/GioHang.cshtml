@@ -14,6 +14,10 @@
                 {
                     <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
                 }
+                @if (TempData["ErrorMessage2"] != null)
+                {
+                    <div class="alert alert-danger" style="color:black;Background:greenyellow">@TempData["ErrorMessage2"]</div>
+                }
                 <!-- End Banner Area -->
                 <!--================Cart Area =================-->
                 @if (TempData["TB4"] != null)
@@ -21,133 +25,162 @@
                     <div class="alert alert-danger">@TempData["TB4"]</div>
                 }
                 <script>
-                    document.addEventListener('DOMContentLoaded', function () {
-                        document.getElementById('selectAll').addEventListener('change', function () {
-                            var checkboxes = document.querySelectorAll('.productCheckbox');
-                            checkboxes.forEach(function (checkbox) {
-                                checkbox.checked = document.getElementById('selectAll').checked;
-                            });
-                        });
-                    });
-                </script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Lấy tất cả các checkbox "selectAll"
+        var selectAllCheckboxes = document.querySelectorAll('.selectAll');
+
+        // Lấy tất cả các checkbox "productCheckbox"
+        var productCheckboxes = document.querySelectorAll('.productCheckbox');
+
+        // Lắng nghe sự kiện click trên tất cả các checkbox "selectAll"
+        selectAllCheckboxes.forEach(function (selectAllCheckbox) {
+            selectAllCheckbox.addEventListener("click", function () {
+                // Lấy trạng thái hiện tại của checkbox "selectAll" đang được click
+                var isChecked = this.checked;
+
+                // Cập nhật trạng thái của tất cả các checkbox "selectAll" khác
+                selectAllCheckboxes.forEach(function (otherCheckbox) {
+                    otherCheckbox.checked = isChecked;
+                });
+
+                // Cập nhật trạng thái của tất cả các checkbox "productCheckbox"
+                productCheckboxes.forEach(function (productCheckbox) {
+                    productCheckbox.checked = isChecked;
+                });
+            });
+        });
+    });
+</script>
                 <div id="alertMessage" class="red-alert" style="display:none;">
                     Không có sản phẩm nào được chọn. Vui lòng chọn ít nhất một sản phẩm để tiếp tục.
                 </div>
-
                 <table class="table">
                     <thead>
-                    <tr>
-                        <th scope="col">
-                            <input type="checkbox" id="selectAll" />
-                        </th> 
-                        <th scope="col">Sản phẩm</th>
-                        <th scope="col"></th>
-                        <th scope="col">Thông tìn sản phẩm</th>
-                        <th scope="col">Giá tiền</th>
-                        <th scope="col">Số lượng</th>
-                        <th scope="col">Thành tiền</th>
-                    </tr>
+                        <tr>
+                            <th scope="col">
+                                <input type="checkbox" class="selectAll" />
+                            </th>
+                            <th scope="col">Sản phẩm</th>
+                            <th scope="col"></th>
+                            <th scope="col">Thông tìn sản phẩm</th>
+                            <th scope="col">Giá tiền</th>
+                            <th scope="col">Số lượng</th>
+                            <th scope="col">Thành tiền</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    @foreach (var a in Model.GioHangChiTiets)
-                    {
+                        @foreach (var a in Model.GioHangChiTiets)
+                        {
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="productCheckbox" data-id="@a.Id" />
+                                </td>
+                                <td>
+                                    @if (System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".jpg" ||
+                                   System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".png" ||
+                                   System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".jpeg" ||
+                                   System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".tiff" ||
+                                   System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".webp" ||
+                                   System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".gif")
+                                    {
+                                        <a href="@Url.Action("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = a.SanPhamChiTiet.SanPham.Id })">
+
+                                            <img src="~/image/@a.SanPhamChiTiet.SanPham.AnhDaiDien" height="150">
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <span>Ảnh lỗi rồi =)))</span>
+                                    }
+                                </td>
+                                <td>
+                                    <div><b style="color:#5a6a85">Tên: </b>@a.SanPhamChiTiet.SanPham.TenSanPham</div>
+                                    <div><b style="color:#5a6a85">Màu: </b>@a.SanPhamChiTiet.Mau.TenMau</div>
+                                    <div><b style="color:#5a6a85">Size: </b>@a.SanPhamChiTiet.Size.CoSize</div>
+                                </td>
+                                <td>
+                                    <h5>@FormatCurrency(a.SanPhamChiTiet.SanPham.GiaNiemYet)</h5>
+                                </td>
+                                <td>
+                                    <form>
+                                    @if (Model.check11.Contains(a.SanPhamChiTiet.SanPham.Id))
+                                    {
+                                        <div class="input-container">
+                                            <input type="text" name="soluong" value="@a.SoLuong" class="so-duong" min="1" id="soInput" max="20" maxlength="2" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                            <h5 id="multiplyText">x 2</h5>
+                                            <button id="updateButton" name="id" value="@a.Id" asp-action="CapNhanSoLuong">Cập nhật</button>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="input-container">
+                                            <input type="text" name="soluong" value="@a.SoLuong" class="so-duong" min="1" id="soInput" max="20" maxlength="2" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                                <button id="updateButton" name="id" value="@a.Id" asp-action="CapNhanSoLuong">Cập nhật</button>
+                                        </div>
+                                    }
+                                    </form>
+                                  
+                                </td>
+                                <td>
+                                    <h5>@FormatCurrency(a.SanPhamChiTiet.SanPham.GiaNiemYet * a.SoLuong)</h5>
+                                </td>
+                                <td>
+                                    <button href="#" class="delete-link custom-button" data-id="@a.Id">
+                                        Xóa
+                                    </button>
+                                </td>
+                                <div class="overlay" id="overlay"></div>
+                                <div class="modal1" id="confirmModal">
+                                    <h1>Thông báo</h1>
+                                    <p>Bạn có chắc chắn muốn xóa sản phẩm này không?</p>
+                                    <button id="confirmBtn">Xác nhận</button>
+                                    <button id="cancelBtn">Hủy</button>
+                                </div>
+                            </tr>
+                        }
                         <tr>
                             <td>
-                                <input type="checkbox" class="productCheckbox" data-id="@a.Id" />
+                                <input type="checkbox" class="selectAll" /> 
                             </td>
                             <td>
-                                @if (System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".jpg" ||
-                                     System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".png" ||
-                                     System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".jpeg" ||
-                                     System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".tiff" ||
-                                     System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".webp" ||
-                                     System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".gif")
-                                {
-                                    <a href="@Url.Action("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = a.SanPhamChiTiet.SanPham.Id })">
+                                Chọn tất cả(@Model.GioHangChiTiets.Count())
+                            </td>
+                            <td>
+                            </td>
 
-                                        <img src="~/image/@a.SanPhamChiTiet.SanPham.AnhDaiDien" height="150">
-                                    </a>
-                                }
-                                else
-                                {
-                                    <span>Ảnh lỗi rồi =)))</span>
-                                }
+                            <td>
                             </td>
                             <td>
-                                <div><b style="color:#5a6a85">Tên: </b>@a.SanPhamChiTiet.SanPham.TenSanPham</div>
-                                <div><b style="color:#5a6a85">Màu: </b>@a.SanPhamChiTiet.Mau.TenMau</div>
-                                <div><b style="color:#5a6a85">Size: </b>@a.SanPhamChiTiet.Size.CoSize</div>
+                                <h5>Tiền ship:</h5>
+                                <br>
+                                <h5>Tổng tiền:</h5>
                             </td>
                             <td>
-                                <h5>@FormatCurrency(a.SanPhamChiTiet.SanPham.GiaNiemYet)</h5>
+                                <h5>Chưa có</h5>
+                                <br>
+                                <h5 id="TongTien">@FormatCurrency(0)</h5>
+
                             </td>
-                            <td>
-                                @if (Model.check11.Contains(a.SanPhamChiTiet.SanPham.Id))
-                                {
-                                    <h5> @a.SoLuong x 2</h5>
-                                }
-                                else
-                                {
-                                    <h5> @a.SoLuong</h5>
-                                }
-                            </td>
-                            <td>
-                                <h5>@FormatCurrency(a.SanPhamChiTiet.SanPham.GiaNiemYet * a.SoLuong)</h5>
-                            </td>
-                            <td>
-                                <button href="#" class="delete-link custom-button" data-id="@a.Id">
-                                    Xóa
-                                </button>
-                            </td>
-                            <div class="overlay" id="overlay"></div>
-                            <div class="modal1" id="confirmModal">
-                                <h1>Thông báo</h1>
-                                <p>Bạn có chắc chắn muốn xóa sản phẩm này không?</p>
-                                <button id="confirmBtn">Xác nhận</button>
-                                <button id="cancelBtn">Hủy</button>
-                            </div>
                         </tr>
-                    }
-                    <tr>
-                        <td>
-                        </td>
-                        <td>
-                        </td>
-                        <td>
-                        </td>
+                        <tr class="out_button_area">
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
 
-                        <td>
-                        </td>
-                        <td>
-                            <h5>Tiền ship:</h5>
-                            <br>
-                            <h5>Tổng tiền:</h5>
-                        </td>
-                        <td>
-                            <h5>Chưa có</h5>
-                            <br>
-                            <h5>@FormatCurrency(Model.TongTien)</h5>
-                        </td>
-                    </tr>
-                    <tr class="out_button_area">
-                        <td>
-                        </td>
-                        <td>
-                        </td>
-                        <td>
-                        </td>
-
-                        <td>
-                        </td>
-                        <td>
-                        </td>
-                        <td>
-                            <div class="checkout_btn_inner d-flex align-items-center">
-                                <a class="gray_btn" asp-controller="HienThiSanPham" asp-action="HienThiSanPham">Tiếp tục mua sắm</a>
-                                <a id="btnThuTucThanhToan" class="primary-btn">Tiến hành đặt hàng</a>
-                            </div>
-                        </td>
-                    </tr>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                                <div class="checkout_btn_inner d-flex align-items-center">
+                                    <a class="gray_btn" asp-controller="HienThiSanPham" asp-action="HienThiSanPham">Tiếp tục mua sắm</a>
+                                    <a id="btnThuTucThanhToan" class="primary-btn">Tiến hành đặt hàng</a>
+                                </div>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -155,8 +188,71 @@
     </div>
 </section>
 
-
 <style>
+    /* Reset some default styles for input, h5, and button */
+    #soInput, #multiplyText, #updateButton {
+      border: none;
+      outline: none;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      transition-duration: 0.4s;
+      border-radius: 4px;
+    }
+
+    /* Define styles for input */
+    #soInput {
+      width: 50px; /* Đặt chiều rộng tùy ý */
+      padding: 5px;
+      box-sizing: border-box;
+      border: 1px solid #ccc; /* Thêm viền khung cho ô nhập liệu */
+    }
+
+    /* Define normal state styles for h5 */
+    #multiplyText {
+      margin-left: 5px; /* Khoảng cách giữa input và h5 */
+    }
+
+    /* Define normal state styles for button */
+    #updateButton {
+      background-color: white;
+      color: black;
+      border: 2px solid #4CAF50;
+      padding: 10px 20px;
+    }
+
+    /* Define hover state styles for button */
+    #updateButton:hover {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    /* Container to hold input, h5, and button on the same line */
+    .input-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between; /* Căn lề trái và phải */
+    }
+  </style>
+<style>
+    h5 {
+        display: inline; /* or display: inline-block; */
+        margin-left: 10px; /* Optional: Add some margin for spacing */
+    }
+    .so-duong {
+        /* Add your desired styles here */
+        width: 30%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
 
     #alertMessage {
         display: none;
@@ -166,6 +262,7 @@
         margin-bottom: 10px;
         border-radius: 5px;
     }
+
     .custom-button {
         padding: 10px 20px;
         margin: 0 10px;
