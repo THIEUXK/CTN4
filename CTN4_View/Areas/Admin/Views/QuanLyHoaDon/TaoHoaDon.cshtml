@@ -7,42 +7,50 @@
 <br></br>
 <br></br>
 <form id="myForm">
-<div class="container">
-<div class="billing_details">
-<div class="row">
-<div class="col-lg-7">
-    @if (TempData["TB2"] != null)
-    {
-        <div class="alert alert-danger">@TempData["TB2"]</div>
-    }
-    <input type="hidden" name="id" value="@Model.HoaDon.Id" />
-    <h3>Thông tin người mua</h3><h4>Mã hóa đơn:@Model.HoaDon.MaHoaDon</h4><h4>Ngày tạo:@Model.HoaDon.NgayTaoHoaDon</h4>
-    <div class="row contact_form" action="#" method="post" novalidate="novalidate">
-        @* <div class="col-md-6 form-group p_star">
+    <div class="container">
+        <div class="billing_details">
+            <div class="row">
+                <div class="col-lg-7">
+                    @if (TempData["TB2"] != null)
+                    {
+                        <div class="alert alert-danger">@TempData["TB2"]</div>
+                    }
+                    @if (TempData["ErrorMessage"] != null)
+                    {
+                        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+                    }
+                    @if (TempData["ErrorMessage2"] != null)
+                    {
+                        <div class="alert alert-danger" style="color:black;Background:greenyellow">@TempData["ErrorMessage2"]</div>
+                    }
+                    <input type="hidden" name="id" value="@Model.HoaDon.Id" />
+                    <h3>Thông tin người mua</h3><h4>Mã hóa đơn:@Model.HoaDon.MaHoaDon</h4><h4>Ngày tạo:@Model.HoaDon.NgayTaoHoaDon</h4>
+                    <div class="row contact_form" action="#" method="post" novalidate="novalidate">
+                        @* <div class="col-md-6 form-group p_star">
                         <label>Họ và tên</label>
                         <input type="text" class="form-control" id="first" value="" name="name">
                         </div> *@
-        @if (Model.name != null)
-        {
-            <!-- Hiển thị tên người dùng nếu có trong Model -->
-            <div class="col-md-6 form-group p_star">
-                <label>Họ và tên</label>
-                <input type="text" placeholder="Nhập họ tên của bạn" class="form-control" id="first" value="@Model.name" name="name" maxlength="50">
-                <div id="nameError" style="color: red;"></div>
-                <span id="error-message" class="error-message" style="color: red;"></span>
-            </div>
-        }
-        else
-        {
-            <!-- Hiển thị tên người dùng từ thuộc tính KhachHang trong Model -->
-            <div class="col-md-6 form-group p_star">
-                <label>Họ và tên</label>
-                <input type="text" placeholder="Nhập họ tên của bạn" class="form-control" id="first" value="" name="name" maxlength="50">
-                <div id="nameError" style="color: red;"></div>
-                <span id="error-message" class="error-message" style="color: red;"></span>
-            </div>
-        }
-        <script>
+                        @if (Model.name != null)
+                        {
+                            <!-- Hiển thị tên người dùng nếu có trong Model -->
+                            <div class="col-md-6 form-group p_star">
+                                <label>Họ và tên</label>
+                                <input type="text" placeholder="Nhập họ tên của bạn" class="form-control" id="first" value="@Model.name" name="name" maxlength="50">
+                                <div id="nameError" style="color: red;"></div>
+                                <span id="error-message" class="error-message" style="color: red;"></span>
+                            </div>
+                        }
+                        else
+                        {
+                            <!-- Hiển thị tên người dùng từ thuộc tính KhachHang trong Model -->
+                            <div class="col-md-6 form-group p_star">
+                                <label>Họ và tên</label>
+                                <input type="text" placeholder="Nhập họ tên của bạn" class="form-control" id="first" value="" name="name" maxlength="50">
+                                <div id="nameError" style="color: red;"></div>
+                                <span id="error-message" class="error-message" style="color: red;"></span>
+                            </div>
+                        }
+                        <script>
                             document.getElementById('first').addEventListener('input', function () {
                                 var inputValue = this.value.trim();
 
@@ -55,27 +63,27 @@
                                 }
                             });
                         </script>
-        @* <div class="col-md-6 form-group p_star">
+                        @* <div class="col-md-6 form-group p_star">
                         <label>Số điện thoại</label>
                         <input type="text" class="form-control" value="" id="number" name="Sodienthoai" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                         </div> *@
-        @if (@Model.Sodienthoai != null)
-        {
-            <div class="col-md-6 form-group p_star">
-                <label>Số điện thoại</label>
-                <input type="text" class="form-control" placeholder="Nhập số điện thoại của bạn" value="@Model.Sodienthoai" id="number" name="Sodienthoai" oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="15">
-                <span id="error-message3" class="error-message" style="color: red;"></span>
-            </div>
-        }
-        else
-        {
-            <div class="col-md-6 form-group p_star">
-                <label>Số điện thoại</label>
-                <input type="text" class="form-control" placeholder="Nhập số điện thoại của bạn" value="" id="number" name="Sodienthoai" oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="15">
-                <span id="error-message3" class="error-message" style="color: red;"></span>
-            </div>
-        }
-        <script>
+                        @if (@Model.Sodienthoai != null)
+                        {
+                            <div class="col-md-6 form-group p_star">
+                                <label>Số điện thoại</label>
+                                <input type="text" class="form-control" placeholder="Nhập số điện thoại của bạn" value="@Model.Sodienthoai" id="number" name="Sodienthoai" oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="15">
+                                <span id="error-message3" class="error-message" style="color: red;"></span>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-md-6 form-group p_star">
+                                <label>Số điện thoại</label>
+                                <input type="text" class="form-control" placeholder="Nhập số điện thoại của bạn" value="" id="number" name="Sodienthoai" oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="15">
+                                <span id="error-message3" class="error-message" style="color: red;"></span>
+                            </div>
+                        }
+                        <script>
                             document.getElementById('number').addEventListener('input', function () {
                                 var inputValue = this.value.trim();
 
@@ -89,29 +97,29 @@
                             });
                         </script>
 
-        @if (@Model.Email != null)
-        {
-            <div class="col-md-6 form-group p_star">
-                <label>Email</label>
-                <input type="text" class="form-control" placeholder="Nhập Email của bạn" id="email" value="@Model.Email" name="Email" maxlength="50" onchange="validateEmail()">
-                <span id="email-error" style="color: red;"></span>
-            </div>
-        }
-        else
-        {
-            <div class="col-md-6 form-group p_star">
-                <label>Email</label>
-                <input type="text" placeholder="Nhập Email của bạn" class="form-control" id="email" value="" name="Email" maxlength="50" onchange="validateEmail()">
-                <span id="email-error" style="color: red;"></span>
-            </div>
-        }
-        <div class="col-md-6 form-group p_star">
-            <label></label>
-            <br />
-            <input class="form-check-input" name="loaimua" value="true" type="checkbox" role="switch" id="flexSwitchCheckDefault" onchange="toggleAddressFields()">
-            <label class="form-check-label" for="flexSwitchCheckDefault">Mua Tại Quầy</label>
-        </div>
-        <script>
+                        @if (@Model.Email != null)
+                        {
+                            <div class="col-md-6 form-group p_star">
+                                <label>Email</label>
+                                <input type="text" class="form-control" placeholder="Nhập Email của bạn" id="email" value="@Model.Email" name="Email" maxlength="50" onchange="validateEmail()">
+                                <span id="email-error" style="color: red;"></span>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-md-6 form-group p_star">
+                                <label>Email</label>
+                                <input type="text" placeholder="Nhập Email của bạn" class="form-control" id="email" value="" name="Email" maxlength="50" onchange="validateEmail()">
+                                <span id="email-error" style="color: red;"></span>
+                            </div>
+                        }
+                        <div class="col-md-6 form-group p_star">
+                            <label></label>
+                            <br />
+                            <input class="form-check-input" name="loaimua" value="true" type="checkbox" role="switch" id="flexSwitchCheckDefault" onchange="toggleAddressFields()">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Mua Tại Quầy</label>
+                        </div>
+                        <script>
                             function toggleAddressFields() {
                                 var checkbox = document.getElementById('flexSwitchCheckDefault');
                                 var addressFieldsContainer = document.getElementById('addressFieldsContainer');
@@ -124,27 +132,27 @@
                             }
                         </script>
 
-        <div id="addressFieldsContainer" class="col-md-6 form-group p_star">
-            <!-- Các trường liên quan đến địa chỉ của bạn ở đây -->
-            @if (Model.DiachiNhanChiTiet != null)
-            {
-                <div class="col-md-12 form-group">
-                    <label>Địa chỉ nhận hàng cụ thể</label>
-                    <input type="text" class="form-control" placeholder="Nhập địa chỉ nhận hàng cụ thể của bạn" value="@Model.DiachiNhanChiTiet" id="addct" name="DiachiNhanChiTiet" maxlength="50" onchange="validateAddress(this.value, 'addct')">
-                    <div id="addressMessage" class="error-message"></div>
-                    <span id="error-message2" class="error-message" style="color: red;"></span>
-                </div>
-            }
-            else
-            {
-                <div class="col-md-12 form-group">
-                    <label>Địa chỉ nhận hàng cụ thể</label>
-                    <input type="text" class="form-control" placeholder="Nhập địa chỉ nhận hàng cụ thể của bạn" value="" id="addct" name="DiachiNhanChiTiet" maxlength="50" onchange="validateAddress(this.value, 'addct')">
-                    <div id="addressMessage" class="error-message" style="color: red;"></div>
-                    <span id="error-message2" class="error-message" style="color: red;"></span>
-                </div>
-            }
-            <script>
+                        <div id="addressFieldsContainer" class="col-md-6 form-group p_star">
+                            <!-- Các trường liên quan đến địa chỉ của bạn ở đây -->
+                            @if (Model.DiachiNhanChiTiet != null)
+                            {
+                                <div class="col-md-12 form-group">
+                                    <label>Địa chỉ nhận hàng cụ thể</label>
+                                    <input type="text" class="form-control" placeholder="Nhập địa chỉ nhận hàng cụ thể của bạn" value="@Model.DiachiNhanChiTiet" id="addct" name="DiachiNhanChiTiet" maxlength="50" onchange="validateAddress(this.value, 'addct')">
+                                    <div id="addressMessage" class="error-message"></div>
+                                    <span id="error-message2" class="error-message" style="color: red;"></span>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-md-12 form-group">
+                                    <label>Địa chỉ nhận hàng cụ thể</label>
+                                    <input type="text" class="form-control" placeholder="Nhập địa chỉ nhận hàng cụ thể của bạn" value="" id="addct" name="DiachiNhanChiTiet" maxlength="50" onchange="validateAddress(this.value, 'addct')">
+                                    <div id="addressMessage" class="error-message" style="color: red;"></div>
+                                    <span id="error-message2" class="error-message" style="color: red;"></span>
+                                </div>
+                            }
+                            <script>
                                 document.getElementById('addct').addEventListener('input', function () {
                                     var inputValue = this.value.trim();
 
@@ -157,319 +165,337 @@
                                     }
                                 });
                             </script>
-            @if (Model.addDiaChi != null)
-            {
-                <div class="col-md-6 form-group p_star">
-                    <label>Địa chỉ :</label>
-                    <input type="text" class="form-control" id="adressnew" name="" value="@Model.addDiaChi" disabled></input>
-                    <input type="hidden" class="form-control" id="diachinay" value="@Model.addDiaChi" name="addDiaChi"></input>
-                </div>
-            }
-            else if (Model.addDiaChi == null && Model.tenmagiam != null)
-            {
-                <div class="col-md-6 form-group p_star">
-                    <label>Địa chỉ :</label>
-                    <input type="text" class="form-control" id="adressnew" name="" value="" disabled></input>
-                    <input type="hidden" class="form-control" id="diachinay" value="" name="addDiaChi"></input>
-                </div>
-            }
-            else
-            {
-                <div class="col-md-6 form-group p_star">
-                    <label>Địa chỉ :</label>
-                    <input type="text" class="form-control" id="adressnew" name="" value="" disabled></input>
-                    <input type="hidden" class="form-control" id="diachinay" value="" name="addDiaChi"></input>
-                </div>
-            }
-
-
-            <div class="col-md-6 form-group">
-                <label>Chọn Tỉnh/thành<span class="text-danger"></span></label>
-                <span class="text-danger" id="mess_provin"></span>
-                <select class="custom-select" asp-items="@ViewBag.Provin" id="provin">
-                    <option selected value="0">Chọn tỉnh thành</option>
-                </select>
-            </div>
-            <div class="col-md-6 form-group">
-                <label>Chọn Quận/Huyện<span class="text-danger"></span></label>
-                <span class="text-danger" id="mess_district"></span>
-                <select class="custom-select" id="district">
-                    <option selected value="0">Chọn quận huyện </option>
-                </select>
-            </div>
-            <div class="col-md-6 form-group">
-                <label>Chọn Phường/Xã<span class="text-danger"></span></label>
-                <span class="text-danger" id="mess_ward"></span>
-                <select class="custom-select" id="ward" name="ward">
-                    <option selected value="0">Chọn Phường Xã</option>
-                </select>
-            </div>
-
-            <div class="col-md-12 form-group">
-                <label for="exampleFormControlTextarea1" class="form-label">Ghi chú</label>
-                <textarea class="form-control" name="ghiChu" maxlength="100" id="note_ck" rows="3"></textarea>
-
-            </div>
-        </div>
-
-                       
-    </div>
-</div>
-<div class="col-lg-5">
-    <a> @Html.ActionLink("Chọn sản phẩm", "sanphammua", new { idHD = Model.HoaDon.Id }, new { @class = "dropdown-item" })</a>
-    <div class="order_box">
-        <div class="order_box">
-            <h2>Sản phẩm đơn hàng</h2>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col">Sản phẩm</th>
-
-                    <th scope="col">Thông tìn sản phẩm</th>
-                    <th scope="col">Giá tiền</th>
-                    <th scope="col">Số lượng</th>
-                    <th scope="col">Thành tiền</th>
-                    <th scope="col"></th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach (var a in Model.HoaDonChiTiets)
-                {
-                    <tr>
-                        <td>
-                            @if (System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".jpg" ||
-                                 System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".png" ||
-                                 System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".jpeg" ||
-                                 System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".tiff" ||
-                                 System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".webp" ||
-                                 System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".gif")
+                            @if (Model.addDiaChi != null)
                             {
-                                <a href="@Url.Action("HienThiSanPhamChiTietMua", new {  id=a.SanPhamChiTiet.SanPham.Id })">
-
-                                    <img src="~/image/@a.SanPhamChiTiet.SanPham.AnhDaiDien" height="150">
-                                </a>
+                                <div class="col-md-6 form-group p_star">
+                                    <label>Địa chỉ :</label>
+                                    <input type="text" class="form-control" id="adressnew" name="" value="@Model.addDiaChi" disabled></input>
+                                    <input type="hidden" class="form-control" id="diachinay" value="@Model.addDiaChi" name="addDiaChi"></input>
+                                </div>
+                            }
+                            else if (Model.addDiaChi == null && Model.tenmagiam != null)
+                            {
+                                <div class="col-md-6 form-group p_star">
+                                    <label>Địa chỉ :</label>
+                                    <input type="text" class="form-control" id="adressnew" name="" value="" disabled></input>
+                                    <input type="hidden" class="form-control" id="diachinay" value="" name="addDiaChi"></input>
+                                </div>
                             }
                             else
                             {
-                                <span>Ảnh lỗi rồi =)))</span>
-                            }
-                        </td>
-                        <td>
-                            <div><b style="color:#5a6a85">Tên: </b>@a.SanPhamChiTiet.SanPham.TenSanPham</div>
-                            <div><b style="color:#5a6a85">Màu: </b>@a.SanPhamChiTiet.Mau.TenMau</div>
-                            <div><b style="color:#5a6a85">Size: </b>@a.SanPhamChiTiet.Size.CoSize</div>
-                        </td>
-                        <td>
-                            <h5>@FormatCurrency(a.GiaTien)</h5>
-                        </td>
-                        <td>
-                            <h5> @a.SoLuong</h5>
-                        </td>
-                        <td>
-                            <h5>@FormatCurrency(a.GiaTien * a.SoLuong)</h5>
-                        </td>
-                        <td>
-                            <button asp-action="xoaKhoiHoaDon" class="delete-link custom-button" name="idHDCT" value="@a.Id">
-                                Xóa
-                            </button>
-                        </td>
-                    </tr>
-                }
-            </table>
-            <input type="hidden" name="idDon" value="@Model.HoaDon.Id" id="idDon"></input>
-            @if (Model.addDiaChi != null)
-            {
-                if (Model.tenmagiam != null)
-                {
-                    <ul class="list">
-                        <li><a href="#">Mã Giảm giá :<span><b id="tonghang" style="color:black">@Model.tenmagiam </b></span></a></li>
-                        <input type="hidden" name="tenmagiam" value="@Model.tenmagiam" id="tenmagiam"></input>
-                    </ul>
-                }
-                else
-                {
-                    <ul class="list">
-                        <li><a href="#">Mã Giảm giá :<span><b id="tonghang" style="color:black">Chưa có </b></span></a></li>
-                        <input type="hidden" name="tenmagiam" value="" id="tenmagiam"></input>
-                    </ul>
-                }
-                <ul class="list">
-                    <li><a href="#">Tiền Hàng :<span><b id="tonghang" style="color:black">@FormatCurrency(@Model.tienhanga) </b></span></a></li>
-                    <input type="hidden" name="tienhanga" value="@Model.TongTien" id="tienhanga"></input>
-                </ul>
-
-                <ul class="list">
-                    <li><a href="#">Tiền ship :<span><b id="tienship" style="color:black">@FormatCurrency(Model.tienshipb) </b></span></a></li>
-                    <input type="hidden" name="tienshipa" value="@Model.tienshipb" id="tienship1"></input>
-                </ul>
-                <ul class="list">
-                    <li><a href="#">Tiền giảm :<span><b id="tiengiam" style="color:black">@FormatCurrency(@Model.tiengiamb)</b></span></a></li>
-                    <input type="hidden" name="tiengiama" value="@Model.tiengiamb" id="tiengiam1"></input>
-                </ul>
-                <br>
-                @if (Model.TienCuoiCungb < 1)
-                {
-                    <ul class="list">
-                        <li><a href="#">Tổng tiền :<span><b name="Amount" id="tongtien" style="color:orange">@FormatCurrency(0)</b></span></a></li>
-                        <input type="hidden" name="tongtien" value="0" id="tongtien1"></input>
-                    </ul>
-                }
-                else
-                {
-                    <ul class="list">
-                        <li><a href="#">Tổng tiền :<span><b name="Amount" id="tongtien" style="color:orange">@FormatCurrency(Model.TienCuoiCungb)</b></span></a></li>
-                        <input type="hidden" name="tongtien" value="@Model.TienCuoiCungb" id="tongtien1"></input>
-                    </ul>
-                }
-                <br></br>
-            }
-                          
-            else if (Model.addDiaChi == null && @Model.tenmagiam != null)
-            {
-                if (Model.tenmagiam != null)
-                {
-                    <ul class="list">
-                        <li><a href="#">Mã Giảm giá :<span><b id="tonghang" style="color:black">@Model.tenmagiam </b></span></a></li>
-                        <input type="hidden" name="tenmagiam" value="@Model.tenmagiam" id="tenmagiam"></input>
-                    </ul>
-                }
-                else
-                {
-                    <ul class="list">
-                        <li><a href="#">Mã Giảm giá :<span><b id="tonghang" style="color:black">Chưa có </b></span></a></li>
-                        <input type="hidden" name="tenmagiam" value="" id="tenmagiam"></input>
-                    </ul>
-                }
-                <ul class="list">
-                    <li><a href="#">Tiền Hàng :<span><b id="tonghang" style="color:black">@FormatCurrency(@Model.tienhanga) </b></span></a></li>
-                    <input type="hidden" name="tienhanga" value="@Model.tienhanga" id="tienhanga"></input>
-                </ul>
-                <ul class="list">
-                    <li><a href="#">Tiền ship :<span><b id="tienship" style="color:black">Chưa Tính </b></span></a></li>
-                    <input type="hidden" name="tienshipa" value="0" id="tienship1"></input>
-
-                </ul>
-                <ul class="list">
-                    <li><a href="#">Tiền giảm :<span><b id="tiengiam" style="color:black">@FormatCurrency(@Model.tiengiamb)</b></span></a></li>
-                    <input type="hidden" name="tiengiama" value="@Model.tiengiamb" id="tiengiam1"></input>
-                </ul>
-                <br>
-                @if (Model.TienCuoiCungb < 1)
-                {
-                    <ul class="list">
-                        <li><a href="#">Tổng tiền :<span><b name="Amount" id="tongtien" style="color:orange">@FormatCurrency(0)</b></span></a></li>
-                        <input type="hidden" name="tongtien" value="0" id="tongtien1"></input>
-                    </ul>
-                }
-                else
-                {
-                    <ul class="list">
-                        <li><a href="#">Tổng tiền :<span><b name="Amount" id="tongtien" style="color:orange">@FormatCurrency(Model.TienCuoiCungb)</b></span></a></li>
-                        <input type="hidden" name="tongtien" value="@Model.TienCuoiCungb" id="tongtien1"></input>
-                    </ul>
-                }
-                <br></br>
-            }
-            else
-            {
-                <ul class="list">
-                    <li><a href="#">Mã Giảm giá :<span><b id="tonghang" style="color:black">Chưa có </b></span></a></li>
-                    <input type="hidden" name="tenmagiam" value="" id="tenmagiam"></input>
-                </ul>
-                <ul class="list">
-                    <li><a href="#">Tiền Hàng :<span><b id="tonghang" style="color:black">@FormatCurrency(Model.TongTien) </b></span></a></li>
-                    <input type="hidden" name="tienhanga" value="@Model.TongTien" id="tienhanga"></input>
-                </ul>
-                <ul class="list">
-                    <li><a href="#">Tiền ship :<span><b id="tienship" style="color:black">Chưa Tính</b></span></a></li>
-                    <input type="hidden" name="tienshipa" value="0" id="tienship1"></input>
-                </ul>
-
-                <ul class="list">
-                    <li><a href="#">Tiền giảm :<span><b id="tiengiam" style="color:black">Chưa Tính</b></span></a></li>
-                    <input type="hidden" name="tiengiama" value="0" id="tiengiam1"></input>
-                </ul>
-                <br></br>
-                <ul class="list">
-                    <li><a href="#">Tổng tiền :<span><b name="Amount" id="tongtien" style="color:orange">@FormatCurrency(Model.TongTien)</b></span></a></li>
-                    <input type="hidden" name="tongtien" value="@Model.TongTien" id="tongtien1"></input>
-                </ul>
-                <br></br>
-            }
-            @if (@Model.IdMaGiam != null)
-            {
-                <input type="hidden" name="idgiamgia" value="@Model.IdMaGiam" id="idgiamgia"></input>
-            }
-            else
-            {
-                <input type="hidden" name="idgiamgia" value="" id="idgiamgia"></input>
-            }
-            <br></br>
-            <br />
-            <div class="card border-secondary mb-5">
-                <button id="confirmButton" class="primary-btn" asp-action="Chốt" type="submit">Chốt đơn</button>
-
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-<div class="col-md-6 form-group p_star">
-    <br />
-
-    <button type="button" class="btn btn-outline-info dropdown-toggle form-control" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-        Mã giảm giá
-    </button>
-    <input type="hidden" name="idHD" value="@Model.HoaDon.Id" />
-    <ul class="dropdown-menu dropdown-menu-end">
-        @foreach (var i in Model.GiamGias)
-        {
-            <li>
-                <div class="app1">
-                    <div class="container1">
-                        <div class="card1">
-                            <div class="main1">
-                                <div class="content1">
-
-                                    @if (i.LoaiGiamGia == false)
-                                    {
-                                        <span>Giảm giá:</span>
-                                        <h8>@FormatCurrency(i.SoTienGiam)</h8>
-                                        <br />
-                                        <span>Đơn tối thiểu:</span>
-                                        <h8>@FormatCurrency(i.DieuKienGiam)</h8>
-                                        <p>Kết thúc: @i.NgayKetThuc</p>
-                                        <br />
-
-                                    }
-                                    else
-                                    {
-                                        <span>Giảm giá:</span>
-                                        <h8>@i.PhanTramGiam%</h8>
-                                        <br />
-                                        <span>Giảm tối đa:</span>
-                                        <h8>@FormatCurrency(i.SoTienGiamToiDa)</h8>
-                                        <br />
-                                        <span>Đơn tối thiểu:</span>
-                                        <h8>@FormatCurrency(i.DieuKienGiam)</h8>
-                                        <p>Kết thúc: @i.NgayKetThuc</p>
-                                    }
+                                <div class="col-md-6 form-group p_star">
+                                    <label>Địa chỉ :</label>
+                                    <input type="text" class="form-control" id="adressnew" name="" value="" disabled></input>
+                                    <input type="hidden" class="form-control" id="diachinay" value="" name="addDiaChi"></input>
                                 </div>
+                            }
+
+
+                            <div class="col-md-6 form-group">
+                                <label>Chọn Tỉnh/thành<span class="text-danger"></span></label>
+                                <span class="text-danger" id="mess_provin"></span>
+                                <select class="custom-select" asp-items="@ViewBag.Provin" id="provin">
+                                    <option selected value="0">Chọn tỉnh thành</option>
+                                </select>
                             </div>
-                            <div class="copy-button1">
-                                <input id="copyvalue" type="text" readonly value="@i.MaGiam" />
-                                <button asp-action="SuDunggiamGia" name="IdGiamGia2" value="@i.Id">Dùng</button>
+                            <div class="col-md-6 form-group">
+                                <label>Chọn Quận/Huyện<span class="text-danger"></span></label>
+                                <span class="text-danger" id="mess_district"></span>
+                                <select class="custom-select" id="district">
+                                    <option selected value="0">Chọn quận huyện </option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Chọn Phường/Xã<span class="text-danger"></span></label>
+                                <span class="text-danger" id="mess_ward"></span>
+                                <select class="custom-select" id="ward" name="ward">
+                                    <option selected value="0">Chọn Phường Xã</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-12 form-group">
+                                <label for="exampleFormControlTextarea1" class="form-label">Ghi chú</label>
+                                <textarea class="form-control" name="ghiChu" maxlength="100" id="note_ck" rows="3"></textarea>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <a> @Html.ActionLink("Chọn sản phẩm", "sanphammua", new { idHD = Model.HoaDon.Id }, new { @class = "dropdown-item" })</a>
+                    <div class="order_box">
+                        <div class="order_box">
+                            <h2>Sản phẩm đơn hàng</h2>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Sản phẩm</th>
+
+                                        <th scope="col">Thông tìn sản phẩm</th>
+                                        <th scope="col">Giá tiền</th>
+                                        <th scope="col">Số lượng</th>
+                                        <th scope="col">Thành tiền</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var a in Model.HoaDonChiTiets)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @if (System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".jpg" ||
+                                               System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".png" ||
+                                               System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".jpeg" ||
+                                               System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".tiff" ||
+                                               System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".webp" ||
+                                               System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".gif")
+                                                {
+                                                    <a href="@Url.Action("HienThiSanPhamChiTietMua", new {  id=a.SanPhamChiTiet.SanPham.Id })">
+
+                                                        <img src="~/image/@a.SanPhamChiTiet.SanPham.AnhDaiDien" height="150">
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <span>Ảnh lỗi rồi =)))</span>
+                                                }
+                                            </td>
+                                            <td>
+                                                <div><b style="color:#5a6a85">Tên: </b>@a.SanPhamChiTiet.SanPham.TenSanPham</div>
+                                                <div><b style="color:#5a6a85">Màu: </b>@a.SanPhamChiTiet.Mau.TenMau</div>
+                                                <div><b style="color:#5a6a85">Size: </b>@a.SanPhamChiTiet.Size.CoSize</div>
+                                            </td>
+                                            <td>
+                                                <h5>@FormatCurrency(a.GiaTien)</h5>
+                                            </td>
+                                            <td>
+                                                <form>
+                                                    @if (Model.check11.Contains(a.SanPhamChiTiet.SanPham.Id))
+                                                    {
+                                                        <div class="input-container">
+                                                            <input type="text" name="soluong" value="@a.SoLuong" class="so-duong" min="1" id="soInput" max="20" maxlength="2" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                                            <h5 id="multiplyText">x 2</h5>
+                                                            <input type="hidden" name="idHdct" value="@a.Id" />
+                                                            <button id="updateButton" name="id" value="@a.Id" asp-action="CapNhanSoLuong">Cập nhật</button>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="input-container">
+                                                            <input type="text" name="soluong" value="@a.SoLuong" class="so-duong" min="1" id="soInput" max="20" maxlength="2" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                                            <input type="hidden" name="idHdct" value="@a.Id" />
+                                                            <button id="updateButton" name="id" value="@a.Id" asp-action="CapNhanSoLuong">Cập nhật</button>
+                                                        </div>
+                                                    }
+                                                </form>
+                                            </td>
+                                            <td>
+                                                <h5>@FormatCurrency(a.GiaTien * a.SoLuong)</h5>
+                                            </td>
+                                            <td>
+                                                <button asp-action="xoaKhoiHoaDon" class="delete-link custom-button" name="idHDCT" value="@a.Id">
+                                                    Xóa
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    }
+                            </table>
+                            <input type="hidden" name="idDon" value="@Model.HoaDon.Id" id="idDon"></input>
+                            @if (Model.addDiaChi != null)
+                            {
+                                if (Model.tenmagiam != null)
+                                {
+                                    <ul class="list">
+                                        <li><a href="#">Mã Giảm giá :<span><b id="tonghang" style="color:black">@Model.tenmagiam </b></span></a></li>
+                                        <input type="hidden" name="tenmagiam" value="@Model.tenmagiam" id="tenmagiam"></input>
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <ul class="list">
+                                        <li><a href="#">Mã Giảm giá :<span><b id="tonghang" style="color:black">Chưa có </b></span></a></li>
+                                        <input type="hidden" name="tenmagiam" value="" id="tenmagiam"></input>
+                                    </ul>
+                                }
+                                <ul class="list">
+                                    <li><a href="#">Tiền Hàng :<span><b id="tonghang" style="color:black">@FormatCurrency(@Model.tienhanga) </b></span></a></li>
+                                    <input type="hidden" name="tienhanga" value="@Model.TongTien" id="tienhanga"></input>
+                                </ul>
+
+                                <ul class="list">
+                                    <li><a href="#">Tiền ship :<span><b id="tienship" style="color:black">@FormatCurrency(Model.tienshipb) </b></span></a></li>
+                                    <input type="hidden" name="tienshipa" value="@Model.tienshipb" id="tienship1"></input>
+                                </ul>
+                                <ul class="list">
+                                    <li><a href="#">Tiền giảm :<span><b id="tiengiam" style="color:black">@FormatCurrency(@Model.tiengiamb)</b></span></a></li>
+                                    <input type="hidden" name="tiengiama" value="@Model.tiengiamb" id="tiengiam1"></input>
+                                </ul>
+                                <br>
+                                @if (Model.TienCuoiCungb < 1)
+                                {
+                                    <ul class="list">
+                                        <li><a href="#">Tổng tiền :<span><b name="Amount" id="tongtien" style="color:orange">@FormatCurrency(0)</b></span></a></li>
+                                        <input type="hidden" name="tongtien" value="0" id="tongtien1"></input>
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <ul class="list">
+                                        <li><a href="#">Tổng tiền :<span><b name="Amount" id="tongtien" style="color:orange">@FormatCurrency(Model.TienCuoiCungb)</b></span></a></li>
+                                        <input type="hidden" name="tongtien" value="@Model.TienCuoiCungb" id="tongtien1"></input>
+                                    </ul>
+                                }
+                                <br></br>
+                            }
+
+                            else if (Model.addDiaChi == null && @Model.tenmagiam != null)
+                            {
+                                if (Model.tenmagiam != null)
+                                {
+                                    <ul class="list">
+                                        <li><a href="#">Mã Giảm giá :<span><b id="tonghang" style="color:black">@Model.tenmagiam </b></span></a></li>
+                                        <input type="hidden" name="tenmagiam" value="@Model.tenmagiam" id="tenmagiam"></input>
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <ul class="list">
+                                        <li><a href="#">Mã Giảm giá :<span><b id="tonghang" style="color:black">Chưa có </b></span></a></li>
+                                        <input type="hidden" name="tenmagiam" value="" id="tenmagiam"></input>
+                                    </ul>
+                                }
+                                <ul class="list">
+                                    <li><a href="#">Tiền Hàng :<span><b id="tonghang" style="color:black">@FormatCurrency(@Model.tienhanga) </b></span></a></li>
+                                    <input type="hidden" name="tienhanga" value="@Model.tienhanga" id="tienhanga"></input>
+                                </ul>
+                                <ul class="list">
+                                    <li><a href="#">Tiền ship :<span><b id="tienship" style="color:black">Chưa Tính </b></span></a></li>
+                                    <input type="hidden" name="tienshipa" value="0" id="tienship1"></input>
+
+                                </ul>
+                                <ul class="list">
+                                    <li><a href="#">Tiền giảm :<span><b id="tiengiam" style="color:black">@FormatCurrency(@Model.tiengiamb)</b></span></a></li>
+                                    <input type="hidden" name="tiengiama" value="@Model.tiengiamb" id="tiengiam1"></input>
+                                </ul>
+                                <br>
+                                @if (Model.TienCuoiCungb < 1)
+                                {
+                                    <ul class="list">
+                                        <li><a href="#">Tổng tiền :<span><b name="Amount" id="tongtien" style="color:orange">@FormatCurrency(0)</b></span></a></li>
+                                        <input type="hidden" name="tongtien" value="0" id="tongtien1"></input>
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <ul class="list">
+                                        <li><a href="#">Tổng tiền :<span><b name="Amount" id="tongtien" style="color:orange">@FormatCurrency(Model.TienCuoiCungb)</b></span></a></li>
+                                        <input type="hidden" name="tongtien" value="@Model.TienCuoiCungb" id="tongtien1"></input>
+                                    </ul>
+                                }
+                                <br></br>
+                            }
+                            else
+                            {
+                                <ul class="list">
+                                    <li><a href="#">Mã Giảm giá :<span><b id="tonghang" style="color:black">Chưa có </b></span></a></li>
+                                    <input type="hidden" name="tenmagiam" value="" id="tenmagiam"></input>
+                                </ul>
+                                <ul class="list">
+                                    <li><a href="#">Tiền Hàng :<span><b id="tonghang" style="color:black">@FormatCurrency(Model.TongTien) </b></span></a></li>
+                                    <input type="hidden" name="tienhanga" value="@Model.TongTien" id="tienhanga"></input>
+                                </ul>
+                                <ul class="list">
+                                    <li><a href="#">Tiền ship :<span><b id="tienship" style="color:black">Chưa Tính</b></span></a></li>
+                                    <input type="hidden" name="tienshipa" value="0" id="tienship1"></input>
+                                </ul>
+
+                                <ul class="list">
+                                    <li><a href="#">Tiền giảm :<span><b id="tiengiam" style="color:black">Chưa Tính</b></span></a></li>
+                                    <input type="hidden" name="tiengiama" value="0" id="tiengiam1"></input>
+                                </ul>
+                                <br></br>
+                                <ul class="list">
+                                    <li><a href="#">Tổng tiền :<span><b name="Amount" id="tongtien" style="color:orange">@FormatCurrency(Model.TongTien)</b></span></a></li>
+                                    <input type="hidden" name="tongtien" value="@Model.TongTien" id="tongtien1"></input>
+                                </ul>
+                                <br></br>
+                            }
+                            @if (@Model.IdMaGiam != null)
+                            {
+                                <input type="hidden" name="idgiamgia" value="@Model.IdMaGiam" id="idgiamgia"></input>
+                            }
+                            else
+                            {
+                                <input type="hidden" name="idgiamgia" value="" id="idgiamgia"></input>
+                            }
+                            <br></br>
+                            <br />
+                            <div class="card border-secondary mb-5">
+                                <button id="confirmButton" class="primary-btn" asp-action="Chốt" type="submit">Chốt đơn</button>
+
                             </div>
                         </div>
                     </div>
                 </div>
-            </li>
+            </div>
+            <div class="col-md-6 form-group p_star">
+                <br />
 
-        }
-    </ul>
-</div>
-</div>
-</div>
+                <button type="button" class="btn btn-outline-info dropdown-toggle form-control" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                    Mã giảm giá
+                </button>
+                <input type="hidden" name="idHD" value="@Model.HoaDon.Id" />
+                <ul class="dropdown-menu dropdown-menu-end">
+                    @foreach (var i in Model.GiamGias)
+                    {
+                        <li>
+                            <div class="app1">
+                                <div class="container1">
+                                    <div class="card1">
+                                        <div class="main1">
+                                            <div class="content1">
+
+                                                @if (i.LoaiGiamGia == false)
+                                                {
+                                                    <span>Giảm giá:</span>
+                                                    <h8>@FormatCurrency(i.SoTienGiam)</h8>
+                                                    <br />
+                                                    <span>Đơn tối thiểu:</span>
+                                                    <h8>@FormatCurrency(i.DieuKienGiam)</h8>
+                                                    <p>Kết thúc: @i.NgayKetThuc</p>
+                                                    <br />
+
+                                                }
+                                                else
+                                                {
+                                                    <span>Giảm giá:</span>
+                                                    <h8>@i.PhanTramGiam%</h8>
+                                                    <br />
+                                                    <span>Giảm tối đa:</span>
+                                                    <h8>@FormatCurrency(i.SoTienGiamToiDa)</h8>
+                                                    <br />
+                                                    <span>Đơn tối thiểu:</span>
+                                                    <h8>@FormatCurrency(i.DieuKienGiam)</h8>
+                                                    <p>Kết thúc: @i.NgayKetThuc</p>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="copy-button1">
+                                            <input id="copyvalue" type="text" readonly value="@i.MaGiam" />
+                                            <button asp-action="SuDunggiamGia" name="IdGiamGia2" value="@i.Id">Dùng</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
 </form>
 <script>
     document.getElementById('confirmButton').addEventListener('click', function (event) {
