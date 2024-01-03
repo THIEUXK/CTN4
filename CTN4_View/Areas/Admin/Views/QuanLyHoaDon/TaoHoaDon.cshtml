@@ -1,4 +1,6 @@
-﻿@model CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk.viewMode.Thi1View
+﻿@using CTN4_Data.Models.DB_CTN4
+@using CTN4_Serv.Service
+@model CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk.viewMode.Thi1View
 @{
     ViewData["Title"] = "TaoHoaDon";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
@@ -269,14 +271,9 @@
                                             </td>
                                             <td>
                                                 <form>
-                                                    @if (Model.check11.Contains(a.SanPhamChiTiet.SanPham.Id))
-                                                    {
-                                                        <h5>@FormatCurrency(a.GiaTien*2)</h5>
-                                                    }
-                                                    else
-                                                    {
+                                                 
                                                         <h5>@FormatCurrency(a.GiaTien)</h5>
-                                                    }
+                                                
                                                 </form>
                                                 
                                             </td>
@@ -302,7 +299,14 @@
                                                 </form>
                                             </td>
                                             <td>
-                                                <h5>@FormatCurrency(a.GiaTien * a.SoLuong)</h5>
+                                                @if (Model.check11.Contains(a.SanPhamChiTiet.SanPham.Id))
+                                                {
+                                                    <h5>@FormatCurrency(a.GiaTien * a.SoLuong / 2)</h5>
+                                                }
+                                                else
+                                                {
+                                                    <h5>@FormatCurrency(a.GiaTien * a.SoLuong)</h5>
+                                                }
                                             </td>
                                             <td>
                                                 <button asp-action="xoaKhoiHoaDon" class="delete-link custom-button" name="idHDCT" value="@a.Id">

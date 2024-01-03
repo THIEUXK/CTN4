@@ -118,6 +118,16 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                     sanphamctnew.Add(spt);
                     SessionBan.SetObjToJson(HttpContext.Session, "SanPhamTamSS", sanphamctnew);
                 }
+                var KhuyenMaiSp = _KhuyenMaiSanPhams.GetAll().Where(c => c.KhuyenMai.Mua1tang1 == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now && c.KhuyenMai.Is_Detele == true).ToList();
+                var g = new List<Guid>();
+                foreach (var item in KhuyenMaiSp)
+                {
+                    // Kiểm tra xem Mau.Id đã xuất hiện trong danh sách chưa
+                    if (!g.Contains((Guid)item.IdSanPham))
+                    {
+                        g.Add((Guid)item.IdSanPham);
+                    }
+                }
                 var hd = _hoaDonService.GetById(id);
                 if (hd.TrangThai == "Đang Tạo")
                 {
@@ -129,23 +139,14 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                 float tongTienSP = 0;
                 foreach (var a in hdct)
                 {
-                    tongSoLuongSP += a.SoLuong;
+                        tongSoLuongSP += a.SoLuong;
                 }
                 foreach (var a in hdct)
                 {
-                    tongTienSP += a.GiaTien * a.SoLuong;
+                        tongTienSP += a.GiaTien * a.SoLuong;
                 }
                 var c = _GiamGiaChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
-                var KhuyenMaiSp = _KhuyenMaiSanPhams.GetAll().Where(c => c.KhuyenMai.Mua1tang1 == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now && c.KhuyenMai.Is_Detele == true).ToList();
-                var g = new List<Guid>();
-                foreach (var item in KhuyenMaiSp)
-                {
-                    // Kiểm tra xem Mau.Id đã xuất hiện trong danh sách chưa
-                    if (!g.Contains((Guid)item.IdSanPham))
-                    {
-                        g.Add((Guid)item.IdSanPham);
-                    }
-                }
+               
                 var view = new ThieuxkViewAdmin()
                 {
                     check11 = g,
@@ -973,14 +974,6 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                 if (hd.Is_detele != false)
                 {
                     var spct = _sanPhamChiTietService.GetById(hdct.IdSanPhamChiTiet);
-                    if (g.Contains(spct.SanPham.Id))
-                    {
-                        spct.SoLuong += hdct.SoLuong / 2;
-                    }
-                    else
-                    {
-                        spct.SoLuong += hdct.SoLuong;
-                    }
                     spct.SoLuong += hdct.SoLuong;
                     if (_sanPhamChiTietService.Sua(spct) == false)
                     {
@@ -2062,13 +2055,6 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                 }
                 var gh = _hoaDonService.GetAll().FirstOrDefault(c => c.Id == id);
                 IEnumerable<HoaDonChiTiet> ghct = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == id);
-                foreach (var x in ghct)
-                {
-                    tong += float.Parse(x.SanPhamChiTiet.SanPham.GiaNiemYet.ToString()) * (x.SoLuong);
-
-                }
-                var a = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
-                var giamgia = _giamGiaService.GetAll().Where(c => c.TrangThai == true && c.Is_detele == true && c.NgayBatDau <= DateTime.Now && c.NgayKetThuc >= DateTime.Now).ToList();
                 var KhuyenMaiSp = _KhuyenMaiSanPhams.GetAll().Where(c => c.KhuyenMai.Mua1tang1 == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now && c.KhuyenMai.Is_Detele == true).ToList();
                 var g = new List<Guid>();
                 foreach (var item in KhuyenMaiSp)
@@ -2079,6 +2065,23 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                         g.Add((Guid)item.IdSanPham);
                     }
                 }
+                foreach (var x in ghct)
+                {
+
+                    if (g.Contains(x.SanPhamChiTiet.SanPham.Id))
+                    {
+                        tong += float.Parse(x.SanPhamChiTiet.SanPham.GiaNiemYet.ToString()) * (x.SoLuong/2);
+                    }
+                    else
+                    {
+                        tong += float.Parse(x.SanPhamChiTiet.SanPham.GiaNiemYet.ToString()) * (x.SoLuong);
+                    }
+                   
+
+                }
+                var a = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
+                var giamgia = _giamGiaService.GetAll().Where(c => c.TrangThai == true && c.Is_detele == true && c.NgayBatDau <= DateTime.Now && c.NgayKetThuc >= DateTime.Now).ToList();
+               
                 var view = new Thi1View()
                 {
                     check11 = g,
@@ -2112,14 +2115,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                         g.Add((Guid)item.IdSanPham);
                     }
                 }
-                if (g.Contains(spct.SanPham.Id))
-                {
-                    spct.SoLuong += hdct.SoLuong/2;
-                }
-                else
-                {
                     spct.SoLuong += hdct.SoLuong;
-                }
                 if (_sanPhamChiTietService.Sua(spct) == false)
                 {
                     var message = $"bỏ thất bại(1)";
@@ -2315,11 +2311,6 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                     if (g.Contains(sanphamCT.SanPham.Id))
                     {
                         d.SoLuong *= 2;
-                        if (d.GiaTien == sanphamCT.SanPham.GiaNiemYet)
-                        {
-                            d.GiaTien /= 2;
-                        }
-                       
                     }
                     if (_hoaDonChiTietService.Them(d) == true)
                     {
@@ -2343,10 +2334,6 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                     if (g.Contains(SP.SanPhamChiTiet.SanPham.Id))
                     {
                         SP.SoLuong += soluong*2;
-                        if (SP.GiaTien == sanphamCT.SanPham.GiaNiemYet)
-                        {
-                            SP.GiaTien /= 2;
-                        }
                     }
                     else
                     {
@@ -2953,7 +2940,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                 }
                 if (soluong > 20)
                 {
-                    var message = "Số lượng đã vượi quá hãy liên hệ với shop để có thể mua sỉ";
+                    var message = "Số lượng đã vượi quá 20 hãy bảo shop liên hệ với shop để có thể mua sỉ";
                     TempData["TB2"] = message;
                     return RedirectToAction("TaoHoaDon", new { id = b.IdHoaDon, message });
                 }
@@ -2995,20 +2982,10 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                 }
                 else
                 {
-                    if (g.Contains(b.SanPhamChiTiet.SanPham.Id))
-                    {
-                        b.SoLuong += soluothem;
-                        if (b.GiaTien==product.SanPham.GiaNiemYet)
-                        {
-                            b.GiaTien /= 2;
-                        }
-                        product.SoLuong -= soluothem;
-                    }
-                    else
-                    {
+                  
                         b.SoLuong += soluothem;
                         product.SoLuong -= soluothem;
-                    }
+                    
                     _sanPhamChiTietService.Sua(product);
                     _hoaDonChiTietService.Sua(b);
                     var message = "Thay đổi số lượng thành công";
@@ -3036,7 +3013,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
 
                 if (soluong > 20)
                 {
-                    var message = "Số lượng đã vượi quá hãy liên hệ với shop để có thể mua sỉ";
+                    var message = "Số lượng đã vượi quá 20 hãy bảo khách liên hệ với shop để có thể mua sỉ";
                     TempData["TB1"] = message;
                     return RedirectToAction("XemChiTiet", new { id = b.IdHoaDon, message });
                 }
