@@ -191,7 +191,12 @@
                                     }
                                     else
                                     {
+                                        <td>
+                                            <!-- Gọi hàm cập nhật trạng thái sản phẩm khi hết hạn -->
+                                            @UpdateProductStatus(item.Id)
+                                        </td>
                                         <td class="border-bottom-0">
+                                           
                                                 <p class="mb-0 fw-normal"  style="white-space: nowrap; color:white;text-align :center; background-color: red; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Đã hết hạn</p>
                                             </td>
                                     }
