@@ -284,7 +284,7 @@ namespace CTN4_View.Controllers.Shop
             }
             if (soluong > 20)
             {
-                var message = "Số lượng đã vượi quá hãy liên hệ với shop để có thể mua sỉ";
+                var message = "Số lượng đã vượi quá 20 hãy liên hệ với shop để có thể mua sỉ";
                 TempData["ErrorMessage"] = message;
                 return RedirectToAction("GioHang", "BanHang", new { message });
             }
