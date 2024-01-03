@@ -919,7 +919,11 @@ namespace CTN4_View.Controllers.Shop
                     dem += a2.SoLuong;
                 }
 
-                diachinhanhang.TienShip *= dem;
+                if (diachinhanhang!=null)
+                {
+                    diachinhanhang.TienShip *= dem;
+                }
+                
                 var view2 = new GioHangView()
                 {
                     check11 = g,
