@@ -23,7 +23,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyVouvher
         [HttpGet]
         public ActionResult Index(string MaGiam, int? size, int? page) /*, DateTime Ngaybatdau, DateTime Ngayketthuc*//*, float from, float to*/
         {
-            var a = _gg.GetAll().AsQueryable();
+            var a = _gg.GetAll().Where(c => c.Is_detele == true).ToList().AsQueryable();
 
             page = page ?? 1;
 
@@ -38,61 +38,63 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyVouvher
             int pageSize = size ?? 10;
             var pageNumber = page ?? 1;
             var pagedList = a.ToPagedList(pageNumber, pageSize);
+            //var pagedList = a.Where(c => c.Is_detele == true).ToPagedList(pageNumber, pageSize);
 
             return View(pagedList);
         }
+      
 
 
 
 
 
 
-            // lọc
+        // lọc
 
 
 
 
-            //public IActionResult GiamHet()
-            //{
-            //    var hd = _gg.GetAll();
-            //    var view = new GiamGiaViewModel()
-            //    {
-            //        GiamGias = hd.ToList(),
-            //    };
-            //    return View("Index", view);
+        //public IActionResult GiamHet()
+        //{
+        //    var hd = _gg.GetAll();
+        //    var view = new GiamGiaViewModel()
+        //    {
+        //        GiamGias = hd.ToList(),
+        //    };
+        //    return View("Index", view);
 
 
 
-            //}
-            //public IActionResult GiamTien(int? page, bool loaiGiamGia = false)
-            //{
-            //    var hd = _gg.GetAll();
-            //    var pageNumber = page ?? 1;
-            //    var pageSize = 5; // Số lượng phần tử trên mỗi trang
+        //}
+        //public IActionResult GiamTien(int? page, bool loaiGiamGia = false)
+        //{
+        //    var hd = _gg.GetAll();
+        //    var pageNumber = page ?? 1;
+        //    var pageSize = 5; // Số lượng phần tử trên mỗi trang
 
-            //    var view = new GiamGiaViewModel()
-            //    {
-            //        GiamGias = hd.Where(c => c.LoaiGiamGia == loaiGiamGia).ToPagedList(pageNumber, pageSize).ToList(),
-            //    };
-            //    return View("Index", view);
-            //}
+        //    var view = new GiamGiaViewModel()
+        //    {
+        //        GiamGias = hd.Where(c => c.LoaiGiamGia == loaiGiamGia).ToPagedList(pageNumber, pageSize).ToList(),
+        //    };
+        //    return View("Index", view);
+        //}
 
-            //public IActionResult GiamPhanTram(int? page, bool loaiGiamGia = true)
-            //{
-            //    var hd = _gg.GetAll();
-            //    var pageNumber = page ?? 1;
-            //    var pageSize = 5; // Số lượng phần tử trên mỗi trang
+        //public IActionResult GiamPhanTram(int? page, bool loaiGiamGia = true)
+        //{
+        //    var hd = _gg.GetAll();
+        //    var pageNumber = page ?? 1;
+        //    var pageSize = 5; // Số lượng phần tử trên mỗi trang
 
-            //    var view = new GiamGiaViewModel()
-            //    {
-            //        GiamGias = hd.Where(c => c.LoaiGiamGia == loaiGiamGia).ToPagedList(pageNumber, pageSize).ToList(),
-            //    };
-            //    return View("Index", view);
-            //}
+        //    var view = new GiamGiaViewModel()
+        //    {
+        //        GiamGias = hd.Where(c => c.LoaiGiamGia == loaiGiamGia).ToPagedList(pageNumber, pageSize).ToList(),
+        //    };
+        //    return View("Index", view);
+        //}
 
-            public IActionResult TatCa(int? page)
+        public IActionResult TatCa(int? page)
         {
-            var giamGias = _gg.GetAll()/*.Where(c => c.LoaiGiamGia == true || false).ToList()*/;
+            var giamGias = _gg.GetAll().Where(c => c.Is_detele == true).ToList();/*.Where(c => c.LoaiGiamGia == true || false).ToList()*/;
             int pageNumber = page ?? 1;
             int pageSize = 10; // Số lượng item trên mỗi trang
 
@@ -100,6 +102,16 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyVouvher
 
             return View("Index", pagedList);
         }
+        //public IActionResult CacMaDangHien(int? page)
+        //{
+        //    var giamGias = _gg.GetAll().Where(c => c.Is_detele == true).ToList();/*.Where(c => c.LoaiGiamGia == true || false).ToList()*/;
+        //    int pageNumber = page ?? 1;
+        //    int pageSize = 10; // Số lượng item trên mỗi trang
+
+        //    var pagedList = giamGias.ToPagedList(pageNumber, pageSize);
+
+        //    return View("Index", pagedList);
+        //}
         public IActionResult GiamTien(int? page)
         {
             var giamGias = _gg.GetAll().Where(c => c.LoaiGiamGia == false).ToList();
@@ -121,6 +133,27 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyVouvher
 
             return View("Index", pagedList);
         }
+        public IActionResult XemDaBiAn(int? page)
+        {
+            var giamGias = _gg.GetAll().Where(c => c.Is_detele == false).ToList();
+            int pageNumber = page ?? 1;
+            int pageSize = 10; // Số lượng item trên mỗi trang
+
+            var pagedList = giamGias.ToPagedList(pageNumber, pageSize);
+
+            return View("Index", pagedList);
+
+        }
+        //public IActionResult CacMaDaAn(int? page)
+        //{
+        //    var giamGias = _gg.GetAll().Where(c => c.Is_detele != true).ToList();
+        //    int pageNumber = page ?? 1;
+        //    int pageSize = 10;
+
+        //    var pagedList = giamGias.ToPagedList(pageNumber, pageSize);
+
+        //    return View("Index", pagedList);
+        //}
 
 
         //public IActionResult Index(int page = 1)
@@ -311,26 +344,33 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyVouvher
         [ValidateAntiForgeryToken]
         public ActionResult Edit(GiamGia a)
         {
-            if (ModelState.IsValid)
+           
+            if (a.Is_detele == false)
             {
+                a.TrangThai = false;
+
                 // Kiểm tra điều kiện NgayBatDau
                 //if (a.NgayBatDau <= DateTime.Now)
                 //{
                 //    ModelState.Remove("NgayBatDau");
                 //    ModelState.AddModelError("NgayBatDau", "Không thể sửa đổi khi đã đến thời gian áp dụng.");
                 //}
-                if (a.NgayKetThuc <= DateTime.Now)
+
+
+
+
+                if (_gg.Sua(a))
                 {
-                    ModelState.AddModelError("NgayBatDau", "Không thể sửa khi đã đến thời gian áp dụng.");
-                    return View(a);
+                    return RedirectToAction("Index");
                 }
 
-                else
+            }
+            else
+            {
+
+                if (_gg.Sua(a))
                 {
-                    if (_gg.Sua(a))
-                    {
-                        return RedirectToAction("Index");
-                    }
+                    return RedirectToAction("Index");
                 }
             }
 
