@@ -198,7 +198,11 @@ namespace CTN4_View.Controllers
                 ViewBag.Message = "Định dạng email không hợp lệ";
                 return View("DangKy", a);
             }
-
+            var checkma = _khachHangService.GetAll().FirstOrDefault(c => c.TenDangNhap == a.TenDangNhap);
+            if (checkma !=null ) {
+                ViewBag.Message = "Tên đăng nhập không được trùng";
+                return View("DangKy", a);
+            }
             // Kiểm tra độ dài và định dạng số điện thoại
             if (!IsValidPhoneNumber(a.SDT))
             {
@@ -305,7 +309,7 @@ namespace CTN4_View.Controllers
                 return View("DoimkKh", kh);
 
             }
-
+            
             // Kiểm tra xác nhận mật khẩu mới
             if (kh.MatKhauMoi != kh.xacNhanMatKhauMoi)
             {
