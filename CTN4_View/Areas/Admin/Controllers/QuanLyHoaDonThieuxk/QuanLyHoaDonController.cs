@@ -143,7 +143,15 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                 }
                 foreach (var a in hdct)
                 {
-                        tongTienSP += a.GiaTien * a.SoLuong;
+                    if (g.Contains(a.SanPhamChiTiet.SanPham.Id))
+                    {
+                        tongTienSP += a.GiaTien * a.SoLuong/2;
+                    }
+                    else
+                    {
+                        tongTienSP += a.GiaTien * a.SoLuong / 2;
+                    }
+                       
                 }
                 var c = _GiamGiaChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
                
@@ -188,40 +196,8 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                     };
                     _LichSuHoaDonService.Them(li);
                 }
-                var hdct1 = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
-                var lshd = _LichSuHoaDonService.GetAll().Where(c => c.IdHoaDonn == id).ToList();
-                int tongSoLuongSP = 0;
-                float tongTienSP = 0;
-                foreach (var a in hdct1)
-                {
-                    tongSoLuongSP += a.SoLuong;
-                }
-                foreach (var a in hdct1)
-                {
-                    tongTienSP += a.GiaTien * a.SoLuong;
-                }
-                var c = _GiamGiaChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
-                var KhuyenMaiSp = _KhuyenMaiSanPhams.GetAll().Where(c => c.KhuyenMai.Mua1tang1 == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now && c.KhuyenMai.Is_Detele == true).ToList();
-                var g = new List<Guid>();
-                foreach (var item in KhuyenMaiSp)
-                {
-                    // Kiểm tra xem Mau.Id đã xuất hiện trong danh sách chưa
-                    if (!g.Contains((Guid)item.IdSanPham))
-                    {
-                        g.Add((Guid)item.IdSanPham);
-                    }
-                }
-                var view = new ThieuxkViewAdmin()
-                {
-                    check11 = g,
-                    GiamGiaChiTiets = c,
-                    HoaDon = hd,
-                    hoaDonChiTiets = hdct1,
-                    LichSuHoaDon = lshd.OrderByDescending(c => c.ThoiGianlam).ToList(),
-                    TongTienHang = tongTienSP,
-                    soLuongTong = tongSoLuongSP
-                };
-                return View("XemChiTiet", view);
+
+                return RedirectToAction("XemChiTiet",new{id=id});
             }
             else
             {
@@ -239,6 +215,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                     TempData["TB1"] = message;
                     return RedirectToAction("XemChiTiet", new { id = id, message });
                 }
+
                 var hd = _hoaDonService.GetById(id);
                 if (hd.NgayGiao != null)
                 {
@@ -262,40 +239,8 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                     };
                     _LichSuHoaDonService.Them(li);
                 }
-                var hdct1 = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
-                var lshd = _LichSuHoaDonService.GetAll().Where(c => c.IdHoaDonn == id).ToList();
-                int tongSoLuongSP = 0;
-                float tongTienSP = 0;
-                foreach (var a in hdct1)
-                {
-                    tongSoLuongSP += a.SoLuong;
-                }
-                foreach (var a in hdct1)
-                {
-                    tongTienSP += a.GiaTien * a.SoLuong;
-                }
-                var c = _GiamGiaChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
-                var KhuyenMaiSp = _KhuyenMaiSanPhams.GetAll().Where(c => c.KhuyenMai.Mua1tang1 == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now && c.KhuyenMai.Is_Detele == true).ToList();
-                var g = new List<Guid>();
-                foreach (var item in KhuyenMaiSp)
-                {
-                    // Kiểm tra xem Mau.Id đã xuất hiện trong danh sách chưa
-                    if (!g.Contains((Guid)item.IdSanPham))
-                    {
-                        g.Add((Guid)item.IdSanPham);
-                    }
-                }
-                var view = new ThieuxkViewAdmin()
-                {
-                    check11 = g,
-                    GiamGiaChiTiets = c,
-                    HoaDon = hd,
-                    hoaDonChiTiets = hdct1,
-                    LichSuHoaDon = lshd.OrderByDescending(c => c.ThoiGianlam).ToList(),
-                    TongTienHang = tongTienSP,
-                    soLuongTong = tongSoLuongSP
-                };
-                return View("XemChiTiet", view);
+
+                return RedirectToAction("XemChiTiet", new { id = id });
             }
             else
             {
@@ -330,40 +275,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                     };
                     _LichSuHoaDonService.Them(li);
                 }
-                var hdct1 = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
-                var lshd = _LichSuHoaDonService.GetAll().Where(c => c.IdHoaDonn == id).ToList();
-                int tongSoLuongSP = 0;
-                float tongTienSP = 0;
-                foreach (var a in hdct1)
-                {
-                    tongSoLuongSP += a.SoLuong;
-                }
-                foreach (var a in hdct1)
-                {
-                    tongTienSP += a.GiaTien * a.SoLuong;
-                }
-                var c = _GiamGiaChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
-                var KhuyenMaiSp = _KhuyenMaiSanPhams.GetAll().Where(c => c.KhuyenMai.Mua1tang1 == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now && c.KhuyenMai.Is_Detele == true).ToList();
-                var g = new List<Guid>();
-                foreach (var item in KhuyenMaiSp)
-                {
-                    // Kiểm tra xem Mau.Id đã xuất hiện trong danh sách chưa
-                    if (!g.Contains((Guid)item.IdSanPham))
-                    {
-                        g.Add((Guid)item.IdSanPham);
-                    }
-                }
-                var view = new ThieuxkViewAdmin()
-                {
-                    check11 = g,
-                    GiamGiaChiTiets = c,
-                    HoaDon = hd,
-                    hoaDonChiTiets = hdct1,
-                    LichSuHoaDon = lshd.OrderByDescending(c => c.ThoiGianlam).ToList(),
-                    TongTienHang = tongTienSP,
-                    soLuongTong = tongSoLuongSP
-                };
-                return View("XemChiTiet", view);
+                return RedirectToAction("XemChiTiet", new { id = id });
             }
             else
             {
@@ -391,40 +303,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                     };
                     _LichSuHoaDonService.Them(li);
                 }
-                var hdct1 = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
-                var lshd = _LichSuHoaDonService.GetAll().Where(c => c.IdHoaDonn == id).ToList();
-                int tongSoLuongSP = 0;
-                float tongTienSP = 0;
-                foreach (var a in hdct1)
-                {
-                    tongSoLuongSP += a.SoLuong;
-                }
-                foreach (var a in hdct1)
-                {
-                    tongTienSP += a.GiaTien * a.SoLuong;
-                }
-                var c = _GiamGiaChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
-                var KhuyenMaiSp = _KhuyenMaiSanPhams.GetAll().Where(c => c.KhuyenMai.Mua1tang1 == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now && c.KhuyenMai.Is_Detele == true).ToList();
-                var g = new List<Guid>();
-                foreach (var item in KhuyenMaiSp)
-                {
-                    // Kiểm tra xem Mau.Id đã xuất hiện trong danh sách chưa
-                    if (!g.Contains((Guid)item.IdSanPham))
-                    {
-                        g.Add((Guid)item.IdSanPham);
-                    }
-                }
-                var view = new ThieuxkViewAdmin()
-                {
-                    check11 = g,
-                    GiamGiaChiTiets = c,
-                    HoaDon = hd,
-                    hoaDonChiTiets = hdct1,
-                    LichSuHoaDon = lshd.OrderByDescending(c => c.ThoiGianlam).ToList(),
-                    TongTienHang = tongTienSP,
-                    soLuongTong = tongSoLuongSP
-                };
-                return View("XemChiTiet", view);
+                return RedirectToAction("XemChiTiet", new { id = id });
             }
             else
             {
@@ -469,40 +348,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                     return RedirectToAction("XemChiTiet", new { id = id, message });
                 }
 
-                var hdct1 = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
-                var lshd = _LichSuHoaDonService.GetAll().Where(c => c.IdHoaDonn == id).ToList();
-                int tongSoLuongSP = 0;
-                float tongTienSP = 0;
-                foreach (var a in hdct1)
-                {
-                    tongSoLuongSP += a.SoLuong;
-                }
-                foreach (var a in hdct1)
-                {
-                    tongTienSP += a.GiaTien * a.SoLuong;
-                }
-                var c = _GiamGiaChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
-                var KhuyenMaiSp = _KhuyenMaiSanPhams.GetAll().Where(c => c.KhuyenMai.Mua1tang1 == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now && c.KhuyenMai.Is_Detele == true).ToList();
-                var g = new List<Guid>();
-                foreach (var item in KhuyenMaiSp)
-                {
-                    // Kiểm tra xem Mau.Id đã xuất hiện trong danh sách chưa
-                    if (!g.Contains((Guid)item.IdSanPham))
-                    {
-                        g.Add((Guid)item.IdSanPham);
-                    }
-                }
-                var view = new ThieuxkViewAdmin()
-                {
-                    check11 = g,
-                    GiamGiaChiTiets = c,
-                    HoaDon = hd,
-                    hoaDonChiTiets = hdct1,
-                    LichSuHoaDon = lshd.OrderByDescending(c => c.ThoiGianlam).ToList(),
-                    TongTienHang = tongTienSP,
-                    soLuongTong = tongSoLuongSP
-                };
-                return View("XemChiTiet", view);
+                return RedirectToAction("XemChiTiet", new { id = id });
             }
             else
             {
@@ -548,40 +394,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                     return RedirectToAction("XemChiTiet", new { id = id, message });
                 }
 
-                var hdct1 = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
-                var lshd = _LichSuHoaDonService.GetAll().Where(c => c.IdHoaDonn == id).ToList();
-                int tongSoLuongSP = 0;
-                float tongTienSP = 0;
-                foreach (var a in hdct1)
-                {
-                    tongSoLuongSP += a.SoLuong;
-                }
-                foreach (var a in hdct1)
-                {
-                    tongTienSP += a.GiaTien * a.SoLuong;
-                }
-                var c = _GiamGiaChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
-                var KhuyenMaiSp = _KhuyenMaiSanPhams.GetAll().Where(c => c.KhuyenMai.Mua1tang1 == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now && c.KhuyenMai.Is_Detele == true).ToList();
-                var g = new List<Guid>();
-                foreach (var item in KhuyenMaiSp)
-                {
-                    // Kiểm tra xem Mau.Id đã xuất hiện trong danh sách chưa
-                    if (!g.Contains((Guid)item.IdSanPham))
-                    {
-                        g.Add((Guid)item.IdSanPham);
-                    }
-                }
-                var view = new ThieuxkViewAdmin()
-                {
-                    check11 = g,
-                    GiamGiaChiTiets = c,
-                    HoaDon = hd,
-                    hoaDonChiTiets = hdct1,
-                    LichSuHoaDon = lshd.OrderByDescending(c => c.ThoiGianlam).ToList(),
-                    TongTienHang = tongTienSP,
-                    soLuongTong = tongSoLuongSP
-                };
-                return View("XemChiTiet", view);
+                return RedirectToAction("XemChiTiet", new { id = id });
             }
             else
             {
@@ -627,41 +440,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
 
 
 
-                var hdct1 = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
-                var lshd = _LichSuHoaDonService.GetAll().Where(c => c.IdHoaDonn == id).ToList();
-                int tongSoLuongSP = 0;
-                float tongTienSP = 0;
-                foreach (var a in hdct1)
-                {
-                    tongSoLuongSP += a.SoLuong;
-                }
-                foreach (var a in hdct1)
-                {
-                    tongTienSP += a.GiaTien * a.SoLuong;
-                }
-                var c = _GiamGiaChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
-                var KhuyenMaiSp = _KhuyenMaiSanPhams.GetAll().Where(c => c.KhuyenMai.Mua1tang1 == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now && c.KhuyenMai.Is_Detele == true).ToList();
-                var g = new List<Guid>();
-                foreach (var item in KhuyenMaiSp)
-                {
-                    // Kiểm tra xem Mau.Id đã xuất hiện trong danh sách chưa
-                    if (!g.Contains((Guid)item.IdSanPham))
-                    {
-                        g.Add((Guid)item.IdSanPham);
-                    }
-                }
-                var view = new ThieuxkViewAdmin()
-                {
-                    check11 = g,
-                    GiamGiaChiTiets = c,
-                    HoaDon = hd,
-                    hoaDonChiTiets = hdct1,
-                    LichSuHoaDon = lshd.OrderByDescending(c => c.ThoiGianlam).ToList(),
-                    TongTienHang = tongTienSP,
-                    soLuongTong = tongSoLuongSP
-                };
-                return View("XemChiTiet", view);
-
+                return RedirectToAction("XemChiTiet", new { id = id });
             }
             else
             {
@@ -701,40 +480,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
 
 
 
-                var hdct1 = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
-                var lshd = _LichSuHoaDonService.GetAll().Where(c => c.IdHoaDonn == id).ToList();
-                int tongSoLuongSP = 0;
-                float tongTienSP = 0;
-                foreach (var a in hdct1)
-                {
-                    tongSoLuongSP += a.SoLuong;
-                }
-                foreach (var a in hdct1)
-                {
-                    tongTienSP += a.GiaTien * a.SoLuong;
-                }
-                var c = _GiamGiaChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
-                var KhuyenMaiSp = _KhuyenMaiSanPhams.GetAll().Where(c => c.KhuyenMai.Mua1tang1 == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now && c.KhuyenMai.Is_Detele == true).ToList();
-                var g = new List<Guid>();
-                foreach (var item in KhuyenMaiSp)
-                {
-                    // Kiểm tra xem Mau.Id đã xuất hiện trong danh sách chưa
-                    if (!g.Contains((Guid)item.IdSanPham))
-                    {
-                        g.Add((Guid)item.IdSanPham);
-                    }
-                }
-                var view = new ThieuxkViewAdmin()
-                {
-                    check11 = g,
-                    GiamGiaChiTiets = c,
-                    HoaDon = hd,
-                    hoaDonChiTiets = hdct1,
-                    LichSuHoaDon = lshd.OrderByDescending(c => c.ThoiGianlam).ToList(),
-                    TongTienHang = tongTienSP,
-                    soLuongTong = tongSoLuongSP
-                };
-                return View("XemChiTiet", view);
+                return RedirectToAction("XemChiTiet", new { id = id });
             }
             else
             {
@@ -774,40 +520,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                 }
 
 
-                var hdct1 = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
-                var lshd = _LichSuHoaDonService.GetAll().Where(c => c.IdHoaDonn == id).ToList();
-                int tongSoLuongSP = 0;
-                float tongTienSP = 0;
-                foreach (var a in hdct1)
-                {
-                    tongSoLuongSP += a.SoLuong;
-                }
-                foreach (var a in hdct1)
-                {
-                    tongTienSP += a.GiaTien * a.SoLuong;
-                }
-                var c = _GiamGiaChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
-                var KhuyenMaiSp = _KhuyenMaiSanPhams.GetAll().Where(c => c.KhuyenMai.Mua1tang1 == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now && c.KhuyenMai.Is_Detele == true).ToList();
-                var g = new List<Guid>();
-                foreach (var item in KhuyenMaiSp)
-                {
-                    // Kiểm tra xem Mau.Id đã xuất hiện trong danh sách chưa
-                    if (!g.Contains((Guid)item.IdSanPham))
-                    {
-                        g.Add((Guid)item.IdSanPham);
-                    }
-                }
-                var view = new ThieuxkViewAdmin()
-                {
-                    check11 = g,
-                    GiamGiaChiTiets = c,
-                    HoaDon = hd,
-                    hoaDonChiTiets = hdct1,
-                    LichSuHoaDon = lshd.OrderByDescending(c => c.ThoiGianlam).ToList(),
-                    TongTienHang = tongTienSP,
-                    soLuongTong = tongSoLuongSP
-                };
-                return View("XemChiTiet", view);
+                return RedirectToAction("XemChiTiet", new { id = id });
             }
             else
             {
@@ -845,41 +558,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                     return RedirectToAction("XemChiTiet", new { id = id, message });
                 }
 
-
-                var hdct1 = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
-                var lshd = _LichSuHoaDonService.GetAll().Where(c => c.IdHoaDonn == id).ToList();
-                int tongSoLuongSP = 0;
-                float tongTienSP = 0;
-                foreach (var a in hdct1)
-                {
-                    tongSoLuongSP += a.SoLuong;
-                }
-                foreach (var a in hdct1)
-                {
-                    tongTienSP += a.GiaTien * a.SoLuong;
-                }
-                var c = _GiamGiaChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
-                var KhuyenMaiSp = _KhuyenMaiSanPhams.GetAll().Where(c => c.KhuyenMai.Mua1tang1 == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now && c.KhuyenMai.Is_Detele == true).ToList();
-                var g = new List<Guid>();
-                foreach (var item in KhuyenMaiSp)
-                {
-                    // Kiểm tra xem Mau.Id đã xuất hiện trong danh sách chưa
-                    if (!g.Contains((Guid)item.IdSanPham))
-                    {
-                        g.Add((Guid)item.IdSanPham);
-                    }
-                }
-                var view = new ThieuxkViewAdmin()
-                {
-                    check11 = g,
-                    GiamGiaChiTiets = c,
-                    HoaDon = hd,
-                    hoaDonChiTiets = hdct1,
-                    LichSuHoaDon = lshd.OrderByDescending(c => c.ThoiGianlam).ToList(),
-                    TongTienHang = tongTienSP,
-                    soLuongTong = tongSoLuongSP
-                };
-                return View("XemChiTiet", view);
+                return RedirectToAction("XemChiTiet", new { id = id });
             }
             else
             {
@@ -914,40 +593,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                 }
 
 
-                var hdct1 = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
-                var lshd = _LichSuHoaDonService.GetAll().Where(c => c.IdHoaDonn == id).ToList();
-                int tongSoLuongSP = 0;
-                float tongTienSP = 0;
-                foreach (var a in hdct1)
-                {
-                    tongSoLuongSP += a.SoLuong;
-                }
-                foreach (var a in hdct1)
-                {
-                    tongTienSP += a.GiaTien * a.SoLuong;
-                }
-                var c = _GiamGiaChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
-                var KhuyenMaiSp = _KhuyenMaiSanPhams.GetAll().Where(c => c.KhuyenMai.Mua1tang1 == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now && c.KhuyenMai.Is_Detele == true).ToList();
-                var g = new List<Guid>();
-                foreach (var item in KhuyenMaiSp)
-                {
-                    // Kiểm tra xem Mau.Id đã xuất hiện trong danh sách chưa
-                    if (!g.Contains((Guid)item.IdSanPham))
-                    {
-                        g.Add((Guid)item.IdSanPham);
-                    }
-                }
-                var view = new ThieuxkViewAdmin()
-                {
-                    check11 = g,
-                    GiamGiaChiTiets = c,
-                    HoaDon = hd,
-                    hoaDonChiTiets = hdct1,
-                    LichSuHoaDon = lshd.OrderByDescending(c => c.ThoiGianlam).ToList(),
-                    TongTienHang = tongTienSP,
-                    soLuongTong = tongSoLuongSP
-                };
-                return View("XemChiTiet", view);
+                return RedirectToAction("XemChiTiet", new { id = id });
             }
             else
             {
@@ -995,33 +641,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                     TempData["TB5"] = message;
                     return RedirectToAction("XemChiTiet", new { id = id, message });
                 }
-
-                var hdct1 = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
-                var lshd = _LichSuHoaDonService.GetAll().Where(c => c.IdHoaDonn == id).ToList();
-                int tongSoLuongSP = 0;
-                float tongTienSP = 0;
-                foreach (var a in hdct1)
-                {
-                    tongSoLuongSP += a.SoLuong;
-                }
-                foreach (var a in hdct1)
-                {
-                    tongTienSP += a.GiaTien * a.SoLuong;
-                }
-                var c = _GiamGiaChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
-              
-                var view = new ThieuxkViewAdmin()
-                {
-                    check11 = g,
-                    GiamGiaChiTiets = c,
-                    HoaDon = hd,
-                    hoaDonChiTiets = hdct1,
-                    LichSuHoaDon = lshd.OrderByDescending(c => c.ThoiGianlam).ToList(),
-                    TongTienHang = tongTienSP,
-                    soLuongTong = tongSoLuongSP
-                };
-                return View("XemChiTiet", view);
-
+                return RedirectToAction("XemChiTiet", new { id = id });
             }
             else
             {
@@ -1080,40 +700,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                         return RedirectToAction("XemChiTiet", new { id = idHD, message });
                     }
 
-                    var hdct1 = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == idHD).ToList();
-                    var lshd = _LichSuHoaDonService.GetAll().Where(c => c.IdHoaDonn == idHD).ToList();
-                    int tongSoLuongSP = 0;
-                    float tongTienSP = 0;
-                    foreach (var a in hdct1)
-                    {
-                        tongSoLuongSP += a.SoLuong;
-                    }
-                    foreach (var a in hdct1)
-                    {
-                        tongTienSP += a.GiaTien * a.SoLuong;
-                    }
-                    var c = _GiamGiaChiTietService.GetAll().Where(c => c.IdHoaDon == idHD).ToList();
-                    var KhuyenMaiSp = _KhuyenMaiSanPhams.GetAll().Where(c => c.KhuyenMai.Mua1tang1 == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now && c.KhuyenMai.Is_Detele == true).ToList();
-                    var g = new List<Guid>();
-                    foreach (var item in KhuyenMaiSp)
-                    {
-                        // Kiểm tra xem Mau.Id đã xuất hiện trong danh sách chưa
-                        if (!g.Contains((Guid)item.IdSanPham))
-                        {
-                            g.Add((Guid)item.IdSanPham);
-                        }
-                    }
-                    var view = new ThieuxkViewAdmin()
-                    {
-                        check11 = g,
-                        GiamGiaChiTiets = c,
-                        HoaDon = hd,
-                        hoaDonChiTiets = hdct1,
-                        LichSuHoaDon = lshd.OrderByDescending(c => c.ThoiGianlam).ToList(),
-                        TongTienHang = tongTienSP,
-                        soLuongTong = tongSoLuongSP
-                    };
-                    return View("XemChiTiet", view);
+                    return RedirectToAction("XemChiTiet", new { id = idHD });
                 }
                 else
                 {
@@ -1176,40 +763,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                     return RedirectToAction("XemChiTiet", new { id = idHD, message });
                 }
 
-                var hdct1 = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == idHD).ToList();
-                var lshd = _LichSuHoaDonService.GetAll().Where(c => c.IdHoaDonn == idHD).ToList();
-                int tongSoLuongSP = 0;
-                float tongTienSP = 0;
-                foreach (var a in hdct1)
-                {
-                    tongSoLuongSP += a.SoLuong;
-                }
-                foreach (var a in hdct1)
-                {
-                    tongTienSP += a.GiaTien * a.SoLuong;
-                }
-                var c = _GiamGiaChiTietService.GetAll().Where(c => c.IdHoaDon == idHD).ToList();
-                var KhuyenMaiSp = _KhuyenMaiSanPhams.GetAll().Where(c => c.KhuyenMai.Mua1tang1 == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now && c.KhuyenMai.Is_Detele == true).ToList();
-                var g = new List<Guid>();
-                foreach (var item in KhuyenMaiSp)
-                {
-                    // Kiểm tra xem Mau.Id đã xuất hiện trong danh sách chưa
-                    if (!g.Contains((Guid)item.IdSanPham))
-                    {
-                        g.Add((Guid)item.IdSanPham);
-                    }
-                }
-                var view = new ThieuxkViewAdmin()
-                {
-                    check11 = g,
-                    GiamGiaChiTiets = c,
-                    HoaDon = hd,
-                    hoaDonChiTiets = hdct1,
-                    LichSuHoaDon = lshd.OrderByDescending(c => c.ThoiGianlam).ToList(),
-                    TongTienHang = tongTienSP,
-                    soLuongTong = tongSoLuongSP
-                };
-                return View("XemChiTiet", view);
+                return RedirectToAction("XemChiTiet", new { id = idHD });
             }
             else
             {
@@ -1280,40 +834,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                 }
 
 
-                var hdct1 = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == IdHoaDon).ToList();
-                var lshd = _LichSuHoaDonService.GetAll().Where(c => c.IdHoaDonn == IdHoaDon).ToList();
-                int tongSoLuongSP = 0;
-                float tongTienSP = 0;
-                foreach (var a in hdct1)
-                {
-                    tongSoLuongSP += a.SoLuong;
-                }
-                foreach (var a in hdct1)
-                {
-                    tongTienSP += a.GiaTien * a.SoLuong;
-                }
-                var c = _GiamGiaChiTietService.GetAll().Where(c => c.IdHoaDon == IdHoaDon).ToList();
-                var KhuyenMaiSp = _KhuyenMaiSanPhams.GetAll().Where(c => c.KhuyenMai.Mua1tang1 == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now && c.KhuyenMai.Is_Detele == true).ToList();
-                var g = new List<Guid>();
-                foreach (var item in KhuyenMaiSp)
-                {
-                    // Kiểm tra xem Mau.Id đã xuất hiện trong danh sách chưa
-                    if (!g.Contains((Guid)item.IdSanPham))
-                    {
-                        g.Add((Guid)item.IdSanPham);
-                    }
-                }
-                var view = new ThieuxkViewAdmin()
-                {
-                    check11 = g,
-                    GiamGiaChiTiets = c,
-                    HoaDon = hd,
-                    hoaDonChiTiets = hdct1,
-                    LichSuHoaDon = lshd.OrderByDescending(c => c.ThoiGianlam).ToList(),
-                    TongTienHang = tongTienSP,
-                    soLuongTong = tongSoLuongSP
-                };
-                return View("XemChiTiet", view);
+                return RedirectToAction("XemChiTiet", new { id = IdHoaDon });
             }
             else
             {
@@ -1351,41 +872,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                     return RedirectToAction("XemChiTiet", new { id = id, message });
                 }
 
-
-                var hdct1 = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
-                var lshd = _LichSuHoaDonService.GetAll().Where(c => c.IdHoaDonn == id).ToList();
-                int tongSoLuongSP = 0;
-                float tongTienSP = 0;
-                foreach (var a in hdct1)
-                {
-                    tongSoLuongSP += a.SoLuong;
-                }
-                foreach (var a in hdct1)
-                {
-                    tongTienSP += a.GiaTien * a.SoLuong;
-                }
-                var c = _GiamGiaChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
-                var KhuyenMaiSp = _KhuyenMaiSanPhams.GetAll().Where(c => c.KhuyenMai.Mua1tang1 == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now && c.KhuyenMai.Is_Detele == true).ToList();
-                var g = new List<Guid>();
-                foreach (var item in KhuyenMaiSp)
-                {
-                    // Kiểm tra xem Mau.Id đã xuất hiện trong danh sách chưa
-                    if (!g.Contains((Guid)item.IdSanPham))
-                    {
-                        g.Add((Guid)item.IdSanPham);
-                    }
-                }
-                var view = new ThieuxkViewAdmin()
-                {
-                    check11 = g,
-                    GiamGiaChiTiets = c,
-                    HoaDon = hd,
-                    hoaDonChiTiets = hdct1,
-                    LichSuHoaDon = lshd.OrderByDescending(c => c.ThoiGianlam).ToList(),
-                    TongTienHang = tongTienSP,
-                    soLuongTong = tongSoLuongSP
-                };
-                return View("XemChiTiet", view);
+                return RedirectToAction("XemChiTiet", new { id = id });
             }
             else
             {
@@ -1430,42 +917,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                     TempData["TB4"] = message;
                     return RedirectToAction("XemChiTiet", new { id = id, message });
                 }
-
-
-                var hdct1 = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
-                var lshd = _LichSuHoaDonService.GetAll().Where(c => c.IdHoaDonn == id).ToList();
-                int tongSoLuongSP = 0;
-                float tongTienSP = 0;
-                foreach (var a in hdct1)
-                {
-                    tongSoLuongSP += a.SoLuong;
-                }
-                foreach (var a in hdct1)
-                {
-                    tongTienSP += a.GiaTien * a.SoLuong;
-                }
-                var c = _GiamGiaChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
-                var KhuyenMaiSp = _KhuyenMaiSanPhams.GetAll().Where(c => c.KhuyenMai.Mua1tang1 == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now && c.KhuyenMai.Is_Detele == true).ToList();
-                var g = new List<Guid>();
-                foreach (var item in KhuyenMaiSp)
-                {
-                    // Kiểm tra xem Mau.Id đã xuất hiện trong danh sách chưa
-                    if (!g.Contains((Guid)item.IdSanPham))
-                    {
-                        g.Add((Guid)item.IdSanPham);
-                    }
-                }
-                var view = new ThieuxkViewAdmin()
-                {
-                    check11 = g,
-                    GiamGiaChiTiets = c,
-                    HoaDon = hd,
-                    hoaDonChiTiets = hdct1,
-                    LichSuHoaDon = lshd.OrderByDescending(c => c.ThoiGianlam).ToList(),
-                    TongTienHang = tongTienSP,
-                    soLuongTong = tongSoLuongSP
-                };
-                return View("XemChiTiet", view);
+                return RedirectToAction("XemChiTiet", new { id = id });
             }
             else
             {

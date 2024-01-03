@@ -589,6 +589,7 @@
                                     <input type="text" class="form-control" placeholder="Nhập số điện thoại của bạn" value="@Model.HoaDon.SDTNguoiNhan" id="number" name="sdt" oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="15">
                                     <input type="text" name="email" id="emailInput" value="@Model.HoaDon.Email" maxlength="50" />
                                     <p id="emailValidationMessage" style="color: red;"></p>
+                                    <input type="hidden" name="id" value="@Model.HoaDon.Id"/>
                                     <button type="submit" name="loai" value="0" id="submitButton" class="btn btn-custom-primary">Sửa</button>
 
                                 </form>
