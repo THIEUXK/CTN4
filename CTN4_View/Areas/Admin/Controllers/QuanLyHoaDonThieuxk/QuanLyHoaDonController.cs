@@ -1055,7 +1055,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             var hd = _hoaDonService.GetAll();
             var view = new ThieuxkViewAdmin()
             {
-                hoaDons = hd.Where(c => c.TrangThai == "Đơn hàng bị hủy").ToList(),
+                hoaDons = hd.Where(c => c.TrangThai == "Đơn hàng bị hủy"&& c.Is_detele == true).ToList(),
             };
             return View("Index", view);
         }
@@ -1064,7 +1064,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             var hd = _hoaDonService.GetAll();
             var view = new ThieuxkViewAdmin()
             {
-                hoaDons = hd.Where(c => c.Is_detele == true && c.NgayTaoHoaDon == null).OrderByDescending(c => c.NgayDat).ToList(),
+                hoaDons = hd.Where(c => c.Is_detele == true && c.NgayTaoHoaDon == null && c.Is_detele == true).OrderByDescending(c => c.NgayDat).ToList(),
             };
             return View("Index", view);
         }
@@ -1820,7 +1820,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             }
 
         }
-        public IActionResult SuDunggiamGia(Guid IdGiamGia2, float tienhanga, string DiachiNhanChiTiet, string name, string Sodienthoai, string Email, string addDiaChi, string ghiChu, float tienshipa, float tongtien, int idHD)
+        public IActionResult SuDunggiamGia(Guid IdGiamGia2, float tienhanga, string DiachiNhanChiTiet, string name, string Sodienthoai, string Email, string addDiaChi, string ghiChu, float tienshipa, float tongtien, int idHD) 
         {
             var nvnew = SessionServices.NhanVienSS(HttpContext.Session, "ACA");
             if (nvnew.Count() != 0)
@@ -1937,9 +1937,33 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                         SessionBan.SetObjToJson(HttpContext.Session, "GiamGia2", giamgianew);
                     }
                     float tiengiam = (tienhanga + tienshipa) - (tiensaugiam + tienshipa);
-                    var view = new Thi1View()
+                    var KhuyenMaiSp = _KhuyenMaiSanPhams.GetAll().Where(c => c.KhuyenMai.Mua1tang1 == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now && c.KhuyenMai.Is_Detele == true).ToList();
+                    var g = new List<Guid>();
+                    foreach (var item in KhuyenMaiSp)
+                    {
+                        // Kiểm tra xem Mau.Id đã xuất hiện trong danh sách chưa
+                        if (!g.Contains((Guid)item.IdSanPham))
+                        {
+                            g.Add((Guid)item.IdSanPham);
+                        }
+                    }
+                    foreach (var x in ghct)
                     {
 
+                        if (g.Contains(x.SanPhamChiTiet.SanPham.Id))
+                        {
+                            tong += float.Parse(x.SanPhamChiTiet.SanPham.GiaNiemYet.ToString()) * (x.SoLuong / 2);
+                        }
+                        else
+                        {
+                            tong += float.Parse(x.SanPhamChiTiet.SanPham.GiaNiemYet.ToString()) * (x.SoLuong);
+                        }
+
+
+                    }
+                    var view = new Thi1View()
+                    {
+                        check11 = g,
                         HoaDon = hd,
                         GiamGias = giamgia,
                         HoaDonChiTiets = a,
@@ -2062,8 +2086,33 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                         SessionBan.SetObjToJson(HttpContext.Session, "GiamGia2", giamgianew);
                     }
                     float tiengiam = (tienhanga + tienshipa) - (tiensaugiam + tienshipa);
+                    var KhuyenMaiSp = _KhuyenMaiSanPhams.GetAll().Where(c => c.KhuyenMai.Mua1tang1 == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now && c.KhuyenMai.Is_Detele == true).ToList();
+                    var g = new List<Guid>();
+                    foreach (var item in KhuyenMaiSp)
+                    {
+                        // Kiểm tra xem Mau.Id đã xuất hiện trong danh sách chưa
+                        if (!g.Contains((Guid)item.IdSanPham))
+                        {
+                            g.Add((Guid)item.IdSanPham);
+                        }
+                    }
+                    foreach (var x in ghct)
+                    {
+
+                        if (g.Contains(x.SanPhamChiTiet.SanPham.Id))
+                        {
+                            tong += float.Parse(x.SanPhamChiTiet.SanPham.GiaNiemYet.ToString()) * (x.SoLuong / 2);
+                        }
+                        else
+                        {
+                            tong += float.Parse(x.SanPhamChiTiet.SanPham.GiaNiemYet.ToString()) * (x.SoLuong);
+                        }
+
+
+                    }
                     var view = new Thi1View()
                     {
+                        check11 = g,
                         HoaDon = hd,
                         GiamGias = giamgia,
                         HoaDonChiTiets = a,
