@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CTN4_Data.Models;
 using CTN4_Data.Models.DB_CTN4;
 
 namespace CTN4_Serv.ViewModel
@@ -10,6 +11,7 @@ namespace CTN4_Serv.ViewModel
     public class SanPhamBan
     {
         public int idHD { get; set; }
+        public int? trungBinhDanhGia { get; set; }
         public List<Anh> Anh { get; set; }
         public SanPham sanPham { get; set; }
         public List<SanPham> sanPhams { get; set; }
@@ -18,6 +20,10 @@ namespace CTN4_Serv.ViewModel
         public List<Mau> maus { get; set; }
         public List<Anh> anhs { get; set; }
         public List<GiamGia> giamgias { get; set; }
+        public List<DanhGiaSanPham> danhGiaSanPhams { get; set; }
+        public List<DanhGiaSanPham> tongSoSao { get; set; }
+        public DanhGiaSanPham danhGiaSanPhamCuaToi { get; set; }
+        
         public List<Guid> idsanphamdamuas { get; set; }
         public Guid idmau { get; set; }
         public Guid idsize { get; set; }
