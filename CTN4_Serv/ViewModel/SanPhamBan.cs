@@ -18,6 +18,7 @@ namespace CTN4_Serv.ViewModel
         public List<Mau> maus { get; set; }
         public List<Anh> anhs { get; set; }
         public List<GiamGia> giamgias { get; set; }
+        public List<Guid> idsanphamdamuas { get; set; }
         public Guid idmau { get; set; }
         public Guid idsize { get; set; }
         public int soluong { get; set; }

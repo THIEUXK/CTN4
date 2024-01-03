@@ -87,23 +87,23 @@
             //if (checkedCheckboxes.length != 0) {
             console.log(JSON.stringify({ listId: arrcheck }));
             if (arrcheck.length > 0) {
-            $.ajax({
-                url: '/QuanLyHd/XuatEx3',
-                type: 'POST',
-                dataType: 'json',
-                contentType: 'application/json;charset=utf-8',
-                data: JSON.stringify(obj),
-                success: function (result) {
-                    debugger
-                    if (result == "ok") {
-                        $("#aaa1").html(`<div class="alert alert-danger" style="background-color:lightgreen;color:black">Xác nhận đơn hàng thành công</div>`);
-                    }
-                    else if (result == "that bai 1") {
-                        $("#aaa").html(`<div class="alert alert-danger">Có đơn hàng không dủ điều kiện</div>`);
+                $.ajax({
+                    url: '/QuanLyHd/XuatEx3',
+                    type: 'POST',
+                    dataType: 'json',
+                    contentType: 'application/json;charset=utf-8',
+                    data: JSON.stringify(obj),
+                    success: function (result) {
+                        debugger
+                        if (result == "ok") {
+                            $("#aaa1").html(`<div class="alert alert-danger" style="background-color:lightgreen;color:black">Xác nhận đơn hàng thành công</div>`);
+                        }
+                        else if (result == "that bai 1") {
+                            $("#aaa").html(`<div class="alert alert-danger">Có đơn hàng không dủ điều kiện</div>`);
 
+                        }
                     }
-                }
-            })
+                })
             } else {
                 console.log('Không có sản phẩm được chọn.');
                 $('#alertMessage').addClass('red-alert').html('Không có sản phẩm nào được chọn. Vui lòng chọn ít nhất một sản phẩm để tiếp tục.').show();
@@ -131,25 +131,26 @@
             }
             //if (checkedCheckboxes.length != 0) {
             if (arrcheck.length > 0) {
-            console.log(JSON.stringify({ listId: arrcheck }));
-            $.ajax({
-                url: '/QuanLyHd/AnHD',
-                type: 'POST',
-                dataType: 'json',
-                contentType: 'application/json;charset=utf-8',
-                data: JSON.stringify(obj),
-                success: function (result) {
-                    debugger
-                    if (result == "ok") {
-                        location.reload()
-                        $("#aaa1").html(`<div class="alert alert-danger" style="background-color:lightgreen;color:black">Ẩn đơn hàng thành công</div>`);
-                    }
-                    else if (result == "that bai 1") {
-                        $("#aaa").html(`<div class="alert alert-danger">Có đơn hàng không dủ điều kiện</div>`);
+                console.log(JSON.stringify({ listId: arrcheck }));
+                $.ajax({
+                    url: '/QuanLyHd/AnHD',
+                    type: 'POST',
+                    dataType: 'json',
+                    contentType: 'application/json;charset=utf-8',
+                    data: JSON.stringify(obj),
+                    success: function (result) {
+                        debugger
+                        if (result == "ok") {
+                            location.reload()
+                            $("#aaa1").html(`<div class="alert alert-danger" style="background-color:lightgreen;color:black">Ẩn đơn hàng thành công</div>`);
+                        }
 
+                        else if (result == "that bai 1") {
+                            $("#aaa").html(`<div class="alert alert-danger">Có đơn hàng không dủ điều kiện</div>`);
+
+                        }
                     }
-                }
-            })
+                })
             } else {
                 console.log('Không có sản phẩm được chọn.');
                 $('#alertMessage').addClass('red-alert').html('Không có sản phẩm nào được chọn. Vui lòng chọn ít nhất một sản phẩm để tiếp tục.').show();
@@ -177,25 +178,25 @@
             }
             //if (checkedCheckboxes.length != 0) {
             if (arrcheck.length > 0) {
-            console.log(JSON.stringify({ listId: arrcheck }));
-            $.ajax({
-                url: '/QuanLyHd/HienHD',
-                type: 'POST',
-                dataType: 'json',
-                contentType: 'application/json;charset=utf-8',
-                data: JSON.stringify(obj),
-                success: function (result) {
-                    debugger
-                    if (result == "ok") {
-                        location.reload()
-                        $("#aaa1").html(`<div class="alert alert-danger" style="background-color:lightgreen;color:black">Hiện đơn hàng thành công</div>`);
-                    }
-                    else if (result == "that bai 1") {
-                        $("#aaa").html(`<div class="alert alert-danger">Có đơn hàng không dủ điều kiện</div>`);
+                console.log(JSON.stringify({ listId: arrcheck }));
+                $.ajax({
+                    url: '/QuanLyHd/HienHD',
+                    type: 'POST',
+                    dataType: 'json',
+                    contentType: 'application/json;charset=utf-8',
+                    data: JSON.stringify(obj),
+                    success: function (result) {
+                        debugger
+                        if (result == "ok") {
+                            location.reload()
+                            $("#aaa1").html(`<div class="alert alert-danger" style="background-color:lightgreen;color:black">Hiện đơn hàng thành công</div>`);
+                        }
+                        else if (result == "that bai 1") {
+                            $("#aaa").html(`<div class="alert alert-danger">Có đơn hàng không dủ điều kiện</div>`);
 
+                        }
                     }
-                }
-            })
+                })
             } else {
                 console.log('Không có sản phẩm được chọn.');
                 $('#alertMessage').addClass('red-alert').html('Không có sản phẩm nào được chọn. Vui lòng chọn ít nhất một sản phẩm để tiếp tục.').show();
@@ -224,30 +225,30 @@
             }
             //if (checkedCheckboxes.length != 0) {
             if (arrcheck.length > 0) {
-            console.log(JSON.stringify({ listId: arrcheck }));
-            $.ajax({
-                url: '/QuanLyHd/XuatEx2',
-                type: 'POST',
-                dataType: 'json',
-                contentType: 'application/json;charset=utf-8',
-                data: JSON.stringify(obj),
-                success: function (result) {
-                    debugger
+                console.log(JSON.stringify({ listId: arrcheck }));
+                $.ajax({
+                    url: '/QuanLyHd/XuatEx2',
+                    type: 'POST',
+                    dataType: 'json',
+                    contentType: 'application/json;charset=utf-8',
+                    data: JSON.stringify(obj),
+                    success: function (result) {
+                        debugger
 
-                    if (result.length !== 0) {
-                        var files = [];
-                        $.each(result, function (key, val) {
-                            //debugger
-                            //console.log(val);
-                            files.push("/ex/" + val);
-                        });
-                        for (var ii = 0; ii < files.length; ii++) {
-                            debugger
-                            downloadURL(files[ii]);
+                        if (result.length !== 0) {
+                            var files = [];
+                            $.each(result, function (key, val) {
+                                //debugger
+                                //console.log(val);
+                                files.push("/ex/" + val);
+                            });
+                            for (var ii = 0; ii < files.length; ii++) {
+                                debugger
+                                downloadURL(files[ii]);
+                            }
                         }
                     }
-                }
-            })
+                })
             } else {
                 console.log('Không có sản phẩm được chọn.');
                 $('#alertMessage').addClass('red-alert').html('Không có sản phẩm nào được chọn. Vui lòng chọn ít nhất một sản phẩm để tiếp tục.').show();
@@ -357,6 +358,7 @@
         var tienhangaValue = $('#tienhanga').val();
         var tiengiamaValue = $("#tiengiam1").val();
         var tongtienValue = $("#tongtien1").val();
+        var idDon = $("#idDon").val();
         debugger
         sessionStorage.removeItem('shiptotal');
         $("#total_ship").text('');
@@ -374,10 +376,11 @@
                 tienhang: tienhangaValue,
                 tiengiam: tiengiamaValue,
                 tongtien: tongtienValue,
+                idDon: idDon,
             }
             debugger
             $.ajax({
-                url: '/CheckOut/GetTotalShipping',
+                url: '/CheckOut/GetTotalShipping2',
                 type: 'POST',
                 dataType: 'json',
                 data: JSON.stringify(obj),
@@ -389,7 +392,7 @@
                     }
                     else {
                         if (result.data.totaloder < 1) {
-                            result.data.totaloder=0
+                            result.data.totaloder = 0
                         }
                         var x1 = result.data.total;
                         x1 = x1.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });

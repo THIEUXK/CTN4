@@ -5,6 +5,7 @@ namespace CTN4_View.Areas.Admin.Viewmodel
 {
     public class ThieuxkViewAdmin
     {
+        public List<Guid> check11 { get; set; }
         public List<GiamGiaChiTiet> GiamGiaChiTiets { get; set; }
         public List<HoaDon> hoaDons { get; set; }
         public HoaDon HoaDon { get; set; }

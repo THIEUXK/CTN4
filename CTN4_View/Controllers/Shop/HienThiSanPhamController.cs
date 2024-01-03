@@ -17,6 +17,7 @@ using CTN4_View_Admin.Controllers.Shop;
 using DocumentFormat.OpenXml.Wordprocessing;
 using DocumentFormat.OpenXml.Spreadsheet;
 using System.Linq;
+using Org.BouncyCastle.Crypto;
 
 namespace CTN4_View.Controllers.Shop
 {
@@ -139,10 +140,10 @@ namespace CTN4_View.Controllers.Shop
             var LuuTamMau = SessionBan.MauSacSS(HttpContext.Session, "MauSacTam");
             var LuuTam = SessionBan.DanhMucSS(HttpContext.Session, "DanhMucTam");
             var showSp = SessionBan.SanPhamMoRong(HttpContext.Session, "ChonShowSp");
-           
-            if(showSp != 0)
+
+            if (showSp != 0)
             {
-               Soluonghienthi = showSp;
+                Soluonghienthi = showSp;
             }
             var b = new List<Guid>();
             foreach (var i in LuuTamMau)
@@ -538,18 +539,29 @@ namespace CTN4_View.Controllers.Shop
         }
         public IActionResult HienThiSanPhamChiTiet(Guid id)
         {
-             var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
-            if(accnew.Count != 0)
+            var idsp = new List<Guid>();
+            var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
+            if (accnew.Count != 0)
             {
-                var  idhoadon = new List<int>();
-                 var hoadon1 = _hoaDonService.GetAll().Where(c=>c.IdKhachHang == accnew[0].Id && c.NgayNhan != null).ToList();
+                var idhoadon = new List<int>();
+                var hoadon1 = _hoaDonService.GetAll().Where(c => c.IdKhachHang == accnew[0].Id && c.NgayNhan != null).ToList();
                 foreach (var item in hoadon1)
                 {
                     idhoadon.Add(item.Id);
                 }
-                 var hdct = _hoaDonChiTietService.GetAll().Where(c =>idhoadon.Contains(c.IdHoaDon));
+
+                var hdct = _hoaDonChiTietService.GetAll().Where(c => idhoadon.Contains(c.IdHoaDon) && c.TrangThai == true && c.Is_detele == true).ToList();
+
+                foreach (var item in hdct)
+                {
+                    if (!idsp.Contains((Guid)item.SanPhamChiTiet.IdSp))
+                    {
+                        idsp.Add((Guid)item.SanPhamChiTiet.IdSp);
+                    }
+
+                }
+
             }
-            var hoadon = _hoaDonService.GetAll().Where(c=>c.IdKhachHang == accnew[0].Id).ToList();
             var listsp1 = _sanPhamCuaHangService.GetAllSpcts(id).Where(c => c.Is_detele == true).ToList();
             var anh = _anhService.GetAll().Where(c => c.SanPhamChiTiet.SanPham.Id == id).ToList();
             var giamgia = _giamGiaService.GetAll().Where(c => c.TrangThai == true && c.Is_detele == true && c.NgayBatDau <= DateTime.Now && c.NgayKetThuc >= DateTime.Now).ToList();
@@ -581,12 +593,22 @@ namespace CTN4_View.Controllers.Shop
                 sanPhams = listSanPhamLq,
                 giamgias = giamgia,
                 sanPhamYeuThiches = SpYt,
-
+                idsanphamdamuas = idsp,
             };
             return View(view);
 
         }
-
+        public IActionResult XacNhanDanhGia(Guid idsp, string message)
+        {
+            var LuuTam = SessionBan.DanhGia(HttpContext.Session, "DanhGiaTam");
+            if(LuuTam == 0)
+            {
+               var message1 ="Hãy chọn số sao đánh giá của bạn!";
+              TempData["message1"] = message1;
+               return RedirectToAction("HienThiSanPhamChiTiet", new { id = idsp, message1 });
+            }
+            return RedirectToAction("HienThiSanPhamChiTiet", new {id = idsp} );
+        }
         public IActionResult chonMau(Guid IdSanPham, Guid IdMau)
         {
             var listsp1 = _sanPhamCuaHangService.GetAllSpcts(IdSanPham).Where(c => c.Is_detele == true).ToList();
@@ -814,6 +836,7 @@ namespace CTN4_View.Controllers.Shop
 
 
         }
+
         // ajax chat lieu
         [HttpPost("/XxemSanPham/layIDchatlieu")]
         public JsonResult LayChatLieu(Guid chatLieuId)
@@ -916,7 +939,26 @@ namespace CTN4_View.Controllers.Shop
             SessionBan.SetObjToJson(HttpContext.Session, "maxPrice", luuGiaKetThuc);
             return Json("ok", new System.Text.Json.JsonSerializerOptions());
         }
-        
 
+        // ajax đánh giá
+        [HttpPost("/XxemSanPham/luuDanhGia")]
+        public JsonResult LayDanhGia(int rating)
+        {
+
+            var LuuTam = SessionBan.DanhGia(HttpContext.Session, "DanhGiaTam");
+
+            if (LuuTam == null)
+            {
+                LuuTam = rating;
+                SessionBan.SetObjToJson(HttpContext.Session, "DanhGiaTam", LuuTam);
+            }
+            else
+            {
+                LuuTam = rating;
+                SessionBan.SetObjToJson(HttpContext.Session, "DanhGiaTam", LuuTam);
+            }
+
+            return Json(new System.Text.Json.JsonSerializerOptions());
+        }
     }
 }

@@ -77,6 +77,11 @@
                                     {
                                         <div class="alert alert-danger">@TempData["TB5"]</div>
                                     }
+                                    @if (TempData["ErrorMessage2"] != null)
+                                    {
+                                        <div class="alert alert-danger" style="color:black;Background:greenyellow">@TempData["ErrorMessage2"]</div>
+                                    }
+
                                 </div>
                                 <div class="col-md-2">
                                 </div>
@@ -162,7 +167,48 @@
                                                 <div><b>Đơn giá:</b>@FormatCurrency(a.SanPhamChiTiet.SanPham.GiaNiemYet)</div>
                                             </td>
                                             <td class="border-bottom-0">
-                                                <p class="mb-0 fw-normal">@a.SoLuong</p>
+
+                                                <form>
+                                                    @if (Model.HoaDon.TrangThai == "Đang chờ xử lí")
+                                                    {
+                                                        @if (Model.check11.Contains(a.SanPhamChiTiet.SanPham.Id))
+                                                        {
+
+
+                                                            <div class="input-container">
+                                                                <input type="text" name="soluong" value="@a.SoLuong" class="so-duong" min="1" id="soInput" max="20" maxlength="2" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                                                <h5 id="multiplyText">x 2</h5>
+                                                                <input type="hidden" name="idHdct" value="@a.Id" />
+                                                                <button id="updateButton" asp-action="CapNhanSoLuong2">Cập nhật</button>
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="input-container">
+                                                                <input type="text" name="soluong" value="@a.SoLuong" class="so-duong" min="1" id="soInput" max="20" maxlength="2" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                                                <input type="hidden" name="idHdct" value="@a.Id" />
+                                                                <button id="updateButton" asp-action="CapNhanSoLuong2">Cập nhật</button>
+                                                            </div>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        @if (Model.check11.Contains(a.SanPhamChiTiet.SanPham.Id))
+                                                        {
+                                                            <div class="input-container">
+                                                                <p class="mb-0 fw-normal">@a.SoLuong</p>
+                                                                <h5 id="multiplyText">x 2</h5>
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="input-container">
+                                                                <p class="mb-0 fw-normal">@a.SoLuong</p>
+                                                           
+                                                            </div>
+                                                        }
+                                                    }
+                                                </form>
                                             </td>
                                             <td class="border-bottom-0">
                                                 <p class="mb-0 fw-normal">@FormatCurrency(a.GiaTien * a.SoLuong)</p>
