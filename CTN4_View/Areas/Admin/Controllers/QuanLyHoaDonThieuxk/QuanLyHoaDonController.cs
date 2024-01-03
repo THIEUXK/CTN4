@@ -960,9 +960,27 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             {
                 var hd = _hoaDonService.GetById(id);
                 var hdct = _hoaDonChiTietService.GetById(idCT);
+                var KhuyenMaiSp = _KhuyenMaiSanPhams.GetAll().Where(c => c.KhuyenMai.Mua1tang1 == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now && c.KhuyenMai.Is_Detele == true).ToList();
+                var g = new List<Guid>();
+                foreach (var item in KhuyenMaiSp)
+                {
+                    // Kiểm tra xem Mau.Id đã xuất hiện trong danh sách chưa
+                    if (!g.Contains((Guid)item.IdSanPham))
+                    {
+                        g.Add((Guid)item.IdSanPham);
+                    }
+                }
                 if (hd.Is_detele != false)
                 {
                     var spct = _sanPhamChiTietService.GetById(hdct.IdSanPhamChiTiet);
+                    if (g.Contains(spct.SanPham.Id))
+                    {
+                        spct.SoLuong += hdct.SoLuong / 2;
+                    }
+                    else
+                    {
+                        spct.SoLuong += hdct.SoLuong;
+                    }
                     spct.SoLuong += hdct.SoLuong;
                     if (_sanPhamChiTietService.Sua(spct) == false)
                     {
@@ -998,16 +1016,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                     tongTienSP += a.GiaTien * a.SoLuong;
                 }
                 var c = _GiamGiaChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
-                var KhuyenMaiSp = _KhuyenMaiSanPhams.GetAll().Where(c => c.KhuyenMai.Mua1tang1 == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now && c.KhuyenMai.Is_Detele == true).ToList();
-                var g = new List<Guid>();
-                foreach (var item in KhuyenMaiSp)
-                {
-                    // Kiểm tra xem Mau.Id đã xuất hiện trong danh sách chưa
-                    if (!g.Contains((Guid)item.IdSanPham))
-                    {
-                        g.Add((Guid)item.IdSanPham);
-                    }
-                }
+              
                 var view = new ThieuxkViewAdmin()
                 {
                     check11 = g,
@@ -2093,7 +2102,24 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             {
                 var hdct = _hoaDonChiTietService.GetById(idHDCT);
                 var spct = _sanPhamChiTietService.GetById(hdct.IdSanPhamChiTiet);
-                spct.SoLuong += hdct.SoLuong;
+                var KhuyenMaiSp = _KhuyenMaiSanPhams.GetAll().Where(c => c.KhuyenMai.Mua1tang1 == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now && c.KhuyenMai.Is_Detele == true).ToList();
+                var g = new List<Guid>();
+                foreach (var item in KhuyenMaiSp)
+                {
+                    // Kiểm tra xem Mau.Id đã xuất hiện trong danh sách chưa
+                    if (!g.Contains((Guid)item.IdSanPham))
+                    {
+                        g.Add((Guid)item.IdSanPham);
+                    }
+                }
+                if (g.Contains(spct.SanPham.Id))
+                {
+                    spct.SoLuong += hdct.SoLuong/2;
+                }
+                else
+                {
+                    spct.SoLuong += hdct.SoLuong;
+                }
                 if (_sanPhamChiTietService.Sua(spct) == false)
                 {
                     var message = $"bỏ thất bại(1)";
@@ -2262,6 +2288,16 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                     TempData["TB2"] = message2;
                     return RedirectToAction("HienThiSanPhamChiTietMua", new { id = IdSanPham, message2 });
                 }
+                var KhuyenMaiSp = _KhuyenMaiSanPhams.GetAll().Where(c => c.KhuyenMai.Mua1tang1 == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now && c.KhuyenMai.Is_Detele == true).ToList();
+                var g = new List<Guid>();
+                foreach (var item in KhuyenMaiSp)
+                {
+                    // Kiểm tra xem Mau.Id đã xuất hiện trong danh sách chưa
+                    if (!g.Contains((Guid)item.IdSanPham))
+                    {
+                        g.Add((Guid)item.IdSanPham);
+                    }
+                }
                 var sanphamctnew = SessionBan.SanPhamTamSS(HttpContext.Session, "SanPhamTamSS");
                 var SP = _hoaDonChiTietService.GetAll().FirstOrDefault(c => c.IdSanPhamChiTiet == sanphamCT.Id && c.IdHoaDon == sanphamctnew[0].idHD);
                 if (SP == null)
@@ -2276,10 +2312,26 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                         TrangThai = true,
                         Is_detele = true
                     };
+                    if (g.Contains(sanphamCT.SanPham.Id))
+                    {
+                        d.SoLuong *= 2;
+                        if (d.GiaTien == sanphamCT.SanPham.GiaNiemYet)
+                        {
+                            d.GiaTien /= 2;
+                        }
+                       
+                    }
                     if (_hoaDonChiTietService.Them(d) == true)
                     {
                         var product = _sanPhamChiTietService.GetById(sanphamCT.Id);
-                        product.SoLuong -= soluong;
+                        if (g.Contains(d.SanPhamChiTiet.SanPham.Id))
+                        {
+                            product.SoLuong -= soluong*2;
+                        }
+                        else
+                        {
+                            product.SoLuong -= soluong;
+                        }
                         if (_sanPhamChiTietService.Sua(product))
                         {
                             return RedirectToAction("XemChiTiet", new { id = sanphamctnew[0].idHD });
@@ -2288,11 +2340,30 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                 }
                 else
                 {
-                    SP.SoLuong += soluong;
+                    if (g.Contains(SP.SanPhamChiTiet.SanPham.Id))
+                    {
+                        SP.SoLuong += soluong*2;
+                        if (SP.GiaTien == sanphamCT.SanPham.GiaNiemYet)
+                        {
+                            SP.GiaTien /= 2;
+                        }
+                    }
+                    else
+                    {
+                        SP.SoLuong += soluong;
+                    }
+                   
                     if (_hoaDonChiTietService.Sua(SP) == true)
                     {
                         var product = _sanPhamChiTietService.GetById(sanphamCT.Id);
-                        product.SoLuong -= soluong;
+                        if (g.Contains(SP.SanPhamChiTiet.SanPham.Id))
+                        {
+                            product.SoLuong -= soluong * 2;
+                        }
+                        else
+                        {
+                            product.SoLuong -= soluong;
+                        }
                         if (_sanPhamChiTietService.Sua(product))
                         {
                             return RedirectToAction("XemChiTiet", new { id = sanphamctnew[0].idHD });
@@ -2924,8 +2995,20 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                 }
                 else
                 {
-                    b.SoLuong += soluothem;
-                    product.SoLuong -= soluothem;
+                    if (g.Contains(b.SanPhamChiTiet.SanPham.Id))
+                    {
+                        b.SoLuong += soluothem;
+                        if (b.GiaTien==product.SanPham.GiaNiemYet)
+                        {
+                            b.GiaTien /= 2;
+                        }
+                        product.SoLuong -= soluothem;
+                    }
+                    else
+                    {
+                        b.SoLuong += soluothem;
+                        product.SoLuong -= soluothem;
+                    }
                     _sanPhamChiTietService.Sua(product);
                     _hoaDonChiTietService.Sua(b);
                     var message = "Thay đổi số lượng thành công";

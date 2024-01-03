@@ -1,4 +1,5 @@
-﻿@using CTN4_View_Admin.Controllers.Shop;
+﻿@using CTN4_Serv.Service
+@using CTN4_View_Admin.Controllers.Shop;
 @using Microsoft.AspNetCore.Http;
 @model CTN4_Serv.ViewModel.HienThiSanPhamView;
 <br></br>
@@ -303,18 +304,38 @@
                                                 <p class="hover-text">Thêm sản phẩm</p>
                                                 @Html.ActionLink("", "HienThiSanPhamChiTiet", new { id = sp.Id })
                                             </a>
-                                            @if (Model.sanPhamYeuThiches.FirstOrDefault(c => c.IdSanPham == sp.Id) != null)
-                                            {
-                                                <form asp-controller="SanPhamYeuThich" asp-action="XoaKhoiYeuTich1">
-
-                                                    <input type="hidden" name="idSP" value="@sp.Id">
-                                                    <a onclick="onsubmit" class="social-info">
-                                                        <span class="lnr lnr-heart" style="background: linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);"><button onclick="onsubmit">  </button></span>
-
-                                                        <p type="button" onclick="onsubmit" class="hover-text">Yêu thích</p>
-                                                    </a>
-                                                </form>
+                                            @{
+                                                
+                                                var accnew = SessionServices.KhachHangSS(Context.Request.HttpContext.Session, "ACC");
                                             }
+                                            @if(accnew.Count != 0)
+                                            {
+                                                @if (Model.sanPhamYeuThiches.FirstOrDefault(c => c.IdSanPham == sp.Id && c.IdKhachHang == accnew[0].Id && c.IdKhachHang != null) != null)
+                                                {
+                                                    <form asp-controller="SanPhamYeuThich" asp-action="XoaKhoiYeuTich1">
+
+                                                        <input type="hidden" name="idSP" value="@sp.Id">
+                                                        <a onclick="onsubmit" class="social-info">
+                                                            <span class="lnr lnr-heart" style="background: linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);"><button onclick="onsubmit">  </button></span>
+
+                                                            <p type="button" onclick="onsubmit" class="hover-text">Yêu thích</p>
+                                                        </a>
+                                                    </form>
+                                                }
+                                                else
+                                                {
+                                                    <form asp-controller="SanPhamYeuThich" asp-action="ThemYeuThich">
+
+                                                        <input type="hidden" name="IdSanPham" value="@sp.Id">
+                                                        <a onclick="onsubmit" class="social-info">
+                                                            <span class="lnr lnr-heart"><button onclick="onsubmit">  </button></span>
+
+                                                            <p type="button" onclick="onsubmit" class="hover-text">Yêu thích</p>
+                                                        </a>
+                                                    </form>
+                                                }
+                                            }
+                                           
                                             else
                                             {
                                                 <form asp-controller="SanPhamYeuThich" asp-action="ThemYeuThich">

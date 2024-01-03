@@ -43,17 +43,25 @@ namespace CTN4_View.Controllers.SanPhamYeuThich
         public IActionResult Index(/*Guid IdKhachHang*/)
         {
             var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
-            var a = _YT.GetAll()/*.Where(c => c.IdKhachHang == IdKhachHang).ToList()*/;
-            var view = new SanPhamYeuThichView()
+            if (accnew.Count != 0)
             {
-                chiTietSanPhamYeuThiches = a,
-                KhachHang = accnew[0],
-            };
-
-            return View(view);
+                var a = _YT.GetAll().Where(c => c.IdKhachHang == accnew[0].Id).ToList();
+                var view = new SanPhamYeuThichView()
+                {
+                    chiTietSanPhamYeuThiches = a,
+                    KhachHang = accnew[0],
+                };
+                return View(view);
+            }
+            else
+            {
+                return RedirectToAction("HienThiSanPham", "HienThiSanPham");
+            }
+            
 
             //var a = _YT.GetAll();
             //return View(a);
+
         }
         public IActionResult XoaKhoiYeuTich(Guid idSP, Guid IdKhachHang)
         {

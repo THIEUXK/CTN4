@@ -102,24 +102,25 @@
                                     <h5>@FormatCurrency(a.SanPhamChiTiet.SanPham.GiaNiemYet)</h5>
                                 </td>
                                 <td>
-                                    <form>
-                                    @if (Model.check11.Contains(a.SanPhamChiTiet.SanPham.Id))
-                                    {
-                                        <div class="input-container">
-                                            <input type="text" name="soluong" value="@a.SoLuong" class="so-duong" min="1" id="soInput" max="20" maxlength="2" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
-                                            <h5 id="multiplyText">x 2</h5>
-                                            <button id="updateButton" name="id" value="@a.Id" asp-action="CapNhanSoLuong">Cập nhật</button>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="input-container">
-                                            <input type="text" name="soluong" value="@a.SoLuong" class="so-duong" min="1" id="soInput" max="20" maxlength="2" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
-                                                <button id="updateButton" name="id" value="@a.Id" asp-action="CapNhanSoLuong">Cập nhật</button>
-                                        </div>
-                                    }
+                                    <form asp-action="CapNhanSoLuong" class="confirmation-form">
+                                        @if (Model.check11.Contains(a.SanPhamChiTiet.SanPham.Id))
+                                        {
+                                            <div class="input-container">
+                                                <input type="text" name="soluong" value="@a.SoLuong" class="so-duong" min="1" id="soInput" max="20" maxlength="2" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                                <h5 id="multiplyText">x 2</h5>
+                                                <input type="hidden" name="id" value="@a.Id" />
+                                                <button class="update-button" name="id" value="@a.Id">Cập nhật</button>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="input-container">
+                                                <input type="text" name="soluong" value="@a.SoLuong" class="so-duong" min="1" id="soInput" max="20" maxlength="2" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                                <input type="hidden" name="id" value="@a.Id" />
+                                                <button class="update-button">Cập nhật</button>
+                                            </div>
+                                        }
                                     </form>
-                                  
                                 </td>
                                 <td>
                                     <h5>@FormatCurrency(a.SanPhamChiTiet.SanPham.GiaNiemYet * a.SoLuong)</h5>
@@ -187,8 +188,62 @@
         </div>
     </div>
 </section>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var updateButtons = document.querySelectorAll('.update-button');
 
+        updateButtons.forEach(function (button) {
+            button.addEventListener('click', function (event) {
+                event.preventDefault();
+                var confirmation = confirm("Bạn có chắc muốn cập nhật số lượng của sản phẩm này?");
+                if (confirmation) {
+                    // If the user confirms, submit the form
+                    event.target.closest('form').submit();
+                } else {
+                    // If the user cancels, do nothing or provide feedback as needed
+                }
+            });
+        });
+    });
+</script>
 <style>
+    .confirmation-form {
+        margin-bottom: 20px;
+    }
+
+    .input-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .so-duong {
+        width: 50px; /* Adjust the width as needed */
+        padding: 5px;
+    }
+
+    #multiplyText {
+        margin: 0 10px;
+        font-size: 1.2em;
+    }
+
+    .update-button {
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+        /* Style for the button when hovered */
+        .update-button:hover {
+            background-color: #45a049;
+        }
+
     /* Reset some default styles for input, h5, and button */
     #soInput, #multiplyText, #updateButton {
       border: none;

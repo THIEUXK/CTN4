@@ -55,6 +55,7 @@ namespace CTN4_Data.Models.DB_CTN4
 
         public bool Is_detele { get; set; }
         public virtual List<GiamGiaChiTiet>? GiamGiaChiTiets { get; set; }
+       
 
     }
     // Custom validation attributes
