@@ -164,22 +164,29 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [HttpPost]
         public async Task<ActionResult> Creates([FromForm] KhuyenMai datasubmit, [FromForm] string lstMail)
         {
-            datasubmit.TrangThai = false;
+            datasubmit.TrangThai = true;
+            datasubmit.Is_Detele = true;
+
 
             if (_sv.Them(datasubmit))
             {
                 string imageUrl = "https://png.pngtree.com/png-vector/20210119/ourlarge/pngtree-3d-mega-sale-icon-with-bag-shop-accesories-png-image_2764907.jpg";
                 string base64Image = ConvertImageUrlToBase64(imageUrl);
                 string imageTag = $"<img src='data:image/jpeg;base64,{base64Image}' />";
-
+                string[] emailAddresses;
                 // Tách địa chỉ email từ chuỗi
-                string[] emailAddresses = lstMail.Split(',');
+                if (lstMail == null)
+                {
+                    emailAddresses = new string[0];
+                }
+                else 
+                emailAddresses = lstMail.Split(',');
 
                 foreach (var emailAddress in emailAddresses)
                 {
                     MailRequest hh = new MailRequest()
                     {
-                        Body = "Chào mừng bạn đến với cửa hàng chúng tôi bên tôi đang có khuyến mãi hot  " + imageTag,
+                        Body = "Chào mừng bạn đến với cửa hàng chúng tôi! Chúng tôi đang có khuyến mãi hot, hãy truy cập ngay để không bỏ lỡ: <a href='https://localhost:7174/'>Ấn vào đây để vào cửa hàng </a>",
                         ToEmail = emailAddress.Trim(), // Xóa khoảng trắng từ địa chỉ email
                         Subject = "Cửa hàng đang đại giảm giá"
                     };
@@ -196,7 +203,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                     }
 
                     // Kiểm soát tốc độ, chờ 1 giây trước khi gửi email tiếp theo
-                    await Task.Delay(1000);
+                    //await Task.Delay(1);
                 }
 
                 return Json(new { success = true, redirectUrl = Url.Action("Index") });
@@ -428,9 +435,11 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             }
             return RedirectToAction("Index");
         }
-       public void UpdateProductStatus(Guid id)
+        [HttpPost]
+        public JsonResult UpdateProductStatus(Guid id)
         {
-            var check = _sv.GetAll().FirstOrDefault(c=>c.Id == id);
+            var check = _sv.GetAll().FirstOrDefault(c => c.Id == id && (c.Is_Detele || c.NgayKetThuc < DateTime.Now));
+
             if (check != null)
             {
                 KhuyenMai khuyenMai = new KhuyenMai()
@@ -439,9 +448,13 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                     Is_Detele = false
                 };
                 _sv.Sua(khuyenMai);
+
+                return Json(new { success = true });
             }
+
+            return Json(new { success = false });
         }
 
 
-	}
+    }
 }
