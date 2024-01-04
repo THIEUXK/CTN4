@@ -200,7 +200,19 @@ namespace CTN4_View.Controllers
             }
             var checkma = _khachHangService.GetAll().FirstOrDefault(c => c.TenDangNhap == a.TenDangNhap);
             if (checkma !=null ) {
-                ViewBag.Message = "Tên đăng nhập không được trùng";
+                ViewBag.Message = "Tên đăng nhập đã sử dụng";
+                return View("DangKy", a);
+            }
+            var checksdt = _khachHangService.GetAll().FirstOrDefault(c => c.SDT == a.SDT);
+            if (checksdt != null)
+            {
+                ViewBag.Message = "Số điện thoại đã sử dụng";
+                return View("DangKy", a);
+            }
+            var checkemail = _khachHangService.GetAll().FirstOrDefault(c => c.Email == a.Email);
+            if (checkemail != null)
+            {
+                ViewBag.Message = "Email đã sử dụng";
                 return View("DangKy", a);
             }
             // Kiểm tra độ dài và định dạng số điện thoại
@@ -229,6 +241,7 @@ namespace CTN4_View.Controllers
             a.Is_detele = true;
             a.AnhDaiDien = "Fall";
             _khachHangService.Them(a);
+           
             return RedirectToAction(nameof(login));
         }
         public IActionResult cart()
