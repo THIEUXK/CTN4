@@ -35,68 +35,32 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyVouvher
 
             }
 
-            int pageSize = size ?? 10;
+            int pageSize = size ?? 5;
             var pageNumber = page ?? 1;
             var pagedList = a.ToPagedList(pageNumber, pageSize);
             //var pagedList = a.Where(c => c.Is_detele == true).ToPagedList(pageNumber, pageSize);
 
             return View(pagedList);
         }
-      
 
 
 
 
 
 
-        // lọc
+
+        #region lọc
 
 
 
 
-        //public IActionResult GiamHet()
-        //{
-        //    var hd = _gg.GetAll();
-        //    var view = new GiamGiaViewModel()
-        //    {
-        //        GiamGias = hd.ToList(),
-        //    };
-        //    return View("Index", view);
 
-
-
-        //}
-        //public IActionResult GiamTien(int? page, bool loaiGiamGia = false)
-        //{
-        //    var hd = _gg.GetAll();
-        //    var pageNumber = page ?? 1;
-        //    var pageSize = 5; // Số lượng phần tử trên mỗi trang
-
-        //    var view = new GiamGiaViewModel()
-        //    {
-        //        GiamGias = hd.Where(c => c.LoaiGiamGia == loaiGiamGia).ToPagedList(pageNumber, pageSize).ToList(),
-        //    };
-        //    return View("Index", view);
-        //}
-
-        //public IActionResult GiamPhanTram(int? page, bool loaiGiamGia = true)
-        //{
-        //    var hd = _gg.GetAll();
-        //    var pageNumber = page ?? 1;
-        //    var pageSize = 5; // Số lượng phần tử trên mỗi trang
-
-        //    var view = new GiamGiaViewModel()
-        //    {
-        //        GiamGias = hd.Where(c => c.LoaiGiamGia == loaiGiamGia).ToPagedList(pageNumber, pageSize).ToList(),
-        //    };
-        //    return View("Index", view);
-        //}
 
         public IActionResult TatCa(int? page)
         {
             var giamGias = _gg.GetAll().Where(c => c.Is_detele == true).ToList();/*.Where(c => c.LoaiGiamGia == true || false).ToList()*/;
             int pageNumber = page ?? 1;
-            int pageSize = 10; // Số lượng item trên mỗi trang
+            int pageSize = 5; // Số lượng item trên mỗi trang
 
             var pagedList = giamGias.ToPagedList(pageNumber, pageSize);
 
@@ -114,9 +78,9 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyVouvher
         //}
         public IActionResult GiamTien(int? page)
         {
-            var giamGias = _gg.GetAll().Where(c => c.LoaiGiamGia == false).ToList();
+            var giamGias = _gg.GetAll().Where(c => c.LoaiGiamGia == false && c.Is_detele == true).ToList();
             int pageNumber = page ?? 1;
-            int pageSize = 10; // Số lượng item trên mỗi trang
+            int pageSize = 5; // Số lượng item trên mỗi trang
 
             var pagedList = giamGias.ToPagedList(pageNumber, pageSize);
 
@@ -125,9 +89,9 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyVouvher
 
         public IActionResult GiamPhanTram(int? page)
         {
-            var giamGias = _gg.GetAll().Where(c => c.LoaiGiamGia == true).ToList();
+            var giamGias = _gg.GetAll().Where(c => c.LoaiGiamGia == true && c.Is_detele == true).ToList();
             int pageNumber = page ?? 1;
-            int pageSize = 10;
+            int pageSize = 5;
 
             var pagedList = giamGias.ToPagedList(pageNumber, pageSize);
 
@@ -137,24 +101,14 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyVouvher
         {
             var giamGias = _gg.GetAll().Where(c => c.Is_detele == false).ToList();
             int pageNumber = page ?? 1;
-            int pageSize = 10; // Số lượng item trên mỗi trang
+            int pageSize = 5; // Số lượng item trên mỗi trang
 
             var pagedList = giamGias.ToPagedList(pageNumber, pageSize);
 
             return View("Index", pagedList);
 
         }
-        //public IActionResult CacMaDaAn(int? page)
-        //{
-        //    var giamGias = _gg.GetAll().Where(c => c.Is_detele != true).ToList();
-        //    int pageNumber = page ?? 1;
-        //    int pageSize = 10;
-
-        //    var pagedList = giamGias.ToPagedList(pageNumber, pageSize);
-
-        //    return View("Index", pagedList);
-        //}
-
+        #endregion
 
         //public IActionResult Index(int page = 1)
         //{

@@ -51,71 +51,6 @@
         font-size: 14px;
     }
 </style>
-
-
-
-
-<hr />
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Page Title</title>
-    <!-- Thêm các tệp CSS và thư viện cần thiết của bạn -->
-    <style>
-        /* Lớp cho header khi cố định */
-        .fixed-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: #fff; /* Màu nền của header khi cố định */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Hiệu ứng bóng đổ */
-            z-index: 1000; /* Z-index để đảm bảo nằm trên các phần tử khác */
-        }
-
-        /* Lớp cho header khi không cuộn trang */
-        .initial-header {
-            /* Thêm kiểu CSS cho header khi không cuộn trang */
-        }
-    </style>
-</head>
-<body>
-
-    <!-- Header -->
-    <h1>Your Header</h1>
-
-    <!-- Thêm các tệp JS và thư viện cần thiết của bạn -->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            var header = $('h1'); // Thay 'h1' bằng chọn phần tử thực tế của bạn
-
-            // Khi cuộn trang
-            $(window).scroll(function () {
-                var scroll = $(window).scrollTop();
-
-                // Nếu cuộn xuống đủ, thêm lớp cố định, ngược lại loại bỏ lớp
-                if (scroll >= header.offset().top) {
-                    header.addClass('fixed-header');
-                    header.removeClass('initial-header');
-                } else {
-                    header.removeClass('fixed-header');
-                    header.addClass('initial-header');
-                }
-            });
-
-            // Đảm bảo rằng lớp initial-header được áp dụng ban đầu
-            header.addClass('initial-header');
-        });
-    </script>
-</body>
-</html>
-
 <div class="row">
     <div class="col-md-9">
 
@@ -248,24 +183,24 @@
                                     </div>
                                     @*Checkbox*@
 
-                                   @*  <script>
-                                        // Ngăn chặn sự kiện click trên checkbox khi nó đã được chọn
-                                        $(document).ready(function () {
-                                            $('#TrangThaiCheckbox').on('click', function () {
-                                                return false;
-                                            });
+                                    @*  <script>
+                            // Ngăn chặn sự kiện click trên checkbox khi nó đã được chọn
+                            $(document).ready(function () {
+                            $('#TrangThaiCheckbox').on('click', function () {
+                            return false;
+                            });
 
-                                            $('#DeleteCheckbox').on('change', function () {
-                                                // Khi giá trị của Is_Delete thay đổi, kiểm tra nếu nó là false
-                                                if (!$(this).prop('checked')) {
-                                                    // Nếu là false, đặt giá trị của TrangThai và TrangThaiCheckbox thành false
-                                                    $('#TrangThaiCheckbox').prop('checked', false);
+                            $('#DeleteCheckbox').on('change', function () {
+                            // Khi giá trị của Is_Delete thay đổi, kiểm tra nếu nó là false
+                            if (!$(this).prop('checked')) {
+                            // Nếu là false, đặt giá trị của TrangThai và TrangThaiCheckbox thành false
+                            $('#TrangThaiCheckbox').prop('checked', false);
 
-                                                }
-                                            });
+                            }
+                            });
 
-                                        });
-                                    </script> *@
+                            });
+                            </script> *@
 
                                     <style>
                                         .form-check-input.custom-checkbox {
@@ -315,7 +250,9 @@
                     </div>
 
                 }
-                 @* đang khuyến mãi*@
+
+
+                @* đang khuyến mãi*@
                 else if (item.Name == "TrangThai" && Model.NgayBatDau <= DateTime.Now && Model.NgayKetThuc >= DateTime.Now)
                 {
 
@@ -340,11 +277,9 @@
 
                                     <style>
                                         .disabled-field {
-                                            opacity: 0.6; /* Điều chỉnh mức độ mờ theo ý muốn */
+                                           
                                             pointer-events: none; /* Ngăn chặn tương tác với trường */
                                         }
-
-                                       
 
                                     </style>
 
@@ -417,11 +352,7 @@
                                             toggleFieldsBasedOnDropdownValue();
                                         });
                                     </script>
-                                    <style>
-                                        label {
-                                            opacity: 0.7; /* Giá trị opacity từ 0 (hoàn toàn trong suốt) đến 1 (không đổi) */
-                                        }
-                                    </style>
+                                    
 
                                     <label> Thời gian </label>
                                     <div class="form-container">
@@ -440,7 +371,7 @@
 
 
 
-                                    
+
                                     @*Các trường textbox*@
                                     <div class="form-group">
                                         <label asp-for="SoLuong" class="control-label disabled-field">Số lượng khả dụng</label>
@@ -456,14 +387,14 @@
                                     </div>
                                     @*Checkbox*@
                                     @* <script>
-                                        // Ngăn chặn sự kiện click trên checkbox khi nó đã được chọn
-                                        $(document).ready(function () {
-                                            $('#TrangThaiCheckbox').on('click', function () {
-                                                return false;
-                                            });
-                                        });
-                                    </script> *@
-                                    
+                            // Ngăn chặn sự kiện click trên checkbox khi nó đã được chọn
+                            $(document).ready(function () {
+                            $('#TrangThaiCheckbox').on('click', function () {
+                            return false;
+                            });
+                            });
+                            </script> *@
+
                                     <script>
                                         // Ngăn chặn sự kiện click trên checkbox khi nó đã được chọn
                                         $(document).ready(function () {
@@ -494,7 +425,7 @@
 
                                     <div class="form-group form-check">
                                         <label class="form-check-label">
-                                            <input class="form-check-input custom-checkbox" asp-for="TrangThai"/>
+                                            <input class="form-check-input custom-checkbox" asp-for="TrangThai" />
                                             Hiện mã với khách
                                         </label>
 
@@ -521,8 +452,8 @@
 
                 }
 
-                @*Hết hết hạn*@
 
+                @*Hết hạn*@
                 else if (item.Name == "TrangThai" && Model.NgayKetThuc <= DateTime.Now)
                 {
 
@@ -547,7 +478,7 @@
 
                                     <style>
                                         .disabled-field {
-                                            opacity: 0.6; /* Điều chỉnh mức độ mờ theo ý muốn */
+                                           
                                             pointer-events: none; /* Ngăn chặn tương tác với trường */
                                         }
 
@@ -622,11 +553,11 @@
                                             toggleFieldsBasedOnDropdownValue();
                                         });
                                     </script>
-                                    <style>
+                                    @* <style>
                                         label {
                                             opacity: 0.7; /* Giá trị opacity từ 0 (hoàn toàn trong suốt) đến 1 (không đổi) */
                                         }
-                                    </style>
+                                    </style> *@
 
                                     <label> Thời gian </label>
                                     <div class="form-container">
@@ -645,8 +576,8 @@
 
 
 
-                                    
-                                    
+
+
                                     @*Các trường textbox*@
                                     <div class="form-group">
                                         <label asp-for="SoLuong" class="control-label disabled-field">Số lượng khả dụng</label>
@@ -661,7 +592,7 @@
                                         <span asp-validation-for="DieuKienGiam" class="text-danger"></span>
                                     </div>
                                     @*Checkbox*@
-                                    
+
                                     <script>
                                         // Ngăn chặn sự kiện click trên checkbox khi nó đã được chọn
                                         $(document).ready(function () {
@@ -669,13 +600,13 @@
                                                 return false;
                                             });
 
-                                           
-                                            
+
+
                                         });
                                     </script>
-                                   
+
                                     <style>
-                                        
+
                                         .form-check-input.custom-checkbox {
                                             width: 16px;
                                             height: 16px;
@@ -691,9 +622,11 @@
                                         .custom-checkbox {
                                             margin-right: 10px;
                                         }
+                                       
 
-                                        
-                                    </style>
+                                    </style> 
+
+                                    
 
                                     <div class="form-group form-check">
                                         <label class="form-check-label disabled-field">
@@ -707,13 +640,13 @@
                                         </label>
                                     </div>
 
-                                        <!-- Nút submit -->
-                                        <div class="form-group">
-                                            <input type="submit" value="Cập nhật" class="btn btn-primary" />
-                                        </div>
-                                   
+                                    <!-- Nút submit -->
+                                    <div class="form-group">
+                                        <input type="submit" value="Cập nhật" class="btn btn-primary" />
+                                    </div>
 
-                                    
+
+
 
                             </form>
 
