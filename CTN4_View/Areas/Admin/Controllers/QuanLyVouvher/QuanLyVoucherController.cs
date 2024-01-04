@@ -35,7 +35,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyVouvher
 
             }
 
-            int pageSize = size ?? 10;
+            int pageSize = size ?? 5;
             var pageNumber = page ?? 1;
             var pagedList = a.ToPagedList(pageNumber, pageSize);
             //var pagedList = a.Where(c => c.Is_detele == true).ToPagedList(pageNumber, pageSize);
@@ -139,9 +139,9 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyVouvher
             int pageNumber = page ?? 1;
             int pageSize = 10; // Số lượng item trên mỗi trang
 
-            var pagedList = giamGias.ToPagedList(pageNumber, pageSize);
+            var pagedList1 = giamGias.ToPagedList(pageNumber, pageSize);
 
-            return View("Index", pagedList);
+            return View("Index", pagedList1);
 
         }
         //public IActionResult CacMaDaAn(int? page)

@@ -21,7 +21,7 @@ namespace CTN4_Serv.ViewModel
         public List<Anh> anhs { get; set; }
         public List<GiamGia> giamgias { get; set; }
         public List<DanhGiaSanPham> danhGiaSanPhams { get; set; }
-        public List<DanhGiaSanPham> tongSoSao { get; set; }
+        
         public DanhGiaSanPham danhGiaSanPhamCuaToi { get; set; }
         
         public List<Guid> idsanphamdamuas { get; set; }

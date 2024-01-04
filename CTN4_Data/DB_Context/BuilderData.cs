@@ -447,12 +447,12 @@ namespace CTN4_Data.DB_Context
                    Id = Guid.Parse("d16ac327-3ced-4c2c-bcdc-d3897121441a"),
                    IdDanhMuc = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081163"),
                    IdSanPham = Guid.Parse("56dd3de2-c4df-4376-b982-e2c0f7081829")
-               },new DanhMucChiTiet
+               }, new DanhMucChiTiet
                {
                    Id = Guid.Parse("d16ac327-3ceb-4c2c-bcdc-d3897121441a"),
                    IdDanhMuc = Guid.Parse("f0e98e38-112b-4630-89f1-08dbf336241b"),
                    IdSanPham = Guid.Parse("56dd3de2-c4df-4376-b982-e2c0f7081825")
-               },new DanhMucChiTiet
+               }, new DanhMucChiTiet
                {
                    Id = Guid.Parse("d16ac327-3c0b-4c2c-bcdc-d3897121441a"),
                    IdDanhMuc = Guid.Parse("f0e98e38-112b-4630-89f1-08dbf336241b"),
@@ -519,20 +519,6 @@ namespace CTN4_Data.DB_Context
                     Email = "nothing@gmail.com",
                     Trangthai = true,
                     IdChucVu = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971214414")
-                }, new NhanVien()
-                {
-                    Ho = "Cao",
-                    Ten = "Toan",
-                    Id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081174"),
-                    TenDangNhap = "1",
-                    SDT = "0912384746",
-                    AnhDaiDien = "",
-                    MatKhau = "1",
-                    GioiTinh = "Nam",
-                    DiaChi = "Hà Nội",
-                    Email = "nothing@gmail.com",
-                    Trangthai = true,
-                    IdChucVu = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971214414")
                 },
                 new NhanVien()
                 {
@@ -563,6 +549,20 @@ namespace CTN4_Data.DB_Context
                     Email = "thieubvph20221@gmail.com",
                     Trangthai = true,
                     IdChucVu = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f70877e9")
+                }, new NhanVien()
+                {
+                    Ho = "Bùi Văn",
+                    Ten = "Thiều",
+                    Id = Guid.Parse("56dd3ee2-c4df-4776-b982-e2c0f7081175"),
+                    TenDangNhap = "Admin1",
+                    SDT = "0912384746",
+                    AnhDaiDien = "",
+                    MatKhau = "123456789",
+                    GioiTinh = "Nam",
+                    DiaChi = "Hà Nội",
+                    Email = "thieubvph20221@gmail.com",
+                    Trangthai = true,
+                    IdChucVu = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971214414")
                 }
             );
             modelBuilder.Entity<KhachHang>().HasData(
@@ -575,6 +575,20 @@ namespace CTN4_Data.DB_Context
                     SDT = "0912384746",
                     AnhDaiDien = "",
                     MatKhau = "thieuxk2k3hahl",
+                    GioiTinh = "Nam",
+                    DiaChi = "Hà Nội",
+                    Email = "thieubvph20221@gmail.com",
+                    Trangthai = true,
+                    Is_detele = true
+                },new KhachHang()
+                {
+                    Ho = "Bùi Văn",
+                    Ten = "Thiều",
+                    Id = Guid.Parse("d16bc357-3ced-4c2c-bcdc-d38971214499"),
+                    TenDangNhap = "KhachHang01",
+                    SDT = "0912384746",
+                    AnhDaiDien = "",
+                    MatKhau = "123456789",
                     GioiTinh = "Nam",
                     DiaChi = "Hà Nội",
                     Email = "thieubvph20221@gmail.com",
@@ -1081,111 +1095,111 @@ namespace CTN4_Data.DB_Context
             //       IdPhuongThuc = Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971211111"),
             //       IdDiaChiNhanHang = null,
             //   }
-               
 
-               //);
-             //modelBuilder.Entity<HoaDonChiTiet>().HasData(
-             //  new HoaDonChiTiet()
-             //  {
-             //      Id = Guid.Parse("24687347-9c21-4d4a-ac6e-8cfd7e527900"),
-             //      SoLuong = 1,
-             //      GiaTien =600000,
-             //      TrangThai = true,
-             //      Is_detele = true,
-             //      IdSanPhamChiTiet = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6013"),
-             //      IdHoaDon = 1
-             //  },
-             //  new HoaDonChiTiet()
-             //  {
-             //      Id = Guid.Parse("24687347-9c21-4d4a-ac6e-8cfd7e527901"),
-             //      SoLuong = 1,
-             //      GiaTien =600000,
-             //      TrangThai = true,
-             //      Is_detele = true,
-             //      IdSanPhamChiTiet = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6014"),
-             //      IdHoaDon = 2
-             //  },
-             //  new HoaDonChiTiet()
-             //  {
-             //      Id = Guid.Parse("24687347-9c21-4d4a-ac6e-8cfd7e527902"),
-             //      SoLuong = 1,
-             //      GiaTien =600000,
-             //      TrangThai = true,
-             //      Is_detele = true,
-             //      IdSanPhamChiTiet = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6015"),
-             //      IdHoaDon = 3
-             //  },
-             //  new HoaDonChiTiet()
-             //  {
-             //      Id = Guid.Parse("24687347-9c21-4d4a-ac6e-8cfd7e527903"),
-             //      SoLuong = 1,
-             //      GiaTien =600000,
-             //      TrangThai = true,
-             //      Is_detele = true,
-             //      IdSanPhamChiTiet = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6016"),
-             //      IdHoaDon = 4
-             //  },
-             //  new HoaDonChiTiet()
-             //  {
-             //      Id = Guid.Parse("24687347-9c21-4d4a-ac6e-8cfd7e527904"),
-             //      SoLuong = 1,
-             //      GiaTien =600000,
-             //      TrangThai = true,
-             //      Is_detele = true,
-             //      IdSanPhamChiTiet = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6017"),
-             //      IdHoaDon = 5
-             //  },
-             //  new HoaDonChiTiet()
-             //  {
-             //      Id = Guid.Parse("24687347-9c21-4d4a-ac6e-8cfd7e527905"),
-             //      SoLuong = 1,
-             //      GiaTien =600000,
-             //      TrangThai = true,
-             //      Is_detele = true,
-             //      IdSanPhamChiTiet = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6018"),
-             //      IdHoaDon = 6
-             //  },
-             //  new HoaDonChiTiet()
-             //  {
-             //      Id = Guid.Parse("24687347-9c21-4d4a-ac6e-8cfd7e527906"),
-             //      SoLuong = 1,
-             //      GiaTien =600000,
-             //      TrangThai = true,
-             //      Is_detele = true,
-             //      IdSanPhamChiTiet = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6019"),
-             //      IdHoaDon = 7
-             //  },
-             //  new HoaDonChiTiet()
-             //  {
-             //      Id = Guid.Parse("24687347-9c21-4d4a-ac6e-8cfd7e527907"),
-             //      SoLuong = 1,
-             //      GiaTien =600000,
-             //      TrangThai = true,
-             //      Is_detele = true,
-             //      IdSanPhamChiTiet = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6020"),
-             //      IdHoaDon = 8
-             //  },
-             //  new HoaDonChiTiet()
-             //  {
-             //      Id = Guid.Parse("24687347-9c21-4d4a-ac6e-8cfd7e527908"),
-             //      SoLuong = 1,
-             //      GiaTien =600000,
-             //      TrangThai = true,
-             //      Is_detele = true,
-             //      IdSanPhamChiTiet = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6021"),
-             //      IdHoaDon = 9
-             //  },
-             //  new HoaDonChiTiet()
-             //  {
-             //      Id = Guid.Parse("24687347-9c21-4d4a-ac6e-8cfd7e527909"),
-             //      SoLuong = 1,
-             //      GiaTien =600000,
-             //      TrangThai = true,
-             //      Is_detele = true,
-             //      IdSanPhamChiTiet = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6022"),
-             //      IdHoaDon = 10
-             //  }
-             //  );
+
+            //);
+            //modelBuilder.Entity<HoaDonChiTiet>().HasData(
+            //  new HoaDonChiTiet()
+            //  {
+            //      Id = Guid.Parse("24687347-9c21-4d4a-ac6e-8cfd7e527900"),
+            //      SoLuong = 1,
+            //      GiaTien =600000,
+            //      TrangThai = true,
+            //      Is_detele = true,
+            //      IdSanPhamChiTiet = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6013"),
+            //      IdHoaDon = 1
+            //  },
+            //  new HoaDonChiTiet()
+            //  {
+            //      Id = Guid.Parse("24687347-9c21-4d4a-ac6e-8cfd7e527901"),
+            //      SoLuong = 1,
+            //      GiaTien =600000,
+            //      TrangThai = true,
+            //      Is_detele = true,
+            //      IdSanPhamChiTiet = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6014"),
+            //      IdHoaDon = 2
+            //  },
+            //  new HoaDonChiTiet()
+            //  {
+            //      Id = Guid.Parse("24687347-9c21-4d4a-ac6e-8cfd7e527902"),
+            //      SoLuong = 1,
+            //      GiaTien =600000,
+            //      TrangThai = true,
+            //      Is_detele = true,
+            //      IdSanPhamChiTiet = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6015"),
+            //      IdHoaDon = 3
+            //  },
+            //  new HoaDonChiTiet()
+            //  {
+            //      Id = Guid.Parse("24687347-9c21-4d4a-ac6e-8cfd7e527903"),
+            //      SoLuong = 1,
+            //      GiaTien =600000,
+            //      TrangThai = true,
+            //      Is_detele = true,
+            //      IdSanPhamChiTiet = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6016"),
+            //      IdHoaDon = 4
+            //  },
+            //  new HoaDonChiTiet()
+            //  {
+            //      Id = Guid.Parse("24687347-9c21-4d4a-ac6e-8cfd7e527904"),
+            //      SoLuong = 1,
+            //      GiaTien =600000,
+            //      TrangThai = true,
+            //      Is_detele = true,
+            //      IdSanPhamChiTiet = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6017"),
+            //      IdHoaDon = 5
+            //  },
+            //  new HoaDonChiTiet()
+            //  {
+            //      Id = Guid.Parse("24687347-9c21-4d4a-ac6e-8cfd7e527905"),
+            //      SoLuong = 1,
+            //      GiaTien =600000,
+            //      TrangThai = true,
+            //      Is_detele = true,
+            //      IdSanPhamChiTiet = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6018"),
+            //      IdHoaDon = 6
+            //  },
+            //  new HoaDonChiTiet()
+            //  {
+            //      Id = Guid.Parse("24687347-9c21-4d4a-ac6e-8cfd7e527906"),
+            //      SoLuong = 1,
+            //      GiaTien =600000,
+            //      TrangThai = true,
+            //      Is_detele = true,
+            //      IdSanPhamChiTiet = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6019"),
+            //      IdHoaDon = 7
+            //  },
+            //  new HoaDonChiTiet()
+            //  {
+            //      Id = Guid.Parse("24687347-9c21-4d4a-ac6e-8cfd7e527907"),
+            //      SoLuong = 1,
+            //      GiaTien =600000,
+            //      TrangThai = true,
+            //      Is_detele = true,
+            //      IdSanPhamChiTiet = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6020"),
+            //      IdHoaDon = 8
+            //  },
+            //  new HoaDonChiTiet()
+            //  {
+            //      Id = Guid.Parse("24687347-9c21-4d4a-ac6e-8cfd7e527908"),
+            //      SoLuong = 1,
+            //      GiaTien =600000,
+            //      TrangThai = true,
+            //      Is_detele = true,
+            //      IdSanPhamChiTiet = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6021"),
+            //      IdHoaDon = 9
+            //  },
+            //  new HoaDonChiTiet()
+            //  {
+            //      Id = Guid.Parse("24687347-9c21-4d4a-ac6e-8cfd7e527909"),
+            //      SoLuong = 1,
+            //      GiaTien =600000,
+            //      TrangThai = true,
+            //      Is_detele = true,
+            //      IdSanPhamChiTiet = Guid.Parse("42d4f7d5-0499-4df5-926f-ccce5fbb6022"),
+            //      IdHoaDon = 10
+            //  }
+            //  );
             //modelBuilder.Entity<LichSuDonHang>().HasData(
             //    new LichSuDonHang()
             //    {
