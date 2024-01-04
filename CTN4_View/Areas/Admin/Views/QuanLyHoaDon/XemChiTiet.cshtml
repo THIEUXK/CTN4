@@ -167,48 +167,22 @@
                                                 <div><b>Đơn giá:</b>@FormatCurrency(a.SanPhamChiTiet.SanPham.GiaNiemYet)</div>
                                             </td>
                                             <td class="border-bottom-0">
+                                                @if (Model.HoaDon.TrangThai == "Đang chờ xử lí")
+                                                {
+                                                    <form asp-action="CapNhanSoLuong2" class="confirmation-form">
 
-                                                <form>
-                                                    @if (Model.HoaDon.TrangThai == "Đang chờ xử lí")
-                                                    {
-                                                        @if (Model.check11.Contains(a.SanPhamChiTiet.SanPham.Id))
-                                                        {
+                                                        <div class="input-container">
+                                                            <input type="text" name="soluong" value="@a.SoLuong" class="so-duong" min="1" id="soInput" max="20" maxlength="2" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                                            <input type="hidden" name="idHdct" value="@a.Id" />
+                                                            <button class="update-button">Cập nhật</button>
+                                                        </div>
 
-
-                                                            <div class="input-container">
-                                                                <input type="text" name="soluong" value="@a.SoLuong" class="so-duong" min="1" id="soInput" max="20" maxlength="2" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
-                                                                <h5 id="multiplyText">x 2</h5>
-                                                                <input type="hidden" name="idHdct" value="@a.Id" />
-                                                                <button id="updateButton" asp-action="CapNhanSoLuong2">Cập nhật</button>
-                                                            </div>
-                                                        }
-                                                        else
-                                                        {
-                                                            <div class="input-container">
-                                                                <input type="text" name="soluong" value="@a.SoLuong" class="so-duong" min="1" id="soInput" max="20" maxlength="2" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
-                                                                <input type="hidden" name="idHdct" value="@a.Id" />
-                                                                <button id="updateButton" asp-action="CapNhanSoLuong2">Cập nhật</button>
-                                                            </div>
-                                                        }
-                                                    }
-                                                    else
-                                                    {
-                                                        @if (Model.check11.Contains(a.SanPhamChiTiet.SanPham.Id))
-                                                        {
-                                                            <div class="input-container">
-                                                                <p class="mb-0 fw-normal">@a.SoLuong</p>
-                                                                <h5 id="multiplyText">x 2</h5>
-                                                            </div>
-                                                        }
-                                                        else
-                                                        {
-                                                            <div class="input-container">
-                                                                <p class="mb-0 fw-normal">@a.SoLuong</p>
-                                                           
-                                                            </div>
-                                                        }
-                                                    }
-                                                </form>
+                                                    </form>
+                                                }
+                                                else
+                                                {
+                                                    <p class="mb-0 fw-normal">@a.SoLuong</p>
+                                                }
                                             </td>
                                             <td class="border-bottom-0">
                                                 <p class="mb-0 fw-normal">@FormatCurrency(a.GiaTien * a.SoLuong)</p>
@@ -257,7 +231,7 @@
                                                                     </div>
                                                                 </div>
                                                             }
-                                                            else
+                                                            else if (Model.HoaDon.TrangThai == "Đang chờ xử lí")
                                                             {
                                                                 <div class="d-flex align-items-center gap-2">
                                                                     <span class="btn btn-custom-primary">@Html.ActionLink("Hoàn tác", "HoanTacSp", new { idHDCT = a.Id, idHD = Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span>
@@ -615,6 +589,7 @@
                                     <input type="text" class="form-control" placeholder="Nhập số điện thoại của bạn" value="@Model.HoaDon.SDTNguoiNhan" id="number" name="sdt" oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="15">
                                     <input type="text" name="email" id="emailInput" value="@Model.HoaDon.Email" maxlength="50" />
                                     <p id="emailValidationMessage" style="color: red;"></p>
+                                    <input type="hidden" name="id" value="@Model.HoaDon.Id"/>
                                     <button type="submit" name="loai" value="0" id="submitButton" class="btn btn-custom-primary">Sửa</button>
 
                                 </form>
@@ -748,9 +723,64 @@
         </div>
     </div>
 </body>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var updateButtons = document.querySelectorAll('.update-button');
+
+        updateButtons.forEach(function (button) {
+            button.addEventListener('click', function (event) {
+                event.preventDefault();
+                var confirmation = confirm("Bạn có chắc muốn cập nhật?");
+                if (confirmation) {
+                    // Nếu người dùng xác nhận, gửi biểu mẫu
+                    event.target.closest('form').submit();
+                } else {
+                    // Nếu người dùng hủy, không làm gì hoặc cung cấp phản hồi cần thiết
+                }
+            });
+        });
+    });
+</script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="~/js/c.js"></script>
 <style>
+    /* Apply styles to the form */
+    .confirmation-form {
+        margin-top: 20px; /* Adjust the top margin as needed */
+    }
+
+    /* Style the input container */
+    .input-container {
+        display: flex;
+        align-items: center;
+    }
+
+    /* Style the quantity input */
+    .so-duong {
+        width: 50px; /* Set the width as needed */
+        padding: 5px;
+        margin-right: 10px; /* Add some space between the input and the button */
+        border: 1px solid #ccc; /* Add a border for better visibility */
+        border-radius: 5px; /* Add rounded corners */
+    }
+
+    /* Style the update button */
+    .update-button {
+        padding: 6px 7px; /* Adjust padding to make the button smaller */
+        font-size: 14px; /* Adjust font size to make the text smaller */
+        background-color: #4caf50; /* Green background color */
+        color: white; /* White text color */
+        border: none;
+        border-radius: 5px; /* Add rounded corners */
+        cursor: pointer;
+    }
+
+        /* Change button color on hover */
+        .update-button:hover {
+            background-color: #45a049; /* Darker green color on hover */
+        }
+
+
     .custom-edit-link {
         color: whitesmoke; /* Màu đỏ */
         /* Các thuộc tính CSS khác nếu cần */

@@ -91,7 +91,7 @@
 
                 <div class="form-group">
                     <label asp-for="MatKhau" class="control-label"> Mật Khẩu</label>
-                    <input asp-for="MatKhau" class="form-control" minlength="8" maxlength="30" />
+                    <input asp-for="MatKhau" class="form-control"type="password" minlength="8" maxlength="30" />
                     <span asp-validation-for="MatKhau" class="text-danger"></span>
                     <small id="passwordHelpBlock" class="form-text text-muted">
                         Mật khẩu phải có ít nhất 8 ký tự và tối đa 30 ký tự.
@@ -130,7 +130,7 @@
     {
         <span class="text-danger">@ViewBag.Message</span>
     }
-
+           
     <div class="form-group">
         <input asp-action="DangKys" type="submit" value="Đăng Ký" class="btn btn-primary" />
     </div>

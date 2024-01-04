@@ -1,4 +1,6 @@
-﻿@model CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk.viewMode.Thi1View
+﻿@using CTN4_Data.Models.DB_CTN4
+@using CTN4_Serv.Service
+@model CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk.viewMode.Thi1View
 @{
     ViewData["Title"] = "TaoHoaDon";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
@@ -268,17 +270,22 @@
                                                 <div><b style="color:#5a6a85">Size: </b>@a.SanPhamChiTiet.Size.CoSize</div>
                                             </td>
                                             <td>
-                                                <h5>@FormatCurrency(a.GiaTien)</h5>
+                                                <form>
+                                                 
+                                                        <h5>@FormatCurrency(a.GiaTien)</h5>
+                                                
+                                                </form>
+                                                
                                             </td>
                                             <td>
                                                 <form>
                                                     @if (Model.check11.Contains(a.SanPhamChiTiet.SanPham.Id))
                                                     {
                                                         <div class="input-container">
-                                                            <input type="text" name="soluong" value="@a.SoLuong" class="so-duong" min="1" id="soInput" max="20" maxlength="2" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
-                                                            <h5 id="multiplyText">x 2</h5>
+                                                            <input type="text" name="soluong" value="@a.SoLuong" class="so-duong" min="1" id="soInput" max="20" maxlength="2" oninput="this.value = this.value.replace(/[^0-9]/g,');" readonly>
+
+                                                            <h5 id="multiplyText">(Sản phẩm đang mua 1 tặng 1)</h5>
                                                             <input type="hidden" name="idHdct" value="@a.Id" />
-                                                            <button id="updateButton" name="id" value="@a.Id" asp-action="CapNhanSoLuong">Cập nhật</button>
                                                         </div>
                                                     }
                                                     else
@@ -292,7 +299,14 @@
                                                 </form>
                                             </td>
                                             <td>
-                                                <h5>@FormatCurrency(a.GiaTien * a.SoLuong)</h5>
+                                                @if (Model.check11.Contains(a.SanPhamChiTiet.SanPham.Id))
+                                                {
+                                                    <h5>@FormatCurrency(a.GiaTien * a.SoLuong / 2)</h5>
+                                                }
+                                                else
+                                                {
+                                                    <h5>@FormatCurrency(a.GiaTien * a.SoLuong)</h5>
+                                                }
                                             </td>
                                             <td>
                                                 <button asp-action="xoaKhoiHoaDon" class="delete-link custom-button" name="idHDCT" value="@a.Id">

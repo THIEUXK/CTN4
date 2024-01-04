@@ -428,7 +428,20 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             }
             return RedirectToAction("Index");
         }
-       
-    
-    }
+       public void UpdateProductStatus(Guid id)
+        {
+            var check = _sv.GetAll().FirstOrDefault(c=>c.Id == id);
+            if (check != null)
+            {
+                KhuyenMai khuyenMai = new KhuyenMai()
+                {
+                    Id = check.Id,
+                    Is_Detele = false
+                };
+                _sv.Sua(khuyenMai);
+            }
+        }
+
+
+	}
 }

@@ -14,7 +14,8 @@ namespace CTN4_Data.Models
         public Guid? IdKhachHang { get; set; }
         public string BinhLuan { get; set; }
         public int SoSao { get; set; }
-        public bool TrangThai { get; set; }
+        public bool TrangThaiDuyet { get; set; }
+        public bool TrangThaiAnHien { get; set; }
         public bool Is_delete { get; set; }
         public DateTime ThoiGian { get; set; }
         public int SoSua { get; set; }
