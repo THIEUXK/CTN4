@@ -25,6 +25,29 @@
     }
 
     #khachHangSelect {
+        width: 200px; /* Set the width of the select box */
+        padding: 8px; /* Add padding for better spacing */
+    }
+
+    #selectedValues {
+        margin-top: 10px; /* Add margin to separate from the select box */
+        padding: 10px; /* Add padding for better spacing */
+        border: 1px solid #ccc; /* Add a border for a cleaner look */
+        border-radius: 5px; /* Add border-radius for rounded corners */
+    }
+
+    /* Style the options within the select box */
+    #khachHangSelect option {
+        background-color: #fff; /* Set background color for options */
+        color: #333; /* Set text color for options */
+    }
+
+        /* Style the selected option */
+        #khachHangSelect option:selected {
+            background-color: #007bff; /* Set background color for selected option */
+            color: #fff; /* Set text color for selected option */
+        }
+    #khachHangSelect {
         width: 100%;
         height: 150px; /* Adjust height as needed */
         border: 1px solid #ccc;
@@ -270,12 +293,14 @@
 
     $(document).ready(function () {
         var selectkhSelect = $('#khachHangSelect');
+        var selectedOptions = []; // Array to store selected options
+
         $.ajax({
             type: 'GET',
             url: '/admin/KhuyenMai/Getallkh',
             dataType: 'json',
             success: function (data) {
-              
+
                 selectkhSelect.append('<option value="" disabled>Chọn...</option>');
 
                 $.each(data, function (index, khachHang) {
@@ -284,14 +309,32 @@
                 });
 
                 selectkhSelect.change(function () {
-                    var selectedOptions = $(this).find('option:selected');
-                    var displayText = "";
+                    var clickedOption = $(this).find('option:selected');
 
-                    selectedOptions.each(function () {
-                        var email = $(this).val();
-                        var ten = $(this).data('ten');
-                        displayText += 'Email: ' + email + ', Tên: ' + ten + '\n';
-                    });
+                    if (clickedOption.length === 0) {
+                        // No option selected, clear the array
+                        selectedOptions = [];
+                    } else {
+                        var email = clickedOption.val();
+                        var ten = clickedOption.data('ten');
+
+                        // Check if the option is already selected
+                        var index = selectedOptions.indexOf(email);
+                        if (index === -1) {
+                            // Option not selected, add to the array
+                            selectedOptions.push(email);
+                        } else {
+                            // Option already selected, remove from the array
+                            selectedOptions.splice(index, 1);
+                        }
+                    }
+
+                    // Update the form fields or display the selected values
+                    // For example, you can display them in a div or textarea
+                    var displayText = selectedOptions.map(function (email) {
+                        var ten = selectkhSelect.find('option[value="' + email + '"]').data('ten');
+                        return 'Email: ' + email + ', Tên: ' + ten;
+                    }).join('\n');
 
                     console.log(displayText);
                     // Update the form fields or display the selected values
@@ -301,7 +344,6 @@
             },
             error: function (error) {
                 console.log(error);
-              
             }
         });
         selectkhSelect.change(function () {
