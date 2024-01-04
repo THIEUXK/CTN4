@@ -21,6 +21,7 @@ using Microsoft.Diagnostics.Tracing.Parsers.IIS_Trace;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
+using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 using X.PagedList;
@@ -50,6 +51,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
         public IMauService _mauSacService;
         public DB_CTN4_ok _CTN4_Ok;
         public IGiamGiaChiTietService _GiamGiaChiTietService;
+        public IDanhGiaSanPhamService _danhGiaSanPhamService;
 
         public QuanLyHoaDonController(HttpClient httpClient)
         {
@@ -74,6 +76,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             _mauSacService = new MauService();
             _CTN4_Ok = new DB_CTN4_ok();
             _GiamGiaChiTietService = new GiamGiaChiTietService();
+            _danhGiaSanPhamService = new DanhGiaSanPhamService();
         }
         #endregion
         public IActionResult Index()
@@ -510,7 +513,23 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                             Is_detele = true
                         };
                         _LichSuHoaDonService.Them(li);
+                        var allhdct = _hoaDonChiTietService.GetAll().Where(c=>c.IdHoaDon == id && c.Is_detele == true && c.TrangThai == true).ToList();
+                        var ids = new List<Guid>();
+                        foreach(var a in allhdct)
+                        {
+                            if(!ids.Contains(a.SanPhamChiTiet.SanPham.Id))
+                            {
+                                ids.Add(a.SanPhamChiTiet.SanPham.Id);
+                            }
+                        }
+                        var listDanhGia = _danhGiaSanPhamService.GetAll().Where(c=>c.IdKhachHang== hd.KhachHang.Id && ids.Contains((Guid)c.IdSanPham));
+                        foreach(var b in listDanhGia)
+                        {
+                            b.SoSua =1;
+                            _danhGiaSanPhamService.Sua(b);
+                        }
                     }
+
                 }
                 else
                 {

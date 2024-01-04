@@ -116,9 +116,9 @@
                             }
                             @if (Model.HoaDon.TrangThai == "Đang chờ xử lí")
                             {
-                                <div>
+                                
                                     <span class="btn btn-custom-primary">@Html.ActionLink("Cập nhật hóa đơn", "CapNhat", new { id = Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span>
-                                </div>
+                               
                             }
                             <hr></hr>
                             <table class="table text-nowrap mb-0 align-middle">
@@ -243,10 +243,9 @@
                                             }
                                             else if (Model.HoaDon.TrangThai == "Đang chờ xử lí")
                                             {
-                                                <td>
-                                                    <div>
-                                                        <span class="btn btn-custom-primary">@Html.ActionLink("Bỏ", "BoSanPhamNay", new { id = Model.HoaDon.Id, idCT = a.Id }, new { @class = "custom-edit-link" })</span>
-                                                    </div>
+                                                <td class="border-bottom-0">
+                                                   
+                                                    <span class="btn btn-custom-primary">@Html.ActionLink("Bỏ", "BoSanPhamNay", new { id = Model.HoaDon.Id, idCT = a.Id }, new { @class = "custom-edit-link" })</span>
                                                 </td>
                                             }
 
@@ -589,7 +588,7 @@
                                     <input type="text" class="form-control" placeholder="Nhập số điện thoại của bạn" value="@Model.HoaDon.SDTNguoiNhan" id="number" name="sdt" oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="15">
                                     <input type="text" name="email" id="emailInput" value="@Model.HoaDon.Email" maxlength="50" />
                                     <p id="emailValidationMessage" style="color: red;"></p>
-                                    <input type="hidden" name="id" value="@Model.HoaDon.Id"/>
+                                    <input type="hidden" name="id" value="@Model.HoaDon.Id" />
                                     <button type="submit" name="loai" value="0" id="submitButton" class="btn btn-custom-primary">Sửa</button>
 
                                 </form>

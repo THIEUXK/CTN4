@@ -56,58 +56,7 @@ namespace CTN4_View.Controllers.Shop
             _sanPhamChiTietService = new SanPhamChiTietService();
             _kmspService = new KhuyenMaiSanPhamService();
         }
-        //public IActionResult SanPhamDanhMuc(Guid id, int page, int Soluonghienthi)
-        //{
-        //    var danhMucLuu = _danhMucService.GetById(id);
-        //    var LuuTam = SessionBan.DanhMucSS(HttpContext.Session, "DanhMucTam");
-        //    if (LuuTam.Count == 0)
-        //    {
-        //        LuuTam.Add(danhMucLuu);
-        //        SessionBan.SetObjToJson(HttpContext.Session, "DanhMucTam", LuuTam);
-        //    }
-        //    else if (LuuTam.Count != 0)
-        //    {
-        //        LuuTam.Clear();
-        //        LuuTam.Add(danhMucLuu);
-        //        SessionBan.SetObjToJson(HttpContext.Session, "DanhMucTam", LuuTam);
-        //    }
-        //    var LuuTamCl = SessionBan.ChatLieuSS(HttpContext.Session, "ChatLieuTam");
-        //    var LuuTamMau = SessionBan.MauSacSS(HttpContext.Session, "MauSacTam");
-        //    if (Soluonghienthi == 0) { Soluonghienthi = 6; }
-        //    if (page == 0) { page = 1; }
-        //    var danhMuc = _danhMucService.GetAll();
-        //    var danhMucChiTiets = _danhMucChiTiet.GetAll();
-        //    var listSp = _sanPhamCuaHangService.GetAll().Where(c => c.Is_detele == true).ToList();
-        //    var listSp1 = _sanphamService.GetAll().Where(c => c.Is_detele == true).ToList();
-        //    var listSp2 = _sanPhamChiTietService.GetAll().Where(c => c.Is_detele == true).ToList();
-        //    var SpYt = _chiTietSanPhamYeuThichService.GetAll();
-        //    var chatLieus = _chatLieuService.GetAll();
-        //    var mauSacs = _mauSacService.GetAll();
-        //    var khachhang = _khachHangService.GetAll();
-        //    var c = _DanhMucjoiin.GetById(id).Where(c => c.SanPham.Is_detele == true && c.SanPham.TrangThai == true).ToList();
-        //    var view = new HienThiSanPhamView()
-        //    {
-        //        danhMucs = danhMuc,
-        //        danhMucChiTiets = danhMucChiTiets,
-        //        sanPhams = listSp1,
-        //        sanPhamChiTiets = listSp2,
-        //        chatLieus = chatLieus,
-        //        maus = mauSacs,
-        //        sanphampaging1 = c.Skip((page - 1) * Soluonghienthi).Take(Soluonghienthi).ToList(),
-        //        pagingInfo = new PagingInfo()
-        //        {
-        //            TotalItems = c.Count(),
-        //            CurrentPage = page,
-        //            ItemsPerPage = Soluonghienthi,
 
-        //        },
-        //        soluonghienthi = Soluonghienthi,
-        //        sanPhamYeuThiches = SpYt,
-        //        khachHangs = khachhang,
-        //        danhMucChiTiet2 = c,
-        //    };
-        //    return View(view);
-        //} 
         public IActionResult SanPhamDanhMuc(Guid id, int page, int Soluonghienthi)
         {
             var danhMucLuu = _danhMucService.GetById(id);
@@ -179,7 +128,7 @@ namespace CTN4_View.Controllers.Shop
                 {
                     var thongbaoSearch = "Không tìm thất sản phẩm nào ";
                     TempData["Notification"] = thongbaoSearch;
-                   return RedirectToAction("viewSpRong","HienThiSanPham", new { thongbaoSearch });
+                    return RedirectToAction("viewSpRong", "HienThiSanPham", new { thongbaoSearch });
                 }
                 var view = new HienThiSanPhamView()
                 {
@@ -234,7 +183,61 @@ namespace CTN4_View.Controllers.Shop
                 {
                     var thongbaoSearch = "Không tìm thất sản phẩm nào ";
                     TempData["Notification"] = thongbaoSearch;
-                   return RedirectToAction("viewSpRong","HienThiSanPham", new { thongbaoSearch });
+                    return RedirectToAction("viewSpRong", "HienThiSanPham", new { thongbaoSearch });
+                }
+                var view = new HienThiSanPhamView()
+                {
+                    danhMucs = danhMuc,
+                    danhMucChiTiets = danhMucChiTiets,
+                    sanPhams = listSp1,
+                    sanPhamChiTiets = listSp2,
+                    chatLieus = chatLieus,
+                    maus = mauSacs,
+                    sanphampaging1 = c.Skip((page - 1) * Soluonghienthi).Take(Soluonghienthi).ToList(),
+                    pagingInfo = new PagingInfo()
+                    {
+                        TotalItems = c.Count(),
+                        CurrentPage = page,
+                        ItemsPerPage = Soluonghienthi,
+
+                    },
+                    soluonghienthi = Soluonghienthi,
+                    sanPhamYeuThiches = SpYt,
+                    khachHangs = khachhang,
+                    danhMucChiTiet2 = c,
+                    khuyenMaiSanPhams = khuyenMaiSp
+                };
+                return View(view);
+            }///// chỉ tìm màu
+            else if (searchTenSp.Count != 0 && searchMau.Count != 0 && searchGiaTien.Count ==0)
+            {
+                if (Soluonghienthi == 0) { Soluonghienthi = 6; }
+                if (page == 0) { page = 1; }
+                var danhMuc = _danhMucService.GetAll();
+                var danhMucChiTiets = _danhMucChiTiet.GetAll();
+                var listSp = _sanPhamCuaHangService.GetAll().Where(c => c.Is_detele == true).ToList();
+                var listSp1 = _sanphamService.GetAll().Where(c => c.Is_detele == true).ToList();
+                var listSp2 = _sanPhamChiTietService.GetAll().Where(c => c.Is_detele == true).ToList();
+                var SpYt = _chiTietSanPhamYeuThichService.GetAll();
+                var chatLieus = _chatLieuService.GetAll();
+                var mauSacs = _mauSacService.GetAll();
+                var khachhang = _khachHangService.GetAll();
+                var khuyenMaiSp = _kmspService.GetAll().Where(c => c.KhuyenMai.TrangThai == true && c.KhuyenMai.Is_Detele == false && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now).ToList();
+                //var c = _DanhMucjoiin.GetById(id).Where(c => c.SanPham.Is_detele == true && c.SanPham.TrangThai == true).ToList();
+                List<DanhMucChiTiet> c;
+                if (luuGiaKetThuc != 0 && luuGiaBatDau < luuGiaKetThuc)
+                {
+                    c = _DanhMucjoiin.getAllDanhMucChitiet().Where(c => c.SanPham.Is_detele == true && c.SanPham.TrangThai == true && c.SanPham.GiaNiemYet >= luuGiaBatDau && c.SanPham.GiaNiemYet <= luuGiaKetThuc && idspA.Contains((Guid)c.SanPham.Id) && a.Contains((Guid)c.SanPham.IdChatLieu) && c.DanhMuc.Id == LuuTam[0].Id).ToList();
+                }
+                else
+                {
+                    c = _DanhMucjoiin.getAllDanhMucChitiet().Where(c => c.SanPham.Is_detele == true && c.SanPham.TrangThai == true && idspA.Contains((Guid)c.SanPham.Id) && a.Contains((Guid)c.SanPham.IdChatLieu) && c.DanhMuc.Id == LuuTam[0].Id).ToList();
+                }
+                if (c.Count == 0)
+                {
+                    var thongbaoSearch = "Không tìm thất sản phẩm nào ";
+                    TempData["Notification"] = thongbaoSearch;
+                    return RedirectToAction("viewSpRong", "HienThiSanPham", new { thongbaoSearch });
                 }
                 var view = new HienThiSanPhamView()
                 {
@@ -288,7 +291,7 @@ namespace CTN4_View.Controllers.Shop
                 {
                     var thongbaoSearch = "Không tìm thất sản phẩm nào ";
                     TempData["Notification"] = thongbaoSearch;
-                   return RedirectToAction("viewSpRong","HienThiSanPham", new { thongbaoSearch });
+                    return RedirectToAction("viewSpRong", "HienThiSanPham", new { thongbaoSearch });
                 }
                 var view = new HienThiSanPhamView()
                 {
@@ -342,7 +345,7 @@ namespace CTN4_View.Controllers.Shop
                 {
                     var thongbaoSearch = "Không tìm thất sản phẩm nào ";
                     TempData["Notification"] = thongbaoSearch;
-                   return RedirectToAction("viewSpRong","HienThiSanPham", new { thongbaoSearch });
+                    return RedirectToAction("viewSpRong", "HienThiSanPham", new { thongbaoSearch });
                 }
                 var view = new HienThiSanPhamView()
                 {
@@ -396,7 +399,7 @@ namespace CTN4_View.Controllers.Shop
                 {
                     var thongbaoSearch = "Không tìm thất sản phẩm nào ";
                     TempData["Notification"] = thongbaoSearch;
-                    return RedirectToAction("viewSpRong","HienThiSanPham", new { thongbaoSearch });
+                    return RedirectToAction("viewSpRong", "HienThiSanPham", new { thongbaoSearch });
                 }
                 var view = new HienThiSanPhamView()
                 {
@@ -462,6 +465,9 @@ namespace CTN4_View.Controllers.Shop
         }
         public IActionResult ChonShowSp(int Soluonghienthi, int page, Guid id)
         {
+            var luuChonShow = SessionBan.SanPhamMoRong(HttpContext.Session, "ChonShowSp");
+            luuChonShow = Soluonghienthi;
+            SessionBan.SetObjToJson(HttpContext.Session, "ChonShowSp", luuChonShow);
             if (Soluonghienthi == 0) { Soluonghienthi = 6; }
             if (page == 0) { page = 1; }
             var danhMuc = _danhMucService.GetAll();
@@ -475,6 +481,7 @@ namespace CTN4_View.Controllers.Shop
             var khachhang = _khachHangService.GetAll();
             var slspDanhMuc = _DanhMucjoiin.GetById(id).Where(c => c.SanPham.Is_detele == true && c.SanPham.TrangThai == true).ToList();
             var c = _DanhMucjoiin.getAllDanhMucChitiet().Where(c => c.SanPham.Is_detele == true && c.SanPham.TrangThai == true).ToList();
+            var khuyenMaiSp = _kmspService.GetAll().Where(c => c.KhuyenMai.TrangThai == true && c.KhuyenMai.Is_Detele == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now).ToList();
             var view = new HienThiSanPhamView()
             {
                 danhMucs = danhMuc,
@@ -494,13 +501,10 @@ namespace CTN4_View.Controllers.Shop
                 soluonghienthi = Soluonghienthi,
                 sanPhamYeuThiches = SpYt,
                 khachHangs = khachhang,
-
-
                 danhMucChiTiet2 = c,
+                khuyenMaiSanPhams = khuyenMaiSp,
             };
             return View("SanPhamDanhMuc", view);
-
-
         }
         [HttpGet]
         public IActionResult Search(int page, int Soluonghienthi, string TenSp, Guid id)
