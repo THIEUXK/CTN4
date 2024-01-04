@@ -27,7 +27,12 @@ namespace CTN4_Serv.Service
         public DanhGiaSanPham GetById(Guid id)
         {
             return GetAll().FirstOrDefault(c => c.Id == id);
-        }
+        } public DanhGiaSanPham GetDanhGiaByIdSanPhamAndIdKhachHang(Guid idSanPham, Guid idKhachHang)
+    {
+        // Thực hiện truy vấn trong cơ sở dữ liệu để kiểm tra xem đã có đánh giá từ người dùng cho sản phẩm chưa
+        return _db.DanhGiaSanPhams
+            .FirstOrDefault(d => d.IdSanPham == idSanPham && d.IdKhachHang == idKhachHang);
+    }
 
         public bool Them(DanhGiaSanPham a)
         {
