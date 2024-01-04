@@ -107,8 +107,14 @@
                             </div>
                     <div class="form-group">
                         <label asp-for="Mua1tang1" class="control-label"> Mua 1 tặng 1</label>
-                        <input asp-for="Mua1tang1" class="form-control" readonly />
-                        <span asp-validation-for="Mua1tang1" class="text-danger"></span>
+
+                        @{
+                            string inputValue = Model.Mua1tang1.HasValue
+                            ? (Model.Mua1tang1.Value ? "Áp dụng" : "Chưa áp dụng")
+                            : "Không xác định";
+                        }
+
+                        <input asp-for="Mua1tang1" class="form-control" readonly value="@inputValue" />
                     </div>
                             </div>
                             <div class="form-container">
