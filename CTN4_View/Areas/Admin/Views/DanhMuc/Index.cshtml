@@ -36,6 +36,10 @@
                         <th>
                             Tên danh mục
                         </th>
+                        <th>
+                            Tình trạng
+                        </th>
+
                         <th></th>
                     </tr>
                 </thead>
@@ -47,11 +51,34 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.TenDanhMuc)
                             </td>
+                            <td>
+                                @if (item.Is_detele == true)
+                                {
+                                    <p>Hiện thị</p>
+                                }
+                                else
+                                {
+                                    <p>Tạm ẩn</p>
+                                }
+                            </td>
 
                             <td>
                                 @Html.ActionLink("Chỉnh sửa", "Edit",new { id=item.Id },new { style = "text-decoration: none; color: black;" }) |
                                 @Html.ActionLink("Chi tiết", "Details",new { id=item.Id }, new { style = "text-decoration: none; color: black;" }) |
-                                @Html.ActionLink("Xóa", "Delete", new { id = item.Id }, new {  style = "text-decoration: none; color: black;", onclick = "return confirmDelete();" }) |
+
+                                @if (item.Is_detele == true)
+                                {
+                                    @Html.ActionLink("Ẩn", "Delete", new { id = item.Id }, new {  style = "text-decoration: none; color: black;", onclick = "return confirmDelete();" })
+
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Hiện", "Delete", new { id = item.Id }, new {  style = "text-decoration: none; color: black;", onclick = "return confirmDelete1();" })
+                                }
+
+
+
+
                             </td>
                         </tr>
                     }
@@ -62,7 +89,7 @@
                 <div class="col-auto ">
                     @using (Html.BeginForm("Index", "DanhMuc", FormMethod.Get))
                     {
-                         <div class="custom-dropdown">
+                        <div class="custom-dropdown">
                             Kích thước trang: @Html.DropDownList("size", (List<SelectListItem>)ViewBag.size, new { @onchange = "this.form.submit();" })
                         </div>
                     }
@@ -226,7 +253,10 @@
 </style>
 <script>
     function confirmDelete() {
-        var result = confirm("Bạn có chắc chắn muốn xóa không?");
+        var result = confirm("Bạn có chắc chắn muốn ẩn danh mục này không?");
+        return result;
+    } function confirmDelete1() {
+        var result = confirm("Bạn có chắc chắn muốn hiện danh mục này không?");
         return result;
     }
 </script>
@@ -237,3 +267,66 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+    /* CSS Reset */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* Toggle Switch Styles */
+    .toggle-switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+        margin-left: 10px; /* Ajust the margin as needed */
+    }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: 0.4s;
+        border-radius: 34px;
+    }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+
+    input.toggle-checkbox:checked + .slider {
+        background-color: #2196F3;
+    }
+
+        input.toggle-checkbox:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+    .delete-link {
+        /* Add any additional styles for your delete link here */
+        color: red; /* Change the color as needed */
+        margin-left: 10px; /* Ajust the margin as needed */
+        text-decoration: none;
+    }
+
+</style>

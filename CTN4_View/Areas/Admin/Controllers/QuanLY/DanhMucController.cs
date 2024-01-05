@@ -85,11 +85,22 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [ValidateAntiForgeryToken]
         public ActionResult Create(DanhMuc a)
         {
-            if (_sv.Them(a)) // Nếu thêm thành công
-            {
+            // Kiểm tra xem đã tồn tại danh mục có tên như a.TenDanhMuc chưa
+            var existingDanhMuc = _sv.GetAll().FirstOrDefault(c => c.TenDanhMuc == a.TenDanhMuc);
 
-                return RedirectToAction("Index");
+            if (existingDanhMuc == null)
+            {
+                // Nếu không tồn tại, thêm danh mục mới
+                if (_sv.Them(a))
+                {
+                    return RedirectToAction("Index");
+                }
+                return View();
             }
+
+            // Nếu đã tồn tại, có thể xử lý theo nhu cầu của bạn
+            // Ví dụ: Hiển thị thông báo lỗi về trùng lặp
+            ModelState.AddModelError("TenDanhMuc", "Danh mục đã tồn tại.");
 
             return View();
         }
@@ -114,15 +125,29 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             return View();
         }
 
-
-
-        public ActionResult Delete(Guid id)
+         public ActionResult Delete(Guid id)
         {
-            if (_sv.Xoa(id))
+            var SP = _sv.GetById(id);
+            if (SP.Is_detele == true)
             {
-                return RedirectToAction("Index");
+                SP.Is_detele = false;
+                _sv.Sua(SP);
+            }
+            else
+            {
+                SP.Is_detele = true;
+                _sv.Sua(SP);
             }
             return RedirectToAction("Index");
         }
+
+        //public ActionResult Delete(Guid id)
+        //{
+        //    if (_sv.Xoa(id))
+        //    {
+        //        return RedirectToAction("Index");
+        //    }
+        //    return RedirectToAction("Index");
+        //}
     }
 }

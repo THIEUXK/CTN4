@@ -13,10 +13,10 @@
           
             <h1>Quản lý chức vụ</h1>
 
-            <p>
+           @* <p>
                 <button type="button" class="btn btn-warning btn-fw editable-click=" asp-action="Create"><a asp-action="Create" style="color:white">Thêm</a></button>
 
-            </p>
+            </p>*@
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
@@ -42,8 +42,8 @@
                             <td>
                                     @Html.ActionLink("Chỉnh sửa", "Edit",new { id=item.Id },new { style = "text-decoration: none; color: black;" }) |
                                     @Html.ActionLink("Chi tiết", "Details",new { id=item.Id }, new { style = "text-decoration: none; color: black;" }) |
-                                @Html.ActionLink("Xóa", "Delete", new { id = item.Id }, new {  style = "text-decoration: none; color: black;", onclick = "return confirmDelete();" }) |
-                            </td>
+@*                                @Html.ActionLink("Xóa", "Delete", new { id = item.Id }, new {  style = "text-decoration: none; color: black;", onclick = "return confirmDelete();" }) |
+*@                            </td>
                             
                         </tr>
                 }

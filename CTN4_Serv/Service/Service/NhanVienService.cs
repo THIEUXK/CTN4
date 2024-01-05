@@ -1,6 +1,7 @@
 ﻿using CTN4_Data.DB_Context;
 using CTN4_Data.Models.DB_CTN4;
 using CTN4_Serv.Service.IService;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,9 @@ namespace CTN4_Serv.Service
         public List<NhanVien> GetAll()
         {
             return _db.NhanViens.ToList();
+        } public List<NhanVien> GetAlls()
+        {
+            return _db.NhanViens.Include(c=>c.ChucVu).ToList();
         }
 
         public NhanVien GetById(Guid id)
