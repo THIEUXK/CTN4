@@ -13,7 +13,7 @@
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Normal buttons</h4>
+                <h4 class="card-title">Chi tiết</h4>
                 <br></br>
                 <div>
                     <h4>Nhân viên</h4>
@@ -96,12 +96,12 @@
                            Chức vụ
                         </dt>
                         <dd class = "col-sm-10">
-                            @Html.DisplayFor(model => model.IdChucVu)
+                            @Html.DisplayFor(model => model.ChucVu.TenChucVu)
                         </dd>
                     </dl>
                     <div>
                         <h4>_________________________________________________</h4>
-                        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+                        @Html.ActionLink("Edit", "Edit", new { id = Model.Id },new { style = "text-decoration: none; color: black;" }) |
                         <a asp-action="Index" style="color: black;">Quay về</a>
                     </div>
                 </div>
