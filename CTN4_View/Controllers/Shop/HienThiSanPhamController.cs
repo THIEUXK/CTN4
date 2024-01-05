@@ -19,6 +19,7 @@ using DocumentFormat.OpenXml.Spreadsheet;
 using System.Linq;
 using Org.BouncyCastle.Crypto;
 using CTN4_Data.Models;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace CTN4_View.Controllers.Shop
 {
@@ -663,17 +664,24 @@ namespace CTN4_View.Controllers.Shop
             var danhgia1sanpham = _danhGiaSanPhamService.GetAll().Where(c => c.Is_delete == true && c.TrangThaiAnHien == true && c.TrangThaiDuyet == true && c.IdSanPham == id).ToList();
             var listSanPhamLq = _sanphamService.GetAll().Where(c => b.Contains((Guid)c.Id) && c.Is_detele == true).ToList();
 
-            int tongSoSao = danhgia1sanpham.Sum(dg => dg.SoSao);
-            int trungBinhDanhGia = 0;
+
+            float trungBinhDanhGia = 0;
+            int dem = 0;
 
             // Kiểm tra trường hợp danh sách đánh giá không có phần tử
-            if (danhgia1sanpham.Count() > 0)
+            if (danhgia1sanpham.Count() == 0)
             {
-                trungBinhDanhGia = (int)tongSoSao / danhgia1sanpham.Count();
+                trungBinhDanhGia = 0;
             }
             else
             {
-                trungBinhDanhGia = 0;
+                foreach (var x in danhgia1sanpham)
+                {
+                    trungBinhDanhGia += x.SoSao;
+                    dem++;
+                }
+                trungBinhDanhGia /= dem;
+                string formattedOutput = trungBinhDanhGia.ToString("F1");
             }
 
             // Tiếp tục xử lý với giá trị trungBinhDanhGia đã tính được
@@ -695,7 +703,8 @@ namespace CTN4_View.Controllers.Shop
                 idsanphamdamuas = idsp,
                 danhGiaSanPhams = danhgiasanpham,
                 danhGiaSanPhamCuaToi = c,
-                trungBinhDanhGia = trungBinhDanhGia,
+                trungBinhDanhGia = (float)Math.Round(trungBinhDanhGia, 1),
+
 
             };
             return View(view);
@@ -718,7 +727,7 @@ namespace CTN4_View.Controllers.Shop
                     TempData["message1"] = message1;
                     return RedirectToAction("HienThiSanPhamChiTiet", new { id = idsp, message1 });
                 }
-
+                
                 // Cập nhật đánh giá hiện tại
                 existingReview.BinhLuan = message;
                 existingReview.SoSao = LuuTam;
@@ -775,9 +784,9 @@ namespace CTN4_View.Controllers.Shop
             {
 
 
-
-                // Cập nhật đánh giá hiện tại
-                existingReview.TrangThaiAnHien = false;
+                if(  existingReview.TrangThaiAnHien == true)
+                {
+                       existingReview.TrangThaiAnHien = false;
 
 
                 _danhGiaSanPhamService.Sua(existingReview); // Bạn nên triển khai một phương thức để cập nhật đánh giá trong dịch vụ của bạn
@@ -785,6 +794,20 @@ namespace CTN4_View.Controllers.Shop
 
 
                 return RedirectToAction("HienThiSanPhamChiTiet", new { id = idsp });
+                }
+                else
+                {
+                      existingReview.TrangThaiAnHien = true;
+
+
+                _danhGiaSanPhamService.Sua(existingReview); // Bạn nên triển khai một phương thức để cập nhật đánh giá trong dịch vụ của bạn
+
+
+
+                return RedirectToAction("HienThiSanPhamChiTiet", new { id = idsp });
+                }
+             
+                
             }
             return RedirectToAction("HienThiSanPhamChiTiet", new { id = idsp });
         }
