@@ -1,4 +1,5 @@
-﻿@*@model <CTN4_Data.Models.DB_CTN4.KhuyenMai>*@
+﻿@using X.PagedList.Mvc.Core
+@*@model <CTN4_Data.Models.DB_CTN4.KhuyenMai>*@
 @*@model CTN4_Serv.ViewModel.GiamGiaViewModel*@
 @model X.PagedList.IPagedList<CTN4_Data.Models.DB_CTN4.GiamGia>
 
@@ -9,7 +10,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
     int serialNumber = 1; // Initialize the counter outside the loop
 }
-/Page/List?page=2&filter=yourFilterValue
+
 
 <br />
 <br />
@@ -90,21 +91,23 @@
     </button>
     <ul class="dropdown-menu">
         <li>
-            <a class="dropdown-item" href="@Url.Action("TatCa", new { loaiGiamGia = "all" })" data-value="all">Tất cả các mã</a>
+            <a class="dropdown-item" href="@Url.Action("TatCa", new { loaiGiamGia = "all", Is_detele = ViewBag.currentIsDelete })" data-value="all">Tất cả các mã</a>
         </li>
         <li>
-            <a class="dropdown-item" href="@Url.Action("GiamTien", new { loaiGiamGia = "giamtien" })" data-value="giamtien">Giảm theo giá tiền</a>
+            <a class="dropdown-item" href="@Url.Action("GiamTien", new { loaiGiamGia = "giamtien", Is_detele = ViewBag.currentIsDelete })" data-value="giamtien">Giảm theo giá tiền</a>
         </li>
         <li>
-            <a class="dropdown-item" href="@Url.Action("GiamPhanTram", new { loaiGiamGia = "giamphantram" })" data-value="giamphantram">Giảm phần trăm</a>
+            <a class="dropdown-item" href="@Url.Action("GiamPhanTram", new { loaiGiamGia = "giamphantram", Is_detele = ViewBag.currentIsDelete })" data-value="giamphantram">Giảm phần trăm</a>
         </li>
         <li>
-            <a class="dropdown-item" href="@Url.Action("XemDaBiAn")">Các mã đã bị ẩn</a>
+            <a class="dropdown-item" href="@Url.Action("XemDaBiAn", new { Is_detele = ViewBag.currentIsDelete })">Các mã đã bị ẩn</a>
         </li>
+    </ul>
+
         @* <li>
             <a class="dropdown-item" href="@Url.Action("CacMaDangHien")">Các mã đang hiển thị</a>
         </li> *@
-    </ul>
+  
 </div>
 
 @* <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -294,11 +297,24 @@
             <div class="col-auto mr-3"><span style="color: rgb(128, 128, 128);">Tổng:<span id="id">@Model.Count()</span></span></div>
             <div class="col">
                 <div class="pagination-container">
-                    <ul class="pagination">
+                    
+                    @* <div class="pagination-container">
+                        @Html.PagedListPager(Model, page => Url.Action("TatCa", new { page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+                    </div>
+                    <div class="pagination-container">
+                        @Html.PagedListPager(Model, page => Url.Action("GiamTien", new { page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+                    </div>
+                    <div class="pagination-container">
+                        @Html.PagedListPager(Model, page => Url.Action("GiamPhanTram", new { page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+                    </div>
+                    <div class="pagination-container">
+                        @Html.PagedListPager(Model, page => Url.Action("XemDaBiAn", new { page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+                    </div> *@
+                    @* <ul class="pagination">
                         @if (Model.HasPreviousPage)
                         {
                             <li class="page-item">
-                                <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber - 1, size = ViewBag.currentSize })">Previous</a>
+                                <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber - 1, size = ViewBag.currentSize })">Trang trước</a>
                             </li>
                         }
 
@@ -312,9 +328,35 @@
                         @if (Model.HasNextPage)
                         {
                             <li class="page-item">
-                                <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber + 1, size = ViewBag.currentSize })">Next</a>
+                                <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber + 1, size = ViewBag.currentSize })">Trang sau</a>
                             </li>
                         }
+                       </ul> *@
+                    <ul class="pagination">
+                        @if (Model.HasPreviousPage)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber - 1, Is_detele = ViewBag.currentIsDelete, loaiGiamGia = ViewBag.currentLoaiGiamGia })">Trước</a>
+                            </li>
+                        }
+
+                        @for (var i = 1; i <= Model.PageCount; i++)
+                        {
+                            <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                                <a class="page-link" href="@Url.Action("Index", new { page = i, Is_detele = ViewBag.currentIsDelete, loaiGiamGia = ViewBag.currentLoaiGiamGia })">@i</a>
+                            </li>
+                        }
+
+                        @if (Model.HasNextPage)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber + 1, Is_detele = ViewBag.currentIsDelete, loaiGiamGia = ViewBag.currentLoaiGiamGia })">Sau</a>
+                            </li>
+                        }
+                        @Html.Hidden("Index", (object)ViewBag.page)
+                        @Html.Hidden("TatCa", (object)ViewBag.sortProperty)
+                        @Html.Hidden("XemDaBiAn", (object)ViewBag.sortOrder)
+                        @Html.Hidden("GiamTien", (object)ViewBag.searchValue)
                     </ul>
                 </div>
             </div>

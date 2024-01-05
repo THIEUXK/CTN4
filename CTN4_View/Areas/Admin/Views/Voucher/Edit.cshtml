@@ -75,12 +75,11 @@
                             <form asp-action="Edit">
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                                <div class="form-container">
-                                    <div class="form-group">
-                                        <label asp-for="MaGiam" class="control-label">Mã giảm giá</label>
-                                        <input asp-for="MaGiam" class="form-control" />
-                                        <span asp-validation-for="MaGiam" class="text-danger"></span>
-                                    </div>
+                                <div class="form-group">
+                                    <label asp-for="MaGiam" class="control-label">Mã giảm giá</label>
+                                    <input asp-for="MaGiam" id="MaGiamGia" class="form-control" maxlength="30" />
+                                    <span asp-validation-for="MaGiam" class="text-danger"></span>
+                                </div>
                                     @*Combobox*@
                                     <div class="form-group">
                                         <label asp-for="LoaiGiamGia" class="control-label">Hình thức giảm giá </label>
@@ -94,17 +93,17 @@
 
                                     <div class="form-group" id="SoTienGiamGroup" style="display: none;">
                                         <label asp-for="SoTienGiam" class="control-label">Số tiền giảm(VND)</label>
-                                        <input asp-for="SoTienGiam" class="form-control" />
+                                        <input asp-for="SoTienGiam" class="form-control" maxlength="9" />
                                         <span asp-validation-for="SoTienGiam" class="text-danger"></span>
                                     </div>
 
                                     <div class="form-group" id="PhanTramGiamGroup" style="display: none;">
                                         <label asp-for="PhanTramGiam" class="control-label">Phần trăm giảm(%)</label>
-                                        <input asp-for="PhanTramGiam" class="form-control" />
+                                        <input asp-for="PhanTramGiam" class="form-control" maxlength="9" />
                                         <span asp-validation-for="PhanTramGiam" class="text-danger"></span>
                                         <div class="form-group">
                                             <label asp-for="SoTienGiamToiDa" class="control-label">Số tiền giảm tối đa(VND)</label>
-                                            <input asp-for="SoTienGiamToiDa" class="form-control" /> VND
+                                            <input asp-for="SoTienGiamToiDa" class="form-control" maxlength="9" /> VND
                                             <span asp-validation-for="SoTienGiamToiDa" class="text-danger"></span>
                                         </div>
                                     </div>
@@ -146,24 +145,18 @@
                                         });
                                     </script>
                                     @*Box thời gian*@
-                                    <style>
-                                        .disabled-field {
-                                            opacity: 0.6; /* Điều chỉnh mức độ mờ theo ý muốn */
-                                            pointer-events: none; /* Ngăn chặn tương tác với trường */
-                                        }
-
-                                    </style>
+                                  
                                     <label> Thời gian </label>
                                     <div class="form-container">
 
                                         <div class="form-group">
-                                            <label asp-for="NgayBatDau" class="control-label disabled-field"> Thời gian bắt đầu</label>
-                                            <input asp-for="NgayBatDau" class="form-control disabled-field" />
+                                            <label asp-for="NgayBatDau" class="control-label "> Thời gian bắt đầu</label>
+                                            <input asp-for="NgayBatDau" class="form-control " />
                                             <span asp-validation-for="NgayBatDau" class="text-danger"></span>
                                         </div>
                                         <div class="form-group">
-                                            <label asp-for="NgayKetThuc" class="control-label disabled-field"> Thời gian kết thúc</label>
-                                            <input asp-for="NgayKetThuc" class="form-control disabled-field" />
+                                            <label asp-for="NgayKetThuc" class="control-label "> Thời gian kết thúc</label>
+                                            <input asp-for="NgayKetThuc" class="form-control " />
                                             <span asp-validation-for="NgayKetThuc" class="text-danger"></span>
                                         </div>
                                     </div>
@@ -171,14 +164,14 @@
 
                                     <div class="form-group">
                                         <label asp-for="SoLuong" class="control-label">Số lượng khả dụng</label>
-                                        <input asp-for="SoLuong" class="form-control" />
+                                        <input asp-for="SoLuong" class="form-control" maxlength="9" />
                                         <span asp-validation-for="SoLuong" class="text-danger"></span>
                                     </div>
 
 
                                     <div class="form-group">
                                         <label asp-for="DieuKienGiam" class="control-label">Giảm từ đơn tối thiểu(VND)</label>
-                                        <input asp-for="DieuKienGiam" class="form-control" />
+                                        <input asp-for="DieuKienGiam" class="form-control" maxlength="9" />
                                         <span asp-validation-for="DieuKienGiam" class="text-danger"></span>
                                     </div>
                                     @*Checkbox*@
