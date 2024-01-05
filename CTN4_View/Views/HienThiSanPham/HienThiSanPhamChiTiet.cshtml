@@ -318,33 +318,59 @@
                                         <h3> Chưa có đánh giá</h3>
                                     }
                                     <ul class="list">
-                                      
-                                            <li>
-                                                <a href="#">
-                                                    5 sao <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 01
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    4 sao <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 01
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    3 sao <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 01
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    2 sao <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 01
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    1 sao <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 01
-                                                </a>
-                                            </li>
-                                      
+
+                                        <li>
+                                            <a href="#">
+                                                5 sao 
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i> 
+                                                @Model.danhGiaSanPhams.Where(c=>c.SoSao == 5 && c.IdSanPham == Model.sanPham.Id).Count()
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                4 sao <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star" style="color: #777777;"></i>
+                                                @Model.danhGiaSanPhams.Where(c=>c.SoSao == 4 && c.IdSanPham == Model.sanPham.Id).Count()
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                3 sao <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star" style="color: #777777;"></i>
+                                                <i class="fa fa-star"style="color: #777777;"></i> 
+                                                @Model.danhGiaSanPhams.Where(c=>c.SoSao == 3 && c.IdSanPham == Model.sanPham.Id).Count()
+                                            </a>
+                                        </li>
+                                        <li>
+                                             <a href="#">
+                                                2 sao <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"style="color: #777777;"></i>
+                                                <i class="fa fa-star"style="color: #777777;"></i>
+                                                <i class="fa fa-star" style="color: #777777;"></i> 
+                                                @Model.danhGiaSanPhams.Where(c=>c.SoSao == 2 && c.IdSanPham == Model.sanPham.Id).Count()
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                1 sao <i class="fa fa-star"></i>
+                                                <i class="fa fa-star" style="color: #777777;"></i>
+                                                <i class="fa fa-star"style="color: #777777;"></i>
+                                                <i class="fa fa-star"style="color: #777777;"></i>
+                                                <i class="fa fa-star"style="color: #777777;"></i> 
+                                                @Model.danhGiaSanPhams.Where(c=>c.SoSao == 1 && c.IdSanPham == Model.sanPham.Id).Count()
+                                            </a>
+                                        </li>
+
                                     </ul>
                                 </div>
                             </div>
@@ -413,154 +439,164 @@
                         @if (Model.danhGiaSanPhamCuaToi != null)
                         {
                             <div class="col-lg-6">
-                                <div class="d-flex">
-                                    @if (System.IO.Path.GetExtension(Model.danhGiaSanPhamCuaToi.KhachHang.AnhDaiDien) == ".jpg" ||
-                                   System.IO.Path.GetExtension(Model.danhGiaSanPhamCuaToi.KhachHang.AnhDaiDien) == ".png" ||
-                                   System.IO.Path.GetExtension(Model.danhGiaSanPhamCuaToi.KhachHang.AnhDaiDien) == ".jpeg" ||
-                                   System.IO.Path.GetExtension(Model.danhGiaSanPhamCuaToi.KhachHang.AnhDaiDien) == ".tiff" ||
-                                   System.IO.Path.GetExtension(Model.danhGiaSanPhamCuaToi.KhachHang.AnhDaiDien) == ".webp" ||
-                                   System.IO.Path.GetExtension(Model.danhGiaSanPhamCuaToi.KhachHang.AnhDaiDien) == ".gif")
-                                    {
-                                        <img style="width:40px; height:41px;" src="~/img/@Model.danhGiaSanPhamCuaToi.KhachHang.AnhDaiDien" alt="">
-                                    }
-                                    else
-                                    {
-                                        <img style="width:40px; height:41px;" src="~/Karma Shop-doc/img/avatar-facebook-mac-dinh-19.jpg" alt="">
+                                <div class="review_item">
+                                    <div class="media">
+                                        <div class="d-flex">
+                                            @if (System.IO.Path.GetExtension(Model.danhGiaSanPhamCuaToi.KhachHang.AnhDaiDien) == ".jpg" ||
+                                           System.IO.Path.GetExtension(Model.danhGiaSanPhamCuaToi.KhachHang.AnhDaiDien) == ".png" ||
+                                           System.IO.Path.GetExtension(Model.danhGiaSanPhamCuaToi.KhachHang.AnhDaiDien) == ".jpeg" ||
+                                           System.IO.Path.GetExtension(Model.danhGiaSanPhamCuaToi.KhachHang.AnhDaiDien) == ".tiff" ||
+                                           System.IO.Path.GetExtension(Model.danhGiaSanPhamCuaToi.KhachHang.AnhDaiDien) == ".webp" ||
+                                           System.IO.Path.GetExtension(Model.danhGiaSanPhamCuaToi.KhachHang.AnhDaiDien) == ".gif")
+                                            {
+                                                <img style="width:40px; height:41px;" src="~/img/@Model.danhGiaSanPhamCuaToi.KhachHang.AnhDaiDien" alt="">
+                                            }
+                                            else
+                                            {
+                                                <img style="width:40px; height:41px;" src="~/Karma Shop-doc/img/avatar-facebook-mac-dinh-19.jpg" alt="">
 
-                                    }
-                                </div>
-                                <div class="media-body">
-                                    <div style="display: flex; align-items: center;">
-                                        <h4 style="flex-grow: 1;">@Model.danhGiaSanPhamCuaToi.KhachHang.TenDangNhap</h4>
-                                        <div class="dropdown">
-                                            <a type="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
-                                                <!-- Thêm dấu ba chấm nằm ngang -->
-                                                <span style="font-weight: bold; writing-mode: vertical-rl;">. . .</span>
-                                            </a>
-                                            <div class="dropdown-menu p-2">
-                                                @if (Model.danhGiaSanPhamCuaToi.SoSua >= 1)
-                                                {
-                                                    <!-- Nội dung tùy chọn chính -->
-                                                    <p>Đánh giá của bạn :</p>
-                                                    <ul class="list">
-                                                        <div class="stars">
-                                                            <input type="radio" id="star1" name="rating" value="1" />
-                                                            <input type="radio" id="star2" name="rating" value="2" />
-                                                            <input type="radio" id="star3" name="rating" value="3" />
-                                                            <input type="radio" id="star4" name="rating" value="4" />
-                                                            <input type="radio" id="star5" name="rating" value="5" />
-
-                                                            <label for="star1" aria-label="Banana">1 star</label>
-                                                            <label for="star2">2 stars</label>
-                                                            <label for="star3">3 stars</label>
-                                                            <label for="star4">4 stars</label>
-                                                            <label for="star5">5 stars</label>
-                                                        </div>
-                                                    </ul>
-
-                                                    <form asp-action="XacNhanDanhGia" asp-controller="HienThiSanPham">
-                                                        <div class="col-md-20 ">
-                                                            <div class="form-group ">
-                                                                <input type="hidden" name="idsp" value="@Model.sanPham.Id" />
-                                                                <textarea class="form-control" maxlength="200" name="message" id="message" rows="1" placeholder="Review" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Review'"></textarea>
-                                                            </div>
-                                                        </div>
-                                                        <button type="submit" value="submit" class="btn btn-primary ">Sửa đánh giá</button>
-                                                    </form>
-                                                    @*@if (TempData["message1"] != null)
-                                        {
-                                        <div class=" form-group">
-                                        <div class="alert alert-danger">@TempData["message1"]</div>
+                                            }
                                         </div>
+                                        <div class="media-body">
+                                            <div style="display: flex; align-items: center;">
+                                                <h4 style="flex-grow: 1;">@Model.danhGiaSanPhamCuaToi.KhachHang.TenDangNhap</h4>
+                                                <div class="dropdown">
+                                                    <a type="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                                        <!-- Thêm dấu ba chấm nằm ngang -->
+                                                        <span style="font-weight: bold; writing-mode: vertical-rl;">. . .</span>
+                                                    </a>
+                                                    <div class="dropdown-menu p-2">
+                                                        @if (Model.danhGiaSanPhamCuaToi.SoSua >= 1)
+                                                        {
+                                                            <!-- Nội dung tùy chọn chính -->
+                                                            <p>Đánh giá của bạn :</p>
+                                                            <ul class="list">
+                                                                <div class="stars">
+                                                                    <input type="radio" id="star1" name="rating" value="1" />
+                                                                    <input type="radio" id="star2" name="rating" value="2" />
+                                                                    <input type="radio" id="star3" name="rating" value="3" />
+                                                                    <input type="radio" id="star4" name="rating" value="4" />
+                                                                    <input type="radio" id="star5" name="rating" value="5" />
 
-                                        }
-                                        @if (TempData["message2"] != null)
-                                        {
-                                        <div class=" form-group">
-                                        <div class="alert alert-success">@TempData["message2"]</div>
-                                        </div>
+                                                                    <label for="star1" aria-label="Banana">1 star</label>
+                                                                    <label for="star2">2 stars</label>
+                                                                    <label for="star3">3 stars</label>
+                                                                    <label for="star4">4 stars</label>
+                                                                    <label for="star5">5 stars</label>
+                                                                </div>
+                                                            </ul>
 
-                                        }*@
-                                                    <div class="dropdown-divider"></div> <!-- Đường phân cách giữa các tùy chọn -->
-                                                }
-                                                else
+                                                            <form asp-action="XacNhanDanhGia" asp-controller="HienThiSanPham">
+                                                                <div class="col-md-20 ">
+                                                                    <div class="form-group ">
+                                                                        <input type="hidden" name="idsp" value="@Model.sanPham.Id" />
+                                                                        <textarea class="form-control" maxlength="200" name="message" id="message" rows="1" placeholder="Review" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Review'"></textarea>
+                                                                    </div>
+                                                                </div>
+                                                                <button type="submit" value="submit" class="btn btn-primary ">Sửa đánh giá</button>
+                                                            </form>
+                                                            <div class="dropdown-divider"></div> <!-- Đường phân cách giữa các tùy chọn -->
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="dropdown-divider"></div> <!-- Đường phân cách giữa các tùy chọn -->
+                                                        }
+                                                        <p style="font-size:small">
+                                                            Bạn còn (@Model.danhGiaSanPhamCuaToi.SoSua) lượt sửa đánh giá
+
+                                                        </p>
+                                                        <!-- Submenu -->
+                                                        <div class="dropdown ">
+                                                            <!-- Nội dung submenu -->
+                                                            <form asp-action="XoaDanhGia" asp-controller="HienThiSanPham">
+                                                                <!-- Nội dung form xóa -->
+                                                                <input type="hidden" name="id" value="@Model.danhGiaSanPhamCuaToi.Id">
+                                                                <input type="hidden" name="idsp" value="@Model.sanPham.Id">
+                                                                <button type="submit" class="btn btn-danger" value="submit ">
+                                                                    <!-- Thêm dấu ba chấm nằm ngang -->
+                                                                    @if (Model.danhGiaSanPhamCuaToi.TrangThaiAnHien == false)
+                                                                    {
+                                                                        <span>Hiện đánh giá</span>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <span>Ẩn đánh giá</span>
+                                                                    }
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="star-rating" style="display: flex; align-items: center;">
+
+                                                @if (Model.danhGiaSanPhamCuaToi.SoSao == 1)
                                                 {
-                                                    <div class="dropdown-divider"></div> <!-- Đường phân cách giữa các tùy chọn -->
+                                                    <i class="fa fa-star " style="color: #fbd600;"></i>
+                                                    <i class="fa fa-star" style="color: #777777;"></i>
+                                                    <i class="fa fa-star" style="color: #777777;"></i>
+                                                    <i class="fa fa-star" style="color: #777777;"></i>
+                                                    <i class="fa fa-star" style="color: #777777;"></i>
                                                 }
-                                                <p style="font-size:small">
-                                                    Bạn còn (@Model.danhGiaSanPhamCuaToi.SoSua) lượt sửa đánh giá
+                                                else if (Model.danhGiaSanPhamCuaToi.SoSao == 2)
+                                                {
+                                                    <i class="fa fa-star " style="color: #fbd600;"></i>
+                                                    <i class="fa fa-star " style="color: #fbd600;"></i>
+                                                    <i class="fa fa-star" style="color: #777777;"></i>
+                                                    <i class="fa fa-star" style="color: #777777;"></i>
+                                                    <i class="fa fa-star" style="color: #777777;"></i>
+                                                }
+                                                else if (Model.danhGiaSanPhamCuaToi.SoSao == 3)
+                                                {
+                                                    <i class="fa fa-star " style="color: #fbd600;"></i>
+                                                    <i class="fa fa-star " style="color: #fbd600;"></i>
+                                                    <i class="fa fa-star " style="color: #fbd600;"></i>
+                                                    <i class="fa fa-star" style="color: #777777;"></i>
+                                                    <i class="fa fa-star" style="color: #777777;"></i>
+                                                }
+                                                else if (Model.danhGiaSanPhamCuaToi.SoSao == 4)
+                                                {
+                                                    <i class="fa fa-star " style="color: #fbd600;"></i>
+                                                    <i class="fa fa-star " style="color: #fbd600;"></i>
+                                                    <i class="fa fa-star " style="color: #fbd600;"></i>
+                                                    <i class="fa fa-star " style="color: #fbd600;"></i>
+                                                    <i class="fa fa-star" style="color: #777777;"></i>
 
+                                                }
+                                                else if (Model.danhGiaSanPhamCuaToi.SoSao == 5)
+                                                {
+                                                    <i class="fa fa-star " style="color: #fbd600;"></i>
+                                                    <i class="fa fa-star " style="color: #fbd600;"></i>
+                                                    <i class="fa fa-star " style="color: #fbd600;"></i>
+                                                    <i class="fa fa-star " style="color: #fbd600;"></i>
+                                                    <i class="fa fa-star " style="color: #fbd600;"></i>
+                                                }
+
+                                                <!-- Thêm nút 3 chấm và menu thả xuống -->
+
+                                            </div>
+                                            <div>
+                                                <p>
+                                                    @Model.danhGiaSanPhamCuaToi.BinhLuan
                                                 </p>
-                                                <!-- Submenu -->
-                                                <div class="dropdown ">
-                                                    <!-- Nội dung submenu -->
-                                                    <form asp-action="XoaDanhGia" asp-controller="HienThiSanPham">
-                                                        <!-- Nội dung form xóa -->
-                                                        <input type="hidden" name="id" value="@Model.danhGiaSanPhamCuaToi.Id">
-                                                        <input type="hidden" name="idsp" value="@Model.sanPham.Id">
-                                                        <button type="submit" class="btn btn-danger" value="submit ">
-                                                            <!-- Thêm dấu ba chấm nằm ngang -->
-                                                            <span>Xóa đánh giá</span>
-                                                        </button>
-                                                    </form>
+                                                <div class="d-flex">
+                                                    @if (Model.danhGiaSanPhamCuaToi.TrangThaiDuyet == false)
+                                                    {
+                                                        <p><em>Bình luận của bạn đang được duyệt</em></p>
+
+
+                                                    }@if (Model.danhGiaSanPhamCuaToi.TrangThaiAnHien == false)
+                                                    {
+                                                        <p><em>Bình luận của bạn đang tạm ẩn hiện thị</em></p>
+                                                    }
+
                                                 </div>
                                             </div>
                                         </div>
 
                                     </div>
-                                    <div class="star-rating" style="display: flex; align-items: center;">
-
-                                        @if (Model.danhGiaSanPhamCuaToi.SoSao == 1)
-                                        {
-                                            <i class="fa fa-star " style="color: #fbd600;"></i>
-                                            <i class="fa fa-star" style="color: #777777;"></i>
-                                            <i class="fa fa-star" style="color: #777777;"></i>
-                                            <i class="fa fa-star" style="color: #777777;"></i>
-                                            <i class="fa fa-star" style="color: #777777;"></i>
-                                        }
-                                        else if (Model.danhGiaSanPhamCuaToi.SoSao == 2)
-                                        {
-                                            <i class="fa fa-star " style="color: #fbd600;"></i>
-                                            <i class="fa fa-star " style="color: #fbd600;"></i>
-                                            <i class="fa fa-star" style="color: #777777;"></i>
-                                            <i class="fa fa-star" style="color: #777777;"></i>
-                                            <i class="fa fa-star" style="color: #777777;"></i>
-                                        }
-                                        else if (Model.danhGiaSanPhamCuaToi.SoSao == 3)
-                                        {
-                                            <i class="fa fa-star " style="color: #fbd600;"></i>
-                                            <i class="fa fa-star " style="color: #fbd600;"></i>
-                                            <i class="fa fa-star " style="color: #fbd600;"></i>
-                                            <i class="fa fa-star" style="color: #777777;"></i>
-                                            <i class="fa fa-star" style="color: #777777;"></i>
-                                        }
-                                        else if (Model.danhGiaSanPhamCuaToi.SoSao == 4)
-                                        {
-                                            <i class="fa fa-star " style="color: #fbd600;"></i>
-                                            <i class="fa fa-star " style="color: #fbd600;"></i>
-                                            <i class="fa fa-star " style="color: #fbd600;"></i>
-                                            <i class="fa fa-star " style="color: #fbd600;"></i>
-                                            <i class="fa fa-star" style="color: #777777;"></i>
-
-                                        }
-                                        else if (Model.danhGiaSanPhamCuaToi.SoSao == 5)
-                                        {
-                                            <i class="fa fa-star " style="color: #fbd600;"></i>
-                                            <i class="fa fa-star " style="color: #fbd600;"></i>
-                                            <i class="fa fa-star " style="color: #fbd600;"></i>
-                                            <i class="fa fa-star " style="color: #fbd600;"></i>
-                                            <i class="fa fa-star " style="color: #fbd600;"></i>
-                                        }
-
-                                        <!-- Thêm nút 3 chấm và menu thả xuống -->
-
-                                    </div>
                                 </div>
-                                <p>
-                                    @Model.danhGiaSanPhamCuaToi.BinhLuan
-
-                                </p>
-
                             </div>
                         }
                         @* else if (Model.danhGiaSanPhamCuaToi.TrangThaiAnHien == false && Model.danhGiaSanPhamCuaToi.Is_delete == false)

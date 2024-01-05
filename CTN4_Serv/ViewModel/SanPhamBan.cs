@@ -11,7 +11,7 @@ namespace CTN4_Serv.ViewModel
     public class SanPhamBan
     {
         public int idHD { get; set; }
-        public int? trungBinhDanhGia { get; set; }
+        public float? trungBinhDanhGia { get; set; }
         public List<Anh> Anh { get; set; }
         public SanPham sanPham { get; set; }
         public List<SanPham> sanPhams { get; set; }
