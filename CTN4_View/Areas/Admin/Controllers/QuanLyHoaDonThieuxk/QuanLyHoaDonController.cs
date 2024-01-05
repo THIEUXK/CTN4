@@ -522,12 +522,16 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                                 ids.Add(a.SanPhamChiTiet.SanPham.Id);
                             }
                         }
-                        var listDanhGia = _danhGiaSanPhamService.GetAll().Where(c=>c.IdKhachHang== hd.KhachHang.Id && ids.Contains((Guid)c.IdSanPham));
-                        foreach(var b in listDanhGia)
+                        if (hd.KhachHang!=null)
                         {
-                            b.SoSua =1;
-                            _danhGiaSanPhamService.Sua(b);
+                            var listDanhGia = _danhGiaSanPhamService.GetAll().Where(c => c.IdKhachHang == hd.KhachHang.Id && ids.Contains((Guid)c.IdSanPham));
+                            foreach (var b in listDanhGia)
+                            {
+                                b.SoSua = 1;
+                                _danhGiaSanPhamService.Sua(b);
+                            }
                         }
+                       
                     }
 
                 }
@@ -979,13 +983,24 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             {
                 return RedirectToAction("Index");
             }
-            var hd = _hoaDonService.GetAll().Where(c => c.TenKhachHang != null && (c.MaHoaDon.ToLower().Contains(ten.ToLower()) || c.TenKhachHang.ToLower().Contains(ten.ToLower()))).ToList();
-            //if (hd.Count==0)
-            //{
-            //    var message = "không tìm thấy  !";
-            //    TempData["TB1"] = message;
-            //    return RedirectToAction("Index", new { message });
-            //}
+            List<HoaDon> hd = _hoaDonService
+                .GetAll()
+                .Where(c =>
+                    
+                        c.MaHoaDon != null && c.MaHoaDon.ToLower().Contains(ten.ToLower()) ||
+                        c.TenKhachHang != null && c.TenKhachHang.ToLower().Contains(ten.ToLower()) ||
+                        (c.SDTNguoiNhan != null && c.SDTNguoiNhan.Contains(ten.ToLower())) ||
+                        (c.Email != null && c.Email.ToLower().Contains(ten.ToLower()))
+                    
+                )
+                .ToList();
+
+            if (hd.Count == 0)
+            {
+                var message = "không tìm thấy  !";
+                TempData["TB1"] = message;
+                return RedirectToAction("Index", new { message });
+            }
             var view = new ThieuxkViewAdmin()
             {
                 hoaDons = hd,
@@ -1786,14 +1801,22 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                     if (_hoaDonChiTietService.Them(d) == true)
                     {
                         var product = _sanPhamChiTietService.GetById(sanphamCT.Id);
-                        if (g.Contains(d.SanPhamChiTiet.SanPham.Id))
+                        if (g.Count() != 0)
                         {
-                            product.SoLuong -= soluong*2;
+                            if (g.Count() != 0 && g.Contains(d.SanPhamChiTiet.SanPham.Id))
+                            {
+                                product.SoLuong -= soluong * 2;
+                            }
+                            else
+                            {
+                                product.SoLuong -= soluong;
+                            }
                         }
                         else
                         {
                             product.SoLuong -= soluong;
                         }
+
                         if (_sanPhamChiTietService.Sua(product))
                         {
                             return RedirectToAction("XemChiTiet", new { id = sanphamctnew[0].idHD });
