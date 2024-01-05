@@ -181,26 +181,28 @@
                             var luuGiaBatDau = SessionBan.Sobatdau(session3, "minPrice");
                             var luuGiaKetThuc = SessionBan.Sobatdau(session3, "maxPrice");
                         }
-                        <div class="common-filter">
+                        <div class="common-filter my-custom-filter">
                             <div class="head">Giá</div>
-                            <div class="form-group ml-3">
-                                <label for="tu" class="mr-2">Giá niêm yết từ</label>
+                            <div class="form-group">
+                                <label for="tu">Từ</label>
                                 @if (luuGiaBatDau != null)
                                 {
-                                    <input type="text" class="price-input" id="minPrice" name="minPrice" value="@luuGiaBatDau" />
+                                    <input type="text" class="price-input" id="minPrice" name="minPrice" value="@luuGiaBatDau" oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="12" />
                                 }
                                 else
                                 {
-                                    <input type="text" class="price-input" id="minPrice" name="minPrice" />
+                                    <input type="text" class="price-input" id="minPrice" name="minPrice" placeholder="Nhập giá từ" oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="12" />
                                 }
-                                <span class="mr-2">đến</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="den">đến</label>
                                 @if (luuGiaKetThuc != null)
                                 {
-                                    <input type="text" class="price-input" id="maxPrice" name="maxPrice" value="@luuGiaKetThuc" />
+                                    <input type="text" class="price-input" id="maxPrice" name="maxPrice" value="@luuGiaKetThuc" oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="12" />
                                 }
                                 else
                                 {
-                                    <input type="text" class="price-input" id="maxPrice" name="maxPrice" />
+                                    <input type="text" class="price-input" id="maxPrice" name="maxPrice" placeholder="Nhập giá đến" oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="12" />
                                 }
                             </div>
                         </div>
@@ -238,7 +240,7 @@
                 <br>
                 @if (TempData["Notification"] != null)
                 {
-                    <div class="alert alert-info">@TempData["Notification"]</div>
+                    <div class=" alert alert-danger">@TempData["Notification"]</div>
                 }
                 <br />
                 <div class="row" id="Fillter-sanPhams">
@@ -600,34 +602,51 @@
         border-radius: 0 0 0 8px; /* Điều này tạo các góc cong cho phần tag */
     }
 
-    .my-custom-filter {
-        background-color: #fff;
-        border: 1px solid #e0e0e0;
+    /* Style for the price filter container */
+    .common-filter.my-custom-filter {
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin-bottom: 20px;
         border-radius: 5px;
-        padding: 15px;
-        margin-bottom: 15px;
     }
 
-        .my-custom-filter .head {
-            font-size: 18px;
+        /* Style for the header */
+        .common-filter.my-custom-filter .head {
+            font-size: 16px;
             font-weight: bold;
             margin-bottom: 10px;
         }
 
-        .my-custom-filter .form-group {
-            margin-bottom: 10px;
+        /* Style for the form group */
+        .common-filter.my-custom-filter .form-group {
+            margin-bottom: 15px;
         }
 
-        .my-custom-filter label {
+        /* Style for the labels */
+        .common-filter.my-custom-filter label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        /* Style for the price input */
+        .common-filter.my-custom-filter .price-input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
             font-size: 14px;
         }
 
-        .my-custom-filter .price-input {
-            width: 100px;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            margin-top: 5px; /* Khoảng cách giữa label và input */
+        /* Optional: Add some spacing between the "Từ" and "đến" inputs */
+        .common-filter.my-custom-filter .form-group:first-child {
+            margin-right: 10px;
+        }
+
+        /* Optional: Add some styling for the placeholder */
+        .common-filter.my-custom-filter .price-input::placeholder {
+            color: #999;
         }
 
 </style>
