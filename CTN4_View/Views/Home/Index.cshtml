@@ -24,7 +24,7 @@
 										Túi sách nữ Hà Nội uy tín chính hãng tận tâm. Hệ thống cửa hàng mua balo, bán balo - túi thể thao - vali kéo chính hãng giá rẻ wed chuyên cung cấp các sản phẩm về hành lý chính hãng xuất nhập khẩu uy tín.
 									</p>
                                     <div class="add-bag d-flex align-items-center justify-content-center text-center">
-                                        <a class="add-btn" href=""><span class="lnr lnr-cross"></span></a>
+										<a class="add-btn"href="@Url.Action("HienThiSanPham","HienThiSanPham",new {load = "a"})"><span class="lnr lnr-cross"></span></a>
                                         <span class="add-text text-uppercase">Thêm vào giỏ hàng</span>
                                     </div>
 
@@ -44,8 +44,8 @@
                                     <p>
                                         Túi sách nữ Hà Nội uy tín chính hãng tận tâm. Hệ thống cửa hàng mua balo, bán balo - túi thể thao - vali kéo chính hãng giá rẻ wed chuyên cung cấp các sản phẩm về hành lý chính hãng xuất nhập khẩu uy tín.
                                     </p>
-                                    <div class="add-bag d-flex align-items-center justify-content-center text-center">
-                                        <a class="add-btn" href=""><span class="lnr lnr-cross"></span></a>
+									<div class="add-bag d-flex align-items-center justify-content-center text-center" >
+										<a class="add-btn" href="@Url.Action("HienThiSanPham","HienThiSanPham",new {load = "a"})"><span class="lnr lnr-cross"></span></a>
                                         <span class="add-text text-uppercase">Thêm vào giỏ hàng</span>
                                     </div>
 
@@ -202,7 +202,7 @@
 					</div>
 				</div>
 					<div class="row">
-					@foreach (var item in Model.danhMucChiTiets1)
+					@foreach (var item in Model.danhMucChiTiets1.Take(9))
 					{
 						
 						<div class="col-lg-3 col-md-6">
@@ -267,7 +267,7 @@
 					</div>
 				</div>
 				<div class="row">
-					@foreach (var item in Model.danhMucChiTiets)
+					@foreach (var item in Model.danhMucChiTiets.Take(9))
 					{
 
 						<div class="col-lg-3 col-md-6">
@@ -489,8 +489,8 @@
 
 </html>
 
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+@*<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>*@
 <script>
 		$(document).ready(function () {
 			var owl = $(".active-banner-slider");

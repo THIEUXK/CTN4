@@ -220,27 +220,7 @@
                             <div class="card_area d-flex align-items-center">
                                 <button class="primary-btn" type="submit" href="#">Thêm vào giỏ</button>
 
-                                @* @if (Model.sanPhamYeuThiches.FirstOrDefault(c => c.IdSanPham == Model.sanPham.Id) != null)
-                                {
-
-                                <input type="hidden" name="idSP" value="@Model.sanPham.Id">
-                                <a onclick="onsubmit" class="social-info">
-                                <span class="lnr lnr1 lnr-heart" style="background: linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);"><button asp-controller="SanPhamYeuThich" asp-action="XoaKhoiYeuTich1">  </button></span>
-
-                                </a>
-
-                                }
-                                else
-                                {
-
-                                <input type="hidden" name="IdSanPham" value="@Model.sanPham.Id">
-                                <a onclick="onsubmit" class="icon_btn">
-                                <span class="lnr lnr1 lnr-heart"><button asp-controller="SanPhamYeuThich" asp-action="ThemYeuThich">  </button></span>
-
-                                </a>
-
-                                }
-                                <a class="icon_btn" type="button" onclick="onsubmit"><i class="lnr lnr lnr-heart"></i></a>*@
+                            
                             </div>
                             <input type="hidden" name="idSP" value="">
                         </div>
@@ -254,13 +234,13 @@
 <!--================Product Description Area =================-->
 <section class="product_description_area">
     <div class="container">
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
+@*<ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Ghi Chú</a>
             </li>
-            <li class="nav-item">
+           <li class="nav-item">
                 <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
-                   aria-selected="false">Sản phảm liên quan</a>
+                   aria-selected="false">Thông tin chi tiết</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
@@ -270,9 +250,10 @@
                 <a class="nav-link " id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
                    aria-selected="false">Reviews</a>
             </li>
-        </ul>
+          
+        </ul*@
+          <div class="dropdown-divider"></div>
         <div class="tab-content" id="myTabContent">
-
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <div class="row">
                     <div class="col-lg-6">
@@ -1014,11 +995,8 @@
         <div class="row justify-content-center">
             <div class="col-lg-6 text-center">
                 <div class="section-title">
-                    <h1>Deals of the Week</h1>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua.
-                    </p>
+                    <h1>Sản phẩm liên quan</h1>
+                    
                 </div>
             </div>
         </div>
