@@ -167,7 +167,41 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             datasubmit.TrangThai = true;
             datasubmit.Is_Detele = true;
 
+            var tontai = _sv.GetAll().FirstOrDefault(c => c.MaKhuyenMai.ToLower() == datasubmit.MaKhuyenMai.ToLower() && c.Id != datasubmit.Id);
+            if (tontai != null)
+            {
+                ModelState.AddModelError("MaGiam", "Mã giảm không được trùng.");
+                return View(datasubmit);
+            }
 
+            // Kiểm tra thời gian
+            if (datasubmit.NgayKetThuc <= datasubmit.NgayBatDau)
+            {
+                ModelState.AddModelError("NgayKetThuc", "Thời gian kết thúc phải lớn hơn thời gian bắt đầu.");
+                return View(datasubmit);
+            }
+
+            // Kiểm tra NgayBatDau > Now
+            if (datasubmit.NgayBatDau <= DateTime.Now)
+            {
+                ModelState.AddModelError("NgayBatDau", "Thời gian bắt đầu phải lớn hơn thời gian hiện tại.");
+                return View(datasubmit);
+            }
+            if (datasubmit.DongGia < 0)
+            {
+                ModelState.AddModelError("DongGia", "Lớn hơn 0.");
+                return View(datasubmit);
+            }
+            if (datasubmit.SoTienGiam < 0)
+            {
+                ModelState.AddModelError("SoTienGiam", "Lớn hơn 0.");
+                return View(datasubmit);
+            }
+            if (datasubmit.PhanTramGiamGia < 0 || datasubmit.PhanTramGiamGia > 100)
+            {
+                ModelState.AddModelError("PhanTramGiamGia", "Phần trăm giảm giá phải trong khoảng 0-100");
+                return View(datasubmit);
+            }
             if (_sv.Them(datasubmit))
             {
                 string imageUrl = "https://png.pngtree.com/png-vector/20210119/ourlarge/pngtree-3d-mega-sale-icon-with-bag-shop-accesories-png-image_2764907.jpg";
