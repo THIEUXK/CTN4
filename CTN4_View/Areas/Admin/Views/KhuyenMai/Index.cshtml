@@ -5,7 +5,7 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
-
+    var itemIds = new List<string>();
     
 
 }
@@ -191,11 +191,12 @@
                                     }
                                     else
                                     {
-                                        <td>
-                                            <!-- Gọi hàm cập nhật trạng thái sản phẩm khi hết hạn -->
-                                        </td>
+                                       
                                         <td class="border-bottom-0">
-                                           
+                                            @using (Html.BeginForm("UpdateProductStatus", "KhuyenMai", FormMethod.Post))
+                                            {
+                                               
+                                            }
                                                 <p class="mb-0 fw-normal"  style="white-space: nowrap; color:white;text-align :center; background-color: red; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Đã hết hạn</p>
                                             </td>
                                     }
@@ -367,7 +368,9 @@
                                             <td class="border-bottom-0">
                                                     <p class="mb-0 fw-normal"  style="white-space: nowrap; color:white;text-align :center; background-color: red; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Đã hết hạn</p>
                                                 </td>
+
                                         }
+
                                         <td>
                                             @if(item.NgayKetThuc > DateTime.Now){
                                                 <button type="button" style="white-space: nowrap; background-color: wheat; border-color:deepskyblue; border-radius: 10px; font-weight: 400; padding: 0 8px">
@@ -520,6 +523,7 @@
                                         </td>
                                         @if(item.NgayKetThuc >= DateTime.Now)
                                         {
+                                            itemIds.Add(item.Id.ToString());
                                             @if (item.TrangThai != false)
                                             {
                                                 <td class="border-bottom-0">
@@ -538,6 +542,8 @@
                                             <td class="border-bottom-0">
                                                     <p class="mb-0 fw-normal"  style="white-space: nowrap; color:white;text-align :center; background-color: red; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Đã hết hạn</p>
                                                 </td>
+                                                @RenderSection("scripts", required: false)
+
                                         }
                                         <td>
                                             @if(item.NgayKetThuc > DateTime.Now){
@@ -561,6 +567,9 @@
                                 }
                             }
                         </tbody>
+                      
+               
+                      
                     </table>
                     <div class="row no-gutters justify-content-between paginate">
                         <div class="col-auto ">
@@ -614,9 +623,43 @@
     <div id="productList"></div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
 <script>
     $(document).ready(function () {
         fetchDataFromIndexAction();
+        $(window).on('beforeunload', function () {
+            processItemAndUpdateStatus();
+        });
+        function processItemAndUpdateStatus() {
+    @foreach (var itemId in itemIds)
+    {
+        <text>
+                    // Thực hiện công việc cần thiết với itemId
+                    console.log("Processing item with Id: " + '@itemId');
+
+                // Gọi hàm UpdateProductStatus với itemId hoặc thực hiện các thao tác khác
+                $.ajax({
+                    url: '/admin/KhuyenMai/UpdateProductStatus',
+                    type: 'POST',
+                    data: { id: '@itemId' },
+                    success: function (data) {
+                        console.log(data);
+                        if (data.success) {
+                            // Xử lý khi cập nhật thành công
+                            console.log('Product status updated successfully');
+                        } else {
+                            // Xử lý khi cập nhật không thành công
+                            console.log('Failed to update product status');
+                        }
+                    },
+                    error: function () {
+                        console.log('Error occurred while updating product status');
+                    }
+                });
+        </text>
+    }
+        }
     });
     @functions {
         public string FormatCurrency(float price)
@@ -625,6 +668,7 @@
             return formattedPrice + "₫"; // Thêm ký hiệu đồng (₫) vào cuối
         }
     }
+
 
     function loadTabContent(action) {
         $.ajax({
