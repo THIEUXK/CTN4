@@ -464,7 +464,7 @@ namespace CTN4_View.Controllers.Shop
                     };
                     var a = _giamGiaService.GetById(giamgianew[0].Id);
                     a.SoLuong -= 1;
-                    if (_giamGiaChiTietService.Them(giamct) == false || _giamGiaService.Sua(a))
+                    if (_giamGiaChiTietService.Them(giamct) == false || _giamGiaService.Sua(a) == false)
                     {
                         var message = "lỗi mã giảm giá";
                         TempData["ErrorMessage"] = message;
