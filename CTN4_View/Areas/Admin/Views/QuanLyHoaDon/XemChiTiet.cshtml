@@ -231,12 +231,33 @@
                                                                     </div>
                                                                 </div>
                                                             }
-                                                            else if (Model.HoaDon.TrangThai == "Đang chờ xử lí")
+                                                            else
                                                             {
-                                                                <div class="d-flex align-items-center gap-2">
-                                                                    <span class="btn btn-custom-primary">@Html.ActionLink("Hoàn tác", "HoanTacSp", new { idHDCT = a.Id, idHD = Model.HoaDon.Id }, new { @class = "custom-edit-link" })</span>
+                                                                <div class="dropdown">
+                                                                    <button type="button" class="btn btn-custom-primary" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                                                        Hoàn tác
+                                                                    </button>
+                                                                    <div class="dropdown-menu p-4">
+                                                                        <form asp-action="HoanTacSp">
+                                                                            <input type="hidden" name="idHD" value="@Model.HoaDon.Id">
+                                                                            <input type="hidden" name="idHDCT" value="@a.Id">
+                                                                            <div class="form-group">
+                                                                                <label for="GhiChu" class="col-form-label">Lý do hoàn tác</label>
+                                                                                <textarea name="LyDo" class="form-control"></textarea>
+                                                                            </div>
+                                                                            <br />
+                                                                            <div class="form-row">
+                                                                                <div class="col">
+                                                                                    <button type="submit" class="btn btn-custom-primary">Xác nhận hoàn tác</button>
+                                                                                </div>
+                                                                                <div class="col-auto text-right"></div>
+                                                                            </div>
+                                                                            <br />
+                                                                        </form>
+                                                                    </div>
                                                                 </div>
                                                             }
+
                                                         </div>
                                                     </div>
                                                 </td>
@@ -244,8 +265,33 @@
                                             else if (Model.HoaDon.TrangThai == "Đang chờ xử lí")
                                             {
                                                 <td class="border-bottom-0">
-                                                   
-                                                    <span class="btn btn-custom-primary">@Html.ActionLink("Bỏ", "BoSanPhamNay", new { id = Model.HoaDon.Id, idCT = a.Id }, new { @class = "custom-edit-link" })</span>
+                                                    <form>
+                                                        <div class="dropdown">
+                                                            <button type="button" class="btn btn-custom-primary" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                                                Bỏ
+                                                            </button>
+                                                            <div class="dropdown-menu p-4">
+                                                                <form asp-action="BoSanPhamNay">
+                                                                    <input type="hidden" name="id" value="@Model.HoaDon.Id">
+                                                                    <input type="hidden" name="idCT" value="@a.Id">
+                                                                    <div class="form-group">
+                                                                        <label for="GhiChu" class="col-form-label">Lý do bỏ</label>
+                                                                        <textarea name="LyDo" class="form-control"></textarea>
+                                                                    </div>
+                                                                    <br />
+                                                                    <div class="form-row">
+                                                                        <div class="col">
+                                                                            <button type="submit" class="btn btn-custom-primary">Xác nhận hoàn tác</button>
+                                                                        </div>
+                                                                        <div class="col-auto text-right"></div>
+                                                                    </div>
+                                                                    <br />
+                                                                </form>
+                                                            </div>
+                                                        </div>
+
+                                                    </form>
+                                                   @*  <span class="btn btn-custom-primary">@Html.ActionLink("Bỏ", "BoSanPhamNay", new { id = Model.HoaDon.Id, idCT = a.Id }, new { @class = "custom-edit-link" })</span> *@
                                                 </td>
                                             }
 
@@ -749,11 +795,7 @@
     }
 
     /* Style the input container */
-    .input-container {
-        display: flex;
-        align-items: center;
-    }
-
+   
     /* Style the quantity input */
     .so-duong {
         width: 50px; /* Set the width as needed */
@@ -779,6 +821,13 @@
             background-color: #45a049; /* Darker green color on hover */
         }
 
+    .input-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    
 
     .custom-edit-link {
         color: whitesmoke; /* Màu đỏ */
