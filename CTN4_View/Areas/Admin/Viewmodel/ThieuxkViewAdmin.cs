@@ -11,7 +11,7 @@ namespace CTN4_View.Areas.Admin.Viewmodel
         public HoaDon HoaDon { get; set; }
         public List<HoaDonChiTiet> hoaDonChiTiets { get; set; }
         public int soLuongTong { get; set; }
-        public float TongTienHang { get; set; }
+        public float? TongTienHang { get; set; }
         public List<LichSuDonHang> LichSuHoaDon { get;set; }
 
     }
