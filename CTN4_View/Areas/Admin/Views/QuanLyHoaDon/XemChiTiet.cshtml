@@ -265,7 +265,6 @@
                                             else if (Model.HoaDon.TrangThai == "Đang chờ xử lí")
                                             {
                                                 <td class="border-bottom-0">
-                                                    <form>
                                                         <div class="dropdown">
                                                             <button type="button" class="btn btn-custom-primary" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
                                                                 Bỏ
@@ -281,7 +280,7 @@
                                                                     <br />
                                                                     <div class="form-row">
                                                                         <div class="col">
-                                                                            <button type="submit" class="btn btn-custom-primary">Xác nhận hoàn tác</button>
+                                                                            <button type="submit" class="btn btn-custom-primary">Xác nhận bo</button>
                                                                         </div>
                                                                         <div class="col-auto text-right"></div>
                                                                     </div>
@@ -289,8 +288,6 @@
                                                                 </form>
                                                             </div>
                                                         </div>
-
-                                                    </form>
                                                    @*  <span class="btn btn-custom-primary">@Html.ActionLink("Bỏ", "BoSanPhamNay", new { id = Model.HoaDon.Id, idCT = a.Id }, new { @class = "custom-edit-link" })</span> *@
                                                 </td>
                                             }
