@@ -164,29 +164,26 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [HttpPost]
         public async Task<ActionResult> Creates([FromForm] KhuyenMai datasubmit, [FromForm] string lstMail)
         {
-            datasubmit.TrangThai = true;
-            datasubmit.Is_Detele = true;
-
             var tontai = _sv.GetAll().FirstOrDefault(c => c.MaKhuyenMai.ToLower() == datasubmit.MaKhuyenMai.ToLower() && c.Id != datasubmit.Id);
             if (tontai != null)
             {
-                ModelState.AddModelError("MaGiam", "Mã giảm không được trùng.");
+                ViewBag.Message = "Mã giảm không được trùng.";
                 return View(datasubmit);
             }
 
             // Kiểm tra thời gian
             if (datasubmit.NgayKetThuc <= datasubmit.NgayBatDau)
             {
-                ModelState.AddModelError("NgayKetThuc", "Thời gian kết thúc phải lớn hơn thời gian bắt đầu.");
+                ViewBag.Message = "Thời gian kết thúc phải lớn hơn thời gian bắt đầu.";
                 return View(datasubmit);
             }
 
             // Kiểm tra NgayBatDau > Now
-            if (datasubmit.NgayBatDau <= DateTime.Now)
-            {
-                ModelState.AddModelError("NgayBatDau", "Thời gian bắt đầu phải lớn hơn thời gian hiện tại.");
-                return View(datasubmit);
-            }
+            //if (datasubmit.NgayBatDau <= DateTime.Now)
+            //{
+            //    ModelState.AddModelError("NgayBatDau", "Thời gian bắt đầu phải lớn hơn thời gian hiện tại.");
+            //    return View(datasubmit);
+            //}
             if (datasubmit.DongGia < 0)
             {
                 ModelState.AddModelError("DongGia", "Lớn hơn 0.");
@@ -239,7 +236,8 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                     // Kiểm soát tốc độ, chờ 1 giây trước khi gửi email tiếp theo
                     //await Task.Delay(1);
                 }
-
+                datasubmit.TrangThai = true;
+                datasubmit.Is_Detele = true;
                 return Json(new { success = true, redirectUrl = Url.Action("Index") });
             }
 

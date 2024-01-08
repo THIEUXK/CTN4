@@ -124,7 +124,11 @@
                     {
                        
                      @Html.AntiForgeryToken()
-                   
+                        @if (!string.IsNullOrEmpty(ViewBag.Message))
+                        {
+                            <span class="text-danger">@ViewBag.Message</span>
+                        }
+                        <div id="errorDiv" class="text-danger"></div>
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-container">
                       
@@ -221,10 +225,11 @@
                         </div>
                  
                        
+                       
                     <div class="form-group">
                             <input  type="submit" id="createkh" class="btn btn-primary" />
                     </div>
-
+                        <div id="errorDiv" class="text-danger"></div>
                
                 }
                 </div>
@@ -385,9 +390,14 @@
                         var errors = result.errors.join('<br/>');
                         $('#errorDiv').html(errors);
                     }
+                },
+                error: function (xhr, status, error) {
+                    // Xử lý lỗi AJAX và hiển thị thông báo lỗi
+                    $('#errorDiv').html('Vui lòng nhập đúng đầu vào' );
                 }
             });
         });
+
 
 
 
