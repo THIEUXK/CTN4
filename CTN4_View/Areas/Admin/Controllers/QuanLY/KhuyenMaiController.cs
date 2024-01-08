@@ -470,7 +470,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [HttpPost]
         public JsonResult UpdateProductStatus(Guid id)
         {
-            var check = _sv.GetAll().FirstOrDefault(c => c.Id == id && (c.Is_Detele || c.NgayKetThuc < DateTime.Now));
+            var check = _sv.GetAll().FirstOrDefault(c => c.Id == id && ( c.NgayKetThuc  <= DateTime.Now));
 
             if (check != null)
             {
@@ -479,7 +479,9 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                     Id = check.Id,
                     Is_Detele = false
                 };
+                _sv.Xoa(id);
                 _sv.Sua(khuyenMai);
+                
 
                 return Json(new { success = true });
             }
