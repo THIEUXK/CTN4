@@ -88,7 +88,7 @@ namespace CTN4_Serv.Service
             // Sử dụng LINQ để lấy danh sách các hóa đơn có TrangThaiThanhToan là true và ngày tạo hóa đơn trong năm hiện tại
             var hoaDonsThanhToanTrongNam = _db.HoaDons
                 .Where(h => h.TrangThaiThanhToan &&
-                            h.NgayTaoHoaDon.Value.Year == namHienTai &&
+                            h.NgayNhan.Value.Year == namHienTai &&
                             h.TrangThai == "Giao hàng thành công")
                 .ToList();
 
@@ -98,7 +98,7 @@ namespace CTN4_Serv.Service
             // Tính tổng tiền của từng hóa đơn và nhóm theo tháng
             foreach (var hoaDon in hoaDonsThanhToanTrongNam)
             {
-                int thang = hoaDon.NgayTaoHoaDon.Value.Month;
+                int thang = hoaDon.NgayNhan.Value.Month;
 
                 if (tongTienTheoThang.ContainsKey(thang))
                 {
@@ -128,7 +128,7 @@ namespace CTN4_Serv.Service
             // ngày tạo hóa đơn trong năm hiện tại và TrangThai là "Giao hàng thành công"
             var hoaDonsTrangThaiTrue = _db.HoaDons
                 .Where(h => h.TrangThaiThanhToan &&
-                            h.NgayTaoHoaDon.Value.Year == namHienTai &&
+                            h.NgayNhan.Value.Year == namHienTai &&
                             h.TrangThai == "Giao hàng thành công")
                 .ToList();
 
@@ -138,7 +138,7 @@ namespace CTN4_Serv.Service
             // Đếm số lượng đơn hàng của từng tháng
             foreach (var hoaDon in hoaDonsTrangThaiTrue)
             {
-                int thang = hoaDon.NgayTaoHoaDon.Value.Month;
+                int thang = hoaDon.NgayNhan.Value.Month;
 
                 if (soLuongTheoThang.ContainsKey(thang))
                 {
@@ -167,9 +167,9 @@ namespace CTN4_Serv.Service
             // Sử dụng LINQ để lấy số lượng đơn hàng theo tháng
             var thongKe = _db.HoaDons
                 .Where(h => h.TrangThaiThanhToan &&
-                            h.NgayTaoHoaDon.Value.Year == nam &&
+                            h.NgayNhan.Value.Year == nam &&
                             h.TrangThai == "Giao hàng thành công")
-                .GroupBy(h => h.NgayTaoHoaDon.Value.Month)
+                .GroupBy(h => h.NgayNhan.Value.Month)
                 .Select(g => new { Thang = g.Key, SoLuong = g.Count() });
 
             // Cập nhật số lượng đơn hàng vào mảng
