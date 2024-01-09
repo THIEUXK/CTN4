@@ -120,7 +120,14 @@
                     @Html.DisplayFor(modelItem => item.GhiChu)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TrangThai)
+                    @if (item.TrangThai == true)
+                    {
+                        <p>Hiện thị trên trang web</p>
+                    }
+                    else
+                    {
+                        <p>Đã ẩn trên trang web</p>
+                    }
                 </td>
                 <td>
                     @*  @Html.DisplayFor(modelItem => item.Is_detele )*@
@@ -158,6 +165,7 @@
                 </td>
             </tr>
         }
+
     </tbody>
 </table>
 @*pagelist*@
@@ -176,7 +184,7 @@
             <div class="col-auto mr-3">
                 <span style="color: rgb(128, 128, 128);">Tổng:<span id="id">@Model.Count()</span></span>
             </div>
-           @* <div class="col">
+            <div class="col">
                 <div class="pagination-container">
                     <ul class="pagination">
                         @if (Model.HasPreviousPage)
@@ -201,14 +209,14 @@
                         }
                     </ul>
                 </div>
-            </div>*@
-            <div class="pagination-container">
-                @Html.PagedListPager(Model, page => Url.Action("SanPhamDaXoa", new { page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
             </div>
+            @* <div class="pagination-container">
+            @Html.PagedListPager(Model, page => Url.Action("SanPhamDaXoa", new { page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+            </div>*@
         </div>
     </div>
 </div>
-                </div>
+</div>
 <script>
     @functions {
         public string FormatCurrency(float price)

@@ -61,7 +61,14 @@
                                 @Html.DisplayFor(modelItem => item.CoSize)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.TrangThai)
+                                @if (item.TrangThai == true)
+                                {
+                                    <p>Hiện thị trên trang web</p>
+                                }
+                                else
+                                {
+                                    <p>Đã ẩn trên trang web</p>
+                                }
                             </td>
                             <td>
                                 @if (item.Is_detele == true)
