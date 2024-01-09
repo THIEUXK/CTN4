@@ -159,27 +159,29 @@ namespace CTN4_Serv.Service
 
             return result;
         }
-        public int[] ThongKeSoLuongDonHangTheoThangTrongNam(int nam)
+        public float[] ThongKeSoLuongDonHangTheoThangTrongNam(int nam)
         {
-            // Khởi tạo mảng để lưu số lượng đơn hàng theo tháng
-            int[] soLuongTheoThang = new int[12];
+            // Khởi tạo mảng để lưu tổng tiền đơn hàng theo tháng
+            float[] tongTienTheoThang = new float[12];
 
-            // Sử dụng LINQ để lấy số lượng đơn hàng theo tháng
+            // Sử dụng LINQ để lấy tổng tiền đơn hàng theo tháng
             var thongKe = _db.HoaDons
                 .Where(h => h.TrangThaiThanhToan &&
                             h.NgayNhan.Value.Year == nam &&
                             h.TrangThai == "Giao hàng thành công")
                 .GroupBy(h => h.NgayNhan.Value.Month)
-                .Select(g => new { Thang = g.Key, SoLuong = g.Count() });
+                .Select(g => new { Thang = g.Key, TongTien = g.Sum(h => h.TongTien) });
 
-            // Cập nhật số lượng đơn hàng vào mảng
+            // Cập nhật tổng tiền đơn hàng vào mảng
             foreach (var item in thongKe)
             {
-                soLuongTheoThang[item.Thang - 1] = item.SoLuong;
+                tongTienTheoThang[item.Thang - 1] = (float)item.TongTien; // Chuyển đổi về kiểu float
             }
 
-            return soLuongTheoThang;
+            return tongTienTheoThang;
         }
+
+
         public int[] ThongKeSoLuongDonHangTrongKhoangThoiGian(DateTime tuNgay, DateTime denNgay)
         {
             // Sử dụng LINQ để lấy danh sách các hóa đơn có TrangThaiThanhToan là true, 
