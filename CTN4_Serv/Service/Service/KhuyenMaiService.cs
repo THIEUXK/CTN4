@@ -83,5 +83,29 @@ namespace CTN4_Serv.Service
                 return false;
             }
         }
+        public bool CapNhat(Guid id)
+        {
+            try
+            {
+                var kmsp = _db.KhuyenMaiSanPhams.Where(p => p.IdkhuyenMai == id).ToList();
+                var lstkm = _db.KhuyenMaiSanPhams.Where(p => p.IdkhuyenMai == id).Select(p => p.IdSanPham).ToList();
+                foreach (var item in kmsp)
+                {
+                    _db.KhuyenMaiSanPhams.Remove(item);
+                }
+                foreach (var s in lstkm)
+                {
+                    var sp = _db.SanPhams.FirstOrDefault(p => p.Id == s);
+                    sp.GiaNiemYet = sp.GiaBan;
+                    _db.SanPhams.Update(sp);
+                }
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
     }
 }

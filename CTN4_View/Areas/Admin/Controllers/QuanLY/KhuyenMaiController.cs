@@ -479,7 +479,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                     Id = check.Id,
                     Is_Detele = false
                 };
-                _sv.Xoa(id);
+                _sv.CapNhat(id);
                 _sv.Sua(khuyenMai);
                 
 
