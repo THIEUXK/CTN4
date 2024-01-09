@@ -28,7 +28,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             var a = _sv.GetAll().AsQueryable();
 
             List<SelectListItem> items = new List<SelectListItem>();
-            items.Add(new SelectListItem { Text = "5", Value = "5" });
+          
             items.Add(new SelectListItem { Text = "10", Value = "10" });
             items.Add(new SelectListItem { Text = "20", Value = "20" });
             items.Add(new SelectListItem { Text = "25", Value = "25" });
@@ -49,7 +49,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                 a = a.Where(p => p.TenDanhMuc.Contains(searchString, StringComparison.OrdinalIgnoreCase));
             }
 
-            int pageSize = size ?? 5;
+            int pageSize = size ?? 10;
             var pageNumber = page ?? 1;
             var pagedList = a.ToPagedList(pageNumber, pageSize);
 
