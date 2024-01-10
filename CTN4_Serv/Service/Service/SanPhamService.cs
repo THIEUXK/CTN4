@@ -28,49 +28,52 @@ namespace CTN4_Serv.Service
             var lstDanhMuc = _db.DanhMucs.ToList();
             var lst = _db.DanhMucChiTiets.ToList();
 
-            var lstAll = from a in listProduct
-                         join b in lst on a.Id equals b.IdSanPham
-                         join c in lstDanhMuc on b.IdDanhMuc equals c.Id
-                         where !lstkm.Contains(a.Id) // Thêm điều kiện kiểm tra a.Id không tồn tại trong lstkm
-                         select new SanPhamDanhMucVIewModel
-                         {
-                             Id = a.Id,
-                             MaSp = a.MaSp,
-                             AnhDaiDien = a.AnhDaiDien,
-                             TenSanPham = a.TenSanPham,
-                             GiaNhap = a.GiaNhap,
-                             GiaBan = a.GiaBan,
-                             GiaNiemYet = a.GiaNiemYet,
-                             TenDanhMuc = c.TenDanhMuc,
-                         };
+            var lstAll = (from a in listProduct
+                          join b in lst on a.Id equals b.IdSanPham
+                          join c in lstDanhMuc on b.IdDanhMuc equals c.Id
+                          where !lstkm.Contains(a.Id) // Thêm điều kiện kiểm tra a.Id không tồn tại trong lstkm
+                          select new SanPhamDanhMucVIewModel
+                          {
+                              Id = a.Id,
+                              MaSp = a.MaSp,
+                              AnhDaiDien = a.AnhDaiDien,
+                              TenSanPham = a.TenSanPham,
+                              GiaNhap = a.GiaNhap,
+                              GiaBan = a.GiaBan,
+                              GiaNiemYet = a.GiaNiemYet,
+                              TenDanhMuc = c.TenDanhMuc,
+                          }).DistinctBy(x => x.Id);
 
             return lstAll.ToList();
+
         }
         public List<SanPhamDanhMucVIewModel> GetAllProductWithKhuyenMai()
         {
-
             var listProduct = _db.SanPhams.ToList();
             var lstDanhMuc = _db.DanhMucs.ToList();
             var lst = _db.DanhMucChiTiets.ToList();
-            var lstAll = from a in listProduct
-                         join b in lst on a.Id equals b.IdSanPham
-                         join c in lstDanhMuc on b.IdDanhMuc equals c.Id
-                         join d in _db.KhuyenMaiSanPhams.ToList() on a.Id equals d.IdSanPham
-                         join e in _db.KhuyenMais.ToList() on d.IdkhuyenMai equals e.Id
-                         select new SanPhamDanhMucVIewModel
-                         {
-                             Idkm = e.Id,
-                             Id = a.Id,
-                             MaSp = a.MaSp,
-                             AnhDaiDien = a.AnhDaiDien,
-                             TenSanPham = a.TenSanPham,
-                             GiaNhap = a.GiaNhap,
-                             GiaBan = a.GiaBan,
-                             GiaNiemYet = a.GiaNiemYet,
-                             TenDanhMuc = c.TenDanhMuc,
-                         };
+
+            var lstAll = (from a in listProduct
+                          join b in lst on a.Id equals b.IdSanPham
+                          join c in lstDanhMuc on b.IdDanhMuc equals c.Id
+                          join d in _db.KhuyenMaiSanPhams.ToList() on a.Id equals d.IdSanPham
+                          join e in _db.KhuyenMais.ToList() on d.IdkhuyenMai equals e.Id
+                          select new SanPhamDanhMucVIewModel
+                          {
+                              Idkm = e.Id,
+                              Id = a.Id,
+                              MaSp = a.MaSp,
+                              AnhDaiDien = a.AnhDaiDien,
+                              TenSanPham = a.TenSanPham,
+                              GiaNhap = a.GiaNhap,
+                              GiaBan = a.GiaBan,
+                              GiaNiemYet = a.GiaNiemYet,
+                              TenDanhMuc = c.TenDanhMuc,
+                          }).DistinctBy(x => x.Id); // Thêm DistinctBy để chỉ áp dụng Distinct cho trường Id
+
             return lstAll.ToList();
         }
+
         public List<SanPhamDanhMucVIewModel> GetallKM()
         {
             var lstkm = _db.KhuyenMaiSanPhams.Select(p => p.IdSanPham).ToList();
@@ -79,28 +82,29 @@ namespace CTN4_Serv.Service
             var lstDanhMucChiTiet = _db.DanhMucChiTiets.ToList();
             var lstDanhMuc = _db.DanhMucs.ToList();
 
-            // Truy vấn lấy tất cả sản phẩm có trong danh sách khuyến mãi
-            var lstAll = from a in listProduct
-                         join b in lstDanhMucChiTiet on a.Id equals b.IdSanPham
-                         join c in lstDanhMuc on b.IdDanhMuc equals c.Id
-                         join d in _db.KhuyenMaiSanPhams.ToList() on a.Id equals d.IdSanPham
-                         join e in listkm on d.IdkhuyenMai equals e.Id
-                         where lstkm.Contains(a.Id) // Điều kiện chỉ lấy những sản phẩm có trong danh sách khuyến mãi
-                         select new SanPhamDanhMucVIewModel
-                         {
-                             Id = a.Id,
-                             MaSp = a.MaSp,
-                             AnhDaiDien = a.AnhDaiDien,
-                             TenSanPham = a.TenSanPham,
-                             GiaNhap = a.GiaNhap,
-                             GiaBan = a.GiaBan,
-                             GiaNiemYet = a.GiaNiemYet,
-                             TenDanhMuc = c.TenDanhMuc,
-                             Idkm = e.Id,
-                             TenKm = e.MaKhuyenMai,
-                         };
+            // Truy vấn lấy tất cả sản phẩm có trong danh sách khuyến mãi và sử dụng Distinct
+            var lstAll = (from a in listProduct
+                          join b in lstDanhMucChiTiet on a.Id equals b.IdSanPham
+                          join c in lstDanhMuc on b.IdDanhMuc equals c.Id
+                          join d in _db.KhuyenMaiSanPhams.ToList() on a.Id equals d.IdSanPham
+                          join e in listkm on d.IdkhuyenMai equals e.Id
+                          where lstkm.Contains(a.Id) // Điều kiện chỉ lấy những sản phẩm có trong danh sách khuyến mãi
+                          select new SanPhamDanhMucVIewModel
+                          {
+                              Id = a.Id,
+                              MaSp = a.MaSp,
+                              AnhDaiDien = a.AnhDaiDien,
+                              TenSanPham = a.TenSanPham,
+                              GiaNhap = a.GiaNhap,
+                              GiaBan = a.GiaBan,
+                              GiaNiemYet = a.GiaNiemYet,
+                              TenDanhMuc = c.TenDanhMuc,
+                              Idkm = e.Id,
+                              TenKm = e.MaKhuyenMai,
+                          }).DistinctBy(x => x.Id);
 
             return lstAll.ToList();
+
         }
         public List<SanPham> GetAll()
         {
@@ -118,29 +122,30 @@ namespace CTN4_Serv.Service
                     MaSp = sp.MaSp,
                     TenSanPham = sp.TenSanPham,
                     AnhDaiDien = sp.AnhDaiDien,
-                    // Các thuộc tính khác của SanPhamDanhMucVIewModel cần được ánh xạ tương ứng với SanPham
                     GiaNhap = sp.GiaNhap,
                     GiaBan = sp.GiaBan,
                     GiaNiemYet = sp.GiaNiemYet,
-                    // Ví dụ: TenDanhMuc là một thuộc tính giả sử bạn có thể thêm vào từ một nguồn dữ liệu khác
-                   
                 }).ToList();
+
                 var lstDanhMuc = _db.DanhMucs.ToList();
                 var lst = _db.DanhMucChiTiets.ToList();
-                var lstAll = from a in listProduct
-                             join b in lst on a.Id equals b.IdSanPham
-                             join c in lstDanhMuc on b.IdDanhMuc equals c.Id
-                             select new SanPhamDanhMucVIewModel
-                             {
-                                 MaSp = a.MaSp,
-                                 AnhDaiDien = a.AnhDaiDien,
-                                 TenSanPham = a.TenSanPham,
-                                 GiaNhap = a.GiaNhap,
-                                 GiaBan = a.GiaBan,
-                                 GiaNiemYet = a.GiaNiemYet,
-                                 TenDanhMuc = c.TenDanhMuc,
-                             };
+
+                var lstAll = (from a in listProduct
+                              join b in lst on a.Id equals b.IdSanPham
+                              join c in lstDanhMuc on b.IdDanhMuc equals c.Id
+                              select new SanPhamDanhMucVIewModel
+                              {
+                                  MaSp = a.MaSp,
+                                  AnhDaiDien = a.AnhDaiDien,
+                                  TenSanPham = a.TenSanPham,
+                                  GiaNhap = a.GiaNhap,
+                                  GiaBan = a.GiaBan,
+                                  GiaNiemYet = a.GiaNiemYet,
+                                  TenDanhMuc = c.TenDanhMuc,
+                              }).DistinctBy(x => x.Id);
+
                 return lstAll.ToList();
+
             }
             else
             {
@@ -148,29 +153,31 @@ namespace CTN4_Serv.Service
                 var listProduct = _db.SanPhams.ToList();
                 var lstDanhMuc = _db.DanhMucs.ToList();
                 var lst = _db.DanhMucChiTiets.ToList();
-                var lstAll = from a in listProduct
-                             join b in lst on a.Id equals b.IdSanPham
-                             join c in lstDanhMuc on b.IdDanhMuc equals c.Id
-                             where !lstkm.Contains(a.Id) // Thêm điều kiện kiểm tra a.Id không tồn tại trong lstkm
-                             where c.TenDanhMuc.ToLower().Contains(dieuKien.ToLower())||
-                             a.GiaNhap.ToString().Contains(dieuKien) ||
-                             a.GiaBan.ToString().Contains(dieuKien) ||
-                             a.GiaNiemYet.ToString().Contains(dieuKien) ||
-                             a.MaSp.ToLower().Contains(dieuKien.ToLower()) ||
-                             a.TenSanPham.ToLower().Contains(dieuKien.ToLower())
-                             select new SanPhamDanhMucVIewModel
-                             {
-                                 MaSp = a.MaSp,
-                                 AnhDaiDien = a.AnhDaiDien,
-                                 TenSanPham =a.TenSanPham,
-                                 GiaNhap =a.GiaNhap,
-                                 GiaBan  = a.GiaBan,
-                                 GiaNiemYet = a.GiaNiemYet,
-                                 TenDanhMuc =c.TenDanhMuc,
-                             };
+                var lstAll = (from a in listProduct
+                              join b in lst on a.Id equals b.IdSanPham
+                              join c in lstDanhMuc on b.IdDanhMuc equals c.Id
+                              where !lstkm.Contains(a.Id) // Thêm điều kiện kiểm tra a.Id không tồn tại trong lstkm
+                              where c.TenDanhMuc.ToLower().Contains(dieuKien.ToLower()) ||
+                                    a.GiaNhap.ToString().Contains(dieuKien) ||
+                                    a.GiaBan.ToString().Contains(dieuKien) ||
+                                    a.GiaNiemYet.ToString().Contains(dieuKien) ||
+                                    a.MaSp.ToLower().Contains(dieuKien.ToLower()) ||
+                                    a.TenSanPham.ToLower().Contains(dieuKien.ToLower())
+                              select new SanPhamDanhMucVIewModel
+                              {
+                                  MaSp = a.MaSp,
+                                  AnhDaiDien = a.AnhDaiDien,
+                                  TenSanPham = a.TenSanPham,
+                                  GiaNhap = a.GiaNhap,
+                                  GiaBan = a.GiaBan,
+                                  GiaNiemYet = a.GiaNiemYet,
+                                  TenDanhMuc = c.TenDanhMuc,
+                              }).DistinctBy(x => x.Id);
+
                 return lstAll.ToList();
+
             }
-      
+
         }
 
         public List<SanPhamDanhMucVIewModel> GetAllBySearch(string MaSp)
@@ -180,29 +187,24 @@ namespace CTN4_Serv.Service
             var lstDanhMuc = _db.DanhMucs.ToList();
             var lst = _db.DanhMucChiTiets.ToList();
 
-            var lstAll = from a in listProduct
-                         join b in lst on a.Id equals b.IdSanPham
-                         join c in lstDanhMuc on b.IdDanhMuc equals c.Id
-                         where !lstkm.Contains(a.Id) // Thêm điều kiện kiểm tra a.Id không tồn tại trong lstkm
-                         where a.MaSp.Equals(MaSp)
-                         select new SanPhamDanhMucVIewModel
-                         {
-                             Id = a.Id,
-                             MaSp = a.MaSp,
-                             AnhDaiDien = a.AnhDaiDien,
-                             TenSanPham = a.TenSanPham,
-                             GiaNhap = a.GiaNhap,
-                             GiaBan = a.GiaBan,
-                             GiaNiemYet = a.GiaNiemYet,
-                             TenDanhMuc = c.TenDanhMuc,
-                         };
+            var lstAll = (from a in listProduct
+                          join b in lst on a.Id equals b.IdSanPham
+                          join c in lstDanhMuc on b.IdDanhMuc equals c.Id
+                          where !lstkm.Contains(a.Id)
+                          where a.MaSp.Equals(MaSp)
+                          select new SanPhamDanhMucVIewModel
+                          {
+                              Id = a.Id,
+                              MaSp = a.MaSp,
+                              AnhDaiDien = a.AnhDaiDien,
+                              TenSanPham = a.TenSanPham,
+                              GiaNhap = a.GiaNhap,
+                              GiaBan = a.GiaBan,
+                              GiaNiemYet = a.GiaNiemYet,
+                              TenDanhMuc = c.TenDanhMuc,
+                          }).DistinctBy(x => x.Id);
 
             return lstAll.ToList();
-
-
-
-
-
         }
 
         public SanPham GetById(Guid id)
