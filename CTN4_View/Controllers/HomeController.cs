@@ -455,7 +455,7 @@ namespace CTN4_View.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.Message = "Có lỗi xảy ra.";
+                ViewBag.Message = "Vui lòng nhập đúng đầu vào.";
 
                 return View(userModel); // Trả về view với model và thông báo lỗi
             }
