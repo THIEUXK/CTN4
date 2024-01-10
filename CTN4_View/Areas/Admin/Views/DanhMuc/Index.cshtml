@@ -54,7 +54,7 @@
                             <td>
                                 @if (item.Is_detele == true)
                                 {
-                                    <p>Hiện thị</p>
+                                    <p>Hiển thị</p>
                                 }
                                 else
                                 {
@@ -73,7 +73,7 @@
                                 }
                                 else
                                 {
-                                    @Html.ActionLink("Hiện", "Delete", new { id = item.Id }, new {  style = "text-decoration: none; color: black;", onclick = "return confirmDelete1();" })
+                                    @Html.ActionLink("Hiển", "Delete", new { id = item.Id }, new {  style = "text-decoration: none; color: black;", onclick = "return confirmDelete1();" })
                                 }
 
 
@@ -256,7 +256,7 @@
         var result = confirm("Bạn có chắc chắn muốn ẩn danh mục này không?");
         return result;
     } function confirmDelete1() {
-        var result = confirm("Bạn có chắc chắn muốn hiện danh mục này không?");
+        var result = confirm("Bạn có chắc chắn muốn Hiển danh mục này không?");
         return result;
     }
 </script>

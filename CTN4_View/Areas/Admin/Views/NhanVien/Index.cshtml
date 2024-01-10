@@ -83,8 +83,15 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.DiaChi)
                         </td>
-                        <td style="color:green">
-                            @Html.DisplayFor(modelItem => item.Trangthai)
+                        <td >
+                                @if (item.Trangthai == true)
+                                {
+                                    <a>Hiển thị</a>
+                                }
+                                else
+                                {
+                                    <a>Tạm ẩn</a>
+                                }
                         </td>
                         <td>
 
