@@ -278,7 +278,7 @@ namespace CTN4_View_Admin.Controllers
             var soLuongDonHangTheoThang = _hd.ThongKeSoLuongDonHangTheoThangTrongNam(nam);
 
             // Trả về dữ liệu dưới dạng JSON
-            return Json(soLuongDonHangTheoThang);
+                return Json(soLuongDonHangTheoThang);
         }
         [HttpPost]
         public IActionResult UpdateNv(NhanVien khachHangForm)

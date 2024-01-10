@@ -107,6 +107,20 @@
         margin: 10px;
         font-size: 14px;
     }
+
+    #errorDiv {
+        color: #ff0000; /* Màu chữ là màu đỏ */
+        font-size: 14px; /* Kích thước chữ */
+        margin-top: 10px; /* Khoảng cách từ phía trên */
+    }
+
+    /* Hoặc bạn có thể sử dụng class để thay đổi CSS */
+    .error-message {
+        color: #ff0000;
+        font-size: 14px;
+        margin-top: 10px;
+    }
+
 </style>
 
 
@@ -124,7 +138,11 @@
                     {
                        
                      @Html.AntiForgeryToken()
-                   
+                        @if (!string.IsNullOrEmpty(ViewBag.Message))
+                        {
+                            <span class="text-danger">@ViewBag.Message</span>
+                        }
+                        <div id="errorDiv" class="text-danger"></div>
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-container">
                       
@@ -221,10 +239,11 @@
                         </div>
                  
                        
+                       
                     <div class="form-group">
                             <input  type="submit" id="createkh" class="btn btn-primary" />
                     </div>
-
+                        <div id="errorDiv" class="text-danger"></div>
                
                 }
                 </div>
@@ -385,9 +404,14 @@
                         var errors = result.errors.join('<br/>');
                         $('#errorDiv').html(errors);
                     }
+                },
+                error: function (xhr, status, error) {
+                    // Xử lý lỗi AJAX và hiển thị thông báo lỗi
+                    $('#errorDiv').html('Vui lòng nhập đúng đầu vào' );
                 }
             });
         });
+
 
 
 

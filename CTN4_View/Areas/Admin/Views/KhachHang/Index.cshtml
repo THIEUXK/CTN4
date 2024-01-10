@@ -51,9 +51,7 @@
                         <th>
                            Trạng thái
                         </th>
-                        <th>
-                           Xóa tạm thời
-                        </th>
+                       
                         <th></th>
                     </tr>
                 </thead>
@@ -101,10 +99,14 @@
                                 }
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Trangthai)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Is_detele)
+                                @if (item.Trangthai == true)
+                                {
+                                    <p>Hiện thị </p>
+                                }
+                                else
+                                {
+                                    <p>Đã ẩn </p>
+                                }
                             </td>
 
                             <td>
