@@ -1109,7 +1109,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                         var li = new LichSuDonHang()
                         {
                             GhiChu = LyDo,
-                            ThaoTac = $"Hủy đơn hàng {hd.MaHoaDon} ",
+                            ThaoTac = $"Hủy đơn hàng {hd.MaHoaDon} với còn hàng",
                             IdHoaDonn = id,
                             ThoiGianlam = DateTime.Now,
                             NguoiThucHien = nvnew[0].TenDangNhap,
