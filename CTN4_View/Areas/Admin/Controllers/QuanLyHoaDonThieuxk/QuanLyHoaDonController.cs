@@ -226,6 +226,12 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                     TempData["TB1"] = message;
                     return RedirectToAction("XemChiTiet", new { id = id, message });
                 }
+                if (hd.NgayNhan != null)
+                {
+                    var message = "Đơn hàng hiện đã được đưa cho khách";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
 
                 hd.TrangThai = "Đang chờ xử lí";
                 if (_hoaDonService.Sua(hd) == true)
@@ -416,7 +422,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                     return RedirectToAction("XemChiTiet", new { id = id, message });
                 }
                 var hd = _hoaDonService.GetById(id);
-                if (hd.TrangThai != "Giao hàng thành công")
+                if (hd.TrangThai != "Giao hàng thành công"&& hd.TrangThai != "Đưa hàng thành công")
                 {
                     hd.TrangThaiThanhToan = false;
                     if (_hoaDonService.Sua(hd) == true)
@@ -436,7 +442,99 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                 }
                 else
                 {
-                    var message = "Đơn hàng chưa được xác nhận !";
+                    var message = "Đơn hàng đã hoàn thành không thể hoàn tác !";
+                    TempData["TB3"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
+
+
+
+                return RedirectToAction("XemChiTiet", new { id = id });
+            }
+            else
+            {
+                return RedirectToAction("DangNhap", "Home");
+            }
+        }
+        public IActionResult HoanTacDua(int id, string LyDo)
+        {
+            var nvnew = SessionServices.NhanVienSS(HttpContext.Session, "ACA");
+            if (nvnew.Count() != 0)
+            {
+                if (LyDo == null)
+                {
+                    var message = "hãy điền lý do hoàn tác";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
+                var hd = _hoaDonService.GetById(id);
+                if (hd.TrangThai == "Đưa hàng thành công")
+                {
+                    hd.TrangThai = "Đang chuẩn bị hàng";
+                    if (_hoaDonService.Sua(hd) == true)
+                    {
+                        var li = new LichSuDonHang()
+                        {
+                            GhiChu = LyDo,
+                            ThaoTac = $"Hoàn tác xác nhận đưa hàng đơn hàng {hd.MaHoaDon} ",
+                            IdHoaDonn = id,
+                            ThoiGianlam = DateTime.Now,
+                            NguoiThucHien = nvnew[0].TenDangNhap,
+                            TrangThai = true,
+                            Is_detele = false
+                        };
+                        _LichSuHoaDonService.Them(li);
+                    }
+                }
+                else
+                {
+                    var message = "Đơn hàng đã hoàn thành không thể hoàn tác !";
+                    TempData["TB3"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
+
+
+
+                return RedirectToAction("XemChiTiet", new { id = id });
+            }
+            else
+            {
+                return RedirectToAction("DangNhap", "Home");
+            }
+        }
+        public IActionResult HoanTacGiaoTC(int id, string LyDo)
+        {
+            var nvnew = SessionServices.NhanVienSS(HttpContext.Session, "ACA");
+            if (nvnew.Count() != 0)
+            {
+                if (LyDo == null)
+                {
+                    var message = "hãy điền lý do hoàn tác";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
+                var hd = _hoaDonService.GetById(id);
+                if (hd.TrangThai == "Giao hàng thành công")
+                {
+                    hd.TrangThai = "Hàng của bạn đang được giao";
+                    if (_hoaDonService.Sua(hd) == true)
+                    {
+                        var li = new LichSuDonHang()
+                        {
+                            GhiChu = LyDo,
+                            ThaoTac = $"Hoàn tác xác nhận nhận hàng đơn hàng {hd.MaHoaDon} ",
+                            IdHoaDonn = id,
+                            ThoiGianlam = DateTime.Now,
+                            NguoiThucHien = nvnew[0].TenDangNhap,
+                            TrangThai = true,
+                            Is_detele = false
+                        };
+                        _LichSuHoaDonService.Them(li);
+                    }
+                }
+                else
+                {
+                    var message = "Đơn hàng đã hoàn thành không thể hoàn tác !";
                     TempData["TB3"] = message;
                     return RedirectToAction("XemChiTiet", new { id = id, message });
                 }
@@ -538,6 +636,63 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                 else
                 {
                     var message = "Đơn hàng phải được giao vào thanh toán !";
+                    TempData["TB2"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
+
+
+                return RedirectToAction("XemChiTiet", new { id = id });
+            }
+            else
+            {
+                return RedirectToAction("DangNhap", "Home");
+            }
+        }
+        public IActionResult XacNhanDuaHang(int id)
+        {
+            var nvnew = SessionServices.NhanVienSS(HttpContext.Session, "ACA");
+            if (nvnew.Count() != 0)
+            {
+                var hd = _hoaDonService.GetById(id);
+                if (hd.TrangThai == "Đang chuẩn bị hàng" && hd.TrangThaiThanhToan == true)
+                {
+                    hd.TrangThai = "Đưa hàng thành công";
+                    if (_hoaDonService.Sua(hd) == true)
+                    {
+                        var li = new LichSuDonHang()
+                        {
+                            GhiChu = null,
+                            ThaoTac = $"Xác nhận đưa hàng của đơn hàng {hd.MaHoaDon} ",
+                            IdHoaDonn = id,
+                            ThoiGianlam = DateTime.Now,
+                            NguoiThucHien = nvnew[0].TenDangNhap,
+                            TrangThai = true,
+                            Is_detele = true
+                        };
+                        _LichSuHoaDonService.Them(li);
+                        var allhdct = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == id && c.Is_detele == true && c.TrangThai == true).ToList();
+                        var ids = new List<Guid>();
+                        foreach (var a in allhdct)
+                        {
+                            if (!ids.Contains(a.SanPhamChiTiet.SanPham.Id))
+                            {
+                                ids.Add(a.SanPhamChiTiet.SanPham.Id);
+                            }
+                        }
+                        if (hd.KhachHang != null)
+                        {
+                            var listDanhGia = _danhGiaSanPhamService.GetAll().Where(c => c.IdKhachHang == hd.KhachHang.Id && ids.Contains((Guid)c.IdSanPham));
+                            foreach (var b in listDanhGia)
+                            {
+                                b.SoSua = 1;
+                                _danhGiaSanPhamService.Sua(b);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    var message = "Đơn hàng chưa đủ điều kiện để xác nhận đưa !";
                     TempData["TB2"] = message;
                     return RedirectToAction("XemChiTiet", new { id = id, message });
                 }

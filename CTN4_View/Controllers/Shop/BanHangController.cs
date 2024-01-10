@@ -393,6 +393,7 @@ namespace CTN4_View.Controllers.Shop
             }
         }
         #endregion
+
         #region Ban Hang
         public IActionResult PaymentCallback()
         {
@@ -628,6 +629,16 @@ namespace CTN4_View.Controllers.Shop
         }
         public IActionResult HoanThanhThanhToan(string tenmagiam, float tiengiama, float tienhanga, string name, string DiachiNhanChiTiet, string Sodienthoai, string Email, string addDiaChi, Guid IdDiaChi, Guid idphuongthuc, string ghiChu, float tienshipa, float tongtien)
         {
+            var KhuyenMaiSp = _KKhuyenMaiSanPhamService.GetAll().Where(c => c.KhuyenMai.Mua1tang1 == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now && c.KhuyenMai.Is_Detele == true).ToList();
+            var g = new List<Guid>();
+            foreach (var item in KhuyenMaiSp)
+            {
+                // Kiểm tra xem Mau.Id đã xuất hiện trong danh sách chưa
+                if (!g.Contains((Guid)item.IdSanPham))
+                {
+                    g.Add((Guid)item.IdSanPham);
+                }
+            }
             #region Check validate
             if (name == null)
             {
@@ -692,9 +703,24 @@ namespace CTN4_View.Controllers.Shop
             #endregion
             var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
             var gh = _GioHang.GetAll().FirstOrDefault(c => c.IdKhachHang == accnew[0].Id);
+
             if (accnew.Count != 0 && gh != null)
             {
                 #region tao hoa don
+                var luuGio2 = SessionBan.IdGio(HttpContext.Session, "LuoGio");
+                var ghct = _GioHangChiTiet.GetAll().Where(c => c.IdGioHang == gh.Id && luuGio2.Contains(c.Id));
+                foreach (var ct in ghct)
+                {
+                    if (g.Contains(ct.SanPhamChiTiet.SanPham.Id))
+                    {
+                        if ((ct.SoLuong*=2)>ct.SanPhamChiTiet.SoLuong)
+                        {
+                            var message = $"Sản phẩm {ct.SanPhamChiTiet.SanPham.TenSanPham} hiện đang được mua 1 tặng 1 hiện tại không thể thanh toán được vì số lượng tặng không đủ xin hay quay lại sau";
+                            TempData["ErrorMessage"] = message;
+                            return RedirectToAction("ThuTucThanhToan", "BanHang", new { message });
+                        }
+                    }
+                }
                 if (idphuongthuc == Guid.Parse("d16ac357-3ced-4c2c-bcdc-d38971211114"))
                 {
                     var alTam = new ThongTinTam()
@@ -782,16 +808,7 @@ namespace CTN4_View.Controllers.Shop
                             return RedirectToAction("ThuTucThanhToan", "BanHang", new { message });
                         }
                     }
-                    var KhuyenMaiSp = _KKhuyenMaiSanPhamService.GetAll().Where(c => c.KhuyenMai.Mua1tang1 == true&&c.KhuyenMai.NgayBatDau<=DateTime.Now&&c.KhuyenMai.NgayKetThuc>=DateTime.Now&&c.KhuyenMai.Is_Detele==true).ToList();
-                    var g = new List<Guid>();
-                    foreach (var item in KhuyenMaiSp)
-                    {
-                        // Kiểm tra xem Mau.Id đã xuất hiện trong danh sách chưa
-                        if (!g.Contains((Guid)item.IdSanPham))
-                        {
-                            g.Add((Guid)item.IdSanPham);
-                        }
-                    }
+                   
                     //Thêm chi tiết hóa đơn cho từng sản phẩm trong giỏ hàng
                     var luuGio = SessionBan.IdGio(HttpContext.Session, "LuoGio");
                     var lisdiachi1 = _diaChiNhanHangService.GetAll().Where(c => c.IdKhachHang == accnew[0].Id && c.Is_detele == true).ToList();
@@ -829,7 +846,10 @@ namespace CTN4_View.Controllers.Shop
                         };
                         if (g.Contains(ct.SanPhamChiTiet.SanPham.Id))
                         {
+                            var spct = _SanPhamChiTiet.GetById(ct.IdSanPhamChiTiet);
+                            spct.SoLuong -= ct.SoLuong;
                             cthd.SoLuong *= 2;
+                            _SanPhamChiTiet.Sua(spct);
                         }
                         if (_HoaDonChiTiet.Them(cthd) == false)
                         {
