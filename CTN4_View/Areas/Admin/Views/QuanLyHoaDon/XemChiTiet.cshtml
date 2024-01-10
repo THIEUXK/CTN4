@@ -672,7 +672,7 @@
                         <div>Trạng thái: <span style="color:saddlebrown">@Model.HoaDon.TrangThai</span></div>
                         @{
                             int b = 0;
-                            @foreach (var a in Model.LichSuHoaDon.Where(c => c.TrangThai == true && c.ThaoTac == $"Giao hàng thất bại đơn hàng {c.HoaDon.MaHoaDon}"))
+                            @foreach (var a in Model.LichSuHoaDon.Where(c => c.TrangThai == true && c.ThaoTac == $"Giao hàng thất bại đơn hàng {c.HoaDon.MaHoaDon} và sẽ tiếp tục được giao"))
                             {
                                 b += 1;
                             }
@@ -770,6 +770,28 @@
                                         </div>
                                     </div>
                                 }
+                                <div class="dropdown">
+                                    <button type="button" class="btn btn-custom-primary" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                        Hoàn tác
+                                    </button>
+                                    <div class="dropdown-menu p-4">
+                                        <form asp-action="HoanTacGiaoThatBai">
+                                            <input type="hidden" name="id" value="@Model.HoaDon.Id">
+                                            <div class="form-group">
+                                                <label for="GhiChu" class="col-form-label">Lý do hoàn tác</label>
+                                                <textarea name="LyDo" class="form-control"></textarea>
+                                            </div>
+                                            <br />
+                                            <div class="form-row">
+                                                <div class="col">
+                                                    <button type="submit" class="btn btn-custom-primary">Xác nhận hoàn tác</button>
+                                                </div>
+                                                <div class="col-auto text-right"></div>
+                                            </div>
+                                            <br />
+                                        </form>
+                                    </div>
+                                </div>
                             }
 
                         }
@@ -778,7 +800,7 @@
                 </div>
                 <div class="card w-100">
                     <div class="card-body p-4">
-                        @if (Model.HoaDon.TrangThai != "Đơn hàng bị hủy")
+                        @if (Model.HoaDon.TrangThai != "Đơn hàng bị hủy" && Model.HoaDon.TrangThai != "Đưa hàng thành công" && Model.HoaDon.TrangThai != "Giao hàng thành công")
                         {
                             <div class="dropdown">
                                 <button type="button" class="btn btn-custom-rangen " data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
@@ -829,7 +851,7 @@
                         }
                         else
                         {
-                            <div style="color:red">Đơn hàng đã bị hủy !</div>
+                           @*  <div style="color:red">Đơn hàng đã bị hủy !</div> *@
 
                         }
                     </div>

@@ -548,6 +548,52 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                 return RedirectToAction("DangNhap", "Home");
             }
         }
+        public IActionResult HoanTacGiaoThatBai(int id, string LyDo)
+        {
+            var nvnew = SessionServices.NhanVienSS(HttpContext.Session, "ACA");
+            if (nvnew.Count() != 0)
+            {
+                if (LyDo == null)
+                {
+                    var message = "hãy điền lý do hoàn tác";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
+                var hd = _hoaDonService.GetById(id);
+                if (hd.TrangThai == "Giao hàng thất bại")
+                {
+                    hd.TrangThai = "Hàng của bạn đang được giao";
+                    if (_hoaDonService.Sua(hd) == true)
+                    {
+                        var li = new LichSuDonHang()
+                        {
+                            GhiChu = LyDo,
+                            ThaoTac = $"Hoàn tác xác nhận gao đơn hàng {hd.MaHoaDon} thất bại",
+                            IdHoaDonn = id,
+                            ThoiGianlam = DateTime.Now,
+                            NguoiThucHien = nvnew[0].TenDangNhap,
+                            TrangThai = true,
+                            Is_detele = false
+                        };
+                        _LichSuHoaDonService.Them(li);
+                    }
+                }
+                else
+                {
+                    var message = "Đơn hàng đã hoàn thành không thể hoàn tác !";
+                    TempData["TB3"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
+
+
+
+                return RedirectToAction("XemChiTiet", new { id = id });
+            }
+            else
+            {
+                return RedirectToAction("DangNhap", "Home");
+            }
+        }
         public IActionResult XacNhanThanhToan(int id)
         {
             var nvnew = SessionServices.NhanVienSS(HttpContext.Session, "ACA");
@@ -719,7 +765,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                         var li = new LichSuDonHang()
                         {
                             GhiChu = null,
-                            ThaoTac = $"Giao hàng thất bại đơn hàng {hd.MaHoaDon} ",
+                            ThaoTac = $"Giao hàng thất bại đơn hàng {hd.MaHoaDon} và sẽ ngừng giao",
                             IdHoaDonn = id,
                             ThoiGianlam = DateTime.Now,
                             NguoiThucHien = nvnew[0].TenDangNhap,
@@ -754,7 +800,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                     var li = new LichSuDonHang()
                     {
                         GhiChu = null,
-                        ThaoTac = $"Giao hàng thất bại đơn hàng {hd.MaHoaDon}",
+                        ThaoTac = $"Giao hàng thất bại đơn hàng {hd.MaHoaDon} và sẽ tiếp tục được giao",
                         IdHoaDonn = id,
                         ThoiGianlam = DateTime.Now,
                         NguoiThucHien = nvnew[0].TenDangNhap,
