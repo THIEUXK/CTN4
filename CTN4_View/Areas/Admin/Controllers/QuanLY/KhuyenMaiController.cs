@@ -176,11 +176,11 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             }
 
             // Kiểm tra NgayBatDau > Now
-            if (datasubmit.NgayBatDau <= DateTime.Now)
-            {
-                ViewBag.Message = "Thời gian bắt đầu phải lớn hơn thời gian hiện tại.";
-                return View(datasubmit);
-            }
+            //if (datasubmit.NgayBatDau <= DateTime.Now)
+            //{
+            //    ViewBag.Message = "Thời gian bắt đầu phải lớn hơn thời gian hiện tại.";
+            //    return View(datasubmit);
+            //}
             if (datasubmit.DongGia < 0)
             {
                 ViewBag.Message = "Lớn hơn 0.";

@@ -43,6 +43,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.jQuery.Unobtrusive.Validation" Version="4.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
+    <PackageReference Include="morelinq" Version="4.1.0" />
     <PackageReference Include="PayPal" Version="1.9.1" />
     <PackageReference Include="X.PagedList" Version="9.0.0-prerelease" />
     <PackageReference Include="X.PagedList.Mvc.Core" Version="9.0.0-prerelease" />
