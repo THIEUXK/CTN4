@@ -51,7 +51,14 @@
                                 @Html.DisplayFor(modelItem => item.TenNSX)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.TrangThai)
+                                @if (item.TrangThai == true)
+                                {
+                                    <p>Hiện thị trên trang web</p>
+                                }
+                                else
+                                {
+                                    <p>Đã ẩn trên trang web</p>
+                                }
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.GhiChu)

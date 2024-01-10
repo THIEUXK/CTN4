@@ -102,7 +102,7 @@ namespace CTN4_View.Controllers.Shop
             .Where(c => c.GiaNiemYet >= luuGiaBatDau && c.GiaNiemYet <= luuGiaKetThuc && c.Is_detele == true).ToList();
             if (searchTenSp.Count != 0 && searchMau.Count == 0)
             {
-                if (Soluonghienthi == 0) { Soluonghienthi = 6; }
+                if (Soluonghienthi == 0) { Soluonghienthi = 9; }
                 if (page == 0) { page = 1; }
                 var danhMuc = _danhMucService.GetAll();
                 var danhMucChiTiets = _danhMucChiTiet.GetAll();
@@ -157,7 +157,7 @@ namespace CTN4_View.Controllers.Shop
             ///// chỉ tìm màu
             else if (searchTenSp.Count == 0 && searchMau.Count != 0)
             {
-                if (Soluonghienthi == 0) { Soluonghienthi = 6; }
+                if (Soluonghienthi == 0) { Soluonghienthi = 9; }
                 if (page == 0) { page = 1; }
                 var danhMuc = _danhMucService.GetAll();
                 var danhMucChiTiets = _danhMucChiTiet.GetAll();
@@ -211,7 +211,7 @@ namespace CTN4_View.Controllers.Shop
             }///// chỉ tìm màu
             else if (searchTenSp.Count != 0 && searchMau.Count != 0 && searchGiaTien.Count ==0)
             {
-                if (Soluonghienthi == 0) { Soluonghienthi = 6; }
+                if (Soluonghienthi == 0) { Soluonghienthi = 9; }
                 if (page == 0) { page = 1; }
                 var danhMuc = _danhMucService.GetAll();
                 var danhMucChiTiets = _danhMucChiTiet.GetAll();
@@ -265,7 +265,7 @@ namespace CTN4_View.Controllers.Shop
             }// Chỉ tìm giá tiền
             else if (searchTenSp.Count == 0 && searchMau.Count == 0)
             {
-                if (Soluonghienthi == 0) { Soluonghienthi = 6; }
+                if (Soluonghienthi == 0) { Soluonghienthi = 9; }
                 if (page == 0) { page = 1; }
                 var danhMuc = _danhMucService.GetAll();
                 var danhMucChiTiets = _danhMucChiTiet.GetAll();
@@ -319,7 +319,7 @@ namespace CTN4_View.Controllers.Shop
             }
             else if (searchTenSp.Count != 0 && searchMau.Count != 0 && searchGiaTien.Count != 0)
             {
-                if (Soluonghienthi == 0) { Soluonghienthi = 6; }
+                if (Soluonghienthi == 0) { Soluonghienthi = 9; }
                 if (page == 0) { page = 1; }
                 var danhMuc = _danhMucService.GetAll();
                 var danhMucChiTiets = _danhMucChiTiet.GetAll();
@@ -373,7 +373,7 @@ namespace CTN4_View.Controllers.Shop
             }
             else if (searchTenSp.Count == 0 && searchMau.Count == 0 && searchGiaTien.Count == 0 && luuGiaBatDau != 0 && luuGiaKetThuc != 0)
             {
-                if (Soluonghienthi == 0) { Soluonghienthi = 6; }
+                if (Soluonghienthi == 0) { Soluonghienthi = 9; }
                 if (page == 0) { page = 1; }
                 var danhMuc = _danhMucService.GetAll();
                 var danhMucChiTiets = _danhMucChiTiet.GetAll();
@@ -426,7 +426,7 @@ namespace CTN4_View.Controllers.Shop
             }
             else
             {
-                if (Soluonghienthi == 0) { Soluonghienthi = 6; }
+                if (Soluonghienthi == 0) { Soluonghienthi = 9; }
                 if (page == 0) { page = 1; }
                 var danhMuc = _danhMucService.GetAll();
                 var danhMucChiTiets = _danhMucChiTiet.GetAll();
@@ -465,10 +465,10 @@ namespace CTN4_View.Controllers.Shop
         }
         public IActionResult ChonShowSp(int Soluonghienthi, int page, Guid id)
         {
-            var luuChonShow = SessionBan.SanPhamMoRong(HttpContext.Session, "ChonShowSp");
-            luuChonShow = Soluonghienthi;
-            SessionBan.SetObjToJson(HttpContext.Session, "ChonShowSp", luuChonShow);
-            if (Soluonghienthi == 0) { Soluonghienthi = 6; }
+            //var luuChonShow = SessionBan.SanPhamMoRong(HttpContext.Session, "ChonShowSp");
+            //luuChonShow = Soluonghienthi;
+            //SessionBan.SetObjToJson(HttpContext.Session, "ChonShowSp", luuChonShow);
+            if (Soluonghienthi == 0) { Soluonghienthi = 9; }
             if (page == 0) { page = 1; }
             var danhMuc = _danhMucService.GetAll();
             var danhMucChiTiets = _danhMucChiTiet.GetAll();
@@ -520,7 +520,7 @@ namespace CTN4_View.Controllers.Shop
 
                 if (searchTenSp1.Count != 0)
                 {
-                    if (Soluonghienthi == 0) { Soluonghienthi = 6; }
+                    if (Soluonghienthi == 0) { Soluonghienthi = 9; }
                     if (page == 0) { page = 1; }
                     var danhMuc = _danhMucService.GetAll();
                     var danhMucChiTiets = _danhMucChiTiet.GetAll();
@@ -576,7 +576,7 @@ namespace CTN4_View.Controllers.Shop
 
             if (searchTenSp.Count != 0)
             {
-                if (Soluonghienthi == 0) { Soluonghienthi = 6; }
+                if (Soluonghienthi == 0) { Soluonghienthi = 9; }
                 if (page == 0) { page = 1; }
                 var danhMuc = _danhMucService.GetAll();
                 var danhMucChiTiets = _danhMucChiTiet.GetAll();
@@ -666,7 +666,7 @@ namespace CTN4_View.Controllers.Shop
 
                     if (searchTenSp.Count != 0 && searchMau.Count == 0)
                     {
-                        if (Soluonghienthi == 0) { Soluonghienthi = 6; }
+                        if (Soluonghienthi == 0) { Soluonghienthi = 9; }
                         if (page == 0) { page = 1; }
                         var danhMuc = _danhMucService.GetAll();
                         var danhMucChiTiets = _danhMucChiTiet.GetAll();
@@ -701,7 +701,7 @@ namespace CTN4_View.Controllers.Shop
                     }
                     else if (searchTenSp.Count == 0 && searchMau.Count != 0)
                     {
-                        if (Soluonghienthi == 0) { Soluonghienthi = 6; }
+                        if (Soluonghienthi == 0) { Soluonghienthi = 9; }
                         if (page == 0) { page = 1; }
                         var danhMuc = _danhMucService.GetAll();
                         var danhMucChiTiets = _danhMucChiTiet.GetAll();
@@ -736,7 +736,7 @@ namespace CTN4_View.Controllers.Shop
                     }
                     else if (searchTenSp.Count != 0 && searchMau.Count != 0)
                     {
-                        if (Soluonghienthi == 0) { Soluonghienthi = 6; }
+                        if (Soluonghienthi == 0) { Soluonghienthi = 9; }
                         if (page == 0) { page = 1; }
                         var danhMuc = _danhMucService.GetAll();
                         var danhMucChiTiets = _danhMucChiTiet.GetAll();
