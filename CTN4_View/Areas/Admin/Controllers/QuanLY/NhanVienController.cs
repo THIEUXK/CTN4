@@ -179,7 +179,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
              var b = new NhanVien()
                 {
 
-                    Id = Guid.NewGuid(),
+                    Id =p.Id,
                     Ho = p.Ho,
                     Ten = p.Ten,
                     TenDangNhap = p.TenDangNhap,
