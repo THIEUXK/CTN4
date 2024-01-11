@@ -67,7 +67,13 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [ValidateAntiForgeryToken]
         public ActionResult Create(Size a)
         {
-
+             var check = _sv.GetAll().FirstOrDefault(c=>c.TenSize == a.TenSize);
+            // Check for duplicate TenNSX
+            if (check != null)
+            {
+                ModelState.AddModelError("TenSize", "Tên size đã tồn tại. Vui lòng chọn một tên khác.");
+                return View();
+            }
             var b = new Size();
             {
                 b.TenSize = a.TenSize;
