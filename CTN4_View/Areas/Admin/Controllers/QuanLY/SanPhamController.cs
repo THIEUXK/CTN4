@@ -154,8 +154,6 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [ValidateAntiForgeryToken]
         public ActionResult Create(SanPhamView p, [Bind] IFormFile imageFile)
         {
-           
-
                 if (imageFile != null && imageFile.Length > 0) // Không null và không trống
                 {
                     //Trỏ tới thư mục wwwroot để lát nữa thực hiện việc Copy sang
@@ -229,9 +227,6 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                     return RedirectToAction("Index", new { Loi });
                 }
             }
-          
-
-
         // GET: SanPhamController/Edit/5
 
         public ActionResult Edit(Guid id)

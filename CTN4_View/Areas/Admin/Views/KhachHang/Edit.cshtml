@@ -19,9 +19,10 @@
         <hr />
         <div class="row">
             <div class="col-md-4">
-                <form asp-action="Edit">
+                <form asp-action="Edit" enctype="multipart/form-data" onsubmit="return confirmSubmit();">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <input type="hidden" asp-for="AnhDaiDien" />
+                    <input type="hidden" asp-for="Id" class="form-control" />
+                    <input type="hidden" name="anhdaidiencheck" value="@Model.AnhDaiDien" class="form-control" />
                     <div class="form-group">
                         <label asp-for="Ho" class="control-label">Họ</label>
                         <input asp-for="Ho" class="form-control" />
@@ -65,11 +66,7 @@
                         <span asp-validation-for="DiaChi" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                       @* <label asp-for="AnhDaiDien" class="control-label"></label>
-                        <input asp-for="AnhDaiDien" class="form-control" />
-                        <span asp-validation-for="AnhDaiDien" class="text-danger"></span>*@
-                        <label asp-for="AnhDaiDien" class="control-label">Ảnh đại diện</label>
-
+                        <label>Chọn ảnh từ Máy tính:</label>
                         <input type="file" name="imageFile" />
                     </div>
                     <div class="form-group form-check">
@@ -95,3 +92,10 @@
     </div>
 </div>
 
+<script>
+    function confirmSubmit() {
+        // Hiển thị hộp thoại xác nhận
+        var result = confirm("Bạn có chắc muốn chỉnh sửa khách hàng này không?");
+        return result;
+    }
+</script>

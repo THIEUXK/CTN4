@@ -83,8 +83,15 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.DiaChi)
                         </td>
-                        <td style="color:green">
-                            @Html.DisplayFor(modelItem => item.Trangthai)
+                        <td >
+                                @if (item.Trangthai == true)
+                                {
+                                    <a>Hiển thị</a>
+                                }
+                                else
+                                {
+                                    <a>Tạm ẩn</a>
+                                }
                         </td>
                         <td>
 
@@ -95,7 +102,7 @@
                                System.IO.Path.GetExtension(item.AnhDaiDien) == ".webp" ||
                                System.IO.Path.GetExtension(item.AnhDaiDien) == ".gif")
                                 {
-                                    <img src="~/image/@item.AnhDaiDien" height="300">
+                                    <img src="~/image/@item.AnhDaiDien" height="160">
                                 }
                                 else
                                 {

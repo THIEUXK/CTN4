@@ -33,20 +33,7 @@
                     @Html.DisplayFor(model => model.SanPhamChiTiet.SoLuong)
                 </dd>
 
-                <dt class="col-sm-2">
-                    Trạng thái
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.SanPhamChiTiet.TrangThai)
-                </dd>
 
-
-                <dt class="col-sm-2">
-                    Tình trạng
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.SanPhamChiTiet.Is_detele)
-                </dd>
 
                 <dt class="col-sm-2">
                     Màu sắc
@@ -60,8 +47,39 @@
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.SanPhamChiTiet.Size.CoSize)
+
+                </dd>
+                <dt class="col-sm-2">
+                    Trạng thái
+                </dt>
+                <dd class="col-sm-10">
+                    @if (Model.SanPhamChiTiet.TrangThai == true)
+                    {
+                        <a>Hiển thị ra trang web</a>
+                    }
+                    else
+                    {
+                        <a>Tạm ẩn</a>
+                    }
                 </dd>
 
+
+                <dt class="col-sm-2">
+                    Tình trạng
+                </dt>
+                <dd class="col-sm-10">
+                 
+
+                    @if (Model.SanPhamChiTiet.Is_detele == true)
+                    {
+                        <a>Hiển thị</a>
+                    }
+                    else
+                    {
+                        <a>Tạm ẩn</a>
+                    }
+
+                </dd>
             </dl>
         </div>
         <div>

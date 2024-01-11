@@ -57,7 +57,7 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.SanPham.MaSp)
         </dd>
-        
+
         <dt class="col-sm-2">
             Mô tả
         </dt>
@@ -103,13 +103,29 @@
             Trạng thái
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.SanPham.TrangThai)
+
+            @if (Model.SanPham.TrangThai == true)
+            {
+                <p>Hiển thị trên trang web</p>
+            }
+            else
+            {
+                <p>Đã ẩn trên trang web</p>
+            }
         </dd>
         <dt class="col-sm-2">
             Tình trạng
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.SanPham.Is_detele)
+
+            @if (Model.SanPham.Is_detele == true)
+            {
+                <p>Hiển thị </p>
+            }
+            else
+            {
+                <p>Đã ẩn </p>
+            }
         </dd>
     </dl>
 </div>
@@ -136,7 +152,8 @@
 
             <th>
                 Trạng thái
-            </th> <th>
+            </th>
+            <th>
                 Tình trạng
             </th>
             <th>
@@ -194,23 +211,32 @@
                     </div>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TrangThai)
-                </td><td>
+                 
+                    @if (item.TrangThai == true)
+                    {
+                        <a>Hiển thị ra trang web</a>
+                    }
+                    else
+                    {
+                        <a>Tạm ẩn ra trang web </a>
+                    }
+                </td>
+                <td>
                     @if (item.Is_detele == true)
                     {
-                        <a>Hiện thị</a>
+                        <a>Hiển thị</a>
                     }
                     else
                     {
                         <a>Tạm ẩn</a>
                     }
-                   
+
                 </td>
                 <td>
                     @Html.ActionLink("Chỉnh sửa", "Edit", "QuanLYH",new { id=item.Id },new { style = "text-decoration: none; color: black;" }) |
                     @Html.ActionLink("Chi tiết", "Details","QuanLYH" ,new { id=item.Id }, new { style = "text-decoration: none; color: black;" }) |
                     @Html.ActionLink("Xóa", "Delete", "QuanLYH",new { id=item.Id },new { style = "text-decoration: none; color: black;", onclick = "return confirmDelete();" }) |
-                    
+
 
                 </td>
             </tr>
@@ -255,7 +281,6 @@
             string formattedPrice = string.Format("{0:N0}", price); // Định dạng số và thêm dấu phân cách ngàn
             return formattedPrice + "VND"; // Thêm ký hiệu đồng (₫) vào cuối
         }
-
     };
     function confirmDelete() {
         var result = confirm("Bạn có chắc chắn muốn xóa không?");

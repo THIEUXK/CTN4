@@ -63,22 +63,30 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [ValidateAntiForgeryToken]
         public ActionResult Create(NSX a)
         {
-            var b = new NSX();
+            var check = _nsx.GetAll().FirstOrDefault(c=>c.TenNSX == a.TenNSX);
+            // Check for duplicate TenNSX
+            if (check != null)
             {
-                b.TenNSX = a.TenNSX;
-                b.GhiChu = a.GhiChu;
-                b.TrangThai = true;
-                b.Is_detele = true;
-
-
+                ModelState.AddModelError("TenNSX", "Tên NSX đã tồn tại. Vui lòng chọn một tên khác.");
+                return View();
             }
+
+            var b = new NSX
+            {
+                TenNSX = a.TenNSX,
+                GhiChu = a.GhiChu,
+                TrangThai = true,
+                Is_detele = true
+            };
+
             if (_nsx.Them(b))
             {
-
                 return RedirectToAction("Index");
             }
+
             return View();
         }
+
         // GET: NSXController/Edit/5
         public ActionResult Edit(Guid id)
         {

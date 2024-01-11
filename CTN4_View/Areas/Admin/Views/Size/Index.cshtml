@@ -63,7 +63,7 @@
                             <td>
                                 @if (item.TrangThai == true)
                                 {
-                                    <p>Hiện thị trên trang web</p>
+                                    <p>Hiển thị trên trang web</p>
                                 }
                                 else
                                 {
@@ -73,7 +73,7 @@
                             <td>
                                 @if (item.Is_detele == true)
                                 {
-                                <p>Hiện thị</p>
+                                <p>Hiển thị</p>
                                 }
                                 else
                                 {
@@ -95,7 +95,7 @@
 @*pagelist*@
 <div class="row no-gutters justify-content-between paginate">
     <div class="col-auto ">
-        @using (Html.BeginForm("Index", "SanPham", FormMethod.Get))
+        @using (Html.BeginForm("Index", "Size", FormMethod.Get))
         {
             <div class="custom-dropdown">
                 Kích thước trang: @Html.DropDownList("size", (SelectList)ViewBag.SizeOptions, new { @onchange = "this.form.submit();" })
