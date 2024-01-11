@@ -28,7 +28,7 @@ namespace CTN4_Serv.Service
 
         public NhanVien GetById(Guid id)
         {
-            return GetAll().FirstOrDefault(c => c.Id == id);
+            return GetAlls().FirstOrDefault(c => c.Id == id);
         }
 		public NhanVien GetByIdChucVu(Guid id)
 		{

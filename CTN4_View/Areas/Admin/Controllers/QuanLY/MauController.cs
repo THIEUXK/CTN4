@@ -62,6 +62,13 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [ValidateAntiForgeryToken]
         public ActionResult Create(Mau a)
         {
+             var check = _mau.GetAll().FirstOrDefault(c=>c.TenMau == a.TenMau);
+            // Check for duplicate TenNSX
+            if (check != null)
+            {
+                ModelState.AddModelError("TenMau", "Tên màu sắc đã tồn tại. Vui lòng chọn một tên khác.");
+                return View();
+            }
             var b = new Mau();
             {
                 b.TenMau = a.TenMau;

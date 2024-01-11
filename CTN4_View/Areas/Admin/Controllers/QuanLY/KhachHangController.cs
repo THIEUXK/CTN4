@@ -1,8 +1,10 @@
 ﻿using CTN4_Data.Models.DB_CTN4;
 using CTN4_Serv.Service;
 using CTN4_Serv.Service.IService;
+using CTN4_Serv.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CTN4_View_Admin.Controllers.QuanLY
 {
@@ -42,11 +44,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         public ActionResult Create(KhachHang a, [Bind] IFormFile imageFile)
         {
 
-            if (ModelState.IsValid)
-            {
-                var x = imageFile.FileName;
-
-                if (imageFile != null && imageFile.Length > 0) // Không null và không trống
+             if (imageFile != null && imageFile.Length > 0) // Không null và không trống
                 {
                     //Trỏ tới thư mục wwwroot để lát nữa thực hiện việc Copy sang
                     var path = Path.Combine(
@@ -59,22 +57,53 @@ namespace CTN4_View_Admin.Controllers.QuanLY
 
                     // Gán lại giá trị cho Description của đối tượng bằng tên file ảnh đã được sao chép
                     a.AnhDaiDien = imageFile.FileName;
-                    a.Trangthai = true;
-                    a.Is_detele = false;
+
                 }
-                if (_kh.Them(a)) // Nếu thêm thành công
+                else
                 {
-
-                    return RedirectToAction("Index");
+                    var thongbaoAnh = "Hay them anh";
+                    TempData["Notification"] = thongbaoAnh;
+                    return RedirectToAction("Create", new { thongbaoAnh });
                 }
+                if (System.IO.Path.GetExtension(imageFile.FileName) == ".jpg" ||
+                System.IO.Path.GetExtension(imageFile.FileName) == ".png" ||
+                System.IO.Path.GetExtension(imageFile.FileName) == ".jpeg" ||
+                System.IO.Path.GetExtension(imageFile.FileName) == ".tiff" ||
+                System.IO.Path.GetExtension(imageFile.FileName) == ".webp" ||
+                System.IO.Path.GetExtension(imageFile.FileName) == ".gif")
+                {
+                    var b = new KhachHang()
+                    {
 
-                return View();
+                        Id = Guid.NewGuid(),
+                        Ho = a.Ho,
+                        Ten = a.Ten,
+                        TenDangNhap = a.TenDangNhap,
+                        MatKhau = a.MatKhau,
+                        GioiTinh = a.GioiTinh,
+                        Email = a.Email,
+                        DiaChi = a.DiaChi,
+                        SDT = a.SDT,
+                        Trangthai = true,
+                        Is_detele = true,
+                        AnhDaiDien = a.AnhDaiDien,
+
+                    };
+                    if (_kh.Them(b)) // Nếu thêm thành công
+                    {
+
+                        return RedirectToAction("Index");
+                    }
+                    
+                    return View();
+                }
+                else
+                {
+                    var Loi = "Không đúng định dạng ảnh";
+                    TempData["Loi"] = Loi;
+                    return RedirectToAction("Index", new { Loi });
+                }
             }
-            return View(a);
-        }
-
-
-
 
         // GET: KhuyenMaiController/Edit/5
         public ActionResult Edit(Guid id)
@@ -85,7 +114,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         // POST: KhachHangController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(KhachHang a, [Bind] IFormFile imageFile)
+        public ActionResult Edit(KhachHang a, [Bind] IFormFile imageFile, string anhdaidiencheck)
         {
             if (imageFile != null && imageFile.Length > 0) // Không null và không trống
             {
@@ -100,6 +129,10 @@ namespace CTN4_View_Admin.Controllers.QuanLY
 
                 // Gán lại giá trị cho Description của đối tượng bằng tên file ảnh đã được sao chép
                 a.AnhDaiDien = imageFile.FileName;
+            }
+             else
+            {
+                a.AnhDaiDien = anhdaidiencheck;
             }
             if (_kh.Sua(a))
             {
