@@ -66,11 +66,22 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [ValidateAntiForgeryToken]
         public ActionResult Create(ChatLieu a)
         {
-            if (_sv.Them(a)) // Nếu thêm thành công
-            {
+             // Kiểm tra xem đã tồn tại danh mục có tên như a.TenDanhMuc chưa
+            var existingDanhMuc = _sv.GetAll().FirstOrDefault(c => c.TenChatLieu == a.TenChatLieu);
 
-                return RedirectToAction("Index");
+            if (existingDanhMuc == null)
+            {
+                // Nếu không tồn tại, thêm danh mục mới
+                if (_sv.Them(a))
+                {
+                    return RedirectToAction("Index");
+                }
+                return View();
             }
+
+            // Nếu đã tồn tại, có thể xử lý theo nhu cầu của bạn
+            // Ví dụ: Hiển thị thông báo lỗi về trùng lặp
+            ModelState.AddModelError("TenChatLieu", "Tên chất liệu đã tồn tại.");
 
             return View();
         }
