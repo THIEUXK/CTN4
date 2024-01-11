@@ -255,16 +255,16 @@
                             <input type="hidden" name="IdSanPham" value="@Model.sanPham.Id">
                             @if (TempData["TB1"] != null)
                             {
-                                <div class="alert style=&quot;color:aliceblue&quot; alert-danger">@TempData["TB1"]</div>
+                                <div class="alert" style="color:black;background-color:red">@TempData["TB1"]</div>
                             }
 
                             @if (TempData["TB2"] != null)
                             {
-                                <div style="color:aliceblue" class="alert alert-danger">@TempData["TB2"]</div>
+                                <div style="color:black;background-color:red" class="alert alert-danger">@TempData["TB2"]</div>
                             }
                             <input type="hidden" name="idHD" value="@Model.idHD" id="idHD">
                             <div class="card_area d-flex align-items-center">
-                                <button class="primary-btn" type="submit" href="#">Add to Cart</button>
+                                <button class="primary-btn" type="submit" href="#">Thêm vào đơn</button>
                                 <a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
                                 <a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
                             </div>

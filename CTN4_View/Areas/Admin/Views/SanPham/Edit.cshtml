@@ -112,9 +112,13 @@
 
                         <label>Chọn ảnh từ Máy tính:</label>
                         <input type="file" name="imageFile" />
-                        @*<label asp-for="AnhDaiDien" class="control-label">Ảnh đại diện</label>
-
-                        <input type="file" name="imageFile" />*@
+                        @if (TempData["Notification"] != null)
+                        {
+                            <a style="color:red">@TempData["Notification"]</a>
+                        } @if (TempData["Loi"] != null)
+                        {
+                            <a style="color:red">@TempData["Loi"]</a>
+                        }
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Lưu" class="btn btn-primary" />
