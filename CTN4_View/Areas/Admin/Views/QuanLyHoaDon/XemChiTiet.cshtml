@@ -770,28 +770,32 @@
                                         </div>
                                     </div>
                                 }
-                                <div class="dropdown">
-                                    <button type="button" class="btn btn-custom-primary" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
-                                        Hoàn tác
-                                    </button>
-                                    <div class="dropdown-menu p-4">
-                                        <form asp-action="HoanTacGiaoThatBai">
-                                            <input type="hidden" name="id" value="@Model.HoaDon.Id">
-                                            <div class="form-group">
-                                                <label for="GhiChu" class="col-form-label">Lý do hoàn tác</label>
-                                                <textarea name="LyDo" class="form-control"></textarea>
-                                            </div>
-                                            <br />
-                                            <div class="form-row">
-                                                <div class="col">
-                                                    <button type="submit" class="btn btn-custom-primary">Xác nhận hoàn tác</button>
+                                else if (Model.HoaDon.TrangThai == "Giao hàng thất bại")
+                                {
+                                    <div class="dropdown">
+                                        <button type="button" class="btn btn-custom-primary" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                            Hoàn tác
+                                        </button>
+                                        <div class="dropdown-menu p-4">
+                                            <form asp-action="HoanTacGiaoThatBai">
+                                                <input type="hidden" name="id" value="@Model.HoaDon.Id">
+                                                <div class="form-group">
+                                                    <label for="GhiChu" class="col-form-label">Lý do hoàn tác</label>
+                                                    <textarea name="LyDo" class="form-control"></textarea>
                                                 </div>
-                                                <div class="col-auto text-right"></div>
-                                            </div>
-                                            <br />
-                                        </form>
+                                                <br />
+                                                <div class="form-row">
+                                                    <div class="col">
+                                                        <button type="submit" class="btn btn-custom-primary">Xác nhận hoàn tác</button>
+                                                    </div>
+                                                    <div class="col-auto text-right"></div>
+                                                </div>
+                                                <br />
+                                            </form>
+                                        </div>
                                     </div>
-                                </div>
+                                }
+                               
                             }
 
                         }
