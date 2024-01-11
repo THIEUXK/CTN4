@@ -31,7 +31,14 @@
                    Tình trạng
                 </dt>
                 <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.DanhMuc.Is_detele)
+                    @if (@Model.DanhMuc.Is_detele == true)
+                    {
+                        <p>Hiển thị</p>
+                    }
+                    else
+                    {
+                        <p>Đã ẩn</p>
+                    }
                 </dd>
             </dl>
         </div>

@@ -1,5 +1,6 @@
-﻿@{
-	ViewData["Title"] = "Index ";
+﻿@using CTN4_Serv.Service;
+@{
+    ViewData["Title"] = "Index ";
 }
 @model CTN4_Serv.ViewModel.SanPhamBanChayView
 @*@model List<CTN4_Data.Models.DB_CTN4.SanPham>*@
@@ -7,36 +8,14 @@
 
 <body>
 
-	<!-- Start Header Area -->
-	
-	<!-- End Header Area -->
-	<section class="banner-area">
-		<div class="container">
-			<div class="row fullscreen align-items-center justify-content-start">
-				<div class="col-lg-12">
-					<div class="active-banner-slider owl-carousel">
-						<!-- single-slide -->
-						<div class="row single-slide align-items-center d-flex">
-							<div class="col-lg-5 col-md-6">
-								<div class="banner-content">
-									<h1>Bộ sưu tập mới của  <br>túi xách nữ</h1>
-									<p>
-										Túi sách nữ Hà Nội uy tín chính hãng tận tâm. Hệ thống cửa hàng mua balo, bán balo - túi thể thao - vali kéo chính hãng giá rẻ wed chuyên cung cấp các sản phẩm về hành lý chính hãng xuất nhập khẩu uy tín.
-									</p>
-                                    <div class="add-bag d-flex align-items-center justify-content-center text-center">
-										<a class="add-btn"href="@Url.Action("HienThiSanPham","HienThiSanPham",new {load = "a"})"><span class="lnr lnr-cross"></span></a>
-                                        <span class="add-text text-uppercase">Thêm vào giỏ hàng</span>
-                                    </div>
-
-								</div>
-							</div>
-							<div class="col-lg-7">
-								<div class="banner-img">
-									<img class="img-fluid" src="~/img/banner/anhtuixachden.png" alt="">
-								</div>
-							</div>
-						</div>
-						<!-- single-slide -->
+    <!-- Start Header Area -->
+    <!-- End Header Area -->
+    <section class="banner-area">
+        <div class="container">
+            <div class="row fullscreen align-items-center justify-content-start">
+                <div class="col-lg-12">
+                    <div class="active-banner-slider owl-carousel">
+                        <!-- single-slide -->
                         <div class="row single-slide align-items-center d-flex">
                             <div class="col-lg-5 col-md-6">
                                 <div class="banner-content">
@@ -44,8 +23,8 @@
                                     <p>
                                         Túi sách nữ Hà Nội uy tín chính hãng tận tâm. Hệ thống cửa hàng mua balo, bán balo - túi thể thao - vali kéo chính hãng giá rẻ wed chuyên cung cấp các sản phẩm về hành lý chính hãng xuất nhập khẩu uy tín.
                                     </p>
-									<div class="add-bag d-flex align-items-center justify-content-center text-center" >
-										<a class="add-btn" href="@Url.Action("HienThiSanPham","HienThiSanPham",new {load = "a"})"><span class="lnr lnr-cross"></span></a>
+                                    <div class="add-bag d-flex align-items-center justify-content-center text-center">
+                                        <a class="add-btn" href="@Url.Action("HienThiSanPham","HienThiSanPham",new {load = "a"})"><span class="lnr lnr-cross"></span></a>
                                         <span class="add-text text-uppercase">Thêm vào giỏ hàng</span>
                                     </div>
 
@@ -53,438 +32,548 @@
                             </div>
                             <div class="col-lg-7">
                                 <div class="banner-img">
-									<img class="img-fluid" src="~/img/banner/pexels-fatin-hisham-2081332-removebg-preview.png" alt="">
+                                    <img class="img-fluid" src="~/img/banner/anhtuixachden.png" alt="">
                                 </div>
                             </div>
                         </div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+                        <!-- single-slide -->
+                        <div class="row single-slide align-items-center d-flex">
+                            <div class="col-lg-5 col-md-6">
+                                <div class="banner-content">
+                                    <h1>Bộ sưu tập mới của  <br>túi xách nữ</h1>
+                                    <p>
+                                        Túi sách nữ Hà Nội uy tín chính hãng tận tâm. Hệ thống cửa hàng mua balo, bán balo - túi thể thao - vali kéo chính hãng giá rẻ wed chuyên cung cấp các sản phẩm về hành lý chính hãng xuất nhập khẩu uy tín.
+                                    </p>
+                                    <div class="add-bag d-flex align-items-center justify-content-center text-center">
+                                        <a class="add-btn" href="@Url.Action("HienThiSanPham","HienThiSanPham",new {load = "a"})"><span class="lnr lnr-cross"></span></a>
+                                        <span class="add-text text-uppercase">Thêm vào giỏ hàng</span>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="banner-img">
+                                    <img class="img-fluid" src="~/img/banner/pexels-fatin-hisham-2081332-removebg-preview.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 
 
-	<!-- start features Area -->
-	<section class="features-area section_gap">
-		<div class="container">
-			<div class="row features-inner">
-				<!-- single features -->
-				<div class="col-lg-3 col-md-6 col-sm-6">
-					<div class="single-features">
-						<div class="f-icon">
-							<img src="~/img/features/f-icon1.png" alt="">
-						</div>
-						<h6>Giao hàng miễn phí</h6>
-						<p>Miễn phí vận chuyển cho đơn hàng có giá trị lớn</p>
-					</div>
-				</div>
-				<!-- single features -->
-				<div class="col-lg-3 col-md-6 col-sm-6">
-					<div class="single-features">
-						<div class="f-icon">
-							<img src="~/img/features/f-icon2.png" alt="">
-						</div>
-						<h6>Chính sách hoàn trả</h6>
-						<p>Chính sách hoàn trả vô cùng hợp lý</p>
-					</div>
-				</div>
-				<!-- single features -->
-				<div class="col-lg-3 col-md-6 col-sm-6">
-					<div class="single-features">
-						<div class="f-icon">
-							<img src="~/img/features/f-icon3.png" alt="">
-						</div>
-						<h6>Hỗ trợ 24/7</h6>
-						<p>Đội ngũ chăm sóc khách hàng tận tình</p>
-					</div>
-				</div>
-				<!-- single features -->
-				<div class="col-lg-3 col-md-6 col-sm-6">
-					<div class="single-features">
-						<div class="f-icon">
-							<img src="~/img/features/f-icon4.png" alt="">
-						</div>
-						<h6>Thanh toán an toàn</h6>
-						<p>Rất nhiều hình thức thanh toán</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- end features Area -->
-	<!-- Start category Area -->
-	<section class="category-area">
-		<div class="container">
+    <!-- start features Area -->
+    <section class="features-area section_gap">
+        <div class="container">
+            <div class="row features-inner">
+                <!-- single features -->
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="single-features">
+                        <div class="f-icon">
+                            <img src="~/img/features/f-icon1.png" alt="">
+                        </div>
+                        <h6>Giao hàng miễn phí</h6>
+                        <p>Miễn phí vận chuyển cho đơn hàng có giá trị lớn</p>
+                    </div>
+                </div>
+                <!-- single features -->
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="single-features">
+                        <div class="f-icon">
+                            <img src="~/img/features/f-icon2.png" alt="">
+                        </div>
+                        <h6>Chính sách hoàn trả</h6>
+                        <p>Chính sách hoàn trả vô cùng hợp lý</p>
+                    </div>
+                </div>
+                <!-- single features -->
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="single-features">
+                        <div class="f-icon">
+                            <img src="~/img/features/f-icon3.png" alt="">
+                        </div>
+                        <h6>Hỗ trợ 24/7</h6>
+                        <p>Đội ngũ chăm sóc khách hàng tận tình</p>
+                    </div>
+                </div>
+                <!-- single features -->
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="single-features">
+                        <div class="f-icon">
+                            <img src="~/img/features/f-icon4.png" alt="">
+                        </div>
+                        <h6>Thanh toán an toàn</h6>
+                        <p>Rất nhiều hình thức thanh toán</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end features Area -->
+    <!-- Start category Area -->
+    <section class="category-area">
+        <div class="container">
 
-			<div class="row justify-content-center">
-				<div class="col-lg-8 col-md-12">
-					<div class="row">
-						<div class="col-lg-8 col-md-8">
-							<div class="single-deal">
-								<a href="@Url.Action("SanPhamDanhMuc", "DanhMucSanPham", new { id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081163")})">
-								<div class="overlay"></div>
-								<img class="img-fluid w-100" src="~/img/banner/banner4.png" alt="">
-									<div class="deal-details">
-										<h6 class="deal-title">Xu Thế Thời Trang</h6>
-									</div>
-								</a>
-							</div>
-							
-						</div>
-						<div class="col-lg-4 col-md-4">
-							<div class="single-deal">
-								<a href="@Url.Action("SanPhamDanhMuc", "DanhMucSanPham", new { id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081164")})">
-								<div class="overlay"></div>
-								<img class="img-fluid w-100" src="~/img/banner/banner2.png" alt="">
-								
-									<div class="deal-details">
-										<h6 class="deal-title">BST Công Sở</h6>
-									</div>
-								
-								</a>
-							</div>
-						</div>
-						<div class="col-lg-4 col-md-4">
-							<div class="single-deal">
-								<a href="@Url.Action("SanPhamDanhMuc", "DanhMucSanPham", new { id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081165")})">
-								<div class="overlay"></div>
-								<img class="img-fluid w-100" src="~/img/banner/pexels-irina-iriser-1800457.jpg" alt="" >
-								
-									<div class="deal-details">
-										<h6 class="deal-title">BST Mùa Hè</h6>
-									</div>
-								</a>
-							</div>
-						</div>
-						<div class="col-lg-8 col-md-8">
-							<div class="single-deal">
-								<a href="@Url.Action("SanPhamDanhMuc", "DanhMucSanPham", new { id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081166")})">
-								<div class="overlay"></div>
-								<img class="img-fluid w-100" src="~/img/banner/pngs.png" alt="">
-								 
-									<div class="deal-details">
-										<h6 class="deal-title">BST Túi Ngôn Tình</h6>
-									</div>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6">
-					<div class="single-deal">
-						<div class="overlay"></div>
-						<img class="img-fluid w-100" src="~/img/category/c5.jpg" alt="">
-						<a href="~/img/category/c5.jpg" class="img-pop-up" target="_blank">
-							<div class="deal-details">
-								<h6 class="deal-title">Deals hời</h6>
-							</div>
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- End category Area -->
-	<!-- start product Area -->
-	<section class="owl-carousel active-product-area section_gap">
-		<!-- single product slide -->
-		<div class="single-product-slider">
-			<div class="container">
-				<div class="row justify-content-center">
-					<div class="col-lg-6 text-center">
-						<div class="section-title">
-							<h1>Sản Phẩm Mới Về</h1>
-							@*<p>
-								Túi sách nữ Hà Nội uy tín chính hãng tận tâm. Hệ thống cửa hàng mua balo, bán balo - túi thể thao - vali kéo chính hãng giá rẻ wed chuyên cung cấp các sản phẩm về hành lý chính hãng xuất nhập khẩu uy tín.
-							</p>*@
-						</div>
-					</div>
-				</div>
-					<div class="row">
-					@foreach (var item in Model.danhMucChiTiets1.Take(9))
-					{
-						
-						<div class="col-lg-3 col-md-6">
-							<div class="single-product">
-								<a href="@Url.Action("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = item.SanPham.Id })">
-									<img class="img-fluid" src="~/image/@item.SanPham.AnhDaiDien" alt="">
-								</a>
-								<div class="product-details">
-									<h6>
-										@item.SanPham.TenSanPham
-									</h6>
-									<div class="price">
-										@if (item.SanPham.GiaNiemYet == item.SanPham.GiaBan)
-										{
-											<h6>@FormatCurrency(item.SanPham.GiaNiemYet)</h6>
-										}
-										else
-										{
-											<h6>@FormatCurrency(item.SanPham.GiaNiemYet)</h6>
-											<h6 class="l-through">@FormatCurrency(item.SanPham.GiaBan)</h6>
-										}
-									</div>
-									<div class="prd-bottom">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-md-12">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8">
+                            <div class="single-deal">
+                                <a href="@Url.Action("SanPhamDanhMuc", "DanhMucSanPham", new { id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081163")})">
+                                    <div class="overlay"></div>
+                                    <img class="img-fluid w-100" src="~/img/banner/banner4.png" alt="">
+                                    <div class="deal-details">
+                                        <h6 class="deal-title">Xu Thế Thời Trang</h6>
+                                    </div>
+                                </a>
+                            </div>
 
-										<a href="" class="social-info">
-											<span class="ti-bag"></span>
-											<p class="hover-text">Thêm sản phẩm</p>
-										</a>
-										<a href="" class="social-info">
-											<span class="lnr lnr-heart"></span>
-											<p class="hover-text">Yêu thích</p>
-										</a>
-										<a href="" class="social-info">
-											<span class="lnr lnr-sync"></span>
-											<p class="hover-text">so sánh</p>
-										</a>
-										<a href="" class="social-info">
-											<span class="lnr lnr-move"></span>
-											<p class="hover-text">Xem thêm</p>
-										</a>
-									</div>
-								</div>
-							</div>
-						</div>
-                     }
-					</div>
-				
-				
-			</div>
-		</div>
-		<!-- single product slide -->
-		<div class="single-product-slider">
-			<div class="container">
-				<div class="row justify-content-center">
-					<div class="col-lg-6 text-center">
-						<div class="section-title">
-							<h1>Sản Phẩm Bán Chạy</h1>
-							@*<p>
-								Túi sách nữ Hà Nội uy tín chính hãng tận tâm. Hệ thống cửa hàng mua balo, bán balo - túi thể thao - vali kéo chính hãng giá rẻ wed chuyên cung cấp các sản phẩm về hành lý chính hãng xuất nhập khẩu uy tín.
-							</p>*@
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					@foreach (var item in Model.danhMucChiTiets.Take(9))
-					{
+                        </div>
+                        <div class="col-lg-4 col-md-4">
+                            <div class="single-deal">
+                                <a href="@Url.Action("SanPhamDanhMuc", "DanhMucSanPham", new { id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081164")})">
+                                    <div class="overlay"></div>
+                                    <img class="img-fluid w-100" src="~/img/banner/banner2.png" alt="">
 
-						<div class="col-lg-3 col-md-6">
-							<div class="single-product">
-								<a href="@Url.Action("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = item.SanPham.Id })">
-									<img class="img-fluid" src="~/image/@item.SanPham.AnhDaiDien" alt="">
-								</a>
-								
-								<div class="product-details">
-									<h6>
-										@item.SanPham.TenSanPham
-									</h6>
-									<div class="price">
-										@if (item.SanPham.GiaNiemYet == item.SanPham.GiaBan)
-										{
-											<h6>@FormatCurrency(item.SanPham.GiaNiemYet)</h6>
-										}
-										else
-										{
-											<h6>@FormatCurrency(item.SanPham.GiaNiemYet)</h6>
-											<h6 class="l-through">@FormatCurrency(item.SanPham.GiaBan)</h6>
-										}
-									</div>
-									<div class="prd-bottom">
+                                    <div class="deal-details">
+                                        <h6 class="deal-title">BST Công Sở</h6>
+                                    </div>
 
-										<a href="" class="social-info">
-											<span class="ti-bag"></span>
-											<p class="hover-text">Thêm sản phẩm</p>
-										</a>
-										<a href="" class="social-info">
-											<span class="lnr lnr-heart"></span>
-											<p class="hover-text">Yêu thích</p>
-										</a>
-										<a href="" class="social-info">
-											<span class="lnr lnr-sync"></span>
-											<p class="hover-text">so sánh</p>
-										</a>
-										<a href="" class="social-info">
-											<span class="lnr lnr-move"></span>
-											<p class="hover-text">Xem thêm</p>
-										</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					}
-				</div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4">
+                            <div class="single-deal">
+                                <a href="@Url.Action("SanPhamDanhMuc", "DanhMucSanPham", new { id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081165")})">
+                                    <div class="overlay"></div>
+                                    <img class="img-fluid w-100" src="~/img/banner/pexels-irina-iriser-1800457.jpg" alt="">
 
-			</div>
-	</section>
-	<!-- end product Area -->
-	<!-- Start exclusive deal Area -->
-	<section class="exclusive-deal-area">
-		<div class="container-fluid">
-			<div class="row justify-content-center align-items-center">
-				<div class="col-lg-6 no-padding exclusive-left">
-					<div class="row clock_sec clockdiv" id="clockdiv">
-						<div class="col-lg-12">
-							<h1>Ưu đãi hấp dẫn độc quyền sắp kết thúc!</h1>
-							<p>Hãy cùng gọi  bạn bè vào để nhận những ưu đãi hời nào.</p>
-						</div>
-						<div class="col-lg-12">
-							<div class="row clock-wrap">
-								<div class="col clockinner1 clockinner">
-									<h1 class="days">150</h1>
-									<span class="smalltext">Days</span>
-								</div>
-								<div class="col clockinner clockinner1">
-									<h1 class="hours">23</h1>
-									<span class="smalltext">Hours</span>
-								</div>
-								<div class="col clockinner clockinner1">
-									<h1 class="minutes">47</h1>
-									<span class="smalltext">Mins</span>
-								</div>
-								<div class="col clockinner clockinner1">
-									<h1 class="seconds">59</h1>
-									<span class="smalltext">Secs</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<a href="" class="primary-btn">Shop Now</a>
-				</div>
+                                    <div class="deal-details">
+                                        <h6 class="deal-title">BST Mùa Hè</h6>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-8 col-md-8">
+                            <div class="single-deal">
+                                <a href="@Url.Action("SanPhamDanhMuc", "DanhMucSanPham", new { id = Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081166")})">
+                                    <div class="overlay"></div>
+                                    <img class="img-fluid w-100" src="~/img/banner/pngs.png" alt="">
+
+                                    <div class="deal-details">
+                                        <h6 class="deal-title">BST Túi Ngôn Tình</h6>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-deal">
+                        <div class="overlay"></div>
+                        <img class="img-fluid w-100" src="~/img/category/c5.jpg" alt="">
+                        <a href="~/img/category/c5.jpg" class="img-pop-up" target="_blank">
+                            <div class="deal-details">
+                                <h6 class="deal-title">Deals hời</h6>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End category Area -->
+    <!-- start product Area -->
+    <section class="owl-carousel active-product-area section_gap">
+        <!-- single product slide -->
+        <div class="single-product-slider">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 text-center">
+                        <div class="section-title">
+                            <h1>Sản Phẩm Mới Về</h1>
+                            @*<p>
+                            Túi sách nữ Hà Nội uy tín chính hãng tận tâm. Hệ thống cửa hàng mua balo, bán balo - túi thể thao - vali kéo chính hãng giá rẻ wed chuyên cung cấp các sản phẩm về hành lý chính hãng xuất nhập khẩu uy tín.
+                            </p>*@
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    @foreach (var item in Model.danhMucChiTiets1.Take(9))
+                    {
+
+                        <div class="col-lg-3 col-md-6">
+                            <div class="single-product">
+                                <a href="@Url.Action("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = item.SanPham.Id })">
+                                    <img class="img-fluid" src="~/image/@item.SanPham.AnhDaiDien" alt="">
+                                </a>
+                                <div class="product-details">
+                                    <h6>
+                                        <a href="@Url.Action("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = item.SanPham.Id })">
+                                            @item.SanPham.TenSanPham
+                                        </a>
+
+                                    </h6>
+                                    <div class="price">
+                                        @if (item.SanPham.GiaNiemYet == item.SanPham.GiaBan)
+                                        {
+                                            <h6>@FormatCurrency(item.SanPham.GiaNiemYet)</h6>
+                                        }
+                                        else
+                                        {
+                                            <h6>@FormatCurrency(item.SanPham.GiaNiemYet)</h6>
+                                            <h6 class="l-through">@FormatCurrency(item.SanPham.GiaBan)</h6>
+                                        }
+                                    </div>
+                                    <div class="prd-bottom" style="display: flex;">
+
+                                        <a href="@Url.Action("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = item.SanPham.Id })" class="social-info">
+                                            <span class="ti-bag"></span>
+                                            <p class="hover-text">Thêm sản phẩm</p>
+                                        </a>
+                                        @{
+
+                                            var accnew = SessionServices.KhachHangSS(Context.Request.HttpContext.Session, "ACC");
+                                        }
+                                        @if (accnew.Count != 0)
+                                        {
+                                            @if (Model.sanPhamYeuThiches.FirstOrDefault(c => c.IdSanPham == item.SanPham.Id && c.IdKhachHang == accnew[0].Id && c.IdKhachHang != null) != null)
+                                            {
+                                                <form asp-controller="SanPhamYeuThich" asp-action="XoaKhoiYeuTich1">
+
+                                                    <input type="hidden" name="idSP" value="@item.SanPham.Id">
+                                                    <a onclick="onsubmit" class="social-info">
+                                                        <span class="lnr lnr-heart" style="background: linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);"><button onclick="onsubmit">  </button></span>
+
+                                                        <p type="button" onclick="onsubmit" class="hover-text">Yêu thích</p>
+                                                    </a>
+                                                </form>
+                                            }
+                                            else
+                                            {
+                                                <form asp-controller="SanPhamYeuThich" asp-action="ThemYeuThich">
+
+                                                    <input type="hidden" name="IdSanPham" value="@item.SanPham.Id">
+                                                    <a onclick="onsubmit" class="social-info">
+                                                        <span class="lnr lnr-heart"><button onclick="onsubmit">  </button></span>
+                                                        <p type="button" onclick="onsubmit" class="hover-text">Yêu thích</p>
+                                                    </a>
+                                                </form>
+                                            }
+                                        }
+
+                                        else
+                                        {
+                                            <form asp-controller="SanPhamYeuThich" asp-action="ThemYeuThich">
+
+
+                                                <input type="hidden" name="IdSanPham" value="@item.SanPham.Id">
+                                                <a onclick="onsubmit" class="social-info">
+                                                    <span class="lnr lnr-heart"><button onclick="onsubmit">  </button></span>
+                                                    <p type="button" onclick="onsubmit" class="hover-text">Yêu thích</p>
+                                                </a>
+                                            </form>
+                                        }
+
+                                        <a href="" class="social-info">
+                                            <span class="lnr lnr-sync"></span>
+                                            <p class="hover-text">so sánh</p>
+                                        </a>
+                                        <a href="" class="social-info">
+                                            <span class="lnr lnr-move"></span>
+                                            <p class="hover-text">Xem thêm</p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+
+            </div>
+        </div>
+        <!-- single product slide -->
+        <div class="single-product-slider">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 text-center">
+                        <div class="section-title">
+                            <h1>Sản Phẩm Bán Chạy</h1>
+                            @*<p>
+                            Túi sách nữ Hà Nội uy tín chính hãng tận tâm. Hệ thống cửa hàng mua balo, bán balo - túi thể thao - vali kéo chính hãng giá rẻ wed chuyên cung cấp các sản phẩm về hành lý chính hãng xuất nhập khẩu uy tín.
+                            </p>*@
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    @foreach (var item in Model.danhMucChiTiets.Take(9))
+                    {
+
+                        <div class="col-lg-3 col-md-6">
+                            <div class="single-product">
+                                <a href="@Url.Action("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = item.SanPham.Id })">
+                                    <img class="img-fluid" src="~/image/@item.SanPham.AnhDaiDien" alt="">
+                                </a>
+
+                                <div class="product-details">
+                                    <h6>
+                                        <a href="@Url.Action("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = item.SanPham.Id })">
+                                            @item.SanPham.TenSanPham
+                                        </a>
+
+                                    </h6>
+                                    <div class="price">
+                                        @if (item.SanPham.GiaNiemYet == item.SanPham.GiaBan)
+                                        {
+                                            <h6>@FormatCurrency(item.SanPham.GiaNiemYet)</h6>
+                                        }
+                                        else
+                                        {
+                                            <h6>@FormatCurrency(item.SanPham.GiaNiemYet)</h6>
+                                            <h6 class="l-through">@FormatCurrency(item.SanPham.GiaBan)</h6>
+                                        }
+                                    </div>
+                                    <div class="prd-bottom" style="display: flex;">
+
+                                        <a href="@Url.Action("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = item.SanPham.Id })" class="social-info">
+                                            <span class="ti-bag"></span>
+                                            <p class="hover-text">Thêm sản phẩm</p>
+                                        </a>
+                                        @{
+
+                                            var accnew = SessionServices.KhachHangSS(Context.Request.HttpContext.Session, "ACC");
+                                        }
+                                        @if (accnew.Count != 0)
+                                        {
+                                            @if (Model.sanPhamYeuThiches.FirstOrDefault(c => c.IdSanPham == item.SanPham.Id && c.IdKhachHang == accnew[0].Id && c.IdKhachHang != null) != null)
+                                            {
+                                                <form asp-controller="SanPhamYeuThich" asp-action="XoaKhoiYeuTich1">
+
+                                                    <input type="hidden" name="idSP" value="@item.SanPham.Id">
+                                                    <a onclick="onsubmit" class="social-info">
+                                                        <span class="lnr lnr-heart" style="background: linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);"><button onclick="onsubmit">  </button></span>
+
+                                                        <p type="button" onclick="onsubmit" class="hover-text">Yêu thích</p>
+                                                    </a>
+                                                </form>
+                                            }
+                                            else
+                                            {
+                                                <form asp-controller="SanPhamYeuThich" asp-action="ThemYeuThich">
+
+                                                    <input type="hidden" name="IdSanPham" value="@item.SanPham.Id">
+                                                    <a onclick="onsubmit" class="social-info">
+                                                        <span class="lnr lnr-heart"><button onclick="onsubmit">  </button></span>
+                                                        <p type="button" onclick="onsubmit" class="hover-text">Yêu thích</p>
+                                                    </a>
+                                                </form>
+                                            }
+                                        }
+
+                                        else
+                                        {
+                                            <form asp-controller="SanPhamYeuThich" asp-action="ThemYeuThich">
+
+
+                                                <input type="hidden" name="IdSanPham" value="@item.SanPham.Id">
+                                                <a onclick="onsubmit" class="social-info">
+                                                    <span class="lnr lnr-heart"><button onclick="onsubmit">  </button></span>
+                                                    <p type="button" onclick="onsubmit" class="hover-text">Yêu thích</p>
+                                                </a>
+                                            </form>
+                                        }
+                                        <a href="" class="social-info">
+                                            <span class="lnr lnr-sync"></span>
+                                            <p class="hover-text">so sánh</p>
+                                        </a>
+                                        <a href="" class="social-info">
+                                            <span class="lnr lnr-move"></span>
+                                            <p class="hover-text">Xem thêm</p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+            </div>
+    </section>
+    <!-- end product Area -->
+    <!-- Start exclusive deal Area -->
+    <section class="exclusive-deal-area">
+        <div class="container-fluid">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-lg-6 no-padding exclusive-left">
+                    <div class="row clock_sec clockdiv" id="clockdiv">
+                        <div class="col-lg-12">
+                            <h1>Ưu đãi hấp dẫn độc quyền sắp kết thúc!</h1>
+                            <p>Hãy cùng gọi  bạn bè vào để nhận những ưu đãi hời nào.</p>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="row clock-wrap">
+                                <div class="col clockinner1 clockinner">
+                                    <h1 class="days">150</h1>
+                                    <span class="smalltext">Days</span>
+                                </div>
+                                <div class="col clockinner clockinner1">
+                                    <h1 class="hours">23</h1>
+                                    <span class="smalltext">Hours</span>
+                                </div>
+                                <div class="col clockinner clockinner1">
+                                    <h1 class="minutes">47</h1>
+                                    <span class="smalltext">Mins</span>
+                                </div>
+                                <div class="col clockinner clockinner1">
+                                    <h1 class="seconds">59</h1>
+                                    <span class="smalltext">Secs</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="" class="primary-btn">Shop Now</a>
+                </div>
                 <div class="col-lg-6 no-padding exclusive-right">
-				
-                </div>
-			</div>
-		</div>
-	</section>
-	<!-- End exclusive deal Area -->
-	<!-- Start brand Area -->
-	<section class="brand-area section_gap">
-		<div class="container">
-			<div class="row">
-				<a class="col single-img" href="#">
-					<img class="img-fluid d-block mx-auto" src="~/img/brand/1.png" alt="">
-				</a>
-				<a class="col single-img" href="#">
-					<img class="img-fluid d-block mx-auto" src="~/img/brand/2.png" alt="">
-				</a>
-				<a class="col single-img" href="#">
-					<img class="img-fluid d-block mx-auto" src="~/img/brand/3.png" alt="">
-				</a>
-				<a class="col single-img" href="#">
-					<img class="img-fluid d-block mx-auto" src="~/img/brand/4.png" alt="">
-				</a>
-				<a class="col single-img" href="#">
-					<img class="img-fluid d-block mx-auto" src="~/img/brand/5.png" alt="">
-				</a>
-			</div>
-		</div>
-	</section>
-	<!-- End brand Area -->
-	<!-- Start related-product Area -->
-<section class="related-product-area section_gap_bottom">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-6 text-center">
-                <div class="section-title">
-                    <h1>Sản phẩm hot trong tuần</h1>
-                    <p>
-                        Được đánh giá cao và có nhiều lượt mua nhất
-                    </p>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-9">
-					<div class="row">
-						@{
-							int maxProductsToShow = 8;
-							int displayedProductCount = 0;
-						}
-
-						@foreach (var item in Model.danhMucChiTiets1)
-						{
-							if (displayedProductCount >= maxProductsToShow)
-							{
-								break; // Dừng vòng lặp nếu đã hiển thị đủ số lượng sản phẩm
-							}
-
-							<div class="col-lg-3 col-md-6">
-								<div class="single-product">
-									<a href="@Url.Action("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = item.SanPham.Id })">
-										<img class="img-fluid" src="~/image/@item.SanPham.AnhDaiDien" alt="">
-									</a>
-									<div class="product-details">
-										<h6>@item.SanPham.TenSanPham</h6>
-										<div class="price">
-											@if (item.SanPham.GiaNiemYet == item.SanPham.GiaBan)
-											{
-												<h6>@FormatCurrency(item.SanPham.GiaNiemYet)</h6>
-											}
-											else
-											{
-												<h6>@FormatCurrency(item.SanPham.GiaNiemYet)</h6>
-												<h6 class="l-through">@FormatCurrency(item.SanPham.GiaBan)</h6>
-											}
-										</div>
-									</div>
-								</div>
-							</div>
-
-							// Tăng biến đếm khi một sản phẩm được hiển thị
-							displayedProductCount++;
-						}
-
-					</div>
+    </section>
+    <!-- End exclusive deal Area -->
+    <!-- Start brand Area -->
+    <section class="brand-area section_gap">
+        <div class="container">
+            <div class="row">
+                <a class="col single-img" href="#">
+                    <img class="img-fluid d-block mx-auto" src="~/img/brand/1.png" alt="">
+                </a>
+                <a class="col single-img" href="#">
+                    <img class="img-fluid d-block mx-auto" src="~/img/brand/2.png" alt="">
+                </a>
+                <a class="col single-img" href="#">
+                    <img class="img-fluid d-block mx-auto" src="~/img/brand/3.png" alt="">
+                </a>
+                <a class="col single-img" href="#">
+                    <img class="img-fluid d-block mx-auto" src="~/img/brand/4.png" alt="">
+                </a>
+                <a class="col single-img" href="#">
+                    <img class="img-fluid d-block mx-auto" src="~/img/brand/5.png" alt="">
+                </a>
             </div>
-            <div class="col-lg-3">
-                <div class="ctg-right">
-                    <a href="#" target="_blank">
-                        <img class="img-fluid d-block mx-auto" src="~/img/category/c5.jpg" alt="">
-                    </a>
+        </div>
+    </section>
+    <!-- End brand Area -->
+    <!-- Start related-product Area -->
+    <section class="related-product-area section_gap_bottom">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 text-center">
+                    <div class="section-title">
+                        <h1>Sản phẩm hot trong tuần</h1>
+                        <p>
+                            Được đánh giá cao và có nhiều lượt mua nhất
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-9">
+                    <div class="row">
+                        @{
+                            int maxProductsToShow = 8;
+                            int displayedProductCount = 0;
+                        }
+
+                        @foreach (var item in Model.danhMucChiTiets1)
+                        {
+                            if (displayedProductCount >= maxProductsToShow)
+                            {
+                                break; // Dừng vòng lặp nếu đã hiển thị đủ số lượng sản phẩm
+                            }
+
+                            <div class="col-lg-3 col-md-6">
+                                <div class="single-product">
+                                    <a href="@Url.Action("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = item.SanPham.Id })">
+                                        <img class="img-fluid" src="~/image/@item.SanPham.AnhDaiDien" alt="">
+                                    </a>
+                                    <div class="product-details">
+                                        <h6>
+                                            <a href="@Url.Action("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = item.SanPham.Id })">
+                                                @item.SanPham.TenSanPham
+                                            </a>
+                                          
+                                        </h6>
+                                        <div class="price">
+                                            @if (item.SanPham.GiaNiemYet == item.SanPham.GiaBan)
+                                            {
+                                                <h6>@FormatCurrency(item.SanPham.GiaNiemYet)</h6>
+                                            }
+                                            else
+                                            {
+                                                <h6>@FormatCurrency(item.SanPham.GiaNiemYet)</h6>
+                                                <h6 class="l-through">@FormatCurrency(item.SanPham.GiaBan)</h6>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            // Tăng biến đếm khi một sản phẩm được hiển thị
+                            displayedProductCount++;
+                        }
+
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="ctg-right">
+                        <a href="#" target="_blank">
+                            <img class="img-fluid d-block mx-auto" src="~/img/category/c5.jpg" alt="">
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-<script>
-		@functions {
-			public string FormatCurrency(float price)
-			{
-				string formattedPrice = string.Format("{0:N0}", price); // Định dạng số và thêm dấu phân cách ngàn
-				return formattedPrice + "VND"; // Thêm ký hiệu đồng (₫) vào cuối
-			}
-  };
+    </section>
+    <script>
+        @functions {
+            public string FormatCurrency(float price)
+            {
+                string formattedPrice = string.Format("{0:N0}", price); // Định dạng số và thêm dấu phân cách ngàn
+                return formattedPrice + "VND"; // Thêm ký hiệu đồng (₫) vào cuối
+            }
+        };
 
 
-	</script>
-	<script type="text/javascript">
-		(function (d, m) {
-			var kommunicateSettings =
-				{ "appId": "241b5fa6e937de9fc9ca1041a7dddc01", "popupWidget": true, "automaticChatOpenOnNavigation": true };
-			var s = document.createElement("script"); s.type = "text/javascript"; s.async = true;
-			s.src = "https://widget.kommunicate.io/v2/kommunicate.app";
-			var h = document.getElementsByTagName("head")[0]; h.appendChild(s);
-			window.kommunicate = m; m._globals = kommunicateSettings;
-		})(document, window.kommunicate || {});
-		/* NOTE : Use web server to view HTML files as real-time update will not work if you directly open the HTML file in the browser. */
-	</script>
-	<script src="~/js/vendor/jquery-2.2.4.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.~/js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
-			crossorigin="anonymous"></script>
-	<script src="~/js/vendor/bootstrap.min.js"></script>
-	<script src="~/js/jquery.ajaxchimp.min.js"></script>
-	<script src="~/js/jquery.nice-select.min.js"></script>
-	<script src="~/js/jquery.sticky.js"></script>
-	<script src="~/js/nouislider.min.js"></script>
-	<script src="~/js/countdown.js"></script>
-	<script src="~/js/jquery.magnific-popup.min.js"></script>
-	<script src="~/js/owl.carousel.min.js"></script>
-	<!--gmaps Js-->
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
-	<script src="~/js/gmaps.min.js"></script>
-	<script src="~/js/main.js"></script>
+    </script>
+    <script type="text/javascript">
+        (function (d, m) {
+            var kommunicateSettings =
+                { "appId": "241b5fa6e937de9fc9ca1041a7dddc01", "popupWidget": true, "automaticChatOpenOnNavigation": true };
+            var s = document.createElement("script"); s.type = "text/javascript"; s.async = true;
+            s.src = "https://widget.kommunicate.io/v2/kommunicate.app";
+            var h = document.getElementsByTagName("head")[0]; h.appendChild(s);
+            window.kommunicate = m; m._globals = kommunicateSettings;
+        })(document, window.kommunicate || {});
+        /* NOTE : Use web server to view HTML files as real-time update will not work if you directly open the HTML file in the browser. */
+    </script>
+    <script src="~/js/vendor/jquery-2.2.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.~/js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+            crossorigin="anonymous"></script>
+    <script src="~/js/vendor/bootstrap.min.js"></script>
+    <script src="~/js/jquery.ajaxchimp.min.js"></script>
+    <script src="~/js/jquery.nice-select.min.js"></script>
+    <script src="~/js/jquery.sticky.js"></script>
+    <script src="~/js/nouislider.min.js"></script>
+    <script src="~/js/countdown.js"></script>
+    <script src="~/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/js/owl.carousel.min.js"></script>
+    <!--gmaps Js-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+    <script src="~/js/gmaps.min.js"></script>
+    <script src="~/js/main.js"></script>
 </body>
 
 </html>
@@ -492,97 +581,131 @@
 @*<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>*@
 <script>
-		$(document).ready(function () {
-			var owl = $(".active-banner-slider");
-			owl.owlCarousel({
-				items: 1,
-				loop: true, // Set to true for continuous loop
-				autoplay: true, // Set to true for autoplay
-				autoplayTimeout: 5000, // Set the autoplay interval in milliseconds
-				autoplayHoverPause: true // Pause autoplay when hovering over the carousel
-			});
+    $(document).ready(function () {
+        var owl = $(".active-banner-slider");
+        owl.owlCarousel({
+            items: 1,
+            loop: true, // Set to true for continuous loop
+            autoplay: true, // Set to true for autoplay
+            autoplayTimeout: 5000, // Set the autoplay interval in milliseconds
+            autoplayHoverPause: true // Pause autoplay when hovering over the carousel
+        });
 
-			// Add custom navigation buttons
-			$(".owl-prev").click(function () {
-				owl.trigger("prev.owl.carousel");
-			});
-			$(".owl-next").click(function () {
-				owl.trigger("next.owl.carousel");
-			});
-		});
-	</script>
+        // Add custom navigation buttons
+        $(".owl-prev").click(function () {
+            owl.trigger("prev.owl.carousel");
+        });
+        $(".owl-next").click(function () {
+            owl.trigger("next.owl.carousel");
+        });
+    });
+</script>
 <style>
-	.lnr {
-		font-family: 'Linearicons-Free';
-		speak: none;
-		font-style: normal;
-		font-weight: normal;
-		font-variant: normal;
-		text-transform: none;
-		line-height: 2;
-		/* Better Font Rendering =========== */
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-	}
-	.owl-dots {
-		display: none !important;
-	}
+    .lnr {
+        font-family: 'Linearicons-Free';
+        speak: none;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 2;
+        /* Better Font Rendering =========== */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
 
-	.add-bag {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		text-align: center;
-		height: 100%; /* Đảm bảo chiều cao của phần tử là 100% của hình tròn */
-	}
+    .owl-dots {
+        display: none !important;
+    }
 
-		.add-bag a {
-			display: inline-block;
-			border-radius: 50%; /* Tạo hình tròn cho nút */
-			background-color: #your-color; /* Thay your-color bằng màu sắc mong muốn */
-			padding: 10px; /* Điều chỉnh khoảng cách bên trong nút */
-		}
+    .add-bag {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        height: 100%; /* Đảm bảo chiều cao của phần tử là 100% của hình tròn */
+    }
 
-	.add-text {
-		margin-left: 10px; /* Khoảng cách giữa nút và văn bản */
-		font-weight: bold; /* Chữ đậm nếu cần thiết */
-		/* Thêm bất kỳ quy tắc CSS khác cần thiết cho văn bản */
-	}
+        .add-bag a {
+            display: inline-block;
+            border-radius: 50%; /* Tạo hình tròn cho nút */
+            background-color: #your-color; /* Thay your-color bằng màu sắc mong muốn */
+            padding: 10px; /* Điều chỉnh khoảng cách bên trong nút */
+        }
 
-	/* Thêm vào file CSS của bạn hoặc trực tiếp trong thẻ <style> */
-	.single-exclusive-slider img {
-		max-width: 100%; /* Đảm bảo ảnh không vượt quá chiều rộng của phần tử cha */
-		height: auto; /* Đảm bảo tỉ lệ khung hình đúng */
-		display: block; /* Loại bỏ khoảng trắng dư thừa dưới ảnh khi chúng được hiển thị dưới dạng "inline" */
-	}
+    .add-text {
+        margin-left: 10px; /* Khoảng cách giữa nút và văn bản */
+        font-weight: bold; /* Chữ đậm nếu cần thiết */
+        /* Thêm bất kỳ quy tắc CSS khác cần thiết cho văn bản */
+    }
 
-	/* Thêm vào file CSS của bạn để ẩn các đường viền và padding mặc định */
-	body, h1, h2, h3, p, ul, li {
-		margin: 0;
-		padding: 0;
-		border: 0;
-	}
+    /* Thêm vào file CSS của bạn hoặc trực tiếp trong thẻ <style> */
+    .single-exclusive-slider img {
+        max-width: 100%; /* Đảm bảo ảnh không vượt quá chiều rộng của phần tử cha */
+        height: auto; /* Đảm bảo tỉ lệ khung hình đúng */
+        display: block; /* Loại bỏ khoảng trắng dư thừa dưới ảnh khi chúng được hiển thị dưới dạng "inline" */
+    }
 
+    /* Thêm vào file CSS của bạn để ẩn các đường viền và padding mặc định */
+    body, h1, h2, h3, p, ul, li {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+    /*////////////// traitim*/
+    .lnr-heart {
+        display: inline-block;
+        position: relative;
+        width: 40px;
+        height: 40px;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.3s ease-in-out;
+    }
+
+        .lnr-heart button {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            border: none;
+            border-radius: 50%;
+            opacity: 0;
+            transform: scale(0);
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+
+        .lnr-heart:hover button {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+    .highlighted-button {
+        background: linear-gradient(90deg, #ffba00 0%, #ff6c00 100%);
+    }
 </style>
 <script>
-	$(document).ready(function () {
-		// Set the interval for image transition (in milliseconds)
-		var interval = 3000; // Change this value to adjust the interval
+    $(document).ready(function () {
+        // Set the interval for image transition (in milliseconds)
+        var interval = 3000; // Change this value to adjust the interval
 
-		// Function to switch to the next image
-		function nextImage() {
-			var $activeSlide = $('.single-exclusive-slider.active');
-			$activeSlide.removeClass('active');
-			var $nextSlide = $activeSlide.next('.single-exclusive-slider');
+        // Function to switch to the next image
+        function nextImage() {
+            var $activeSlide = $('.single-exclusive-slider.active');
+            $activeSlide.removeClass('active');
+            var $nextSlide = $activeSlide.next('.single-exclusive-slider');
 
-			if ($nextSlide.length === 0) {
-				$nextSlide = $('.single-exclusive-slider').first();
-			}
+            if ($nextSlide.length === 0) {
+                $nextSlide = $('.single-exclusive-slider').first();
+            }
 
-			$nextSlide.addClass('active');
-		}
+            $nextSlide.addClass('active');
+        }
 
-		// Set an interval to switch to the next image automatically
-		setInterval(nextImage, interval);
-	});
+        // Set an interval to switch to the next image automatically
+        setInterval(nextImage, interval);
+    });
 </script>
