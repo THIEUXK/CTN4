@@ -1240,7 +1240,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
         }
         public IActionResult TimKiemNgay(DateTime NgayDau, DateTime NgayCuoi)
         {
-            if (NgayDau == DateTime.Parse("01/01/0001 12:00:00 SA") || NgayCuoi == DateTime.Parse("01/01/0001 12:00:00 SA"))
+            if (NgayDau == NgayCuoi)
             {
                 return RedirectToAction("Index");
             }
