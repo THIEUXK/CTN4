@@ -45,7 +45,6 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             var a = _sv.GetAll().AsQueryable();
 
             List<SelectListItem> items = new List<SelectListItem>();
-            items.Add(new SelectListItem { Text = "5", Value = "5" });
             items.Add(new SelectListItem { Text = "10", Value = "10" });
             items.Add(new SelectListItem { Text = "20", Value = "20" });
             items.Add(new SelectListItem { Text = "25", Value = "25" });
@@ -66,7 +65,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                 a = a.Where(p => p.MaKhuyenMai.Contains(searchString, StringComparison.OrdinalIgnoreCase));
             }
 
-            int pageSize = size ?? 5;
+            int pageSize = size ?? 10;
             var pageNumber = page ?? 1;
             var pagedList = a.ToPagedList(pageNumber, pageSize);
 
@@ -76,7 +75,6 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         public IActionResult GetActiveKhuyenMai(int? size, string searchString, int? page)
         {
             List<SelectListItem> items = new List<SelectListItem>();
-            items.Add(new SelectListItem { Text = "5", Value = "5" });
             items.Add(new SelectListItem { Text = "10", Value = "10" });
             items.Add(new SelectListItem { Text = "20", Value = "20" });
             items.Add(new SelectListItem { Text = "25", Value = "25" });
@@ -91,7 +89,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             ViewBag.currentSize = size; // tạo biến kích thước trang hiện tại
             page = page ?? 1;
 
-            var activeKhuyenMaiList = _sv.GetAll().Where(km => km.TrangThai == true).AsQueryable();
+            var activeKhuyenMaiList = _sv.GetAll().Where(km => km.TrangThai == true && km.NgayBatDau <= DateTime.Now && DateTime.Now < km.NgayKetThuc ).AsQueryable();
 
             if (!string.IsNullOrEmpty(searchString))
             {
@@ -99,19 +97,18 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                 activeKhuyenMaiList = activeKhuyenMaiList.Where(p => p.MaKhuyenMai.Contains(searchString, StringComparison.OrdinalIgnoreCase));
             }
 
-            const int pageSize = 5;
+            const int pageSize = 10;
             var pageNumber = page ?? 1;
 
 
             var pagedList = activeKhuyenMaiList.ToPagedList(pageNumber, pageSize);
 
-            return PartialView("_KhuyenMaiList", pagedList);
+            return View(pagedList);
         }
         [HttpGet]
         public IActionResult GetInactiveKhuyenMai(int? size, string searchString,  int? page)
         {
             List<SelectListItem> items = new List<SelectListItem>();
-            items.Add(new SelectListItem { Text = "5", Value = "5" });
             items.Add(new SelectListItem { Text = "10", Value = "10" });
             items.Add(new SelectListItem { Text = "20", Value = "20" });
             items.Add(new SelectListItem { Text = "25", Value = "25" });
@@ -126,7 +123,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             ViewBag.currentSize = size; // tạo biến kích thước trang hiện tại
             page = page ?? 1;
 
-            var inactiveKhuyenMaiList = _sv.GetAll().Where(km => !km.TrangThai == true).AsQueryable();
+            var inactiveKhuyenMaiList = _sv.GetAll().Where(km => !km.TrangThai == true || km.NgayBatDau > DateTime.Now).AsQueryable();
 
             if (!string.IsNullOrEmpty(searchString))
             {
@@ -134,13 +131,13 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                 inactiveKhuyenMaiList = inactiveKhuyenMaiList.Where(p => p.MaKhuyenMai.Contains(searchString, StringComparison.OrdinalIgnoreCase));
             }
 
-            const int pageSize = 5;
+            const int pageSize = 10;
             var pageNumber = page ?? 1;
 
 
             var pagedList = inactiveKhuyenMaiList.ToPagedList(pageNumber, pageSize);
 
-            return PartialView("_KhuyenMaiList", pagedList);
+            return View(pagedList);
         }
 
 
@@ -179,26 +176,28 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             }
 
             // Kiểm tra NgayBatDau > Now
-            //if (datasubmit.NgayBatDau <= DateTime.Now)
-            //{
-            //    ModelState.AddModelError("NgayBatDau", "Thời gian bắt đầu phải lớn hơn thời gian hiện tại.");
-            //    return View(datasubmit);
-            //}
+            if (datasubmit.NgayBatDau <= DateTime.Now)
+            {
+                ViewBag.Message = "Thời gian bắt đầu phải lớn hơn thời gian hiện tại.";
+                return View(datasubmit);
+            }
             if (datasubmit.DongGia < 0)
             {
-                ModelState.AddModelError("DongGia", "Lớn hơn 0.");
+                ViewBag.Message = "Lớn hơn 0.";
                 return View(datasubmit);
             }
             if (datasubmit.SoTienGiam < 0)
             {
-                ModelState.AddModelError("SoTienGiam", "Lớn hơn 0.");
+                ViewBag.Message = "Lớn hơn 0.";
                 return View(datasubmit);
             }
             if (datasubmit.PhanTramGiamGia < 0 || datasubmit.PhanTramGiamGia > 100)
             {
-                ModelState.AddModelError("PhanTramGiamGia", "Phần trăm giảm giá phải trong khoảng 0-100");
+                ViewBag.Message = "Phần trăm giảm giá phải trong khoảng 0-100";
                 return View(datasubmit);
             }
+            datasubmit.TrangThai = true;
+            datasubmit.Is_Detele = true;
             if (_sv.Them(datasubmit))
             {
                 string imageUrl = "https://png.pngtree.com/png-vector/20210119/ourlarge/pngtree-3d-mega-sale-icon-with-bag-shop-accesories-png-image_2764907.jpg";
@@ -236,8 +235,6 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                     // Kiểm soát tốc độ, chờ 1 giây trước khi gửi email tiếp theo
                     //await Task.Delay(1);
                 }
-                datasubmit.TrangThai = true;
-                datasubmit.Is_Detele = true;
                 return Json(new { success = true, redirectUrl = Url.Action("Index") });
             }
 

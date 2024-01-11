@@ -22,13 +22,6 @@
                     <div class="col-auto pl-3">
                         <div class="d-flex">
                             <div>
-                                <button class="btn btn-default fix-height--button cursor-pointer mr-3" fdprocessedid="c7i21a" style="background-color:#e6dfdf; margin-right: 10px">
-                                    <span class="ml-3 d-none d-sm-inline-block">
-                                        <i class="fas fa-magic" style="color:black">Gợi ý khuyến mãi</i>
-                                    </span>
-                                </button>
-                            </div>
-                            <div>
                                 <button type="button" class="btn btn-primary fix-height--button cursor-pointer editable-click=" asp-action="Create" fdprocessedid="c7i21y">
                                     <a asp-action="Create" style="color:white"><i class="fas fa-plus-circle" style="color:white"></i>Tạo khuyến mãi</a>
                                 </button>
@@ -57,9 +50,23 @@
                                                              <!--Lọc và tìm kiếm-->
             
             <div class="input-group" style="margin-bottom: 20px">
-                <button type="button" class="btn btn-outline-dark" style="border-radius: 5px; margin-right: 10px">
+                <button type="button" class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20" id="filterDropdown" style="border-radius: 5px; margin-right: 10px">
                     <i class="fas fa-filter">  Thêm điều kiện lọc  </i>
                 </button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a class="dropdown-item" href="@Url.Action("Index")">Tất cả các mã</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="@Url.Action("GiamTien", new { loaiGiamGia = "giamtien", Is_detele = ViewBag.currentIsDelete })" data-value="giamtien">Giảm theo giá tiền</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="@Url.Action("GiamPhanTram", new { loaiGiamGia = "giamphantram", Is_detele = ViewBag.currentIsDelete })" data-value="giamphantram">Giảm phần trăm</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="@Url.Action("XemDaBiAn", new { Is_detele = ViewBag.currentIsDelete })">Các mã đã bị ẩn</a>
+                    </li>
+                </ul>
                 <form method="get" style="display:flex">
                     <div class="form-outline">
                         <input type="text" id="form1" class="form-control" name="searchString" style="width: 980px" placeholder="Tìm kiếm..." />
@@ -176,7 +183,7 @@
                                     </td>
                                     @if(item.NgayKetThuc >= DateTime.Now)
                                     {
-                                        @if (item.TrangThai != false)
+                                        @if (item.TrangThai != false && item.NgayBatDau <= DateTime.Now)
                                         {
                                             <td class="border-bottom-0">
                                                 <p class="mb-0 fw-normal" style="white-space: nowrap; color:white;text-align :center; background-color: forestgreen; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Đang khuyến mãi</p>
@@ -202,9 +209,10 @@
                                     }
 
                                     <td>
-                                        @if(item.NgayKetThuc > DateTime.Now){
+                                        @if (item.NgayKetThuc > DateTime.Now && item.NgayBatDau <= DateTime.Now)
+                                        {
                                             <button type="button" class="custom-button" style="white-space: nowrap; border-radius: 10px; font-weight: 400; padding: 0 8px">
-                                                @Html.ActionLink( "Chọn sp","Edit", new { id=item.Id })
+                                                @Html.ActionLink("Chọn sp", "Edit", new { id = item.Id })
                                             </button>
                                         }
                                         
@@ -297,7 +305,7 @@
                         <tbody>
                             @foreach (var item in Model)
                             {
-                                @if(item.TrangThai == true && item.NgayKetThuc >= DateTime.Now)
+                                @if(item.TrangThai == true && item.NgayKetThuc >= DateTime.Now && item.NgayBatDau < DateTime.Now)
                                 {
                                     <tr>
                                         <td>
@@ -348,9 +356,9 @@
                                         </td><td>
                                             <h6 style="text-align:center">@item.Ghichu</h6>
                                         </td>
-                                        @if(item.NgayKetThuc >= DateTime.Now)
+                                        @if (item.NgayKetThuc >= DateTime.Now)
                                         {
-                                            @if (item.TrangThai != false)
+                                            @if (item.TrangThai != false && item.NgayBatDau <= DateTime.Now)
                                             {
                                                 <td class="border-bottom-0">
                                                     <p class="mb-0 fw-normal" style="white-space: nowrap; color:white;text-align :center; background-color: forestgreen; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Đang khuyến mãi</p>
@@ -359,22 +367,27 @@
                                             else
                                             {
                                                 <td class="border-bottom-0">
-                                                    <p class="mb-0 fw-normal"  style="white-space: nowrap; color:white;text-align :center; background-color: orange; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Tạm ngưng</p>
+                                                    <p class="mb-0 fw-normal" style="white-space: nowrap; color:white;text-align :center; background-color: orange; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Chưa kích hoạt</p>
                                                 </td>
                                             }
                                         }
                                         else
                                         {
-                                            <td class="border-bottom-0">
-                                                    <p class="mb-0 fw-normal"  style="white-space: nowrap; color:white;text-align :center; background-color: red; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Đã hết hạn</p>
-                                                </td>
 
+                                            <td class="border-bottom-0">
+                                                @using (Html.BeginForm("UpdateProductStatus", "KhuyenMai", FormMethod.Post))
+                                                {
+
+                                                }
+                                                <p class="mb-0 fw-normal" style="white-space: nowrap; color:white;text-align :center; background-color: red; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Đã hết hạn</p>
+                                            </td>
                                         }
 
                                         <td>
-                                            @if(item.NgayKetThuc > DateTime.Now){
-                                                <button type="button" style="white-space: nowrap; background-color: wheat; border-color:deepskyblue; border-radius: 10px; font-weight: 400; padding: 0 8px">
-                                                    @Html.ActionLink( "Chọn sp","Edit", new { id=item.Id })
+                                            @if (item.NgayKetThuc > DateTime.Now && item.NgayBatDau <= DateTime.Now)
+                                            {
+                                                <button type="button" class="custom-button" style="white-space: nowrap; border-radius: 10px; font-weight: 400; padding: 0 8px">
+                                                    @Html.ActionLink("Chọn sp", "Edit", new { id = item.Id })
                                                 </button>
                                             }
                                         
@@ -471,7 +484,7 @@
                             @foreach (var item in Model)
                             {
                                 itemIds.Add(item.Id.ToString());
-                                if(item.TrangThai != true && item.NgayKetThuc>= DateTime.Now)
+                                if((item.TrangThai != true || item.NgayBatDau > DateTime.Now) && item.NgayKetThuc>= DateTime.Now )
                                 {
                                     <tr>
                                         <td>
@@ -522,10 +535,9 @@
                                         </td><td>
                                             <h6 style="text-align:center">@item.Ghichu</h6>
                                         </td>
-                                        @if(item.NgayKetThuc >= DateTime.Now)
+                                        @if (item.NgayKetThuc >= DateTime.Now)
                                         {
-                                        
-                                            @if (item.TrangThai != false)
+                                            @if (item.TrangThai != false && item.NgayBatDau <= DateTime.Now)
                                             {
                                                 <td class="border-bottom-0">
                                                     <p class="mb-0 fw-normal" style="white-space: nowrap; color:white;text-align :center; background-color: forestgreen; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Đang khuyến mãi</p>
@@ -534,7 +546,7 @@
                                             else
                                             {
                                                 <td class="border-bottom-0">
-                                                    <p class="mb-0 fw-normal"  style="white-space: nowrap; color:white;text-align :center; background-color: orange; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Tạm ngưng</p>
+                                                    <p class="mb-0 fw-normal" style="white-space: nowrap; color:white;text-align :center; background-color: orange; line-height: 20px; height: 24px; font-weight: 400; border-style:solid; padding: 0 8px; border-radius:10px; border-width:1px">Chưa kích hoạt</p>
                                                 </td>
                                             }
                                         }
@@ -547,9 +559,10 @@
 
                                         }
                                         <td>
-                                            @if(item.NgayKetThuc > DateTime.Now){
-                                                <button type="button" style="white-space: nowrap; background-color: wheat; border-color:deepskyblue; border-radius: 10px; font-weight: 400; padding: 0 8px">
-                                                    @Html.ActionLink( "Chọn sp","Edit", new { id=item.Id })
+                                            @if (item.NgayKetThuc > DateTime.Now && item.NgayBatDau <= DateTime.Now)
+                                            {
+                                                <button type="button" class="custom-button" style="white-space: nowrap; border-radius: 10px; font-weight: 400; padding: 0 8px">
+                                                    @Html.ActionLink("Chọn sp", "Edit", new { id = item.Id })
                                                 </button>
                                             }
                                         
@@ -590,7 +603,7 @@
                                             @if (Model.HasPreviousPage)
                                            {
                                                <li class="page-item">
-                                                   <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber - 1, size = ViewBag.currentSize })">Previous</a>
+                                                    <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber - 1, size = ViewBag.currentSize })">Previous</a>
                                                </li>
                                            }
 
