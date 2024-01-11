@@ -7,139 +7,140 @@
 <body>
     <div class="container-fluid">
         <div class="card w-100">
-        <div class="card-body p-4">
-            <div id="alertMessage" class="red-alert" style="display:none;">
-                Không có sản phẩm nào được chọn. Vui lòng chọn ít nhất một sản phẩm để tiếp tục.
-            </div>
-
-            <h5 class="card-title fw-semibold mb-4">Các Đơn Hàng</h5>
-            <div class="d-flex">
-                <div class="dropdown me-1">
-                    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
-                        Lọc hóa đơn
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a class="dropdown-item" href="@Url.Action("Index")">Tất cả đơn hàng</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="@Url.Action("XemDaGiao")">Đơn đã giao</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="@Url.Action("XemChuaGiao")">Đơn chưa giao</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="@Url.Action("XemChuThanhToan")">Đơn chưa thanh toán</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="@Url.Action("XemDaThanhToan")">Đơn đã thanh toán</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="@Url.Action("XemDaGiaoHoanTat")">Đơn giao thành công</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="@Url.Action("XemDaGiaoThatBai")">Đơn giao thất bại</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="@Url.Action("XemDaBiHuy")">Đơn đã bị hủy</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="@Url.Action("XemDaBiAn")">Đơn đã bị ẩn</a>
-                        </li>
-                    </ul>
+            <div class="card-body p-4">
+                <div id="alertMessage" class="red-alert" style="display:none;">
+                    Không có sản phẩm nào được chọn. Vui lòng chọn ít nhất một sản phẩm để tiếp tục.
                 </div>
-                <div class="dropdown me-1"> <button class="btn btn-info"><a style="color:white" href="@Url.Action("XemChuaXacNhan")">Đơn chưa xác nhận </a></button></div>
-                <div class="dropdown me-1">
-                    <button class="btn btn-info"> <a style="color:white" href="@Url.Action("XemDaXacNhan")">Đơn đã xác nhận</a></button>
-                </div>
-                <div class="dropdown me-1">
-                    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
-                        Sắp xếp hóa đơn
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a class="dropdown-item" href="@Url.Action("XapXepMoiNhat")">Đơn hàng mới nhất tại wed</a>
-                        </li>
+                <h5 class="card-title fw-semibold mb-4">Các Đơn Hàng</h5>
+                <div class="d-flex">
+                    <div class="dropdown me-1">
+                        <button type="button" class="btn btn-custom-primary" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                            Lọc hóa đơn
+                        </button>
+                        <ul class="dropdown-menu p-4">
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("Index")">Tất cả đơn hàng</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("XemDaGiao")">Đơn đã giao</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("XemChuaGiao")">Đơn chưa giao</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("XemChuThanhToan")">Đơn chưa thanh toán</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("XemDaThanhToan")">Đơn đã thanh toán</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("XemDaGiaoHoanTat")">Đơn giao thành công</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("XemDaGiaoThatBai")">Đơn giao thất bại</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("XemDaBiHuy")">Đơn đã bị hủy</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("XemDaBiAn")">Đơn đã bị ẩn</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="dropdown me-1">
+                        <button class="btn btn-custom-primary"><a style="color:white" href="@Url.Action("XemChuaXacNhan")">Đơn chưa xác nhận </a></button>
+                    </div>
+                    <div class="dropdown me-1">
+                        <button class="btn btn-custom-primary"> <a style="color:white" href="@Url.Action("XemDaXacNhan")">Đơn đã xác nhận</a></button>
+                    </div>
+                    <div class="dropdown me-1">
+                        <button type="button" class="btn btn-custom-primary" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                            Sắp xếp hóa đơn
+                        </button>
+                        <ul class="dropdown-menu p-4">
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("XapXepMoiNhat")">Đơn hàng mới nhất tại wed</a>
+                            </li>
 
-                        <li>
-                            <a class="dropdown-item" href="@Url.Action("XapXepCuNhat")">Đơn hàng cũ nhất tại wed</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="@Url.Action("XapXepMoiNhat1")">Đơn hàng mới nhất tại quầy</a>
-                        </li>
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("XapXepCuNhat")">Đơn hàng cũ nhất tại wed</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("XapXepMoiNhat1")">Đơn hàng mới nhất tại quầy</a>
+                            </li>
 
-                        <li>
-                            <a class="dropdown-item" href="@Url.Action("XapXepCuNhat1")">Đơn hàng cũ nhất tại quầy</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="@Url.Action("XapXepTienCaoNhat")">Tổng tiền cao nhất</a>
-                        </li>
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("XapXepCuNhat1")">Đơn hàng cũ nhất tại quầy</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("XapXepTienCaoNhat")">Tổng tiền cao nhất</a>
+                            </li>
 
-                        <li>
-                            <a class="dropdown-item" href="@Url.Action("XapXepTienThapNhat")">Tổng tiền Thấp nhất</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="dropdown me-1">
-                    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
-                        <i class="fa fa-bars"></i>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <button class="btnXuatEx2">Xuất File Excel</button>
-                        <button class="btnXuatEx3">Xác nhận đơn hàng</button>
-                        <button class="btnXuatEx5">Ẩn đơn</button>
-                        <button class="btnXuatEx6">Hiện đơn</button>
-                    </ul>
-                </div>
-                <div class="dropdown me-1">
-                    <button type="button" class="btn btn-custom-primary" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
-                        Tạo hóa đơn
-                    </button>
-                    <div class="dropdown-menu p-4">
-                        <a class="dropdown-item" href="@Url.Action("TaoHoaDonnew")">Tạo hóa đơn</a>
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("XapXepTienThapNhat")">Tổng tiền Thấp nhất</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="dropdown me-1">
+                        <button type="button" class="btn btn-custom-primary" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                            =
+                        </button>
+                        <ul class="dropdown-menu p-4">
+                            <button class="btnXuatEx2">Xuất File Excel</button>
+                            <button class="btnXuatEx3">Xác nhận đơn hàng</button>
+                            <button class="btnXuatEx5">Ẩn đơn</button>
+                            <button class="btnXuatEx6">Hiện đơn</button>
+                        </ul>
+                    </div>
+                    <div class="dropdown me-1">
+                        <button type="button" class="btn btn-custom-primary" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                            Tạo hóa đơn
+                        </button>
+                        <div class="dropdown-menu p-4">
+                            <a class="dropdown-item" href="@Url.Action("TaoHoaDonnew")">Tạo hóa đơn</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div>
-                <div class="row">
-                    <div class="col-5">
-                        <form asp-action="TimKiem">
-                            <div>
-                                Tìm kiếm:
-                                <input name="ten" type="text" class="form-control" oninput="luuGiaTri(this)" onchange="this.form.submit()">
-                                </input>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-7">
-                        <form asp-action="TimKiemNgay" id="searchForm">
-                            <div>
-                                Tìm kiếm theo ngày tạo hóa đơn:
+                <div>
+                    <div class="row">
+                        <div class="col-5">
+                            <form asp-action="TimKiem">
                                 <div>
-                                    Từ
-                                    <input name="NgayDau" id="NgayDau" value="" type="datetime-local">
+                                    Tìm kiếm:
+                                    <input name="ten" type="text" class="form-control" oninput="luuGiaTri(this)" onchange="this.form.submit()">
                                     </input>
-                                    Đến
-                                    <input name="NgayCuoi" id="NgayCuoi" value="" type="datetime-local">
-                                    </input>
-
-                                    <!-- Thêm mã JavaScript để giữ nguyên giá trị ngày -->
-                                    <button type="button" class="btn btn-primary" onclick="confirmSearch()">Tìm</button>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
+                        <div class="col-7">
+                            <form asp-action="TimKiemNgay" id="searchForm">
+                                <div>
+                                    Tìm kiếm theo ngày tạo hóa đơn:
+                                    <div>
+                                        Từ
+                                        <input name="NgayDau" id="NgayDau" value="" type="datetime-local">
+                                        </input>
+                                        Đến
+                                        <input name="NgayCuoi" id="NgayCuoi" value="" type="datetime-local">
+                                        </input>
+
+                                        <!-- Thêm mã JavaScript để giữ nguyên giá trị ngày -->
+                                        <button type="button" class="btn btn-primary" onclick="confirmSearch()">Tìm</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
+
+                    @if (TempData["TB1"] != null)
+                    {
+                        <div class="alert alert-danger">@TempData["TB1"]</div>
+                    }
+                    <div id="aaa"></div>
+                    <div id="aaa1"></div>
+
                 </div>
-
-                @if (TempData["TB1"] != null)
-                {
-                    <div class="alert alert-danger">@TempData["TB1"]</div>
-                }
-                <div id="aaa"></div>
-                <div id="aaa1"></div>
-
             </div>
-        </div>
             <div class="card w-100">
                 <div class="card-body p-4">
 
@@ -224,7 +225,7 @@
                                                 <h6 class="fw-semibold mb-0" style="color:red">Chưa thanh toán</h6>
                                             }
                                         </td>
-                                        @if (a.NgayGiao == null&&a.NgayNhan!=null)
+                                        @if (a.NgayGiao == null && a.NgayNhan != null)
                                         {
                                             <th class="border-bottom-0">
                                                 <h6 class="fw-semibold mb-0" style="color:limegreen">Nhận tại quầy</h6>
@@ -287,6 +288,23 @@
     });
 </script>
 <style>
+    /* Apply styles to the button */
+    .btn-custom-primary {
+        background-color: #3498db; /* Blue background color */
+        color: #ffffff; /* White text color */
+        border: 1px solid #3498db; /* Blue border color */
+        padding: 10px 20px; /* Adjust padding as needed */
+        border-radius: 5px; /* Add border-radius for rounded corners */
+        cursor: pointer; /* Change cursor to pointer on hover */
+    }
+
+        /* Apply styles to the button when hovered */
+        .btn-custom-primary:hover {
+            background-color: #2980b9; /* Darker blue hover background color */
+            border-color: #2980b9; /* Darker blue hover border color */
+            color: #ffffff; /* White hover text color */
+        }
+
     .btnXuatEx5,
     .btnXuatEx6 {
         padding: 10px 15px;
@@ -306,6 +324,7 @@
         background-color: #00ff00;
         color: #fff;
     }
+
     #alertMessage {
         display: none;
         color: white;
@@ -314,6 +333,7 @@
         margin-bottom: 10px;
         border-radius: 5px;
     }
+
     .btnXuatEx3 {
         background-color: #3498db; /* Blue background color */
         color: #ffffff; /* White text color */
@@ -351,21 +371,21 @@
         border-radius: 8px; /* Rounded corners */
     }
 
-    .btn-custom-rangen {
-        --bs-btn-color: #fff;
-        --bs-btn-bg: #ff6347; /* Màu đỏ tùy chọn */
-        --bs-btn-border-color: #ff6347; /* Màu đỏ tùy chọn */
-        --bs-btn-hover-color: #fff;
-        --bs-btn-hover-bg: #dc4735; /* Màu đỏ tương ứng với hover */
-        --bs-btn-hover-border-color: #c84131; /* Màu đỏ tương ứng với hover */
-        --bs-btn-focus-shadow-rgb: #ff6347; /* Màu đỏ tương ứng với focus */
-        --bs-btn-active-color: #fff;
-        --bs-btn-active-bg: #c84131; /* Màu đỏ tương ứng với active */
-        --bs-btn-active-border-color: #b5362d; /* Màu đỏ tương ứng với active */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Thiết lập bóng */
-        --bs-btn-disabled-color: #fff;
-        --bs-btn-disabled-bg: #ff6347; /* Màu đỏ tương ứng với disabled */
-        --bs-btn-disabled-border-color: #ff6347; /* Màu đỏ tương ứng với disabled */
+    /*  .btn-custom-rangen {
+                    --bs-btn-color: #fff;
+                    --bs-btn-bg: #ff6347; /* Màu đỏ tùy chọn */
+    --bs-btn-border-color: #ff6347; /* Màu đỏ tùy chọn */
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #dc4735; /* Màu đỏ tương ứng với hover */
+    --bs-btn-hover-border-color: #c84131; /* Màu đỏ tương ứng với hover */
+    --bs-btn-focus-shadow-rgb: #ff6347; /* Màu đỏ tương ứng với focus */
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #c84131; /* Màu đỏ tương ứng với active */
+    --bs-btn-active-border-color: #b5362d; /* Màu đỏ tương ứng với active */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Thiết lập bóng */
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #ff6347; /* Màu đỏ tương ứng với disabled */
+    --bs-btn-disabled-border-color: #ff6347; /* Màu đỏ tương ứng với disabled */
     }
 
     .btn-custom-primary {
@@ -384,6 +404,8 @@
         --bs-btn-disabled-bg: #49BEFF; /* Màu xanh lam tương tự như .btn-primary */
         --bs-btn-disabled-border-color: #49BEFF; /* Màu xanh lam tương tự như .btn-primary */
     }
+
+    */
 
 
     .custom-button {
@@ -462,7 +484,6 @@
         }
     }
 </script>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 <script>
         // Hàm để lưu giữ giá trị ngày vào localStorage
         function saveDateValues() {
