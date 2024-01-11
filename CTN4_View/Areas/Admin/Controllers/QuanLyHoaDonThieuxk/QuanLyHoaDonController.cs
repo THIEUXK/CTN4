@@ -727,6 +727,12 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             if (nvnew.Count() != 0)
             {
                 var hd = _hoaDonService.GetById(id);
+                if (hd.TrangThai == "Đang chờ xử lí")
+                {
+                    var message = "Đơn hàng chưa được xác nhận";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
                 if (hd.TrangThai == "Đơn hàng bị hủy")
                 {
                     var message = "Đơn hàng đã bị hủy";
