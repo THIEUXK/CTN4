@@ -45,9 +45,8 @@ namespace CTN4_Serv.Service
         {
             try
             {
-                var s = _db.KhachHangs.FirstOrDefault(c => c.Id == a.Id);
-                s = a;
-                _db.KhachHangs.Update(s);
+                
+                _db.KhachHangs.Update(a);
                 _db.SaveChanges();
                 return true;
             }
