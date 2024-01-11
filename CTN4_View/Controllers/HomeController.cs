@@ -451,8 +451,6 @@ namespace CTN4_View.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.Message = "Có lỗi xảy ra.";
-
                 return View(userModel); // Trả về view với model và thông báo lỗi
             }
             if (string.IsNullOrEmpty(userModel.User) || string.IsNullOrEmpty(userModel.Password))

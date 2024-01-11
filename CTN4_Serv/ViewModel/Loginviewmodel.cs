@@ -10,10 +10,10 @@ namespace CTN4_Serv.ViewModel
     public class Loginviewmodel
     {
         [Required(ErrorMessage = "Tên đăng nhập không được bỏ trống")]
-        [RegularExpression("^[a-zA-Z0-9]{8,30}$", ErrorMessage = "Tên đăng nhập phải nhiều hơn 8 ký tự và ít hơn 30 ký tự")]
+        [RegularExpression("^[a-zA-Z0-9]{8,30}$", ErrorMessage = "Vui Lòng kiểm tra đầu vào ")]
         public string User { get; set; }
         [Required(ErrorMessage = "Mật khẩu không được bỏ trống")]
-        [RegularExpression("^[a-zA-Z0-9]{8,30}$", ErrorMessage = "Mật khẩu phải nhiều hơn 8 ký tự và ít hơn 30 ký tự")]
+        [RegularExpression("^[a-zA-Z0-9]{8,30}$", ErrorMessage = "Vui Lòng kiểm tra đầu vào ")]
         public string Password { get; set; } 
     }
 }
