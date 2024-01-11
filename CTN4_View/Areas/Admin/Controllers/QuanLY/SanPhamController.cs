@@ -8,6 +8,7 @@ using CTN4_View.Areas.Admin.Viewmodel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using X.PagedList;
 
@@ -66,7 +67,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             // Tạo danh sách dropdown kích thước trang
             var pageSizeOptions = new List<SelectListItem>
     {
-      
+
         new SelectListItem { Text = "10", Value = "10" },
         new SelectListItem { Text = "20", Value = "20" },
         new SelectListItem { Text = "25", Value = "25" },
@@ -154,79 +155,96 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [ValidateAntiForgeryToken]
         public ActionResult Create(SanPhamView p, [Bind] IFormFile imageFile)
         {
-                if (imageFile != null && imageFile.Length > 0) // Không null và không trống
+            const int kichThuocToiDa = 2 * 1024 * 1024; // 2MB
+            if (imageFile != null && imageFile.Length > 0) // Không null và không trống
+            {
+                   // Kiểm tra định dạng của ảnh
+                if (imageFile.Length > kichThuocToiDa)
                 {
-                    //Trỏ tới thư mục wwwroot để lát nữa thực hiện việc Copy sang
-                    var path = Path.Combine(
-                        Directory.GetCurrentDirectory(), "wwwroot", "image", imageFile.FileName);
-                    using (var stream = new FileStream(path, FileMode.Create))
-                    {
-                        // Thực hiện copy ảnh vừa chọn sang thư mục mới (wwwroot)
-                        imageFile.CopyTo(stream);
-                    }
-
-                    // Gán lại giá trị cho Description của đối tượng bằng tên file ảnh đã được sao chép
-                    p.AnhDaiDien = imageFile.FileName;
-
-                }
-                else
-                {
-                    var thongbaoAnh = "Hay them anh";
+                    var thongbaoAnh = "Kích thước ảnh vượt quá 2MB";
                     TempData["Notification"] = thongbaoAnh;
-                    return RedirectToAction("Create", new { thongbaoAnh });
+                    return RedirectToAction("Create", new { id = p.Id });
                 }
-                if (System.IO.Path.GetExtension(imageFile.FileName) == ".jpg" ||
-                System.IO.Path.GetExtension(imageFile.FileName) == ".png" ||
-                System.IO.Path.GetExtension(imageFile.FileName) == ".jpeg" ||
-                System.IO.Path.GetExtension(imageFile.FileName) == ".tiff" ||
-                System.IO.Path.GetExtension(imageFile.FileName) == ".webp" ||
-                System.IO.Path.GetExtension(imageFile.FileName) == ".gif")
+                var allowedExtensions = new[] { ".jpg", ".png", ".jpeg", ".tiff", ".webp", ".gif" };
+                var fileExtension = Path.GetExtension(imageFile.FileName).ToLower();
+
+                if (!allowedExtensions.Contains(fileExtension))
                 {
-                    var b = new SanPham()
-                    {
-
-                        Id = Guid.NewGuid(),
-                        MaSp = p.MaSp,
-                        TenSanPham = p.TenSanPham,
-                        IdChatLieu = Guid.Parse(p.IdChatLieu.Value.ToString()),
-                        IdNSX = Guid.Parse(p.IdNSX.Value.ToString()),
-                        MoTa = p.MoTa,
-                        TrangThai = true,
-                        GiaNhap = p.GiaNhap,
-                        GiaBan = p.GiaBan,
-                        GiaNiemYet = p.GiaNiemYet,
-                        GhiChu = p.GhiChu,
-                        Is_detele = true,
-                        AnhDaiDien = p.AnhDaiDien,
-
-                    };
-                    if (_sanPhamService.Them(b)) // Nếu thêm thành công
-                    {
-
-                        return RedirectToAction("Index");
-                    }
-                    var viewModel = new SanPhamView()
-                    {
-                        NsxItems = _nsxService.GetAll().Select(s => new SelectListItem
-                        {
-                            Value = s.Id.ToString(),
-                            Text = s.TenNSX
-                        }).ToList(),
-                        ChalieuItems = _chatLieuService.GetAll().Select(s => new SelectListItem
-                        {
-                            Value = s.Id.ToString(),
-                            Text = s.TenChatLieu
-                        }).ToList(),
-                    };
-                    return View(viewModel);
+                    var thongbaoAnh = "Định dạng ảnh không được chấp nhận. Chỉ chấp nhận các định dạng: " + string.Join(", ", allowedExtensions);
+                    TempData["Notification"] = thongbaoAnh;
+                    return RedirectToAction("Create", new { id = p.Id });
                 }
-                else
+                //Trỏ tới thư mục wwwroot để lát nữa thực hiện việc Copy sang
+                var path = Path.Combine(
+                    Directory.GetCurrentDirectory(), "wwwroot", "image", imageFile.FileName);
+                using (var stream = new FileStream(path, FileMode.Create))
                 {
-                    var Loi = "Không đúng định dạng ảnh";
-                    TempData["Loi"] = Loi;
-                    return RedirectToAction("Index", new { Loi });
+                    // Thực hiện copy ảnh vừa chọn sang thư mục mới (wwwroot)
+                    imageFile.CopyTo(stream);
                 }
+
+                // Gán lại giá trị cho Description của đối tượng bằng tên file ảnh đã được sao chép
+                p.AnhDaiDien = imageFile.FileName;
+
             }
+            else
+            {
+                var thongbaoAnh = "Hay them anh";
+                TempData["Notification"] = thongbaoAnh;
+                return RedirectToAction("Create", new { thongbaoAnh });
+            }
+            if (System.IO.Path.GetExtension(imageFile.FileName) == ".jpg" ||
+            System.IO.Path.GetExtension(imageFile.FileName) == ".png" ||
+            System.IO.Path.GetExtension(imageFile.FileName) == ".jpeg" ||
+            System.IO.Path.GetExtension(imageFile.FileName) == ".tiff" ||
+            System.IO.Path.GetExtension(imageFile.FileName) == ".webp" ||
+            System.IO.Path.GetExtension(imageFile.FileName) == ".gif")
+            {
+                var b = new SanPham()
+                {
+
+                    Id = Guid.NewGuid(),
+                    MaSp = p.MaSp,
+                    TenSanPham = p.TenSanPham,
+                    IdChatLieu = Guid.Parse(p.IdChatLieu.Value.ToString()),
+                    IdNSX = Guid.Parse(p.IdNSX.Value.ToString()),
+                    MoTa = p.MoTa,
+                    TrangThai = true,
+                    GiaNhap = p.GiaNhap,
+                    GiaBan = p.GiaBan,
+                    GiaNiemYet = p.GiaNiemYet,
+                    GhiChu = p.GhiChu,
+                    Is_detele = true,
+                    AnhDaiDien = p.AnhDaiDien,
+
+                };
+                if (_sanPhamService.Them(b)) // Nếu thêm thành công
+                {
+
+                    return RedirectToAction("Index");
+                }
+                var viewModel = new SanPhamView()
+                {
+                    NsxItems = _nsxService.GetAll().Select(s => new SelectListItem
+                    {
+                        Value = s.Id.ToString(),
+                        Text = s.TenNSX
+                    }).ToList(),
+                    ChalieuItems = _chatLieuService.GetAll().Select(s => new SelectListItem
+                    {
+                        Value = s.Id.ToString(),
+                        Text = s.TenChatLieu
+                    }).ToList(),
+                };
+                return View(viewModel);
+            }
+            else
+            {
+                var Loi = "Không đúng định dạng ảnh";
+                TempData["Loi"] = Loi;
+                return RedirectToAction("Index", new { Loi });
+            }
+        }
         // GET: SanPhamController/Edit/5
 
         public ActionResult Edit(Guid id)
@@ -268,9 +286,27 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [ValidateAntiForgeryToken]
         public ActionResult Edit(SanPhamView c, [Bind] IFormFile imageFile, string anhdaidiencheck)
         {
-
+            const int kichThuocToiDa = 2 * 1024 * 1024; // 2MB
             if (imageFile != null && imageFile.Length > 0) // Không null và không trống
             {
+                 // Kiểm tra định dạng của ảnh
+                if (imageFile.Length > kichThuocToiDa)
+                {
+                    var thongbaoAnh = "Kích thước ảnh vượt quá 2MB";
+                    TempData["Notification"] = thongbaoAnh;
+                    return RedirectToAction("Edit", new { id = c.Id });
+                }
+                var allowedExtensions = new[] { ".jpg", ".png", ".jpeg", ".tiff", ".webp", ".gif" };
+                var fileExtension = Path.GetExtension(imageFile.FileName).ToLower();
+
+                if (!allowedExtensions.Contains(fileExtension))
+                {
+                    var thongbaoAnh = "Định dạng ảnh không được chấp nhận. Chỉ chấp nhận các định dạng: " + string.Join(", ", allowedExtensions);
+                    TempData["Notification"] = thongbaoAnh;
+                    return RedirectToAction("Edit", new { id = c.Id });
+                }
+               
+                
                 //Trỏ tới thư mục wwwroot để lát nữa thực hiện việc Copy sang
                 var path = Path.Combine(
                     Directory.GetCurrentDirectory(), "wwwroot", "image", imageFile.FileName);
