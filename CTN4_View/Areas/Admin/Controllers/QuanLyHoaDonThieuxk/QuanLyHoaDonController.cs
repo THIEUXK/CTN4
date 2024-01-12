@@ -256,6 +256,12 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                     TempData["TB1"] = message;
                     return RedirectToAction("XemChiTiet", new { id = id, message });
                 }
+                if (hd.TrangThaiThanhToan == true)
+                {
+                    var message = "Đơn hàng hiện đã được thanh toán";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
                 if (hd.NgayGiao != null)
                 {
                     var message = "Đơn hàng đang được giao";
@@ -1489,7 +1495,9 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
         {
             if (NgayDau == NgayCuoi)
             {
-                return RedirectToAction("Index");
+                var message = "hãy chọn ngày bắt đầu và chọn khoản kết thúc của bạn !";
+                TempData["TB1"] = message;
+                return RedirectToAction("Index", new { message });
             }
             else if (NgayDau > NgayCuoi)
             {
@@ -1550,6 +1558,15 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             var view = new ThieuxkViewAdmin()
             {
                 hoaDons = hd.Where(c => c.TrangThai == "Giao hàng thành công" && c.Is_detele == true).ToList(),
+            };
+            return View("Index", view);
+        }
+        public IActionResult XemDaMuaTaiQuayThanhCong()
+        {
+            var hd = _hoaDonService.GetAll();
+            var view = new ThieuxkViewAdmin()
+            {
+                hoaDons = hd.Where(c => c.TrangThai == "Đưa hàng thành công" && c.Is_detele == true).ToList(),
             };
             return View("Index", view);
         }
@@ -1869,7 +1886,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             foreach (var IdHD in exview.IdHD)
             {
                 var kt = _hoaDonService.GetById(IdHD);
-                if (kt.TrangThai != "Đơn hàng bị hủy")
+                if (kt.TrangThai != "Đơn hàng bị hủy"&& kt.TrangThai != "Đưa hàng thành công" && kt.TrangThai != "Giao hàng thành công")
                 {
                     return Json("that bai 1", new System.Text.Json.JsonSerializerOptions());
                 }
