@@ -22,7 +22,7 @@
                                 <a class="dropdown-item" href="@Url.Action("Index")">Tất cả đơn hàng</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="@Url.Action("XemDaGiao")">Đơn đã giao</a>
+                                <a class="dropdown-item" href="@Url.Action("XemDaGiao")">Đơn đang giao</a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="@Url.Action("XemChuaGiao")">Đơn chưa giao</a>
@@ -261,7 +261,7 @@
                                             </td>
                                         </tr>
                                     }
-                                    else @if (a.TrangThai == "Giao hàng thành công")
+                                    else @if (a.TrangThai == "Giao hàng thành công" || a.TrangThai == "Đưa hàng thành công")
                                     {
                                         <tr style="background-color:aquamarine">
                                             <td class="border-bottom-0">
@@ -339,9 +339,9 @@
                                             </td>
                                         </tr>
                                     }
-                                    else @if (a.TrangThai == "Đưa hàng thành công")
+                                    else @if (a.TrangThai == "Giao hàng thất bại")
                                     {
-                                        <tr style="background-color:aquamarine">
+                                        <tr style="background-color:palegoldenrod">
                                             <td class="border-bottom-0">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox" value="@a.Id" id="defaultCheck1">

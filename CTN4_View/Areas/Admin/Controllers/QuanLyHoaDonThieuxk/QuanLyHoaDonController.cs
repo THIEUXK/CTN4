@@ -409,6 +409,24 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                     return RedirectToAction("XemChiTiet", new { id = id, message });
                 }
                 var hd = _hoaDonService.GetById(id);
+                if (hd.TrangThai == "Đơn hàng bị hủy")
+                {
+                    var message = "Đơn hàng đã bị hủy";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
+                if (hd.TrangThai == "Giao hàng thành công")
+                {
+                    var message = "Đơn hàng đã giao hàng thành công";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
+                if (hd.TrangThai == "Đưa hàng thành công")
+                {
+                    var message = "Đơn hàng đã đưa hàng thành công";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
                 if (hd.TrangThai == "Hàng của bạn đang được giao")
                 {
                     hd.TrangThai = "Đang chuẩn bị hàng";
@@ -1530,7 +1548,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             var hd = _hoaDonService.GetAll();
             var view = new ThieuxkViewAdmin()
             {
-                hoaDons = hd.Where(c => c.NgayGiao == null && c.Is_detele == true).ToList(),
+                hoaDons = hd.Where(c => c.NgayGiao == null && c.Is_detele == true&&c.TrangThai!="Đưa hàng thành công").ToList(),
             };
             return View("Index", view);
         }
