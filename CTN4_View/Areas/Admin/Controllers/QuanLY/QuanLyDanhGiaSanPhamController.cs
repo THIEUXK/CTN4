@@ -53,6 +53,9 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLY
 
             // Đặt trạng thái duyệt là false
             danhGia.Is_delete = false;
+          
+           
+
 
             // Lưu thay đổi vào cơ sở dữ liệu
             _danhGiaSanPhamService.Sua(danhGia);

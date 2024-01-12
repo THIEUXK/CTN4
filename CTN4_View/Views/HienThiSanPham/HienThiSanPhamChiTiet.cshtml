@@ -566,15 +566,15 @@
                                                 <p>
                                                     @Model.danhGiaSanPhamCuaToi.BinhLuan
                                                 </p>
-                                                <div class="d-flex">
+                                                <div class="d-flex" >
                                                     @if (Model.danhGiaSanPhamCuaToi.TrangThaiDuyet == false)
                                                     {
-                                                        <p><em>Bình luận của bạn đang được duyệt</em></p>
+                                                        <p><em style="color:red">*Bình luận của bạn đang được duyệt</em></p>
 
 
                                                     }@if (Model.danhGiaSanPhamCuaToi.TrangThaiAnHien == false)
                                                     {
-                                                        <p><em>Bình luận của bạn đang tạm ẩn hiện thị</em></p>
+                                                        <p><em style="color:red">*Bình luận của bạn đang tạm ẩn hiện thị</em></p>
                                                     }
 
                                                 </div>
