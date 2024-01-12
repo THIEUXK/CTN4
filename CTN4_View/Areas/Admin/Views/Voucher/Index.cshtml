@@ -353,10 +353,7 @@
                                 <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber + 1, Is_detele = ViewBag.currentIsDelete, loaiGiamGia = ViewBag.currentLoaiGiamGia })">Sau</a>
                             </li>
                         }
-                        @Html.Hidden("Index", (object)ViewBag.page)
-                        @Html.Hidden("TatCa", (object)ViewBag.sortProperty)
-                        @Html.Hidden("XemDaBiAn", (object)ViewBag.sortOrder)
-                        @Html.Hidden("GiamTien", (object)ViewBag.searchValue)
+                        
                     </ul>
                 </div>
             </div>

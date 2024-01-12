@@ -58,7 +58,7 @@
                         <a class="dropdown-item" href="@Url.Action("Index")">Tất cả các mã</a>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="@Url.Action("GiamTien", new { loaiGiamGia = "giamtien", Is_detele = ViewBag.currentIsDelete })" data-value="giamtien">Giảm theo giá tiền</a>
+                        <a class="dropdown-item" href="@Url.Action("DongGia")">Giảm theo đồng giá</a>
                     </li>
                     <li>
                         <a class="dropdown-item" href="@Url.Action("GiamPhanTram", new { loaiGiamGia = "giamphantram", Is_detele = ViewBag.currentIsDelete })" data-value="giamphantram">Giảm phần trăm</a>
@@ -303,7 +303,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model)
+                            @foreach (var item in Model.Where(item => item.TrangThai == true && item.NgayKetThuc >= DateTime.Now && item.NgayBatDau < DateTime.Now))
                             {
                                 @if(item.TrangThai == true && item.NgayKetThuc >= DateTime.Now && item.NgayBatDau < DateTime.Now)
                                 {
@@ -408,47 +408,6 @@
                             }
                         </tbody>
                     </table>
-                    <div class="row no-gutters justify-content-between paginate">
-                        <div class="col-auto ">
-                            @using (Html.BeginForm("Index", "KhuyenMai", FormMethod.Get))
-                            {
-                                <p>
-                                    Kích thước trang: @Html.DropDownList("size", (List<SelectListItem>)ViewBag.size, new { @onchange = "this.form.submit();" })
-                                </p>
-                            }
-                        </div>
-                        <div class="col-auto">
-                            <div class="row no-gutters align-items-center">
-                                <div class="col-auto mr-3"><span style="color: rgb(128, 128, 128);">Tổng:<span id="id">@Model.Count()</span></span></div>
-                                <div class="col">
-                                    <div class="pagination-container">
-                                        <ul class="pagination">
-                                            @if (Model.HasPreviousPage)
-                                           {
-                                               <li class="page-item">
-                                                   <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber - 1, size = ViewBag.currentSize })">Previous</a>
-                                               </li>
-                                           }
-
-                                            @for (var i = 1; i <= Model.PageCount; i++)
-                                            {
-                                                <li class="page-item @(i == Model.PageNumber ? "active" : "")">
-                                                    <a class="page-link" href="@Url.Action("Index", new { page = i, size = ViewBag.currentSize })">@i</a>
-                                                </li>
-                                            }
-
-                                            @if (Model.HasNextPage)
-                                            {
-                                                <li class="page-item">
-                                                    <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber + 1, size = ViewBag.currentSize })">Next</a>
-                                                </li>
-                                            }
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div id="menu2" class="container-fluid tab-pane fade"><br>
                     <table class="table table-bordered">
@@ -481,7 +440,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model)
+                            @foreach (var item in Model.Where(item => (item.TrangThai != true || item.NgayBatDau > DateTime.Now) && item.NgayKetThuc >= DateTime.Now))
                             {
                                 itemIds.Add(item.Id.ToString());
                                 if((item.TrangThai != true || item.NgayBatDau > DateTime.Now) && item.NgayKetThuc>= DateTime.Now )
@@ -585,47 +544,6 @@
                
                       
                     </table>
-                    <div class="row no-gutters justify-content-between paginate">
-                        <div class="col-auto ">
-                            @using (Html.BeginForm("Index", "KhuyenMai", FormMethod.Get))
-                            {
-                                <p>
-                                    Kích thước trang: @Html.DropDownList("size", (List<SelectListItem>)ViewBag.size, new { @onchange = "this.form.submit();" })
-                                </p>
-                            }
-                        </div>
-                        <div class="col-auto">
-                            <div class="row no-gutters align-items-center">
-                                <div class="col-auto mr-3"><span style="color: rgb(128, 128, 128);">Tổng:<span id="id">@Model.Count()</span></span></div>
-                                <div class="col">
-                                    <div class="pagination-container">
-                                        <ul class="pagination">
-                                            @if (Model.HasPreviousPage)
-                                           {
-                                               <li class="page-item">
-                                                    <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber - 1, size = ViewBag.currentSize })">Previous</a>
-                                               </li>
-                                           }
-
-                                            @for (var i = 1; i <= Model.PageCount; i++)
-                                            {
-                                                <li class="page-item @(i == Model.PageNumber ? "active" : "")">
-                                                    <a class="page-link" href="@Url.Action("Index", new { page = i, size = ViewBag.currentSize })">@i</a>
-                                                </li>
-                                            }
-
-                                            @if (Model.HasNextPage)
-                                            {
-                                                <li class="page-item">
-                                                    <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber + 1, size = ViewBag.currentSize })">Next</a>
-                                                </li>
-                                            }
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
