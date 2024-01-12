@@ -23,6 +23,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using X.PagedList;
 
@@ -200,7 +201,35 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                     TempData["TB1"] = message;
                     return RedirectToAction("XemChiTiet", new { id = id, message });
                 }
+                if (ten == null || (sdt == null && email == null))
+                {
+                    {
+                        var message = "hãy nhớ điền số điện thoại hoặc Email của bạn còn tên là bắt buộc";
+                        TempData["TB1"] = message;
+                        return RedirectToAction("XemChiTiet", new { id = id, message });
+                    }
+                }
 
+                if (sdt != null)
+                {
+                    if (sdt.Length < 10 || sdt.Length > 13)
+                    {
+                        {
+                            var message = "Số điện thoại phải từ 10 số trở lên";
+                            TempData["TB1"] = message;
+                            return RedirectToAction("XemChiTiet", new { id = id, message });
+                        }
+                    }
+                }
+                if (email != null)
+                {
+                    if (!IsValidGmail(email))
+                    {
+                        var message = "Email không hợp lệ";
+                        TempData["TB1"] = message;
+                        return RedirectToAction("XemChiTiet", new { id = id, message });
+                    }
+                }
                 hd.TenKhachHang = ten;
                 hd.SDTNguoiNhan = sdt;
                 hd.Email = email;
@@ -1979,6 +2008,14 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
         #endregion
 
         #region mua hang tai quay
+        static bool IsValidGmail(string email)
+        {
+            // Định nghĩa một biểu thức chính quy cho địa chỉ Gmail
+            string pattern = @"^[a-zA-Z0-9._%+-]+@gmail\.com$";
+
+            // Sử dụng Regex.IsMatch để kiểm tra xem địa chỉ email có khớp với biểu thức không
+            return Regex.IsMatch(email, pattern);
+        }
         public IActionResult TaoHoaDonnew()
         {
             var nvnew = SessionServices.NhanVienSS(HttpContext.Session, "ACA");
@@ -2739,6 +2776,29 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                             return RedirectToAction("TaoHoaDon", new { id = idHD, message });
                         }
                     }
+
+                    if (Sodienthoai!=null)
+                    {
+                        if (Sodienthoai.Length < 10 || Sodienthoai.Length > 13)
+                        {
+                            {
+                                var message = "Số điện thoại phải từ 10 số trở lên";
+                                TempData["TB2"] = message;
+                                return RedirectToAction("TaoHoaDon", new { id = idHD, message });
+                            }
+                        }
+                    }
+                    if (Email != null)
+                    {
+                        if (!IsValidGmail(Email))
+                        {
+                            var message = "Email không hợp lệ";
+                            TempData["TB2"] = message;
+                            return RedirectToAction("TaoHoaDon", new { id = idHD, message });
+                        }
+                    }
+
+                  
                     var hd = _hoaDonService.GetById(idHD);
                     var hdct = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == idHD);
                     if (hdct.Count() == 0)
