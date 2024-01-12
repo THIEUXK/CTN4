@@ -6,21 +6,14 @@
 }
 
 
-<div>
-    <a asp-action="Index" style="color: black;">Quay về</a>
-</div>
-<div class="row">
-    <div class="col-md-9">
-        <br></br>
-        <br></br>
 
-        
-        <h1>Chỉnh sửa</h1>
-
-        <h4>Chất liệu</h4>
-        <hr />
+<br />
+<div class="centered-container">
+    <div class="blurred-border">
         <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-12">
+                <h1>Chỉnh sửa</h1>
+                <h4>Chất liệu</h4>
                 <form asp-action="Edit" onsubmit="return confirmSubmit();">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
@@ -34,20 +27,20 @@
                         <input asp-for="GhiChu" class="form-control" />
                         <span asp-validation-for="GhiChu" class="text-danger"></span>
                     </div>
-                    <div class="form-group form-check">
-                        <label class="form-check-label">
+                    <div class=" form-check">
+                        <label class="form-check-label" style="font-weight: bold;">
                             <input class="form-check-input" asp-for="TrangThai" /> Trạng thái
                         </label>
                     </div>
-                    <div class="form-group form-check">
-                        <label class="form-check-label">
+                    <div class=" form-check">
+                        <label class="form-check-label" style="font-weight: bold;">
                             <input class="form-check-input" asp-for="Is_detele" /> Tình trạng
                         </label>
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Save" class="btn btn-primary" />
                     </div>
-                    <h4>_________________________________________________</h4>
+                 
                     <a asp-action="Index" style="color: black;">Quay về</a>
                 </form>
             </div>
@@ -64,3 +57,88 @@
         return result;
     }
 </script>
+@*/////////giaodien*@
+<script>
+    function displayFileName() {
+        var fileInput = document.getElementById('file-upload');
+        var fileNameDisplay = document.getElementById('file-name-display');
+
+        if (fileInput.files.length > 0) {
+            fileNameDisplay.textContent = 'File đã chọn: ' + fileInput.files[0].name;
+        } else {
+            fileNameDisplay.textContent = '';
+        }
+    }
+</script>
+<style>
+    body {
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+    }
+
+    .header {
+        background-color: #343a40;
+        color: white;
+        padding: 10px;
+    }
+
+    .centered-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 50px;
+    }
+
+    .blurred-border {
+        width: 100%;
+        max-width: 800px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.8);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+            .form-group input[type="submit"] {
+                width: auto;
+            }
+
+    .custom-file-upload {
+        border: 1px solid #ccc;
+        display: inline-block;
+        padding: 6px 12px;
+        cursor: pointer;
+    }
+
+    #file-name-display {
+        margin-top: 10px;
+        font-style: italic;
+    }
+
+    a {
+        color: black;
+        text-decoration: none;
+    }
+
+        a:hover {
+            text-decoration: underline;
+        }
+</style>

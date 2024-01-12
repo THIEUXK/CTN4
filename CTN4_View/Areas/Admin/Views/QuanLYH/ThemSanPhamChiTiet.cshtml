@@ -4,152 +4,216 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h1>ThemSanPhamChiTiet</h1>
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-<div class="row">
-    <div class="col-md-9">
-        <br></br>
-        <div>
-            <h1>Sản Phẩm</h1>
-            <hr />
-            @* <dl class="row">
-            <dt class="col-sm-2">
-            <h3>Tên sản phẩm</h3>
-            </dt>
-            <dd class="col-sm-10">
-            <h3>@Model.</h3>
-            </dd>
+<br />
+<div class="centered-container">
+    <div class="blurred-border">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Thêm sản Phẩm chi tiết</h1>
+                <form method="post" asp-action="ThemSanPham" enctype="multipart/form-data" onsubmit="return validateForm();">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            </dl>*@
+                    <div class="form-group">
+                        <label asp-for="SoLuong" class="control-label">Số lượng</label>
+                        <input asp-for="SoLuong" class="form-control" />
+                        <span asp-validation-for="SoLuong" class="text-danger" id="soLuongError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <div style="display: flex; align-items: center;">
+                            <label asp-for="IdMau" style="margin-right: auto;">Màu sắc</label>
+                            <a style="color: black;" asp-controller="Mau" asp-action="Index">Quản lý màu sắc</a>
+                        </div>
+                        <select asp-for="IdMau" class="form-control" id="mauSelect">
+                            <option value="">-- Chọn màu --</option>
+                            @foreach (var a in Model.MauItems)
+                            {
+                                <option value="@a.Value">@a.Text</option>
+                            }
+                        </select>
+                        <span asp-validation-for="IdMau" class="text-danger" id="mauError"></span>
+                    </div>
+
+                    <div class="form-group">
+
+                        <div style="display: flex; align-items: center;">
+                            <label asp-for="IdSize" style="margin-right: auto;">Size</label>
+                            <a style="color: black;" asp-controller="Size" asp-action="Index">Quản lý size</a>
+                        </div>
+                        <select asp-for="IdSize" class="form-control" id="sizeSelect">
+                            <option value="">-- Chọn size --</option>
+                            @foreach (var a in Model.SizeItems)
+                            {
+                                <option value="@a.Value">@a.Text</option>
+                            }
+                        </select>
+                        <span asp-validation-for="IdSize" class="text-danger" id="sizeError"></span>
+                    </div>
+                    @if (TempData["sussces"] != null)
+                    {
+                        <div class="alert alert-info"> @TempData["sussces"]</div>
+                    }
+                    @if (TempData["ErrorMessage"] != null)
+                    {
+                        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+                    }
+                    <br />
+                    <div class="form-group">
+                        <input type="submit" value="Thêm" class="btn btn-primary" />
+                        <input type="hidden" name="IdSp" value="@Model.IdSp" />
+                    </div>
+                </form>
+
+            </div>
         </div>
+        <div>
+            <a>@Html.ActionLink("Quay lại", "details","SanPham", new {id = Model.IdSp }, new { style="text-decoration: none;color: black;" }) </a>
 
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-4">
-        <form method="post" asp-action="ThemSanPham" enctype="multipart/form-data" onsubmit="return validateForm();">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        </div>
+        <script>
+            function validateForm() {
+                // Biến để kiểm tra xem có nên hiển thị confirm hay không
+                var result = true;
 
-            <div class="form-group">
-                <label asp-for="SoLuong" class="control-label">Số lượng</label>
-                <input asp-for="SoLuong" class="form-control" />
-                <span asp-validation-for="SoLuong" class="text-danger" id="soLuongError"></span>
-            </div>
+                // Kiểm tra và hiển thị thông báo lỗi cho số lượng
+                var soLuongValue = document.getElementById("SoLuong").value;
+                var errorSoLuongSpan = document.getElementById("soLuongError");
 
-            <div class="form-group">
-                <div style="display: flex; align-items: center;">
-                    <label asp-for="IdMau" style="margin-right: 240px;">Màu sắc</label>
-                    <a style="color: black;" asp-controller="Mau" asp-action="Index">Quản lý màu sắc</a>
-                </div>
-                <select asp-for="IdMau" class="form-control" id="mauSelect">
-                    <option value="">-- Chọn màu --</option>
-                    @foreach (var a in Model.MauItems)
-                    {
-                        <option value="@a.Value">@a.Text</option>
-                    }
-                </select>
-                <span asp-validation-for="IdMau" class="text-danger" id="mauError"></span>
-            </div>
+                // Validate số lượng, nếu không hợp lệ, đặt result thành false
+                if (!validateSoLuong(soLuongValue, errorSoLuongSpan)) {
+                    result = false;
+                }
 
-            <div class="form-group">
+                // Kiểm tra và hiển thị thông báo lỗi cho IdMau
+                var selectedMauValue = document.getElementById("mauSelect").value;
+                var errorMauSpan = document.getElementById("mauError");
+
+                if (selectedMauValue === "") {
+                    errorMauSpan.innerText = "Vui lòng chọn một giá trị cho Màu sắc.";
+                    result = false; // Đặt result thành false nếu có lỗi
+                } else {
+                    errorMauSpan.innerText = ""; // Xóa thông báo lỗi nếu hợp lệ
+                }
+
+                // Kiểm tra và hiển thị thông báo lỗi cho IdSize
+                var selectedSizeValue = document.getElementById("sizeSelect").value;
+                var errorSizeSpan = document.getElementById("sizeError");
+
+                if (selectedSizeValue === "") {
+                    errorSizeSpan.innerText = "Vui lòng chọn một giá trị cho Size.";
+                    result = false; // Đặt result thành false nếu có lỗi
+                } else {
+                    errorSizeSpan.innerText = ""; // Xóa thông báo lỗi nếu hợp lệ
+                }
+
+                // Hiển thị confirm khi không có lỗi
+                if (result) {
+                    result = confirm("Bạn có chắc muốn chỉnh sửa sản phẩm này không?");
+                }
+
+                return result;
+            }
+
+
+            function validateSoLuong(value, errorElement) {
+                // Kiểm tra không được để trống
+                if (value === '') {
+                    errorElement.innerText = 'Không được để trống';
+                    return false;
+                }
+                // Kiểm tra số lượng không vượt quá 9999999
+                if (parseInt(value, 10) > 9999999) {
+                    errorElement.innerText = 'Số lượng không được vượt quá 9999999';
+                    return false;
+                }
+                // Kiểm tra có phải là số không âm hay không
+                if (!/^\d+$/.test(value) || parseInt(value, 10) < 0) {
+                    errorElement.innerText = 'Chỉ được nhập số không âm';
+                    return false;
+                }
+
+                // Kiểm tra số lượng lớn hơn 1
+                if (parseInt(value, 10) <= 1) {
+                    errorElement.innerText = 'Số lượng phải lớn hơn 1';
+                    return false;
+                }
                 
-                <div style="display: flex; align-items: center;">
-                    <label asp-for="IdSize" style="margin-right: 295px;">Size</label>
-                    <a style="color: black;" asp-controller="Size" asp-action="Index">Quản lý size</a>
-                </div>
-                <select asp-for="IdSize" class="form-control" id="sizeSelect">
-                    <option value="">-- Chọn size --</option>
-                    @foreach (var a in Model.SizeItems)
-                    {
-                        <option value="@a.Value">@a.Text</option>
+                // Nếu tất cả các kiểm tra đều qua, xóa thông báo lỗi
+                errorElement.innerText = '';
+                return true;
+            }
+        </script>
+        @*/////////giaodien*@
+      
+        <style>
+            body {
+                background-color: #f8f9fa;
+                margin: 0;
+                padding: 0;
+            }
+
+            .header {
+                background-color: #343a40;
+                color: white;
+                padding: 10px;
+            }
+
+            .centered-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 50px;
+            }
+
+            .blurred-border {
+                width: 100%;
+                max-width: 800px;
+                border: 1px solid rgba(0, 0, 0, 0.1);
+                border-radius: 10px;
+                padding: 20px;
+                background: rgba(255, 255, 255, 0.8);
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .form-group {
+                margin-bottom: 20px;
+            }
+
+                .form-group label {
+                    display: block;
+                    margin-bottom: 5px;
+                    font-weight: bold;
+                }
+
+                .form-group input,
+                .form-group select {
+                    width: 100%;
+                    padding: 8px;
+                    box-sizing: border-box;
+                }
+
+                    .form-group input[type="submit"] {
+                        width: auto;
                     }
-                </select>
-                <span asp-validation-for="IdSize" class="text-danger" id="sizeError"></span>
-            </div>
-            @if (TempData["sussces"] != null)
-            {
-                <div class="alert alert-info"> @TempData["sussces"]</div>
+
+            .custom-file-upload {
+                border: 1px solid #ccc;
+                display: inline-block;
+                padding: 6px 12px;
+                cursor: pointer;
             }
-            @if (TempData["ErrorMessage"] != null)
-            {
-                <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+
+            #file-name-display {
+                margin-top: 10px;
+                font-style: italic;
             }
-            <br />
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-                <input type="hidden" name="IdSp" value="@Model.IdSp" />
-            </div>
-        </form>
 
-    </div>
-</div>
-<div>
-    <a>@Html.ActionLink("Quay lại", "details","SanPham", new {id = Model.IdSp }, new { style="text-decoration: none;color: black;" }) </a>
+            a {
+                color: black;
+                text-decoration: none;
+            }
 
-</div>
-<script>
-    function validateForm() {
-        var result = true; // Biến để kiểm tra xem có nên hiển thị confirm hay không
-
-        // Kiểm tra và hiển thị thông báo lỗi cho số lượng
-        var soLuongValue = document.getElementById("SoLuong").value;
-        var errorSoLuongSpan = document.getElementById("soLuongError");
-
-        validateSoLuong(soLuongValue, errorSoLuongSpan);
-
-        // Kiểm tra và hiển thị thông báo lỗi cho IdMau
-        var selectedMauValue = document.getElementById("mauSelect").value;
-        var errorMauSpan = document.getElementById("mauError");
-
-        if (selectedMauValue === "") {
-            errorMauSpan.innerText = "Vui lòng chọn một giá trị cho Màu sắc.";
-            result = false; // Đặt result thành false nếu có lỗi
-        } else {
-            errorMauSpan.innerText = ""; // Xóa thông báo lỗi nếu hợp lệ
-        }
-
-        // Kiểm tra và hiển thị thông báo lỗi cho IdSize
-        var selectedSizeValue = document.getElementById("sizeSelect").value;
-        var errorSizeSpan = document.getElementById("sizeError");
-
-        if (selectedSizeValue === "") {
-            errorSizeSpan.innerText = "Vui lòng chọn một giá trị cho Size.";
-            result = false; // Đặt result thành false nếu có lỗi
-        } else {
-            errorSizeSpan.innerText = ""; // Xóa thông báo lỗi nếu hợp lệ
-        }
-
-        // Hiển thị confirm khi không có lỗi
-        if (result) {
-            result = confirm("Bạn có chắc muốn chỉnh sửa sản phẩm này không?");
-        }
-
-        return result;
-    }
-
-    function validateSoLuong(value, errorElement) {
-        // Kiểm tra không được để trống
-        if (value === '') {
-            errorElement.innerText = 'Không được để trống';
-            return false;
-        }
-
-        // Kiểm tra có phải là số không âm hay không
-        if (!/^\d+$/.test(value) || parseInt(value, 10) < 0) {
-            errorElement.innerText = 'Chỉ được nhập số không âm';
-            return false;
-        }
-
-        // Kiểm tra số lượng lớn hơn 1
-        if (parseInt(value, 10) <= 1) {
-            errorElement.innerText = 'Số lượng phải lớn hơn 1';
-            return false;
-        }
-
-        // Nếu tất cả các kiểm tra đều qua, xóa thông báo lỗi
-        errorElement.innerText = '';
-        return true;
-    }
-</script>
+                a:hover {
+                    text-decoration: underline;
+                }
+        </style>
