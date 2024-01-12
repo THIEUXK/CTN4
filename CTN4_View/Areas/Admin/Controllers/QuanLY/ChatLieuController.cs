@@ -100,10 +100,11 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         {
             var b = new ChatLieu();
             {
+                b.Id = a.Id;
                 b.TenChatLieu = a.TenChatLieu;
                 b.GhiChu = a.GhiChu;
-                b.TrangThai = true;
-                b.Is_detele = true;
+                b.TrangThai = a.TrangThai;
+                b.Is_detele = a.Is_detele;
             }
             if (_sv.Sua(b))
             {
