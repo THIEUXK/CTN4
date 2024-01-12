@@ -42,6 +42,10 @@
         margin: 10px;
         font-size: 14px;
     }
+
+    .small-text {
+        font-size: 12px; /* hoặc bạn có thể sử dụng giá trị cụ thể cho font-size */
+    }
 </style>
 
 <div>
@@ -74,6 +78,7 @@
                             <div class="form-group">
                                 <label asp-for="MaGiam" class="control-label">Mã giảm giá</label>
                                 <input asp-for="MaGiam" id="MaGiamGia" class="form-control" maxlength="30"/>
+                                <label class="small-text">(Không được nhập quá 30 ký tự)</label>
                                 <span asp-validation-for="MaGiam" class="text-danger"></span>
                             </div>
 
@@ -118,6 +123,7 @@
                             <div class="form-group" id="SoTienGiamGroup" style="display: none;">
                                 <label asp-for="SoTienGiam" class="control-label">Số tiền giảm</label>
                                 <input asp-for="SoTienGiam" class="form-control" maxlength="9" />
+                                <label class="small-text" >(Không được nhập quá 9 ký tự)</label>
                                 <span asp-validation-for="SoTienGiam" class="text-danger"></span>
                             </div>
 
@@ -125,10 +131,12 @@
                             <div class="form-group" id="PhanTramGiamGroup" style="display: none;">
                                 <label asp-for="PhanTramGiam" class="control-label">Phần trăm giảm</label>
                                 <input asp-for="PhanTramGiam" class="form-control" maxlength="9"/>
+                                <label class="small-text" >(Không được nhập quá 9 ký tự)</label>
                                 <span asp-validation-for="PhanTramGiam" class="text-danger"></span>
                                 <div class="form-group">
                                     <label asp-for="SoTienGiamToiDa" class="control-label">Số tiền giảm tối đa</label>
                                     <input asp-for="SoTienGiamToiDa" class="form-control" maxlength="9"/>
+                                    <label class="small-text" >(Không được nhập quá 9 ký tự)</label>
                                     <span asp-validation-for="SoTienGiamToiDa" class="text-danger"></span>
                                 </div>
                             </div>
@@ -171,11 +179,13 @@
                             <div class="form-group">
                                 <label asp-for="SoLuong" class="control-label">Số lượng</label>
                                 <input asp-for="SoLuong" class="form-control" maxlength="9" />
+                                <label class="small-text">(Không được nhập quá 9 ký tự)</label>
                                 <span asp-validation-for="SoLuong" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="DieuKienGiam" class="control-label">Giảm giá từ đơn tối thiểu( VND)</label>
                                 <input asp-for="DieuKienGiam" class="form-control" maxlength="9" />
+                                <label class="small-text">(Không được nhập quá 9 ký tự)</label>
                                 <span asp-validation-for="DieuKienGiam" class="text-danger"></span>
                             </div>
 
