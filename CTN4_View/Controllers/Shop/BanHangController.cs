@@ -627,6 +627,13 @@ namespace CTN4_View.Controllers.Shop
             }
 
         }
+        static bool IsValidGmail(string email)
+        {
+            // Định nghĩa một biểu thức chính quy cho địa chỉ Gmail
+            string pattern = @"^[a-zA-Z0-9._%+-]+@gmail\.com$";
+            // Sử dụng Regex.IsMatch để kiểm tra xem địa chỉ email có khớp với biểu thức không
+            return Regex.IsMatch(email, pattern);
+        }
         public IActionResult HoanThanhThanhToan(string tenmagiam, float tiengiama, float tienhanga, string name, string DiachiNhanChiTiet, string Sodienthoai, string Email, string addDiaChi, Guid IdDiaChi, Guid idphuongthuc, string ghiChu, float tienshipa, float tongtien)
         {
             var KhuyenMaiSp = _KKhuyenMaiSanPhamService.GetAll().Where(c => c.KhuyenMai.Mua1tang1 == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now && c.KhuyenMai.Is_Detele == true).ToList();
@@ -640,6 +647,21 @@ namespace CTN4_View.Controllers.Shop
                 }
             }
             #region Check validate
+            if (Sodienthoai.Length< 10|| Sodienthoai.Length >13)
+            {
+                {
+                    var message = "Số điện thoại phải từ 10 số trở lên";
+                    TempData["TB2"] = message;
+                    return RedirectToAction("ThuTucThanhToan", "BanHang", new { message });
+                }
+            }
+            if (!IsValidGmail(Email))
+            {
+                var message = "Email không hợp lệ";
+                TempData["TB2"] = message;
+                return RedirectToAction("ThuTucThanhToan", "BanHang", new { message });
+            }
+           
             if (name == null)
             {
                 {
