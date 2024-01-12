@@ -26,8 +26,8 @@ namespace CTN4_Serv.ViewModel
         public SanPham sanPham { get; set; }
          public List<Anh> AhList { get; set; }
         public Guid Id { get; set; }
-        [Required(ErrorMessage = "Số lượng không được bỏ trống.")]
-        [Range(1, float.MaxValue, ErrorMessage = "Số lượng phải lớn hơn hoặc bằng 1.")]
+        //[Required(ErrorMessage = "Số lượng không được bỏ trống.")]
+        //[Range(1, float.MaxValue, ErrorMessage = "Số lượng phải lớn hơn hoặc bằng 1.")]
         public int SoLuong { get; set; }
         public bool TrangThai { get; set; }
         public bool Is_detele { get; set; }
