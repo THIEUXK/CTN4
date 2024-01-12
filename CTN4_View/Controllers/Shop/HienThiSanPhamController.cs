@@ -816,7 +816,20 @@ namespace CTN4_View.Controllers.Shop
             var listsp1 = _sanPhamCuaHangService.GetAllSpcts(IdSanPham).Where(c => c.Is_detele == true).ToList();
             var anh = _anhService.GetAll().Where(c => c.SanPhamChiTiet.SanPham.Id == IdSanPham).ToList();
             var danhgiasanpham = _danhGiaSanPhamService.GetAll().Where(c => c.Is_delete == true && c.TrangThaiAnHien == true && c.TrangThaiDuyet == true).ToList();
-            var listsp = _sanPhamCuaHangService.GetAll();
+             var splienquan = _danhMucChiTiet.GetAll().Where(c => c.IdSanPham == IdSanPham && c.DanhMuc.Is_detele == true);
+            var a = new List<Guid>();
+            foreach (var i in splienquan)
+            {
+                a.Add((Guid)i.IdDanhMuc);
+            }
+            var listDanhMucLq = _danhMucChiTiet.GetAll().Where(c => a.Contains((Guid)c.IdDanhMuc) && c.DanhMuc.Is_detele == true).ToList();
+            var b = new List<Guid>();
+            foreach (var i in listDanhMucLq)
+            {
+                b.Add((Guid)i.IdSanPham);
+            }
+            var listsp = _sanphamService.GetAll().Where(c => b.Contains((Guid)c.Id) && c.Is_detele == true).ToList();
+            
             var mau = _mauSacService.GetAll().Distinct().ToList();
             var size = _sizeService.GetAll().Distinct().ToList();
             var spctcuthe = _CTN4_Ok.SanPhamChiTiets.Include(c => c.Size).Where(c => c.IdMau == IdMau && c.IdSp == IdSanPham && c.Is_detele == true).ToList();
@@ -853,7 +866,19 @@ namespace CTN4_View.Controllers.Shop
             var danhgiasanpham = _danhGiaSanPhamService.GetAll().Where(c => c.Is_delete == true && c.TrangThaiAnHien == true && c.TrangThaiDuyet == true).ToList();
             var listsp1 = _sanPhamCuaHangService.GetAllSpcts(IdSanPham).Where(c => c.Is_detele == true).ToList();
             var anh = _anhService.GetAll().Where(c => c.SanPhamChiTiet.SanPham.Id == IdSanPham).ToList();
-            var listsp = _sanPhamCuaHangService.GetAll();
+             var splienquan = _danhMucChiTiet.GetAll().Where(c => c.IdSanPham == IdSanPham && c.DanhMuc.Is_detele == true);
+            var a = new List<Guid>();
+            foreach (var i in splienquan)
+            {
+                a.Add((Guid)i.IdDanhMuc);
+            }
+            var listDanhMucLq = _danhMucChiTiet.GetAll().Where(c => a.Contains((Guid)c.IdDanhMuc) && c.DanhMuc.Is_detele == true).ToList();
+            var b = new List<Guid>();
+            foreach (var i in listDanhMucLq)
+            {
+                b.Add((Guid)i.IdSanPham);
+            }
+            var listsp = _sanphamService.GetAll().Where(c => b.Contains((Guid)c.Id) && c.Is_detele == true).ToList();
             var mau = _mauSacService.GetAll().Distinct().ToList();
             var size = _CTN4_Ok.SanPhamChiTiets.Include(c => c.Size).Where(c => c.IdMau == IdMau && c.IdSp == IdSanPham).ToList();
             var spcuthe = _CTN4_Ok.SanPhamChiTiets.FirstOrDefault(c => c.IdMau == IdMau && c.IdSp == IdSanPham && c.IdSize == idSize && c.Is_detele == true);
