@@ -4,20 +4,93 @@
     ViewData["Title"] = "Create";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
-<div class="row">
-    <div class="col-md-9">
-        <br></br>
-        <br></br>
-        <br></br>
-        <h1>Thêm mới</h1>
+<style>
+    body {
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+    }
 
-        <h4>Khách hàng</h4>
-        <hr />
+    .header {
+        background-color: #343a40;
+        color: white;
+        padding: 10px;
+    }
+
+    .centered-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 50px;
+    }
+
+    .blurred-border {
+        width: 100%;
+        max-width: 800px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.8);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+            .form-group input[type="submit"] {
+                width: auto;
+            }
+
+    .custom-file-upload {
+        border: 1px solid #ccc;
+        display: inline-block;
+        padding: 6px 12px;
+        cursor: pointer;
+    }
+
+    #file-name-display {
+        margin-top: 10px;
+        font-style: italic;
+    }
+
+    a {
+        color: black;
+        text-decoration: none;
+    }
+
+        a:hover {
+            text-decoration: underline;
+        }
+</style>
+
+<br />
+<div class="centered-container">
+    <div class="blurred-border">
         <div class="row">
-            <div class="col-md-4">
-                <form asp-action="Create" enctype="multipart/form-data" onsubmit="return confirmSubmit();">
+            <div class="col-md-9">
+                <br />
+                <br />
+                <br />
+                <h1>Thêm mới</h1>
+                <h4>Khách hàng</h4>
+
+                <form asp-action="Create" enctype="multipart/form-data" onsubmit="return confirmSubmit()">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                   @* @Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
+
                     <div class="form-group">
                         <label asp-for="Ho" class="control-label">Họ</label>
                         <input asp-for="Ho" class="form-control" />
@@ -29,41 +102,52 @@
                         <input asp-for="Ten" class="form-control" />
                         <span asp-validation-for="Ten" class="text-danger"></span>
                     </div>
+
                     <div class="form-group">
                         <label asp-for="TenDangNhap" class="control-label">Tên đăng nhập</label>
                         <input asp-for="TenDangNhap" class="form-control" />
                         <span asp-validation-for="TenDangNhap" class="text-danger"></span>
                     </div>
+
                     <div class="form-group">
-                        <label asp-for="MatKhau" class="control-label">mật khẩu</label>
+                        <label asp-for="MatKhau" class="control-label">Mật khẩu</label>
                         <input asp-for="MatKhau" class="form-control" />
                         <span asp-validation-for="MatKhau" class="text-danger"></span>
                     </div>
+
                     <div class="form-group">
-                        <label asp-for="GioiTinh" class="control-label">giới tính</label>
+                        <label asp-for="GioiTinh" class="control-label">Giới tính</label>
                         <select asp-for="GioiTinh" class="form-control">
-                            <option value=Nam>Nam</option>
-                            <option value=Nữ>Nữ</option>
+                            <option value="Nam">Nam</option>
+                            <option value="Nữ">Nữ</option>
                         </select>
                     </div>
+
                     <div class="form-group">
                         <label asp-for="Email" class="control-label">Email</label>
                         <input asp-for="Email" class="form-control" />
                         <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
+
                     <div class="form-group">
                         <label asp-for="SDT" class="control-label">Số điện thoại</label>
                         <input asp-for="SDT" class="form-control" />
                         <span asp-validation-for="SDT" class="text-danger"></span>
                     </div>
+
                     <div class="form-group">
                         <label asp-for="DiaChi" class="control-label">Địa chỉ</label>
                         <input asp-for="DiaChi" class="form-control" />
                         <span asp-validation-for="DiaChi" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
+
+                    <div  class="form-group"  >
                         <label>Chọn ảnh từ Máy tính:</label>
-                        <input type="file" name="imageFile" />
+                        <label for="file-upload" class="custom-file-upload">
+                            Chọn File
+                        </label>
+                        <input id="file-upload" type="file" name="imageFile" onchange="displayFileName()" hidden />
+                        <span id="file-name-display"></span>
                         @if (TempData["Notification"] != null)
                         {
                             <a style="color:red">@TempData["Notification"]</a>
@@ -72,18 +156,34 @@
                             <a style="color:red">@TempData["Loi"]</a>
                         }
                     </div>
+
                     <div class="form-group">
                         <input type="submit" value="Thêm mới" class="btn btn-primary" />
                     </div>
+
                     <div>
-                        <h4>_________________________________________________</h4>
-                        <a asp-action="Index" style="color: black;">Quay về</a>
+                        <a asp-action="Index">Quay về</a>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    function displayFileName() {
+        var fileInput = document.getElementById('file-upload');
+        var fileNameDisplay = document.getElementById('file-name-display');
+
+        if (fileInput.files.length > 0) {
+            fileNameDisplay.textContent = 'File đã chọn: ' + fileInput.files[0].name;
+        } else {
+            fileNameDisplay.textContent = '';
+        }
+    }
+</script>
+
+
 <script>
     function confirmSubmit() {
         // Hiển thị hộp thoại xác nhận
