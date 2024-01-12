@@ -48,6 +48,7 @@
     }
 </style>
 
+
 <div>
     <a asp-action="Index">Danh sách mã giảm giá hiện có</a>
 </div>
@@ -77,7 +78,7 @@
 
                             <div class="form-group">
                                 <label asp-for="MaGiam" class="control-label">Mã giảm giá</label>
-                                <input asp-for="MaGiam" id="MaGiamGia" class="form-control" maxlength="30"/>
+                                <input asp-for="MaGiam" id="MaGiamGia" class="form-control" maxlength="30" />
                                 <label class="small-text">(Không được nhập quá 30 ký tự)</label>
                                 <span asp-validation-for="MaGiam" class="text-danger"></span>
                             </div>
@@ -103,17 +104,35 @@
                                     <option value="false">Giảm theo số tiền</option>
                                     <option value="true">Giảm theo phần trăm</option>
                                 </select>
+
+
+
                                 <span asp-validation-foázr="LoaiGiamGia" class="text-danger"></span>
                                 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
                                 <script>
                                     $(document).ready(function () {
+                                        var selectedValue = $('#LoaiGiamGiaSelect').val();
+
+                                        // if (!selectedValue) {
+                                        //     alert('Bạn cần chọn hình thức giảm giá.');
+                                        //     // Hoặc có thể hiển thị thông báo lỗi theo cách bạn muốn
+                                        // }
+
                                         $('#LoaiGiamGiaSelect').change(function () {
-                                            var selectedValue = $(this).val();
+                                            selectedValue = $(this).val();
 
                                             if (!selectedValue) {
                                                 alert('Bạn cần chọn hình thức giảm giá.');
                                                 // Hoặc có thể hiển thị thông báo lỗi theo cách bạn muốn
+                                            }
+                                        });
+
+                                        // Check validation before submitting the form
+                                        $('form').submit(function (e) {
+                                            if (!selectedValue) {
+                                                alert('Bạn cần chọn hình thức giảm giá.');
+                                                e.preventDefault(); // Prevent the form from being submitted
                                             }
                                         });
                                     });
@@ -123,20 +142,20 @@
                             <div class="form-group" id="SoTienGiamGroup" style="display: none;">
                                 <label asp-for="SoTienGiam" class="control-label">Số tiền giảm</label>
                                 <input asp-for="SoTienGiam" class="form-control" maxlength="9" />
-                                <label class="small-text" >(Không được nhập quá 9 ký tự)</label>
+                                <label class="small-text">(Không được nhập quá 9 ký tự)</label>
                                 <span asp-validation-for="SoTienGiam" class="text-danger"></span>
                             </div>
 
 
                             <div class="form-group" id="PhanTramGiamGroup" style="display: none;">
                                 <label asp-for="PhanTramGiam" class="control-label">Phần trăm giảm</label>
-                                <input asp-for="PhanTramGiam" class="form-control" maxlength="9"/>
-                                <label class="small-text" >(Không được nhập quá 9 ký tự)</label>
+                                <input asp-for="PhanTramGiam" class="form-control" maxlength="9" />
+                                <label class="small-text">(Không được nhập quá 9 ký tự)</label>
                                 <span asp-validation-for="PhanTramGiam" class="text-danger"></span>
                                 <div class="form-group">
                                     <label asp-for="SoTienGiamToiDa" class="control-label">Số tiền giảm tối đa</label>
-                                    <input asp-for="SoTienGiamToiDa" class="form-control" maxlength="9"/>
-                                    <label class="small-text" >(Không được nhập quá 9 ký tự)</label>
+                                    <input asp-for="SoTienGiamToiDa" class="form-control" maxlength="9" />
+                                    <label class="small-text">(Không được nhập quá 9 ký tự)</label>
                                     <span asp-validation-for="SoTienGiamToiDa" class="text-danger"></span>
                                 </div>
                             </div>
@@ -178,7 +197,7 @@
 
                             <div class="form-group">
                                 <label asp-for="SoLuong" class="control-label">Số lượng</label>
-                                <input asp-for="SoLuong" class="form-control" maxlength="9" />
+                                <input type="text" asp-for="SoLuong" class="form-control" maxlength="9" />
                                 <label class="small-text">(Không được nhập quá 9 ký tự)</label>
                                 <span asp-validation-for="SoLuong" class="text-danger"></span>
                             </div>
@@ -195,7 +214,7 @@
                             </label>
                             </div>*@
                             <div class="form-group">
-                                <input type="submit" value="Lưu" class="btn btn-primary" />
+                                <input type="submit" value="Tạo mã" class="btn btn-primary" />
                             </div>
                     </form>
                     <script>

@@ -104,10 +104,10 @@
         </li>
     </ul>
 
-        @* <li>
-            <a class="dropdown-item" href="@Url.Action("CacMaDangHien")">Các mã đang hiển thị</a>
-        </li> *@
-  
+    @* <li>
+    <a class="dropdown-item" href="@Url.Action("CacMaDangHien")">Các mã đang hiển thị</a>
+    </li> *@
+
 </div>
 
 @* <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -190,7 +190,7 @@
                         }
                     </style>
                     <tr>
-                        
+
 
                         <td>
                             <h6 style="text-align:center">@serialNumber</h6>
@@ -282,7 +282,7 @@
 
                             </div>
                         </td>
-                       
+
 
                     </tr>
                     serialNumber++;
@@ -297,41 +297,41 @@
             <div class="col-auto mr-3"><span style="color: rgb(128, 128, 128);">Tổng:<span id="id">@Model.Count()</span></span></div>
             <div class="col">
                 <div class="pagination-container">
-                    
+
                     @* <div class="pagination-container">
-                        @Html.PagedListPager(Model, page => Url.Action("TatCa", new { page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+                    @Html.PagedListPager(Model, page => Url.Action("TatCa", new { page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
                     </div>
                     <div class="pagination-container">
-                        @Html.PagedListPager(Model, page => Url.Action("GiamTien", new { page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+                    @Html.PagedListPager(Model, page => Url.Action("GiamTien", new { page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
                     </div>
                     <div class="pagination-container">
-                        @Html.PagedListPager(Model, page => Url.Action("GiamPhanTram", new { page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+                    @Html.PagedListPager(Model, page => Url.Action("GiamPhanTram", new { page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
                     </div>
                     <div class="pagination-container">
-                        @Html.PagedListPager(Model, page => Url.Action("XemDaBiAn", new { page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
+                    @Html.PagedListPager(Model, page => Url.Action("XemDaBiAn", new { page }), PagedListRenderOptions.OnlyShowFivePagesAtATime)
                     </div> *@
                     @* <ul class="pagination">
-                        @if (Model.HasPreviousPage)
-                        {
-                            <li class="page-item">
-                                <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber - 1, size = ViewBag.currentSize })">Trang trước</a>
-                            </li>
-                        }
+                    @if (Model.HasPreviousPage)
+                    {
+                    <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber - 1, size = ViewBag.currentSize })">Trang trước</a>
+                    </li>
+                    }
 
-                        @for (var i = 1; i <= Model.PageCount; i++)
-                        {
-                            <li class="page-item @(i == Model.PageNumber ? "active" : "")">
-                                <a class="page-link" href="@Url.Action("Index", new { page = i, size = ViewBag.currentSize })">@i</a>
-                            </li>
-                        }
+                    @for (var i = 1; i <= Model.PageCount; i++)
+                    {
+                    <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("Index", new { page = i, size = ViewBag.currentSize })">@i</a>
+                    </li>
+                    }
 
-                        @if (Model.HasNextPage)
-                        {
-                            <li class="page-item">
-                                <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber + 1, size = ViewBag.currentSize })">Trang sau</a>
-                            </li>
-                        }
-                       </ul> *@
+                    @if (Model.HasNextPage)
+                    {
+                    <li class="page-item">
+                    <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber + 1, size = ViewBag.currentSize })">Trang sau</a>
+                    </li>
+                    }
+                    </ul> *@
                     <ul class="pagination">
                         @if (Model.HasPreviousPage)
                         {
@@ -353,7 +353,7 @@
                                 <a class="page-link" href="@Url.Action("Index", new { page = Model.PageNumber + 1, Is_detele = ViewBag.currentIsDelete, loaiGiamGia = ViewBag.currentLoaiGiamGia })">Sau</a>
                             </li>
                         }
-                        
+
                     </ul>
                 </div>
             </div>

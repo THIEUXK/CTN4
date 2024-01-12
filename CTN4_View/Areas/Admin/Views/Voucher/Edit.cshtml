@@ -93,7 +93,35 @@
                                         <option value="false">Giảm theo số tiền</option>
                                         <option value="true">Giảm theo phần trăm</option>
                                     </select>
-                                    <span asp-validation-for="LoaiGiamGia" class="text-danger"></span>
+                                    @* <span asp-validation-for="LoaiGiamGia" class="text-danger"></span> *@
+
+                                    <span asp-validation-foázr="LoaiGiamGia" class="text-danger"></span>
+                                    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+                                    <script>
+                                        $(document).ready(function () {
+                                            var selectedValue = $('#LoaiGiamGiaSelect').val();
+
+
+                                            $('#LoaiGiamGiaSelect').change(function () {
+                                                selectedValue = $(this).val();
+
+                                                if (!selectedValue) {
+                                                    alert('Bạn cần chọn hình thức giảm giá.');
+                                                    // Hoặc có thể hiển thị thông báo lỗi theo cách bạn muốn
+                                                }
+                                            });
+
+                                            // Check validation before submitting the form
+                                            
+                                            $('form').submit(function (e) {
+                                                if (!selectedValue) {
+                                                    alert('Bạn cần chọn hình thức giảm giá.');
+                                                    e.preventDefault(); // Prevent the form from being submitted
+                                                }
+                                            });
+                                        });
+                                    </script>
                                 </div>
 
                                 <div class="form-group" id="SoTienGiamGroup" style="display: none;">
@@ -171,7 +199,7 @@
 
                                 <div class="form-group">
                                     <label asp-for="SoLuong" class="control-label">Số lượng khả dụng</label>
-                                    <input asp-for="SoLuong" class="form-control" maxlength="9" />
+                                    <input type = "text" asp-for="SoLuong" class="form-control" maxlength="9" />
                                     <label class="small-text">(Không được nhập quá 9 ký tự)</label>
                                     <span asp-validation-for="SoLuong" class="text-danger"></span>
                                 </div>
