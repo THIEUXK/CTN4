@@ -22,7 +22,7 @@
                                 <a class="dropdown-item" href="@Url.Action("Index")">Tất cả đơn hàng</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="@Url.Action("XemDaGiao")">Đơn đã giao</a>
+                                <a class="dropdown-item" href="@Url.Action("XemDaGiao")">Đơn đang giao</a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="@Url.Action("XemChuaGiao")">Đơn chưa giao</a>
@@ -38,6 +38,9 @@
                             </li>
                             <li>
                                 <a class="dropdown-item" href="@Url.Action("XemDaGiaoThatBai")">Đơn giao thất bại</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="@Url.Action("XemDaMuaTaiQuayThanhCong")">Đơn mua tại quầy thành công</a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="@Url.Action("XemDaBiHuy")">Đơn đã bị hủy</a>
@@ -143,16 +146,9 @@
             </div>
             <div class="card w-100">
                 <div class="card-body p-4">
-
                     <div class="table-responsive">
-
                         <table class="table text-nowrap mb-0 align-middle">
                             <thead class="thead-dark">
-                                @*<div class="row ">
-                                <div class="card">
-                                <div class="card-body">
-                                <table class="table">
-                                <thead class="thead-dark">*@
                                 <tr>
                                     <th class="border-bottom-0">
 
@@ -187,81 +183,319 @@
                             <tbody>
                                 @foreach (var a in Model.hoaDons)
                                 {
-                                    <tr>
-                                        <td class="border-bottom-0">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="@a.Id" id="defaultCheck1">
-                                            </div>
-                                        </td>
-                                        <td class="border-bottom-0">
-                                            <div class="d-flex align-items-center gap-2">
-                                                <b><span>#@Html.ActionLink(a.MaHoaDon, "XemChiTiet", new { id = a.Id })</span></b>
-                                            </div>
-                                        </td>
-                                        @if (a.NgayDat != null)
-                                        {
+                                    @if (a.TrangThai == "Đơn hàng bị hủy")
+                                    {
+                                        <tr style="background-color:lightpink">
                                             <td class="border-bottom-0">
-                                                <span class="fw-normal">@a.NgayDat</span>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="@a.Id" id="defaultCheck1">
+                                                </div>
                                             </td>
-                                        }
-                                        else
-                                        {
                                             <td class="border-bottom-0">
-                                                <span class="fw-normal">@a.NgayTaoHoaDon</span>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <b><span>#@Html.ActionLink(a.MaHoaDon, "XemChiTiet", new { id = a.Id })</span></b>
+                                                </div>
                                             </td>
-                                        }
-                                        <td class="border-bottom-0">
-                                            <p class="mb-0 fw-normal"> Tên: @a.TenKhachHang</p>
-                                            <p class="mb-0 fw-normal">  Email: @a.Email</p>
-                                            <p class="mb-0 fw-normal"> SĐT: @a.SDTNguoiNhan</p>
-                                        </td>
-                                        <td class="border-bottom-0">
-                                            @if (a.TrangThaiThanhToan == true)
+                                            @if (a.NgayDat != null)
                                             {
-                                                <h6 class="fw-semibold mb-0" style="color:limegreen">Đã thanh toán</h6>
+                                                <td class="border-bottom-0">
+                                                    <span class="fw-normal">@a.NgayDat</span>
+                                                </td>
                                             }
                                             else
                                             {
-                                                <h6 class="fw-semibold mb-0" style="color:red">Chưa thanh toán</h6>
+                                                <td class="border-bottom-0">
+                                                    <span class="fw-normal">@a.NgayTaoHoaDon</span>
+                                                </td>
                                             }
-                                        </td>
-                                        @if (a.NgayGiao == null && a.NgayNhan != null)
-                                        {
-                                            <th class="border-bottom-0">
-                                                <h6 class="fw-semibold mb-0" style="color:limegreen">Nhận tại quầy</h6>
-                                            </th>
-                                        }
-                                        else if (a.NgayGiao == null)
-                                        {
-                                            <th class="border-bottom-0">
-                                                <h6 class="fw-semibold mb-0" style="color:red">Chưa Giao Hàng</h6>
-                                            </th>
-                                        }
-                                        else
-                                        {
-                                            <th class="border-bottom-0">
-                                                <h6 class="fw-semibold mb-0" style="color:limegreen">@a.NgayGiao</h6>
-                                            </th>
-                                        }
-                                        <td class="border-bottom-0">
-                                            <p class="mb-0 fw-normal">@FormatCurrency(@a.TongTien)</p>
-                                        </td>
-                                        @if (a.NgayTaoHoaDon != null)
-                                        {
                                             <td class="border-bottom-0">
-                                                <p class="mb-0 fw-normal">Mua tại quầy</p>
+                                                <p class="mb-0 fw-normal"> Tên: @a.TenKhachHang</p>
+                                                <p class="mb-0 fw-normal">  Email: @a.Email</p>
+                                                <p class="mb-0 fw-normal"> SĐT: @a.SDTNguoiNhan</p>
                                             </td>
-                                        }
-                                        else
-                                        {
                                             <td class="border-bottom-0">
-                                                <p class="mb-0 fw-normal">Mua tại wed</p>
+                                                @if (a.TrangThaiThanhToan == true)
+                                                {
+                                                    <h6 class="fw-semibold mb-0" style="color:limegreen">Đã thanh toán</h6>
+                                                }
+                                                else
+                                                {
+                                                    <h6 class="fw-semibold mb-0" style="color:red">Chưa thanh toán</h6>
+                                                }
                                             </td>
-                                        }
-                                        <td class="border-bottom-0">
-                                            <p class="mb-0 fw-normal" style="color:blue"><b>@a.TrangThai</b></p>
-                                        </td>
-                                    </tr>
+                                            @if (a.NgayGiao == null && a.NgayNhan != null)
+                                            {
+                                                <th class="border-bottom-0">
+                                                    <h6 class="fw-semibold mb-0" style="color:limegreen">Nhận tại quầy</h6>
+                                                </th>
+                                            }
+                                            else if (a.NgayGiao == null)
+                                            {
+                                                <th class="border-bottom-0">
+                                                    <h6 class="fw-semibold mb-0" style="color:red">Chưa Giao Hàng</h6>
+                                                </th>
+                                            }
+                                            else
+                                            {
+                                                <th class="border-bottom-0">
+                                                    <h6 class="fw-semibold mb-0" style="color:limegreen">@a.NgayGiao</h6>
+                                                </th>
+                                            }
+                                            <td class="border-bottom-0">
+                                                <p class="mb-0 fw-normal">@FormatCurrency(@a.TongTien)</p>
+                                            </td>
+                                            @if (a.NgayTaoHoaDon != null)
+                                            {
+                                                <td class="border-bottom-0">
+                                                    <p class="mb-0 fw-normal">Mua tại quầy</p>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td class="border-bottom-0">
+                                                    <p class="mb-0 fw-normal">Mua tại wed</p>
+                                                </td>
+                                            }
+                                            <td class="border-bottom-0">
+                                                <p class="mb-0 fw-normal" style="color:blue"><b>@a.TrangThai</b></p>
+                                            </td>
+                                        </tr>
+                                    }
+                                    else @if (a.TrangThai == "Giao hàng thành công" || a.TrangThai == "Đưa hàng thành công")
+                                    {
+                                        <tr style="background-color:aquamarine">
+                                            <td class="border-bottom-0">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="@a.Id" id="defaultCheck1">
+                                                </div>
+                                            </td>
+                                            <td class="border-bottom-0">
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <b><span>#@Html.ActionLink(a.MaHoaDon, "XemChiTiet", new { id = a.Id })</span></b>
+                                                </div>
+                                            </td>
+                                            @if (a.NgayDat != null)
+                                            {
+                                                <td class="border-bottom-0">
+                                                    <span class="fw-normal">@a.NgayDat</span>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td class="border-bottom-0">
+                                                    <span class="fw-normal">@a.NgayTaoHoaDon</span>
+                                                </td>
+                                            }
+                                            <td class="border-bottom-0">
+                                                <p class="mb-0 fw-normal"> Tên: @a.TenKhachHang</p>
+                                                <p class="mb-0 fw-normal">  Email: @a.Email</p>
+                                                <p class="mb-0 fw-normal"> SĐT: @a.SDTNguoiNhan</p>
+                                            </td>
+                                            <td class="border-bottom-0">
+                                                @if (a.TrangThaiThanhToan == true)
+                                                {
+                                                    <h6 class="fw-semibold mb-0" style="color:limegreen">Đã thanh toán</h6>
+                                                }
+                                                else
+                                                {
+                                                    <h6 class="fw-semibold mb-0" style="color:red">Chưa thanh toán</h6>
+                                                }
+                                            </td>
+                                            @if (a.NgayGiao == null && a.NgayNhan != null)
+                                            {
+                                                <th class="border-bottom-0">
+                                                    <h6 class="fw-semibold mb-0" style="color:limegreen">Nhận tại quầy</h6>
+                                                </th>
+                                            }
+                                            else if (a.NgayGiao == null)
+                                            {
+                                                <th class="border-bottom-0">
+                                                    <h6 class="fw-semibold mb-0" style="color:red">Chưa Giao Hàng</h6>
+                                                </th>
+                                            }
+                                            else
+                                            {
+                                                <th class="border-bottom-0">
+                                                    <h6 class="fw-semibold mb-0" style="color:limegreen">@a.NgayGiao</h6>
+                                                </th>
+                                            }
+                                            <td class="border-bottom-0">
+                                                <p class="mb-0 fw-normal">@FormatCurrency(@a.TongTien)</p>
+                                            </td>
+                                            @if (a.NgayTaoHoaDon != null)
+                                            {
+                                                <td class="border-bottom-0">
+                                                    <p class="mb-0 fw-normal">Mua tại quầy</p>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td class="border-bottom-0">
+                                                    <p class="mb-0 fw-normal">Mua tại wed</p>
+                                                </td>
+                                            }
+                                            <td class="border-bottom-0">
+                                                <p class="mb-0 fw-normal" style="color:blue"><b>@a.TrangThai</b></p>
+                                            </td>
+                                        </tr>
+                                    }
+                                    else @if (a.TrangThai == "Giao hàng thất bại")
+                                    {
+                                        <tr style="background-color:palegoldenrod">
+                                            <td class="border-bottom-0">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="@a.Id" id="defaultCheck1">
+                                                </div>
+                                            </td>
+                                            <td class="border-bottom-0">
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <b><span>#@Html.ActionLink(a.MaHoaDon, "XemChiTiet", new { id = a.Id })</span></b>
+                                                </div>
+                                            </td>
+                                            @if (a.NgayDat != null)
+                                            {
+                                                <td class="border-bottom-0">
+                                                    <span class="fw-normal">@a.NgayDat</span>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td class="border-bottom-0">
+                                                    <span class="fw-normal">@a.NgayTaoHoaDon</span>
+                                                </td>
+                                            }
+                                            <td class="border-bottom-0">
+                                                <p class="mb-0 fw-normal"> Tên: @a.TenKhachHang</p>
+                                                <p class="mb-0 fw-normal">  Email: @a.Email</p>
+                                                <p class="mb-0 fw-normal"> SĐT: @a.SDTNguoiNhan</p>
+                                            </td>
+                                            <td class="border-bottom-0">
+                                                @if (a.TrangThaiThanhToan == true)
+                                                {
+                                                    <h6 class="fw-semibold mb-0" style="color:limegreen">Đã thanh toán</h6>
+                                                }
+                                                else
+                                                {
+                                                    <h6 class="fw-semibold mb-0" style="color:red">Chưa thanh toán</h6>
+                                                }
+                                            </td>
+                                            @if (a.NgayGiao == null && a.NgayNhan != null)
+                                            {
+                                                <th class="border-bottom-0">
+                                                    <h6 class="fw-semibold mb-0" style="color:limegreen">Nhận tại quầy</h6>
+                                                </th>
+                                            }
+                                            else if (a.NgayGiao == null)
+                                            {
+                                                <th class="border-bottom-0">
+                                                    <h6 class="fw-semibold mb-0" style="color:red">Chưa Giao Hàng</h6>
+                                                </th>
+                                            }
+                                            else
+                                            {
+                                                <th class="border-bottom-0">
+                                                    <h6 class="fw-semibold mb-0" style="color:limegreen">@a.NgayGiao</h6>
+                                                </th>
+                                            }
+                                            <td class="border-bottom-0">
+                                                <p class="mb-0 fw-normal">@FormatCurrency(@a.TongTien)</p>
+                                            </td>
+                                            @if (a.NgayTaoHoaDon != null)
+                                            {
+                                                <td class="border-bottom-0">
+                                                    <p class="mb-0 fw-normal">Mua tại quầy</p>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td class="border-bottom-0">
+                                                    <p class="mb-0 fw-normal">Mua tại wed</p>
+                                                </td>
+                                            }
+                                            <td class="border-bottom-0">
+                                                <p class="mb-0 fw-normal" style="color:blue"><b>@a.TrangThai</b></p>
+                                            </td>
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td class="border-bottom-0">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="@a.Id" id="defaultCheck1">
+                                                </div>
+                                            </td>
+                                            <td class="border-bottom-0">
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <b><span>#@Html.ActionLink(a.MaHoaDon, "XemChiTiet", new { id = a.Id })</span></b>
+                                                </div>
+                                            </td>
+                                            @if (a.NgayDat != null)
+                                            {
+                                                <td class="border-bottom-0">
+                                                    <span class="fw-normal">@a.NgayDat</span>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td class="border-bottom-0">
+                                                    <span class="fw-normal">@a.NgayTaoHoaDon</span>
+                                                </td>
+                                            }
+                                            <td class="border-bottom-0">
+                                                <p class="mb-0 fw-normal"> Tên: @a.TenKhachHang</p>
+                                                <p class="mb-0 fw-normal">  Email: @a.Email</p>
+                                                <p class="mb-0 fw-normal"> SĐT: @a.SDTNguoiNhan</p>
+                                            </td>
+                                            <td class="border-bottom-0">
+                                                @if (a.TrangThaiThanhToan == true)
+                                                {
+                                                    <h6 class="fw-semibold mb-0" style="color:limegreen">Đã thanh toán</h6>
+                                                }
+                                                else
+                                                {
+                                                    <h6 class="fw-semibold mb-0" style="color:red">Chưa thanh toán</h6>
+                                                }
+                                            </td>
+                                            @if (a.NgayGiao == null && a.NgayNhan != null)
+                                            {
+                                                <th class="border-bottom-0">
+                                                    <h6 class="fw-semibold mb-0" style="color:limegreen">Nhận tại quầy</h6>
+                                                </th>
+                                            }
+                                            else if (a.NgayGiao == null)
+                                            {
+                                                <th class="border-bottom-0">
+                                                    <h6 class="fw-semibold mb-0" style="color:red">Chưa Giao Hàng</h6>
+                                                </th>
+                                            }
+                                            else
+                                            {
+                                                <th class="border-bottom-0">
+                                                    <h6 class="fw-semibold mb-0" style="color:limegreen">@a.NgayGiao</h6>
+                                                </th>
+                                            }
+                                            <td class="border-bottom-0">
+                                                <p class="mb-0 fw-normal">@FormatCurrency(@a.TongTien)</p>
+                                            </td>
+                                            @if (a.NgayTaoHoaDon != null)
+                                            {
+                                                <td class="border-bottom-0">
+                                                    <p class="mb-0 fw-normal">Mua tại quầy</p>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td class="border-bottom-0">
+                                                    <p class="mb-0 fw-normal">Mua tại wed</p>
+                                                </td>
+                                            }
+                                            <td class="border-bottom-0">
+                                                <p class="mb-0 fw-normal" style="color:blue"><b>@a.TrangThai</b></p>
+                                            </td>
+                                        </tr>
+                                    }
+                                   
                                 }
                             </tbody>
                         </table>

@@ -6,104 +6,106 @@
 }
 
 
-<div>
-    <a asp-action="Index" style="color: black;">Quay về</a>
-</div>
-<div class="row">
-    <div class="col-md-9">
-        <br></br>
-        <br></br>
-        <h1>Chỉnh sửa</h1>
-
-        <h4>Nhân viên</h4>
-        <hr />
+<br />
+<div class="centered-container">
+    <div class="blurred-border">
         <div class="row">
-            <div class="col-md-4">
-                <form asp-action="Edit" enctype="multipart/form-data" onsubmit="return confirmSubmit();">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <input type="hidden" asp-for="Id" class="form-control" />
-                    <input type="hidden" name="anhdaidiencheck" value="@Model.AnhDaiDien" class="form-control" />
-                    <div class="form-group">
-                        <label asp-for="Ho" class="control-label">Họ</label>
-                        <input asp-for="Ho" class="form-control" />
-                        <span asp-validation-for="Ho" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Ten" class="control-label">Tên</label>
-                        <input asp-for="Ten" class="form-control" />
-                        <span asp-validation-for="Ten" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="TenDangNhap" class="control-label">Tên đăng nhập</label>
-                        <input asp-for="TenDangNhap" class="form-control" />
-                        <span asp-validation-for="TenDangNhap" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="MatKhau" class="control-label">Mật khẩu</label>
-                        <input asp-for="MatKhau" class="form-control" />
-                        <span asp-validation-for="MatKhau" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="GioiTinh" class="control-label">Giới tính</label>
-                        <input asp-for="GioiTinh" class="form-control" />
-                        <span asp-validation-for="GioiTinh" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Email" class="control-label">Email</label>
-                        <input asp-for="Email" class="form-control" />
-                        <span asp-validation-for="Email" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="SDT" class="control-label">SDT</label>
-                        <input asp-for="SDT" class="form-control" />
-                        <span asp-validation-for="SDT" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="DiaChi" class="control-label">Địa chỉ</label>
-                        <input asp-for="DiaChi" class="form-control" />
-                        <span asp-validation-for="DiaChi" class="text-danger"></span>
-                    </div>
-                    <div class="form-group form-check">
-                        <label class="form-check-label">
-                            <input class="form-check-input" asp-for="Trangthai" />Trạng thái
-                        </label>
-                    </div>
-                    <div class="form-group">
-                        <div style="display: flex; align-items: center;">
-                            <label asp-for="IdChucVu" style="margin-right: 130px;">Chức vụ</label>
-                            <a style="color: black;" asp-controller="Chucvu" asp-action="Index">Quản lý chức vụ</a>
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <h1>Chỉnh sửa</h1>
+
+                    <h4>Nhân viên</h4>
+                    <form asp-action="Edit" enctype="multipart/form-data" onsubmit="return confirmSubmit();">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" class="form-control" />
+                        <input type="hidden" name="anhdaidiencheck" value="@Model.AnhDaiDien" class="form-control" />
+                        <div class="form-group">
+                            <label asp-for="Ho" class="control-label">Họ</label>
+                            <input asp-for="Ho" class="form-control" />
+                            <span asp-validation-for="Ho" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Ten" class="control-label">Tên</label>
+                            <input asp-for="Ten" class="form-control" />
+                            <span asp-validation-for="Ten" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="TenDangNhap" class="control-label">Tên đăng nhập</label>
+                            <input asp-for="TenDangNhap" class="form-control" />
+                            <span asp-validation-for="TenDangNhap" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="MatKhau" class="control-label">Mật khẩu</label>
+                            <input asp-for="MatKhau" class="form-control" />
+                            <span asp-validation-for="MatKhau" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="GioiTinh" class="control-label">Giới tính</label>
+                            <input asp-for="GioiTinh" class="form-control" />
+                            <span asp-validation-for="GioiTinh" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Email" class="control-label">Email</label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="SDT" class="control-label">SDT</label>
+                            <input asp-for="SDT" class="form-control" />
+                            <span asp-validation-for="SDT" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="DiaChi" class="control-label">Địa chỉ</label>
+                            <input asp-for="DiaChi" class="form-control" />
+                            <span asp-validation-for="DiaChi" class="text-danger"></span>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label" style=" font-weight: bold;">
+                                <input class="form-check-input" asp-for="Trangthai" />Trạng thái
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <div style="display: flex; align-items: center;">
+                                <label asp-for="IdChucVu" style="margin-right: 130px;">Chức vụ</label>
+
+                            </div>
+
+                            <select asp-for="IdChucVu" class="form-control">
+                                <option value="">-- Select Chức vụ --</option>
+                                @foreach (var a in Model.selectListItemChucVus)
+                                {
+                                    <option value="@a.Value">@a.Text</option>
+                                }
+                            </select>
+                            <span asp-validation-for="IdChucVu" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>Chọn ảnh từ Máy tính:</label>
+                            <label for="file-upload" class="custom-file-upload">
+                                Chọn File
+                            </label>
+                            <input id="file-upload" type="file" name="imageFile" onchange="displayFileName()" hidden />
+                            <span id="file-name-display"></span>
+                            @if (TempData["Notification"] != null)
+                            {
+                                <a style="color:red">@TempData["Notification"]</a>
+                            } @if (TempData["Loi"] != null)
+                            {
+                                <a style="color:red">@TempData["Loi"]</a>
+                            }
                         </div>
 
-                        <select asp-for="IdChucVu" class="form-control">
-                            <option value="">-- Select Chức vụ --</option>
-                            @foreach (var a in Model.selectListItemChucVus)
-                            {
-                                <option value="@a.Value">@a.Text</option>
-                            }
-                        </select>
-                        <span asp-validation-for="IdChucVu" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                         <label>Chọn ảnh từ Máy tính:</label>
-                        <input type="file" name="imageFile"/>
-                    </div>
-                  @*  <div class="form-group">
-                        <label asp-for="IdChucVu" class="control-label">Chức vụ</label>
-                        <input asp-for="IdChucVu" class="form-control" />
-                        <span asp-validation-for="IdChucVu" class="text-danger"></span>
-                    </div>*@
-                    <div class="form-group">
-                        <input type="submit" value="Lưu" class="btn btn-primary" />
-                    </div>
-                    <div>
-                        <h4>_________________________________________________</h4>
-                        <a asp-action="Index" style="color: black;">Quay về</a>
-                    </div>
-                </form>
+                        <div class="form-group">
+                            <input type="submit" value="Lưu" class="btn btn-primary" />
+                        </div>
+                        <div>
+                            
+                            <a asp-action="Index" style="color: black;">Quay về</a>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-
-
     </div>
 </div>
 <script>
@@ -114,3 +116,88 @@
         return result;
     }
 </script>
+@*/////////giaodien*@
+<script>
+    function displayFileName() {
+        var fileInput = document.getElementById('file-upload');
+        var fileNameDisplay = document.getElementById('file-name-display');
+
+        if (fileInput.files.length > 0) {
+            fileNameDisplay.textContent = 'File đã chọn: ' + fileInput.files[0].name;
+        } else {
+            fileNameDisplay.textContent = '';
+        }
+    }
+</script>
+<style>
+    body {
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+    }
+
+    .header {
+        background-color: #343a40;
+        color: white;
+        padding: 10px;
+    }
+
+    .centered-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 50px;
+    }
+
+    .blurred-border {
+        width: 100%;
+        max-width: 800px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.8);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+            .form-group input[type="submit"] {
+                width: auto;
+            }
+
+    .custom-file-upload {
+        border: 1px solid #ccc;
+        display: inline-block;
+        padding: 6px 12px;
+        cursor: pointer;
+    }
+
+    #file-name-display {
+        margin-top: 10px;
+        font-style: italic;
+    }
+
+    a {
+        color: black;
+        text-decoration: none;
+    }
+
+        a:hover {
+            text-decoration: underline;
+        }
+</style>

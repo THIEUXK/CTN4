@@ -25,7 +25,9 @@
                                System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".webp" ||
                                System.IO.Path.GetExtension(sp.SanPham.AnhDaiDien) == ".gif")
                                 {
+                                    <a href="@Url.Action("HienThiSanPhamChiTiet", "HienThiSanPham", new { id = sp.IdSanPham })">
                                     <img src="~/image/@sp.SanPham.AnhDaiDien">
+                                    </a>
                                 }
                                 else
                                 {
@@ -33,7 +35,7 @@
                                 }
                                 <div class="product-details">
                                     <h6>
-                                        <a style="color: (internal value);"> @Html.ActionLink(sp.SanPham.TenSanPham, "HienThiSanPhamChiTiet", new { id = sp.Id }) </a>
+                                        <a style="color: (internal value);"> @Html.ActionLink(sp.SanPham.TenSanPham, "HienThiSanPhamChiTiet","HienThiSanPham", new { id = sp.IdSanPham }) </a>
                                     </h6>
                                     <div class="price">
                                         @if (sp.SanPham.GiaNiemYet == sp.SanPham.GiaBan)

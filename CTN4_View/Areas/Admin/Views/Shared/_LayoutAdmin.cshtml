@@ -19,7 +19,7 @@
             <!-- Sidebar scroll-->
             <div>
                 <div class="brand-logo d-flex align-items-center justify-content-between">
-                    <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="text-nowrap logo-img">
+                    <a asp-area="Admin" asp-controller="QuanLyHoaDon" asp-action="Index" class="text-nowrap logo-img">
                         <img src="~/dealsproduct/unnamed-removebg-preview.png" width="180" alt="" />
                     </a>
                     <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
@@ -86,20 +86,14 @@
                         </li>
                         @if (User.IsInRole("Quản lý"))
                         {
+                            
+                           
+
                             <li class="nav-small-cap">
                                 <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                                 <span class="hide-menu">Quản lý </span>
                             </li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" asp-controller="ChucVu" asp-action="Index">
-                                    <span>
-                                        <i class="ti ti-brand-producthunt"></i>
-                                    </span>
-                                    <span class="hide-menu">
-                                        Quản lý chức vụ
-                                    </span>
-                                </a>
-                            </li>
+
                             <li class="sidebar-item">
                                 <a class="sidebar-link" asp-controller="NhanVien" asp-action="Index">
 
@@ -122,11 +116,6 @@
                                     </span>
                                 </a>
                             </li>
-
-                            <li class="nav-small-cap">
-                                <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                                <span class="hide-menu">Quản lý </span>
-                            </li>
                             <li class="sidebar-item">
                                 <a class="sidebar-link" asp-area="Admin" asp-controller="Voucher" asp-action="Index">
                                     <span>
@@ -145,7 +134,7 @@
                             </li>   <li class="sidebar-item">
                                 <a class="sidebar-link" asp-area="Admin" asp-controller="QuanLyDanhGiaSanPham" asp-action="Index">
                                     <span>
-                                        <i class="ti ti-discount-2"></i>
+                                        <i class="ti ti-brand-producthunt"></i>
                                     </span>
                                     <span class="hide-menu">Quản lý đánh giá</span>
                                 </a>

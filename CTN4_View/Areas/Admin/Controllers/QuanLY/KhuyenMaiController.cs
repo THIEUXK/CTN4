@@ -7,6 +7,7 @@ using System.Text.Json.Serialization;
 using System.Text.Json;
 using X.PagedList;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using CTN4_View.Areas.Admin.Viewmodel;
 using CTN4_Serv.ViewModel;
 using System.Drawing;
 using System.Net;
@@ -44,6 +45,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         {
             var a = _sv.GetAll().AsQueryable();
 
+
             List<SelectListItem> items = new List<SelectListItem>();
             items.Add(new SelectListItem { Text = "10", Value = "10" });
             items.Add(new SelectListItem { Text = "20", Value = "20" });
@@ -71,6 +73,31 @@ namespace CTN4_View_Admin.Controllers.QuanLY
 
             return View(pagedList);
         }
+        public IActionResult DongGia(int? size, int? page)
+        {
+            List<SelectListItem> items = new List<SelectListItem>();
+            items.Add(new SelectListItem { Text = "10", Value = "10" });
+            items.Add(new SelectListItem { Text = "20", Value = "20" });
+            items.Add(new SelectListItem { Text = "25", Value = "25" });
+            items.Add(new SelectListItem { Text = "50", Value = "50" });
+
+            foreach (var item in items)
+            {
+                if (item.Value == size.ToString()) item.Selected = true;
+            }
+
+            ViewBag.size = items; // ViewBag DropDownList
+            ViewBag.currentSize = size; // tạo biến kích thước trang hiện tại
+            int pageSize = size ?? 10;
+            int pageNumber = page ?? 1;
+
+            var giamGias = _sv.GetAll().Where(c => c.DongGia != 0).ToList();/*.Where(c => c.LoaiGiamGia == true || false).ToList()*/;
+            
+
+            var pagedList = giamGias.ToPagedList(pageNumber, pageSize);
+
+            return View("Index", pagedList);
+        }
         [HttpGet]
         public IActionResult GetActiveKhuyenMai(int? size, string searchString, int? page)
         {
@@ -89,19 +116,20 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             ViewBag.currentSize = size; // tạo biến kích thước trang hiện tại
             page = page ?? 1;
 
-            var activeKhuyenMaiList = _sv.GetAll().Where(km => km.TrangThai == true && km.NgayBatDau <= DateTime.Now && DateTime.Now < km.NgayKetThuc ).AsQueryable();
+            var b = _sv.GetAll().Where(km => km.TrangThai == true && km.NgayBatDau <= DateTime.Now && DateTime.Now < km.NgayKetThuc).AsQueryable(); ;
+            
 
             if (!string.IsNullOrEmpty(searchString))
             {
                 // Lọc sản phẩm theo tên nếu có chuỗi tìm kiếm
-                activeKhuyenMaiList = activeKhuyenMaiList.Where(p => p.MaKhuyenMai.Contains(searchString, StringComparison.OrdinalIgnoreCase));
+                b = b.Where(p => p.MaKhuyenMai.Contains(searchString, StringComparison.OrdinalIgnoreCase));
             }
 
             const int pageSize = 10;
             var pageNumber = page ?? 1;
 
 
-            var pagedList = activeKhuyenMaiList.ToPagedList(pageNumber, pageSize);
+            var pagedList = b.ToPagedList(pageNumber, pageSize);
 
             return View(pagedList);
         }
