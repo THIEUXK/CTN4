@@ -182,6 +182,25 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             if (nvnew.Count() != 0)
             {
                 var hd = _hoaDonService.GetById(id);
+                if (hd.TrangThai == "Đơn hàng bị hủy")
+                {
+                    var message = "Đơn hàng đã bị hủy";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
+                if (hd.TrangThai == "Giao hàng thành công")
+                {
+                    var message = "Đơn hàng đã giao hàng thành công";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
+                if (hd.TrangThai == "Đưa hàng thành công")
+                {
+                    var message = "Đơn hàng đã đưa hàng thành công";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
+
                 hd.TenKhachHang = ten;
                 hd.SDTNguoiNhan = sdt;
                 hd.Email = email;
@@ -218,8 +237,31 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                     TempData["TB1"] = message;
                     return RedirectToAction("XemChiTiet", new { id = id, message });
                 }
-
                 var hd = _hoaDonService.GetById(id);
+                if (hd.TrangThai == "Đơn hàng bị hủy")
+                {
+                    var message = "Đơn hàng đã bị hủy";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
+                if (hd.TrangThai == "Giao hàng thành công")
+                {
+                    var message = "Đơn hàng đã giao hàng thành công";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
+                if (hd.TrangThai == "Đưa hàng thành công")
+                {
+                    var message = "Đơn hàng đã đưa hàng thành công";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
+                if (hd.TrangThaiThanhToan == true)
+                {
+                    var message = "Đơn hàng hiện đã được thanh toán";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
                 if (hd.NgayGiao != null)
                 {
                     var message = "Đơn hàng đang được giao";
@@ -262,6 +304,24 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             if (nvnew.Count() != 0)
             {
                 var hd = _hoaDonService.GetById(id);
+                if (hd.TrangThai == "Đơn hàng bị hủy")
+                {
+                    var message = "Đơn hàng đã bị hủy";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
+                if (hd.TrangThai == "Giao hàng thành công")
+                {
+                    var message = "Đơn hàng đã giao hàng thành công";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
+                if (hd.TrangThai == "Đưa hàng thành công")
+                {
+                    var message = "Đơn hàng đã đưa hàng thành công";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
                 var hdct = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == id && c.Is_detele == true && c.TrangThai == true);
                 float tong = 0;
                 foreach (var cd in hdct)
@@ -297,6 +357,24 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             if (nvnew.Count() != 0)
             {
                 var hd = _hoaDonService.GetById(id);
+                if (hd.TrangThai == "Đơn hàng bị hủy")
+                {
+                    var message = "Đơn hàng đã bị hủy";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
+                if (hd.TrangThai == "Giao hàng thành công")
+                {
+                    var message = "Đơn hàng đã giao hàng thành công";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
+                if (hd.TrangThai == "Đưa hàng thành công")
+                {
+                    var message = "Đơn hàng đã đưa hàng thành công";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
                 hd.TrangThai = "Đang chuẩn bị hàng";
                 if (_hoaDonService.Sua(hd) == true)
                 {
@@ -331,6 +409,24 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                     return RedirectToAction("XemChiTiet", new { id = id, message });
                 }
                 var hd = _hoaDonService.GetById(id);
+                if (hd.TrangThai == "Đơn hàng bị hủy")
+                {
+                    var message = "Đơn hàng đã bị hủy";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
+                if (hd.TrangThai == "Giao hàng thành công")
+                {
+                    var message = "Đơn hàng đã giao hàng thành công";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
+                if (hd.TrangThai == "Đưa hàng thành công")
+                {
+                    var message = "Đơn hàng đã đưa hàng thành công";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
                 if (hd.TrangThai == "Hàng của bạn đang được giao")
                 {
                     hd.TrangThai = "Đang chuẩn bị hàng";
@@ -370,6 +466,24 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             if (nvnew.Count() != 0)
             {
                 var hd = _hoaDonService.GetById(id);
+                if (hd.TrangThai == "Đơn hàng bị hủy")
+                {
+                    var message = "Đơn hàng đã bị hủy";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
+                if (hd.TrangThai == "Giao hàng thành công")
+                {
+                    var message = "Đơn hàng đã giao hàng thành công";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
+                if (hd.TrangThai == "Đưa hàng thành công")
+                {
+                    var message = "Đơn hàng đã đưa hàng thành công";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
                 var hdct = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == id).ToList();
                 if (hdct.Count == 0)
                 {
@@ -422,6 +536,24 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                     return RedirectToAction("XemChiTiet", new { id = id, message });
                 }
                 var hd = _hoaDonService.GetById(id);
+                if (hd.TrangThai == "Đơn hàng bị hủy")
+                {
+                    var message = "Đơn hàng đã bị hủy";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
+                if (hd.TrangThai == "Giao hàng thành công")
+                {
+                    var message = "Đơn hàng đã giao hàng thành công";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
+                if (hd.TrangThai == "Đưa hàng thành công")
+                {
+                    var message = "Đơn hàng đã đưa hàng thành công";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
                 if (hd.TrangThai != "Giao hàng thành công"&& hd.TrangThai != "Đưa hàng thành công")
                 {
                     hd.TrangThaiThanhToan = false;
@@ -468,6 +600,12 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                     return RedirectToAction("XemChiTiet", new { id = id, message });
                 }
                 var hd = _hoaDonService.GetById(id);
+                if (hd.TrangThai == "Đơn hàng bị hủy")
+                {
+                    var message = "Đơn hàng đã bị hủy";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
                 if (hd.TrangThai == "Đưa hàng thành công")
                 {
                     hd.TrangThai = "Đang chuẩn bị hàng";
@@ -514,6 +652,12 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                     return RedirectToAction("XemChiTiet", new { id = id, message });
                 }
                 var hd = _hoaDonService.GetById(id);
+                if (hd.TrangThai == "Đơn hàng bị hủy")
+                {
+                    var message = "Đơn hàng đã bị hủy";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
                 if (hd.TrangThai == "Giao hàng thành công")
                 {
                     hd.TrangThai = "Hàng của bạn đang được giao";
@@ -559,7 +703,14 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                     TempData["TB1"] = message;
                     return RedirectToAction("XemChiTiet", new { id = id, message });
                 }
+
                 var hd = _hoaDonService.GetById(id);
+                if (hd.TrangThai == "Đơn hàng bị hủy")
+                {
+                    var message = "Đơn hàng đã bị hủy";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
                 if (hd.TrangThai == "Giao hàng thất bại")
                 {
                     hd.TrangThai = "Hàng của bạn đang được giao";
@@ -600,6 +751,30 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             if (nvnew.Count() != 0)
             {
                 var hd = _hoaDonService.GetById(id);
+                if (hd.TrangThai == "Đang chờ xử lí")
+                {
+                    var message = "Đơn hàng chưa được xác nhận";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
+                if (hd.TrangThai == "Đơn hàng bị hủy")
+                {
+                    var message = "Đơn hàng đã bị hủy";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
+                if (hd.TrangThai == "Giao hàng thành công")
+                {
+                    var message = "Đơn hàng đã giao hàng thành công";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
+                if (hd.TrangThai == "Đưa hàng thành công")
+                {
+                    var message = "Đơn hàng đã đưa hàng thành công";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
                 if (hd.TrangThai != "Giao hàng thành công")
                 {
                     hd.TrangThaiThanhToan = true;
@@ -640,6 +815,12 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             if (nvnew.Count() != 0)
             {
                 var hd = _hoaDonService.GetById(id);
+                if (hd.TrangThai == "Đơn hàng bị hủy")
+                {
+                    var message = "Đơn hàng đã bị hủy";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
                 if (hd.TrangThai == "Hàng của bạn đang được giao" && hd.TrangThaiThanhToan == true)
                 {
                     hd.TrangThai = "Giao hàng thành công";
@@ -700,6 +881,12 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             if (nvnew.Count() != 0)
             {
                 var hd = _hoaDonService.GetById(id);
+                if (hd.TrangThai == "Đơn hàng bị hủy")
+                {
+                    var message = "Đơn hàng đã bị hủy";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
                 if (hd.TrangThai == "Đang chuẩn bị hàng" && hd.TrangThaiThanhToan == true)
                 {
                     hd.TrangThai = "Đưa hàng thành công";
@@ -757,6 +944,12 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             if (nvnew.Count() != 0)
             {
                 var hd = _hoaDonService.GetById(id);
+                if (hd.TrangThai == "Đơn hàng bị hủy")
+                {
+                    var message = "Đơn hàng đã bị hủy";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
                 if (hd.NgayGiao != null)
                 {
                     hd.TrangThai = "Giao hàng thất bại";
@@ -795,6 +988,12 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             if (nvnew.Count() != 0)
             {
                 var hd = _hoaDonService.GetById(id);
+                if (hd.TrangThai == "Đơn hàng bị hủy")
+                {
+                    var message = "Đơn hàng đã bị hủy";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = id, message });
+                }
                 if (hd.NgayGiao != null)
                 {
                     var li = new LichSuDonHang()
@@ -832,6 +1031,24 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                 if (LyDo != null)
                 {
                     var hd = _hoaDonService.GetById(id);
+                    if (hd.TrangThai == "Đơn hàng bị hủy")
+                    {
+                        var message = "Đơn hàng đã bị hủy";
+                        TempData["TB1"] = message;
+                        return RedirectToAction("XemChiTiet", new { id = id, message });
+                    }
+                    if (hd.TrangThai == "Giao hàng thành công")
+                    {
+                        var message = "Đơn hàng đã giao hàng thành công";
+                        TempData["TB1"] = message;
+                        return RedirectToAction("XemChiTiet", new { id = id, message });
+                    }
+                    if (hd.TrangThai == "Đưa hàng thành công")
+                    {
+                        var message = "Đơn hàng đã đưa hàng thành công";
+                        TempData["TB1"] = message;
+                        return RedirectToAction("XemChiTiet", new { id = id, message });
+                    }
                     var hdct = _hoaDonChiTietService.GetById(idCT);
                     var KhuyenMaiSp = _KhuyenMaiSanPhams.GetAll().Where(c => c.KhuyenMai.Mua1tang1 == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now && c.KhuyenMai.Is_Detele == true).ToList();
                     var g = new List<Guid>();
@@ -900,6 +1117,24 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                 if (LyDo != null)
                 {
                     var hd = _hoaDonService.GetById(idHD);
+                    if (hd.TrangThai == "Đơn hàng bị hủy")
+                    {
+                        var message = "Đơn hàng đã bị hủy";
+                        TempData["TB1"] = message;
+                        return RedirectToAction("XemChiTiet", new { id = idHD, message });
+                    }
+                    if (hd.TrangThai == "Giao hàng thành công")
+                    {
+                        var message = "Đơn hàng đã giao hàng thành công";
+                        TempData["TB1"] = message;
+                        return RedirectToAction("XemChiTiet", new { id = idHD, message });
+                    }
+                    if (hd.TrangThai == "Đưa hàng thành công")
+                    {
+                        var message = "Đơn hàng đã đưa hàng thành công";
+                        TempData["TB1"] = message;
+                        return RedirectToAction("XemChiTiet", new { id = idHD, message });
+                    }
                     var hdct = _hoaDonChiTietService.GetById(idHDCT);
                     if (hd.Is_detele != false)
                     {
@@ -966,6 +1201,24 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                 if (LyDo != null)
                 {
                     var hd = _hoaDonService.GetById(idHD);
+                    if (hd.TrangThai == "Đơn hàng bị hủy")
+                    {
+                        var message = "Đơn hàng đã bị hủy";
+                        TempData["TB1"] = message;
+                        return RedirectToAction("XemChiTiet", new { id = idHD, message });
+                    }
+                    if (hd.TrangThai == "Giao hàng thành công")
+                    {
+                        var message = "Đơn hàng đã giao hàng thành công";
+                        TempData["TB1"] = message;
+                        return RedirectToAction("XemChiTiet", new { id = idHD, message });
+                    }
+                    if (hd.TrangThai == "Đưa hàng thành công")
+                    {
+                        var message = "Đơn hàng đã đưa hàng thành công";
+                        TempData["TB1"] = message;
+                        return RedirectToAction("XemChiTiet", new { id = idHD, message });
+                    }
                     var hdct = _hoaDonChiTietService.GetById(idHDCT);
                     if (hd.Is_detele != false)
                     {
@@ -1062,6 +1315,24 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             if (nvnew.Count() != 0)
             {
                 var hd = _hoaDonService.GetById(IdHoaDon);
+                if (hd.TrangThai == "Đơn hàng bị hủy")
+                {
+                    var message = "Đơn hàng đã bị hủy";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = IdHoaDon, message });
+                }
+                if (hd.TrangThai == "Giao hàng thành công")
+                {
+                    var message = "Đơn hàng đã giao hàng thành công";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = IdHoaDon, message });
+                }
+                if (hd.TrangThai == "Đưa hàng thành công")
+                {
+                    var message = "Đơn hàng đã đưa hàng thành công";
+                    TempData["TB1"] = message;
+                    return RedirectToAction("XemChiTiet", new { id = IdHoaDon, message });
+                }
                 if (hd.TrangThaiThanhToan == true)
                 {
                     hd.GhiChu = GhiChu;
@@ -1242,7 +1513,9 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
         {
             if (NgayDau == NgayCuoi)
             {
-                return RedirectToAction("Index");
+                var message = "hãy chọn ngày bắt đầu và chọn khoản kết thúc của bạn !";
+                TempData["TB1"] = message;
+                return RedirectToAction("Index", new { message });
             }
             else if (NgayDau > NgayCuoi)
             {
@@ -1275,7 +1548,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             var hd = _hoaDonService.GetAll();
             var view = new ThieuxkViewAdmin()
             {
-                hoaDons = hd.Where(c => c.NgayGiao == null && c.Is_detele == true).ToList(),
+                hoaDons = hd.Where(c => c.NgayGiao == null && c.Is_detele == true&&c.TrangThai!="Đưa hàng thành công").ToList(),
             };
             return View("Index", view);
         }
@@ -1303,6 +1576,15 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             var view = new ThieuxkViewAdmin()
             {
                 hoaDons = hd.Where(c => c.TrangThai == "Giao hàng thành công" && c.Is_detele == true).ToList(),
+            };
+            return View("Index", view);
+        }
+        public IActionResult XemDaMuaTaiQuayThanhCong()
+        {
+            var hd = _hoaDonService.GetAll();
+            var view = new ThieuxkViewAdmin()
+            {
+                hoaDons = hd.Where(c => c.TrangThai == "Đưa hàng thành công" && c.Is_detele == true).ToList(),
             };
             return View("Index", view);
         }
@@ -1622,7 +1904,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             foreach (var IdHD in exview.IdHD)
             {
                 var kt = _hoaDonService.GetById(IdHD);
-                if (kt.TrangThai != "Đơn hàng bị hủy")
+                if (kt.TrangThai != "Đơn hàng bị hủy"&& kt.TrangThai != "Đưa hàng thành công" && kt.TrangThai != "Giao hàng thành công")
                 {
                     return Json("that bai 1", new System.Text.Json.JsonSerializerOptions());
                 }
