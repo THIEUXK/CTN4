@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<CTN4_Data.Models.DanhGiaSanPham>
+@*@model CTN4_Serv.ViewModel.ListDanhGiaView*@
 
 @{
     ViewData["Title"] = "Index";
@@ -15,6 +16,9 @@
     <ul class="dropdown-menu">
         <li>
             <a class="dropdown-item" href="@Url.Action("Index")">Duyệt đánh giá sản phẩm </a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="@Url.Action("DanhGiaDaDuocDuyet")">Tất cả đánh giá đã được duyệt </a>
         </li>
         <li>
             <a class="dropdown-item" href="@Url.Action("DanhGiaDaXoa")">Đánh giá sản phẩm ẩn</a>
@@ -47,15 +51,9 @@
                     <th>
                         Bình luận
                     </th>
-                  
-                    @foreach (var item in Model)
-                    {
-                        @if (item.TrangThaiDuyet == false && item.Is_delete == true)
-                        {
-                            <th>
-                                Trạng thái duyệt
-                            </th>
-                        }           }
+                    <th>
+                        Chức năng
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -65,8 +63,9 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.SanPham.TenSanPham)
                         </td>
+
                         <td>
-                            @Html.DisplayFor(modelItem => item.KhachHang.Ten)
+                            @Html.DisplayFor(modelItem => item.KhachHang.TenDangNhap)
                         </td>
 
                         <td>
@@ -81,7 +80,7 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.BinhLuan)
                         </td>
-                       
+
                         @if (item.TrangThaiDuyet == false && item.Is_delete == true)
                         {
                             <td>
@@ -89,13 +88,27 @@
                                 <button class="btn btn-danger">@Html.ActionLink("Từ chối", "TuChoiDanhGia", new { id=item.Id },new { style = "color: white;text-decoration: none; "})</button>
                             </td>
                         }
-                        
+                        @if (item.TrangThaiDuyet == true && item.Is_delete == true)
+                        {
+                            <td>
+                                <button class="btn btn-danger">@Html.ActionLink("Xóa bình luận", "TuChoiDanhGia", new { id=item.Id },new { style = "color: white;text-decoration: none; ", onclick = "return confirmDelete();" }) </button>
+
+
+                            </td>
+                        }
+                       
                     </tr>
                 }
             </tbody>
         </table>
     </div>
 </div>
+<script>
+    function confirmDelete() {
+        var result = confirm("Bạn có chắc chắn muốn xóa bình luận này không?");
+        return result;
+    }
+</script>
 <style>
     /* Thêm điều chỉnh tùy chỉnh nếu cần thiết */
     table {

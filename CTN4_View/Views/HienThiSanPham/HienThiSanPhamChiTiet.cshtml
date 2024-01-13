@@ -101,22 +101,22 @@
                                             {
                                             <input type="hidden" name="IdSanPham" value="@Model.sanPham.Id" id="idsp">
                                             <input type="hidden" name="IdMau" value="@a.Mau.Id" id="idmau">
-                                            
-                                                <button class="custom-button after-click" onclick="onsubmit" ata-tenmau="@a.Mau.Id">
-                                                        @a.Mau.TenMau
-                                                </button>
-                                            
-                                          
+
+                                            <button class="custom-button after-click" onclick="onsubmit" ata-tenmau="@a.Mau.Id">
+                                                    @a.Mau.TenMau
+                                            </button>
+
+
                                             }
                                             else
                                             {
                                             <input type="hidden" name="IdSanPham" value="@Model.sanPham.Id" id="idsp">
                                             <input type="hidden" name="IdMau" value="@a.Mau.Id" id="idmau">
-                                            
+
                                             <button class="custom-button before-click" onclick="onsubmit" class="color-button" data-tenmau="@a.Mau.TenMau">
                                                     @a.Mau.TenMau
                                             </button>
-                                           
+
                                             }
                                     </li>
                                     </form>
@@ -225,7 +225,7 @@
                             <div class="card_area d-flex align-items-center">
                                 <button class="primary-btn" type="submit" href="#">Thêm vào giỏ</button>
 
-                            
+
                             </div>
                             <input type="hidden" name="idSP" value="">
                         </div>
@@ -239,25 +239,25 @@
 <!--================Product Description Area =================-->
 <section class="product_description_area">
     <div class="container">
-@*<ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Ghi Chú</a>
-            </li>
-           <li class="nav-item">
-                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
-                   aria-selected="false">Thông tin chi tiết</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
-                   aria-selected="false">Đánh giá</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link " id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
-                   aria-selected="false">Reviews</a>
-            </li>
-          
+        @*<ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Ghi Chú</a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+        aria-selected="false">Thông tin chi tiết</a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
+        aria-selected="false">Đánh giá</a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link " id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
+        aria-selected="false">Reviews</a>
+        </li>
+
         </ul*@
-          <div class="dropdown-divider"></div>
+        <div class="dropdown-divider"></div>
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <div class="row">
@@ -307,12 +307,12 @@
 
                                         <li>
                                             <a href="#">
-                                                5 sao 
+                                                5 sao
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i> 
+                                                <i class="fa fa-star"></i>
                                                 @Model.danhGiaSanPhams.Where(c=>c.SoSao == 5 && c.IdSanPham == Model.sanPham.Id).Count()
                                             </a>
                                         </li>
@@ -332,17 +332,17 @@
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star" style="color: #777777;"></i>
-                                                <i class="fa fa-star"style="color: #777777;"></i> 
+                                                <i class="fa fa-star" style="color: #777777;"></i>
                                                 @Model.danhGiaSanPhams.Where(c=>c.SoSao == 3 && c.IdSanPham == Model.sanPham.Id).Count()
                                             </a>
                                         </li>
                                         <li>
-                                             <a href="#">
+                                            <a href="#">
                                                 2 sao <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"style="color: #777777;"></i>
-                                                <i class="fa fa-star"style="color: #777777;"></i>
-                                                <i class="fa fa-star" style="color: #777777;"></i> 
+                                                <i class="fa fa-star" style="color: #777777;"></i>
+                                                <i class="fa fa-star" style="color: #777777;"></i>
+                                                <i class="fa fa-star" style="color: #777777;"></i>
                                                 @Model.danhGiaSanPhams.Where(c=>c.SoSao == 2 && c.IdSanPham == Model.sanPham.Id).Count()
                                             </a>
                                         </li>
@@ -350,9 +350,9 @@
                                             <a href="#">
                                                 1 sao <i class="fa fa-star"></i>
                                                 <i class="fa fa-star" style="color: #777777;"></i>
-                                                <i class="fa fa-star"style="color: #777777;"></i>
-                                                <i class="fa fa-star"style="color: #777777;"></i>
-                                                <i class="fa fa-star"style="color: #777777;"></i> 
+                                                <i class="fa fa-star" style="color: #777777;"></i>
+                                                <i class="fa fa-star" style="color: #777777;"></i>
+                                                <i class="fa fa-star" style="color: #777777;"></i>
                                                 @Model.danhGiaSanPhams.Where(c=>c.SoSao == 1 && c.IdSanPham == Model.sanPham.Id).Count()
                                             </a>
                                         </li>
@@ -491,26 +491,30 @@
                                                             Bạn còn (@Model.danhGiaSanPhamCuaToi.SoSua) lượt sửa đánh giá
 
                                                         </p>
-                                                        <!-- Submenu -->
-                                                        <div class="dropdown ">
-                                                            <!-- Nội dung submenu -->
-                                                            <form asp-action="XoaDanhGia" asp-controller="HienThiSanPham">
-                                                                <!-- Nội dung form xóa -->
-                                                                <input type="hidden" name="id" value="@Model.danhGiaSanPhamCuaToi.Id">
-                                                                <input type="hidden" name="idsp" value="@Model.sanPham.Id">
-                                                                <button type="submit" class="btn btn-danger" value="submit ">
-                                                                    <!-- Thêm dấu ba chấm nằm ngang -->
-                                                                    @if (Model.danhGiaSanPhamCuaToi.TrangThaiAnHien == false)
-                                                                    {
-                                                                        <span>Hiện đánh giá</span>
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        <span>Ẩn đánh giá</span>
-                                                                    }
-                                                                </button>
-                                                            </form>
-                                                        </div>
+                                                        @if ( Model.danhGiaSanPhamCuaToi.TrangThaiDuyet == true)
+                                                        {
+                                                            <!-- Submenu -->
+                                                            <div class="dropdown ">
+                                                                <!-- Nội dung submenu -->
+                                                                <form asp-action="XoaDanhGia" asp-controller="HienThiSanPham">
+                                                                    <!-- Nội dung form xóa -->
+                                                                    <input type="hidden" name="id" value="@Model.danhGiaSanPhamCuaToi.Id">
+                                                                    <input type="hidden" name="idsp" value="@Model.sanPham.Id">
+                                                                    <button type="submit" class="btn btn-danger" value="submit ">
+                                                                        <!-- Thêm dấu ba chấm nằm ngang -->
+                                                                        @if (Model.danhGiaSanPhamCuaToi.TrangThaiAnHien == false)
+                                                                        {
+                                                                            <span>Hiện đánh giá</span>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <span>Ẩn đánh giá</span>
+                                                                        }
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                        
+                                                       }
                                                     </div>
                                                 </div>
 
@@ -566,13 +570,13 @@
                                                 <p>
                                                     @Model.danhGiaSanPhamCuaToi.BinhLuan
                                                 </p>
-                                                <div class="d-flex" >
+                                                <div class="d-flex">
                                                     @if (Model.danhGiaSanPhamCuaToi.TrangThaiDuyet == false)
                                                     {
-                                                        <p><em style="color:red">*Bình luận của bạn đang được duyệt</em></p>
+                                                        <p><em style="color:red">*Bình luận của bạn đang được chờ duyệt</em></p>
 
 
-                                                    }@if (Model.danhGiaSanPhamCuaToi.TrangThaiAnHien == false)
+                                                    }@if (Model.danhGiaSanPhamCuaToi.TrangThaiAnHien == false && Model.danhGiaSanPhamCuaToi.TrangThaiDuyet == true)
                                                     {
                                                         <p><em style="color:red">*Bình luận của bạn đang tạm ẩn hiện thị</em></p>
                                                     }
@@ -628,13 +632,13 @@
                                             </div>
 
                                         }
-                                        @if (TempData["message2"] != null)
+                                        @*@if (TempData["message2"] != null)
                                         {
                                             <div class=" form-group">
                                                 <div class="alert alert-success">@TempData["message2"]</div>
                                             </div>
 
-                                        }
+                                        }*@
 
                                         <div class="col-md-12 text-right">
                                             <button type="submit" value="submit" class="primary-btn">Submit Now</button>
@@ -1001,7 +1005,7 @@
             <div class="col-lg-6 text-center">
                 <div class="section-title">
                     <h1>Sản phẩm liên quan</h1>
-                    
+
                 </div>
             </div>
         </div>
@@ -1170,7 +1174,6 @@
         cursor: pointer;
         font-weight: 400;
         transition: border-radius 0.3s, box-shadow 0.3s;
-       
     }
 
         .custom-button.before-click {
@@ -1294,7 +1297,7 @@
         var h = document.getElementsByTagName("head")[0]; h.appendChild(s);
         window.kommunicate = m; m._globals = kommunicateSettings;
     })(document, window.kommunicate || {});
-            /* NOTE : Use web server to view HTML files as real-time update will not work if you directly open the HTML file in the browser. */
+                        /* NOTE : Use web server to view HTML files as real-time update will not work if you directly open the HTML file in the browser. */
 </script>
 <script src="~/js/vendor/jquery-2.2.4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.~/js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"

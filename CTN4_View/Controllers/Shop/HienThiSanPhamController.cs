@@ -784,7 +784,7 @@ namespace CTN4_View.Controllers.Shop
             {
 
 
-                if(  existingReview.TrangThaiAnHien == true)
+                if( existingReview.TrangThaiAnHien == true && existingReview.TrangThaiDuyet == true)
                 {
                        existingReview.TrangThaiAnHien = false;
 

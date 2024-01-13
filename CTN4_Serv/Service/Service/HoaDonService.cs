@@ -27,55 +27,53 @@ namespace CTN4_Serv.Service
         public List<BestSellingProductModel> ThongKeSanPhamBanChay()
         {
             // Lấy danh sách chi tiết hóa đơn từ cơ sở dữ liệu
-
             var chiTietHoaDons = _db.HoaDonChiTiets
-                .Where(ct => ct.TrangThai&& ct.Is_detele )
+                .Where(ct => ct.TrangThai && ct.Is_detele)
                 .ToList();
 
-            // Tạo một Dictionary để lưu tổng số lượng bán của từng sản phẩm
-            Dictionary<Guid, int> tongSoLuongBan = new Dictionary<Guid, int>();
+            // Tạo một Dictionary để lưu tổng số lượng bán của từng tên sản phẩm
+            Dictionary<string, int> tongSoLuongBanTheoTen = new Dictionary<string, int>();
 
-            // Duyệt qua danh sách chi tiết hóa đơn để tính tổng số lượng bán của từng sản phẩm
+            // Duyệt qua danh sách chi tiết hóa đơn để tính tổng số lượng bán của từng tên sản phẩm
             foreach (var chiTietHoaDon in chiTietHoaDons)
             {
-                Guid productId = chiTietHoaDon.IdSanPhamChiTiet.GetValueOrDefault();
+                var productDetail = _db.SanPhamChiTiets.FirstOrDefault(p => p.Id == chiTietHoaDon.IdSanPhamChiTiet);
+                var productName = _db.SanPhams.Where(p => p.Id == productDetail.IdSp).Select(p => p.TenSanPham).FirstOrDefault();
 
-                if (tongSoLuongBan.ContainsKey(productId))
+                if (!string.IsNullOrEmpty(productName))
                 {
-                    tongSoLuongBan[productId] += chiTietHoaDon.SoLuong;
-                }
-                else
-                {
-                    tongSoLuongBan[productId] = chiTietHoaDon.SoLuong;
+                    if (tongSoLuongBanTheoTen.ContainsKey(productName))
+                    {
+                        tongSoLuongBanTheoTen[productName] += chiTietHoaDon.SoLuong;
+                    }
+                    else
+                    {
+                        tongSoLuongBanTheoTen[productName] = chiTietHoaDon.SoLuong;
+                    }
                 }
             }
-
-            // Sắp xếp danh sách theo số lượng bán giảm dần
-            var sortedProducts = tongSoLuongBan.OrderByDescending(pair => pair.Value);
 
             // Lấy danh sách sản phẩm bán chạy
             List<BestSellingProductModel> result = new List<BestSellingProductModel>();
 
-            // Lấy thông tin chi tiết của sản phẩm từ cơ sở dữ liệu và thêm vào danh sách kết quả
-            foreach (var sortedProduct in sortedProducts)
+            // Thêm thông tin vào danh sách kết quả
+            foreach (var kvp in tongSoLuongBanTheoTen)
             {
-                var productDetail = _db.SanPhamChiTiets.FirstOrDefault(p => p.Id == sortedProduct.Key);
-                var product = _db.SanPhams.FirstOrDefault(p => p.Id == productDetail.IdSp);
-
-                if (productDetail != null)
+                var bestSellingProduct = new BestSellingProductModel
                 {
-                    var bestSellingProduct = new BestSellingProductModel
-                    {
-                        ProductId = productDetail.Id,
-                        ProductName = product.TenSanPham,
-                        TotalQuantitySold = sortedProduct.Value
-                    };
-                    result.Add(bestSellingProduct);
-                }
+                    ProductName = kvp.Key,
+                    TotalQuantitySold = kvp.Value
+                };
+
+                result.Add(bestSellingProduct);
             }
+
+            // Sắp xếp danh sách theo số lượng bán giảm dần
+            result = result.OrderByDescending(product => product.TotalQuantitySold).ToList();
 
             return result;
         }
+
         public HoaDon GetById(int id)
         {
             return GetAll().FirstOrDefault(c => c.Id == id);
