@@ -9,13 +9,11 @@ namespace CTN4_Serv.ViewModel
 {
     public class Loginviewmodel
     {
-        [Required(ErrorMessage = "Vui lòng nhập tên đăng nhập.")]
-        [RegularExpression("^[a-zA-Z0-9]{8,30}$", ErrorMessage = "Vui lòng:")]
+        [Required(ErrorMessage = "Tên đăng nhập không được bỏ trống")]
+        [RegularExpression("^[a-zA-Z0-9]{8,30}$", ErrorMessage = "Vui Lòng kiểm tra đầu vào ")]
         public string User { get; set; }
-
-        [Required(ErrorMessage = "Vui lòng nhập mật khẩu.")]
-        [RegularExpression("^[a-zA-Z0-9]{8,30}$", ErrorMessage = "Vui Lòng:")]
-        public string Password { get; set; }
-
+        [Required(ErrorMessage = "Mật khẩu không được bỏ trống")]
+        [RegularExpression("^[a-zA-Z0-9]{8,30}$", ErrorMessage = "Vui Lòng kiểm tra đầu vào ")]
+        public string Password { get; set; } 
     }
 }
