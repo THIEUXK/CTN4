@@ -46,6 +46,19 @@
     .small-text {
         font-size: 12px; /* hoặc bạn có thể sử dụng giá trị cụ thể cho font-size */
     }
+
+    .container-center {
+     
+        position: absolute;
+        top: 70px; /* Điều chỉnh giá trị này để đặt cách container từ phía trên theo đơn vị px */
+        left: 50%;
+        transform: translate(-50%, 0);
+        width: 100%;
+        max-width: 800px;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+    }
 </style>
 
 
@@ -57,9 +70,9 @@
         <br></br>
         <br></br>
         <h1>Tạo voucher</h1>
+        <br></br>
 
-
-        <hr />
+        
         <div class="row">
             <div>
 
@@ -67,7 +80,7 @@
                     <form asp-action="Create">
                         @*<form id="create-form" asp-controller="GiamGia" asp-action="Create" method="post" onsubmit="return submitForm()">*@
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <div class="form-container">
+                        <div class="container-center ">
 
                             @*<form id="create-form" asp-controller="GiamGia" asp-action="Create" method="post">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
@@ -149,11 +162,11 @@
 
                             <div class="form-group" id="PhanTramGiamGroup" style="display: none;">
                                 <label asp-for="PhanTramGiam" class="control-label">Phần trăm giảm</label>
-                                <input asp-for="PhanTramGiam" class="form-control" maxlength="9" />
+                                <input type ="text" asp-for="PhanTramGiam" class="form-control" maxlength="9" />
                                 <label class="small-text">(Không được nhập quá 9 ký tự)</label>
                                 <span asp-validation-for="PhanTramGiam" class="text-danger"></span>
                                 <div class="form-group">
-                                    <label asp-for="SoTienGiamToiDa" class="control-label">Số tiền giảm tối đa</label>
+                                    <label">Số tiền giảm tối đa</label>
                                     <input asp-for="SoTienGiamToiDa" class="form-control" maxlength="9" />
                                     <label class="small-text">(Không được nhập quá 9 ký tự)</label>
                                     <span asp-validation-for="SoTienGiamToiDa" class="text-danger"></span>
@@ -230,7 +243,8 @@
     </div>
 
 
-</div>
-<a asp-action="Index">Danh sách mã giảm giá hiện có</a>
-</div>
+    <div>
+
+        <button type="button" class="btn btn-primary" onclick="window.location.href='@Url.Action("Index")'">Danh sách mã giảm hiện có</button>
+    </div>
 
