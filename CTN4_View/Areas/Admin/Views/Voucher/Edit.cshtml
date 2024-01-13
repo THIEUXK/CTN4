@@ -58,12 +58,24 @@
  
     .container-center {
         position: absolute;
-        top: 70px; /* Điều chỉnh giá trị này để đặt cách container từ phía trên theo đơn vị px */
+        top: 150px; /* Điều chỉnh giá trị này để đặt cách container từ phía trên theo đơn vị px */
         left: 50%;
         transform: translate(-50%, 0);
         width: 100%;
-        max-width: 800px;
-        padding: 20px;
+        max-width: 1000px;
+        padding: 50px;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+    }
+
+    .container-center1 {
+        position: absolute;
+        top: 55px; /* Điều chỉnh giá trị này để đặt cách container từ phía trên theo đơn vị px */
+        left: 50%;
+        transform: translate(-50%, 0);
+        width: 100%;
+        max-width: 1000px;
+        padding: 50px;
         background-color: #f8f9fa;
         border-radius: 10px;
     }
@@ -80,10 +92,11 @@
                 @* chưa đến giờ*@
                 @if (item.Name == "MaGiam" && Model.NgayBatDau > DateTime.Now)
                 {
-                    <br></br>
-                    <br></br>
-                    <h1>Chỉnh sửa mã</h1>
-                    <br></br>
+
+                    <div class="container-center1 ">
+                        <h1 class="text-center">Chỉnh sửa mã</h1>
+                        </div>
+                    
 
 
                     @* <hr />
@@ -292,15 +305,15 @@
                                     </div>
 
                             </form>
+                            <div class="col-md-3 text-center">
 
+                                <button type="button" class="btn btn-primary" onclick="window.location.href='@Url.Action("Index")'">Quay lại</button>
+                            </div>
                         </div>
                     </div>
 
 
-                    <div>
-                        
-                        <button type="button" class="btn btn-primary" onclick="window.location.href='@Url.Action("Index")'">Danh sách mã giảm hiện có</button>
-                    </div>
+                   
 
                 }
 
@@ -309,10 +322,10 @@
                 else if (item.Name == "TrangThai" && Model.NgayBatDau <= DateTime.Now && Model.NgayKetThuc >= DateTime.Now)
                 {
 
-                    <br></br>
-                    <br></br>
-                    <h1>Thay đổi trạng thái</h1>
-                    <br></br>
+                    <div class="container-center1 ">
+                        <h1 class="text-center">Thay đổi trạng thái</h1>
+                    </div>
+                    
 
                     @* <hr />
             <form asp-action="Edit">
@@ -493,15 +506,15 @@
                                     </div>
 
                             </form>
+                            <div class="col-md-3 text-center">
 
+                                <button type="button" class="btn btn-primary" onclick="window.location.href='@Url.Action("Index")'">Quay lại</button>
+                            </div>
                         </div>
                     </div>
 
 
-                    <div>
-
-                        <button type="button" class="btn btn-primary" onclick="window.location.href='@Url.Action("Index")'">Danh sách mã giảm hiện có</button>
-                    </div>
+                    
 
                 }
 
@@ -510,10 +523,9 @@
                 else if (item.Name == "TrangThai" && Model.NgayKetThuc <= DateTime.Now)
                 {
 
-                    <br></br>
-                    <br></br>
-                    <h1>Thay đổi trạng thái</h1>
-                    <br></br>
+                    <div class="container-center1 ">
+                        <h1 class="text-center">Thay đổi trạng thái</h1>
+                    </div>
 
                     @* <hr />
             <form asp-action="Edit">
@@ -699,15 +711,16 @@
 
 
                             </form>
+                            <div class="col-md-3 text-center">
+
+                                <button type="button" class="btn btn-primary" onclick="window.location.href='@Url.Action("Index")'">Quay lại</button>
+                            </div>
 
                         </div>
                     </div>
 
 
-                    <div>
-
-                        <button type="button" class="btn btn-primary" onclick="window.location.href='@Url.Action("Index")'">Danh sách mã giảm hiện có</button>
-                    </div>
+                    
 
                 }
             </div>
