@@ -209,7 +209,6 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                         return RedirectToAction("XemChiTiet", new { id = id, message });
                     }
                 }
-
                 if (sdt != null)
                 {
                     if (sdt.Length < 10 || sdt.Length > 13)
@@ -1442,7 +1441,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                 if (LyDo != null)
                 {
                     hd.TrangThai = "Đơn hàng bị hủy";
-                    var hdct = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == id);
+                    var hdct = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == id&&c.TrangThai==true);
 
                     foreach (var a in hdct)
                     {
@@ -1554,7 +1553,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
             }
             else
             {
-                var hd = _hoaDonService.GetAll().Where(c => c.NgayTaoHoaDon > NgayDau && c.NgayTaoHoaDon < NgayCuoi && c.Is_detele == true).ToList();
+                var hd = _hoaDonService.GetAll().Where(c => (c.NgayTaoHoaDon > NgayDau && c.NgayTaoHoaDon < NgayCuoi)||(c.NgayDat > NgayDau && c.NgayDat < NgayCuoi) && c.Is_detele == true).ToList();
                 var view = new ThieuxkViewAdmin()
                 {
                     hoaDons = hd,
@@ -1993,7 +1992,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                             ThoiGianlam = DateTime.Now,
                             NguoiThucHien = nvnew[0].TenDangNhap,
                             TrangThai = true,
-                            Is_detele = true
+                            Is_detele = false
                         };
                         _LichSuHoaDonService.Them(li);
                     }
