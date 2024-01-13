@@ -40,6 +40,7 @@ namespace CTN4_View.Controllers
         public IKhachHangService _KHangService;
         public IDiaChiNhanHangService _diaChiNhanHangService;
         public IGioHangService _GioHangService;
+        public IChiTietSanPhamYeuThichService _chiTietSanPhamYeuThichService;
         //public HomeController()
         //{
         //    _phamChiTietService = new SanPhamChiTietService();
@@ -47,7 +48,7 @@ namespace CTN4_View.Controllers
         //}
 
 
-        public HomeController(ILogger<HomeController> logger, IConfiguration config, ITokenService tokenService, ILoginService userRepository, ICurrentUser curent, IKhachHangService khachhang, ISanPhamService sanpham, IHttpClientFactory httpClientFactory, IDiaChiNhanHangService diachi, IGiamGiaService giamgia, IEmailService emailService,IGioHangService gh)
+        public HomeController(ILogger<HomeController> logger, IConfiguration config, ITokenService tokenService, ILoginService userRepository, ICurrentUser curent, IKhachHangService khachhang, ISanPhamService sanpham, IHttpClientFactory httpClientFactory, IDiaChiNhanHangService diachi, IGiamGiaService giamgia, IEmailService emailService, IGioHangService gh)
 
         {
             _spService = sanpham;
@@ -67,7 +68,8 @@ namespace CTN4_View.Controllers
             _danhMucChiTietService = new DanhMucChiTietMucChiTietService();
             _EmailService = emailService;
             _diaChiNhanHangService = new DiaChiNhanHangService();
-            _GioHangService =gh ;
+            _GioHangService = gh;
+            _chiTietSanPhamYeuThichService = new ChiTietSanPhamYeuThichService();
         }
 
         public IActionResult Index()
@@ -79,11 +81,13 @@ namespace CTN4_View.Controllers
 
             var b = _danhMucChiTietService.GetAll().Where(c => c.IdDanhMuc == Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081173")).ToList();
             var c = _danhMucChiTietService.GetAll().Where(c => c.IdDanhMuc == Guid.Parse("f0e98e38-112b-4630-89f1-08dbf336241b")).ToList();
+            var SpYt = _chiTietSanPhamYeuThichService.GetAll();
             var view = new SanPhamBanChayView()
             {
                 sanPhams = obj,
                 danhMucChiTiets = b,
                 danhMucChiTiets1 = c,
+                sanPhamYeuThiches = SpYt,
             };
 
             return View(view);
@@ -199,7 +203,8 @@ namespace CTN4_View.Controllers
                 return View("DangKy", a);
             }
             var checkma = _khachHangService.GetAll().FirstOrDefault(c => c.TenDangNhap == a.TenDangNhap);
-            if (checkma !=null ) {
+            if (checkma != null)
+            {
                 ViewBag.Message = "Tên đăng nhập đã sử dụng";
                 return View("DangKy", a);
             }
@@ -241,7 +246,7 @@ namespace CTN4_View.Controllers
             a.Is_detele = true;
             a.AnhDaiDien = "Fall";
             _khachHangService.Them(a);
-           
+
             return RedirectToAction(nameof(login));
         }
         public IActionResult cart()
@@ -322,7 +327,7 @@ namespace CTN4_View.Controllers
                 return View("DoimkKh", kh);
 
             }
-            
+
             // Kiểm tra xác nhận mật khẩu mới
             if (kh.MatKhauMoi != kh.xacNhanMatKhauMoi)
             {
@@ -416,13 +421,13 @@ namespace CTN4_View.Controllers
             }
 
             // Check if the phone number has a length between 10 and 13 characters
-            if ( phoneNumber.Length <10 || phoneNumber.Length > 13)
+            if (phoneNumber.Length < 10 || phoneNumber.Length > 13)
 
             {
                 return false;
             }
             // (Ví dụ: định dạng có thể là số và không có ký tự đặc biệt)
-            return Regex.IsMatch(phoneNumber, @"^[0-9]+$") ;
+            return Regex.IsMatch(phoneNumber, @"^[0-9]+$");
         }
         public IActionResult UserDetail()
         {
@@ -451,6 +456,8 @@ namespace CTN4_View.Controllers
         {
             if (!ModelState.IsValid)
             {
+                ViewBag.Message = "Vui lòng nhập đúng đầu vào.";
+
                 return View(userModel); // Trả về view với model và thông báo lỗi
             }
             if (string.IsNullOrEmpty(userModel.User) || string.IsNullOrEmpty(userModel.Password))
@@ -459,7 +466,7 @@ namespace CTN4_View.Controllers
             }
             var TK = _KHangService.GetAll().FirstOrDefault(c => c.TenDangNhap == userModel.User && c.MatKhau == userModel.Password);
             // Đọc dữ liệu từ Session xem trong Cart nó có cái gì chưa?
-            if (TK!=null)
+            if (TK != null)
             {
                 var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
                 if (accnew.Count == 0)
@@ -494,7 +501,7 @@ namespace CTN4_View.Controllers
                 ViewBag.Message = "Tên đăng nhập hoặc mật khẩu không đúng";
                 return View("Login");
             }
-           
+
             IActionResult response = Unauthorized();
             var validUser = GetUserKH(userModel);
             if (validUser != null)

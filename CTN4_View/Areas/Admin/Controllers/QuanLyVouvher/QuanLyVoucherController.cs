@@ -49,7 +49,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyVouvher
 
             }
 
-            int pageSize = size ?? 5;
+            int pageSize = size ?? 15;
             var pageNumber = page ?? 1;
             var pagedList = a.ToPagedList(pageNumber, pageSize);
             //var pagedList = a.Where(c => c.Is_detele == true).ToPagedList(pageNumber, pageSize);
@@ -67,7 +67,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyVouvher
             ViewBag.currentIsDelete = Is_detele;
             var giamGias = _gg.GetAll().Where(c => c.Is_detele == true).ToList();/*.Where(c => c.LoaiGiamGia == true || false).ToList()*/;// lấy hết mã đang hiển thị
             int pageNumber = page ?? 1;
-            int pageSize = 5; // Số lượng item trên mỗi trang
+            int pageSize = 15; // Số lượng item trên mỗi trang
 
             var pagedList = giamGias.ToPagedList(pageNumber, pageSize);
 
@@ -79,7 +79,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyVouvher
             ViewBag.currentLoaiGiamGia = loaiGiamGia;
             var giamGias = _gg.GetAll().Where(c => c.LoaiGiamGia == false && c.Is_detele == true).ToList();// lấy hết mã đang hiển thị và giảm theo tiền
             int pageNumber = page ?? 1;
-            int pageSize = 5; // Số lượng item trên mỗi trang
+            int pageSize = 15; // Số lượng item trên mỗi trang
 
             var pagedList = giamGias.ToPagedList(pageNumber, pageSize);
 
@@ -91,7 +91,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyVouvher
             ViewBag.currentLoaiGiamGia = loaiGiamGia;
             var giamGias = _gg.GetAll().Where(c => c.LoaiGiamGia == true && c.Is_detele == true).ToList();// lấy hết mã đang hiển thị và giảm phần trăm
             int pageNumber = page ?? 1;
-            int pageSize = 5;
+            int pageSize = 15;
 
             var pagedList = giamGias.ToPagedList(pageNumber, pageSize);
 
@@ -103,7 +103,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyVouvher
             ViewBag.currentIsDelete = Is_detele;
             var giamGias = _gg.GetAll().Where(c => c.Is_detele == false).ToList();// lấy hết mã đang ẩn
             int pageNumber = page ?? 1;
-            int pageSize = 5;
+            int pageSize = 15;
 
             var pagedList = giamGias.ToPagedList(pageNumber, pageSize);
 
