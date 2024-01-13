@@ -3085,7 +3085,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                 }
                 if (soluong > 20)
                 {
-                    var message = "Số lượng đã vượi quá 20 hãy bảo shop liên hệ với shop để có thể mua sỉ";
+                    var message = "Số lượng đã vượi quá 20 và hãy liên hệ với quản lý nếu muốn mua sỉ";
                     TempData["TB2"] = message;
                     return RedirectToAction("TaoHoaDon", new { id = b.IdHoaDon, message });
                 }
