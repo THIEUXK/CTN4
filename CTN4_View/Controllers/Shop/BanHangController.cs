@@ -665,7 +665,7 @@ namespace CTN4_View.Controllers.Shop
             if (name == null)
             {
                 {
-                    var message = "hãy nhớ điền tên của bạn của bạn";
+                    var message = "hãy nhớ điền tên của bạn";
                     TempData["TB2"] = message;
                     return RedirectToAction("ThuTucThanhToan", "BanHang", new { message });
                 }
