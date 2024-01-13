@@ -10,40 +10,17 @@
     <div class="container">
         <div class="tracking_box_inner">
             <p>
-                Hãy nhập mã đơn hàng của bạn để tìm kiếm nhanh
+                Hay nhập mã đơn hàng của bạn để tìm kiếm nhanh
             </p>
-            <div class="row">
-                <form asp-action="LocHD" class="col-md-6 tracking_form" method="post" novalidate="novalidate">
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="order1" name="MaHD" placeholder="Mã Hóa đơn" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Mã Hóa đơn'">
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" value="submit" class="primary-btn">Tìm</button>
-                    </div>
-                </form>
-                <form id="searchForm" asp-action="TimKiemNgay" class="col-md-6 tracking_form" method="post" novalidate="novalidate" onsubmit="return confirmSearch()">
-                    <div>
-                        Tìm kiếm theo ngày đặt hàng:
-                        <div>
-                            Từ
-                            <input name="NgayDau" id="NgayDau" type="datetime-local" oninput="luuGiaTri(this)">
-                            </input>
-                            Đến
-                            <input name="NgayCuoi" id="NgayCuoi" type="datetime-local" oninput="luuGiaTri(this)">
-                            </input>
-
-                            <!-- Thêm mã JavaScript để giữ nguyên giá trị ngày -->
-                            <button type="submit" class="btn btn-primary">Tìm</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
+            <form class="row tracking_form" action="#" method="post" novalidate="novalidate">
+                <div class="col-md-12 form-group">
+                    <input type="text" class="form-control" id="order" name="TimKiemHoaDon" placeholder="id Hóa đơn" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Mã Hóa đơn'">
+                </div>
+                <div class="col-md-12 form-group">
+                    <button type="submit" value="submit" class="primary-btn">Tìm</button>
+                </div>
+            </form>
         </div>
-
-        @if (TempData["TB4"] != null)
-        {
-            <div class="alert alert-danger">@TempData["TB4"]</div>
-        }
         <h1>Danh sách hóa đơn của bạn</h1>
         <table class="table">
             <thead>
@@ -56,6 +33,9 @@
                     </th>
                     <th>
                         Trạng thái
+                    </th>
+                    <th>
+                        Tiền ship
                     </th>
                     <th>
                         Tổng tiền
@@ -72,31 +52,18 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-
                     <tr>
                         <td>
-                            #@Html.ActionLink(@item.MaHoaDon, "HoaDonChiTiet", new { id = item.Id })
+                            #@Html.ActionLink(@item.MaHoaDon, "HoaDonChiTiet", new {  id=item.Id  })
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.NgayDat)
                         </td>
                         <td>
-                            @if (item.TrangThai == "Đơn hàng bị hủy")
-                            {
-                                <b style="color:red">@item.TrangThai</b>
-                            }
-                            else if (item.TrangThai == "Giao hàng thành công")
-                            {
-                                <b style="color:green">@item.TrangThai</b>
-                            }
-                            else if (item.TrangThai == "Giao hàng thất bại")
-                            {
-                                <b style="color:orange">@item.TrangThai</b>
-                            }
-                            else
-                            {
-                                <div>@item.TrangThai</div>
-                            }
+                            @Html.DisplayFor(modelItem => item.TrangThai)
+                        </td>
+                        <td>
+                            @Html.Raw(FormatCurrency(item.TienShip))
                         </td>
                         <th>
                             @Html.Raw(FormatCurrency(item.TongTien))
@@ -122,8 +89,6 @@
                             <td><div class="chuaht">Chưa giao hàng</div></td>
                         }
                     </tr>
-
-
                 }
             </tbody>
         </table>
@@ -147,21 +112,15 @@
         var h = document.getElementsByTagName("head")[0]; h.appendChild(s);
         window.kommunicate = m; m._globals = kommunicateSettings;
     })(document, window.kommunicate || {});
-    /* NOTE : Use web server to view HTML files as real-time update will not work if you directly open the HTML file in the browser. */
+            /* NOTE : Use web server to view HTML files as real-time update will not work if you directly open the HTML file in the browser. */
 </script>
 <style>
-    .a1 {
-        background-color: lightcoral
-    }
-
-    .chuaht {
+    .chuaht{
         color: red
     }
-
-    .hoanthanh {
+    .hoanthanh{
         color: yellowgreen
     }
-
     .custom-edit-link {
         color: black; /* Màu đỏ */
         /* Các thuộc tính CSS khác nếu cần */
@@ -182,63 +141,3 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 <script src="~/js/gmaps.min.js"></script>
 <script src="~/js/main.js"></script>
-
-    <script>
-        // Hàm để lưu giữ giá trị ngày vào localStorage
-        function saveDateValues() {
-            localStorage.setItem("previousStartDate", document.getElementById("NgayDau").value);
-            localStorage.setItem("previousEndDate", document.getElementById("NgayCuoi").value);
-        }
-
-    // Hàm để khôi phục giá trị ngày từ localStorage
-    function restoreDateValues() {
-        var previousStartDate = localStorage.getItem("previousStartDate");
-        var previousEndDate = localStorage.getItem("previousEndDate");
-
-        if (previousStartDate !== null && previousEndDate !== null) {
-            document.getElementById("NgayDau").value = previousStartDate;
-            document.getElementById("NgayCuoi").value = previousEndDate;
-        }
-    }
-
-    // Hàm xác nhận tìm kiếm
-    function confirmSearch() {
-        // Lưu giữ giá trị ngày trước khi thực hiện tìm kiếm
-        saveDateValues();
-
-        // Hiển thị hộp thoại xác nhận
-        var isConfirmed = confirm("Bạn có chắc chắn muốn thực hiện tìm kiếm?");
-
-        // Nếu người dùng xác nhận, thực hiện submit form
-        if (isConfirmed) {
-            document.getElementById("searchForm").submit();
-        } else {
-            // Nếu người dùng không xác nhận, khôi phục giá trị ngày từ localStorage
-            restoreDateValues();
-        }
-        // Prevent the form from submitting immediately
-        return false;
-    }
-
-    // Gọi hàm khôi phục giá trị ngày khi trang được tải lại
-    document.addEventListener("DOMContentLoaded", restoreDateValues);
-
-    // Hàm để lưu giá trị từng trường vào localStorage khi có sự thay đổi
-    function luuGiaTri(inputElement) {
-        var fieldName = inputElement.name;
-        var inputValue = inputElement.value;
-        localStorage.setItem(fieldName + 'Value', inputValue);
-    }
-
-    // Hàm để khôi phục giá trị từ localStorage khi trang được tải lại
-    window.onload = function () {
-        var formElements = document.getElementById('searchForm').elements;
-        for (var i = 0; i < formElements.length; i++) {
-            var fieldName = formElements[i].name;
-            var storedValue = localStorage.getItem(fieldName + 'Value');
-            if (storedValue) {
-                formElements[i].value = storedValue;
-            }
-        }
-    };
-</script>

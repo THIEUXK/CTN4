@@ -40,7 +40,6 @@ namespace CTN4_View.Controllers
         public IKhachHangService _KHangService;
         public IDiaChiNhanHangService _diaChiNhanHangService;
         public IGioHangService _GioHangService;
-        public IChiTietSanPhamYeuThichService _chiTietSanPhamYeuThichService;
         //public HomeController()
         //{
         //    _phamChiTietService = new SanPhamChiTietService();
@@ -69,7 +68,6 @@ namespace CTN4_View.Controllers
             _EmailService = emailService;
             _diaChiNhanHangService = new DiaChiNhanHangService();
             _GioHangService =gh ;
-			 _chiTietSanPhamYeuThichService = new ChiTietSanPhamYeuThichService();
         }
 
         public IActionResult Index()
@@ -81,13 +79,11 @@ namespace CTN4_View.Controllers
 
             var b = _danhMucChiTietService.GetAll().Where(c => c.IdDanhMuc == Guid.Parse("56dd3ee2-c4df-4376-b982-e2c0f7081173")).ToList();
             var c = _danhMucChiTietService.GetAll().Where(c => c.IdDanhMuc == Guid.Parse("f0e98e38-112b-4630-89f1-08dbf336241b")).ToList();
-            var SpYt = _chiTietSanPhamYeuThichService.GetAll();
             var view = new SanPhamBanChayView()
             {
                 sanPhams = obj,
                 danhMucChiTiets = b,
                 danhMucChiTiets1 = c,
-                sanPhamYeuThiches = SpYt,
             };
 
             return View(view);
@@ -455,8 +451,6 @@ namespace CTN4_View.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.Message = "Vui lòng nhập đúng đầu vào.";
-
                 return View(userModel); // Trả về view với model và thông báo lỗi
             }
             if (string.IsNullOrEmpty(userModel.User) || string.IsNullOrEmpty(userModel.Password))

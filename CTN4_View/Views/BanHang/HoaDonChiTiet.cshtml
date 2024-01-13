@@ -15,7 +15,15 @@
         <article class="card">
             <div class="card-body">
                 <h6>
-                    Tinh trạng đơn hàng:<b>@Model.HoaDon.TrangThai</b>
+                    Tinh trạng đơn hàng:
+                    @if (Model.HoaDon.TrangThai == "Đơn hàng bị hủy")
+                    {
+                        <b>Đơn hàng đã bị hủy</b>
+                    }
+                    else
+                    {
+                        <b>Bình thường</b>
+                    }
                 </h6>
                 <div class="track">
                     <div class="step active"> <span class="icon"> <i class="fa1 fa-check"></i> </span> <span class="text">Đơn hàng đã được đặt</span><span class="timea">@Model.HoaDon.NgayDat</span> </div>
@@ -277,7 +285,7 @@
                 <div>
                     <div class="col-md-8 offset-md-2">
                         <div class="button-container text-center">
-                            @if (Model.HoaDon.TrangThai != "Đơn hàng bị hủy" && Model.HoaDon.TrangThai == "Đang chờ xử lí" && Model.HoaDon.TrangThai != "Hàng của bạn đang được giao")
+                            @if (Model.HoaDon.TrangThai != "Đơn hàng bị hủy")
                             {
                                 <div class="dropdown">
                                     <button type="button" class="btn btn-custom-rangen " data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
@@ -304,7 +312,7 @@
                             }
                             else
                             {
-                                <div>Nếu gặp vấn đề hãy liên hệ với shop để được giải quyết</div>
+                                <div style="color:red">Đơn hàng của bạn đã bị hủy</div>
                             }
                         </div>
                     </div>
@@ -321,6 +329,8 @@
             return formattedPrice + " VND"; // Thêm ký hiệu đồng (₫) vào cuối
         }
     };
+
+
 </script>
 <style>
     .fa1 {

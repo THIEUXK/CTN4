@@ -56,7 +56,7 @@ namespace CTN4_View_Admin.Controllers
 
             var a = User.Identity.Name;
 
-
+            // ok
             return View();
         }
 
