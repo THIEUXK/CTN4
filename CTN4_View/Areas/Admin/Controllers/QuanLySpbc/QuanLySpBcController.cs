@@ -43,14 +43,20 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLySpbc
 
             }
             var sanPhamHungViews = new List<SanPhamHungView>();
+            
             foreach (var b in tensp)
             {
-                var listSpHien = listsp.Where(c => c.SanPhamChiTiet.SanPham.TenSanPham == b);
+                var listSpHien = listsp.Where(c => c.SanPhamChiTiet.SanPham.TenSanPham == b && c.TrangThai == true &&( c.HoaDon.TrangThai == "Giao hàng thành công" || c.HoaDon.TrangThai == "Đưa hàng thành công"));
+                int soluongmua =0;
+                foreach(var item in listSpHien)
+                {
+                       soluongmua += item.SoLuong;
+                }
                 var c = new SanPhamHungView
                 {
                     TenSp = b,
                     AnhDaiDien = listSpHien.FirstOrDefault(c => c.SanPhamChiTiet.SanPham.TenSanPham == b).SanPhamChiTiet.SanPham.AnhDaiDien,
-                    soluotmua = listSpHien.Count(),
+                    soluotmua = soluongmua,
                     GiaSanPham = listSpHien.FirstOrDefault(c => c.SanPhamChiTiet.SanPham.TenSanPham == b).SanPhamChiTiet.SanPham.GiaNiemYet,
 
                 };
