@@ -45,7 +45,7 @@ namespace CTN4_View.Controllers.SanPhamYeuThich
             var accnew = SessionServices.KhachHangSS(HttpContext.Session, "ACC");
             if (accnew.Count != 0)
             {
-                var a = _YT.GetAll().Where(c => c.IdKhachHang == accnew[0].Id).ToList();
+                var a = _YT.GetAll().Where(c => c.IdKhachHang == accnew[0].Id &&c.SanPham.TrangThai==true&&c.SanPham.Is_detele==true).ToList();
                 var view = new SanPhamYeuThichView()
                 {
                     chiTietSanPhamYeuThiches = a,
