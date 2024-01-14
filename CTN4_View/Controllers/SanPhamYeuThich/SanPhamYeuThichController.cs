@@ -20,7 +20,7 @@ namespace CTN4_View.Controllers.SanPhamYeuThich
             if (accnew.Count != 0)
             {
                 var tkmoi = accnew[0];
-                var DSYT = _YT.GetAll().FirstOrDefault(c => c.IdKhachHang == tkmoi.Id);
+                var DSYT = _YT.GetAll().FirstOrDefault(c => c.IdKhachHang == tkmoi.Id&&c.SanPham.TrangThai==true&&c.SanPham.Is_detele==true);
                 var SPYT = new ChiTietSanPhamYeuThich()
                 {
                     IdSanPham = IdSanPham,
