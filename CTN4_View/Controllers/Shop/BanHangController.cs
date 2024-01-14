@@ -157,7 +157,7 @@ namespace CTN4_View.Controllers.Shop
             if (accnew.Count != 0)
             {
                 var checksp = _SanPhamChiTiet.GetAll().FirstOrDefault(c => c.IdSp == IdSanPham && c.IdSize == IdSize && c.IdMau == IdMau);
-                if (checksp.TrangThai!=true||checksp.Is_detele!=true)
+                if (checksp.TrangThai!=true||checksp.Is_detele!=true|| checksp.SanPham.TrangThai != true || checksp.SanPham.Is_detele != true)
                 {
                     var message2 = "Sản phẩm này đang gặp vấn đền hãy quay lại sau !";
                     TempData["TB2"] = message2;
