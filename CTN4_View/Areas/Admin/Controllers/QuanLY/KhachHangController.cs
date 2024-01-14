@@ -43,9 +43,25 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [ValidateAntiForgeryToken]
         public ActionResult Create(KhachHang a, [Bind] IFormFile imageFile)
         {
-
+             const int kichThuocToiDa = 2 * 1024 * 1024; // 2MB
              if (imageFile != null && imageFile.Length > 0) // Không null và không trống
                 {
+                    // Kiểm tra định dạng của ảnh
+                if (imageFile.Length > kichThuocToiDa)
+                {
+                    var thongbaoAnh = "Kích thước ảnh vượt quá 2MB";
+                    TempData["Notification"] = thongbaoAnh;
+                    return RedirectToAction("Create", new { id = a.Id });
+                }
+                var allowedExtensions = new[] { ".jpg", ".png", ".jpeg", ".tiff", ".webp", ".gif" };
+                var fileExtension = Path.GetExtension(imageFile.FileName).ToLower();
+
+                if (!allowedExtensions.Contains(fileExtension))
+                {
+                    var thongbaoAnh = "Định dạng ảnh không được chấp nhận. Chỉ chấp nhận các định dạng: " + string.Join(", ", allowedExtensions);
+                    TempData["Notification"] = thongbaoAnh;
+                    return RedirectToAction("Create", new { id = a.Id });
+                }
                     //Trỏ tới thư mục wwwroot để lát nữa thực hiện việc Copy sang
                     var path = Path.Combine(
                         Directory.GetCurrentDirectory(), "wwwroot", "image", imageFile.FileName);
@@ -116,8 +132,27 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [ValidateAntiForgeryToken]
         public ActionResult Edit(KhachHang a, [Bind] IFormFile imageFile, string anhdaidiencheck)
         {
+            const int kichThuocToiDa = 2 * 1024 * 1024; // 2MB
             if (imageFile != null && imageFile.Length > 0) // Không null và không trống
             {
+                 // Kiểm tra định dạng của ảnh
+                if (imageFile.Length > kichThuocToiDa)
+                {
+                    var thongbaoAnh = "Kích thước ảnh vượt quá 2MB";
+                    TempData["Notification"] = thongbaoAnh;
+                    return RedirectToAction("Edit", new { id = a.Id });
+                }
+                var allowedExtensions = new[] { ".jpg", ".png", ".jpeg", ".tiff", ".webp", ".gif" };
+                var fileExtension = Path.GetExtension(imageFile.FileName).ToLower();
+
+                if (!allowedExtensions.Contains(fileExtension))
+                {
+                    var thongbaoAnh = "Định dạng ảnh không được chấp nhận. Chỉ chấp nhận các định dạng: " + string.Join(", ", allowedExtensions);
+                    TempData["Notification"] = thongbaoAnh;
+                    return RedirectToAction("Edit", new { id = a.Id });
+                }
+               
+                
                 //Trỏ tới thư mục wwwroot để lát nữa thực hiện việc Copy sang
                 var path = Path.Combine(
                     Directory.GetCurrentDirectory(), "wwwroot", "image", imageFile.FileName);
@@ -130,10 +165,11 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                 // Gán lại giá trị cho Description của đối tượng bằng tên file ảnh đã được sao chép
                 a.AnhDaiDien = imageFile.FileName;
             }
-             else
+            else
             {
                 a.AnhDaiDien = anhdaidiencheck;
             }
+
             if (_kh.Sua(a))
             {
                 return RedirectToAction("Index");

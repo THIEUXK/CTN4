@@ -126,6 +126,7 @@
                         <tbody>
                             @foreach (var item in Model)
                             {
+                                itemIds.Add(item.Id.ToString());
                                 <tr>
                                     <td>
                                         <h6 style="text-align:center">@item.MaKhuyenMai</h6>
@@ -310,6 +311,7 @@
                         <tbody>
                             @foreach (var item in Model.Where(item => item.TrangThai == true && item.NgayKetThuc >= DateTime.Now && item.NgayBatDau < DateTime.Now))
                             {
+                                itemIds.Add(item.Id.ToString());
                                 @if(item.TrangThai == true && item.NgayKetThuc >= DateTime.Now && item.NgayBatDau < DateTime.Now)
                                 {
                                     <tr>
