@@ -121,181 +121,183 @@
 
                             }
                             <hr></hr>
-                            <table class="table text-nowrap mb-0 align-middle">
-                                <thead class="text-dark fs-4">
-                                    <tr>
-                                        <th class="border-bottom-0">
-                                            <h6 class="fw-semibold mb-0">Ảnh sản phẩm</h6>
-                                        </th>
-                                        <th class="border-bottom-0">
-                                            <h6 class="fw-semibold mb-0">Sản phẩm</h6>
-                                        </th>
-                                        <th class="border-bottom-0">
-                                            <h6 class="fw-semibold mb-0">Số lượng</h6>
-                                        </th>
-                                        <th class="border-bottom-0">
-                                            <h6 class="fw-semibold mb-0">Giá tiền</h6>
-                                        </th>
-                                        <th class="border-bottom-0">
-                                            <h6 class="fw-semibold mb-0">trạng thái</h6>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var a in Model.hoaDonChiTiets)
-                                    {
+                            <div class="table-responsive">
+                                <table class="table text-nowrap mb-0 align-middle">
+                                    <thead class="text-dark fs-4">
                                         <tr>
-                                            <td class="border-bottom-0">
-                                                @if (System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".jpg" ||
-                                               System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".png" ||
-                                               System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".jpeg" ||
-                                               System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".tiff" ||
-                                               System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".webp" ||
-                                               System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".gif")
-                                                {
-                                                    <img src="~/image/@a.SanPhamChiTiet.SanPham.AnhDaiDien" height="100">
-                                                }
-                                                else
-                                                {
-                                                    <a>ảnh lỗi</a>
-                                                }
-                                            </td>
-                                            <td class="border-bottom-0">
-                                                <div><b>Tên:</b>@a.SanPhamChiTiet.SanPham.TenSanPham</div>
-                                                <div><b>Màu:</b>@a.SanPhamChiTiet.Mau.TenMau</div>
-                                                <div><b>Size:</b>@a.SanPhamChiTiet.Size.CoSize</div>
-                                                <div><b>Đơn giá:</b>@FormatCurrency(a.SanPhamChiTiet.SanPham.GiaNiemYet)</div>
-                                            </td>
-                                            <td class="border-bottom-0">
-                                                @if (Model.HoaDon.TrangThai == "Đang chờ xử lí")
-                                                {
-                                                    <form asp-action="CapNhanSoLuong2" class="confirmation-form">
-
-                                                        <div class="input-container">
-                                                            <input type="text" name="soluong" value="@a.SoLuong" class="so-duong" min="1" id="soInput" max="20" maxlength="2" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
-                                                            <input type="hidden" name="idHdct" value="@a.Id" />
-                                                            <button class="update-button">Cập nhật</button>
-                                                        </div>
-
-                                                    </form>
-                                                }
-                                                else
-                                                {
-                                                    <p class="mb-0 fw-normal">@a.SoLuong</p>
-                                                }
-                                            </td>
-                                            <td class="border-bottom-0">
-                                                <p class="mb-0 fw-normal">@FormatCurrency(a.GiaTien * a.SoLuong)</p>
-                                            </td>
-                                            <td class="border-bottom-0">
-                                                @if (a.TrangThai == true)
-                                                {
-                                                    <p class="mb-0 fw-normal" style="color:limegreen">Bình thường</p>
-                                                }
-                                                else
-                                                {
-                                                    <p class="mb-0 fw-normal" style="color:red">Hàng bị đổi trả</p>
-                                                }
-                                            </td>
-                                            @if (Model.HoaDon.TrangThai == "Hàng của bạn đang được giao")
-                                            {
-                                                <td class="border-bottom-0">
-                                                    <div class="dropdown">
-                                                        <button type="button" class="btn btn-custom-primary" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
-                                                            ...
-                                                        </button>
-                                                        <div class="dropdown-menu p-4">
-                                                            @if (a.TrangThai == true)
-                                                            {
-                                                                <div class="dropdown">
-                                                                    <button type="button" class="btn btn-custom-primary" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
-                                                                        Trả hàng
-                                                                    </button>
-                                                                    <div class="dropdown-menu p-4">
-                                                                        <form asp-action="BoSanPham">
-                                                                            <input type="hidden" name="idHD" value="@Model.HoaDon.Id">
-                                                                            <input type="hidden" name="idHDCT" value="@a.Id">
-                                                                            <div class="form-group">
-                                                                                <label for="GhiChu" class="col-form-label">Lý do trả sản phẩm</label>
-                                                                                <textarea name="LyDo" class="form-control"></textarea>
-                                                                            </div>
-                                                                            <br />
-                                                                            <div class="form-row">
-                                                                                <div class="col">
-                                                                                    <button type="submit" class="btn btn-custom-primary">Xác nhận trả hàng</button>
-                                                                                </div>
-                                                                                <div class="col-auto text-right"></div>
-                                                                            </div>
-                                                                            <br />
-                                                                        </form>
-                                                                    </div>
-                                                                </div>
-                                                            }
-                                                            else
-                                                            {
-                                                                <div class="dropdown">
-                                                                    <button type="button" class="btn btn-custom-primary" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
-                                                                        Hoàn tác
-                                                                    </button>
-                                                                    <div class="dropdown-menu p-4">
-                                                                        <form asp-action="HoanTacSp">
-                                                                            <input type="hidden" name="idHD" value="@Model.HoaDon.Id">
-                                                                            <input type="hidden" name="idHDCT" value="@a.Id">
-                                                                            <div class="form-group">
-                                                                                <label for="GhiChu" class="col-form-label">Lý do hoàn tác</label>
-                                                                                <textarea name="LyDo" class="form-control"></textarea>
-                                                                            </div>
-                                                                            <br />
-                                                                            <div class="form-row">
-                                                                                <div class="col">
-                                                                                    <button type="submit" class="btn btn-custom-primary">Xác nhận hoàn tác</button>
-                                                                                </div>
-                                                                                <div class="col-auto text-right"></div>
-                                                                            </div>
-                                                                            <br />
-                                                                        </form>
-                                                                    </div>
-                                                                </div>
-                                                            }
-
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            }
-                                            else if (Model.HoaDon.TrangThai == "Đang chờ xử lí")
-                                            {
-                                                <td class="border-bottom-0">
-                                                    <div class="dropdown">
-                                                        <button type="button" class="btn btn-custom-primary" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
-                                                            Bỏ
-                                                        </button>
-                                                        <div class="dropdown-menu p-4">
-                                                            <form asp-action="BoSanPhamNay">
-                                                                <input type="hidden" name="id" value="@Model.HoaDon.Id">
-                                                                <input type="hidden" name="idCT" value="@a.Id">
-                                                                <div class="form-group">
-                                                                    <label for="GhiChu" class="col-form-label">Lý do bỏ</label>
-                                                                    <textarea name="LyDo" class="form-control"></textarea>
-                                                                </div>
-                                                                <br />
-                                                                <div class="form-row">
-                                                                    <div class="col">
-                                                                        <button type="submit" class="btn btn-custom-primary">Xác nhận bỏ</button>
-                                                                    </div>
-                                                                    <div class="col-auto text-right"></div>
-                                                                </div>
-                                                                <br />
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                    @*  <span class="btn btn-custom-primary">@Html.ActionLink("Bỏ", "BoSanPhamNay", new { id = Model.HoaDon.Id, idCT = a.Id }, new { @class = "custom-edit-link" })</span> *@
-                                                </td>
-                                            }
-
+                                            <th class="border-bottom-0">
+                                                <h6 class="fw-semibold mb-0">Ảnh sản phẩm</h6>
+                                            </th>
+                                            <th class="border-bottom-0">
+                                                <h6 class="fw-semibold mb-0">Sản phẩm</h6>
+                                            </th>
+                                            <th class="border-bottom-0">
+                                                <h6 class="fw-semibold mb-0">Số lượng</h6>
+                                            </th>
+                                            <th class="border-bottom-0">
+                                                <h6 class="fw-semibold mb-0">Giá tiền</h6>
+                                            </th>
+                                            <th class="border-bottom-0">
+                                                <h6 class="fw-semibold mb-0">trạng thái</h6>
+                                            </th>
                                         </tr>
-                                    }
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var a in Model.hoaDonChiTiets)
+                                        {
+                                            <tr>
+                                                <td class="border-bottom-0">
+                                                    @if (System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".jpg" ||
+                                                   System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".png" ||
+                                                   System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".jpeg" ||
+                                                   System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".tiff" ||
+                                                   System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".webp" ||
+                                                   System.IO.Path.GetExtension(a.SanPhamChiTiet.SanPham.AnhDaiDien) == ".gif")
+                                                    {
+                                                        <img src="~/image/@a.SanPhamChiTiet.SanPham.AnhDaiDien" height="100">
+                                                    }
+                                                    else
+                                                    {
+                                                        <a>ảnh lỗi</a>
+                                                    }
+                                                </td>
+                                                <td class="border-bottom-0">
+                                                    <div><b>Tên:</b>@a.SanPhamChiTiet.SanPham.TenSanPham</div>
+                                                    <div><b>Màu:</b>@a.SanPhamChiTiet.Mau.TenMau</div>
+                                                    <div><b>Size:</b>@a.SanPhamChiTiet.Size.CoSize</div>
+                                                    <div><b>Đơn giá:</b>@FormatCurrency(a.SanPhamChiTiet.SanPham.GiaNiemYet)</div>
+                                                </td>
+                                                <td class="border-bottom-0">
+                                                    @if (Model.HoaDon.TrangThai == "Đang chờ xử lí")
+                                                    {
+                                                        <form asp-action="CapNhanSoLuong2" class="confirmation-form">
+
+                                                            <div class="input-container">
+                                                                <input type="text" name="soluong" value="@a.SoLuong" class="so-duong" min="1" id="soInput" max="20" maxlength="2" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                                                                <input type="hidden" name="idHdct" value="@a.Id" />
+                                                                <button class="update-button">Cập nhật</button>
+                                                            </div>
+
+                                                        </form>
+                                                    }
+                                                    else
+                                                    {
+                                                        <p class="mb-0 fw-normal">@a.SoLuong</p>
+                                                    }
+                                                </td>
+                                                <td class="border-bottom-0">
+                                                    <p class="mb-0 fw-normal">@FormatCurrency(a.GiaTien * a.SoLuong)</p>
+                                                </td>
+                                                <td class="border-bottom-0">
+                                                    @if (a.TrangThai == true)
+                                                    {
+                                                        <p class="mb-0 fw-normal" style="color:limegreen">Bình thường</p>
+                                                    }
+                                                    else
+                                                    {
+                                                        <p class="mb-0 fw-normal" style="color:red">Hàng bị đổi trả</p>
+                                                    }
+                                                </td>
+                                                @if (Model.HoaDon.TrangThai == "Hàng của bạn đang được giao")
+                                                {
+                                                    <td class="border-bottom-0">
+                                                        <div class="dropdown">
+                                                            <button type="button" class="btn btn-custom-primary" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                                                ...
+                                                            </button>
+                                                            <div class="dropdown-menu p-4">
+                                                                @if (a.TrangThai == true)
+                                                                {
+                                                                    <div class="dropdown">
+                                                                        <button type="button" class="btn btn-custom-primary" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                                                            Trả hàng
+                                                                        </button>
+                                                                        <div class="dropdown-menu p-4">
+                                                                            <form asp-action="BoSanPham">
+                                                                                <input type="hidden" name="idHD" value="@Model.HoaDon.Id">
+                                                                                <input type="hidden" name="idHDCT" value="@a.Id">
+                                                                                <div class="form-group">
+                                                                                    <label for="GhiChu" class="col-form-label">Lý do trả sản phẩm</label>
+                                                                                    <textarea name="LyDo" class="form-control"></textarea>
+                                                                                </div>
+                                                                                <br />
+                                                                                <div class="form-row">
+                                                                                    <div class="col">
+                                                                                        <button type="submit" class="btn btn-custom-primary">Xác nhận trả hàng</button>
+                                                                                    </div>
+                                                                                    <div class="col-auto text-right"></div>
+                                                                                </div>
+                                                                                <br />
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <div class="dropdown">
+                                                                        <button type="button" class="btn btn-custom-primary" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                                                            Hoàn tác
+                                                                        </button>
+                                                                        <div class="dropdown-menu p-4">
+                                                                            <form asp-action="HoanTacSp">
+                                                                                <input type="hidden" name="idHD" value="@Model.HoaDon.Id">
+                                                                                <input type="hidden" name="idHDCT" value="@a.Id">
+                                                                                <div class="form-group">
+                                                                                    <label for="GhiChu" class="col-form-label">Lý do hoàn tác</label>
+                                                                                    <textarea name="LyDo" class="form-control"></textarea>
+                                                                                </div>
+                                                                                <br />
+                                                                                <div class="form-row">
+                                                                                    <div class="col">
+                                                                                        <button type="submit" class="btn btn-custom-primary">Xác nhận hoàn tác</button>
+                                                                                    </div>
+                                                                                    <div class="col-auto text-right"></div>
+                                                                                </div>
+                                                                                <br />
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                }
+
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                }
+                                                else if (Model.HoaDon.TrangThai == "Đang chờ xử lí")
+                                                {
+                                                    <td class="border-bottom-0">
+                                                        <div class="dropdown">
+                                                            <button type="button" class="btn btn-custom-primary" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                                                Bỏ
+                                                            </button>
+                                                            <div class="dropdown-menu p-4">
+                                                                <form asp-action="BoSanPhamNay">
+                                                                    <input type="hidden" name="id" value="@Model.HoaDon.Id">
+                                                                    <input type="hidden" name="idCT" value="@a.Id">
+                                                                    <div class="form-group">
+                                                                        <label for="GhiChu" class="col-form-label">Lý do bỏ</label>
+                                                                        <textarea name="LyDo" class="form-control"></textarea>
+                                                                    </div>
+                                                                    <br />
+                                                                    <div class="form-row">
+                                                                        <div class="col">
+                                                                            <button type="submit" class="btn btn-custom-primary">Xác nhận bỏ</button>
+                                                                        </div>
+                                                                        <div class="col-auto text-right"></div>
+                                                                    </div>
+                                                                    <br />
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                        @*  <span class="btn btn-custom-primary">@Html.ActionLink("Bỏ", "BoSanPhamNay", new { id = Model.HoaDon.Id, idCT = a.Id }, new { @class = "custom-edit-link" })</span> *@
+                                                    </td>
+                                                }
+
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <hr></hr>
                         @if (Model.HoaDon.NgayGiao != null)
@@ -481,7 +483,7 @@
                             <br />
                             <div>
                                 <div><h1>Lịch sử</h1></div>
-                                <br/>
+                                <br />
                                 <div>
                                     @{
                                         var dem = @Model.LichSuHoaDon.Count();
@@ -796,7 +798,7 @@
                                         </div>
                                     </div>
                                 }
-                               
+
                             }
 
                         }
@@ -856,7 +858,7 @@
                         }
                         else
                         {
-                           @*  <div style="color:red">Đơn hàng đã bị hủy !</div> *@
+                            @*  <div style="color:red">Đơn hàng đã bị hủy !</div> *@
 
                         }
                     </div>
