@@ -157,7 +157,7 @@ namespace CTN4_View.Controllers.Shop
             if (accnew.Count != 0)
             {
                 var checksp = _SanPhamChiTiet.GetAll().FirstOrDefault(c => c.IdSp == IdSanPham && c.IdSize == IdSize && c.IdMau == IdMau);
-                if (checksp.TrangThai!=true||checksp.Is_detele!=true)
+                if (checksp.TrangThai!=true||checksp.Is_detele!=true|| checksp.SanPham.TrangThai != true || checksp.SanPham.Is_detele != true)
                 {
                     var message2 = "Sản phẩm này đang gặp vấn đền hãy quay lại sau !";
                     TempData["TB2"] = message2;
@@ -738,13 +738,11 @@ namespace CTN4_View.Controllers.Shop
                 var ghct = _GioHangChiTiet.GetAll().Where(c => c.IdGioHang == gh.Id && luuGio2.Contains(c.Id));
                 foreach (var ct in ghct)
                 {
-                    if (ct.SanPhamChiTiet.TrangThai!=true||ct.SanPhamChiTiet.Is_detele!=true)
+                    if (ct.SanPhamChiTiet.TrangThai!=true||ct.SanPhamChiTiet.Is_detele!=true|| ct.SanPhamChiTiet.SanPham.TrangThai != true || ct.SanPhamChiTiet.SanPham.Is_detele != true)
                     {
-                       
                             var message = $"Sản phẩm {ct.SanPhamChiTiet.SanPham.TenSanPham} hiện đang gặp vấn đề hãy mua sản phẩm này sau";
                             TempData["ErrorMessage"] = message;
                             return RedirectToAction("ThuTucThanhToan", "BanHang", new { message });
-                        
                     }
                     if (g.Contains(ct.SanPhamChiTiet.SanPham.Id))
                     {
