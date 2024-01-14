@@ -126,6 +126,7 @@
                         <tbody>
                             @foreach (var item in Model)
                             {
+                                itemIds.Add(item.Id.ToString());
                                 <tr>
                                     <td>
                                         <h6 style="text-align:center">@item.MaKhuyenMai</h6>
@@ -232,12 +233,14 @@
                     </table>
                     <div class="row no-gutters justify-content-between paginate">
                         <div class="col-auto ">
-                            @using (Html.BeginForm("Index", "KhuyenMai", FormMethod.Get))
-                            {
-                                <p>
-                                    Kích thước trang: @Html.DropDownList("size", (List<SelectListItem>)ViewBag.size, new { @onchange = "this.form.submit();" })
-                                </p>
-                            }
+                            <div class="row no-gutters align-items-center">
+                                @using (Html.BeginForm("Index", "KhuyenMai", FormMethod.Get))
+                                {
+                                    <div class="custom-dropdown">
+                                        Kích thước trang: @Html.DropDownList("size", (List<SelectListItem>)ViewBag.size, new { @onchange = "this.form.submit();" })
+                                    </div>
+                                }
+                            </div>
                         </div>
                         <div class="col-auto">
                             <div class="row no-gutters align-items-center">
@@ -308,6 +311,7 @@
                         <tbody>
                             @foreach (var item in Model.Where(item => item.TrangThai == true && item.NgayKetThuc >= DateTime.Now && item.NgayBatDau < DateTime.Now))
                             {
+                                itemIds.Add(item.Id.ToString());
                                 @if(item.TrangThai == true && item.NgayKetThuc >= DateTime.Now && item.NgayBatDau < DateTime.Now)
                                 {
                                     <tr>
@@ -698,14 +702,40 @@
 
 <style>
     .pagination-container {
-        margin-top: 20px;
+        display: flex;
+        align-items: center;
     }
 
     .pagination {
         display: flex;
         list-style: none;
         padding: 0;
+        margin: 0;
     }
+
+        .pagination li {
+            margin: 0;
+        }
+
+        .pagination a {
+            display: block;
+            padding: 8px 12px;
+            text-decoration: none;
+            color: #333;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            margin-right: 2px;
+        }
+
+            .pagination a:hover {
+                background-color: #f5f5f5;
+            }
+
+        .pagination .active a {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
+        }
 
     .page-item {
         margin-right: 5px;

@@ -15,12 +15,12 @@
                             <form method="post">
                                 <div class="form-group">
                                     <label>Tên Đăng Nhập</label>
-                                    <input type="text" class="form-control p_input" name="User" maxlength="30">
+                                    <input type="text" class="form-control p_input" name="User" maxlength="30" pattern="^\S.*$" title="Không được chứa khoảng trắng">
                                     <span asp-validation-for="User" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Mật khẩu</label>
-                                    <input type="password" class="form-control p_input" name="Password" maxlength="30">
+                                    <input type="password" class="form-control p_input" name="Password" maxlength="30" pattern="^\S.*$" title="Không được chứa khoảng trắng">
                                     <span asp-validation-for="Password" class="text-danger"></span>
                                     @if (!string.IsNullOrEmpty(ViewBag.Message))
                                     {

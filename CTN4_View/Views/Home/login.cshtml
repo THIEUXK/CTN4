@@ -25,7 +25,7 @@
                     <form class="row login_form" asp-action="Login" method="post" id="" novalidate="novalidate">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="col-md-12 form-group">
-                            <input type="text" class="form-control" id="name" name="User" placeholder="User" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'" maxlength="30">
+                            <input type="text" class="form-control" id="name" name="User" placeholder="User" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'" maxlength="30" pattern="^\S.*$" title="Không được chứa khoảng trắng">
                             <span asp-validation-for="User" class="text-danger"></span>
                             @if (!string.IsNullOrEmpty(ViewBag.Message))
                             {
@@ -35,7 +35,7 @@
                         </div>
                         <div class="col-md-12 form-group">
 
-                            <input type="password" class="form-control" id="name" name="Password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'" maxlength="30">
+                            <input type="password" class="form-control" id="name" name="Password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'" maxlength="30" pattern="^\S.*$" title="Không được chứa khoảng trắng">
                             <span asp-validation-for="Password" class="text-danger"></span>
 
                         </div>
