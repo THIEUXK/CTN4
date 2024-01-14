@@ -738,13 +738,11 @@ namespace CTN4_View.Controllers.Shop
                 var ghct = _GioHangChiTiet.GetAll().Where(c => c.IdGioHang == gh.Id && luuGio2.Contains(c.Id));
                 foreach (var ct in ghct)
                 {
-                    if (ct.SanPhamChiTiet.TrangThai!=true||ct.SanPhamChiTiet.Is_detele!=true)
+                    if (ct.SanPhamChiTiet.TrangThai!=true||ct.SanPhamChiTiet.Is_detele!=true|| ct.SanPhamChiTiet.SanPham.TrangThai != true || ct.SanPhamChiTiet.SanPham.Is_detele != true)
                     {
-                       
                             var message = $"Sản phẩm {ct.SanPhamChiTiet.SanPham.TenSanPham} hiện đang gặp vấn đề hãy mua sản phẩm này sau";
                             TempData["ErrorMessage"] = message;
                             return RedirectToAction("ThuTucThanhToan", "BanHang", new { message });
-                        
                     }
                     if (g.Contains(ct.SanPhamChiTiet.SanPham.Id))
                     {
