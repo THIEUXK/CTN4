@@ -13,15 +13,41 @@
     <!-- Đường dẫn đến file CSS của bạn -->
     <link rel="stylesheet" href="đường_dẫn_tới_file_css_của_bạn.css">
 </head>
+<style>
+    .search-container {
+        display: flex;
+        align-items: center;
+    }
+
+        .search-container form {
+            margin-right: 10px; /* Khoảng cách giữa các biểu mẫu */
+        }
+
+            .search-container form:last-child {
+                margin-right: 0; /* Loại bỏ khoảng cách của biểu mẫu cuối cùng */
+            }
+
+</style>
 <section class="lattest-product-area pb-40 category-list" id="product-section">
     <div class="search-bar-container">
-        <input type="text" class="search-input" placeholder="Nhập từ khóa...">
-        <button class="search-button">Tìm kiếm</button>
+        <div class="search-container">
+            <form asp-action="TimKiemSp" id="form1">
+                <input type="text" name="Ten" value="" class="search-input" placeholder="Nhập từ khóa..."  maxlength="50">
+                <button type="submit" class="search-button">Tìm kiếm</button>
+            </form>
+
+            <form asp-action="TimKiemSp2" id="form2">
+                <input type="text" name="BatDau" value="" class="search-input" placeholder="Nhập giá bắt đâu" oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="9">
+                <input type="text" name="KetThuc" value="" class="search-input" placeholder="Nhập giá kết thúc" oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="9">
+                <button type="submit" class="search-button">Tìm kiếm</button>
+            </form>
+        </div>
+
     </div>
     <br>
-    @if (TempData["Notification"] != null)
+    @if (TempData["TB2"] != null)
     {
-        <div class="alert alert-info">@TempData["Notification"]</div>
+        <div class="alert alert-info">@TempData["TB2"]</div>
     }
     <br/>
     <div class="row" id="Fillter-sanPhams">
