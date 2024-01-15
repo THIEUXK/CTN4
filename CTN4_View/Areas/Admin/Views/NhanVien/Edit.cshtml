@@ -31,12 +31,12 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="TenDangNhap" class="control-label">Tên đăng nhập</label>
-                            <input asp-for="TenDangNhap" class="form-control" />
+                            <input asp-for="TenDangNhap" class="form-control" readonly />
                             <span asp-validation-for="TenDangNhap" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="MatKhau" class="control-label">Mật khẩu</label>
-                            <input asp-for="MatKhau" class="form-control" />
+                            <input asp-for="MatKhau" class="form-control" readonly />
                             <span asp-validation-for="MatKhau" class="text-danger"></span>
                         </div>
                         <div class="form-group">
@@ -200,4 +200,9 @@
         a:hover {
             text-decoration: underline;
         }
+
+    .form-control[readonly] {
+        background-color: #f8f9fa; /* Màu nền xám nhạt */
+        cursor: not-allowed; /* Hình con trỏ không cho biết không thể nhập */
+    }
 </style>
