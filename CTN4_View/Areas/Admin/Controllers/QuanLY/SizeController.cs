@@ -67,12 +67,17 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [ValidateAntiForgeryToken]
         public ActionResult Create(Size a)
         {
-             var check = _sv.GetAll().FirstOrDefault(c=>c.TenSize == a.TenSize);
+             a.TenSize = a.TenSize?.Trim();
+            a.CoSize = a.CoSize?.Trim();
+            // Kiểm tra xem đã tồn tại danh mục có tên như a.TenDanhMuc chưa
+            var existingDanhMuc = _sv.GetAll().FirstOrDefault(c => c.TenSize == a.TenSize);
+            var existingDanhMuc1 = _sv.GetAll().FirstOrDefault(c => c.CoSize == a.CoSize);
             // Check for duplicate TenNSX
-            if (check != null)
+           if (existingDanhMuc == null ||  existingDanhMuc1 == null )
             {
-                ModelState.AddModelError("TenSize", "Tên size đã tồn tại. Vui lòng chọn một tên khác.");
-                return View();
+               ModelState.AddModelError("TenSize", "Tên size đã tồn tại. Vui lòng chọn một tên khác.");
+            ModelState.AddModelError("CoSize", "Cỡ size đã tồn tại. Vui lòng chọn một tên khác.");
+            return View();
             }
             var b = new Size();
             {
@@ -103,11 +108,29 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Size a)
         {
-            if (_sv.Sua(a))
-            {
-                return RedirectToAction("Index");
 
+            a.TenSize = a.TenSize?.Trim();
+            a.CoSize = a.CoSize?.Trim();
+            // Kiểm tra xem đã tồn tại danh mục có tên như a.TenDanhMuc chưa
+            var existingDanhMuc = _sv.GetAll().FirstOrDefault(c => c.TenSize == a.TenSize);
+            var existingDanhMuc1 = _sv.GetAll().FirstOrDefault(c => c.CoSize == a.CoSize);
+
+            if (existingDanhMuc == null ||  existingDanhMuc1 == null )
+            {
+
+                if (_sv.Sua(a))
+                {
+
+                    return RedirectToAction("Index");
+
+                }
+                return View();
             }
+
+            // Nếu đã tồn tại, có thể xử lý theo nhu cầu của bạn
+            // Ví dụ: Hiển thị thông báo lỗi về trùng lặp
+            ModelState.AddModelError("TenSize", "Tên size đã tồn tại. Vui lòng chọn một tên khác.");
+            ModelState.AddModelError("CoSize", "Cỡ size đã tồn tại. Vui lòng chọn một tên khác.");
             return View();
         }
 

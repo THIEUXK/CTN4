@@ -15,7 +15,7 @@
 
                     <div class="form-group">
                         <label asp-for="SoLuong" class="control-label">Số lượng</label>
-                        <input asp-for="SoLuong" class="form-control" />
+                        <input asp-for="SoLuong" class="form-control" type="text"  maxlength="12"/>
                         <span asp-validation-for="SoLuong" class="text-danger" id="soLuongError"></span>
                     </div>
 
@@ -127,11 +127,14 @@
                     return false;
                 }
                 // Kiểm tra có phải là số không âm hay không
-                if (!/^\d+$/.test(value) || parseInt(value, 10) < 0) {
-                    errorElement.innerText = 'Chỉ được nhập số không âm';
+                if ( parseInt(value, 10) < 0) {
+                    errorElement.innerText = 'Chỉ được nhập số không âm ';
                     return false;
                 }
-
+                if (!/^\d+$/.test(value)) {
+                    errorElement.innerText = 'Vui lòng chỉ nhập số';
+                    return false;
+                }
                 // Kiểm tra số lượng lớn hơn 1
                 if (parseInt(value, 10) <= 1) {
                     errorElement.innerText = 'Số lượng phải lớn hơn 1';

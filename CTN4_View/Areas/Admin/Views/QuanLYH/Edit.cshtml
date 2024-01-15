@@ -115,16 +115,29 @@
         var inputValue = input.value;
 
         // Kiểm tra nếu giá trị là số âm
-        if (/^-?\d+$/.test(inputValue) && parseInt(inputValue) < 0) {
-            document.getElementById("soLuongError").innerText = "Số lượng không được là số âm.";
-            input.setCustomValidity("Số lượng không được là số âm.");
-        } else if (/^\d+$/.test(inputValue) && parseInt(inputValue) > 9999999) {
-            document.getElementById("soLuongError").innerText = "Số lượng không được vượt quá 9999999.";
-            input.setCustomValidity("Số lượng không được vượt quá 9999999.");
-        } else {
-            document.getElementById("soLuongError").innerText = "";
-            input.setCustomValidity("");
-        }
+        input.addEventListener("input", function () {
+            var inputValue = input.value.trim();
+            var errorElement = document.getElementById("soLuongError");
+
+            if (/^-?\d+$/.test(inputValue)) {
+                var intValue = parseInt(inputValue);
+
+                if (intValue < 0) {
+                    errorElement.innerText = "Số lượng không được là số âm.";
+                    input.setCustomValidity("Số lượng không được là số âm.");
+                } else if (intValue > 9999999) {
+                    errorElement.innerText = "Số lượng không được vượt quá 9999999.";
+                    input.setCustomValidity("Số lượng không được vượt quá 9999999.");
+                } else {
+                    errorElement.innerText = "";
+                    input.setCustomValidity("");
+                }
+            } else {
+                errorElement.innerText = "Vui lòng nhập số nguyên.";
+                input.setCustomValidity("Vui lòng nhập số nguyên.");
+            }
+        });
+
     }
 
 </script>

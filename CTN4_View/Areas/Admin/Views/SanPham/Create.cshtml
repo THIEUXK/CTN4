@@ -72,17 +72,17 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="GiaNhap" class="control-label">Giá nhập</label>
-                            <input asp-for="GiaNhap" class="form-control" />
+                            <input asp-for="GiaNhap" class="form-control" maxlength="12"/>
                             <span asp-validation-for="GiaNhap" class="text-danger" id="giaNhapError"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="GiaBan" class="control-label">Giá bán</label>
-                            <input asp-for="GiaBan" class="form-control" />
+                        <input asp-for="GiaBan" class="form-control" maxlength="12" />
                             <span asp-validation-for="GiaBan" class="text-danger" id="giaBanError"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="GiaNiemYet" class="control-label">Giá niêm yết</label>
-                            <input asp-for="GiaNiemYet" class="form-control" />
+                        <input asp-for="GiaNiemYet" class="form-control" maxlength="12" />
                             <span asp-validation-for="GiaNiemYet" class="text-danger" id="giaNiemYetError"></span>
                         </div>
                         <div class="form-group">
