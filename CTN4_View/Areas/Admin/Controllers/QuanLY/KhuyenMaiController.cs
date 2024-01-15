@@ -265,8 +265,8 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             var tontai = _sv.GetAll().FirstOrDefault(c => c.MaKhuyenMai.ToLower() == datasubmit.MaKhuyenMai.ToLower() && c.Id != datasubmit.Id);
             if (tontai != null)
             {
-                ViewBag.Message = "Mã giảm không được trùng.";
-                return View(datasubmit);
+                return Json(new { success = false, errors = new List<string> { "Mã Không được trùng" } });
+               
             }
 
             // Kiểm tra thời gian
@@ -282,62 +282,52 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             //    ViewBag.Message = "Thời gian bắt đầu phải lớn hơn thời gian hiện tại.";
             //    return View(datasubmit);
             //}
-            if (datasubmit.DongGia < 0)
+            if (datasubmit.DongGia > 0 || datasubmit.SoTienGiam > 0 || datasubmit.PhanTramGiamGia > 0|| datasubmit.Mua1tang1 ==true )
             {
-                ViewBag.Message = "Lớn hơn 0.";
-                return View(datasubmit);
-            }
-            if (datasubmit.SoTienGiam < 0)
-            {
-                ViewBag.Message = "Lớn hơn 0.";
-                return View(datasubmit);
-            }
-            if (datasubmit.PhanTramGiamGia < 0 || datasubmit.PhanTramGiamGia > 100)
-            {
-                ViewBag.Message = "Phần trăm giảm giá phải trong khoảng 0-100";
-                return View(datasubmit);
-            }
-            datasubmit.TrangThai = true;
-            datasubmit.Is_Detele = true;
-            if (_sv.Them(datasubmit))
-            {
-                string imageUrl = "https://png.pngtree.com/png-vector/20210119/ourlarge/pngtree-3d-mega-sale-icon-with-bag-shop-accesories-png-image_2764907.jpg";
-                string base64Image = ConvertImageUrlToBase64(imageUrl);
-                string imageTag = $"<img src='data:image/jpeg;base64,{base64Image}' />";
-                string[] emailAddresses;
-                // Tách địa chỉ email từ chuỗi
-                if (lstMail == null)
+
+                datasubmit.TrangThai = true;
+                datasubmit.Is_Detele = true;
+                if (_sv.Them(datasubmit))
                 {
-                    emailAddresses = new string[0];
-                }
-                else 
-                emailAddresses = lstMail.Split(',');
-
-                foreach (var emailAddress in emailAddresses)
-                {
-                    MailRequest hh = new MailRequest()
+                    string imageUrl = "https://png.pngtree.com/png-vector/20210119/ourlarge/pngtree-3d-mega-sale-icon-with-bag-shop-accesories-png-image_2764907.jpg";
+                    string base64Image = ConvertImageUrlToBase64(imageUrl);
+                    string imageTag = $"<img src='data:image/jpeg;base64,{base64Image}' />";
+                    string[] emailAddresses;
+                    // Tách địa chỉ email từ chuỗi
+                    if (lstMail == null)
                     {
-                        Body = "Chào mừng bạn đến với cửa hàng chúng tôi! Chúng tôi đang có khuyến mãi hot, hãy truy cập ngay để không bỏ lỡ: <a href='https://localhost:7174/'>Ấn vào đây để vào cửa hàng </a>",
-                        ToEmail = emailAddress.Trim(), // Xóa khoảng trắng từ địa chỉ email
-                        Subject = "Cửa hàng đang đại giảm giá"
-                    };
-
-                    try
-                    {
-                        // Gửi email cho từng địa chỉ trong danh sách
-                        await _EmailService.SendEmailAsync(hh);
+                        emailAddresses = new string[0];
                     }
-                    catch (Exception ex)
-                    {
-                        // Xử lý exception (ghi log, thông báo, ...)
-                        Console.WriteLine($"Error sending email to {hh.ToEmail}: {ex.Message}");
-                    }
+                    else
+                        emailAddresses = lstMail.Split(',');
 
-                    // Kiểm soát tốc độ, chờ 1 giây trước khi gửi email tiếp theo
-                    //await Task.Delay(1);
+                    foreach (var emailAddress in emailAddresses)
+                    {
+                        MailRequest hh = new MailRequest()
+                        {
+                            Body = "Chào mừng bạn đến với cửa hàng chúng tôi! Chúng tôi đang có khuyến mãi hot, hãy truy cập ngay để không bỏ lỡ: <a href='https://localhost:7174/'>Ấn vào đây để vào cửa hàng </a>",
+                            ToEmail = emailAddress.Trim(), // Xóa khoảng trắng từ địa chỉ email
+                            Subject = "Cửa hàng đang đại giảm giá"
+                        };
+
+                        try
+                        {
+                            // Gửi email cho từng địa chỉ trong danh sách
+                            await _EmailService.SendEmailAsync(hh);
+                        }
+                        catch (Exception ex)
+                        {
+                            // Xử lý exception (ghi log, thông báo, ...)
+                            Console.WriteLine($"Error sending email to {hh.ToEmail}: {ex.Message}");
+                        }
+
+                        // Kiểm soát tốc độ, chờ 1 giây trước khi gửi email tiếp theo
+                        //await Task.Delay(1);
+                    }
+                    return Json(new { success = true, redirectUrl = Url.Action("Index") });
                 }
-                return Json(new { success = true, redirectUrl = Url.Action("Index") });
             }
+            
 
             return Json(new { success = false, errors = new List<string> { "Lỗi khi thêm khuyến mại." } });
         }
