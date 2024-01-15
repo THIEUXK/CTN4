@@ -1,6 +1,7 @@
 ﻿using CTN4_Data.Models.DB_CTN4;
 using CTN4_Serv.Service;
 using CTN4_Serv.Service.IService;
+using CTN4_Serv.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using X.PagedList;
@@ -18,7 +19,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         }
         // GET: PhanLoaiController
         [HttpGet]
-       public ActionResult Index(string TenSp, int? page, int? size)
+        public ActionResult Index(string TenSp, int? page, int? size)
         {
             var sanPhamList = _sv.GetAll().ToList();
 
@@ -66,7 +67,8 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [ValidateAntiForgeryToken]
         public ActionResult Create(ChatLieu a)
         {
-             // Kiểm tra xem đã tồn tại danh mục có tên như a.TenDanhMuc chưa
+            a.TenChatLieu = a.TenChatLieu?.Trim();
+            // Kiểm tra xem đã tồn tại danh mục có tên như a.TenDanhMuc chưa
             var existingDanhMuc = _sv.GetAll().FirstOrDefault(c => c.TenChatLieu == a.TenChatLieu);
 
             if (existingDanhMuc == null)
@@ -98,23 +100,31 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ChatLieu a)
         {
-            var b = new ChatLieu();
+            a.TenChatLieu = a.TenChatLieu?.Trim();
+            var check = _sv.GetAll().FirstOrDefault(c => c.TenChatLieu == a.TenChatLieu);
+            // Check for duplicate TenNSX
+            if (check != null)
             {
-                b.Id = a.Id;
-                b.TenChatLieu = a.TenChatLieu;
-                b.GhiChu = a.GhiChu;
-                b.TrangThai = a.TrangThai;
-                b.Is_detele = a.Is_detele;
+                ModelState.AddModelError("TenChatLieu", "Tên chất liệu đã tồn tại. Vui lòng chọn một tên khác.");
+                return View();
             }
+
+            var b = new ChatLieu();
+            b.Id = a.Id;
+            b.TenChatLieu = a.TenChatLieu;
+            b.GhiChu = a.GhiChu;
+            b.TrangThai = a.TrangThai;
+            b.Is_detele = a.Is_detele;
+
             if (_sv.Sua(b))
             {
                 return RedirectToAction("Index");
-
             }
+
             return View();
+
+
         }
-
-
 
         public ActionResult Delete(Guid id)
         {

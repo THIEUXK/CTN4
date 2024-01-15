@@ -28,7 +28,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             var a = _sv.GetAll().AsQueryable();
 
             List<SelectListItem> items = new List<SelectListItem>();
-          
+
             items.Add(new SelectListItem { Text = "10", Value = "10" });
             items.Add(new SelectListItem { Text = "20", Value = "20" });
             items.Add(new SelectListItem { Text = "25", Value = "25" });
@@ -85,6 +85,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [ValidateAntiForgeryToken]
         public ActionResult Create(DanhMuc a)
         {
+            a.TenDanhMuc = a.TenDanhMuc?.Trim();
             // Kiểm tra xem đã tồn tại danh mục có tên như a.TenDanhMuc chưa
             var existingDanhMuc = _sv.GetAll().FirstOrDefault(c => c.TenDanhMuc == a.TenDanhMuc);
 
@@ -117,15 +118,27 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [ValidateAntiForgeryToken]
         public ActionResult Edit(DanhMuc a)
         {
-            if (_sv.Sua(a))
-            {
-                return RedirectToAction("Index");
+            a.TenDanhMuc = a.TenDanhMuc?.Trim();
+            // Kiểm tra xem đã tồn tại danh mục có tên như a.TenDanhMuc chưa
+            var existingDanhMuc = _sv.GetAll().FirstOrDefault(c => c.TenDanhMuc == a.TenDanhMuc);
 
+            if (existingDanhMuc == null)
+            {
+
+                if (_sv.Sua(a))
+                {
+                    return RedirectToAction("Index");
+
+                }
+                return View();
             }
+
+            // Nếu đã tồn tại, có thể xử lý theo nhu cầu của bạn
+            // Ví dụ: Hiển thị thông báo lỗi về trùng lặp
+            ModelState.AddModelError("TenDanhMuc", "Danh mục đã tồn tại.");
             return View();
         }
-
-         public ActionResult Delete(Guid id)
+        public ActionResult Delete(Guid id)
         {
             var SP = _sv.GetById(id);
             if (SP.Is_detele == true)
