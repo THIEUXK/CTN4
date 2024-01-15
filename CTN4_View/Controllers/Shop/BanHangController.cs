@@ -845,7 +845,7 @@ namespace CTN4_View.Controllers.Shop
                     //Thêm chi tiết hóa đơn cho từng sản phẩm trong giỏ hàng
                     var luuGio = SessionBan.IdGio(HttpContext.Session, "LuoGio");
                     var lisdiachi1 = _diaChiNhanHangService.GetAll().Where(c => c.IdKhachHang == accnew[0].Id && c.Is_detele == true).ToList();
-                    var lisdiachi = _diaChiNhanHangService.GetAll().Where(c => c.DiaChi == addDiaChi && c.IdKhachHang == accnew[0].Id && c.TienShip == tienshipa && c.Is_detele == true).ToList();
+                    var lisdiachi = _diaChiNhanHangService.GetAll().Where(c => c.DiaChi == addDiaChi && c.IdKhachHang == accnew[0].Id && c.Is_detele == true).ToList();
                     if (lisdiachi1.Count() < 4 && lisdiachi.Count == 0)
                     {
                         int dem = 0;
