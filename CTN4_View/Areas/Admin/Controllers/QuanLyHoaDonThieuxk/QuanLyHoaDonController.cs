@@ -2219,6 +2219,70 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                 return RedirectToAction("DangNhap", "Home");
             }
         }
+        public IActionResult TimKiemSp(string Ten)
+        {
+            var nvnew = SessionServices.NhanVienSS(HttpContext.Session, "ACA");
+            if (nvnew.Count() != 0)
+            {
+                if (Ten==null)
+                {
+                    var message = "Hãy điền tên sản phẩm muốn tìm";
+                    TempData["TB2"] = message;
+                    return RedirectToAction("sanphammua", new { message });
+                }
+                var sanPhamList = _sanPhamService.GetAll().Where(c=>c.TenSanPham.ToLower().Contains(Ten.ToLower())).ToList();
+                var khuyenMaiSp = _KhuyenMaiSanPhams.GetAll().Where(c => c.KhuyenMai.TrangThai == true && c.KhuyenMai.Is_Detele == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now).ToList();
+                if (sanPhamList.Count == 0){
+                    var message = "Không tìm thấy !";
+                    TempData["TB2"] = message;
+                    return RedirectToAction("sanphammua", new { message });
+                }
+                var view = new Thi1View()
+                {
+                    sanPhams = sanPhamList,
+                    KhuyenMaiSanPhams = khuyenMaiSp,
+                };
+                return View("sanphammua",view);
+            }
+            else
+            {
+                return RedirectToAction("DangNhap", "Home");
+            }
+        }
+        public IActionResult TimKiemSp2(int BatDau,int KetThuc)
+        {
+            var nvnew = SessionServices.NhanVienSS(HttpContext.Session, "ACA");
+            if (nvnew.Count() != 0)
+            {
+                if (KetThuc == 0)
+                {
+                    var message = "Hãy điền số tiên kết thúc để có thể lọc";
+                    TempData["TB2"] = message;
+                    return RedirectToAction("sanphammua", new { message });
+                }
+                if (KetThuc <= BatDau)
+                {
+                    var message = "Hãy điền bắt đầu nhỏ hơn số kết thúc";
+                    TempData["TB2"] = message;
+                    return RedirectToAction("sanphammua", new { message });
+                }
+                
+                
+                var sanPhamList = _sanPhamService.GetAll().Where(c =>BatDau<= c.GiaNiemYet&& c.GiaNiemYet<=KetThuc).ToList();
+                var khuyenMaiSp = _KhuyenMaiSanPhams.GetAll().Where(c => c.KhuyenMai.TrangThai == true && c.KhuyenMai.Is_Detele == true && c.KhuyenMai.NgayBatDau <= DateTime.Now && c.KhuyenMai.NgayKetThuc >= DateTime.Now).ToList();
+
+                var view = new Thi1View()
+                {
+                    sanPhams = sanPhamList,
+                    KhuyenMaiSanPhams = khuyenMaiSp,
+                };
+                return View("sanphammua", view);
+            }
+            else
+            {
+                return RedirectToAction("DangNhap", "Home");
+            }
+        }
         public IActionResult chonMau(Guid IdSanPham, Guid IdMau)
         {
             var nvnew = SessionServices.NhanVienSS(HttpContext.Session, "ACA");
