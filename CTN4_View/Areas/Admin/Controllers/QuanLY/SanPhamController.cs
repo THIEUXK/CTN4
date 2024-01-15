@@ -360,11 +360,13 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             if (SP.Is_detele == true)
             {
                 SP.Is_detele = false;
+                SP.TrangThai = false;
                 _sanPhamService.Sua(SP);
             }
             else
             {
                 SP.Is_detele = true;
+                SP.TrangThai = true;
                 _sanPhamService.Sua(SP);
             }
             return RedirectToAction("Index");
