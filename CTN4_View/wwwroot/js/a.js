@@ -106,7 +106,7 @@
             })
             } else {
                 console.log('Không có sản phẩm được chọn.');
-                $('#alertMessage').addClass('red-alert').html('Không có sản phẩm nào được chọn. Vui lòng chọn ít nhất một sản phẩm để tiếp tục.').show();
+                $('#alertMessage').addClass('red-alert').html('Không có hóa đơn nào được chọn. Vui lòng chọn ít nhất một hóa đơn để tiếp tục.').show();
                 // Nếu không có sản phẩm được chọn, có thể hiển thị thông báo hoặc thực hiện hành động khác mà bạn muốn
                 // Ngăn chặn sự kiện mặc định của nút để tránh chuyển trang
                 return false;
@@ -152,7 +152,7 @@
             })
             } else {
                 console.log('Không có sản phẩm được chọn.');
-                $('#alertMessage').addClass('red-alert').html('Không có sản phẩm nào được chọn. Vui lòng chọn ít nhất một sản phẩm để tiếp tục.').show();
+                $('#alertMessage').addClass('red-alert').html('Không có hóa đơn nào được chọn. Vui lòng chọn ít nhất một hóa đơn để tiếp tục.).show();
                 // Nếu không có sản phẩm được chọn, có thể hiển thị thông báo hoặc thực hiện hành động khác mà bạn muốn
                 // Ngăn chặn sự kiện mặc định của nút để tránh chuyển trang
                 return false;
@@ -198,7 +198,7 @@
             })
             } else {
                 console.log('Không có sản phẩm được chọn.');
-                $('#alertMessage').addClass('red-alert').html('Không có sản phẩm nào được chọn. Vui lòng chọn ít nhất một sản phẩm để tiếp tục.').show();
+                $('#alertMessage').addClass('red-alert').html('Không có hóa đơn nào được chọn. Vui lòng chọn ít nhất một hóa đơn để tiếp tục.').show();
                 // Nếu không có sản phẩm được chọn, có thể hiển thị thông báo hoặc thực hiện hành động khác mà bạn muốn
                 // Ngăn chặn sự kiện mặc định của nút để tránh chuyển trang
                 return false;
@@ -250,7 +250,7 @@
             })
             } else {
                 console.log('Không có sản phẩm được chọn.');
-                $('#alertMessage').addClass('red-alert').html('Không có sản phẩm nào được chọn. Vui lòng chọn ít nhất một sản phẩm để tiếp tục.').show();
+                $('#alertMessage').addClass('red-alert').html('Không có hóa đơn nào được chọn. Vui lòng chọn ít nhất một hóa đơn để tiếp tục.').show();
                 // Nếu không có sản phẩm được chọn, có thể hiển thị thông báo hoặc thực hiện hành động khác mà bạn muốn
                 // Ngăn chặn sự kiện mặc định của nút để tránh chuyển trang
                 return false;
