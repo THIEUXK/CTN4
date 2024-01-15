@@ -64,7 +64,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                 }
                     //Trỏ tới thư mục wwwroot để lát nữa thực hiện việc Copy sang
                     var path = Path.Combine(
-                        Directory.GetCurrentDirectory(), "wwwroot", "image", imageFile.FileName);
+                        Directory.GetCurrentDirectory(), "wwwroot", "anhdd", imageFile.FileName);
                     using (var stream = new FileStream(path, FileMode.Create))
                     {
                         // Thực hiện copy ảnh vừa chọn sang thư mục mới (wwwroot)
@@ -155,7 +155,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                 
                 //Trỏ tới thư mục wwwroot để lát nữa thực hiện việc Copy sang
                 var path = Path.Combine(
-                    Directory.GetCurrentDirectory(), "wwwroot", "image", imageFile.FileName);
+                    Directory.GetCurrentDirectory(), "wwwroot", "anhdd", imageFile.FileName);
                 using (var stream = new FileStream(path, FileMode.Create))
                 {
                     // Thực hiện copy ảnh vừa chọn sang thư mục mới (wwwroot)
