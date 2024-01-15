@@ -43,18 +43,29 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLySpbc
 
             }
             var sanPhamHungViews = new List<SanPhamHungView>();
+
             foreach (var b in tensp)
             {
-                var listSpHien = listsp.Where(c => c.SanPhamChiTiet.SanPham.TenSanPham == b);
-                var c = new SanPhamHungView
+                var listSpHien = listsp.Where(c => c.SanPhamChiTiet.SanPham.TenSanPham == b && c.TrangThai == true && (c.HoaDon.TrangThai == "Giao hàng thành công" || c.HoaDon.TrangThai == "Đưa hàng thành công"));
+                int soluongmua = 0;
+             
+                foreach (var item in listSpHien)
                 {
-                    TenSp = b,
-                    AnhDaiDien = listSpHien.FirstOrDefault(c => c.SanPhamChiTiet.SanPham.TenSanPham == b).SanPhamChiTiet.SanPham.AnhDaiDien,
-                    soluotmua = listSpHien.Count(),
-                    GiaSanPham = listSpHien.FirstOrDefault(c => c.SanPhamChiTiet.SanPham.TenSanPham == b).SanPhamChiTiet.SanPham.GiaNiemYet,
+                    soluongmua += item.SoLuong;
+                }
+                if (soluongmua!=0)
+                {
+                    SanPhamHungView c = new SanPhamHungView()
+                    {
+                        TenSp = b,
+                        AnhDaiDien = listSpHien.FirstOrDefault(c => c.SanPhamChiTiet.SanPham.TenSanPham == b).SanPhamChiTiet.SanPham.AnhDaiDien,
+                        soluotmua = soluongmua,
+                        GiaSanPham = listSpHien.FirstOrDefault(c => c.SanPhamChiTiet.SanPham.TenSanPham == b).SanPhamChiTiet.SanPham.GiaNiemYet,
 
-                };
-                sanPhamHungViews.Add(c);
+                    };
+                    sanPhamHungViews.Add(c);
+                }
+                
             }
             var view = new SanphamBcView()
             {

@@ -91,13 +91,93 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             int pageSize = size ?? 10;
             int pageNumber = page ?? 1;
 
-            var giamGias = _sv.GetAll().Where(c => c.DongGia != 0).ToList();/*.Where(c => c.LoaiGiamGia == true || false).ToList()*/;
+            var km = _sv.GetAll().Where(c => c.DongGia != 0).ToList();/*.Where(c => c.LoaiGiamGia == true || false).ToList()*/;
             
 
-            var pagedList = giamGias.ToPagedList(pageNumber, pageSize);
+            var pagedList = km.ToPagedList(pageNumber, pageSize);
 
             return View("Index", pagedList);
         }
+
+        public IActionResult Mua1Tang1(int? size, int? page)
+        {
+            List<SelectListItem> items = new List<SelectListItem>();
+            items.Add(new SelectListItem { Text = "10", Value = "10" });
+            items.Add(new SelectListItem { Text = "20", Value = "20" });
+            items.Add(new SelectListItem { Text = "25", Value = "25" });
+            items.Add(new SelectListItem { Text = "50", Value = "50" });
+
+            foreach (var item in items)
+            {
+                if (item.Value == size.ToString()) item.Selected = true;
+            }
+
+            ViewBag.size = items; // ViewBag DropDownList
+            ViewBag.currentSize = size; // tạo biến kích thước trang hiện tại
+            int pageSize = size ?? 10;
+            int pageNumber = page ?? 1;
+
+            var km = _sv.GetAll().Where(c => c.Mua1tang1 == true).ToList();/*.Where(c => c.LoaiGiamGia == true || false).ToList()*/;
+
+
+            var pagedList = km.ToPagedList(pageNumber, pageSize);
+
+            return View("Index", pagedList);
+        }
+
+        public IActionResult PhanTramGiam(int? size, int? page)
+        {
+            List<SelectListItem> items = new List<SelectListItem>();
+            items.Add(new SelectListItem { Text = "10", Value = "10" });
+            items.Add(new SelectListItem { Text = "20", Value = "20" });
+            items.Add(new SelectListItem { Text = "25", Value = "25" });
+            items.Add(new SelectListItem { Text = "50", Value = "50" });
+
+            foreach (var item in items)
+            {
+                if (item.Value == size.ToString()) item.Selected = true;
+            }
+
+            ViewBag.size = items; // ViewBag DropDownList
+            ViewBag.currentSize = size; // tạo biến kích thước trang hiện tại
+            int pageSize = size ?? 10;
+            int pageNumber = page ?? 1;
+
+            var km = _sv.GetAll().Where(c => c.PhanTramGiamGia != 0).ToList();/*.Where(c => c.LoaiGiamGia == true || false).ToList()*/;
+
+
+            var pagedList = km.ToPagedList(pageNumber, pageSize);
+
+            return View("Index", pagedList);
+        }
+
+        public IActionResult SoTienGiam(int? size, int? page)
+        {
+            List<SelectListItem> items = new List<SelectListItem>();
+            items.Add(new SelectListItem { Text = "10", Value = "10" });
+            items.Add(new SelectListItem { Text = "20", Value = "20" });
+            items.Add(new SelectListItem { Text = "25", Value = "25" });
+            items.Add(new SelectListItem { Text = "50", Value = "50" });
+
+            foreach (var item in items)
+            {
+                if (item.Value == size.ToString()) item.Selected = true;
+            }
+
+            ViewBag.size = items; // ViewBag DropDownList
+            ViewBag.currentSize = size; // tạo biến kích thước trang hiện tại
+            int pageSize = size ?? 10;
+            int pageNumber = page ?? 1;
+
+            var km = _sv.GetAll().Where(c => c.SoTienGiam != 0).ToList();/*.Where(c => c.LoaiGiamGia == true || false).ToList()*/;
+
+
+            var pagedList = km.ToPagedList(pageNumber, pageSize);
+
+            return View("Index", pagedList);
+        }
+
+
         [HttpGet]
         public IActionResult GetActiveKhuyenMai(int? size, string searchString, int? page)
         {
@@ -114,20 +194,16 @@ namespace CTN4_View_Admin.Controllers.QuanLY
 
             ViewBag.size = items; // ViewBag DropDownList
             ViewBag.currentSize = size; // tạo biến kích thước trang hiện tại
-            page = page ?? 1;
+            int pageSize = size ?? 10;
+            int pageNumber = page ?? 1;
 
-            var b = _sv.GetAll().Where(km => km.TrangThai == true && km.NgayBatDau <= DateTime.Now && DateTime.Now < km.NgayKetThuc).AsQueryable(); ;
+            var b = _sv.GetAll().Where(km => km.TrangThai == true && km.NgayBatDau < DateTime.Now && DateTime.Now <= km.NgayKetThuc).AsQueryable(); ;
             
-
             if (!string.IsNullOrEmpty(searchString))
             {
                 // Lọc sản phẩm theo tên nếu có chuỗi tìm kiếm
                 b = b.Where(p => p.MaKhuyenMai.Contains(searchString, StringComparison.OrdinalIgnoreCase));
             }
-
-            const int pageSize = 10;
-            var pageNumber = page ?? 1;
-
 
             var pagedList = b.ToPagedList(pageNumber, pageSize);
 
@@ -149,19 +225,16 @@ namespace CTN4_View_Admin.Controllers.QuanLY
 
             ViewBag.size = items; // ViewBag DropDownList
             ViewBag.currentSize = size; // tạo biến kích thước trang hiện tại
-            page = page ?? 1;
+            int pageSize = size ?? 10;
+            int pageNumber = page ?? 1;
 
-            var inactiveKhuyenMaiList = _sv.GetAll().Where(km => !km.TrangThai == true || km.NgayBatDau > DateTime.Now).AsQueryable();
+            var inactiveKhuyenMaiList = _sv.GetAll().Where(km => (!km.TrangThai == true || km.NgayBatDau > DateTime.Now) && km.NgayKetThuc >= DateTime.Now).AsQueryable();
 
             if (!string.IsNullOrEmpty(searchString))
             {
                 // Lọc sản phẩm theo tên nếu có chuỗi tìm kiếm
                 inactiveKhuyenMaiList = inactiveKhuyenMaiList.Where(p => p.MaKhuyenMai.Contains(searchString, StringComparison.OrdinalIgnoreCase));
             }
-
-            const int pageSize = 10;
-            var pageNumber = page ?? 1;
-
 
             var pagedList = inactiveKhuyenMaiList.ToPagedList(pageNumber, pageSize);
 

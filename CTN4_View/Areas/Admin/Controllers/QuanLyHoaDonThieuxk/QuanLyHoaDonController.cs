@@ -2776,7 +2776,6 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                             return RedirectToAction("TaoHoaDon", new { id = idHD, message });
                         }
                     }
-
                     if (Sodienthoai!=null)
                     {
                         if (Sodienthoai.Length < 10 || Sodienthoai.Length > 13)
@@ -2797,8 +2796,6 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                             return RedirectToAction("TaoHoaDon", new { id = idHD, message });
                         }
                     }
-
-                  
                     var hd = _hoaDonService.GetById(idHD);
                     var hdct = _hoaDonChiTietService.GetAll().Where(c => c.IdHoaDon == idHD);
                     if (hdct.Count() == 0)
@@ -2815,6 +2812,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                         hd.TienGiam = tiengiama;
                         hd.TienHang = tienhanga;
                         hd.TenKhachHang = name;
+                        hd.DiaChi = "Nhận tại quầy";
                         hd.NgayNhan = DateTime.Now;
                         if (Sodienthoai != null)
                         {
@@ -2889,6 +2887,27 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                     {
                         {
                             var message = "hãy nhớ điền địa chỉ chi tiết của bạn";
+                            TempData["TB2"] = message;
+                            return RedirectToAction("TaoHoaDon", new { id = idHD, message });
+                        }
+                    }
+
+                    if (Sodienthoai != null)
+                    {
+                        if (Sodienthoai.Length < 10 || Sodienthoai.Length > 13)
+                        {
+                            {
+                                var message = "Số điện thoại phải từ 10 số trở lên";
+                                TempData["TB2"] = message;
+                                return RedirectToAction("TaoHoaDon", new { id = idHD, message });
+                            }
+                        }
+                    }
+                    if (Email != null)
+                    {
+                        if (!IsValidGmail(Email))
+                        {
+                            var message = "Email không hợp lệ";
                             TempData["TB2"] = message;
                             return RedirectToAction("TaoHoaDon", new { id = idHD, message });
                         }
