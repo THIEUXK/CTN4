@@ -1,0 +1,737 @@
+﻿@model CTN4_Data.Models.DB_CTN4.GiamGia
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<style>
+    .default-option {
+        font-size: 12px; /* Điều chỉnh kích thước chữ theo ý muốn của bạn */
+    }
+
+
+    #hideTrangThai {
+        display: none;
+    }
+
+    .form-container {
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        margin: 20px;
+        position: relative; /* Đặt vị trí của form là relative để có thể đặt vị trí tuyệt đối cho nội dung trong form */
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        .form-group .text-danger {
+            display: block;
+            margin-top: 5px;
+        }
+
+    .corner-text {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 10px;
+        font-size: 14px;
+    }
+
+    .small-text {
+        font-size: 12px; /* hoặc bạn có thể sử dụng giá trị cụ thể cho font-size */
+    }
+
+
+    .container-center {
+        position: absolute;
+        top: 150px; /* Điều chỉnh giá trị này để đặt cách container từ phía trên theo đơn vị px */
+        left: 50%;
+        transform: translate(-50%, 0);
+        width: 100%;
+        max-width: 1000px;
+        padding: 50px;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+    }
+
+    .container-center1 {
+        position: absolute;
+        top: 55px; /* Điều chỉnh giá trị này để đặt cách container từ phía trên theo đơn vị px */
+        left: 50%;
+        transform: translate(-50%, 0);
+        width: 100%;
+        max-width: 1000px;
+        padding: 50px;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+    }
+
+</style>
+<div class="row">
+    <div class="col-md-9">
+
+        @* Lặp qua thuộc tính của model GiamGia *@
+        @foreach (var item in typeof(CTN4_Data.Models.DB_CTN4.GiamGia).GetProperties())
+        {
+            <div class="form-group">
+                @* Kiểm tra điều kiện cho GiamGia để hiển thị và sửa *@
+                @* chưa đến giờ*@
+                @if (item.Name == "MaGiam" && Model.NgayBatDau > DateTime.Now)
+                {
+
+                    <div class="container-center1 ">
+                        <h1 class="text-center">Chỉnh sửa mã</h1>
+                    </div>
+
+
+
+                    @* <hr />
+            <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
+                    <div class="row">
+                        <div class="col-md-9">
+                            <form asp-action="Edit">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="container-center">
+                                    <div class="form-group">
+                                        <label asp-for="MaGiam" class="control-label">Mã giảm giá</label>
+                                        <input asp-for="MaGiam" id="MaGiamGia" class="form-control" maxlength="30" />
+                                        <label class="small-text">(Không được nhập quá 30 ký tự)</label>
+                                        <span asp-validation-for="MaGiam" class="text-danger"></span>
+                                    </div>
+
+                                    @*Combobox*@
+                                    <div class="form-group">
+                                        <label asp-for="LoaiGiamGia" class="control-label">Hình thức giảm giá </label>
+                                        <select asp-for="LoaiGiamGia" class="form-control" id="LoaiGiamGiaSelect">
+                                            <option value="">-- Chọn hình thức giảm giá --</option>
+                                            <option value="false">Giảm theo số tiền</option>
+                                            <option value="true">Giảm theo phần trăm</option>
+                                        </select>
+                                        @* <span asp-validation-for="LoaiGiamGia" class="text-danger"></span> *@
+
+                                        <span asp-validation-foázr="LoaiGiamGia" class="text-danger"></span>
+                                        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+                                        <script>
+                                            $(document).ready(function () {
+                                                var selectedValue = $('#LoaiGiamGiaSelect').val();
+
+
+                                                $('#LoaiGiamGiaSelect').change(function () {
+                                                    selectedValue = $(this).val();
+
+                                                    if (!selectedValue) {
+                                                        alert('Bạn cần chọn hình thức giảm giá.');
+                                                        // Hoặc có thể hiển thị thông báo lỗi theo cách bạn muốn
+                                                    }
+                                                });
+
+                                                // Check validation before submitting the form
+
+                                                $('form').submit(function (e) {
+                                                    if (!selectedValue) {
+                                                        alert('Bạn cần chọn hình thức giảm giá.');
+                                                        e.preventDefault(); // Prevent the form from being submitted
+                                                    }
+                                                });
+                                            });
+                                        </script>
+                                    </div>
+
+                                    <div class="form-group" id="SoTienGiamGroup" style="display: none;">
+                                        <label asp-for="SoTienGiam" class="control-label">Số tiền giảm(VND)</label>
+                                        <input asp-for="SoTienGiam" class="form-control" maxlength="9" />
+                                        <label class="small-text">(Không được nhập quá 9 ký tự)</label>
+                                        <span asp-validation-for="SoTienGiam" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group" id="PhanTramGiamGroup" style="display: none;">
+                                        <label asp-for="PhanTramGiam" class="control-label">Phần trăm giảm(%)</label>
+                                        <input type="text" asp-for="PhanTramGiam" class="form-control" maxlength="9" />
+                                        <span asp-validation-for="PhanTramGiam" class="text-danger"></span>
+                                        <div class="form-group">
+                                            <label asp-for="SoTienGiamToiDa" class="control-label">Số tiền giảm tối đa(VND)</label>
+                                            <input asp-for="SoTienGiamToiDa" class="form-control" maxlength="9" />
+                                            <label class="small-text">(Không được nhập quá 9 ký tự)</label>
+                                            <span asp-validation-for="SoTienGiamToiDa" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+                                    <script>
+                                        $(document).ready(function () {
+                                            // Function để ẩn hoặc hiển thị trường nhập liệu tương ứng với giá trị ban đầu của dropdown
+                                            function toggleFieldsBasedOnDropdownValue() {
+                                                var selectedValue = $('#LoaiGiamGiaSelect').val();
+
+                                                // Ẩn tất cả các trường nhập liệu
+                                                $('#SoTienGiamGroup, #PhanTramGiamGroup').hide();
+
+                                                // Hiển thị trường nhập liệu tương ứng
+                                                if (selectedValue === 'false') {
+                                                    $('#SoTienGiamGroup').show();
+                                                }
+                                                else if (selectedValue === 'true') {
+                                                    $('#PhanTramGiamGroup').show();
+                                                }
+                                            }
+
+                                            // Kích hoạt sự kiện change khi trang được tải lại
+                                            toggleFieldsBasedOnDropdownValue();
+
+
+                                            // Thêm sự kiện change cho dropdown
+                                            $('#LoaiGiamGiaSelect').change(function () {
+                                                toggleFieldsBasedOnDropdownValue();
+                                            });
+                                        });
+                                    </script>
+
+                                    <!-- Thêm đoạn mã để hiển thị trường nhập liệu tương ứng khi trang được tải lên -->
+                                    <script>
+                                        $(document).ready(function () {
+                                            toggleFieldsBasedOnDropdownValue();
+                                        });
+                                    </script>
+                                    @*Box thời gian*@
+                                    <style>
+                                        .disabled-field {
+                                            pointer-events: none; /* Ngăn chặn tương tác với trường */
+                                        }
+
+                                    </style>
+                                    <label> Thời gian </label>
+                                    <div class="form-container">
+
+                                        <div class="form-group">
+                                            <label asp-for="NgayBatDau" class="control-label disabled-field"> Thời gian bắt đầu</label>
+                                            <input asp-for="NgayBatDau" class="form-control disabled-field" />
+                                            <span asp-validation-for="NgayBatDau" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="NgayKetThuc" class="control-label disabled-field"> Thời gian kết thúc</label>
+                                            <input asp-for="NgayKetThuc" class="form-control disabled-field" />
+                                            <span asp-validation-for="NgayKetThuc" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label asp-for="SoLuong" class="control-label">Số lượng khả dụng</label>
+                                        <input type="text" asp-for="SoLuong" class="form-control" maxlength="9" />
+                                        <label class="small-text">(Không được nhập quá 9 ký tự)</label>
+                                        <span asp-validation-for="SoLuong" class="text-danger"></span>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label asp-for="DieuKienGiam" class="control-label">Giảm từ đơn tối thiểu(VND)</label>
+                                        <input asp-for="DieuKienGiam" class="form-control" maxlength="9" />
+                                        <label class="small-text">(Không được nhập quá 9 ký tự)</label>
+                                        <span asp-validation-for="DieuKienGiam" class="text-danger"></span>
+                                    </div>
+                                    @*Checkbox*@
+
+                                    @*  <script>
+                            // Ngăn chặn sự kiện click trên checkbox khi nó đã được chọn
+                            $(document).ready(function () {
+                            $('#TrangThaiCheckbox').on('click', function () {
+                            return false;
+                            });
+
+                            $('#DeleteCheckbox').on('change', function () {
+                            // Khi giá trị của Is_Delete thay đổi, kiểm tra nếu nó là false
+                            if (!$(this).prop('checked')) {
+                            // Nếu là false, đặt giá trị của TrangThai và TrangThaiCheckbox thành false
+                            $('#TrangThaiCheckbox').prop('checked', false);
+
+                            }
+                            });
+
+                            });
+                            </script> *@
+
+                                    <style>
+                                        .form-check-input.custom-checkbox {
+                                            width: 16px;
+                                            height: 16px;
+                                            margin-top: 3px;
+                                        }
+
+                                        .form-group.form-check {
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: space-around;
+                                        }
+
+                                        .custom-checkbox {
+                                            margin-right: 10px;
+                                        }
+                                    </style>
+
+                                    <!-- Form -->
+
+                                    <div class="form-group form-check">
+                                        <label class="form-check-label ">
+                                            <input class="form-check-input custom-checkbox" asp-for="TrangThai" id="TrangThaiCheckbox" />
+                                            Hiện mã với khách
+                                        </label>
+
+                                        <label class="form-check-label">
+                                            <input class="form-check-input custom-checkbox" asp-for="Is_detele" id="DeleteCheckbox" />
+                                            Hiện mã với nhân viên
+                                        </label>
+                                    </div>
+
+                                    @*Nút submit*@
+                                    <div class="form-group">
+                                        <input type="submit" value="Cập nhật" class="btn btn-primary" />
+                                    </div>
+
+                                    <div class="col-md-3 ">
+
+                                        <button type="button" class="btn btn-primary" onclick="window.location.href='@Url.Action("Index")'">Quay lại</button>
+                                    </div>
+                            </form>
+
+                        </div>
+                    </div>
+
+
+
+
+                }
+
+
+                @* đang khuyến mãi*@
+                else if (item.Name == "TrangThai" && Model.NgayBatDau <= DateTime.Now && Model.NgayKetThuc >= DateTime.Now)
+                {
+
+                    <div class="container-center1 ">
+                        <h1 class="text-center">Thay đổi trạng thái</h1>
+                    </div>
+
+
+                    @* <hr />
+            <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
+                    <div class="row">
+                        <div class="col-md-9">
+                            <form asp-action="Edit">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                                <div class="container-center">
+
+                                    <label style="color: red;">Chỉ có thể tạm ẩn mã giảm giá đang trong thời gian áp dụng</label>
+                                    <br></br>
+
+
+                                    <style>
+                                        .disabled-field {
+                                            pointer-events: none; /* Ngăn chặn tương tác với trường */
+                                        }
+
+                                    </style>
+
+                                    <div class="form-group">
+                                        <label asp-for="MaGiam" class="control-label disabled-field">Mã giảm giá</label>
+                                        <input asp-for="MaGiam" class="form-control disabled-field" />
+                                        <span asp-validation-for="MaGiam" class="text-danger"></span>
+                                    </div>
+                                    @*Combobox*@
+                                    <div class="form-group">
+                                        <label asp-for="LoaiGiamGia" class="control-label disabled-field">Hình thức giảm giá </label>
+                                        <select asp-for="LoaiGiamGia" class="form-control disabled-field" id="LoaiGiamGiaSelect">
+                                            <option value="">-- Chọn hình thức giảm giá --</option>
+                                            <option value="false">Giảm theo số tiền</option>
+                                            <option value="true">Giảm theo phần trăm</option>
+                                        </select>
+                                        <span asp-validation-for="LoaiGiamGia" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group" id="SoTienGiamGroup" style="display: none;">
+                                        <label asp-for="SoTienGiam" class="control-label disabled-field">Số tiền giảm(VND)</label>
+                                        <input asp-for="SoTienGiam" class="form-control disabled-field" />
+                                        <span asp-validation-for="SoTienGiam" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group" id="PhanTramGiamGroup" style="display: none;">
+                                        <label asp-for="PhanTramGiam" class="control-label disabled-field">Phần trăm giảm(%)</label>
+                                        <input asp-for="PhanTramGiam" class="form-control disabled-field" />
+                                        <span asp-validation-for="PhanTramGiam" class="text-danger"></span>
+                                        <div class="form-group">
+                                            <label asp-for="SoTienGiamToiDa" class="control-label disabled-field">Số tiền giảm tối đa(VND)</label>
+                                            <input asp-for="SoTienGiamToiDa" class="form-control disabled-field" /> VND
+                                            <span asp-validation-for="SoTienGiamToiDa" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+                                    <script>
+                                        $(document).ready(function () {
+                                            // Function để ẩn hoặc hiển thị trường nhập liệu tương ứng với giá trị ban đầu của dropdown
+                                            function toggleFieldsBasedOnDropdownValue() {
+                                                var selectedValue = $('#LoaiGiamGiaSelect').val();
+
+                                                // Ẩn tất cả các trường nhập liệu
+                                                $('#SoTienGiamGroup, #PhanTramGiamGroup').hide();
+
+                                                // Hiển thị trường nhập liệu tương ứng
+                                                if (selectedValue === 'false') {
+                                                    $('#SoTienGiamGroup').show();
+                                                }
+                                                else if (selectedValue === 'true') {
+                                                    $('#PhanTramGiamGroup').show();
+                                                }
+                                            }
+
+                                            // Kích hoạt sự kiện change khi trang được tải lại
+                                            toggleFieldsBasedOnDropdownValue();
+
+
+                                            // Thêm sự kiện change cho dropdown
+                                            $('#LoaiGiamGiaSelect').change(function () {
+                                                toggleFieldsBasedOnDropdownValue();
+                                            });
+                                        });
+                                    </script>
+
+                                    <!-- Thêm đoạn mã để hiển thị trường nhập liệu tương ứng khi trang được tải lên -->
+                                    <script>
+                                        $(document).ready(function () {
+                                            toggleFieldsBasedOnDropdownValue();
+                                        });
+                                    </script>
+
+
+                                    <label> Thời gian </label>
+                                    <div class="form-container">
+                                        @*Box thời gian*@
+                                        <div class="form-group">
+                                            <label asp-for="NgayBatDau" class="control-label disabled-field"> Thời gian bắt đầu</label>
+                                            <input asp-for="NgayBatDau" class="form-control disabled-field" />
+                                            <span asp-validation-for="NgayBatDau" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="NgayKetThuc" class="control-label disabled-field"> Thời gian kết thúc</label>
+                                            <input asp-for="NgayKetThuc" class="form-control disabled-field" />
+                                            <span asp-validation-for="NgayKetThuc" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+
+
+
+                                    @*Các trường textbox*@
+                                    <div class="form-group">
+                                        <label asp-for="SoLuong" class="control-label disabled-field">Số lượng khả dụng</label>
+                                        <input asp-for="SoLuong" class="form-control disabled-field" />
+                                        <span asp-validation-for="SoLuong" class="text-danger"></span>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label asp-for="DieuKienGiam" class="control-label disabled-field">Giảm từ đơn tối thiểu(VND)</label>
+                                        <input asp-for="DieuKienGiam" class="form-control disabled-field" />
+                                        <span asp-validation-for="DieuKienGiam" class="text-danger"></span>
+                                    </div>
+                                    @*Checkbox*@
+                                    @* <script>
+                            // Ngăn chặn sự kiện click trên checkbox khi nó đã được chọn
+                            $(document).ready(function () {
+                            $('#TrangThaiCheckbox').on('click', function () {
+                            return false;
+                            });
+                            });
+                            </script> *@
+
+                                    <script>
+                                        // Ngăn chặn sự kiện click trên checkbox khi nó đã được chọn
+                                        $(document).ready(function () {
+                                            $('#DeleteCheckbox').on('click', function () {
+                                                return false;
+                                            });
+                                        });
+                                    </script>
+                                    <style>
+                                        .form-check-input.custom-checkbox {
+                                            width: 16px; /* Điều chỉnh chiều rộng của checkbox */
+                                            height: 16px; /* Điều chỉnh chiều cao của checkbox */
+                                            margin-top: 3px; /* Điều chỉnh khoảng cách từ checkbox đến văn bản */
+                                        }
+                                        /* Tùy chỉnh kiểu checkbox */
+                                        .form-group.form-check {
+                                            display: flex; /* Hiển thị các phần tử trên cùng một dòng */
+                                            align-items: center; /* Căn giữa các phần tử theo chiều dọc */
+                                            justify-content: space-around; /* Khoảng cách giữa các phần tử */
+                                        }
+
+                                        /* Checkbox đang khuyến mãi */
+                                        .custom-checkbox {
+                                            margin-right: 10px; /* Khoảng cách giữa checkbox đầu và checkbox thứ hai */
+                                        }
+
+                                    </style>
+
+                                    <div class="form-group form-check">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input custom-checkbox" asp-for="TrangThai" />
+                                            Hiện mã với khách
+                                        </label>
+
+                                        <label class="form-check-label disabled-field">
+                                            <input class="form-check-input custom-checkbox" asp-for="Is_detele" id="DeleteCheckbox" />
+                                            Hiện mã với nhân viên
+                                        </label>
+                                    </div>
+
+                                    @*Nút submit*@
+                                    <div class="form-group">
+                                        <input type="submit" value="Cập nhật" class="btn btn-primary" />
+                                    </div>
+                                    <div class="col-md-3 ">
+
+                                        <button type="button" class="btn btn-primary" onclick="window.location.href='@Url.Action("Index")'">Quay lại</button>
+                                    </div>
+                            </form>
+
+                        </div>
+                    </div>
+
+
+
+
+                }
+
+
+                @*Hết hạn*@
+                else if (item.Name == "TrangThai" && Model.NgayKetThuc <= DateTime.Now)
+                {
+
+                    <div class="container-center1 ">
+                        <h1 class="text-center">Thay đổi trạng thái</h1>
+                    </div>
+
+                    @* <hr />
+            <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
+                    <div class="row">
+                        <div class="col-md-9">
+                            <form asp-action="Edit">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                                <div class="container-center">
+
+                                    <label style="color: red;">Mã giảm giá này đã hết hạn</label>
+                                    <br></br>
+
+
+                                    <style>
+                                        .disabled-field {
+                                            pointer-events: none; /* Ngăn chặn tương tác với trường */
+                                        }
+
+                                    </style>
+
+                                    <div class="form-group">
+                                        <label asp-for="MaGiam" class="control-label disabled-field">Mã giảm giá</label>
+                                        <input asp-for="MaGiam" class="form-control disabled-field" />
+                                        <span asp-validation-for="MaGiam" class="text-danger"></span>
+                                    </div>
+                                    @*Combobox*@
+                                    <div class="form-group">
+                                        <label asp-for="LoaiGiamGia" class="control-label disabled-field">Hình thức giảm giá </label>
+                                        <select asp-for="LoaiGiamGia" class="form-control disabled-field" id="LoaiGiamGiaSelect">
+                                            <option value="">-- Chọn hình thức giảm giá --</option>
+                                            <option value="false">Giảm theo số tiền</option>
+                                            <option value="true">Giảm theo phần trăm</option>
+                                        </select>
+                                        <span asp-validation-for="LoaiGiamGia" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group" id="SoTienGiamGroup" style="display: none;">
+                                        <label asp-for="SoTienGiam" class="control-label disabled-field">Số tiền giảm(VND)</label>
+                                        <input asp-for="SoTienGiam" class="form-control disabled-field" />
+                                        <span asp-validation-for="SoTienGiam" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group" id="PhanTramGiamGroup" style="display: none;">
+                                        <label asp-for="PhanTramGiam" class="control-label disabled-field">Phần trăm giảm(%)</label>
+                                        <input asp-for="PhanTramGiam" class="form-control disabled-field" />
+                                        <span asp-validation-for="PhanTramGiam" class="text-danger"></span>
+                                        <div class="form-group">
+                                            <label asp-for="SoTienGiamToiDa" class="control-label disabled-field">Số tiền giảm tối đa(VND)</label>
+                                            <input asp-for="SoTienGiamToiDa" class="form-control disabled-field" /> VND
+                                            <span asp-validation-for="SoTienGiamToiDa" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+                                    <script>
+                                        $(document).ready(function () {
+                                            // Function để ẩn hoặc hiển thị trường nhập liệu tương ứng với giá trị ban đầu của dropdown
+                                            function toggleFieldsBasedOnDropdownValue() {
+                                                var selectedValue = $('#LoaiGiamGiaSelect').val();
+
+                                                // Ẩn tất cả các trường nhập liệu
+                                                $('#SoTienGiamGroup, #PhanTramGiamGroup').hide();
+
+                                                // Hiển thị trường nhập liệu tương ứng
+                                                if (selectedValue === 'false') {
+                                                    $('#SoTienGiamGroup').show();
+                                                }
+                                                else if (selectedValue === 'true') {
+                                                    $('#PhanTramGiamGroup').show();
+                                                }
+                                            }
+
+                                            // Kích hoạt sự kiện change khi trang được tải lại
+                                            toggleFieldsBasedOnDropdownValue();
+
+
+                                            // Thêm sự kiện change cho dropdown
+                                            $('#LoaiGiamGiaSelect').change(function () {
+                                                toggleFieldsBasedOnDropdownValue();
+                                            });
+                                        });
+                                    </script>
+
+                                    <!-- Thêm đoạn mã để hiển thị trường nhập liệu tương ứng khi trang được tải lên -->
+                                    <script>
+                                        $(document).ready(function () {
+                                            toggleFieldsBasedOnDropdownValue();
+                                        });
+                                    </script>
+                                    @* <style>
+                            label {
+                            opacity: 0.7; /* Giá trị opacity từ 0 (hoàn toàn trong suốt) đến 1 (không đổi) */
+                            }
+                            </style> *@
+
+                                    <label> Thời gian </label>
+                                    <div class="form-container">
+                                        @*Box thời gian*@
+                                        <div class="form-group">
+                                            <label asp-for="NgayBatDau" class="control-label disabled-field"> Thời gian bắt đầu</label>
+                                            <input asp-for="NgayBatDau" class="form-control disabled-field" />
+                                            <span asp-validation-for="NgayBatDau" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="NgayKetThuc" class="control-label disabled-field"> Thời gian kết thúc</label>
+                                            <input asp-for="NgayKetThuc" class="form-control disabled-field" />
+                                            <span asp-validation-for="NgayKetThuc" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+
+
+
+
+                                    @*Các trường textbox*@
+                                    <div class="form-group">
+                                        <label asp-for="SoLuong" class="control-label disabled-field">Số lượng khả dụng</label>
+                                        <input asp-for="SoLuong" class="form-control disabled-field" />
+                                        <span asp-validation-for="SoLuong" class="text-danger"></span>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label asp-for="DieuKienGiam" class="control-label disabled-field">Giảm từ đơn tối thiểu(VND)</label>
+                                        <input asp-for="DieuKienGiam" class="form-control disabled-field" />
+                                        <span asp-validation-for="DieuKienGiam" class="text-danger"></span>
+                                    </div>
+                                    @*Checkbox*@
+
+                                    <script>
+                                        // Ngăn chặn sự kiện click trên checkbox khi nó đã được chọn
+                                        $(document).ready(function () {
+                                            $('#TrangThaiCheckbox').on('click', function () {
+                                                return false;
+                                            });
+
+
+
+                                        });
+                                    </script>
+
+                                    <style>
+
+                                        .form-check-input.custom-checkbox {
+                                            width: 16px;
+                                            height: 16px;
+                                            margin-top: 3px;
+                                        }
+
+                                        .form-group.form-check {
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: space-around;
+                                        }
+
+                                        .custom-checkbox {
+                                            margin-right: 10px;
+                                        }
+                                    </style>
+
+
+
+                                    <div class="form-group form-check">
+                                        <label class="form-check-label disabled-field">
+                                            <input class="form-check-input custom-checkbox" asp-for="TrangThai" id="TrangThaiCheckbox" />
+                                            Hiện mã với khách
+                                        </label>
+
+                                        <label class="form-check-label">
+                                            <input class="form-check-input custom-checkbox" asp-for="Is_detele" id="DeleteCheckbox" />
+                                            Hiện mã với nhân viên
+                                        </label>
+                                    </div>
+
+                                    <!-- Nút submit -->
+                                    <div class="form-group">
+                                        <input type="submit" value="Cập nhật" class="btn btn-primary" />
+                                    </div>
+                                    <div class="col-md-3 ">
+
+                                        <button type="button" class="btn btn-primary" onclick="window.location.href='@Url.Action("Index")'">Quay lại</button>
+                                    </div>
+
+
+
+                            </form>
+
+
+                        </div>
+                    </div>
+
+
+
+
+                }
+            </div>
+
+        }
+    </div>
+
+
+
+
+</div>
+
+
+
