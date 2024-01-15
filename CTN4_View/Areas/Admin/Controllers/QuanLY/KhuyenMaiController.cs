@@ -340,8 +340,9 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                 return Json(new { success = false, errors = new List<string> { "Vui lòng điền giá khuyến mãi." } });
             }
             
-
-            return Json(new { success = false, errors = new List<string> { "Vui lòng chọn loại giảm giá." } });
+            else
+            return Json(new { success = false, errors = new List<string> { "Vui lòng chỉ được chọn 1 trong 4 trường và lớn hơn 0." } });
+            return Json(new { success = false, errors = new List<string> { "Không đươc spam." } });
         }
 
         private string ConvertImageUrlToBase64(string imageUrl)
