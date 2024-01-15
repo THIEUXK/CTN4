@@ -50,26 +50,28 @@
                                                              <!--Lọc và tìm kiếm-->
             
             <div class="input-group" style="margin-bottom: 20px">
-                <button type="button" class="btn btn-outline-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" data-bs-offset="10,20" id="filterDropdown" style="border-radius: 5px; margin-right: 10px">
-                    <i class="fas fa-filter">  Thêm điều kiện lọc  </i>
-                </button>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a class="dropdown-item" href="@Url.Action("Index")">Tất cả các mã</a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="@Url.Action("SoTienGiam")">Theo giá tiền</a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="@Url.Action("PhanTramGiam")">Theo phần trăm giảm</a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="@Url.Action("DongGia")">Theo đồng giá</a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="@Url.Action("Mua1Tang1")">Mua 1 tặng 1</a>
-                    </li>
-                </ul>
+                <div class="dropdown me-1">
+                    <button type="button" class="btn btn-outline-dark dropdown-toggle" style="border-radius: 5px; margin-right: 10px">
+                        <i class="fas fa-filter">  Thêm điều kiện lọc  </i>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("Index")">Tất cả các mã</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("SoTienGiam")">Theo giá tiền</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("PhanTramGiam")">Theo phần trăm giảm</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("DongGia")">Theo đồng giá</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="@Url.Action("Mua1Tang1")">Mua 1 tặng 1</a>
+                        </li>
+                    </ul>
+                </div>
                 <form method="get" style="display:flex">
                     <div class="form-outline">
                         <input type="text" id="form1" class="form-control" name="searchString" style="width: 980px" placeholder="Tìm kiếm..." />
