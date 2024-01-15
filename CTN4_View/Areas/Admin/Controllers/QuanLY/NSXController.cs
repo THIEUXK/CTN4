@@ -63,6 +63,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [ValidateAntiForgeryToken]
         public ActionResult Create(NSX a)
         {
+             a.TenNSX = a.TenNSX?.Trim();
             var check = _nsx.GetAll().FirstOrDefault(c=>c.TenNSX == a.TenNSX);
             // Check for duplicate TenNSX
             if (check != null)
@@ -98,11 +99,25 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [ValidateAntiForgeryToken]
         public ActionResult Edit(NSX a)
         {
-            if (_nsx.Sua(a))
+           
+             a.TenNSX = a.TenNSX?.Trim();
+            // Kiểm tra xem đã tồn tại danh mục có tên như a.TenDanhMuc chưa
+            var existingDanhMuc = _nsx.GetAll().FirstOrDefault(c => c.TenNSX == a.TenNSX);
+
+            if (existingDanhMuc == null)
+            {
+
+                if (_nsx.Sua(a))
             {
                 return RedirectToAction("Index");
 
             }
+                return View();
+            }
+
+            // Nếu đã tồn tại, có thể xử lý theo nhu cầu của bạn
+            // Ví dụ: Hiển thị thông báo lỗi về trùng lặp
+            ModelState.AddModelError("TenNSX", "Tên NSX đã tồn tại. Vui lòng chọn một tên khác.");
             return View();
         }
 

@@ -240,22 +240,28 @@
         //    });
         //});
         $(document).ready(function () {
-            $("#GiaNhap, #GiaBan, #GiaNiemYet").blur(function () {
+            $("#GiaNhap, #GiaBan, #GiaNiemYet").on("input", function () {
+                // Xóa mọi ký tự không phải số từ giá trị nhập vào
+                $(this).val(function (index, value) {
+                    return value.replace(/\D/g, '');
+                });
+
+                // Kiểm tra giá trị và hiển thị thông báo lỗi nếu cần
                 checkGiaNhapBanNiemYet();
             });
 
             function checkGiaNhapBanNiemYet() {
-                var giaNhap = parseFloat($("#GiaNhap").val());
-                var giaBan = parseFloat($("#GiaBan").val());
-                var giaNiemYet = parseFloat($("#GiaNiemYet").val());
-
-                if (isNaN(giaNhap) || isNaN(giaBan) || isNaN(giaNiemYet)) {
-                    return;
-                }
+                var giaNhap = parseInt($("#GiaNhap").val());
+                var giaBan = parseInt($("#GiaBan").val());
+                var giaNiemYet = parseInt($("#GiaNiemYet").val());
 
                 var errorSpanNhap = $("#giaNhapError");
                 var errorSpanBan = $("#giaBanError");
                 var errorSpanNiemYet = $("#giaNiemYetError");
+
+                if (isNaN(giaNhap) || isNaN(giaBan) || isNaN(giaNiemYet)) {
+                    return;
+                }
 
                 if (giaNhap >= giaBan) {
                     errorSpanNhap.text('Giá nhập phải nhỏ hơn giá bán.');
@@ -276,6 +282,7 @@
                 }
             }
         });
+
         ////////////////////
         // Thêm sự kiện click cho liên kết dropdown "Quản lý"
         document.getElementById('quanLyDropdownLink').addEventListener('click', function () {

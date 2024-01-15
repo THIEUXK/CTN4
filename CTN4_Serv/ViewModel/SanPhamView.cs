@@ -39,17 +39,24 @@ namespace CTN4_Serv.ViewModel
         public string? MoTa { get; set; }
         [Required(ErrorMessage = "Giá nhập vào không được bỏ trống.")]
         [Range(0, float.MaxValue, ErrorMessage = "Giá nhập vào phải lớn hơn hoặc bằng 0.")]
-        [RegularExpression(@"^\d+(\.\d+)?$", ErrorMessage = "Vui lòng nhập số.")]
+        [RegularExpression(@"^[0-9]+$", ErrorMessage = "Vui lòng nhập số nguyên.")]
+
+
+
 
         public float GiaNhap { get; set; }
         [Required(ErrorMessage = "Giá bán ra không được bỏ trống.")]
         [Range(0, float.MaxValue, ErrorMessage = "Giá bán ra phải lớn hơn hoặc bằng 0.")]
-        [RegularExpression(@"^\d+(\.\d+)?$", ErrorMessage = "Vui lòng nhập số.")]
+       [RegularExpression(@"^[0-9]+$", ErrorMessage = "Vui lòng nhập số nguyên.")]
+
+
 
         public float GiaBan { get; set; }
         [Required(ErrorMessage = "Giá niêm yết không được bỏ trống.")]
         [Range(0, float.MaxValue, ErrorMessage = "Giá niêm yết phải lớn hơn hoặc bằng 0.")]
-        [RegularExpression(@"^\d+(\.\d+)?$", ErrorMessage = "Vui lòng nhập số.")]
+        [RegularExpression(@"^[0-9]+$", ErrorMessage = "Vui lòng nhập số nguyên.")]
+
+
 
         public float GiaNiemYet { get; set; }
         public string? GhiChu { get; set; }
