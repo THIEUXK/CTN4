@@ -71,7 +71,6 @@
                             </div>
 
                             <select asp-for="IdChucVu" class="form-control">
-                                <option value="">-- Select Chức vụ --</option>
                                 @foreach (var a in Model.selectListItemChucVus)
                                 {
                                     <option value="@a.Value">@a.Text</option>
