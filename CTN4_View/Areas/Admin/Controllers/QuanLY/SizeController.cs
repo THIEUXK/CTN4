@@ -109,14 +109,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         public ActionResult Edit(Size a)
         {
 
-            a.TenSize = a.TenSize?.Trim();
-            a.CoSize = a.CoSize?.Trim();
-            // Kiểm tra xem đã tồn tại danh mục có tên như a.TenDanhMuc chưa
-            var existingDanhMuc = _sv.GetAll().FirstOrDefault(c => c.TenSize == a.TenSize);
-            var existingDanhMuc1 = _sv.GetAll().FirstOrDefault(c => c.CoSize == a.CoSize);
-
-            if (existingDanhMuc == null ||  existingDanhMuc1 == null )
-            {
+            
 
                 if (_sv.Sua(a))
                 {
@@ -127,12 +120,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                 return View();
             }
 
-            // Nếu đã tồn tại, có thể xử lý theo nhu cầu của bạn
-            // Ví dụ: Hiển thị thông báo lỗi về trùng lặp
-            ModelState.AddModelError("TenSize", "Tên size đã tồn tại. Vui lòng chọn một tên khác.");
-            ModelState.AddModelError("CoSize", "Cỡ size đã tồn tại. Vui lòng chọn một tên khác.");
-            return View();
-        }
+           
 
 
         public ActionResult Delete(Guid id)
