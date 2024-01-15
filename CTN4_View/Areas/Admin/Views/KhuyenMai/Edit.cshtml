@@ -485,15 +485,15 @@
                         const rowClass = isEligible ? '' : 'disabled-row';
                         console.log('hh', data);
                         return `<tr class='${rowClass}'>
-                        <td>${item.maSp}</td>
-                        <td>${item.tenDanhMuc}</td>
-                        <td>${item.tenSanPham}</td>
-                        <td>${formatCurrency(item.giaNhap)}đ</td>
-                        <td>${formatCurrency(item.giaBan)}đ</td>
-                        <td id="gianiemyet">${formatCurrency(item.giaNiemYet)}đ</td>
-                        <td><img src='/image/${item.anhDaiDien}' height='100' alt='Product Image'></td>
-                        <td>${isEligible ? `<input type='checkbox' class='id-sp-button' data-id-sp='${item.id ? item.id : ""}'/>` : ''}</td>
-                    </tr>`;
+        <td>${item.maSp}</td>
+        <td>${item.tenDanhMuc}</td>
+        <td>${item.tenSanPham}</td>
+        <td>${formatCurrency(item.giaNhap)}đ</td>
+        <td>${formatCurrency(item.giaBan)}đ</td>
+        <td id="gianiemyet">${formatCurrency(item.giaNiemYet)}đ</td>
+        <td><img src='/image/${item.anhDaiDien}' height='100' alt='Product Image'></td>
+        <td>${isEligible ? `<input type='checkbox' class='id-sp-button' data-id-sp='${item.id ? item.id : ""}'/>` : ''}</td>
+    </tr>`;
                     }).join('') + "</tbody>";
                 } else {
                         productListHTML += "<tr><td colspan='8'>Không tìm thấy sản phẩm phù hợp</td></tr>";
