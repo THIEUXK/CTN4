@@ -192,27 +192,6 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyVouvher
         [ValidateAntiForgeryToken]
         public ActionResult Edit(GiamGia a)
         {
-            var tontai = _gg.GetAll().FirstOrDefault(c => c.MaGiam.ToLower() == a.MaGiam.ToLower() && c.Id != a.Id);
-            if (tontai != null)
-            {
-                ModelState.AddModelError("MaGiam", "Mã giảm không được trùng.");
-                return View(a);
-            }
-
-            // Kiểm tra thời gian
-            if (a.NgayKetThuc <= a.NgayBatDau)
-            {
-                ModelState.AddModelError("NgayKetThuc", "Thời gian kết thúc phải lớn hơn thời gian bắt đầu.");
-                return View(a);
-            }
-
-            // Kiểm tra NgayBatDau > Now
-            if (a.NgayBatDau <= DateTime.Now)
-            {
-                ModelState.AddModelError("NgayBatDau", "Thời gian bắt đầu phải lớn hơn thời gian hiện tại.");
-                return View(a);
-            }
-
             if (a.Is_detele == false)
             {
 

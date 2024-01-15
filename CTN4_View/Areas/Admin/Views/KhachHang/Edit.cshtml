@@ -19,13 +19,13 @@
                     <input type="hidden" name="anhdaidiencheck" value="@Model.AnhDaiDien" class="form-control" />
                     <div class="form-group">
                         <label asp-for="Ho" class="control-label">Họ</label>
-                        <input asp-for="Ho" class="form-control" />
-                        <span asp-validation-for="Ho" class="text-danger"></span>
+                        <input asp-for="Ho" class="form-control" oninput="validateTenSanPham1(this)" />
+                        <span asp-validation-for="Ho" class="text-danger" id="HoError"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="Ten" class="control-label">Tên</label>
-                        <input asp-for="Ten" class="form-control" />
-                        <span asp-validation-for="Ten" class="text-danger"></span>
+                        <input asp-for="Ten" class="form-control" oninput="validateTenSanPham2(this)" />
+                        <span asp-validation-for="Ten" class="text-danger" id="TenError"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="TenDangNhap" class="control-label">Tên đăng nhập</label>
@@ -46,13 +46,13 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="Email" class="control-label">Email</label>
-                        <input asp-for="Email" class="form-control" />
-                        <span asp-validation-for="Email" class="text-danger"></span>
+                        <input asp-for="Email" class="form-control" oninput="validateTenSanPham4(this)" />
+                        <span asp-validation-for="Email" class="text-danger" id="EmailError"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="SDT" class="control-label">SDT</label>
-                        <input asp-for="SDT" class="form-control" />
-                        <span asp-validation-for="SDT" class="text-danger"></span>
+                        <input asp-for="SDT" class="form-control" oninput="validateTenSanPham3(this)" />
+                        <span asp-validation-for="SDT" class="text-danger" id="SDTError"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="DiaChi" class="control-label">Địa chỉ</label>
@@ -85,12 +85,12 @@
                             <input class="form-check-input" asp-for="Is_detele" /> Tình trạng
                         </label>
                     </div>
-                    <br /> 
+                    <br />
                     <div class="form-group">
                         <input type="submit" value="Lưu" class="btn btn-primary" />
                     </div>
                     <div>
-                       
+
                         <a asp-action="Index" style="color: black;">Quay về</a>
                     </div>
                 </form>
@@ -100,11 +100,65 @@
 </div>
 
 <script>
-    function confirmSubmit() {
-        // Hiển thị hộp thoại xác nhận
-        var result = confirm("Bạn có chắc muốn chỉnh sửa khách hàng này không?");
-        return result;
+    function validateAllFields() {
+        var hoValue = document.getElementById('Ho').value.trim();
+        var tenValue = document.getElementById('Ten').value.trim();
+        var sdtValue = document.getElementById('SDT').value.trim();
+        var emailValue = document.getElementById('Email').value.trim();
+
+        var hoErrorElement = document.getElementById('HoError');
+        var tenErrorElement = document.getElementById('TenError');
+        var sdtErrorElement = document.getElementById('SDTError');
+        var emailErrorElement = document.getElementById('EmailError');
+
+        var hasError = false;
+
+        // Kiểm tra Họ
+        if (hoValue === '') {
+            hoErrorElement.innerText = 'Không được để trống';
+            hasError = true;
+        } else {
+            hoErrorElement.innerText = '';
+        }
+
+        // Kiểm tra Tên
+        if (tenValue === '') {
+            tenErrorElement.innerText = 'Không được để trống';
+            hasError = true;
+        } else {
+            tenErrorElement.innerText = '';
+        }
+
+        // Kiểm tra SĐT
+        if (sdtValue === '') {
+            sdtErrorElement.innerText = 'Không được để trống';
+            hasError = true;
+        } else {
+            sdtErrorElement.innerText = '';
+        }
+
+        // Kiểm tra Email
+        if (emailValue === '') {
+            emailErrorElement.innerText = 'Không được để trống';
+            hasError = true;
+        } else {
+            emailErrorElement.innerText = '';
+        }
+
+        return !hasError;
     }
+
+    function confirmSubmit() {
+        var isValid = validateAllFields();
+
+        if (isValid) {
+            var result = confirm("Bạn có chắc muốn chỉnh sửa thông tin này không?");
+            return result;
+        }
+
+        return false;
+    }
+
 </script>
 @*/////////giaodien*@
 <script>
@@ -190,7 +244,8 @@
         a:hover {
             text-decoration: underline;
         }
-         .form-control[readonly] {
+
+    .form-control[readonly] {
         background-color: #f8f9fa; /* Màu nền xám nhạt */
         cursor: not-allowed; /* Hình con trỏ không cho biết không thể nhập */
     }
