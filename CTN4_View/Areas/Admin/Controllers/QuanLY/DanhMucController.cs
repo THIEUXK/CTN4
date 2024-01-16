@@ -118,25 +118,14 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [ValidateAntiForgeryToken]
         public ActionResult Edit(DanhMuc a)
         {
-            a.TenDanhMuc = a.TenDanhMuc?.Trim();
-            // Kiểm tra xem đã tồn tại danh mục có tên như a.TenDanhMuc chưa
-            var existingDanhMuc = _sv.GetAll().FirstOrDefault(c => c.TenDanhMuc == a.TenDanhMuc);
-
-            if (existingDanhMuc == null)
+           
+            if (_sv.Sua(a))
             {
+                return RedirectToAction("Index");
 
-                if (_sv.Sua(a))
-                {
-                    return RedirectToAction("Index");
-
-                }
-                return View();
             }
-
-            // Nếu đã tồn tại, có thể xử lý theo nhu cầu của bạn
-            // Ví dụ: Hiển thị thông báo lỗi về trùng lặp
-            ModelState.AddModelError("TenDanhMuc", "Danh mục đã tồn tại.");
             return View();
+
         }
         public ActionResult Delete(Guid id)
         {
