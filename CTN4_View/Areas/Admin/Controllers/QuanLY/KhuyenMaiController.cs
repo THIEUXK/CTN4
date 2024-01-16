@@ -275,6 +275,10 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             {
                 return Json(new { success = false, errors = new List<string> { "Thời gian kết thúc phải lớn hơn thời gian bắt đầu." } });
             }
+            if (datasubmit.NgayKetThuc <= DateTime.Now)
+            {
+                return Json(new { success = false, errors = new List<string> { "Thời gian kết thúc phải lớn hơn thời gian hiện tại." } });
+            }
 
 
             // Kiểm tra NgayBatDau > Now
@@ -283,7 +287,14 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             //    ViewBag.Message = "Thời gian bắt đầu phải lớn hơn thời gian hiện tại.";
             //    return View(datasubmit);
             //}
-            if (datasubmit.DongGia > 0 || (datasubmit.SoTienGiam > 0 && datasubmit.SoTienGiam <= 100) || datasubmit.PhanTramGiamGia > 0|| datasubmit.Mua1tang1 == true )
+
+            if (datasubmit.PhanTramGiamGia > 100)
+            {
+                return Json(new { success = false, errors = new List<string> { "Phần trăm giảm giá không được vượt quá 100%." } });
+            }
+
+
+            if (datasubmit.DongGia > 0 || datasubmit.SoTienGiam > 0  || (datasubmit.PhanTramGiamGia > 0 && datasubmit.PhanTramGiamGia <= 100 )|| datasubmit.Mua1tang1 == true )
             {
                 if((datasubmit.DongGia > 0 || datasubmit.SoTienGiam > 0 || datasubmit.PhanTramGiamGia > 0 ) && datasubmit.Mua1tang1 == true)
                 {

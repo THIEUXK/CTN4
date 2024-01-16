@@ -150,13 +150,13 @@
 
                         <div class="form-group">
                             <label asp-for="MaKhuyenMai" class="control-label">Mã khuyến mãi</label>
-                                <input asp-for="MaKhuyenMai" id="MaKhuyenMai" class="form-control"  />
+                                <input asp-for="MaKhuyenMai" id="MaKhuyenMai" class="form-control" maxlength="13" />
                             <span asp-validation-for="MaKhuyenMai" class="text-danger"></span>
                         </div>
 
                         <div class="form-group">
                             <label asp-for="Ghichu" class="control-label"> Ghi chú</label>
-                            <input asp-for="Ghichu" class="form-control" />
+                                <input asp-for="Ghichu" class="form-control" maxlength="100" />
                             <span asp-validation-for="Ghichu" class="text-danger"></span>
                         </div>
                     </div>
@@ -207,7 +207,7 @@
                             <div class="form-group" id="phanTramGroup" style="display: none;">
                                 <label asp-for="PhanTramGiamGia" class="control-label">Phần trăm giảm giá</label>
                                 <div class="input-group">
-                                    <input asp-for="PhanTramGiamGia" class="form-control" type="number" oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="13" />
+                                    <input asp-for="PhanTramGiamGia" class="form-control" oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="13" />
                                     <div class="input-group-append">
                                         <span class="input-group-text">%</span>
                                     </div>
@@ -218,7 +218,7 @@
                             <div class="form-group" id="soTienGroup" style="display: none;">
                                 <label asp-for="SoTienGiam" class="control-label">Số tiền giảm</label>
                                 <div class="input-group">
-                                    <input asp-for="SoTienGiam" class="form-control" type="number" oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="13" />
+                                    <input asp-for="SoTienGiam" class="form-control" oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="13" />
                                     <div class="input-group-append">
                                         <span class="input-group-text">đ</span>
                                     </div>
@@ -230,7 +230,7 @@
                         <div class="form-container" id="dongGiaGroup" style="display: none;">
                             <label asp-for="DongGia" class="control-label">Đồng giá</label>
                             <div class="input-group">
-                                <input asp-for="DongGia" class="form-control" type="number" oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="13" />
+                                <input asp-for="DongGia" class="form-control"  oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="13" />
                                 <div class="input-group-append">
                                     <span class="input-group-text">đ</span>
                                 </div>
