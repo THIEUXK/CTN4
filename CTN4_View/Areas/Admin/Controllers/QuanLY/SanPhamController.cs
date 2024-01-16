@@ -155,16 +155,55 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [ValidateAntiForgeryToken]
         public ActionResult Create(SanPhamView p, [Bind] IFormFile imageFile)
         {
+           if (p.GiaNhap == 0)
+            {
+                var thongbaoAnh = "Hãy kiểm tra lại giá giá nhập";
+                TempData["Notification"] = thongbaoAnh;
+                return RedirectToAction("Create", new { id = p.Id });
+            }
+            if (p.GiaBan == 0)
+            {
+                var thongbaoAnh = "Hãy kiểm tra lại giá bán";
+                TempData["Notification"] = thongbaoAnh;
+                return RedirectToAction("Create", new { id = p.Id });
+            }
+            
+             if (p.GiaNiemYet == 0)
+            {
+                var thongbaoAnh = "Hãy kiểm tra lại giá niêm yết";
+                TempData["Notification"] = thongbaoAnh;
+                return RedirectToAction("Create", new { id = p.Id });
+            }
+            if (p.GiaNiemYet != p.GiaBan)
+            {
+                var thongbaoAnh = "Giá niêm yết phải bằng giá bán";
+                TempData["Notification"] = thongbaoAnh;
+                return RedirectToAction("Create", new { id = p.Id });
+            }
+            if (p.GiaNhap < p.GiaBan)
+            {
+                var thongbaoAnh = "Giá nhập phải nhỏ hơn giá bán";
+                TempData["Notification"] = thongbaoAnh;
+                return RedirectToAction("Create", new { id = p.Id });
+            }
+            if (p.GiaNhap < p.GiaNiemYet)
+            {
+                var thongbaoAnh = "Giá nhập phải nhỏ hơn giá niêm yết";
+                TempData["Notification"] = thongbaoAnh;
+                return RedirectToAction("Create", new { id = p.Id });
+            }
+
             const int kichThuocToiDa = 2 * 1024 * 1024; // 2MB
             if (imageFile != null && imageFile.Length > 0) // Không null và không trống
             {
-                   // Kiểm tra định dạng của ảnh
+                // Kiểm tra định dạng của ảnh
                 if (imageFile.Length > kichThuocToiDa)
                 {
                     var thongbaoAnh = "Kích thước ảnh vượt quá 2MB";
                     TempData["Notification"] = thongbaoAnh;
                     return RedirectToAction("Create", new { id = p.Id });
                 }
+
                 var allowedExtensions = new[] { ".jpg", ".png", ".jpeg", ".tiff", ".webp", ".gif" };
                 var fileExtension = Path.GetExtension(imageFile.FileName).ToLower();
 
@@ -286,10 +325,47 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         [ValidateAntiForgeryToken]
         public ActionResult Edit(SanPhamView c, [Bind] IFormFile imageFile, string anhdaidiencheck)
         {
+            if (c.GiaNhap == 0)
+            {
+                var thongbaoAnh = "Hãy kiểm tra lại giá giá nhập";
+                TempData["Notification"] = thongbaoAnh;
+                return RedirectToAction("Edit", new { id = c.Id });
+            }
+            if (c.GiaBan == 0)
+            {
+                var thongbaoAnh = "Hãy kiểm tra lại giá bán";
+                TempData["Notification"] = thongbaoAnh;
+                return RedirectToAction("Edit", new { id = c.Id });
+            }
+            
+             if (c.GiaNiemYet == 0)
+            {
+                var thongbaoAnh = "Hãy kiểm tra lại giá niêm yết";
+                TempData["Notification"] = thongbaoAnh;
+                return RedirectToAction("Edit", new { id = c.Id });
+            }
+            if (c.GiaNiemYet != c.GiaBan)
+            {
+                var thongbaoAnh = "Giá niêm yết phải bằng giá bán";
+                TempData["Notification"] = thongbaoAnh;
+                return RedirectToAction("Edit", new { id = c.Id });
+            }
+            if (c.GiaNhap < c.GiaBan)
+            {
+                var thongbaoAnh = "Giá nhập phải nhỏ hơn giá bán";
+                TempData["Notification"] = thongbaoAnh;
+                return RedirectToAction("Edit", new { id = c.Id });
+            }
+            if (c.GiaNhap < c.GiaNiemYet)
+            {
+                var thongbaoAnh = "Giá nhập phải nhỏ hơn giá niêm yết";
+                TempData["Notification"] = thongbaoAnh;
+                return RedirectToAction("Edit", new { id = c.Id });
+            }
             const int kichThuocToiDa = 2 * 1024 * 1024; // 2MB
             if (imageFile != null && imageFile.Length > 0) // Không null và không trống
             {
-                 // Kiểm tra định dạng của ảnh
+                // Kiểm tra định dạng của ảnh
                 if (imageFile.Length > kichThuocToiDa)
                 {
                     var thongbaoAnh = "Kích thước ảnh vượt quá 2MB";
@@ -305,8 +381,8 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                     TempData["Notification"] = thongbaoAnh;
                     return RedirectToAction("Edit", new { id = c.Id });
                 }
-               
-                
+
+
                 //Trỏ tới thư mục wwwroot để lát nữa thực hiện việc Copy sang
                 var path = Path.Combine(
                     Directory.GetCurrentDirectory(), "wwwroot", "image", imageFile.FileName);
